@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--
+ Copyright 2008-2009 The Kuali Foundation
+ 
+ Licensed under the Educational Community License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.opensource.org/licenses/ecl2.php
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+--> 
+
+<bean id="martinlaw-shared-date" parent="martinlaw-shared-date-parentBean"/>
+
+	<bean id="martinlaw-shared-date-parentBean" abstract="true" parent="AttributeReferenceDummy-genericDate">
+		<property name="name" value="date"/>
+		<property name="label" value="Date"/>
+		<property name="description" value="Date"/>
+		<property name="shortLabel" value="Date"/>
+		<property name="summary" value="Date"/>
+		<property name="maxLength" value="30"/>
+		<property name="required" value="true"/>
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="15" p:datePicker="true"/>
+		</property>
+		<property name="controlField">
+      <bean parent="Uif-DateControl"/>
+    </property> 
+	</bean>
+	
+	<bean id="martinlaw-shared-id" parent="martinlaw-shared-id-parentBean"/>
+
+<!-- only meant to be displayed, does the absence of a controlField have any effect? -->
+  <bean id="martinlaw-shared-id-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="forceUppercase" value="false"/>
+    <property name="shortLabel" value="Id"/>
+    <property name="maxLength" value="10"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern"/>
+    </property>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="10"/>
+    </property>
+    <property name="summary" value="Id"/>
+    <property name="name" value="id"/>
+    <property name="label" value="Id"/>
+    <property name="description" value="Unique Id"/>
+  </bean>
+
+</beans>

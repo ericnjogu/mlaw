@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--
+ Copyright 2008-2009 The Kuali Foundation
+ 
+ Licensed under the Educational Community License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.opensource.org/licenses/ecl2.php
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <bean id="case-statusMaintDocument" parent="case-statusMaintDocument-parentBean"/>
+
+  <bean id="case-statusMaintDocument-parentBean" abstract="true" parent="uifMaintenanceDocumentEntry">
+    <property name="dataObjectClass" value="org.martinlaw.bo.CourtCaseStatus"/>
+    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <property name="lockingKeys">
+      <list>
+        <value>status</value>
+        <value>id</value>
+      </list>
+    </property>
+    <property name="documentTypeName" value="CaseStatusMaintenanceDocument"/>
+  </bean>
+
+<!-- Maintenance Section Definitions -->
+<!-- 
+
+  <bean id="case-statusMaintDocument-EditStatus" parent="case-statusMaintDocument-EditStatus-parentBean"/>
+
+  <bean id="case-statusMaintDocument-EditStatus-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+    <property name="maintainableItems">
+      <list>
+        <bean parent="MaintainableFieldDefinition" p:name="id" p:unconditionallyReadOnly="true"/>
+        <bean parent="MaintainableFieldDefinition" p:required="true" p:name="status"/>
+      </list>
+    </property>
+    <property name="id" value="Edit Case Status"/>
+    <property name="title" value="Case Status"/>
+  </bean> -->
+</beans>

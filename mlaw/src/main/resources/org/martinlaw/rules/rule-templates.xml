@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ns:workflow resource:WorkflowData">
+
+	<ruleTemplates xmlns="ns:workflow/RuleTemplate"
+		xsi:schemaLocation="ns:workflow/RuleTemplate resource:RuleTemplate">
+		<ruleTemplate>
+			<name>org.martinlaw.defaultApprovalTemplate</name>
+			<description>default martinlaw routing</description>
+			 <!-- 
+			 cannot think of any attributes now 
+			
+				<attributes> <attribute> <name>EDL.Campus.Example</name>
+				<required>false</required> </attribute> </attributes>
+			 -->
+		</ruleTemplate>
+	</ruleTemplates>
+</data>
+	

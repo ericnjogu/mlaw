@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	
+<!-- hibernate configs adapted from http://www.vaannila.com/spring/spring-hibernate-integration-1.html -->
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="annotatedClasses">
+			<list>
+			<value>org.martinlaw.bo.CourtCaseCollectionBase</value>
+				<value>org.martinlaw.bo.CourtCaseFee</value>
+				<value>org.martinlaw.bo.CourtCaseStatus</value>
+				<value>org.martinlaw.bo.Fee</value>
+				<value>org.martinlaw.bo.sequence.FeeSeq</value>
+				<value>org.martinlaw.bo.sequence.StatusSeq</value>
+				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
+				<value>org.martinlaw.bo.HearingDate</value>
+				<value>org.martinlaw.bo.CourtCaseWitness</value>
+				<value>org.martinlaw.bo.CourtCaseClient</value>
+				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
+				<value>org.martinlaw.bo.sequence.ClientSeq</value>
+				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
+				<value>org.martinlaw.bo.CourtCasePerson</value>
+				<value>org.martinlaw.bo.CourtCase</value>
+				<value>org.martinlaw.bo.sequence.CaseSeq</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- hibernate configs adapted from http://www.vaannila.com/spring/spring-hibernate-integration-1.html -->
+	<beans profile="unt">
+		<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_unt" />
+			<property name="username" value="mlaw_unt" />
+			<property name="password" value="mlaw_unt" />
+		</bean>
+	</beans>
+
+	<beans profile="dev">
+		<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_dev" />
+			<property name="username" value="mlaw_dev" />
+			<property name="password" value="mlaw_dev" />
+		</bean>
+	</beans>
+
+</beans>

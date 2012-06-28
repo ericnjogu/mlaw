@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--
+ Copyright 2008-2009 The Kuali Foundation
+ 
+ Licensed under the Educational Community License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.opensource.org/licenses/ecl2.php
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <bean id="caseMaintDocument" parent="caseMaintDocument-parentBean"/>
+
+  <bean id="caseMaintDocument-parentBean" abstract="true" parent="uifMaintenanceDocumentEntry">
+    <property name="dataObjectClass" value="org.martinlaw.bo.CourtCase"/>
+    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <!-- <property name="maintainableSections">
+      <list>
+        <ref bean="caseMaintDocument-refs"/>
+        <ref bean="caseMaintDocument-hearingDates"/>
+        <ref bean="caseMaintDocument-clients"/>
+        <ref bean="caseMaintDocument-fees"/>
+        <ref bean="caseMaintDocument-witnesses"/>
+        <ref bean="caseMaintDocument-annexes"/>
+      </list>
+    </property>  --> 
+    <!-- good thing to validate the clients/witnesses but only appears to work for atomic fields e.g. client -->
+    <!-- 
+    <property name="defaultExistenceChecks">
+      <list>
+        <bean parent="ReferenceDefinition" p:attributeName="accountManagerUser" p:attributeToHighlightOnFail="accountManagerUser.principalName" />
+      </list>
+    </property>
+     -->
+    <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
+    <property name="lockingKeys">
+      <list>
+      	<value>name</value>
+        <value>localReference</value>
+      </list>
+    </property>
+
+    <property name="documentTypeName" value="CaseMaintenanceDocument"/>
+    <property name="documentAuthorizerClass" value="org.kuali.rice.kns.document.authorization.MaintenanceDocumentAuthorizerBase"/>
+    
+    
+  </bean>
+
+<!-- Maintenance Section Definitions -->
+
+<!-- 
+  <bean id="caseMaintDocument-refs" parent="caseMaintDocument-refs-parentBean"/>
+
+  <bean id="caseMaintDocument-refs-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+    <property name="maintainableItems">
+      <list>
+      	<bean parent="MaintainableFieldDefinition" p:name="name"  p:required="true"/>
+        <bean parent="MaintainableFieldDefinition" p:name="localReference"  p:required="true"/>
+        <bean parent="MaintainableFieldDefinition" p:name="courtReference"/>
+        <bean parent="MaintainableFieldDefinition" p:required="true" p:name="statusId"/>
+      </list>
+    </property>
+    <property name="id" value="Basic Info"/>
+    <property name="title" value="Basic Info"/>
+  </bean>
+  
+  <bean id="caseMaintDocument-clients" parent="caseMaintDocument-clients-parentBean" />
+
+    <bean id="caseMaintDocument-clients-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Clients" />
+        <property name="title" value="Clients" />
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="clients" />
+                    <property name="businessObjectClass" value="org.martinlaw.bo.CourtCaseClient" />
+                    <property name="summaryTitle" value="Clients" />
+                    <property name="summaryFields">
+                        <list>
+                        	<bean parent="MaintainableFieldDefinition" p:name="id" />
+                            <bean parent="MaintainableFieldDefinition" p:name="principalName" />
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="principalName" p:required="true"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="caseMaintDocument-fees" parent="caseMaintDocument-fees-parentBean" />
+
+    <bean id="caseMaintDocument-fees-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="fees" />
+        <property name="title" value="Fees Received" />
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="fees" />
+                    <property name="businessObjectClass" value="org.martinlaw.bo.Fee" />
+                    <property name="summaryTitle" value="Fee" />
+                    <property name="summaryFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="amount" />
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                        	<bean parent="MaintainableFieldDefinition" p:name="date" p:required="true"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="description" />
+                            <bean parent="MaintainableFieldDefinition" p:name="amount" p:required="true"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="caseMaintDocument-witnesses" parent="caseMaintDocument-witnesses-parentBean" />
+
+    <bean id="caseMaintDocument-witnesses-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="Witnesses" />
+        <property name="title" value="Witnesses" />
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="witnesses" />
+                    <property name="businessObjectClass" value="org.martinlaw.bo.CourtCaseWitness" />
+                    <property name="summaryTitle" value="Witnesses" />
+                    <property name="summaryFields">
+                        <list>
+                        	<bean parent="MaintainableFieldDefinition" p:name="id" />
+                            <bean parent="MaintainableFieldDefinition" p:name="principalName" />
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="principalName" p:required="true"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="caseMaintDocument-hearingDates" parent="caseMaintDocument-hearingDates-parentBean" />
+
+    <bean id="caseMaintDocument-hearingDates-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="hearing-dates" />
+        <property name="title" value="Hearing Dates" />
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="hearingDates" />
+                    <property name="businessObjectClass" value="org.martinlaw.bo.HearingDate" />
+                    <property name="summaryTitle" value="Hearing Date" />
+                    <property name="summaryFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="date" />
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                        	<bean parent="MaintainableFieldDefinition" p:name="date" p:required="true"/>
+                            <bean parent="MaintainableFieldDefinition" p:name="comment" />
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="caseMaintDocument-annexes" parent="caseMaintDocument-annexes-parentBean" />
+
+    <bean id="caseMaintDocument-annexes-parentBean" abstract="true" parent="MaintainableSectionDefinition">
+        <property name="id" value="annexes" />
+        <property name="title" value="Annexes" />
+        <property name="maintainableItems">
+            <list>
+                <bean parent="MaintainableCollectionDefinition">
+                    <property name="name" value="annexes" />
+                    <property name="businessObjectClass" value="org.martinlaw.bo.CaseAnnex" />
+                    <property name="summaryTitle" value="Annex" />
+                    <property name="summaryFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="annex.annexDocumentNumber" />
+                            some errors about this field not being in the list (below?)
+                            
+                            <bean parent="MaintainableFieldDefinition" p:name="annex.documentHeader.documentDescription" />
+                            
+                        </list>
+                    </property>
+                    <property name="maintainableFields">
+                        <list>
+                            <bean parent="MaintainableFieldDefinition" p:name="annex.annexDocumentNumber" p:required="true"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+ -->    
+</beans>

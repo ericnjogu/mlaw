@@ -16,8 +16,8 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:beans="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -55,43 +55,39 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<!--
-		This Spring File loads all of the Rice Configuration (including transaction
-		managers, datasources and the Rice Configurer)
-		
-		Add any additional Spring Beans you have to this file.  Also feel free to
-		modify and re-arrange these Spring files as you see fit!
-	-->
 
+  <bean id="martinlawModuleConfiguration" class="org.kuali.rice.krad.bo.ModuleConfiguration">
+    <property name="namespaceCode" value="MARTINLAW"/>
+    <property name="initializeDataDictionary" value="true"/>
+    <property name="dataDictionaryPackages">
+      <list>
+        <value>classpath:org/martinlaw/bo/case-fee.xml</value>
+         <value>classpath:org/martinlaw/bo/shared-attributes.xml</value>
+         <value>classpath:org/martinlaw/bo/case-status.xml</value>
+         <value>classpath:org/martinlaw/bo/case-status-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/case-status-maintenance-view.xml</value>
+         <value>classpath:org/martinlaw/bo/case.xml</value>
+         <value>classpath:org/martinlaw/bo/case-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/case-maintenance-view.xml</value>
+         <value>classpath:org/martinlaw/bo/case-client.xml</value>
+         <value>classpath:org/martinlaw/bo/case-witness.xml</value>
+         <value>classpath:org/martinlaw/bo/hearing-date.xml</value>
+      </list>
+    </property>
+    <property name="databaseRepositoryFilePaths">
+      <list>
+        <value>repository/repository_user.xml</value>
+      </list>
+    </property>
+    <property name="packagePrefixes">
+      <list>
+        <value>org.martinlaw</value>
+      </list>
+    </property>
+  </bean>
 
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="properties" ref="configProperties" />
-	</bean>
-
-	<bean id="bootstrapConfig" class="org.kuali.rice.core.impl.config.property.ConfigFactoryBean">
-		<property name="configLocations">
-			<list>
-				<value>classpath:META-INF/mlaw-config.xml</value>
-			</list>
-		</property>
-	</bean>
-	
-	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="staticMethod" value="org.kuali.rice.core.impl.config.property.ConfigInitializer.initialize" />
-		<property name="arguments">
-			<list><ref bean="bootstrapConfig"/></list>
-		</property>
-	</bean>
-	
-	<bean id="configProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetObject" ref="bootstrapConfig" />
-		<property name="targetMethod" value="getProperties" />
-	</bean>
-	
-	<import resource="classpath:mlaw-RiceJTASpringBeans.xml"/>
-	<import resource="classpath:mlaw-RiceDataSourceSpringBeans.xml"/>
-	<import resource="classpath:mlaw-RiceSpringBeans.xml"/>
-	
-	<import resource="classpath:mlaw-ModuleBeans.xml"/>
-	 
+  <bean id="martinlawModuleService" class="org.kuali.rice.krad.service.impl.ModuleServiceBase">
+    <property name="moduleConfiguration" ref="martinlawModuleConfiguration"/>
+  </bean>
 </beans>
+

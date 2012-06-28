@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ns:workflow resource:WorkflowData">
+		
+	<documentTypes xmlns="ns:workflow/DocumentType"
+		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+		<documentType>
+			<name>ConveyanceAnnexDocument</name>
+			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is maitenance doc -->
+			<description>Conveyance Annex Transaction Document</description>
+			<label>Conveyance Annex Transaction Document</label>
+			<!--
+			<postProcessorName>org.kuali.rice.kns.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			 -->
+			 <postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<docHandler>${application.url}/kr/maintenance.do?methodToCall=docHandler</docHandler>
+			<!-- need to understand what this means -->
+			<!-- 
+			<serviceNamespace>KEYSAFE</serviceNamespace>
+			-->
+			<routePaths>
+				<routePath>
+					<start name="Initiated" nextNode="approvalNode" />
+					<requests name="approvalNode" />
+				</routePath>
+			</routePaths>
+			<routeNodes>
+				<start name="Initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</start>
+				<requests name="approvalNode">
+					<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</requests>
+			</routeNodes>
+		</documentType>
+	</documentTypes>
+
+</data>
+	

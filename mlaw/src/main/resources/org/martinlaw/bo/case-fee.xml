@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--
+ Copyright 2008-2009 The Kuali Foundation
+ 
+ Licensed under the Educational Community License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.opensource.org/licenses/ecl2.php
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+  <bean id="court-case-fee" parent="court-case-fee-parentBean" />
+
+  <bean id="court-case-fee-parentBean" abstract="true" parent="BusinessObjectEntry">
+    <property name="businessObjectClass" value="org.martinlaw.bo.CourtCaseFee"/>
+    <property name="inquiryDefinition">
+      <ref bean="court-case-fee-inquiryDefinition"/>
+    </property>
+    <property name="lookupDefinition">
+      <ref bean="court-case-fee-lookupDefinition"/>
+    </property>
+    <property name="titleAttribute" value="amount"/>
+    <property name="attributes">
+      <list>    	
+      	<ref bean="court-case-fee-description"/>
+      	<ref bean="court-case-fee-date"/>
+      	<ref bean="court-case-fee-amount"/>
+      </list>
+    </property>
+    <property name="objectLabel" value="Fee"/>
+  </bean>
+
+<!-- Attribute Definitions -->
+ 
+ <bean id="court-case-fee-description" parent="court-case-fee-description-parentBean"/>
+
+  <bean id="court-case-fee-description-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="forceUppercase" value="false"/>
+    <property name="shortLabel" value="Description"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
+    </property>
+    <property name="control">
+      <bean parent="TextareaControlDefinition"/>
+    </property>
+    <property name="summary" value="Description"/>
+    <property name="name" value="description"/>
+    <property name="label" value="Description"/>
+    <property name="description" value="Description"/>
+    <property name="controlField">
+      <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="30" p:maxLength="100"/>
+    </property>
+    
+    
+  </bean>
+  
+
+<bean id="court-case-fee-amount" parent="court-case-fee-amount-parentBean"/>
+
+	<bean id="court-case-fee-amount-parentBean" abstract="true" parent="AttributeDefinition">
+		<property name="name" value="amount"/>
+		<property name="label" value="Amount"/>
+		<property name="description" value="Amount"/>
+		<property name="shortLabel" value="Amount"/>
+		<property name="summary" value="Amount"/>
+		<property name="maxLength" value="20"/>
+		<property name="required" value="true"/>
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="50" />
+		</property>
+		<property name="validationPattern">
+      <bean parent="NumericValidationPattern"/>
+    </property>
+    <property name="controlField">
+      <bean parent="Uif-TextControl" p:size="50"/>
+    </property> 
+	</bean>
+	
+	<bean id="court-case-fee-date" parent="martinlaw-shared-date"/>
+
+<!-- Business Object Inquiry Definition -->
+
+
+  <bean id="court-case-fee-inquiryDefinition" parent="court-case-fee-inquiryDefinition-parentBean"/>
+
+  <bean id="court-case-fee-inquiryDefinition-parentBean" abstract="true" parent="InquiryDefinition">
+    <property name="inquirySections">
+      <list>
+        <bean parent="InquirySectionDefinition">
+          <property name="numberOfColumns" value="3"/>
+          <property name="inquiryFields">
+            <list>
+            <bean parent="FieldDefinition" p:attributeName="date"/>
+            <bean parent="FieldDefinition" p:attributeName="description"/>
+            <bean parent="FieldDefinition" p:attributeName="amount"/>
+            </list>
+          </property>
+          <property name="title" value="Details"/>
+        </bean>
+      </list>
+    </property>
+    <property name="title" value="Fee Inquiry"/>
+  </bean>
+
+<!-- Business Object Lookup Definition -->
+
+
+  <bean id="court-case-fee-lookupDefinition" parent="court-case-fee-lookupDefinition-parentBean"/>
+
+  <bean id="court-case-fee-lookupDefinition-parentBean" abstract="true" parent="LookupDefinition">
+    
+    <property name="defaultSort">
+      <bean parent="SortDefinition">
+      </bean>
+    </property>
+    <property name="lookupFields">
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="date"/>
+        <bean parent="FieldDefinition" p:attributeName="description"/>
+        <bean parent="FieldDefinition" p:attributeName="amount"/>
+      </list>
+    </property>
+    <property name="resultFields">
+      <list>
+        <bean parent="FieldDefinition" p:attributeName="date"/>
+        <bean parent="FieldDefinition" p:attributeName="description"/>
+        <bean parent="FieldDefinition" p:attributeName="amount"/>
+      </list>
+    </property>
+    <property name="title" value="Fee Lookup"/>
+  </bean>
+</beans>

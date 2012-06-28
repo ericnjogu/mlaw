@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ns:workflow resource:WorkflowData">
+	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+	
+
+	<!-- case rule -->
+	
+		<rule>
+			<name>org.martinlaw.rules.case</name>
+			<documentType>CaseMaintenanceDocument</documentType>
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for case maintenance</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+	
+	
+<!-- conveyance rule
+		<rule>
+			<name>org.martinlaw.rules.conveyance</name>
+			<documentType>ConveyanceMaintenanceDocument</documentType>
+			 The rule template does not have any use at now 
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for conveyance maintenance</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule> -->
+		
+		<!-- case status document rule -->
+		<rule>
+			<name>org.martinlaw.rules.caseStatus</name>
+			<documentType>CaseStatusMaintenanceDocument</documentType>
+			 <!-- The rule template does not have any use at now  -->
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for case status maintenance</description>
+			<!--  the approval node has been commented out in the doc type xml - what would the effect of this config be? -->
+			<responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+		
+		</rules>
+</data>
+	

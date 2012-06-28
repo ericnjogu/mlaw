@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ns:workflow resource:WorkflowData">
+	
+	<groups xmlns="ns:workflow/Group" xsi:schemaLocation="ns:workflow/Group resource:Group">
+		<group>
+		<id>org.martinlaw.client</id>
+			<namespace>MARTINLAW</namespace>
+			<name>client</name>
+			<description>clients</description>
+			<members>
+				<principalName>client1</principalName>
+				<!-- 
+				<principalName>client2</principalName>
+				<principalName>client3</principalName>
+				 -->
+			</members>
+		</group>
+		<group>
+		<id>org.martinlaw.clerk</id>
+			<namespace>MARTINLAW</namespace>
+			<name>clerk</name>
+			<description>clerical staff</description>
+			<members>
+				<principalName>clerk1</principalName>
+				<!-- 
+				<principalName>clerk2</principalName>
+				<principalName>clerk3</principalName>
+				 -->
+			</members>
+		</group>
+		<group>
+		<id>org.martinlaw.witness</id>
+			<namespace>MARTINLAW</namespace>
+			<name>witness</name>
+			<description>witnesses</description>
+			<members>
+				<principalName>witness1</principalName>
+				<!-- 
+				<principalName>witness2</principalName>
+				<principalName>witness3</principalName>
+				 -->
+			</members>
+		</group>
+		<group>
+		<id>org.martinlaw.lawyer</id>
+			<namespace>MARTINLAW</namespace>
+			<name>lawyer</name>
+			<description>lawyers</description>
+			<members>
+				<principalName>lawyer1</principalName>
+				<!-- 
+				<principalName>lawyer2</principalName>
+				<principalName>lawyer3</principalName>
+				 -->
+			</members>
+		</group>
+	</groups>
+</data>
+	

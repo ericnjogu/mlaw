@@ -15,6 +15,12 @@
 	<packaging>war</packaging>
 	<name>mlaw</name>
 	<version>0.1-SNAPSHOT</version>
+	
+	<properties>
+    <rice.version>2.2.0-M2-SNAPSHOT</rice.version>
+    <spring.version>3.1.0.RELEASE</spring.version>
+	</properties>
+	
 	<build>
 		<plugins>
 			<!-- <plugin>
@@ -34,41 +40,6 @@
     </webApp>
   </configuration>
         </plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.0-beta-1</version>
-				<executions>
-					<execution>
-						<id>tomcat-run</id>
-						<goals>
-							<goal>exec-war-only</goal>
-						</goals>
-						<phase>package</phase>
-						<configuration>
-							 <contextFile>${basedir}/src/main/webapp/WEB-INF/web.xml</contextFile>
-							<!-- <warRunDependencies> <warRunDependency> <dependency> <groupId>a 
-								groupId</groupId> <artifactId>and artifactId</artifactId> <version>version</version> 
-								<type>war</type> </dependency> <contextPath>/</contextPath> </warRunDependency> 
-								</warRunDependencies> -->
-							<!-- naming is disable by default so use true to enable it -->
-							<enableNaming>true</enableNaming>
-							<!-- extra dependencies to add jdbc driver mail jars -->
-							<extraDependencies>
-								<extraDependency>
-
-									<groupId>mysql</groupId>
-									<artifactId>mysql-connector-java</artifactId>
-									<version>5.1.18</version>
-									<!-- <scope>provided</scope> -->
-
-								</extraDependency>
-
-							</extraDependencies>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -81,28 +52,28 @@
 		<dependency>
 			<groupId>org.kuali.rice</groupId>
 			<artifactId>rice-impex-master</artifactId>
-			<version>2.2.0-M2-SNAPSHOT</version>
+			<version>${rice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kuali.rice</groupId>
 			<artifactId>rice-web</artifactId>
-			<version>2.2.0-M2-SNAPSHOT</version>
+			<version>${rice.version}</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>org.kuali.rice</groupId>
 			<artifactId>rice-impl</artifactId>
-			<version>2.2.0-M2-SNAPSHOT</version>
+			<version>${rice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kuali.rice</groupId>
 			<artifactId>rice-edl-impl</artifactId>
-			<version>2.2.0-M2-SNAPSHOT</version>
+			<version>${rice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kuali.rice</groupId>
 			<artifactId>rice-krms-impl</artifactId>
-			<version>2.2.0-M2-SNAPSHOT</version>
+			<version>${rice.version}</version>
 		</dependency>
 		<!-- <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc14</artifactId> 
 			<version>10.2.0.3.0</version> <scope>provided</scope> </dependency> -->
@@ -112,6 +83,41 @@
 			<version>5.1.18</version>
 			<!-- <scope>provided</scope> -->
 		</dependency>
+		
+		<dependency>
+      <groupId>org.kuali.rice</groupId>
+      <artifactId>rice-it-krad</artifactId>
+      <version>${rice.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kuali.rice</groupId>
+      <artifactId>rice-it-internal-tools</artifactId>
+      <version>${rice.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.kuali.rice</groupId>
+      <artifactId>rice-it-kim</artifactId>
+      <version>${rice.version}</version>
+      <scope>test</scope>
+      <type>test-jar</type>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+        <scope>test</scope>
+      </dependency>
+    <dependency>
+        <groupId>antlr</groupId>
+        <artifactId>antlr</artifactId>
+        <version>2.7.7</version>
+      </dependency>
 	</dependencies>
 	<repositories>
 		<repository>
