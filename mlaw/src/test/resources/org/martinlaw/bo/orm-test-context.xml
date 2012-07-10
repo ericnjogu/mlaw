@@ -11,7 +11,7 @@
 			<list>
 			<value>org.martinlaw.bo.CourtCaseCollectionBase</value>
 				<value>org.martinlaw.bo.CourtCaseFee</value>
-				<value>org.martinlaw.bo.CourtCaseStatus</value>
+				<value>org.martinlaw.bo.Status</value>
 				<value>org.martinlaw.bo.Fee</value>
 				<value>org.martinlaw.bo.sequence.FeeSeq</value>
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>

@@ -10,8 +10,8 @@
   
 
   <bean id="case_status_maintenance_view" parent="Uif-MaintenanceView">
-    <property name="headerText" value="Court Case Status"/>
-    <property name="dataObjectClassName" value="org.martinlaw.bo.CourtCaseStatus"/>
+    <property name="headerText" value="Status"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.Status"/>
     <property name="items">
       <list merge="true">
         <bean parent="Uif-MaintenanceGridSection">
@@ -19,6 +19,7 @@
             <list>
               <bean parent="Uif-InputField" p:propertyName="id"  p:readOnly="true"/>
               <bean parent="Uif-InputField" p:propertyName="status"/>
+              <bean parent="Uif-InputField" p:propertyName="type"/>
             </list>
           </property>
           <property name="headerText" value="Case Status"/>

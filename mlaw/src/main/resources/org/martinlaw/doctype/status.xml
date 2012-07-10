@@ -5,10 +5,10 @@
 	<documentTypes xmlns="ns:workflow/DocumentType"
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
-			<name>CaseStatusMaintenanceDocument</name>
+			<name>StatusMaintenanceDocument</name>
 			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is maitenance doc -->
-			<description>Case Status Maintenance Document</description>
-			<label>Case Status Maintenance Document</label>
+			<description>Status Maintenance Document</description>
+			<label>Status Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>

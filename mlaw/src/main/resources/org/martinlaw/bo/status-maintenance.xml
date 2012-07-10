@@ -7,7 +7,7 @@
   <bean id="case-statusMaintDocument" parent="case-statusMaintDocument-parentBean"/>
 
   <bean id="case-statusMaintDocument-parentBean" abstract="true" parent="uifMaintenanceDocumentEntry">
-    <property name="dataObjectClass" value="org.martinlaw.bo.CourtCaseStatus"/>
+    <property name="dataObjectClass" value="org.martinlaw.bo.Status"/>
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <property name="lockingKeys">
       <list>
@@ -15,7 +15,7 @@
         <value>id</value>
       </list>
     </property>
-    <property name="documentTypeName" value="CaseStatusMaintenanceDocument"/>
+    <property name="documentTypeName" value="StatusMaintenanceDocument"/>
   </bean>
 
 </beans>

@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <bean id="case_status_inquiry_view" parent="Uif-InquiryView">
-    <property name="headerText" value="Case Status Inquiry"/>
-    <property name="dataObjectClassName" value="org.martinlaw.bo.CourtCaseStatus"/>
+    <property name="headerText" value="Status Inquiry"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.Status"/>
     <property name="Items">
       <list>
         <bean parent="Uif-Disclosure-GridSection">
@@ -16,6 +16,7 @@
             <list>
               <bean parent="Uif-InputField" p:propertyName="id"/>
               <bean parent="Uif-InputField" p:propertyName="status"/>
+              <bean parent="Uif-InputField" p:propertyName="type"/>
             </list>
           </property>
         </bean>

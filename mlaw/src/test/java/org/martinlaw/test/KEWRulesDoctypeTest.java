@@ -44,8 +44,9 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	}
 	
 	@Test
+	@Ignore("status routes to final, there is no need for a rule")
 	public void testCaseStatusRule () {
-		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.caseStatus");
+		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.status");
 		assertEquals("Routing rule for case status maintenance", rule.getDescription());
 	}
 	
@@ -66,7 +67,7 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	}
 	@Test
 	public void testCaseStatusDocType() {
-		assertNotNull(getDocTypeSvc().findByName("CaseStatusMaintenanceDocument"));
+		assertNotNull(getDocTypeSvc().findByName("StatusMaintenanceDocument"));
 	}
 	
 	@Test

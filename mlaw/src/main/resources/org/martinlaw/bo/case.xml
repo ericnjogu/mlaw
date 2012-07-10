@@ -131,11 +131,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="description" value="Case Status" />
 		<property name="required" value="true" />
 		<property name="optionsFinder">
-			<bean
-				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:businessObjectClass="org.martinlaw.bo.CourtCaseStatus"
-				p:keyAttributeName="id"	p:labelAttributeName="status">
-			</bean>
+			<bean class="org.martinlaw.keyvalues.CourtCaseStatusKeyValues" />
 		</property>
 		<property name="controlField">
 				<bean parent="Uif-DropdownControl" />

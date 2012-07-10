@@ -34,7 +34,7 @@ import org.martinlaw.bo.AnnexType;
 import org.martinlaw.bo.ConveyanceAnnexType;
 import org.martinlaw.bo.ConveyanceType;
 import org.martinlaw.bo.CourtCase;
-import org.martinlaw.bo.CourtCaseStatus;
+import org.martinlaw.bo.Status;
 
 /**
  * @author mugo
@@ -161,8 +161,9 @@ public class KEWRoutingTest extends KewTestsBase {
 	public void testCaseMaintenanceRouting() throws WorkflowException {
 		//set up test status
 		//boSvc.delete((List)boSvc.findAll(CourtCaseStatus.class));
-		CourtCaseStatus status = new CourtCaseStatus();
+		Status status = new Status();
 		status.setStatus("Testing");
+		status.setType(Status.ANY_TYPE.getKey());
 		boSvc.save(status);
 		status.refresh();
 		assertNotNull(status.getId());
@@ -200,19 +201,20 @@ public class KEWRoutingTest extends KewTestsBase {
 	@Test
 	public void testCaseStatusMaintenanceRouting() throws WorkflowException {
 		//testTransactionalRouting("CaseStatusMaintenanceDocument");
-		CourtCaseStatus status = new CourtCaseStatus();
+		Status status = new Status();
 		String statusText = "pending";
 		status.setStatus(statusText);
-		int existingStatus = boSvc.findAll(CourtCaseStatus.class).size();
+		status.setType(Status.ANY_TYPE.getKey());
+		int existingStatus = boSvc.findAll(Status.class).size();
 		try {
-			testMaintenanceRoutingInitToFinal("CaseStatusMaintenanceDocument", status);
-			Collection<CourtCaseStatus> allStatus = KRADServiceLocator.getBusinessObjectService().findAll(CourtCaseStatus.class);
+			testMaintenanceRoutingInitToFinal("StatusMaintenanceDocument", status);
+			Collection<Status> allStatus = KRADServiceLocator.getBusinessObjectService().findAll(Status.class);
 			assertEquals(existingStatus+1, allStatus.size());
 			@SuppressWarnings("rawtypes")
 			Map map = new HashMap(1);
 			map.put("status", statusText);
 			@SuppressWarnings("rawtypes")
-			Collection result = boSvc.findMatching(CourtCaseStatus.class, map);
+			Collection result = boSvc.findMatching(Status.class, map);
 			assertNotNull(result);
 			assertEquals(1, result.size());
 			

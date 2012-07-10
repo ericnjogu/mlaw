@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -34,10 +33,12 @@ import org.martinlaw.bo.CourtCase;
 import org.martinlaw.bo.CourtCaseClient;
 import org.martinlaw.bo.CourtCaseFee;
 import org.martinlaw.bo.CourtCasePerson;
-import org.martinlaw.bo.CourtCaseStatus;
 import org.martinlaw.bo.CourtCaseWitness;
 import org.martinlaw.bo.Fee;
 import org.martinlaw.bo.HearingDate;
+import org.martinlaw.bo.Status;
+import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
+import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -108,6 +109,7 @@ public class BOTest extends MartinlawTestsBase {
         //status
         assertNotNull(kase.getStatus());
         assertEquals("hearing", kase.getStatus().getStatus());
+        assertEquals(Status.COURT_CASE_TYPE.getKey(), kase.getStatus().getType());
         //case client
         List<CourtCaseClient> clients = kase.getClients();
         assertEquals(1, clients.size());
@@ -140,11 +142,11 @@ public class BOTest extends MartinlawTestsBase {
 		//new SQLDataLoader("classpath:org/martinlaw/bo/clear-test-data.sql", ";").runSql();
 		CourtCase kase = new CourtCase();
 		kase.setLocalReference("local1");
-		CourtCaseStatus status = new CourtCaseStatus();
+		Status status = new Status();
 		status.setStatus("filed");
+		status.setType(Status.COURT_CASE_TYPE.getKey());
 		kase.setStatus(status);
 		kase.setName("Good vs Evil");
-		//BusinessObjectService boSvc = KNSServiceLocator.getBusinessObjectService();
 		boSvc.save(kase);
 		kase = boSvc.findBySinglePrimaryKey(CourtCase.class, kase.getId());
 		assertEquals(null, kase.getCourtReference());
@@ -207,7 +209,9 @@ public class BOTest extends MartinlawTestsBase {
 	}
 
 	/**
-	 * @param caseClient
+	 * a common method to perform CRUD on objects with {@link CourtCasePerson} as the parent
+	 * 
+	 * @param principalName - the principal name e.g. enjogu
 	 */
 	protected <T extends BusinessObject> void testCourtCasePersonCRUD(T t, String principalName) {
 		CourtCasePerson casePersonRetrieve = (CourtCasePerson) boSvc.findBySinglePrimaryKey(t.getClass(), new Long(1001));
@@ -261,9 +265,9 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that the court case status is loaded into the data dictionary
 	 */
 	public void testCourtCaseStatusAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.CourtCaseStatus");
+		testBoAttributesPresent("org.martinlaw.bo.Status");
 		
-		Class<CourtCaseStatus> dataObjectClass = CourtCaseStatus.class;
+		Class<Status> dataObjectClass = Status.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 	
@@ -486,37 +490,39 @@ public class BOTest extends MartinlawTestsBase {
 	/**
 	 * test that default annex types are retrieved ok
 	 */
-	public void testCourtCaseStatusRetrieve() {
-		List<CourtCaseStatus> caseStatuses = (List<CourtCaseStatus>) boSvc.findAll(CourtCaseStatus.class);
+	public void testStatusRetrieve() {
+		List<Status> caseStatuses = (List<Status>) boSvc.findAll(Status.class);
 		assertNotNull(caseStatuses);
-		assertEquals(3, caseStatuses.size());
-		CourtCaseStatus status = boSvc.findBySinglePrimaryKey(CourtCaseStatus.class, new Long(1003));
+		assertEquals(4, caseStatuses.size());
+		Status status = boSvc.findBySinglePrimaryKey(Status.class, new Long(1003));
 		assertNotNull(status);
 		assertEquals("closed", status.getStatus());
+		assertEquals(Status.ANY_TYPE.getKey(), status.getType());
 	}
 	
 	@Test
 	/**
 	 * tests CRUD on annex type
 	 */
-	public void testCourtCaseStatusCRUD() {
+	public void testStatusCRUD() {
 		// create
-		CourtCaseStatus courtCaseStatus = new CourtCaseStatus();
-		courtCaseStatus.setStatus("pending");
-		boSvc.save(courtCaseStatus);
+		Status status = new Status();
+		status.setStatus("pending");
+		status.setType(Status.ANY_TYPE.getKey());
+		boSvc.save(status);
 		//refresh
-		courtCaseStatus.refresh();
+		status.refresh();
 		// retrieve
-		assertEquals("the courtCaseStatus does not match", "pending", courtCaseStatus.getStatus());
+		assertEquals("the courtCaseStatus does not match", "pending", status.getStatus());
 		//update
-		courtCaseStatus.setStatus("appealed");
-		boSvc.save(courtCaseStatus);
+		status.setStatus("appealed");
+		boSvc.save(status);
 		//refresh
-		courtCaseStatus.refresh();
-		assertEquals("the courtCaseStatus does not match", "appealed", courtCaseStatus.getStatus());
+		status.refresh();
+		assertEquals("the courtCaseStatus does not match", "appealed", status.getStatus());
 		// delete
-		boSvc.delete(courtCaseStatus);
-		assertNull(boSvc.findBySinglePrimaryKey(CourtCaseStatus.class, courtCaseStatus.getId()));
+		boSvc.delete(status);
+		assertNull(boSvc.findBySinglePrimaryKey(Status.class, status.getId()));
 	}
 	
 	/**
@@ -525,9 +531,9 @@ public class BOTest extends MartinlawTestsBase {
 	 * @param value - the expected value
 	 * @return - the retrieved CourtCaseStatus
 	 */
-	protected CourtCaseStatus retrieveandVerifyCourtCaseStatusValue(long id, String value) {
-		CourtCaseStatus CourtCaseStatusRetrieved = null;
-		CourtCaseStatusRetrieved = boSvc.findBySinglePrimaryKey(CourtCaseStatus.class, id);
+	protected Status retrieveandVerifyCourtCaseStatusValue(long id, String value) {
+		Status CourtCaseStatusRetrieved = null;
+		CourtCaseStatusRetrieved = boSvc.findBySinglePrimaryKey(Status.class, id);
 		assertNotNull("the new annex type should have been saved to the db", CourtCaseStatusRetrieved);
 		assertEquals("the annex type value does not match", value, CourtCaseStatusRetrieved.getStatus());
 		return CourtCaseStatusRetrieved;
@@ -538,7 +544,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * tests that annex type generates errors when non-nullable fields are blank
 	 */
 	public void testCourtCaseStatusNullableFields() {
-		CourtCaseStatus courtCaseStatus = new CourtCaseStatus();
+		Status courtCaseStatus = new Status();
 		courtCaseStatus.setId(25l);
 		boSvc.save(courtCaseStatus);
 	}
@@ -614,6 +620,23 @@ public class BOTest extends MartinlawTestsBase {
 	 * test how a name is returned for clients/witnesses who are not yet created as KIM principals
 	 */
 	public void testCourtCasePersonName() {
-		fail("not yet implemented");
+		CourtCasePerson client = new CourtCaseClient();
+		client.setPrincipalName("clientX");
+		// should cause an error 
+		assertNotNull(client.getPerson().getName());
+	}
+	
+	@Test
+	public void testCourtCaseStatusKeyValues() {
+		CourtCaseStatusKeyValues keyValues = new CourtCaseStatusKeyValues();
+		// expected one court case type and two of any type, plus a blank one
+		assertEquals(4, keyValues.getKeyValues().size());
+	}
+	
+	@Test
+	public void testConveyanceStatusKeyValues() {
+		ConveyanceStatusKeyValues keyValues = new ConveyanceStatusKeyValues();
+		// expected one Conveyance type and two of 'any' type, plus a blank one
+		assertEquals(4, keyValues.getKeyValues().size());
 	}
 }

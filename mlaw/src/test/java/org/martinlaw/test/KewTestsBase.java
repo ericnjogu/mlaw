@@ -5,7 +5,12 @@ import java.util.List;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
-
+/**
+ * loads config files for testing routing
+ * TODO - clear GlobalVariables error map after each test so that a failing test does not affect the rest
+ * @author mugo
+ *
+ */
 public abstract class KewTestsBase extends MartinlawTestsBase {
 
 	public KewTestsBase() {
@@ -23,7 +28,7 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 		//TODO:uncomment conveyance and case when ready
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rule-templates.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/case.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseStatus.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/status.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceAnnexType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rules.xml"));

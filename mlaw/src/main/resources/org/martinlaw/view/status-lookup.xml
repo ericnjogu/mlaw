@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <bean id="court_case_status_LookupView" parent="Uif-LookupView">
-    <property name="headerText" value="Court Case Status Lookup" />
-    <property name="dataObjectClassName" value="org.martinlaw.bo.CourtCaseStatus" />
+    <property name="headerText" value="Status Lookup" />
+    <property name="dataObjectClassName" value="org.martinlaw.bo.Status" />
     <property name="criteriaFields">
       <list>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
@@ -17,6 +17,7 @@
       <list>
          <bean parent="Uif-DataField" p:propertyName="id" />
         <bean parent="Uif-DataField" p:propertyName="status" />
+        <bean parent="Uif-DataField" p:propertyName="type" />
       </list>
     </property>
   </bean>

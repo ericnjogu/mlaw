@@ -57,7 +57,7 @@ public class CourtCase extends org.kuali.rice.krad.bo.PersistableBusinessObjectB
 	 
 	@OneToOne
 	@JoinColumn(name="court_case_status_id", nullable=false, updatable=false)
-	private CourtCaseStatus status;
+	private Status status;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
 	private List<CourtCaseWitness> witnesses;
@@ -165,13 +165,13 @@ public class CourtCase extends org.kuali.rice.krad.bo.PersistableBusinessObjectB
 	/**
 	 * @return the status
 	 */
-	public CourtCaseStatus getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(CourtCaseStatus status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	/**

@@ -49,7 +49,7 @@
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.CourtCaseStatus" auto-retrieve="true"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true"
 			auto-update="true" auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
@@ -105,14 +105,17 @@
 			field-ref="courtCaseId"/> </reference-descriptor> -->
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.CourtCaseStatus"
-		table="martinlaw_court_case_status_t">
+	<class-descriptor class="org.martinlaw.bo.Status"
+		table="martinlaw_status_t">
 		<field-descriptor name="id" column="court_case_status_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_court_case_status_id_s">
 		</field-descriptor>
 		<field-descriptor name="status" column="status"
 			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="type" column="type"
+			jdbc-type="VARCHAR" length="50">
 		</field-descriptor>
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />

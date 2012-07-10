@@ -11,15 +11,16 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
   <bean id="case-status" parent="case-status-parentBean"/>
 
   <bean id="case-status-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="businessObjectClass" value="org.martinlaw.bo.CourtCaseStatus"/>
+    <property name="businessObjectClass" value="org.martinlaw.bo.Status"/>
     <property name="titleAttribute" value="status"/>
     <property name="attributes">
       <list>
       	<ref bean="case-status-id"/>
         <ref bean="case-status-text"/>
+        <ref bean="case-status-type"/>
       </list>
     </property>
-    <property name="objectLabel" value="Case Status"/>
+    <property name="objectLabel" value="Status"/>
   </bean>
 
 <!-- Attribute Definitions -->
@@ -45,5 +46,28 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
       <bean parent="Uif-TextControl" p:size="100"/>
     </property>
   </bean>
+ 
+ <bean id="case-status-type" parent="case-status-type-parentBean" />
+
+	<bean id="case-status-type-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="maxLength" value="100"/>
+		<property name="forceUppercase" value="true" />
+		<property name="shortLabel" value="Status" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
+		<property name="summary" value="Status Type" />
+		<property name="name" value="type" />
+		<property name="label" value="Status Type" />
+		<property name="description" value="Status Type" />
+		<property name="required" value="true" />
+		<property name="optionsFinder">
+			<bean class="org.martinlaw.keyvalues.StatusTypeKeyValues"/>
+		</property>
+		<property name="controlField">
+				<bean parent="Uif-DropdownControl" />
+			</property>
+	</bean>
  
 </beans>

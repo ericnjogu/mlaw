@@ -64,12 +64,12 @@
         <value>classpath:org/martinlaw/bo/case-fee.xml</value>
          <value>classpath:org/martinlaw/bo/shared-attributes.xml</value>
          
-         <value>classpath:org/martinlaw/bo/case-status.xml</value>
-         <value>classpath:org/martinlaw/bo/case-status-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/status.xml</value>
+         <value>classpath:org/martinlaw/bo/status-maintenance.xml</value>
          
-         <value>classpath:org/martinlaw/view/case-status-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/case-status-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/case-status-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/status-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/status-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/status-inquiry.xml</value>
          
          <value>classpath:org/martinlaw/bo/case.xml</value>
          <value>classpath:org/martinlaw/bo/case-maintenance.xml</value>
