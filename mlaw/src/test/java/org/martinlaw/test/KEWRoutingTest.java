@@ -31,6 +31,8 @@ import org.kuali.rice.krad.util.KRADConstants;
 import org.martinlaw.bo.Annex;
 import org.martinlaw.bo.AnnexDocument;
 import org.martinlaw.bo.AnnexType;
+import org.martinlaw.bo.ConveyanceAnnexType;
+import org.martinlaw.bo.ConveyanceType;
 import org.martinlaw.bo.CourtCase;
 import org.martinlaw.bo.CourtCaseStatus;
 
@@ -74,12 +76,6 @@ public class KEWRoutingTest extends KewTestsBase {
 		Document doc = getPopulatedMaintenanceDocument(docType, bo);
 		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
 		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-		//test initiating another edoc while one is saved, to verify 'maintenance record is locked' errors
-		//it does cause the maintenance record locked error alright
-		/*GlobalVariables.setUserSession(new UserSession("clerk2"));
-		Document doc2 = getPopulatedMaintenanceDocument(docType, bo);
-		KNSServiceLocator.getDocumentService().saveDocument(doc2);
-		KNSServiceLocator.getDocumentService().cancelDocument(doc2, "duplicate");*/
 		//retrieve as the lawyer
 		GlobalVariables.setUserSession(new UserSession("lawyer1"));
 		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
@@ -111,6 +107,8 @@ public class KEWRoutingTest extends KewTestsBase {
 	}
 	
 	/**
+	 * creates a new maintenance document for the given doc type and business object
+	 * 
 	 * @param docType e.g. CaseMaintenanceDocument
 	 * @param bo TODO
 	 * @return the document, populated with BO info
@@ -174,6 +172,8 @@ public class KEWRoutingTest extends KewTestsBase {
 		caseBo.setCourtReference("high-court-211");
 		caseBo.setName("Flesh Vs Spirit (Lifetime)");
 		caseBo.setStatus(status);
+		// side step validation error - error.required
+		caseBo.setStatusId(status.getId());
 		try {
 			testMaintenanceRouting("CaseMaintenanceDocument", caseBo);
 			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findAll(CourtCase.class);
@@ -275,4 +275,47 @@ public class KEWRoutingTest extends KewTestsBase {
 		boSvc = KRADServiceLocator.getBusinessObjectService();
 	}
 	
+	@Test
+	/**
+	 * test that ConveyanceAnnexTypeDocument routes to final on submit
+	 */
+	public void testConveyanceAnnexTypeRouting() {
+		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
+		String name = "city council approval";
+		convAnnexType.setName(name);
+		try {
+			testMaintenanceRoutingInitToFinal("ConveyanceAnnexTypeDocument", convAnnexType);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log.error("test failed", e);
+			fail("testConveyanceAnnexTypeRouting caused an exception");
+		}
+		// confirm that BO was saved to DB
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("name", name);
+		Collection<ConveyanceAnnexType> result = boSvc.findMatching(ConveyanceAnnexType.class, params);
+		assertEquals(1, result.size());
+	}
+	
+	@Test
+	/**
+	 * test that ConveyanceAnnexTypeDocument routes to final on submit
+	 */
+	public void testConveyanceTypeRouting() {
+		ConveyanceType convType = new ConveyanceType();
+		String name = "auction";
+		convType.setName(name);
+		try {
+			testMaintenanceRouting("ConveyanceTypeDocument", convType);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log.error("test failed", e);
+			fail("testConveyanceTypeRouting caused an exception");
+		}
+		// confirm that BO was saved to DB
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("name", name);
+		Collection<ConveyanceType> result = boSvc.findMatching(ConveyanceType.class, params);
+		assertEquals(1, result.size());
+	}
 }

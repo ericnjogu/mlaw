@@ -43,28 +43,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
 <!-- Attribute Definitions -->
  
- <bean id="court-case-fee-description" parent="court-case-fee-description-parentBean"/>
-
-  <bean id="court-case-fee-description-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="false"/>
-    <property name="shortLabel" value="Description"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
-    </property>
-    <property name="control">
-      <bean parent="TextareaControlDefinition"/>
-    </property>
-    <property name="summary" value="Description"/>
-    <property name="name" value="description"/>
-    <property name="label" value="Description"/>
-    <property name="description" value="Description"/>
-    <property name="controlField">
-      <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="30" p:maxLength="100"/>
-    </property>
-    
-    
-  </bean>
-  
+ <bean id="court-case-fee-description" parent="martinlaw-shared-description"/>
 
 <bean id="court-case-fee-amount" parent="court-case-fee-amount-parentBean"/>
 

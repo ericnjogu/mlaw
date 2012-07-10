@@ -30,37 +30,13 @@
         <bean parent="Uif-MaintenanceGridSection">
           <property name="items">
             <list>
-              <bean parent="Uif-InputField" p:propertyName="id"/>
+              <bean parent="Uif-InputField" p:propertyName="id" p:readOnly="true"/>
               <bean parent="Uif-InputField" p:propertyName="localReference"/>
               <bean parent="Uif-InputField" p:propertyName="courtReference"/>
               <bean parent="Uif-InputField" p:propertyName="name"/>
-              <bean parent="Uif-InputField" p:propertyName="statusId"/>
-             <!--  <bean parent="Uif-InputField" p:propertyName="extension.accountTypeCode">
-                <property name="quickfinder">
-                  <bean parent="Uif-QuickFinderByScript"/>
-                </property>
+              <bean parent="Uif-InputField" p:propertyName="statusId">
+              <!-- hoping the dropdown will be populated from the bo xml -->
               </bean>
-              <bean parent="Uif-InputField" p:propertyName="subAccount">
-                <property name="quickfinder">
-                  <bean parent="Uif-QuickFinderByScript"/>
-                </property>
-                <property name="quickfinder.dataObjectClassName" value="edu.sampleu.travel.bo.TravelAccount"/>
-                <property name="quickfinder.fieldConversions">
-                  <map>
-                    <entry key="number" value="subAccount"/>
-                    <entry key="name" value="subAccountName"/>
-                  </map>
-                </property>
-                <property name="quickfinder.lookupParameters" value="subAccountName:name"/>
-              </bean>
-              <bean parent="Uif-InputField" p:propertyName="subAccountName"/>
-              <bean parent="Uif-InputField" p:propertyName="createDate"/>
-              <bean parent="Uif-InputField" p:propertyName="subsidizedPercent"/>
-              <bean parent="Uif-InputField" p:propertyName="foId" >
-                <property name="quickfinder">
-                  <bean parent="Uif-QuickFinderByScript"/>
-                </property>
-              </bean> -->
             </list>
           </property>
           <property name="headerText" value="Case Information"/>
@@ -90,17 +66,13 @@
           <property name="items">
             <list>
               <bean parent="Uif-InputField" p:propertyName="principalName">
-              <property name="quickfinder">
-                  <bean parent="Uif-QuickFinderByScript"/>
-                </property>
               </bean>
             </list>
           </property>
           <property name="layoutManager.summaryTitle" value="Client"/>
           <property name="layoutManager.summaryFields">
             <list>
-              <value>person.lastName</value>
-              <value>person.firstName</value>
+              <value>person.name</value>
             </list>
           </property>
         </bean>
@@ -112,24 +84,20 @@
           <property name="items">
             <list>
               <bean parent="Uif-InputField" p:propertyName="principalName">
-              <property name="quickfinder">
-                  <bean parent="Uif-QuickFinderByScript"/>
-                </property>
               </bean>
             </list>
           </property>
           <property name="layoutManager.summaryTitle" value="Witness"/>
           <property name="layoutManager.summaryFields">
             <list>
-              <value>person.lastName</value>
-              <value>person.firstName</value>
+              <value>person.name</value>
             </list>
           </property>
         </bean>
         
         <bean parent="Uif-MaintenanceStackedCollectionSection">
           <property name="headerText" value="Fees Received"/>
-          <property name="collectionObjectClass" value="org.martinlaw.bo.Fee"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseFee"/>
           <property name="propertyName" value="fees"/>
           <property name="items">
             <list>

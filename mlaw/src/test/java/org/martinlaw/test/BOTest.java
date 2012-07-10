@@ -6,6 +6,8 @@ package org.martinlaw.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -18,7 +20,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.krad.bo.BusinessObject;
@@ -27,8 +28,8 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
 import org.kuali.rice.test.SQLDataLoader;
-import org.martinlaw.bo.Annex;
-import org.martinlaw.bo.CaseAnnex;
+import org.martinlaw.bo.ConveyanceAnnexType;
+import org.martinlaw.bo.ConveyanceType;
 import org.martinlaw.bo.CourtCase;
 import org.martinlaw.bo.CourtCaseClient;
 import org.martinlaw.bo.CourtCaseFee;
@@ -48,6 +49,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 public class BOTest extends MartinlawTestsBase {
 	private Log log = LogFactory.getLog(getClass());
 	private org.kuali.rice.krad.service.BusinessObjectService boSvc;
+
 	@Override
 	protected List<Lifecycle> getSuiteLifecycles() {
 		List<Lifecycle> suiteLifecycles = super.getSuiteLifecycles();
@@ -255,12 +257,58 @@ public class BOTest extends MartinlawTestsBase {
 	}
 	
 	@Test
-	//@Ignore
 	/**
 	 * test that the court case status is loaded into the data dictionary
 	 */
 	public void testCourtCaseStatusAttributes() {
 		testBoAttributesPresent("org.martinlaw.bo.CourtCaseStatus");
+		
+		Class<CourtCaseStatus> dataObjectClass = CourtCaseStatus.class;
+		verifyMaintDocDataDictEntries(dataObjectClass);
+	}
+	
+	@Test
+	/**
+	 * test that {@link ConveyanceType} is loaded into the data dictionary
+	 */
+	public void testConveyanceTypeAttributes() {
+		testBoAttributesPresent("org.martinlaw.bo.ConveyanceType");
+		
+		Class<ConveyanceType> dataObjectClass = ConveyanceType.class;
+		verifyMaintDocDataDictEntries(dataObjectClass);
+	}
+	
+	@Test
+	/**
+	 * test that {@link ConveyanceAnnexType} is loaded into the data dictionary
+	 */
+	public void testConveyanceAnnexTypeAttributes() {
+		testBoAttributesPresent("org.martinlaw.bo.ConveyanceAnnexType");
+		
+		Class<ConveyanceAnnexType> dataObjectClass = ConveyanceAnnexType.class;
+		verifyMaintDocDataDictEntries(dataObjectClass);
+	}
+
+	/**
+	 * check for lookup, inquiry, maint view definitions, maintenance entry def
+	 * 
+	 * @param dataObjectClass - the data object class
+	 */
+	protected void verifyMaintDocDataDictEntries(
+			Class<?> dataObjectClass) {
+		verifyInquiryLookup(dataObjectClass);
+		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
+		assertNotNull(KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
+	}
+
+	/**
+	 * check for lookup, inquiry view definitions
+	 * 
+	 * @param dataObjectClass - the data object class used in the definitions
+	 */
+	protected void verifyInquiryLookup(Class<?> dataObjectClass) {
+		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isInquirable(dataObjectClass));
+		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isLookupable(dataObjectClass));
 	}
 
 	/**
@@ -277,30 +325,33 @@ public class BOTest extends MartinlawTestsBase {
 	}
 	
 	@Test
-	//@Ignore
 	/**
 	 * test that the court case is loaded into the data dictionary
 	 */
 	public void testCourtCaseAttributes() {
 		testBoAttributesPresent("org.martinlaw.bo.CourtCase");
+		Class<CourtCase> dataObjectClass = CourtCase.class;
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 	
 	@Test
-	//@Ignore
 	/**
 	 * test that the client is loaded into the data dictionary
 	 */
 	public void testClientAttributes() {
 		testBoAttributesPresent("org.martinlaw.bo.CourtCaseClient");
+		Class<CourtCaseClient> dataObjectClass = CourtCaseClient.class;
+		verifyInquiryLookup(dataObjectClass);
 	}
 	
 	@Test
-	//@Ignore
 	/**
 	 * test that the witness is loaded into the data dictionary
 	 */
 	public void testWitnessAttributes() {
 		testBoAttributesPresent("org.martinlaw.bo.CourtCaseWitness");
+		Class<CourtCaseWitness> dataObjectClass = CourtCaseWitness.class;
+		verifyInquiryLookup(dataObjectClass);
 	}
 	
 	@Test
@@ -491,44 +542,78 @@ public class BOTest extends MartinlawTestsBase {
 		courtCaseStatus.setId(25l);
 		boSvc.save(courtCaseStatus);
 	}
-
+	
 	@Test
-	@Ignore
-	public void testAnnexRetrieve() {
-		Annex annex = boSvc.findBySinglePrimaryKey(Annex.class, 2);
-		assertNotNull(annex);
-		assertEquals("Court Case", annex.getAnnexType().getValue());
-		assertEquals("2131", annex.getAnnexDocumentNumber());
+	/**
+	 * test CRUD for {@link ConveyanceAnnexType}
+	 */
+	public void testConveyanceAnnexTypeCRUD() {
+		// retrieve object populated via sql script
+		ConveyanceAnnexType convAnnexType = boSvc.findBySinglePrimaryKey(ConveyanceAnnexType.class, 1001l);
+		assertNotNull(convAnnexType);
+		assertEquals("land board approval", convAnnexType.getName());
+		//C
+		convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("signed affidavit");
+		boSvc.save(convAnnexType);
+		//R
+		convAnnexType.refresh();
+		//U
+		convAnnexType.setDescription("signed before a commissioner of oaths");
+		convAnnexType.refresh();
+		assertNotNull(convAnnexType.getDescription());
+		//D
+		boSvc.delete(convAnnexType);
+		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAnnexType.class, convAnnexType.getId()));
+	}
+	
+	@Test(expected=DataIntegrityViolationException.class)
+	/**
+	 * test that non nullable fields for {@link ConveyanceAnnexType} throw a DB exception
+	 */
+	public void testConveyanceAnnexTypeNullableFields() {
+		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
+		boSvc.save(convAnnexType);
 	}
 	
 	@Test
-	@Ignore
-	public void testCaseAnnexRetrieve() {
-		CaseAnnex cnx = boSvc.findBySinglePrimaryKey(CaseAnnex.class, new Long(1));
-		assertNotNull(cnx);
-		assertNotNull(cnx.getAnnex());
-		assertEquals("2121", cnx.getAnnex().getAnnexDocumentNumber());
+	/**
+	 * test CRUD for {@link ConveyanceAnnexType}
+	 */
+	public void testConveyanceTypeCRUD() {
+		// retrieve object populated via sql script
+		ConveyanceType convType = boSvc.findBySinglePrimaryKey(ConveyanceType.class, 1001l);
+		assertNotNull(convType);
+		assertEquals("Sale of Urban Land", convType.getName());
+		//C
+		convType = new ConveyanceType();
+		convType.setName("Lease of Gov Land");
+		boSvc.save(convType);
+		//R
+		convType.refresh();
+		//U
+		convType.setDescription("hiring land from go.ke");
+		convType.refresh();
+		assertNotNull(convType.getDescription());
+		//D
+		boSvc.delete(convType);
+		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAnnexType.class, convType.getId()));
+	}
+	
+	@Test(expected=DataIntegrityViolationException.class)
+	/**
+	 * test that non nullable fields for {@link ConveyanceAnnexType} throw a DB exception
+	 */
+	public void testConveyanceTypeNullableFields() {
+		ConveyanceType convType = new ConveyanceType();
+		boSvc.save(convType);
 	}
 	
 	@Test
-	@Ignore
-	public void testCreateCaseAnnex() {
-		Annex anx = new Annex();
-		anx.setAnnexDocumentNumber("2001");
-//		anx.getDocumentHeader().setDocumentDescription("testing");
-		anx.setTypeId(1l);
-//		anx.getDocumentHeader().setDocumentNumber(anx.getDocumentNumber());
-		boSvc.save(anx);
-		anx.refresh();
-		assertNotNull(anx.getTypeId());
-		assertNotNull(anx.getAnnexType());
-		assertEquals("Court Case", anx.getAnnexType().getValue());
-		CaseAnnex cnx = new CaseAnnex();
-//		cnx.setAnnexDocumentNumber(anx.getDocumentNumber());
-		cnx.setCourtCaseId(1l);
-		cnx.setAnnexId(anx.getId());
-		boSvc.save(cnx);
-		cnx.refresh();
-		assertNotNull(cnx.getAnnex());
+	/**
+	 * test how a name is returned for clients/witnesses who are not yet created as KIM principals
+	 */
+	public void testCourtCasePersonName() {
+		fail("not yet implemented");
 	}
 }

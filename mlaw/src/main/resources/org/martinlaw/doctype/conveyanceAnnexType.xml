@@ -5,39 +5,27 @@
 	<documentTypes xmlns="ns:workflow/DocumentType"
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
-			<name>CaseStatusMaintenanceDocument</name>
-			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is maitenance doc -->
+			<name>ConveyanceAnnexTypeDocument</name>
+			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is maintenance doc -->
 			<description>Case Status Maintenance Document</description>
-			<label>Case Status Maintenance Document</label>
+			<label>Conveyance Annex Type Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
-			<!-- need to understand what this means -->
-			<!-- 
-			<serviceNamespace>KEYSAFE</serviceNamespace>
-			-->
+
 			<routePaths>
 				<routePath>
-					<start name="Initiated" /> <!--  nextNode="approvalNode" -->
-					<!-- <requests name="approvalNode" />  -->
+					<start name="Initiated" /> 
 				</routePath>
 			</routePaths>
 			<routeNodes>
+			<!-- routes to final -->
 				<start name="Initiated">
 					<activationType>P</activationType>
 					<mandatoryRoute>false</mandatoryRoute>
 					<finalApproval>true</finalApproval>
 				</start>
-				<!-- will commenting this out mean that the edoc will go to final on initiator's submit? - yes -->
-				<!-- 
-				<requests name="approvalNode">
-					<activationType>P</activationType>
-					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-					<mandatoryRoute>false</mandatoryRoute>
-					<finalApproval>false</finalApproval>
-				</requests>
-				 -->
 			</routeNodes>
 		</documentType>
 	</documentTypes>

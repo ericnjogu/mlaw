@@ -63,15 +63,42 @@
       <list>
         <value>classpath:org/martinlaw/bo/case-fee.xml</value>
          <value>classpath:org/martinlaw/bo/shared-attributes.xml</value>
+         
          <value>classpath:org/martinlaw/bo/case-status.xml</value>
          <value>classpath:org/martinlaw/bo/case-status-maintenance.xml</value>
-         <value>classpath:org/martinlaw/bo/case-status-maintenance-view.xml</value>
+         
+         <value>classpath:org/martinlaw/view/case-status-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/case-status-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/case-status-inquiry.xml</value>
+         
          <value>classpath:org/martinlaw/bo/case.xml</value>
          <value>classpath:org/martinlaw/bo/case-maintenance.xml</value>
-         <value>classpath:org/martinlaw/bo/case-maintenance-view.xml</value>
+         
+         <value>classpath:org/martinlaw/view/case-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/case-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/case-inquiry.xml</value>
+         
          <value>classpath:org/martinlaw/bo/case-client.xml</value>
          <value>classpath:org/martinlaw/bo/case-witness.xml</value>
          <value>classpath:org/martinlaw/bo/hearing-date.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/conveyance-annex-type.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance-type.xml</value>
+         
+         <value>classpath:org/martinlaw/view/conveyance-annex-type-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-type-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-annex-type-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-type-lookup.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/conveyance-annex-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-annex-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-type-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/view/case-client-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/case-client-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/case-witness-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/case-witness-lookup.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

@@ -44,7 +44,24 @@
 			 <!-- The rule template does not have any use at now  -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for case status maintenance</description>
-			<!--  the approval node has been commented out in the doc type xml - what would the effect of this config be? -->
+			<!--  the approval node has been commented out in the doc type xml - what would the effect of this config be?
+			if commenting it out has no effect, then delete -->
+			<!-- <responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities> -->
+		</rule>
+		
+		<!-- ConveyanceTypeDocument rule -->
+		<rule>
+			<name>org.martinlaw.rules.conveyanceType</name>
+			<documentType>ConveyanceTypeDocument</documentType>
+			 <!-- The rule template does not have any use at now  -->
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for ConveyanceTypeDocument maintenance</description>
 			<responsibilities>
 				<responsibility>
 					<groupName namespace= "MARTINLAW" >lawyer</groupName>

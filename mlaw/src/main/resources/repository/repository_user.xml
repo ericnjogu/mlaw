@@ -122,8 +122,9 @@
 
 	<class-descriptor class="org.martinlaw.bo.HearingDate"
 		table="martinlaw_court_case_hearing_date_t">
-		<field-descriptor name="id" column="court_case_hearing_date_id" jdbc-type="BIGINT"
-			primarykey="true" autoincrement="true" sequence-name="martinlaw_court_case_hearing_date_id_s">
+		<field-descriptor name="id" column="court_case_hearing_date_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_court_case_hearing_date_id_s">
 		</field-descriptor>
 		<field-descriptor name="courtCaseId" column="court_case_id"
 			jdbc-type="BIGINT" indexed="true" />
@@ -140,9 +141,11 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.CourtCaseFee" table="martinlaw_court_case_fee_t">
-		<field-descriptor name="id" column="court_case_fee_id" jdbc-type="BIGINT"
-			primarykey="true" autoincrement="true" sequence-name="martinlaw_court_case_fee_id_s">
+	<class-descriptor class="org.martinlaw.bo.CourtCaseFee"
+		table="martinlaw_court_case_fee_t">
+		<field-descriptor name="id" column="court_case_fee_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_court_case_fee_id_s">
 		</field-descriptor>
 		<field-descriptor name="courtCaseId" column="court_case_id"
 			jdbc-type="BIGINT" indexed="true" />
@@ -161,86 +164,78 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 	<!-- will use normal attachments to handle annexes -->
-<!-- 
-	<class-descriptor class="org.martinlaw.bo.AnnexType"
-		table="martinlaw_annex_type_t">
-		<field-descriptor name="id" column="annex_type_id"
+	<!-- <class-descriptor class="org.martinlaw.bo.AnnexType" table="martinlaw_annex_type_t"> 
+		<field-descriptor name="id" column="annex_type_id" jdbc-type="BIGINT" primarykey="true" 
+		autoincrement="true" sequence-name="martinlaw_annex_type_id_s"> <field-descriptor 
+		name="value" column="text" jdbc-type="VARCHAR" length="50" /> </field-descriptor> 
+		<field-descriptor name="versionNumber" column="ver_nbr" jdbc-type="BIGINT" 
+		locking="true" /> <field-descriptor name="objectId" column="obj_id" jdbc-type="VARCHAR" 
+		index="true" /> </class-descriptor> <class-descriptor class="org.martinlaw.bo.Annex" 
+		table="martinlaw_annex_t"> <field-descriptor name="annexDocumentNumber" column="document_number" 
+		jdbc-type="VARCHAR" length="20"> </field-descriptor> <field-descriptor name="typeId" 
+		column="annex_type_id" jdbc-type="BIGINT" indexed="true"> </field-descriptor> 
+		<field-descriptor name="id" column="annex_id" jdbc-type="BIGINT" primarykey="true" 
+		autoincrement="true" sequence-name="martinlaw_annex_id_s"> </field-descriptor> 
+		<field-descriptor name="versionNumber" column="ver_nbr" jdbc-type="BIGINT" 
+		locking="true" /> <field-descriptor name="objectId" column="obj_id" jdbc-type="VARCHAR" 
+		index="true" /> <reference-descriptor name="annexType" class-ref="org.martinlaw.bo.AnnexType" 
+		auto-retrieve="true" auto-update="link" auto-delete="none"> <foreignkey field-ref="typeId" 
+		/> </reference-descriptor> <reference-descriptor name="annexDocument" class-ref="org.kuali.rice.krad.bo.DocumentHeader" 
+		auto-retrieve="true" auto-update="link" auto-delete="object"> <foreignkey 
+		field-ref="annexDocumentNumber" /> </reference-descriptor> </class-descriptor> 
+		<class-descriptor class="org.martinlaw.bo.AnnexDocument" table="martinlaw_annex_document_t"> 
+		<field-descriptor name="documentNumber" column="document_number" jdbc-type="VARCHAR" 
+		primarykey="true" length="20"> </field-descriptor> <field-descriptor name="annexId" 
+		column="annex_id" jdbc-type="BIGINT" indexed="true"/> <field-descriptor name="versionNumber" 
+		column="ver_nbr" jdbc-type="BIGINT" locking="true" /> <field-descriptor name="objectId" 
+		column="obj_id" jdbc-type="VARCHAR" index="true" /> <reference-descriptor 
+		name="annex" class-ref="org.martinlaw.bo.Annex" auto-retrieve="true" auto-update="link" 
+		auto-delete="none"> <foreignkey field-ref="annexId" /> </reference-descriptor> 
+		<reference-descriptor name="documentHeader" class-ref="org.kuali.rice.krad.bo.DocumentHeader" 
+		auto-retrieve="true" auto-update="object" auto-delete="object"> <foreignkey 
+		field-ref="documentNumber" /> </reference-descriptor> </class-descriptor> 
+		<class-descriptor class="org.martinlaw.bo.CaseAnnex" table="court_case_annex_t"> 
+		<field-descriptor name="id" column="case_annex_id" jdbc-type="BIGINT" primarykey="true" 
+		autoincrement="true" sequence-name="court_case_annex_id_s"> </field-descriptor> 
+		<field-descriptor name="courtCaseId" column="court_case_id" jdbc-type="BIGINT" 
+		indexed="true" /> <field-descriptor name="annexId" column="annex_id" jdbc-type="BIGINT"> 
+		</field-descriptor> <reference-descriptor name="annex" class-ref="org.martinlaw.bo.Annex" 
+		auto-retrieve="true" auto-update="true" auto-delete="none"> <foreignkey field-ref="annexId" 
+		/> </reference-descriptor> </class-descriptor> -->
+
+	<class-descriptor class="org.martinlaw.bo.ConveyanceType"
+		table="martinlaw_convey_type_t">
+		<field-descriptor name="id" column="convey_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_annex_type_id_s">
-			<field-descriptor name="value" column="text"
-				jdbc-type="VARCHAR" length="50" />
+			sequence-name="martinlaw_convey_type_id_s">
 		</field-descriptor>
+		<field-descriptor name="name" column="name"
+				jdbc-type="VARCHAR" length="150">
+			</field-descriptor>
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="100">			
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+				jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-			</class-descriptor>
-
-		<class-descriptor class="org.martinlaw.bo.Annex"
-			table="martinlaw_annex_t">
-			<field-descriptor name="annexDocumentNumber" column="document_number"
-				jdbc-type="VARCHAR" length="20">
-			</field-descriptor>
-			<field-descriptor name="typeId" column="annex_type_id"
-				jdbc-type="BIGINT" indexed="true">
-			</field-descriptor>
-			<field-descriptor name="id" column="annex_id"
-				jdbc-type="BIGINT" primarykey="true" autoincrement="true" sequence-name="martinlaw_annex_id_s">
-			</field-descriptor>
-			<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-			<reference-descriptor name="annexType"
-				class-ref="org.martinlaw.bo.AnnexType" auto-retrieve="true"
-				auto-update="link" auto-delete="none">
-				<foreignkey field-ref="typeId" />
-			</reference-descriptor>
-			
-			<reference-descriptor name="annexDocument" class-ref="org.kuali.rice.krad.bo.DocumentHeader" 
-		auto-retrieve="true" auto-update="link" auto-delete="object">
-			<foreignkey field-ref="annexDocumentNumber" />
-		</reference-descriptor>
-		
-		</class-descriptor>
-		
-		<class-descriptor class="org.martinlaw.bo.AnnexDocument"
-			table="martinlaw_annex_document_t">
-			<field-descriptor name="documentNumber" column="document_number"
-				jdbc-type="VARCHAR" primarykey="true" length="20">
-			</field-descriptor>
-			<field-descriptor name="annexId" column="annex_id"
-				jdbc-type="BIGINT" indexed="true"/>
-			<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-			<reference-descriptor name="annex"
-				class-ref="org.martinlaw.bo.Annex" auto-retrieve="true"
-				auto-update="link" auto-delete="none">
-				<foreignkey field-ref="annexId" />
-			</reference-descriptor>
-			<reference-descriptor name="documentHeader" class-ref="org.kuali.rice.krad.bo.DocumentHeader" 
-		auto-retrieve="true" auto-update="object" auto-delete="object">
-			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>
-		</class-descriptor>
-		
-		<class-descriptor class="org.martinlaw.bo.CaseAnnex"
-			table="court_case_annex_t">
-			<field-descriptor name="id" column="case_annex_id" jdbc-type="BIGINT"
-			primarykey="true" autoincrement="true" sequence-name="court_case_annex_id_s">
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.ConveyanceAnnexType"
+		table="martinlaw_convey_annex_type_t">
+		<field-descriptor name="id" column="convey_annex_type_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_convey_annex_type_id_s">
 		</field-descriptor>
-		<field-descriptor name="courtCaseId" column="court_case_id"
-			jdbc-type="BIGINT" indexed="true" />
-			<field-descriptor name="annexId" column="annex_id"
-				jdbc-type="BIGINT">
+		<field-descriptor name="name" column="name"
+				jdbc-type="VARCHAR" length="150">
 			</field-descriptor>
-			<reference-descriptor name="annex"
-				class-ref="org.martinlaw.bo.Annex" auto-retrieve="true" auto-update="true"
-				auto-delete="none">
-				<foreignkey field-ref="annexId" />
-			</reference-descriptor>
-		</class-descriptor>
-		 -->
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="100">			
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+				jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
 </descriptor-repository>

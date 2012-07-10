@@ -15,31 +15,26 @@
 	<packaging>war</packaging>
 	<name>mlaw</name>
 	<version>0.1-SNAPSHOT</version>
-	
+
 	<properties>
-    <rice.version>2.2.0-M2-SNAPSHOT</rice.version>
-    <spring.version>3.1.0.RELEASE</spring.version>
+		<rice.version>2.2.0-M2-SNAPSHOT</rice.version><!-- 2.2.0-M1, 2.1.0-M2, 
+			2.2.0-M2-SNAPSHOT -->
+		<spring.version>3.1.0.RELEASE</spring.version>
 	</properties>
-	
+
 	<build>
 		<plugins>
-			<!-- <plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin> -->
 			<plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>8.1.4.v20120524</version>
-        <configuration>
-    <webApp>
-      <contextPath>/mlaw</contextPath>
-    </webApp>
-  </configuration>
-        </plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.4.v20120524</version>
+				<configuration>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/mlaw</contextPath>
+					</webApp>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -75,49 +70,57 @@
 			<artifactId>rice-krms-impl</artifactId>
 			<version>${rice.version}</version>
 		</dependency>
-		<!-- <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc14</artifactId> 
-			<version>10.2.0.3.0</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.18</version>
 			<!-- <scope>provided</scope> -->
 		</dependency>
-		
-		<dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-it-krad</artifactId>
-      <version>${rice.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
 
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-it-internal-tools</artifactId>
-      <version>${rice.version}</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <artifactId>rice-it-kim</artifactId>
-      <version>${rice.version}</version>
-      <scope>test</scope>
-      <type>test-jar</type>
-    </dependency>
-    
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${spring.version}</version>
-        <scope>test</scope>
-      </dependency>
-    <dependency>
-        <groupId>antlr</groupId>
-        <artifactId>antlr</artifactId>
-        <version>2.7.7</version>
-      </dependency>
+		<dependency>
+			<groupId>org.kuali.rice</groupId>
+			<artifactId>rice-it-krad</artifactId>
+			<version>${rice.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kuali.rice</groupId>
+			<artifactId>rice-it-internal-tools</artifactId>
+			<version>${rice.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kuali.rice</groupId>
+			<artifactId>rice-it-kim</artifactId>
+			<version>${rice.version}</version>
+			<scope>test</scope>
+			<type>test-jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>2.7.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.carol</groupId>
+			<artifactId>carol</artifactId>
+			<version>3.0.6</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>

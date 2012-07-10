@@ -9,19 +9,20 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
   
 
-  <bean id="case_status_maintenance_view" parent="Uif-MaintenanceView">
-    <property name="headerText" value="Court Case Status"/>
-    <property name="dataObjectClassName" value="org.martinlaw.bo.CourtCaseStatus"/>
+  <bean id="conveyance_type_maintenance_view" parent="Uif-MaintenanceView">
+    <property name="headerText" value="Conveyance Annex Type"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.ConveyanceType"/>
     <property name="items">
       <list merge="true">
         <bean parent="Uif-MaintenanceGridSection">
           <property name="items">
             <list>
-              <bean parent="Uif-InputField" p:propertyName="id"/>
-              <bean parent="Uif-InputField" p:propertyName="status"/>
+              <bean parent="Uif-InputField" p:propertyName="id"  p:readOnly="true"/>
+              <bean parent="Uif-InputField" p:propertyName="name"/>
+              <bean parent="Uif-InputField" p:propertyName="description"/>
             </list>
           </property>
-          <property name="headerText" value="Case Status"/>
+          <property name="headerText" value="Details"/>
         </bean>
       </list>
     </property>

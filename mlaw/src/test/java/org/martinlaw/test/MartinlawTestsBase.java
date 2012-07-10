@@ -1,6 +1,5 @@
 package org.martinlaw.test;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +12,10 @@ import org.kuali.test.KRADTestCase;
 public abstract class MartinlawTestsBase extends KRADTestCase {
 
 	public MartinlawTestsBase() {
-		super("mlaw");
+		// TODO - can this be retrieved from the properties? (maybe they are not available at this time) or JVM params?
+		super("mlaw");//provide module name to override default krad test module name - works for 2.2.0-M2-SNAPSHOT+*/
+		//super();// to allow pre 2.2.0-M2 to compile
+		//setModuleName("mlaw");*/
 	}	
 
 	/* (non-Javadoc)
@@ -27,23 +29,13 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
     	springResourceLoader.setParentSpringResourceLoader(getTestHarnessSpringResourceLoader());
     	return springResourceLoader;
 	}
-
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.test.RiceTestCase#configureLogging()
-	 */
-	@Override
-	protected void configureLogging() throws IOException {
-		//use custom logging configuration - does not appear work
-		System.setProperty("alt.log4j.config.location","classpath:log4j.properties" );
-		super.configureLogging();
-	}
 	
 	@Override
 	/**
 	 * make sure the right module name is set so that the relevant config files are loaded
 	 */
 	protected List<String> getConfigLocations() {
-		return Arrays.asList(new String[]{"classpath:META-INF/martinlaw-test-config.xml", "classpath:META-INF/krad-test-config.xml"});
+		return Arrays.asList(new String[]{"classpath:META-INF/mlaw-test-config.xml", "classpath:META-INF/krad-test-config.xml"});
 	}
 
 }

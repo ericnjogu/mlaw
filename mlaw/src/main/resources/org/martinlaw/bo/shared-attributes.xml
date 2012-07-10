@@ -40,21 +40,58 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	
 	<bean id="martinlaw-shared-id" parent="martinlaw-shared-id-parentBean"/>
 
-<!-- only meant to be displayed, does the absence of a controlField have any effect? -->
-  <bean id="martinlaw-shared-id-parentBean" abstract="true" parent="AttributeDefinition">
+<!-- only meant to be displayed -->
+  <bean id="martinlaw-shared-id-parentBean" abstract="true" parent="AttributeReferenceDummy-genericSystemId">
     <property name="forceUppercase" value="false"/>
-    <property name="shortLabel" value="Id"/>
-    <property name="maxLength" value="10"/>
+    <property name="shortLabel" value="System Id"/>
+    <property name="maxLength" value="20"/>
     <property name="validationPattern">
       <bean parent="AnyCharacterValidationPattern"/>
-    </property>
-    <property name="control">
-      <bean parent="TextControlDefinition" p:size="10"/>
     </property>
     <property name="summary" value="Id"/>
     <property name="name" value="id"/>
     <property name="label" value="Id"/>
-    <property name="description" value="Unique Id"/>
+    <property name="description" value="Unique System Id"/>
+    <!-- can be changed into Uif-HiddenControl -->
+		<property name="controlField">
+			<bean parent="Uif-TextControl" p:size="20" />
+		</property>
   </bean>
+  
+  <bean id="martinlaw-shared-description" parent="martinlaw-shared-description-parentBean"/>
+  
+  <bean id="martinlaw-shared-description-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="forceUppercase" value="false"/>
+    <property name="shortLabel" value="Description"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
+    </property>
+    <property name="summary" value="Description"/>
+    <property name="name" value="description"/>
+    <property name="label" value="Description"/>
+    <property name="description" value="Description"/>
+    <property name="controlField">
+      <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="30" p:maxLength="100"/>
+    </property>  
+  </bean>
+  
+  <bean id="martinlaw-shared-name" parent="martinlaw-shared-name-parentBean"/>
+  
+  <bean id="martinlaw-shared-name-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="false" />
+		<property name="shortLabel" value="Name" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
+		<property name="summary" value="Name" />
+		<property name="name" value="name" />
+		<property name="label" value="Name" />
+		<property name="description" value="Name" />
+		<property name="controlField">
+			<bean parent="Uif-TextControl" p:size="100" />
+		</property>
+		<property name="required" value="true" />
+	</bean>
 
 </beans>

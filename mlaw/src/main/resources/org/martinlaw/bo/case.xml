@@ -3,23 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-	<!-- Copyright 2010-2011 Protosoft Ltd Licensed under the Educational Community 
-		License, Version 2.0 (the "License"); you may not use this file except in 
-		compliance with the License. You may obtain a copy of the License at http://www.opensource.org/licenses/ecl2.php 
-		Unless required by applicable law or agreed to in writing, software distributed 
-		under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
-		OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
-		the specific language governing permissions and limitations under the License. -->
+	<!-- Copyright 2010-2011 Protosoft Ltd -->
 	<bean id="case" parent="case-parentBean" />
 
 	<bean id="case-parentBean" abstract="true" parent="BusinessObjectEntry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.CourtCase" />
-		<property name="inquiryDefinition">
-			<ref bean="case-inquiryDefinition" />
-		</property>
-		<property name="lookupDefinition">
-			<ref bean="case-lookupDefinition" />
-		</property>
 		<property name="titleAttribute" value="localReference" />
 		<property name="attributes">
 			<list>
@@ -32,37 +20,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			</list>
 		</property>
 		<property name="boNotesEnabled" value="true" />
-		<!-- TODO add relationship(s) to status, client, witness etc -->
-
-		<property name="relationships">
-			<list>
-				<!-- 
-				This may have been taken care of using ojb mapping
-				<bean parent="RelationshipDefinition">
-					<property name="objectAttributeName" value="status" />
-					<property name="targetClass" value="org.martinlaw.bo.CourtCaseStatus" />
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="statusId"
-								p:targetName="id" />
-						</list>
-					</property>
-				</bean> -->
-				<!-- 
-				<bean parent="RelationshipDefinition">
-					<property name="objectAttributeName" value="annexes" />
-					<property name="targetClass" value="org.martinlaw.bo.CaseAnnex" />
-					<property name="primitiveAttributes">
-						<list>
-							<bean parent="PrimitiveAttributeDefinition" p:sourceName="id"
-								p:targetName="courtCaseId" />
-						</list>
-					</property>
-				</bean>
-				 -->
-			</list>
-		</property>
-
 		<property name="objectLabel" value="name" />
 	</bean>
 
@@ -85,8 +42,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="label" value="Court Case Id" />
 		<property name="description" value="Court Case Id" />
 		<property name="controlField">
-      <bean parent="Uif-TextControl" p:size="20" p:readOnly="true"/>
-    </property>
+		<!--  can be changed into  Uif-HiddenControl -->
+			<bean parent="Uif-TextControl" p:size="20" />
+		</property>
 	</bean>
 
 	<bean id="case-localReference" parent="case-localReference-parentBean" />
@@ -105,11 +63,11 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="required" value="true" />
 		<property name="summary" value="Reference Number" />
 		<property name="name" value="localReference" />
-		<property name="label" value="Reference Number" />
+		<property name="label" value="Local Reference Number" />
 		<property name="description" value="Local Reference Number" />
 		<property name="controlField">
-      <bean parent="Uif-TextControl" p:size="20"/>
-    </property>
+			<bean parent="Uif-TextControl" p:size="20" />
+		</property>
 	</bean>
 
 	<bean id="case-courtReference" parent="case-courtReference-parentBean" />
@@ -130,13 +88,13 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="label" value="Court Case Number" />
 		<property name="description" value="Court Case Number" />
 		<property name="controlField">
-      <bean parent="Uif-TextControl" p:size="20"/>
-    </property>
+			<bean parent="Uif-TextControl" p:size="20" />
+		</property>
 	</bean>
 
-	<bean id="courtcase-name" parent="courtcase-name-parentBean" />
+	<bean id="courtcase-name" parent="martinlaw-shared-name" />
 
-	<bean id="courtcase-name-parentBean" abstract="true"
+	<!-- <bean id="courtcase-name-parentBean" abstract="true"
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Case Name" />
@@ -152,9 +110,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="label" value="Case Name" />
 		<property name="description" value="Case Name" />
 		<property name="controlField">
-      <bean parent="Uif-TextControl" p:size="100"/>
-    </property>
-	</bean>
+			<bean parent="Uif-TextControl" p:size="100" />
+		</property>
+		<property name="required" value="true" />
+	</bean> -->
 
 	<bean id="courtcase-statusId" parent="courtcase-statusId-parentBean" />
 
@@ -166,16 +125,21 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="validationPattern">
 			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
 		</property>
-		<property name="control">
-			<bean parent="SelectControlDefinition" p:businessObjectClass="org.martinlaw.bo.CourtCaseStatus"
-				p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:includeKeyInLabel="false" p:includeBlankRow="true" p:keyAttribute="id"
-				p:labelAttribute="status" />
-		</property>
 		<property name="summary" value="Case Status" />
 		<property name="name" value="statusId" />
 		<property name="label" value="Case Status" />
 		<property name="description" value="Case Status" />
+		<property name="required" value="true" />
+		<property name="optionsFinder">
+			<bean
+				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.CourtCaseStatus"
+				p:keyAttributeName="id"	p:labelAttributeName="status">
+			</bean>
+		</property>
+		<property name="controlField">
+				<bean parent="Uif-DropdownControl" />
+			</property>
 	</bean>
 
 	<!-- for displaying on the inquiry/lookup results -->
@@ -183,148 +147,5 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="name" value="status.status" />
 	</bean>
 
-	<!-- Business Object Inquiry Definition -->
 
-	<bean id="case-inquiryDefinition" parent="case-inquiryDefinition-parentBean" />
-
-	<bean id="case-inquiryDefinition-parentBean" abstract="true"
-		parent="InquiryDefinition">
-		<property name="inquirySections">
-			<list>
-				<bean parent="InquirySectionDefinition">
-					<property name="numberOfColumns" value="1" />
-					<property name="inquiryFields">
-						<list>
-							<bean parent="FieldDefinition" p:attributeName="name" />
-							<bean parent="FieldDefinition" p:attributeName="localReference" />
-							<bean parent="FieldDefinition" p:attributeName="courtReference" />
-							<!-- TODO find out how to display label -->
-
-							<bean parent="FieldDefinition" p:attributeName="status.status" />
-
-						</list>
-					</property>
-					<property name="title" value="References" />
-				</bean>
-
-				<!-- collections -->
-
-				<bean parent="InquirySectionDefinition">
-					<property name="title" value="Hearing Dates" />
-					<property name="defaultOpen" value="true" />
-					<property name="numberOfColumns" value="1" />
-					<property name="inquiryFields">
-						<list>
-							<bean parent="InquiryCollectionDefinition">
-								<property name="attributeName" value="hearingDates" />
-								<property name="businessObjectClass" value="org.martinlaw.bo.HearingDate" />
-								<property name="numberOfColumns" value="2" />
-								<property name="inquiryFields">
-									<list>
-										<bean parent="FieldDefinition" p:attributeName="date" />
-										<bean parent="FieldDefinition" p:attributeName="comment" />
-									</list>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean>
-
-				<bean parent="InquirySectionDefinition">
-					<property name="title" value="Clients" />
-					<property name="defaultOpen" value="true" />
-					<property name="numberOfColumns" value="1" />
-					<property name="inquiryFields">
-						<list>
-							<bean parent="InquiryCollectionDefinition">
-								<property name="attributeName" value="clients" />
-								<property name="businessObjectClass" value="org.martinlaw.bo.CourtCaseClient" />
-								<property name="numberOfColumns" value="1" />
-								<property name="inquiryFields">
-									<list>
-										<bean parent="FieldDefinition" p:attributeName="principalName" />
-									</list>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean>
-
-				<bean parent="InquirySectionDefinition">
-					<property name="title" value="Fees Received" />
-					<property name="defaultOpen" value="true" />
-					<property name="numberOfColumns" value="1" />
-					<property name="inquiryFields">
-						<list>
-							<bean parent="InquiryCollectionDefinition">
-								<property name="attributeName" value="fees" />
-								<property name="businessObjectClass" value="org.martinlaw.bo.Fee" />
-								<property name="numberOfColumns" value="3" />
-								<property name="inquiryFields">
-									<list>
-										<bean parent="FieldDefinition" p:attributeName="date" />
-										<bean parent="FieldDefinition" p:attributeName="description" />
-										<bean parent="FieldDefinition" p:attributeName="amount" />
-									</list>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean>
-
-				<bean parent="InquirySectionDefinition">
-					<property name="title" value="Witnesses" />
-					<property name="defaultOpen" value="true" />
-					<property name="numberOfColumns" value="1" />
-					<property name="inquiryFields">
-						<list>
-							<bean parent="InquiryCollectionDefinition">
-								<property name="attributeName" value="witnesses" />
-								<property name="businessObjectClass" value="org.martinlaw.bo.CourtCaseWitness" />
-								<property name="numberOfColumns" value="1" />
-								<property name="inquiryFields">
-									<list>
-										<bean parent="FieldDefinition" p:attributeName="principalName" />
-									</list>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean>
-
-			</list>
-		</property>
-		<property name="title" value="Court Case Inquiry" />
-	</bean>
-
-	<!-- Business Object Lookup Definition -->
-
-
-	<bean id="case-lookupDefinition" parent="case-lookupDefinition-parentBean" />
-
-	<bean id="case-lookupDefinition-parentBean" abstract="true"
-		parent="LookupDefinition">
-
-		<property name="defaultSort">
-			<bean parent="SortDefinition">
-			</bean>
-		</property>
-		<property name="lookupFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="name" />
-				<bean parent="FieldDefinition" p:attributeName="localReference" />
-				<bean parent="FieldDefinition" p:attributeName="courtReference" />
-				<bean parent="FieldDefinition" p:attributeName="statusId" />
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="FieldDefinition" p:attributeName="name" />
-				<bean parent="FieldDefinition" p:attributeName="localReference" />
-				<bean parent="FieldDefinition" p:attributeName="courtReference" />
-				<bean parent="FieldDefinition" p:attributeName="status.status" />
-			</list>
-		</property>
-		<property name="title" value="Case Lookup" />
-	</bean>
 </beans>

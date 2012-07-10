@@ -46,7 +46,7 @@ public class CourtCaseWitness extends CourtCasePerson {
 	@Override
 	protected LinkedHashMap<String, Object> toStringMapper() {
 		LinkedHashMap<String, Object> propMap = super.toStringMapper();
-		// propMap.put("courtCaseWitnessId", getId());
+		propMap.put("id", getId());
 		return propMap;
 	}
 

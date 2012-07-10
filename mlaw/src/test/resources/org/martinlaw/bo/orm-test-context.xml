@@ -25,6 +25,11 @@
 				<value>org.martinlaw.bo.CourtCasePerson</value>
 				<value>org.martinlaw.bo.CourtCase</value>
 				<value>org.martinlaw.bo.sequence.CaseSeq</value>
+				
+				<value>org.martinlaw.bo.ConveyanceAnnexType</value>
+				<value>org.martinlaw.bo.ConveyanceType</value>
+				<value>org.martinlaw.bo.sequence.ConveyAnnexTypeSeq</value>
+				<value>org.martinlaw.bo.sequence.ConveyTypeSeq</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

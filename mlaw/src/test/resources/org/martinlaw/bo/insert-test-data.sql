@@ -22,3 +22,15 @@ martinlaw_court_case_fee_t
 values
 (1001,1001,2500.58,'2011-06-12','received from karateka', default, 1),
 (1002,1001,10000.00,'2010-08-10','received from artist', default, 1);
+
+insert into
+martinlaw_convey_annex_type_t
+(convey_annex_type_id, name, description, ver_nbr, obj_id)
+values
+(1001, "land board approval", null, default, 1);
+
+insert into
+martinlaw_convey_type_t
+(convey_type_id, name, description, ver_nbr, obj_id)
+values
+(1001, "Sale of Urban Land", null, default, 1);

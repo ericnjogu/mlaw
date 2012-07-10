@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 
@@ -72,7 +73,17 @@ public abstract class CourtCasePerson extends CourtCaseCollectionBase {
 	 * @return the client
 	 */
 	public org.kuali.rice.kim.api.identity.Person getPerson() {
-		person = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(getPrincipalName());
+		if ((person == null) || !StringUtils.equals(person.getPrincipalName(), getPrincipalName())) {
+			person = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(getPrincipalName());
+
+            if (person == null) {
+                try {
+                    person = KimApiServiceLocator.getPersonService().getPersonImplementationClass().newInstance();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 		return person;
 	}
 }

@@ -18,21 +18,20 @@ import org.kuali.rice.kew.service.KEWServiceLocator;
  *
  */
 public class KEWRulesDoctypeTest extends KewTestsBase {
-	/*private RuleService ruleSvc;
-	private DocumentTypeService docTypeService;*/
 	/**
 	 * convenience method to retrive obj ref 
 	 */
 	private org.kuali.rice.kew.api.rule.RuleService getRuleSvc() {
 		return KewApiServiceLocator.getRuleService();
 	}
+	/**
+	 * convenience method to retrive obj ref 
+	 */
 	private DocumentTypeService getDocTypeSvc() {
 		return KEWServiceLocator.getDocumentTypeService();
 	}
 	@Test
 	public void testCaseRule() {
-		//KualiRuleService ruleSvc = KNSServiceLocator.getKualiRuleService();
-		//getRuleSvc().
 		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.case");
 		assertEquals("Routing rule for case maintenance", rule.getDescription());
 		assertEquals("org.martinlaw.defaultApprovalTemplate",rule.getRuleTemplate().getName());
@@ -51,20 +50,11 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	}
 	
 	@Test
-	@Ignore
-	public void testConveyanceAnnexRule() {
-		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.conveyanceAnnex");
-		assertEquals("Routing rule for conveyance annex transaction document", rule.getDescription());
+	public void testConveyanceTypeRule() {
+		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.conveyanceType");
+		assertEquals("Routing rule for ConveyanceTypeDocument maintenance", rule.getDescription());
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.test.RiceTestCase#getBaseDir()
-	 */
-	//this is set in eclipse junit run configuration for working directory
-	/*@Override
-	protected String getBaseDir() {
-		return "/home/mugo/apps/rice-1.0.3.1-src/impl";
-	}*/
 	@Test
 	public void testCaseDoctype() {
 		assertNotNull(getDocTypeSvc().findByName("CaseMaintenanceDocument"));
@@ -80,8 +70,12 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	}
 	
 	@Test
-	@Ignore
-	public void testConveyanceAnnexDocType() {
-		assertNotNull(getDocTypeSvc().findByName("ConveyanceAnnexDocument"));
+	public void testConveyanceTypeDocType() {
+		assertNotNull(getDocTypeSvc().findByName("ConveyanceTypeDocument"));
+	}
+	
+	@Test
+	public void testConveyanceAnnexTypeDocType() {
+		assertNotNull(getDocTypeSvc().findByName("ConveyanceAnnexTypeDocument"));
 	}
 }

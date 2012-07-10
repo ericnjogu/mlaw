@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="court_case_inquiry_view" parent="Uif-InquiryView">
+    <property name="headerText" value="Court Case Inquiry"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.CourtCase"/>
+    <property name="Items">
+      <list>
+        <bean parent="Uif-Disclosure-GridSection">
+          <property name="headerText" value="Case Information"/>
+          <property name="layoutManager.numberOfColumns" value="2"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="id"/>
+              <bean parent="Uif-InputField" p:propertyName="localReference"/>
+              <bean parent="Uif-InputField" p:propertyName="courtReference"/>
+              <bean parent="Uif-InputField" p:propertyName="name"/>
+              <bean parent="Uif-InputField" p:propertyName="statusId"/>
+            </list>
+          </property>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Hearing Dates"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.HearingDate"/>
+          <property name="propertyName" value="hearingDates"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="date"/>
+              <bean parent="Uif-InputField" p:propertyName="comment"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>date</value>
+            </list>           
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Hearing Date"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Clients"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseClient"/>
+          <property name="propertyName" value="clients"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="principalName"/>
+              <bean parent="Uif-InputField" p:propertyName="person.firstName"/>
+              <bean parent="Uif-InputField" p:propertyName="person.lastName"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>person.lastName</value>
+              <value>person.firstName</value>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Client"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Witnesses"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseWitness"/>
+          <property name="propertyName" value="witnesses"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="principalName"/>
+              <bean parent="Uif-InputField" p:propertyName="person.firstName"/>
+              <bean parent="Uif-InputField" p:propertyName="person.lastName"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>person.lastName</value>
+              <value>person.firstName</value>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Witness"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Fees Received"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseFee"/>
+          <property name="propertyName" value="fees"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="amount"/>
+              <bean parent="Uif-InputField" p:propertyName="date"/>
+              <bean parent="Uif-InputField" p:propertyName="description"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>amount</value>
+              <value>date</value>
+            </list>           
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Fee"/>
+        </bean>
+      </list>
+    </property>
+  </bean>
+</beans>

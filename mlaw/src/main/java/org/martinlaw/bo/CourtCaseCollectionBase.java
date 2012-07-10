@@ -9,8 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 /**
- * @author mugo
  * holds the common fields present in objects that appear in the court case as a collection
+ * 
+ * @author mugo
  */
 @MappedSuperclass
 public class CourtCaseCollectionBase extends org.kuali.rice.krad.bo.PersistableBusinessObjectBase {
@@ -37,22 +38,8 @@ public class CourtCaseCollectionBase extends org.kuali.rice.krad.bo.PersistableB
 	protected LinkedHashMap<String, Object> toStringMapper() {
 		LinkedHashMap<String, Object> propMap = new LinkedHashMap<String, Object>();
 		propMap.put("courtCaseId", getCourtCaseId());
-		// propMap.put("id", getId());
 		return propMap;
 	}
-	
-	/**
-	 * @param id the id to set
-	 *//*
-	public void setId(Long id) {
-		this.id = id;
-	}
-	*//**
-	 * @return the id
-	 *//*
-	public Long getId() {
-		return id;
-	}*/
 	
 	/**
 	 * @return the courtCaseId

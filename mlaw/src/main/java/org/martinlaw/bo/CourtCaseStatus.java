@@ -46,8 +46,6 @@ public class CourtCaseStatus extends PersistableBusinessObjectBase {
 	 */
 	@Id
 	@Column(name="court_case_status_id")
-	/*@GeneratedValue(strategy=GenerationType.TABLE, generator="case_status_gen")
-	@TableGenerator(name="case_status_gen", initialValue=1000, table="martinlaw_court_case_status_id_s", valueColumnName="id") */
 	private Long id;
 	/**
 	 * e.g. 'pending hearing date'
