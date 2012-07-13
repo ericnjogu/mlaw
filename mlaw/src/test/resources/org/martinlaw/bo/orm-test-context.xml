@@ -30,6 +30,11 @@
 				<value>org.martinlaw.bo.ConveyanceType</value>
 				<value>org.martinlaw.bo.sequence.ConveyAnnexTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ConveyTypeSeq</value>
+				<value>org.martinlaw.bo.MartinlawPerson</value>
+				<value>org.martinlaw.bo.sequence.ConveyAnnexSeq</value>
+				<value>org.martinlaw.bo.ConveyanceAttachment</value>
+				<value>org.martinlaw.bo.ConveyanceAnnex</value>
+				<value>org.martinlaw.bo.sequence.ConveyAttSeq</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

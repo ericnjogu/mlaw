@@ -27,7 +27,9 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
 import org.kuali.rice.test.SQLDataLoader;
+import org.martinlaw.bo.ConveyanceAnnex;
 import org.martinlaw.bo.ConveyanceAnnexType;
+import org.martinlaw.bo.ConveyanceAttachment;
 import org.martinlaw.bo.ConveyanceType;
 import org.martinlaw.bo.CourtCase;
 import org.martinlaw.bo.CourtCaseClient;
@@ -36,6 +38,7 @@ import org.martinlaw.bo.CourtCasePerson;
 import org.martinlaw.bo.CourtCaseWitness;
 import org.martinlaw.bo.Fee;
 import org.martinlaw.bo.HearingDate;
+import org.martinlaw.bo.MartinlawPerson;
 import org.martinlaw.bo.Status;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
@@ -214,7 +217,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * @param principalName - the principal name e.g. enjogu
 	 */
 	protected <T extends BusinessObject> void testCourtCasePersonCRUD(T t, String principalName) {
-		CourtCasePerson casePersonRetrieve = (CourtCasePerson) boSvc.findBySinglePrimaryKey(t.getClass(), new Long(1001));
+		MartinlawPerson casePersonRetrieve = (MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), new Long(1001));
 		assertNotNull(casePersonRetrieve);
 		assertEquals(principalName, casePersonRetrieve.getPrincipalName());
 		// C
@@ -231,7 +234,7 @@ public class BOTest extends MartinlawTestsBase {
 		casePerson.refresh();
 		// D
 		boSvc.delete(casePerson);
-		assertNull((CourtCasePerson) boSvc.findBySinglePrimaryKey(t.getClass(), casePerson.getId()));
+		assertNull((MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), casePerson.getId()));
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -292,6 +295,23 @@ public class BOTest extends MartinlawTestsBase {
 		Class<ConveyanceAnnexType> dataObjectClass = ConveyanceAnnexType.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
+	
+	@Test
+	/**
+	 * test that {@link ConveyanceAttachment} is loaded into the data dictionary
+	 */
+	public void testConveyanceAttachmentAttributes() {
+		testBoAttributesPresent("org.martinlaw.bo.ConveyanceAttachment");
+	}
+	
+	@Test
+	/**
+	 * test that {@link ConveyanceAnnex} is loaded into the data dictionary
+	 */
+	public void testConveyanceAnnexAttributes() {
+		testBoAttributesPresent("org.martinlaw.bo.ConveyanceAnnex");
+	}
+	
 
 	/**
 	 * check for lookup, inquiry, maint view definitions, maintenance entry def
@@ -493,7 +513,7 @@ public class BOTest extends MartinlawTestsBase {
 	public void testStatusRetrieve() {
 		List<Status> caseStatuses = (List<Status>) boSvc.findAll(Status.class);
 		assertNotNull(caseStatuses);
-		assertEquals(4, caseStatuses.size());
+		assertEquals(5, caseStatuses.size());
 		Status status = boSvc.findBySinglePrimaryKey(Status.class, new Long(1003));
 		assertNotNull(status);
 		assertEquals("closed", status.getStatus());
@@ -620,23 +640,109 @@ public class BOTest extends MartinlawTestsBase {
 	 * test how a name is returned for clients/witnesses who are not yet created as KIM principals
 	 */
 	public void testCourtCasePersonName() {
-		CourtCasePerson client = new CourtCaseClient();
+		MartinlawPerson client = new CourtCaseClient();
 		client.setPrincipalName("clientX");
-		// should cause an error 
+		// should there be an error here - if the principalName does not represent a valid person? 
 		assertNotNull(client.getPerson().getName());
 	}
 	
 	@Test
+	/**
+	 * test that court case status type key values returns the correct number
+	 */
 	public void testCourtCaseStatusKeyValues() {
 		CourtCaseStatusKeyValues keyValues = new CourtCaseStatusKeyValues();
-		// expected one court case type and two of any type, plus a blank one
-		assertEquals(4, keyValues.getKeyValues().size());
+		// expected 2 court case types and two of any type, plus a blank one
+		assertEquals(5, keyValues.getKeyValues().size());
 	}
 	
 	@Test
+	/**
+	 * test that conveyance status type key values returns the correct number
+	 */
 	public void testConveyanceStatusKeyValues() {
 		ConveyanceStatusKeyValues keyValues = new ConveyanceStatusKeyValues();
 		// expected one Conveyance type and two of 'any' type, plus a blank one
 		assertEquals(4, keyValues.getKeyValues().size());
+	}
+	
+	@Test
+	/**
+	 * test CRUD operations on {@link ConveyanceAttachment}
+	 */
+	public void testConveyanceAttachmentCRUD() {
+		// retrieve object inserted via sql
+		ConveyanceAttachment convAtt = boSvc.findBySinglePrimaryKey(ConveyanceAttachment.class, 1001l);
+		// C
+		assertNotNull(convAtt);
+		convAtt = new ConveyanceAttachment();
+		convAtt.setAttachmentId(1001l);
+		convAtt.setConveyanceAnnexId(1001l);
+		boSvc.save(convAtt);
+		// R
+		convAtt.refresh();
+		// U
+		convAtt.setAttachmentId(1002l);
+		convAtt.refresh();
+		// D
+		boSvc.delete(convAtt);
+		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAttachment.class, convAtt.getId()));	
+	}
+	
+	@Test(expected=DataIntegrityViolationException.class)
+	/**
+	 * test that null fields cause an error
+	 */
+	public void testConveyanceAttachmentNullableFields() {
+		ConveyanceAttachment convAtt = new ConveyanceAttachment();
+		boSvc.save(convAtt);
+	}
+	
+	@Test
+	/**
+	 * test CRUD operations on {@link ConveyanceAnnex}
+	 */
+	public void testConveyanceAnnexCRUD() {
+		// check number of existing conveyance atts
+		int existingConvAtts = boSvc.findAll(ConveyanceAttachment.class).size();
+		// retrieve object inserted via sql
+		ConveyanceAnnex convAnnex = boSvc.findBySinglePrimaryKey(ConveyanceAnnex.class, 1001l);
+		// C
+		assertNotNull(convAnnex);
+		convAnnex = new ConveyanceAnnex();
+		convAnnex.setConveyanceAnnexTypeId(1001l);
+		convAnnex.setConveyanceId(1001l);
+		// add attachments
+		List<ConveyanceAttachment> atts = new ArrayList<ConveyanceAttachment>();
+		ConveyanceAttachment convAtt = new ConveyanceAttachment();
+		convAtt.setAttachmentId(1001l);
+		atts.add(convAtt);
+		convAtt = new ConveyanceAttachment();
+		convAtt.setAttachmentId(1002l);
+		atts.add(convAtt);
+		convAnnex.setAttachments(atts);
+		boSvc.save(convAnnex);
+		// R
+		convAnnex.refresh();
+		assertEquals(2, convAnnex.getAttachments().size());
+		assertEquals(existingConvAtts + 2, boSvc.findAll(ConveyanceAttachment.class).size());
+		// U
+		boSvc.delete(convAnnex.getAttachments().get(0));
+		convAnnex.refresh();
+		assertEquals(1, convAnnex.getAttachments().size());
+		assertEquals(existingConvAtts + 1, boSvc.findAll(ConveyanceAttachment.class).size());
+		// D
+		boSvc.delete(convAnnex);
+		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAnnex.class, convAnnex.getId()));
+		assertEquals(existingConvAtts, boSvc.findAll(ConveyanceAttachment.class).size());
+	}
+	
+	@Test(expected=DataIntegrityViolationException.class)
+	/**
+	 * test that null fields cause an error
+	 */
+	public void testConveyanceAnnexNullableFields() {
+		ConveyanceAnnex convAnnex = new ConveyanceAnnex();
+		boSvc.save(convAnnex);
 	}
 }

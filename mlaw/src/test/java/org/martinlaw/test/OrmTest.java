@@ -33,6 +33,7 @@ public class OrmTest {
 	@Test
 	public void testRetrieve() {
 		// fee
-		assertNotNull(hibernateTemplate.find("from CourtCase"));	
+		assertNotNull(hibernateTemplate.find("from CourtCase"));
+		assertNotNull(hibernateTemplate.find("from ConveyanceAnnex"));
 	}
 }

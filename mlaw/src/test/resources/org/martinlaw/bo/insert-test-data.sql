@@ -34,3 +34,15 @@ martinlaw_convey_type_t
 (convey_type_id, name, description, ver_nbr, obj_id)
 values
 (1001, "Sale of Urban Land", null, default, 1);
+
+insert into
+martinlaw_convey_annex_t
+(convey_annex_id, convey_annex_type_id, conveyance_id, ver_nbr, obj_id)
+values
+(1001, 1001, 1001, default, 1);
+
+insert into
+martinlaw_convey_att_t
+(convey_att_id, att_id, convey_annex_id, ver_nbr, obj_id)
+values
+(1001, 1001, 1001, default, 1);

@@ -3,7 +3,7 @@
  */
 package org.martinlaw.bo;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,8 +45,8 @@ public class CourtCaseClient extends CourtCasePerson {
 	 * @see org.kuali.rice.kns.bo.BusinessObjectBase#toStringMapper()
 	 */
 	@Override
-	protected LinkedHashMap<String, Object> toStringMapper() {
-		LinkedHashMap<String, Object> propMap = super.toStringMapper();
+	protected Map<String, Object> toStringMapper() {
+		Map<String, Object> propMap = super.toStringMapper();
 		propMap.put("id", getId());
 		return propMap;
 	}

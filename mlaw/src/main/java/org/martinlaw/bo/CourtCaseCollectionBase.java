@@ -19,11 +19,7 @@ public class CourtCaseCollectionBase extends org.kuali.rice.krad.bo.PersistableB
 	 * 
 	 */
 	private static final long serialVersionUID = 8593072356110230223L;
-	/**
-	 * @ojb.field primarykey="true"
-	 */
-	/*@Id
-	private Long id;*/
+
 	/**
 	 * @ojb.field column= indexed="true"
 	 * participates in a 1:1 relationship with court case, the object relationship is impl as a collection on the 

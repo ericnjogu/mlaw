@@ -23,8 +23,6 @@ public class CourtCaseFee extends Fee {
 	private static final long serialVersionUID = -5139498341007335334L;
 	@Id
 	@Column(name="court_case_fee_id")
-	/*@GeneratedValue(strategy=GenerationType.TABLE, generator="fee_gen")
-	@TableGenerator(name="fee_gen", initialValue=1000, table="martinlaw_court_case_fee_id_s", valueColumnName="id") */
 	Long id;
 	
 	/**

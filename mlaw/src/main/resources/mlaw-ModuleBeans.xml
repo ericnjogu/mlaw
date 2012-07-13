@@ -99,6 +99,9 @@
          <value>classpath:org/martinlaw/view/case-client-lookup.xml</value>
          <value>classpath:org/martinlaw/view/case-witness-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/case-witness-lookup.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/conveyance-attachment.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance-annex.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

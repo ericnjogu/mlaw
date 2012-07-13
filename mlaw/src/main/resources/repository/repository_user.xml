@@ -100,9 +100,6 @@
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
-		<!-- <reference-descriptor name="courtCase" class-ref="org.martinlaw.bo.CourtCase" 
-			auto-retrieve="true" auto-update="none" auto-delete="none" > <foreignkey 
-			field-ref="courtCaseId"/> </reference-descriptor> -->
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.Status"
@@ -241,4 +238,60 @@
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.ConveyanceAttachment"
+		table="martinlaw_convey_att_t">
+		<field-descriptor name="id" column="convey_att_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_convey_att_id_s">
+		</field-descriptor>
+		<field-descriptor name="conveyanceAnnexId" column="convey_annex_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="attachmentId" column="att_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+				jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+			
+			<reference-descriptor name="attachment"
+			class-ref="org.kuali.rice.krad.bo.Attachment" auto-retrieve="true"
+			auto-update="true" auto-delete="none">
+			<foreignkey field-ref="attachmentId" />
+		</reference-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.ConveyanceAnnex"
+		table="martinlaw_convey_annex_t">
+		<field-descriptor name="id" column="convey_annex_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_convey_annex_id_s">
+		</field-descriptor>
+		<field-descriptor name="conveyanceAnnexTypeId" column="convey_annex_type_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="conveyanceId" column="conveyance_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+				jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+			
+			<reference-descriptor name="type"
+			class-ref="org.martinlaw.bo.ConveyanceAnnexType" auto-retrieve="true"
+			auto-update="true" auto-delete="none">
+			<foreignkey field-ref="conveyanceAnnexTypeId" />
+		</reference-descriptor>
+		
+		<collection-descriptor name="attachments"
+			element-class-ref="org.martinlaw.bo.ConveyanceAttachment" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="conveyanceAnnexId" />
+		</collection-descriptor>
+	</class-descriptor>
+	
+	
 </descriptor-repository>

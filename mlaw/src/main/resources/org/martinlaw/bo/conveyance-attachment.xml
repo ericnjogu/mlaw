@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- Copyright 2010-2011 Protosoft Ltd -->
+	
+	<bean id="conveyance-att" parent="conveyance-att-parentBean" />
+
+	<bean id="conveyance-att-parentBean" abstract="true" parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.ConveyanceAttachment" />
+		<property name="titleAttribute" value="attachment.attachmentFileName" />
+		<property name="attributes">
+			<list>
+			<!-- defines only the foreign key of the rice att
+			 the rest of the attributes - id (pk) and conveyance annex id should be assigned by the persistence framework-->
+				<ref bean="conveyance-att-attId" />
+			</list>
+		</property>
+		<property name="objectLabel" value="Conveyance Attachment" />
+	</bean>
+
+	<!-- Attribute Definitions -->
+
+	<bean id="conveyance-att-attId" parent="conveyance-att-attId-parentBean" />
+
+	<bean id="conveyance-att-attId-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="true" />
+		<property name="shortLabel" value="Attachment" />
+		<property name="maxLength" value="100" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
+		<property name="summary" value="Attachment" />
+		<property name="name" value="attachmentId" />
+		<property name="label" value="Attachment" />
+		<property name="description" value="Attachment" />
+		<property name="required" value="true" />
+		<!-- set the options finder in the maintenance view, coz it causes this error:
+		Cannot convert value of type [java.lang.String] to required type [org.kuali.rice.krad.document.Document] for property 'document': no matching editors or conversion strategy found -->
+		<!-- <property name="optionsFinder">
+		pass in the current document from the context and retrieve the list of attachments
+			<bean class="org.martinlaw.keyvalues.AttachmentKeyValues" p:document="@{#form.document}"/>
+		</property> -->
+		<property name="controlField">
+				<bean parent="Uif-DropdownControl" />
+			</property>
+	</bean>
+
+
+</beans>
