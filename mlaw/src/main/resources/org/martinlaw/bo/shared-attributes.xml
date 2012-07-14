@@ -93,5 +93,28 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 		<property name="required" value="true" />
 	</bean>
+	
+	
+	<bean id="martinlaw-shared-principal-name" parent="martinlaw-shared-principal-name-parentBean"/>
+	
+	 <bean id="martinlaw-shared-principal-name-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="forceUppercase" value="false"/>
+    <property name="shortLabel" value="name"/>
+    <property name="maxLength" value="30"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false"/>
+    </property>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="30"/>
+    </property>
+    <property name="required" value="true"/>
+    <property name="summary" value="Name"/>
+    <property name="name" value="principalName"/>
+    <property name="label" value="Name"/>
+    <property name="description" value="Name"/>
+    <property name="controlField">
+      <bean parent="Uif-KimPersonControl" p:personNamePropertyName="person.name" p:principalIdPropertyName="person.principalId"/>
+    </property>
+  </bean>
 
 </beans>

@@ -1,7 +1,5 @@
 package org.martinlaw.bo.sequence;
 
-import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,25 +11,25 @@ import javax.persistence.Table;
  * @author mugo
  *
  */
-
+ 
 @Entity
-@Table(name="martinlaw_court_case_client_id_s")
-public class ClientSeq {
+@Table(name="martinlaw_court_case_fee_id_s")
+public class CaseFeeSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")
-	private BigInteger id;
+	private Long id;
 
 	/**
 	 * @return the id
 	 */
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 }

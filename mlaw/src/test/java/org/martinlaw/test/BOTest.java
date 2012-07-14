@@ -30,6 +30,8 @@ import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.ConveyanceAnnex;
 import org.martinlaw.bo.ConveyanceAnnexType;
 import org.martinlaw.bo.ConveyanceAttachment;
+import org.martinlaw.bo.ConveyanceClient;
+import org.martinlaw.bo.ConveyanceFee;
 import org.martinlaw.bo.ConveyanceType;
 import org.martinlaw.bo.CourtCase;
 import org.martinlaw.bo.CourtCaseClient;
@@ -95,6 +97,7 @@ public class BOTest extends MartinlawTestsBase {
     public void testCaseRetrieveEdit() throws Exception {
         //BusinessObjectService boSvc = KRADServiceLocator.getBusinessObjectService();
         CourtCase kase = boSvc.findBySinglePrimaryKey(CourtCase.class, new Long(1001));
+        assertNotNull(kase);
         testCourtCaseFields(kase);
         //change fields
         kase.setCourtReference(null);
@@ -131,7 +134,7 @@ public class BOTest extends MartinlawTestsBase {
         testHearingDateFields(kase.getHearingDates().get(0));
         //client fees
         assertEquals(2, kase.getFees().size());
-        testCourtCaseFeeFields(kase.getFees().get(0));
+        testFeeFields(kase.getFees().get(0));
 	}
 	
 	@Test
@@ -208,33 +211,44 @@ public class BOTest extends MartinlawTestsBase {
 	 * tests retrieving a client present in the db, then CRUD ops
 	 */
 	public void testCaseClient() {
-		testCourtCasePersonCRUD(new CourtCaseClient(), "client1");
+		CourtCaseClient person = new CourtCaseClient();
+		person.setCourtCaseId(1001l);
+		testMartinlawPersonCRUD(new CourtCaseClient(), "client1", person);
+	}
+	
+	@Test
+	/**
+	 * tests retrieving a conveyance client present in the db, then CRUD ops
+	 */
+	public void testConveyanceClient() {
+		ConveyanceClient person = new ConveyanceClient();
+		person.setConveyanceId(1001l);
+		testMartinlawPersonCRUD(new ConveyanceClient(), "client2", person);
 	}
 
 	/**
 	 * a common method to perform CRUD on objects with {@link CourtCasePerson} as the parent
-	 * 
 	 * @param principalName - the principal name e.g. enjogu
+	 * @param newBo TODO
 	 */
-	protected <T extends BusinessObject> void testCourtCasePersonCRUD(T t, String principalName) {
-		MartinlawPerson casePersonRetrieve = (MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), new Long(1001));
-		assertNotNull(casePersonRetrieve);
-		assertEquals(principalName, casePersonRetrieve.getPrincipalName());
+	protected <T extends BusinessObject> void testMartinlawPersonCRUD(T t, String principalName, MartinlawPerson newBo) {
+		MartinlawPerson personRetrieve = (MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), new Long(1001));
+		assertNotNull(personRetrieve);
+		assertEquals(principalName, personRetrieve.getPrincipalName());
 		// C
-		CourtCasePerson casePerson = (CourtCasePerson) t;
-		casePerson.setPrincipalName("mkoobs");
-		casePerson.setCourtCaseId(1001l);
-		boSvc.save(casePerson);
+		
+		newBo.setPrincipalName("mkoobs");
+		boSvc.save(newBo);
 		// R
-		casePerson = (CourtCasePerson) boSvc.findBySinglePrimaryKey(t.getClass(), casePerson.getId());
-		assertNotNull(casePerson);
+		newBo = (MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), newBo.getId());
+		assertNotNull(newBo);
 		// U
-		casePerson.setPrincipalName("mogs");
-		boSvc.save(casePerson);
-		casePerson.refresh();
+		newBo.setPrincipalName("mogs");
+		boSvc.save(newBo);
+		newBo.refresh();
 		// D
-		boSvc.delete(casePerson);
-		assertNull((MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), casePerson.getId()));
+		boSvc.delete(newBo);
+		assertNull((MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), newBo.getId()));
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -251,7 +265,9 @@ public class BOTest extends MartinlawTestsBase {
 	 * tests retrieving a client present in the db, then CRUD ops
 	 */
 	public void testCaseWitness() {
-		testCourtCasePersonCRUD(new CourtCaseWitness(), "witness1");
+		CourtCaseWitness person = new CourtCaseWitness();
+		person.setCourtCaseId(1001l);
+		testMartinlawPersonCRUD(new CourtCaseWitness(), "witness1", person);
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -380,6 +396,25 @@ public class BOTest extends MartinlawTestsBase {
 	
 	@Test
 	/**
+	 * test that the witness is loaded into the data dictionary
+	 */
+	public void testConveyanceClientAttributes() {
+		testBoAttributesPresent("org.martinlaw.bo.ConveyanceClient");
+		Class<ConveyanceClient> dataObjectClass = ConveyanceClient.class;
+		verifyInquiryLookup(dataObjectClass);
+	}
+	
+	@Test
+	/**
+	 * test that the conveyance fee is loaded into the data dictionary
+	 */
+	public void testConveyanceFeeAttributes() {
+		testBoAttributesPresent("org.martinlaw.bo.ConveyanceFee");
+		//TODO has no lookup/inquiry at present - would someone want to lookup a fee?
+	}
+	
+	@Test
+	/**
 	 * validate data dictionary as it does not seem to happen when unit test env is started up
 	 * adapted from org.kuali.rice.kns.config.KNSConfigurer
 	 */
@@ -443,7 +478,17 @@ public class BOTest extends MartinlawTestsBase {
 	public void testCourtCaseFeeRetrieval() {
 		Fee fee = boSvc.findBySinglePrimaryKey(CourtCaseFee.class, new Long(1001));
 		assertNotNull(fee);
-		testCourtCaseFeeFields(fee);
+		testFeeFields(fee);
+	}
+	
+	@Test
+	/**
+	 * test that a Conveyance fee can be retrieved from the database by the primary key
+	 */
+	public void testCourtConveyanceFeeRetrieval() {
+		ConveyanceFee fee = boSvc.findBySinglePrimaryKey(ConveyanceFee.class, new Long(1001));
+		assertNotNull(fee);
+		testFeeFields(fee);
 	}
 	
 	/**
@@ -451,7 +496,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * 
 	 * @param fee - the test fee
 	 */
-	private void testCourtCaseFeeFields(Fee fee) {
+	private void testFeeFields(Fee fee) {
 		log.info("fee amount is: " + fee.getAmount().toPlainString());
 		assertEquals("2500.58", fee.getAmount().toPlainString());
 		assertEquals("received from karateka", fee.getDescription());
@@ -466,9 +511,19 @@ public class BOTest extends MartinlawTestsBase {
 	/**
 	 * tests that annex type generates errors when non-nullable fields are blank
 	 */
-	public void testFeeNullableFields() {
+	public void testCourtCaseFeeNullableFields() {
 		CourtCaseFee fee = new CourtCaseFee();
-		fee.setId(25l);
+		//fee.setId(25l);
+		boSvc.save(fee);
+	}
+	
+	@Test(expected=DataIntegrityViolationException.class)
+	/**
+	 * tests that annex type generates errors when non-nullable fields are blank
+	 */
+	public void testConveyanceFeeNullableFields() {
+		ConveyanceFee fee = new ConveyanceFee();
+		//fee.setId(25l);
 		boSvc.save(fee);
 	}
 	
@@ -478,17 +533,34 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testCourtCaseFeeCRUD() {
 		CourtCaseFee fee = new CourtCaseFee();
-		/*long id = 25l;
-		fee.setId(id);*/
+		fee.setCourtCaseId(1001l);
+		testFeeCRUD(fee, fee.getClass());
+	}
+	
+	@Test
+	/**
+	 * tests Conveyance fee CRUD
+	 */
+	public void testConveyanceFeeCRUD() {
+		ConveyanceFee fee = new ConveyanceFee();
+		fee.setConveyanceId(1001l);
+		testFeeCRUD(fee, fee.getClass());
+	}
+	
+	/**
+	 * common method to test court case and conveyance fee CRUD
+	 */
+	public void testFeeCRUD(Fee fee, Class<? extends Fee> klass) {
+		//CourtCaseFee fee = new CourtCaseFee();
 		BigDecimal amount = new BigDecimal(1000);
 		fee.setAmount(amount);
-		fee.setCourtCaseId(1001l);
+		//fee.setCourtCaseId(1001l);
 		fee.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
 		// leave description blank
 		//save
 		boSvc.save(fee);
 		//retrieve
-		fee = boSvc.findBySinglePrimaryKey(CourtCaseFee.class, fee.getId());
+		fee = boSvc.findBySinglePrimaryKey(klass, fee.getId());
 		//fee.refresh();
 		assertNotNull(fee);
 		assertEquals(0, amount.compareTo(new BigDecimal(1000)));
@@ -502,7 +574,7 @@ public class BOTest extends MartinlawTestsBase {
 		assertEquals(0, amount.compareTo(new BigDecimal(900)));
 		//delete
 		boSvc.delete(fee);
-		assertNull(boSvc.findBySinglePrimaryKey(CourtCaseFee.class, fee.getId()));
+		assertNull(boSvc.findBySinglePrimaryKey(klass, fee.getId()));
 		
 	}
 	
@@ -642,7 +714,7 @@ public class BOTest extends MartinlawTestsBase {
 	public void testCourtCasePersonName() {
 		MartinlawPerson client = new CourtCaseClient();
 		client.setPrincipalName("clientX");
-		// should there be an error here - if the principalName does not represent a valid person? 
+		// should there be an error here - if the principalName does not represent a valid newBo? 
 		assertNotNull(client.getPerson().getName());
 	}
 	

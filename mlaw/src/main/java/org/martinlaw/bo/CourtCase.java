@@ -11,12 +11,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * represents a court case
@@ -25,7 +22,7 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
  */
 @Entity
 @Table(name="martinlaw_court_case_t")
-public class CourtCase extends PersistableBusinessObjectBase {
+public class CourtCase extends Matter {
 
 	/**
 	 * 
@@ -36,12 +33,6 @@ public class CourtCase extends PersistableBusinessObjectBase {
 	@Column(name="court_case_id")
 	private Long id;
 	
-	/**law firms ref e.g. NN/N201/MN
-	 * @ojb.field  column="local_reference"
-	 */
-	@Column(name="local_reference", length=20, nullable=false)
-	private String localReference;
-	
 	/**
 	 * court number - could be initially null as we await to file the papers in court
 	 * 
@@ -49,28 +40,16 @@ public class CourtCase extends PersistableBusinessObjectBase {
 	@Column(name="court_reference", length=20) 
 	private String courtReference;
 
-	//@Column(name="court_case_status_id", nullable=false)
-	private Long statusId;
-	/** 
-	 * case e.g. Mike Vs Iron (2002) 
-	 */
-	@Column(name="name", length=100) 
-	private String name;
-	 
-	@OneToOne
-	@JoinColumn(name="court_case_status_id", nullable=false, updatable=false)
-	private Status status;
-
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
 	private List<CourtCaseWitness> witnesses;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
-	private List<CourtCaseClient> clients;
-	
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
 	private List<HearingDate> hearingDates;
-	
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
+
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "courtCaseId")
+	private List<CourtCaseClient> clients;
+
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "courtCaseId")
 	private List<CourtCaseFee> fees;
 	
 	public CourtCase() {
@@ -80,18 +59,6 @@ public class CourtCase extends PersistableBusinessObjectBase {
 		setWitnesses(new ArrayList<CourtCaseWitness>());
 		setHearingDates(new ArrayList<HearingDate>());
 		setFees(new ArrayList<CourtCaseFee>());
-	}
-	/**
-	 * @return the localReference
-	 */
-	public String getLocalReference() {
-		return localReference;
-	}
-	/**
-	 * @param localReference the localReference to set
-	 */
-	public void setLocalReference(String localReference) {
-		this.localReference = localReference;
 	}
 	/**
 	 * @return the courtReference
@@ -141,54 +108,6 @@ public class CourtCase extends PersistableBusinessObjectBase {
 		this.witnesses = witnesses;
 	}
 	/**
-	 * @return the clients
-	 */
-	public List<CourtCaseClient> getClients() {
-		return clients;
-	}
-	/**
-	 * @param clients the clients to set
-	 */
-	public void setClients(List<CourtCaseClient> clients) {
-		this.clients = clients;
-	}
-	/**
-	 * @return the statusId
-	 */
-	public Long getStatusId() {
-		return statusId;
-	}
-	/**
-	 * @param statusId the statusId to set
-	 */
-	public void setStatusId(Long statusId) {
-		this.statusId = statusId;
-	}
-	/**
-	 * @return the status
-	 */
-	public Status getStatus() {
-		return status;
-	}
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
 	 * @param hearingDates the hearingDates to set
 	 */
 	public void setHearingDates(List<HearingDate> hearingDates) {
@@ -199,6 +118,18 @@ public class CourtCase extends PersistableBusinessObjectBase {
 	 */
 	public List<HearingDate> getHearingDates() {
 		return hearingDates;
+	}
+	/**
+	 * @return the clients
+	 */
+	public List<CourtCaseClient> getClients() {
+		return clients;
+	}
+	/**
+	 * @param clients the clients to set
+	 */
+	public void setClients(List<CourtCaseClient> clients) {
+		this.clients = clients;
 	}
 	/**
 	 * @param fees the fees to set

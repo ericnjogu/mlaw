@@ -11,7 +11,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -28,9 +27,6 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
-import org.martinlaw.bo.Annex;
-import org.martinlaw.bo.AnnexDocument;
-import org.martinlaw.bo.AnnexType;
 import org.martinlaw.bo.ConveyanceAnnexType;
 import org.martinlaw.bo.ConveyanceType;
 import org.martinlaw.bo.CourtCase;
@@ -42,7 +38,6 @@ import org.martinlaw.bo.Status;
  */
 public class KEWRoutingTest extends KewTestsBase {
 	private Logger log = Logger.getLogger(getClass());
-	private org.kuali.rice.krad.service.DocumentService docSvc;
 	private org.kuali.rice.krad.service.BusinessObjectService boSvc;
 	/**
 	 * a common method to test clerk - lawyer routing for transactional docs
@@ -224,56 +219,13 @@ public class KEWRoutingTest extends KewTestsBase {
 		}
 	}
 	
-	@SuppressWarnings({ })
-	@Test
-	@Ignore
-	public void testAnnexRouting() throws WorkflowException {
-		//create test annex type so that annex creation succeeds
-		//boSvc.delete((List)boSvc.findAll(AnnexType.class));
-		AnnexType annexType = new AnnexType();
-		annexType.setValue("Test Type");
-		boSvc.save(annexType);
-		annexType.refresh();
-		assertNotNull(annexType.getId());
-		//create annex
-		Annex anx = new Annex();
-		anx.setTypeId(annexType.getId());
-		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		AnnexDocument annexDoc = (AnnexDocument) KRADServiceLocatorWeb.getDocumentService().getNewDocument("AnnexDocument");
-		annexDoc.setAnnex(anx);
-		//anx.setAnnexDocumentNumber(annexDoc.getDocumentNumber());
-		//boSvc.save(anx);
-//		anx.refresh();
-//		annexDoc.setAnnexId(anx.getId());
-		annexDoc.getDocumentHeader().setDocumentDescription("test document");
-		//docSvc.saveDocument(annexDoc);
-		//AnnexDocument annexDoc = (AnnexDocument) docSvc.getByDocumentHeaderId(annexDoc.getDocumentNumber());
-		//assertTrue(annexDoc.getDocumentHeader().getWorkflowDocument().stateIsSaved());
-		//assertNotNull(annexDoc.getAnnex());
-		//assertNotNull(annexDoc.getAnnex().getAnnexDocumentNumber());
-		docSvc.routeDocument(annexDoc, "ok!", null);
-		annexDoc = (AnnexDocument) docSvc.getByDocumentHeaderId(annexDoc.getDocumentNumber());
-		assertNotNull(annexDoc.getAnnex());
-		assertNotNull(annexDoc.getAnnex().getAnnexDocumentNumber());
-		assertTrue(annexDoc.getDocumentHeader().getWorkflowDocument().isFinal());
-		Map<String, Object> props = new HashMap<String, Object>();
-		props.put("annexDocumentNumber", annexDoc.getDocumentNumber());
-		@SuppressWarnings("rawtypes")
-		List annexes = (List) boSvc.findMatching(Annex.class, props);
-		assertNotNull(annexes);
-		assertEquals(1, annexes.size());
-		anx = (Annex) annexes.get(0);
-		assertNotNull(anx.getTypeId());
-		assertNotNull(anx.getAnnexType());
-		assertEquals("Test Type", anx.getAnnexType().getValue());
-	}
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.kew.test.KEWTestCase#setUpAfterDataLoad()
 	 */
 	@Override
 	public void setUpInternal() throws Exception {
 		super.setUpInternal();
-		docSvc = KRADServiceLocatorWeb.getDocumentService();
+		KRADServiceLocatorWeb.getDocumentService();
 		boSvc = KRADServiceLocator.getBusinessObjectService();
 	}
 	

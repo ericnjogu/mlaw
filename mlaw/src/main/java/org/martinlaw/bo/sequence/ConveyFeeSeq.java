@@ -13,8 +13,8 @@ import javax.persistence.Table;
  */
  
 @Entity
-@Table(name="martinlaw_court_case_fee_id_s")
-public class FeeSeq {
+@Table(name="martinlaw_convey_fee_id_s")
+public class ConveyFeeSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")
 	private Long id;

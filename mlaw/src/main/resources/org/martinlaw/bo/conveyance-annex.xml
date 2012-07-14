@@ -14,7 +14,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 			<list>
 			<!-- defines only the foreign key of the conveyance type
 			 the rest of the attributes - id (pk) and conveyance id should be assigned by the persistence framework
-			 the list of conveyance atts will be defined on the conveyance maitenance view-->
+			 the list of conveyance atts will be defined on the conveyance maintenance view-->
 				<ref bean="conveyance-annex-type-id" />
 			</list>
 		</property>
@@ -38,7 +38,13 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 		<property name="label" value="Annex Type" />
 		<property name="description" value="Annex Type" />
 		<property name="required" value="true" />
-		<!-- set the options finder in the maintenance view -->
+		<property name="optionsFinder">
+			<bean
+				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.ConveyanceAnnexType"
+				p:keyAttributeName="id"	p:labelAttributeName="name">
+			</bean>
+		</property>
 		<property name="controlField">
 				<bean parent="Uif-DropdownControl" />
 			</property>

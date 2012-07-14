@@ -13,14 +13,14 @@
 				<value>org.martinlaw.bo.CourtCaseFee</value>
 				<value>org.martinlaw.bo.Status</value>
 				<value>org.martinlaw.bo.Fee</value>
-				<value>org.martinlaw.bo.sequence.FeeSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseFeeSeq</value>
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>
 				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
 				<value>org.martinlaw.bo.HearingDate</value>
 				<value>org.martinlaw.bo.CourtCaseWitness</value>
 				<value>org.martinlaw.bo.CourtCaseClient</value>
 				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
-				<value>org.martinlaw.bo.sequence.ClientSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseClientSeq</value>
 				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
 				<value>org.martinlaw.bo.CourtCasePerson</value>
 				<value>org.martinlaw.bo.CourtCase</value>
@@ -35,6 +35,11 @@
 				<value>org.martinlaw.bo.ConveyanceAttachment</value>
 				<value>org.martinlaw.bo.ConveyanceAnnex</value>
 				<value>org.martinlaw.bo.sequence.ConveyAttSeq</value>
+				<value>org.martinlaw.bo.sequence.ConveyClientSeq</value>
+				<value>org.martinlaw.bo.ConveyanceClient</value>
+				<value>org.martinlaw.bo.Matter</value>
+				<value>org.martinlaw.bo.sequence.ConveyFeeSeq</value>
+				<value>org.martinlaw.bo.ConveyanceFee</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

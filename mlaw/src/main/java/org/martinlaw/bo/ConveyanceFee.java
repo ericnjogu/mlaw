@@ -10,19 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * CourtCaseFee represents a fee paid to a lawyer by a client for a court case
+ * Fee represents a fee paid to a lawyer by a client
  * @author mugo
  */
 @Entity
-@Table(name="martinlaw_court_case_fee_t")
+@Table(name="martinlaw_convey_fee_t")
 // @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class CourtCaseFee extends Fee {
+public class ConveyanceFee extends Fee {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5139498341007335334L;
 	@Id
-	@Column(name="court_case_fee_id")
+	@Column(name="convey_fee_id")
 	Long id;
 	
 	/**
@@ -40,22 +40,22 @@ public class CourtCaseFee extends Fee {
 	
 	/**
 	 * @ojb.field column= indexed="true"
-	 * participates in a 1:1 relationship with court case, the object relationship is impl as a collection on the 
-	 * court case side
+	 * participates in a 1:1 relationship with conveyance, the object relationship is impl as a collection on the 
+	 * conveyance side
 	 */
-	@Column(name="court_case_id", nullable=false)
-	private Long courtCaseId;
+	@Column(name="conveyance_id", nullable=false)
+	private Long conveyanceId;
 	
 	/**
 	 * @return the courtCaseId
 	 */
-	public Long getCourtCaseId() {
-		return courtCaseId;
+	public Long getConveyanceId() {
+		return conveyanceId;
 	}
 	/**
-	 * @param courtCaseId the courtCaseId to set
+	 * @param conveyanceId the courtCaseId to set
 	 */
-	public void setCourtCaseId(Long courtCaseId) {
-		this.courtCaseId = courtCaseId;
+	public void setConveyanceId(Long conveyanceId) {
+		this.conveyanceId = conveyanceId;
 	}
 }

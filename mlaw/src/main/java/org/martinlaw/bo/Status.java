@@ -51,7 +51,7 @@ public class Status extends PersistableBusinessObjectBase {
 	 * the primary key
 	 */
 	@Id
-	@Column(name="court_case_status_id")
+	@Column(name="status_id")
 	private Long id;
 	/**
 	 * e.g. 'pending hearing date'

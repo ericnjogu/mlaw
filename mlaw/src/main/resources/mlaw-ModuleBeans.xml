@@ -62,6 +62,7 @@
     <property name="dataDictionaryPackages">
       <list>
         <value>classpath:org/martinlaw/bo/case-fee.xml</value>
+        <value>classpath:org/martinlaw/bo/shared-fee.xml</value>
          <value>classpath:org/martinlaw/bo/shared-attributes.xml</value>
          
          <value>classpath:org/martinlaw/bo/status.xml</value>
@@ -102,6 +103,13 @@
          
          <value>classpath:org/martinlaw/bo/conveyance-attachment.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance-annex.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance-client.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-client-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-client-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/shared.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/conveyance-fee.xml</value>
+         
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

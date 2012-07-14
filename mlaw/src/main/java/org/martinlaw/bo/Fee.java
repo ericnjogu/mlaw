@@ -2,10 +2,11 @@ package org.martinlaw.bo;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.LinkedHashMap;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+
+import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 /**
  * fee is a base class for specifying fees paid to the lawyer for services
  * 
@@ -13,7 +14,7 @@ import javax.persistence.MappedSuperclass;
  *
  */
 @MappedSuperclass
-public class Fee extends CourtCaseCollectionBase {
+public abstract class Fee extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -74,14 +75,10 @@ public class Fee extends CourtCaseCollectionBase {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	@Override
-	protected LinkedHashMap<String, Object> toStringMapper() {
-		LinkedHashMap<String, Object> props = super.toStringMapper();
-		props.put("description", getDescription());
-		props.put("date", getDate());
-		props.put("amount", getAmount());
-		return props;
-	}
-
+	
+	/**
+	 * gets the primary key that will be provided by implementing classes
+	 * @return
+	 */
+	public abstract Long getId();
 }
