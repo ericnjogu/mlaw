@@ -34,4 +34,79 @@
       </list>
     </property>
   </bean>
+  
+  <bean id="martinlaw_shared_client_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection" abstract="true">
+          <property name="headerText" value="Clients"/>
+          <property name="propertyName" value="clients"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="principalName"/>
+              <bean parent="Uif-InputField" p:propertyName="person.firstName"/>
+              <bean parent="Uif-InputField" p:propertyName="person.lastName"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>person.lastName</value>
+              <value>person.firstName</value>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Client"/>
+        </bean>
+        
+        <bean id="martinlaw_shared_fee_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection" abstract="true">
+          <property name="headerText" value="Fees Received"/>
+          <property name="propertyName" value="fees"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="amount"/>
+              <bean parent="Uif-InputField" p:propertyName="date"/>
+              <bean parent="Uif-InputField" p:propertyName="description"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>amount</value>
+              <value>date</value>
+            </list>           
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Fee"/>
+        </bean>
+        
+        <bean id="martinlaw_shared_client-maintenance-section" parent="Uif-MaintenanceStackedCollectionSection" abstract="true">
+          <property name="headerText" value="Clients"/>
+          <property name="propertyName" value="clients"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="principalName">
+              </bean>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value="Client"/>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>person.name</value>
+            </list>
+          </property>
+        </bean>
+        
+        <bean id="martinlaw_shared_fee-maintenance-section" parent="Uif-MaintenanceStackedCollectionSection" abstract="true">
+          <property name="headerText" value="Fees Received"/>
+          <property name="propertyName" value="fees"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="amount"/>
+              <bean parent="Uif-InputField" p:propertyName="date"/>
+              <bean parent="Uif-InputField" p:propertyName="description"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value="Fee"/>
+          <property name="layoutManager.summaryFields">
+            <list>
+            	<value>amount</value>
+              	<value>date</value>
+            </list>
+          </property>
+        </bean>
+    
 </beans>

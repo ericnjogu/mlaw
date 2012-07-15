@@ -27,6 +27,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
 import org.kuali.rice.test.SQLDataLoader;
+import org.martinlaw.bo.Conveyance;
 import org.martinlaw.bo.ConveyanceAnnex;
 import org.martinlaw.bo.ConveyanceAnnexType;
 import org.martinlaw.bo.ConveyanceAttachment;
@@ -42,6 +43,7 @@ import org.martinlaw.bo.Fee;
 import org.martinlaw.bo.HearingDate;
 import org.martinlaw.bo.MartinlawPerson;
 import org.martinlaw.bo.Status;
+import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValues;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -303,13 +305,24 @@ public class BOTest extends MartinlawTestsBase {
 	
 	@Test
 	/**
+	 * test that {@link Conveyance} is loaded into the data dictionary
+	 */
+	public void testConveyanceAttributes() {
+		testBoAttributesPresent("org.martinlaw.bo.Conveyance");
+		
+		Class<Conveyance> dataObjectClass = Conveyance.class;
+		verifyMaintDocDataDictEntries(dataObjectClass);
+	}
+	
+	@Test
+	/**
 	 * test that {@link ConveyanceAnnexType} is loaded into the data dictionary
 	 */
 	public void testConveyanceAnnexTypeAttributes() {
 		testBoAttributesPresent("org.martinlaw.bo.ConveyanceAnnexType");
-		
-		Class<ConveyanceAnnexType> dataObjectClass = ConveyanceAnnexType.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+		// will maintained as part of conveyance type
+/*		Class<ConveyanceAnnexType> dataObjectClass = ConveyanceAnnexType.class;
+		verifyMaintDocDataDictEntries(dataObjectClass);*/
 	}
 	
 	@Test
@@ -653,6 +666,7 @@ public class BOTest extends MartinlawTestsBase {
 		//C
 		convAnnexType = new ConveyanceAnnexType();
 		convAnnexType.setName("signed affidavit");
+		convAnnexType.setConveyanceTypeId(1001l);
 		boSvc.save(convAnnexType);
 		//R
 		convAnnexType.refresh();
@@ -679,6 +693,8 @@ public class BOTest extends MartinlawTestsBase {
 	 * test CRUD for {@link ConveyanceAnnexType}
 	 */
 	public void testConveyanceTypeCRUD() {
+		// get number of annex types before adding new
+		int existingAnnexTypes = boSvc.findAll(ConveyanceAnnexType.class).size();
 		// retrieve object populated via sql script
 		ConveyanceType convType = boSvc.findBySinglePrimaryKey(ConveyanceType.class, 1001l);
 		assertNotNull(convType);
@@ -686,16 +702,35 @@ public class BOTest extends MartinlawTestsBase {
 		//C
 		convType = new ConveyanceType();
 		convType.setName("Lease of Gov Land");
+		//create annex types
+		List<ConveyanceAnnexType> annexTypes = new ArrayList<ConveyanceAnnexType>();
+		
+		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("signed affidavit");
+		annexTypes.add(convAnnexType);
+		
+		convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("title deed");
+		annexTypes.add(convAnnexType);
+		
+		convType.setAnnexTypes(annexTypes);
+		
 		boSvc.save(convType);
 		//R
 		convType.refresh();
+		assertEquals(2, convType.getAnnexTypes().size());
+		assertEquals(2 + existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
 		//U
 		convType.setDescription("hiring land from go.ke");
+		boSvc.delete(convType.getAnnexTypes().get(0));
 		convType.refresh();
 		assertNotNull(convType.getDescription());
+		assertEquals(1, convType.getAnnexTypes().size());
+		assertEquals(1 + existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
 		//D
 		boSvc.delete(convType);
 		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAnnexType.class, convType.getId()));
+		assertEquals(existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -816,5 +851,100 @@ public class BOTest extends MartinlawTestsBase {
 	public void testConveyanceAnnexNullableFields() {
 		ConveyanceAnnex convAnnex = new ConveyanceAnnex();
 		boSvc.save(convAnnex);
+	}
+	
+	@Test()
+	/**
+	 * test that {@link ConveyanceAnnexTypeKeyValues} works as expected
+	 */
+	public void testConveyanceAnnexTypeKeyValues() {
+		// expect a blank key value if no conveyance type id is given
+		ConveyanceAnnexTypeKeyValues keyValues = new ConveyanceAnnexTypeKeyValues();
+		assertEquals(1, keyValues.getKeyValues().size());
+		assertEquals("", keyValues.getKeyValues().get(0).getKey());
+		
+		keyValues.setConveyanceTypeId(1001l);
+		// expect two non blank key values in addition to the blank one
+		assertEquals(3, keyValues.getKeyValues().size());
+		assertEquals("land board approval", keyValues.getKeyValues().get(1).getValue());
+		assertEquals("city council approval", keyValues.getKeyValues().get(2).getValue());
+	}
+	
+	@Test
+	/**
+	 * test retrieving the {@link Conveyance} populated from sql
+	 */
+	public void testConveyanceRetrieve() {
+		Conveyance conv = boSvc.findBySinglePrimaryKey(Conveyance.class, 1001l);
+		assertNotNull(conv);
+		assertEquals("Sale of LR4589", conv.getName());
+		assertEquals("c1", conv.getLocalReference());
+		assertEquals("Sale of Urban Land", conv.getType().getName());
+		assertEquals("pending", conv.getStatus().getStatus());
+		// clients
+		assertEquals(1, conv.getClients().size());
+		assertEquals("client2", conv.getClients().get(0).getPrincipalName());
+		// fees
+		assertEquals(1, conv.getFees().size());
+		assertEquals("received from karateka", conv.getFees().get(0).getDescription());
+		// conveyance annexes
+		assertEquals(1, conv.getAnnexes().size());
+		assertEquals(1, conv.getAnnexes().get(0).getAttachments().size());
+		assertEquals(new Long(1001l), conv.getAnnexes().get(0).getAttachments().get(0).getAttachmentId());
+	}
+	
+	@Test
+	/**
+	 * test CRUD ops on {@link Conveyance}
+	 */
+	public void testConveyanceCRUD() {
+		// C
+		Conveyance conv = TestUtils.getTestConveyance();
+		// add client
+		ConveyanceClient client = new ConveyanceClient();
+		String principalName = "clientX";
+		client.setPrincipalName(principalName);
+		conv.getClients().add(client);
+		// add fee
+		ConveyanceFee fee = new ConveyanceFee();
+		fee.setAmount(new BigDecimal(5000));
+		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		String feeDescription = "received from mkenya";
+		fee.setDescription(feeDescription);
+		conv.getFees().add(fee);
+		// add annex
+		ConveyanceAnnex annex = new ConveyanceAnnex();
+		annex.setConveyanceAnnexTypeId(1003l);
+		ConveyanceAttachment convAtt = new ConveyanceAttachment();
+		convAtt.setAttachmentId(999l);
+		annex.getAttachments().add(convAtt);
+		conv.getAnnexes().add(annex);
+		
+		boSvc.save(conv);
+		
+		// R
+		conv.refresh();
+		assertEquals(TestUtils.getTestConveyance().getName(), conv.getName());
+		assertEquals(1, conv.getClients().size());
+		assertEquals(principalName, conv.getClients().get(0).getPrincipalName());
+		assertEquals(1, conv.getFees().size());
+		assertEquals(feeDescription, conv.getFees().get(0).getDescription());
+		assertEquals(1, conv.getAnnexes().size());
+		assertEquals(new Long(999), conv.getAnnexes().get(0).getAttachments().get(0).getAttachmentId());
+		
+		// U
+		String name2 = "EN/C010";
+		conv.setName(name2);
+		boSvc.delete(conv.getAnnexes().get(0));
+		conv.refresh();
+		assertEquals(name2, conv.getName());
+		assertEquals(0, conv.getAnnexes().size());
+		
+		// D
+		boSvc.delete(conv);
+		assertNull("conveyance client should have been deleted", 
+				boSvc.findBySinglePrimaryKey(ConveyanceClient.class, conv.getClients().get(0).getId()));
+		assertNull("conveyance client should have been deleted", 
+				boSvc.findBySinglePrimaryKey(ConveyanceFee.class, conv.getFees().get(0).getId()));
 	}
 }

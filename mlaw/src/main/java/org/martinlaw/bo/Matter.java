@@ -7,7 +7,12 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-
+/**
+ * a super class that holds the information common to court case and conveyance
+ * 
+ * @author mugo
+ *
+ */
 @MappedSuperclass
 public class Matter extends PersistableBusinessObjectBase {
 

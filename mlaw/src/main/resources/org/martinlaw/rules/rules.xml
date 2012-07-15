@@ -21,11 +21,10 @@
 		</rule>
 	
 	
-<!-- conveyance rule
+<!-- conveyance rule -->
 		<rule>
 			<name>org.martinlaw.rules.conveyance</name>
 			<documentType>ConveyanceMaintenanceDocument</documentType>
-			 The rule template does not have any use at now 
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for conveyance maintenance</description>
 			<responsibilities>
@@ -35,30 +34,12 @@
 					<priority>1</priority>
 				</responsibility>
 			</responsibilities>
-		</rule> -->
+		</rule>
 		
-		<!-- case status document rule - commented out as status routes to final on first submit -->
-		<!-- <rule>
-			<name>org.martinlaw.rules.caseStatus</name>
-			<documentType>CaseStatusMaintenanceDocument</documentType>
-			 The rule template does not have any use at now 
-			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-			<description>Routing rule for case status maintenance</description>
-			 the approval node has been commented out in the doc type xml - what would the effect of this config be?
-			if commenting it out has no effect, then delete
-			<responsibilities>
-				<responsibility>
-					<groupName namespace= "MARTINLAW" >lawyer</groupName>
-					<actionRequested>A</actionRequested>
-					<priority>1</priority>
-				</responsibility>
-			</responsibilities>
-		</rule> -->
-		
-		<!-- ConveyanceTypeDocument rule -->
+		<!-- ConveyanceTypeMaintenanceDocument rule -->
 		<rule>
 			<name>org.martinlaw.rules.conveyanceType</name>
-			<documentType>ConveyanceTypeDocument</documentType>
+			<documentType>ConveyanceTypeMaintenanceDocument</documentType>
 			 <!-- The rule template does not have any use at now  -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for ConveyanceTypeDocument maintenance</description>

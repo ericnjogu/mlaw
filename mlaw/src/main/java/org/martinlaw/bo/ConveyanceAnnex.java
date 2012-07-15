@@ -3,6 +3,7 @@
  */
 package org.martinlaw.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,6 +34,13 @@ public class ConveyanceAnnex extends PersistableBusinessObjectBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 8135118531784410247L;
+	/**
+	 * default constructor - initialize attachments list
+	 */
+	public ConveyanceAnnex() {
+		attachments = new ArrayList<ConveyanceAttachment>();
+	}
+	
 	@Id
 	@Column(name="convey_annex_id")
 	private Long id;

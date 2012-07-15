@@ -19,8 +19,7 @@
 			-->
 			<routePaths>
 				<routePath>
-					<start name="Initiated" /> <!--  nextNode="approvalNode" -->
-					<!-- <requests name="approvalNode" />  -->
+					<start name="Initiated" />
 				</routePath>
 			</routePaths>
 			<routeNodes>

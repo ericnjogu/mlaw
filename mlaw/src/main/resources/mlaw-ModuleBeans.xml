@@ -86,15 +86,18 @@
          <value>classpath:org/martinlaw/bo/conveyance-annex-type.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance-type.xml</value>
          
-         <value>classpath:org/martinlaw/view/conveyance-annex-type-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/conveyance-type-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-annex-type-lookup.xml</value>
          <value>classpath:org/martinlaw/view/conveyance-type-lookup.xml</value>
          
-         <value>classpath:org/martinlaw/bo/conveyance-annex-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance-type-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-annex-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/conveyance-type-maintenance.xml</value>
+         <!-- will maintained as part of conveyance type -->
+         <!-- 
+         <value>classpath:org/martinlaw/bo/conveyance-annex-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-annex-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-annex-type-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-annex-type-inquiry.xml</value>
+          -->
          
          <value>classpath:org/martinlaw/view/case-client-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/case-client-lookup.xml</value>
@@ -109,7 +112,11 @@
          <value>classpath:org/martinlaw/view/shared.xml</value>
          
          <value>classpath:org/martinlaw/bo/conveyance-fee.xml</value>
-         
+         <value>classpath:org/martinlaw/bo/conveyance.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance-maintenance.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

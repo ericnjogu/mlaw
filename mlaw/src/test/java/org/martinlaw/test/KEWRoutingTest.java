@@ -9,8 +9,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -27,6 +29,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
+import org.martinlaw.bo.Conveyance;
 import org.martinlaw.bo.ConveyanceAnnexType;
 import org.martinlaw.bo.ConveyanceType;
 import org.martinlaw.bo.CourtCase;
@@ -45,6 +48,7 @@ public class KEWRoutingTest extends KewTestsBase {
 	 * @param docType
 	 * @throws WorkflowException 
 	 */
+	@SuppressWarnings("unused")
 	private void testTransactionalRouting(String docType) throws WorkflowException {
 		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("clerk1"), docType);
 		doc.saveDocument("saved");
@@ -186,11 +190,6 @@ public class KEWRoutingTest extends KewTestsBase {
 		}
 	}
 	
-	@Test
-	@Ignore
-	public void testConveyanceMaintenanceRouting() throws WorkflowException {
-		testTransactionalRouting("ConveyanceMaintenanceDocument");
-	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
@@ -230,6 +229,7 @@ public class KEWRoutingTest extends KewTestsBase {
 	}
 	
 	@Test
+	@Ignore("to be maintained as part of conveyance type")
 	/**
 	 * test that ConveyanceAnnexTypeDocument routes to final on submit
 	 */
@@ -253,14 +253,25 @@ public class KEWRoutingTest extends KewTestsBase {
 	
 	@Test
 	/**
-	 * test that ConveyanceAnnexTypeDocument routes to final on submit
+	 * test that ConveyanceTypeDocument is routed to lawyer on submit
 	 */
 	public void testConveyanceTypeRouting() {
 		ConveyanceType convType = new ConveyanceType();
 		String name = "auction";
 		convType.setName(name);
+		// set annex types
+		List<ConveyanceAnnexType> annexTypes = new ArrayList<ConveyanceAnnexType>();
+		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("signed affidavit");
+		annexTypes.add(convAnnexType);
+		convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("title deed");
+		annexTypes.add(convAnnexType);
+		convType.setAnnexTypes(annexTypes);
+		// get number of annex types before adding new
+		int existingAnnexTypes = boSvc.findAll(ConveyanceAnnexType.class).size();
 		try {
-			testMaintenanceRouting("ConveyanceTypeDocument", convType);
+			testMaintenanceRouting("ConveyanceTypeMaintenanceDocument", convType);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log.error("test failed", e);
@@ -271,5 +282,39 @@ public class KEWRoutingTest extends KewTestsBase {
 		params.put("name", name);
 		Collection<ConveyanceType> result = boSvc.findMatching(ConveyanceType.class, params);
 		assertEquals(1, result.size());
+		assertEquals(2 + existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
+	}
+	
+	@Test
+	/**
+	 * test that a conveyance document is routed to the lawyer
+	 */
+	public void testConveyancesRouting() {
+		int existingConveyances = boSvc.findAll(Conveyance.class).size();
+		Conveyance conv = TestUtils.getTestConveyance();
+		// add a conveyance type to avoid data integrity exceptions
+		ConveyanceType convType = new ConveyanceType();
+		convType.setName("test type");
+		convType.setId(conv.getTypeId());
+		boSvc.save(convType);
+		// add a status type to avoid data integrity exceptions
+		Status status =  new Status();
+		status.setStatus("test status");
+		status.setId(conv.getStatusId());
+		status.setType("test type");
+		boSvc.save(status);
+		try {
+			testMaintenanceRouting("ConveyanceMaintenanceDocument", conv);
+		} catch (Exception e) {
+			log.error("error in testConveyanceRouting", e);
+			fail(e.getMessage());
+		}
+		// confirm BO was saved
+		assertEquals(existingConveyances + 1, boSvc.findAll(Conveyance.class).size());
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("name", conv.getName());
+		Collection<Conveyance> result = boSvc.findMatching(Conveyance.class, params);
+		assertEquals(1, result.size());
+		
 	}
 }

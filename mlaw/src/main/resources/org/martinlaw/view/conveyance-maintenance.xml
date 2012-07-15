@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2005-2012 Protosoft Ltd -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<bean id="conveyance_maintenance_view" parent="Uif-MaintenanceView">
+		<property name="headerText" value="Conveyance Maintenance" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.Conveyance" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-MaintenanceGridSection">
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="id"
+								p:readOnly="true" />
+							<bean parent="Uif-InputField" p:propertyName="conveyanceTypeId">
+								<!-- when this field changes, the conveyanceAnnexTypeId dropdown 
+									should change to reflect the annex types associated with the chosen conveyance 
+									type -->
+							</bean>
+							<bean parent="Uif-InputField" p:propertyName="localReference" />
+							<bean parent="Uif-InputField" p:propertyName="name" />
+							<bean parent="Uif-InputField" p:propertyName="statusId">
+							</bean>
+						</list>
+					</property>
+					<property name="headerText" value="Conveyance Information" />
+				</bean>
+				<bean parent="Uif-MaintenanceStackedCollectionSection">
+					<property name="headerText" value="Annexes" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceAnnex" />
+					<property name="propertyName" value="annexes" />
+					<property name="items">
+						<list>
+							<!-- the values of the conveyance annex type drop down depend on the 
+								value of the conveyance type selected -->
+							<bean parent="Uif-InputField" p:propertyName="conveyanceAnnexTypeId"
+								p:refreshWhenChangedPropertyNames="conveyanceTypeId"
+								p:disabled="@{#empty(#document.newMaintainableObject.dataObject.conveyanceTypeId)}">
+								<property name="optionsFinder">
+									<bean class="org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValues"
+										p:conveyanceTypeId="@{#document.newMaintainableObject.dataObject.conveyanceTypeId}" />
+								</property>
+							</bean>
+
+							<bean parent="Uif-MaintenanceStackedSubCollection-WithinSection">
+								<property name="headerText" value="Attachments" />
+								<property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceAttachment" />
+								<property name="propertyName" value="attachments" />
+								<property name="items">
+									<list>
+										<bean parent="Uif-InputField" p:propertyName="attachmentId">
+											<property name="optionsFinder">
+												<!-- pass in the current document from the context and retrieve 
+													the list of attachments -->
+												<bean class="org.martinlaw.keyvalues.AttachmentKeyValues"
+													p:document="@{#form.document}" />
+											</property>
+										</bean>
+									</list>
+								</property>
+								<property name="layoutManager.summaryTitle" value="Attachment" />
+								<property name="layoutManager.summaryFields">
+									<list>
+										<value>attachment.attachmentFileName</value>
+									</list>
+								</property>
+							</bean>
+						</list>
+					</property>
+					<property name="layoutManager.summaryTitle" value="Annex" />
+					<property name="layoutManager.summaryFields">
+						<list>
+							<value>conveyanceAnnexType.name</value>
+						</list>
+					</property>
+				</bean>
+
+				<bean parent="martinlaw_shared_client-maintenance-section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceClient" />
+				</bean>
+
+				<bean parent="martinlaw_shared_fee-maintenance-section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceFee" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -20,6 +20,24 @@
             </list>
           </property>
         </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Annex Types"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceAnnexType"/>
+          <property name="propertyName" value="annexTypes"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="name"/>
+              <bean parent="Uif-InputField" p:propertyName="description"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>name</value>
+            </list>           
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Annex Type"/>
+        </bean>
       </list>
     </property>
   </bean>

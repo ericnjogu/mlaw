@@ -9,17 +9,11 @@
 			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is maitenance doc -->
 			<description>Conveyance Maintenance Document</description>
 			<label>Conveyance Maintenance Document</label>
-			<!-- 
-			<postProcessorName>org.kuali.rice.kns.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			 -->
-			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${application.url}/kr/maintenance.do?methodToCall=docHandler</docHandler>
-			<!-- need to understand what this means -->
-			<!-- 
-			<serviceNamespace>KEYSAFE</serviceNamespace>
-			-->
+
 			<routePaths>
 				<routePath>
 					<start name="Initiated" nextNode="approvalNode" />

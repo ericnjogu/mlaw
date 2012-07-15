@@ -25,6 +25,8 @@ public class ConveyanceAnnexType extends BaseDetail {
 	@Id
 	@Column(name="convey_annex_type_id")
 	Long id;
+	@Column(name="convey_type_id", nullable=false)
+	private Long conveyanceTypeId;
 	
 	/**
 	 * get the primary key
@@ -37,5 +39,19 @@ public class ConveyanceAnnexType extends BaseDetail {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+	/**
+	 * gets the foreign key of the conveyance type to which this annex type is associated
+	 * 
+	 * @return the conveyanceTypeId
+	 */
+	public Long getConveyanceTypeId() {
+		return conveyanceTypeId;
+	}
+	/**
+	 * @param conveyanceTypeId the conveyanceTypeId to set
+	 */
+	public void setConveyanceTypeId(Long conveyanceTypeId) {
+		this.conveyanceTypeId = conveyanceTypeId;
 	}
 }

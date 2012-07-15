@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2012 The Kuali Foundation
-
-    Licensed under the Educational Community License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.opensource.org/licenses/ecl2.php
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+    Copyright 2005-2012 Protosoft Ltd
 -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
@@ -35,7 +22,6 @@
               <bean parent="Uif-InputField" p:propertyName="courtReference"/>
               <bean parent="Uif-InputField" p:propertyName="name"/>
               <bean parent="Uif-InputField" p:propertyName="statusId">
-              <!-- hoping the dropdown will be populated from the bo xml -->
               </bean>
             </list>
           </property>
@@ -59,22 +45,8 @@
           </property>
         </bean>
         
-        <bean parent="Uif-MaintenanceStackedCollectionSection">
-          <property name="headerText" value="Clients"/>
+        <bean parent="martinlaw_shared_client-maintenance-section">
           <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseClient"/>
-          <property name="propertyName" value="clients"/>
-          <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="principalName">
-              </bean>
-            </list>
-          </property>
-          <property name="layoutManager.summaryTitle" value="Client"/>
-          <property name="layoutManager.summaryFields">
-            <list>
-              <value>person.name</value>
-            </list>
-          </property>
         </bean>
         
         <bean parent="Uif-MaintenanceStackedCollectionSection">
@@ -95,24 +67,8 @@
           </property>
         </bean>
         
-        <bean parent="Uif-MaintenanceStackedCollectionSection">
-          <property name="headerText" value="Fees Received"/>
+        <bean parent="martinlaw_shared_fee-maintenance-section">
           <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseFee"/>
-          <property name="propertyName" value="fees"/>
-          <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="amount"/>
-              <bean parent="Uif-InputField" p:propertyName="date"/>
-              <bean parent="Uif-InputField" p:propertyName="description"/>
-            </list>
-          </property>
-          <property name="layoutManager.summaryTitle" value="Fee"/>
-          <property name="layoutManager.summaryFields">
-            <list>
-            	<value>amount</value>
-              	<value>date</value>
-            </list>
-          </property>
         </bean>
       </list>
     </property>

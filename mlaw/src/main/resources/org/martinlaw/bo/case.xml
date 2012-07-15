@@ -4,17 +4,17 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- Copyright 2010-2011 Protosoft Ltd -->
+	
 	<bean id="case" parent="case-parentBean" />
 
 	<bean id="case-parentBean" abstract="true" parent="BusinessObjectEntry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.CourtCase" />
-		<property name="titleAttribute" value="localReference" />
+		<property name="titleAttribute" value="name" />
 		<property name="attributes">
 			<list>
 				<ref bean="case-id" />
 				<ref bean="courtcase-name" />
 				<ref bean="courtcase-statusId" />
-				<ref bean="courtcase-status" />
 				<ref bean="case-localReference" />
 				<ref bean="case-courtReference" />
 			</list>
@@ -25,50 +25,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Attribute Definitions -->
 
-	<bean id="case-id" parent="case-id-parentBean" />
+	<bean id="case-id" parent="martinlaw-shared-id-parentBean" p:label="Court Case Id" />
 
-	<bean id="case-id-parentBean" abstract="true" parent="AttributeDefinition">
-		<property name="forceUppercase" value="false" />
-		<property name="shortLabel" value="Id" />
-		<property name="maxLength" value="20" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="20" />
-		</property>
-		<property name="summary" value="Court Case Id" />
-		<property name="name" value="id" />
-		<property name="label" value="Court Case Id" />
-		<property name="description" value="Court Case Id" />
-		<property name="controlField">
-		<!--  can be changed into  Uif-HiddenControl -->
-			<bean parent="Uif-TextControl" p:size="20" />
-		</property>
-	</bean>
-
-	<bean id="case-localReference" parent="case-localReference-parentBean" />
-
-	<bean id="case-localReference-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="forceUppercase" value="true" />
-		<property name="shortLabel" value="Ref Num" />
-		<property name="maxLength" value="20" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" />
-		</property>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="20" />
-		</property>
-		<property name="required" value="true" />
-		<property name="summary" value="Reference Number" />
-		<property name="name" value="localReference" />
-		<property name="label" value="Local Reference Number" />
-		<property name="description" value="Local Reference Number" />
-		<property name="controlField">
-			<bean parent="Uif-TextControl" p:size="20" />
-		</property>
-	</bean>
+	<bean id="case-localReference" parent="martinlaw-shared-localReference-parentBean" />
 
 	<bean id="case-courtReference" parent="case-courtReference-parentBean" />
 
@@ -96,31 +55,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="courtcase-statusId" parent="courtcase-statusId-parentBean" />
 
-	<bean id="courtcase-statusId-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="forceUppercase" value="true" />
-		<property name="shortLabel" value="Status" />
-		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
-		</property>
-		<property name="summary" value="Case Status" />
-		<property name="name" value="statusId" />
-		<property name="label" value="Case Status" />
-		<property name="description" value="Case Status" />
-		<property name="required" value="true" />
+	<bean id="courtcase-statusId-parentBean" parent="martinlaw-shared-statusId-parentBean">	
 		<property name="optionsFinder">
 			<bean class="org.martinlaw.keyvalues.CourtCaseStatusKeyValues" />
 		</property>
-		<property name="controlField">
-				<bean parent="Uif-DropdownControl" />
-			</property>
-	</bean>
 
-	<!-- for displaying on the inquiry/lookup results -->
-	<bean id="courtcase-status" parent="case-status-text">
-		<property name="name" value="status.status" />
 	</bean>
-
 
 </beans>

@@ -116,5 +116,45 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
       <bean parent="Uif-KimPersonControl" p:personNamePropertyName="person.name" p:principalIdPropertyName="person.principalId"/>
     </property>
   </bean>
+  
+  <bean id="martinlaw-shared-localReference-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="true" />
+		<property name="shortLabel" value="Ref Num" />
+		<property name="maxLength" value="20" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" />
+		</property>
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="20" />
+		</property>
+		<property name="required" value="true" />
+		<property name="summary" value="Reference Number" />
+		<property name="name" value="localReference" />
+		<property name="label" value="Local Reference Number" />
+		<property name="description" value="Local Reference Number" />
+		<property name="controlField">
+			<bean parent="Uif-TextControl" p:size="20" />
+		</property>
+	</bean>
+	
+	<bean id="martinlaw-shared-statusId-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="true" />
+		<property name="shortLabel" value="Status" />
+		<property name="maxLength" value="100" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
+		<property name="summary" value="Case Status" />
+		<property name="name" value="statusId" />
+		<property name="label" value="Case Status" />
+		<property name="description" value="Case Status" />
+		<property name="required" value="true" />
+		<!-- options finder is provided in court case or conveyance -->
+		<property name="controlField">
+				<bean parent="Uif-DropdownControl" />
+			</property>
+	</bean>
 
 </beans>

@@ -4,18 +4,16 @@
  Copyright 2012 Protosoft Ltd
 -->
 
-  <bean id="conveyance_type_MaintDocument" parent="conveyance_type_MaintDocument-parentBean"/>
-
-  <bean id="conveyance_type_MaintDocument-parentBean" abstract="true" parent="uifMaintenanceDocumentEntry">
-    <property name="dataObjectClass" value="org.martinlaw.bo.ConveyanceType"/>
+  <bean id="conveyance_MaintDocument"  parent="uifMaintenanceDocumentEntry">
+    <property name="dataObjectClass" value="org.martinlaw.bo.Conveyance"/>
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <property name="lockingKeys">
       <list>
         <value>name</value>
-        <value>id</value>
+        <value>localReference</value>
       </list>
     </property>
-    <property name="documentTypeName" value="ConveyanceTypeMaintenanceDocument"/>
+    <property name="documentTypeName" value="ConveyanceMaintenanceDocument"/>
   </bean>
 
 </beans>
