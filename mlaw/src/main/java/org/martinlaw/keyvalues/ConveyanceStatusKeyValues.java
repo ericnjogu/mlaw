@@ -26,5 +26,6 @@ public class ConveyanceStatusKeyValues  extends StatusKeyValuesBase {
 	 */
 	@Override
 	public List<KeyValue> getKeyValues() {
-		return super.getKeyValues(Status.CONVEYANCE_TYPE.getKey());	}
+		return super.getKeyValues(Status.CONVEYANCE_TYPE.getKey());	
+	}
 }

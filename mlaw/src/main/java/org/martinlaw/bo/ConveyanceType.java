@@ -3,6 +3,7 @@
  */
 package org.martinlaw.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,6 +31,12 @@ public class ConveyanceType extends BaseDetail {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceTypeId")
 	private List<ConveyanceAnnexType> annexTypes;
 	
+	/**
+	 * default constructor to initialize lists
+	 */
+	public ConveyanceType() {
+		annexTypes = new ArrayList<ConveyanceAnnexType>();
+	}
 	/**
 	 * get the primary key
 	 */

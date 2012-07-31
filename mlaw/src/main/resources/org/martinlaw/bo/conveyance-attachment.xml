@@ -33,16 +33,10 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
 		</property>
 		<property name="summary" value="Attachment" />
-		<property name="name" value="attachmentId" />
+		<property name="name" value="noteTimestamp" />
 		<property name="label" value="Attachment" />
 		<property name="description" value="Attachment" />
 		<property name="required" value="true" />
-		<!-- set the options finder in the maintenance view, coz it causes this error:
-		Cannot convert value of type [java.lang.String] to required type [org.kuali.rice.krad.document.Document] for property 'document': no matching editors or conversion strategy found -->
-		<!-- <property name="optionsFinder">
-		pass in the current document from the context and retrieve the list of attachments
-			<bean class="org.martinlaw.keyvalues.AttachmentKeyValues" p:document="@{#form.document}"/>
-		</property> -->
 		<property name="controlField">
 				<bean parent="Uif-DropdownControl" />
 			</property>

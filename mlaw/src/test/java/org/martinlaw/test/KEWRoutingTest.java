@@ -224,7 +224,6 @@ public class KEWRoutingTest extends KewTestsBase {
 	@Override
 	public void setUpInternal() throws Exception {
 		super.setUpInternal();
-		KRADServiceLocatorWeb.getDocumentService();
 		boSvc = KRADServiceLocator.getBusinessObjectService();
 	}
 	
@@ -289,7 +288,7 @@ public class KEWRoutingTest extends KewTestsBase {
 	/**
 	 * test that a conveyance document is routed to the lawyer
 	 */
-	public void testConveyancesRouting() {
+	public void testConveyanceRouting() {
 		int existingConveyances = boSvc.findAll(Conveyance.class).size();
 		Conveyance conv = TestUtils.getTestConveyance();
 		// add a conveyance type to avoid data integrity exceptions

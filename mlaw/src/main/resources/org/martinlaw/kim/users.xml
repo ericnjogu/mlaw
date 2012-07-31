@@ -17,6 +17,7 @@
 			<displayName>Clerk One</displayName>
 			<givenName>Clerk</givenName>
 			<lastName>One</lastName>
+			<emailAddress>clerk1@localhost</emailAddress>
 		</user>
 		
 		<user>
@@ -33,6 +34,7 @@
 			<displayName>Lawyer One</displayName>
 			<givenName>Lawyer</givenName>
 			<lastName>One</lastName>
+			<emailAddress>lawyer1@localhost</emailAddress>
 		</user>
 		
 		<user>
@@ -41,6 +43,7 @@
 			<displayName>Clerk Two</displayName>
 			<givenName>Clerk</givenName>
 			<lastName>Two</lastName>
+			<emailAddress>clerk2@localhost</emailAddress>
 		</user>
 	</users>	
 </data>

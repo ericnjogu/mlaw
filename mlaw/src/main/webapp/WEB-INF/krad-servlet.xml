@@ -41,6 +41,7 @@
   <context:component-scan base-package="org.kuali.rice.krms"/>
   <context:component-scan base-package="org.kuali.rice.core.web"/>
   <context:component-scan base-package="org.kuali.rice.kew.impl.peopleflow"/>
+  <context:component-scan base-package="org.martinlaw.web"/>
 
   <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <tx:attributes>

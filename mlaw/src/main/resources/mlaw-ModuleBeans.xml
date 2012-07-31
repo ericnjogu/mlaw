@@ -91,7 +91,7 @@
          
          <value>classpath:org/martinlaw/bo/conveyance-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/conveyance-type-maintenance.xml</value>
-         <!-- will maintained as part of conveyance type -->
+         <!-- to be maintained as part of conveyance type -->
          <!-- 
          <value>classpath:org/martinlaw/bo/conveyance-annex-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/conveyance-annex-type-maintenance.xml</value>

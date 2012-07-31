@@ -7,9 +7,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -21,11 +24,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
+import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.datadictionary.DataObjectEntry;
+import org.kuali.rice.krad.maintenance.MaintainableImpl;
+import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
+import org.kuali.rice.krad.web.form.MaintenanceForm;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.Conveyance;
 import org.martinlaw.bo.ConveyanceAnnex;
@@ -137,6 +144,10 @@ public class BOTest extends MartinlawTestsBase {
         //client fees
         assertEquals(2, kase.getFees().size());
         testFeeFields(kase.getFees().get(0));
+        // attachments
+        assertEquals(2, kase.getAttachments().size());
+        assertEquals("submission.pdf", kase.getAttachments().get(0).getAttachmentFileName());
+        assertEquals("pleading.odt", kase.getAttachments().get(1).getAttachmentFileName());
 	}
 	
 	@Test
@@ -146,8 +157,6 @@ public class BOTest extends MartinlawTestsBase {
 	 * @throws Exception
 	 */
 	public void testCaseSaveRetrieve() throws Exception {
-		//delete sample data
-		//new SQLDataLoader("classpath:org/martinlaw/bo/clear-test-data.sql", ";").runSql();
 		CourtCase kase = new CourtCase();
 		kase.setLocalReference("local1");
 		Status status = new Status();
@@ -780,16 +789,20 @@ public class BOTest extends MartinlawTestsBase {
 	public void testConveyanceAttachmentCRUD() {
 		// retrieve object inserted via sql
 		ConveyanceAttachment convAtt = boSvc.findBySinglePrimaryKey(ConveyanceAttachment.class, 1001l);
-		// C
 		assertNotNull(convAtt);
+		// test the retrieving of the attachment
+		assertNotNull(convAtt.getAttachment());
+		assertEquals("filename.ext", convAtt.getAttachment().getAttachmentFileName());
+		// C
 		convAtt = new ConveyanceAttachment();
-		convAtt.setAttachmentId(1001l);
+		assertNull(convAtt.getAttachment());
+		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		convAtt.setConveyanceAnnexId(1001l);
 		boSvc.save(convAtt);
 		// R
 		convAtt.refresh();
 		// U
-		convAtt.setAttachmentId(1002l);
+		convAtt.setConveyanceAnnexId(1002l);
 		convAtt.refresh();
 		// D
 		boSvc.delete(convAtt);
@@ -822,10 +835,10 @@ public class BOTest extends MartinlawTestsBase {
 		// add attachments
 		List<ConveyanceAttachment> atts = new ArrayList<ConveyanceAttachment>();
 		ConveyanceAttachment convAtt = new ConveyanceAttachment();
-		convAtt.setAttachmentId(1001l);
+		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		atts.add(convAtt);
 		convAtt = new ConveyanceAttachment();
-		convAtt.setAttachmentId(1002l);
+		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		atts.add(convAtt);
 		convAnnex.setAttachments(atts);
 		boSvc.save(convAnnex);
@@ -833,6 +846,9 @@ public class BOTest extends MartinlawTestsBase {
 		convAnnex.refresh();
 		assertEquals(2, convAnnex.getAttachments().size());
 		assertEquals(existingConvAtts + 2, boSvc.findAll(ConveyanceAttachment.class).size());
+		assertEquals("land board approval", convAnnex.getType().getName());
+		assertEquals(new Long(1001l), convAnnex.getType().getConveyanceTypeId());
+		// fail("why?");
 		// U
 		boSvc.delete(convAnnex.getAttachments().get(0));
 		convAnnex.refresh();
@@ -858,16 +874,23 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that {@link ConveyanceAnnexTypeKeyValues} works as expected
 	 */
 	public void testConveyanceAnnexTypeKeyValues() {
-		// expect a blank key value if no conveyance type id is given
 		ConveyanceAnnexTypeKeyValues keyValues = new ConveyanceAnnexTypeKeyValues();
-		assertEquals(1, keyValues.getKeyValues().size());
-		assertEquals("", keyValues.getKeyValues().get(0).getKey());
 		
-		keyValues.setConveyanceTypeId(1001l);
-		// expect two non blank key values in addition to the blank one
-		assertEquals(3, keyValues.getKeyValues().size());
-		assertEquals("land board approval", keyValues.getKeyValues().get(1).getValue());
-		assertEquals("city council approval", keyValues.getKeyValues().get(2).getValue());
+		MaintenanceForm maintForm = mock(MaintenanceForm.class);
+		Conveyance conv = new Conveyance();
+		conv.setTypeId(1001l);
+		
+		MaintenanceDocumentBase doc = mock(MaintenanceDocumentBase.class);
+		when(maintForm.getDocument()).thenReturn(doc);
+		MaintainableImpl maintainable = mock(MaintainableImpl.class);
+		when(doc.getNewMaintainableObject()).thenReturn(maintainable);
+		when(maintainable.getDataObject()).thenReturn(conv);
+		
+		List<KeyValue> result = keyValues.getKeyValues(maintForm);
+		// expect two non blank key values
+		assertEquals(2, result.size());
+		assertEquals("land board approval", result.get(0).getValue());
+		assertEquals("city council approval", result.get(1).getValue());
 	}
 	
 	@Test
@@ -890,7 +913,7 @@ public class BOTest extends MartinlawTestsBase {
 		// conveyance annexes
 		assertEquals(1, conv.getAnnexes().size());
 		assertEquals(1, conv.getAnnexes().get(0).getAttachments().size());
-		assertEquals(new Long(1001l), conv.getAnnexes().get(0).getAttachments().get(0).getAttachmentId());
+		assertEquals(Timestamp.valueOf("2012-07-19 00:00:00"), conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 	}
 	
 	@Test
@@ -916,35 +939,44 @@ public class BOTest extends MartinlawTestsBase {
 		ConveyanceAnnex annex = new ConveyanceAnnex();
 		annex.setConveyanceAnnexTypeId(1003l);
 		ConveyanceAttachment convAtt = new ConveyanceAttachment();
-		convAtt.setAttachmentId(999l);
+		Timestamp timestamp = new Timestamp(Calendar.getInstance().getTimeInMillis());
+		convAtt.setNoteTimestamp(timestamp);
 		annex.getAttachments().add(convAtt);
-		conv.getAnnexes().add(annex);
+		//need to set annexes externally since getAnnexes() will generate a default listing for th etype
+		List<ConveyanceAnnex> annexes = new ArrayList<ConveyanceAnnex>();
+		annexes.add(annex);
+		conv.setAnnexes(annexes);
 		
 		boSvc.save(conv);
 		
 		// R
 		conv.refresh();
+
+		conv.getAnnexes().get(0).refreshNonUpdateableReferences();
 		assertEquals(TestUtils.getTestConveyance().getName(), conv.getName());
 		assertEquals(1, conv.getClients().size());
 		assertEquals(principalName, conv.getClients().get(0).getPrincipalName());
 		assertEquals(1, conv.getFees().size());
 		assertEquals(feeDescription, conv.getFees().get(0).getDescription());
 		assertEquals(1, conv.getAnnexes().size());
-		assertEquals(new Long(999), conv.getAnnexes().get(0).getAttachments().get(0).getAttachmentId());
+		assertEquals(timestamp, conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 		
 		// U
 		String name2 = "EN/C010";
 		conv.setName(name2);
 		boSvc.delete(conv.getAnnexes().get(0));
+
 		conv.refresh();
 		assertEquals(name2, conv.getName());
-		assertEquals(0, conv.getAnnexes().size());
+		// should create new annexes to fit into the existing annex types (1)
+		assertEquals(1, conv.getAnnexes().size());
+		assertNull(conv.getAnnexes().get(0).getId());
 		
 		// D
 		boSvc.delete(conv);
 		assertNull("conveyance client should have been deleted", 
 				boSvc.findBySinglePrimaryKey(ConveyanceClient.class, conv.getClients().get(0).getId()));
-		assertNull("conveyance client should have been deleted", 
+		assertNull("conveyance fee should have been deleted", 
 				boSvc.findBySinglePrimaryKey(ConveyanceFee.class, conv.getFees().get(0).getId()));
 	}
 }

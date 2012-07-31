@@ -146,10 +146,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="validationPattern">
 			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
 		</property>
-		<property name="summary" value="Case Status" />
+		<property name="summary" value="Status" />
 		<property name="name" value="statusId" />
-		<property name="label" value="Case Status" />
-		<property name="description" value="Case Status" />
+		<property name="label" value="Status" />
+		<property name="description" value="Status" />
 		<property name="required" value="true" />
 		<!-- options finder is provided in court case or conveyance -->
 		<property name="controlField">

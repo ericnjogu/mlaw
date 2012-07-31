@@ -1,0 +1,7 @@
+@CHARSET "ISO-8859-1";
+
+li.att_file {cursor:pointer;}
+
+li.att_file:HOVER {
+	background-color: teal;
+}

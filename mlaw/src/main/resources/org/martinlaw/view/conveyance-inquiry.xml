@@ -6,6 +6,7 @@
 	<bean id="conveyance_inquiry_view" parent="Uif-InquiryView">
 		<property name="headerText" value="Conveyance Inquiry" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.Conveyance" />
+		<property name="formPostUrl" value="inquiryWithAtts" />
 		<property name="Items">
 			<list>
 				<bean parent="Uif-Disclosure-GridSection">
@@ -29,14 +30,29 @@
 					<property name="items">
 						<list>
 							<bean parent="Uif-InputField" p:propertyName="type.name" />
+						</list>
+					</property>
+					<property name="layoutManager.summaryFields">
+						<list>
+							<value>type.name</value>
+						</list>
+					</property>
+					<property name="layoutManager.summaryTitle" value="Annex" />
+					<property name="subCollections">
+						<list>
 							<bean parent="Uif-StackedSubCollection-WithinSection">
 								<property name="headerText" value="Attachments" />
 								<property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceAttachment" />
 								<property name="propertyName" value="attachments" />
 								<property name="items">
 									<list>
-										<bean parent="Uif-InputField" p:propertyName="attachment.attachmentFileName" />
-										<!-- display a link to the file or redisplay list of attachments in separate section -->
+										<bean parent="Uif-ActionLink"
+											p:methodToCall="downloadConveyanceAttachment" p:actionLabel="@{#attachment.attachmentFileName}"
+											p:title="@{#attachment.attachmentFileName}"
+											p:onClickScript="writeHiddenToForm(&quot;skipViewInit&quot;, &quot;true&quot;);
+											writeHiddenToForm(&quot;renderFullView&quot;, &quot;false&quot;);
+											writeHiddenToForm(&quot;unblockUIOnLoading&quot;, &quot;true&quot;);
+											writeHiddenToForm(&quot;actionParameters[conveyanceAttachmentId]&quot;, &quot;@{#attachment.id}&quot;);" />
 									</list>
 								</property>
 								<property name="layoutManager.summaryFields">
@@ -48,12 +64,6 @@
 							</bean>
 						</list>
 					</property>
-					<property name="layoutManager.summaryFields">
-						<list>
-							<value>type.name</value>
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Annex" />
 				</bean>
 
 				<bean parent="martinlaw_shared_client_inquiry_section">

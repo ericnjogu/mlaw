@@ -218,19 +218,19 @@
 		<field-descriptor name="conveyanceAnnexId" column="convey_annex_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
-		<field-descriptor name="attachmentId" column="att_id"
-			jdbc-type="BIGINT" indexed="true">
+		<field-descriptor name="noteTimestamp" column="note_timestamp"
+			jdbc-type="TIMESTAMP" indexed="true">
 		</field-descriptor>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
-
-		<reference-descriptor name="attachment"
+		<!-- now being fetched dynamically, depending on the value of -->
+		<!-- <reference-descriptor name="attachment"
 			class-ref="org.kuali.rice.krad.bo.Attachment" auto-retrieve="true"
 			auto-update="true" auto-delete="none">
 			<foreignkey field-ref="attachmentId" />
-		</reference-descriptor>
+		</reference-descriptor> -->
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.ConveyanceAnnex"
@@ -252,7 +252,7 @@
 
 		<reference-descriptor name="type"
 			class-ref="org.martinlaw.bo.ConveyanceAnnexType" auto-retrieve="true"
-			auto-update="true" auto-delete="none">
+			auto-update="false" auto-delete="none">
 			<foreignkey field-ref="conveyanceAnnexTypeId" />
 		</reference-descriptor>
 
@@ -352,7 +352,7 @@
 
 		<collection-descriptor name="annexes"
 			element-class-ref="org.martinlaw.bo.ConveyanceAnnex" auto-retrieve="true"
-			auto-update="true" auto-delete="false">
+			auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="conveyanceId" />
 		</collection-descriptor>
 	</class-descriptor>

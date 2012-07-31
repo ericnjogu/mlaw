@@ -11,8 +11,11 @@ import java.util.Map;
 
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.krad.keyvalues.KeyValuesBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.kuali.rice.krad.uif.control.UifKeyValuesFinderBase;
+import org.kuali.rice.krad.uif.view.ViewModel;
+import org.kuali.rice.krad.web.form.MaintenanceForm;
+import org.martinlaw.bo.Conveyance;
 import org.martinlaw.bo.ConveyanceAnnexType;
 
 /**
@@ -24,26 +27,27 @@ import org.martinlaw.bo.ConveyanceAnnexType;
  * @author mugo
  *
  */
-public class ConveyanceAnnexTypeKeyValues extends KeyValuesBase {
+public class ConveyanceAnnexTypeKeyValues extends UifKeyValuesFinderBase {
 
-	
-	private Long conveyanceTypeId;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9206469740259414962L;
 
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
-	 */
 	@Override
-	public List<KeyValue> getKeyValues() {
+	public List<KeyValue> getKeyValues(ViewModel model) {
 		List<KeyValue> keyValues = new ArrayList<KeyValue>();
-		keyValues.add(new ConcreteKeyValue("", ""));
-		if (getConveyanceTypeId() != null) {
+		// to be added by default during rendering
+		// keyValues.add(new ConcreteKeyValue("", ""));
+		Long conveyanceTypeId = null;
+		MaintenanceForm form = (MaintenanceForm) model;
+		if (form.getDocument() != null) {
+			conveyanceTypeId = ((Conveyance)form.getDocument().getNewMaintainableObject().getDataObject()).getTypeId();
+		}
+		if (conveyanceTypeId != null) {
 			// fetch all conveyance annex types that belonging to the supplied conveyance type id
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("conveyanceTypeId", getConveyanceTypeId());
+			params.put("conveyanceTypeId", conveyanceTypeId);
 			Collection<ConveyanceAnnexType> results = KRADServiceLocator.getBusinessObjectService().findMatching(
 					ConveyanceAnnexType.class, params);
 			for (ConveyanceAnnexType annexType: results) {
@@ -52,21 +56,5 @@ public class ConveyanceAnnexTypeKeyValues extends KeyValuesBase {
 			
 		}
 		return keyValues;
-	}
-
-	/**
-	 * gets the conveyance type id to fetch conveyance annex types for
-	 * 
-	 * @return the id
-	 */
-	public Long getConveyanceTypeId() {
-		return conveyanceTypeId;
-	}
-
-	/**
-	 * @param conveyanceTypeId the id to set
-	 */
-	public void setConveyanceTypeId(Long conveyanceTypeId) {
-		this.conveyanceTypeId = conveyanceTypeId;
 	}
 }

@@ -13,6 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.krad.bo.Attachment;
+import org.kuali.rice.krad.bo.Note;
+import org.kuali.rice.krad.service.KRADServiceLocator;
 
 
 /**
@@ -51,6 +57,10 @@ public class CourtCase extends Matter {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "courtCaseId")
 	private List<CourtCaseFee> fees;
+	
+	/**cache the dynamically fetched attachments locally*/
+	@Transient
+	private List<Attachment> attachments = null;
 	
 	public CourtCase() {
 		super();
@@ -142,6 +152,33 @@ public class CourtCase extends Matter {
 	 */
 	public List<CourtCaseFee> getFees() {
 		return fees;
+	}
+	
+	/**
+	 * gets the list of attachments associated with this court case
+	 * 
+	 * This is achieved by retrieving the notes whose remote obj id is equal to this object's obj id
+	 * and retrieving the attachments if present
+	 * 
+	 * @return the list of attachments if found, an empty list if not
+	 */
+	public List<Attachment> getAttachments() {
+		if (attachments == null) {
+			List<Attachment> atts = new ArrayList<Attachment>();
+			if (!StringUtils.isEmpty(getObjectId())) {
+				List<Note> notes = KRADServiceLocator.getNoteService().getByRemoteObjectId(getObjectId());
+				if (notes != null) {
+					for (Note note: notes) {
+						// only interested in file attachments
+						if (note.getAttachment() != null) {
+							atts.add(note.getAttachment());
+						}
+					}
+					attachments = atts;
+				}
+			}
+		}
+		return attachments;
 	}
 
 }

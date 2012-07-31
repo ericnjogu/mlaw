@@ -10,7 +10,7 @@
   
 
   <bean id="conveyance_type_maintenance_view" parent="Uif-MaintenanceView">
-    <property name="headerText" value="Conveyance Annex Type"/>
+    <property name="headerText" value="Conveyance Type"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.ConveyanceType"/>
     <property name="items">
       <list merge="true">

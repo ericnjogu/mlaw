@@ -49,6 +49,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 		<property name="summary" value="Conveyance Type" />
 		<property name="name" value="typeId" />
+		<!-- label shown by the field group on maintenance screen-->
 		<property name="label" value="Conveyance Type" />
 		<property name="description" value="Conveyance Type" />
 		<property name="required" value="true" />
@@ -56,8 +57,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<bean
 				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
 				p:businessObjectClass="org.martinlaw.bo.ConveyanceType"
-				p:keyAttributeName="id"	p:labelAttributeName="name">
-			</bean>
+				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
 		</property>
 		<property name="controlField">
 				<bean parent="Uif-DropdownControl" />
