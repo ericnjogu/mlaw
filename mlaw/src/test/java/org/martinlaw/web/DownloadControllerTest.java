@@ -88,7 +88,7 @@ public class DownloadControllerTest {
 	}
 
 	/**
-	 * Test method for {@link org.martinlaw.web.DownloadController#downloadCaseAttachment(org.kuali.rice.krad.web.form.UifFormBase, org.springframework.validation.BindingResult, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)}.
+	 * Test method for {@link org.martinlaw.web.DownloadController#downloadAttachmentById(org.kuali.rice.krad.web.form.UifFormBase, org.springframework.validation.BindingResult, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)}.
 	 * @throws IOException 
 	 */
 	@Test
@@ -98,7 +98,7 @@ public class DownloadControllerTest {
 		BusinessObjectService boSvc = mock(BusinessObjectService.class);
 		controller.setBusinessObjectService(boSvc);
 		when(boSvc.findBySinglePrimaryKey(Attachment.class, 1001l)).thenReturn(att);
-		controller.downloadCaseAttachment(form, null, null, response);
+		controller.downloadAttachmentById(form, null, null, response);
 		testDownloadAttachmentAsStream();
 	}
 

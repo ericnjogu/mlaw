@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 /**
@@ -25,6 +26,8 @@ public class Matter extends PersistableBusinessObjectBase {
 	 */
 	@Column(name = "local_reference", length = 20, nullable = false)
 	private String localReference;
+	//column defined using reference below - this is for the sake of ojb
+	@Transient
 	private Long statusId;
 	/** 
 	 * case e.g. Mike Vs Iron (2002) 

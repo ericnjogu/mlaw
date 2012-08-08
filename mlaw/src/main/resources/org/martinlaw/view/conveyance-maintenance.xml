@@ -39,6 +39,21 @@
 										<ref bean="conveyance_maintenance_view_typeMsg" />
 									</list>
 								</property>
+								<!-- pending a determination of how to display the message -->
+								<!-- <property name="propertyReplacers">
+									<list>
+										<bean parent="Uif-ConditionalBeanPropertyReplacer"
+											p:propertyName="help"
+											p:condition="#form.document.newMaintainableObject.dataObject.hasAttachments()">
+											<property name="replacement">
+												<bean parent="Uif-Help">
+													<property name="tooltipHelpContent"
+														value="Selection not possible when an attachment has been selected" />
+												</bean>
+											</property>
+										</bean>
+									</list>
+								</property> -->
 							</bean>
 
 							<!-- when the type changes, the annexes section should refresh to 
@@ -65,19 +80,21 @@
 
 				<bean parent="Uif-DocumentRouteLogSection"
 					p:disclosure.defaultOpen="false" />
-				<!-- holds the dynamically generated html content to show in lightbox -->	
-				<ref bean="conveyance_maintenance_view_filepopup"/>	
+				<!-- holds the dynamically generated html content to show in lightbox -->
+				<ref bean="conveyance_maintenance_view_filepopup" />
 			</list>
 		</property>
 	</bean>
 
 	<!-- defined out here so that they can be referred to by id -->
-	
+
 	<bean id="conveyance_maintenance_view_filepopup" parent="Uif-MessageField"
 		p:style="display:none" />
 
 	<bean id="conveyance_maintenance_view_typeId" parent="Uif-InputField"
-		p:propertyName="typeId">
+		p:propertyName="typeId"
+		p:readOnly="@{#form.document.newMaintainableObject.dataObject.hasAttachments()}"
+		p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false">
 		<property name="propertyReplacers">
 			<list>
 				<bean parent="Uif-ConditionalBeanPropertyReplacer"
@@ -87,13 +104,13 @@
 	</bean>
 
 	<bean id="conveyance_maintenance_view_typeMsg" parent="Uif-MessageField"
-		p:style="display:none" p:messageText="Selection not possible when an attachment has been selected" />
+		p:style="display:none" />
 
 	<bean id="conveyance_maintenance_view_notes" parent="Uif-DocumentNotesSection"
 		p:disclosure.defaultOpen="true">
 		<property name="items">
 			<list merge="true">
-				<bean parent="Uif-MessageField" p:style="display:none">
+				<bean parent="Uif-MessageField" p:label="[Blank]" p:style="display:none">
 					<property name="dataAttributes">
 						<map>
 							<!-- allows selection of all attachments in jquery -->
@@ -148,8 +165,6 @@
 								<property name="items">
 									<list>
 										<bean parent="Uif-InputField" p:propertyName="noteTimestamp">
-											<!-- control repeated here so that on change script can be added 
-												with references to other controls that only make sense in this context -->
 											<property name="control">
 												<bean parent="Uif-HiddenControl">
 													<property name="dataAttributes">
@@ -168,46 +183,39 @@
 											</property>
 										</bean>
 
-										<bean parent="Uif-MessageField" p:style="width:150px">
-											<property name="propertyReplacers">
-												<list>
-													<bean parent="Uif-ConditionalBeanPropertyReplacer"
-														p:propertyName="messageText" p:condition="#isAddLine"
-														p:replacement="Click 'Add' below" />
-													<bean parent="Uif-ConditionalBeanPropertyReplacer"
-														p:propertyName="messageText"
-														p:condition="!#isAddLine and #empty(#line.attachment?.attachmentFileName)"
-														p:replacement="[None Selected]" />
-													<bean parent="Uif-ConditionalBeanPropertyReplacer"
-														p:propertyName="messageText"
-														p:condition="!#isAddLine and !#empty(#line.attachment?.attachmentFileName)"
-														p:replacement="@{#line.attachment?.attachmentFileName}" />
-												</list>
-											</property>
-											<property name="dataAttributes">
-												<map>
-													<!-- allows setting of selected attachment filename -->
-													<entry key="mlaw-conv-att-filename" value="true" />
-												</map>
+										<bean parent="Uif-MessageField" p:messageText="Click 'Add' below" p:render="@{#isAddLine}"/>
+
+										<bean parent="Uif-InputField" p:style="width:170px"
+											p:propertyName="filename" p:render="@{!#isAddLine}">
+											<property name="control">
+												<!-- set readonly via script so that this control is not replaced 
+													by a span -->
+												<bean parent="Uif-TextControl" p:readOnly="true">
+													<property name="dataAttributes">
+														<map>
+															<!-- allows setting of selected attachment filename -->
+															<entry key="mlaw-conv-att-filename" value="true" />
+														</map>
+													</property>
+												</bean>
 											</property>
 										</bean>
 
-										<bean parent="Uif-PrimaryActionButton" p:actionLabel="Select File">
-											<property name="propertyReplacers">
-												<list>
-													<bean parent="Uif-ConditionalBeanPropertyReplacer"
-														p:propertyName="style" p:condition="#isAddLine"
-														p:replacement="display:none" />
-												</list>
-											</property>
+										<bean parent="Uif-PrimaryActionButton" p:actionLabel="Select File" p:render="@{!#isAddLine}">
 											<property name="actionScript">
 												<value>
 													var mlawUtil = new martinlaw.Util();
-													mlawUtil.selectFileAction('conveyance_maintenance_view_notes', 'mlaw-conv-att-timestamp', 
-														'mlaw-conv-att-filename', 'conveyance_maintenance_view_annexes', 
-														'mlaw-conv-att-lb-mk', 'conveyance_maintenance_view_filepopup', 
-														'mlaw-conv-att-grp', jQuery(this), 'mlaw-conv-att-line-time', 
-														'mlaw-conv-att-line-filename');
+													mlawUtil.selectFileAction('conveyance_maintenance_view_notes',
+													'mlaw-conv-att-timestamp',
+													'mlaw-conv-att-filename',
+													'conveyance_maintenance_view_annexes',
+													'mlaw-conv-att-lb-mk',
+													'conveyance_maintenance_view_filepopup',
+													'mlaw-conv-att-grp', jQuery(this),
+													'mlaw-conv-att-line-time',
+													'mlaw-conv-att-line-filename',
+													'conveyance_maintenance_view_typeId_control',
+													'conveyance_maintenance_view_typeMsg');
 												</value>
 											</property>
 										</bean>
@@ -217,10 +225,6 @@
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Attachment" />
-					<!-- When an attachment is picked from the dropdown, the filename is 
-						not yet available -->
-					<!-- <property name="layoutManager.summaryFields"> <list> <value>attachment.attachmentFileName</value> 
-						</list> </property> -->
 				</bean>
 			</list>
 		</property>

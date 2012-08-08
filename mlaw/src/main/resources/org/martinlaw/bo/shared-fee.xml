@@ -46,14 +46,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="summary" value="Amount"/>
 		<property name="maxLength" value="20"/>
 		<property name="required" value="true"/>
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="50" />
-		</property>
-		<property name="validationPattern">
-      <bean parent="NumericValidationPattern"/>
-    </property>
     <property name="controlField">
-      <bean parent="Uif-TextControl" p:size="50"/>
+      <bean parent="Uif-TextControl" p:size="50" />
     </property> 
 	</bean>
 	

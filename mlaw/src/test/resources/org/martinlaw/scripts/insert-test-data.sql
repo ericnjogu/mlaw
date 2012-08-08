@@ -62,16 +62,17 @@ insert into
 martinlaw_convey_att_t
 (convey_att_id, convey_annex_id, ver_nbr, obj_id, note_timestamp)
 values
-(1001, 1001, default, 1, '2012-07-19');
+(1001, 1001, default, 1, '2012-07-19 00:00:00'),
+(1002, 1001, default, 1, '');
 
 -- test note
 INSERT INTO `krns_nte_t`
 (`NTE_ID`, `OBJ_ID`, `VER_NBR`, `RMT_OBJ_ID`, `AUTH_PRNCPL_ID`, `POST_TS`, NTE_TYP_CD)
 VALUES
-(1001, 1, default, 'conv1', 'clerk1', '2012-07-19', 'BO'),
-(1002, 2, default, 'case1', 'clerk1', '2012-07-19', 'BO'),
-(1003, 3, default, 'case1', 'clerk1', '2012-07-19', 'BO'),
-(1004, 4, default, 'case1', 'clerk1', '2012-07-19', 'BO');
+(1001, 1, default, 'conv1', 'clerk1', '2012-07-19  00:00:00', 'BO'),
+(1002, 2, default, 'case1', 'clerk1', '2012-07-19  00:00:00', 'BO'),
+(1003, 3, default, 'case1', 'clerk1', '2012-07-19  00:00:00', 'BO'),
+(1004, 4, default, 'conv2', 'clerk1', '2012-07-19  00:00:00', 'BO');
 
 -- test att
 INSERT INTO `krns_att_t`

@@ -12,7 +12,7 @@
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr/maintenance.do?methodToCall=docHandler</docHandler>
+			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
 
 			<routePaths>
 				<routePath>

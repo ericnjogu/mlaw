@@ -49,19 +49,19 @@
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="true"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
 		<collection-descriptor name="fees"
 			element-class-ref="org.martinlaw.bo.CourtCaseFee" auto-retrieve="true"
-			auto-update="true" auto-delete="false">
+			auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="courtCaseId" />
 		</collection-descriptor>
 
 		<collection-descriptor name="hearingDates"
 			element-class-ref="org.martinlaw.bo.HearingDate" auto-retrieve="true"
-			auto-update="true" auto-delete="false">
+			auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="courtCaseId" />
 		</collection-descriptor>
 	</class-descriptor>
@@ -219,13 +219,15 @@
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<field-descriptor name="noteTimestamp" column="note_timestamp"
-			jdbc-type="TIMESTAMP" indexed="true">
+			jdbc-type="VARCHAR">
 		</field-descriptor>
+		<field-descriptor name="filename" column="filename"
+			jdbc-type="VARCHAR" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
-		<!-- now being fetched dynamically, depending on the value of -->
+		<!-- now being fetched dynamically, depending on the value of the note timestamp -->
 		<!-- <reference-descriptor name="attachment"
 			class-ref="org.kuali.rice.krad.bo.Attachment" auto-retrieve="true"
 			auto-update="true" auto-delete="none">
@@ -327,7 +329,7 @@
 
 		<reference-descriptor name="type"
 			class-ref="org.martinlaw.bo.ConveyanceType" auto-retrieve="true"
-			auto-update="true" auto-delete="none">
+			auto-update="false" auto-delete="none">
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
 
@@ -340,7 +342,7 @@
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="true"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>

@@ -4,29 +4,29 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	<!-- Copyright 2012 Protosoft Ltd -->
-	<bean id="conveyance_annex_type" parent="conveyance_annex_type-parentBean" />
+	<bean id="conveyance_type" parent="conveyance_type_parentBean" />
 
-	<bean id="conveyance_annex_type-parentBean" abstract="true"
+	<bean id="conveyance_type_parentBean" abstract="true"
 		parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.martinlaw.bo.ConveyanceAnnexType" />
+		<property name="businessObjectClass" value="org.martinlaw.bo.ConveyanceType" />
 
 		<property name="titleAttribute" value="name" />
 		<property name="attributes">
 			<list>
-				<ref bean="conveyance_annex_type_description" />
-				<ref bean="conveyance_annex_type_name" />
-				<ref bean="conveyance_annex_type_id" />
+				<ref bean="conveyance_type_description" />
+				<ref bean="conveyance_type_name" />
+				<ref bean="conveyance_type_id" />
 			</list>
 		</property>
-		<property name="objectLabel" value="Conveyance Annex Type" />
+		<property name="objectLabel" value="Conveyance Type" />
 	</bean>
 
 	<!-- Attribute Definitions -->
 
-	<bean id="conveyance_annex_type_description" parent="martinlaw-shared-description" />
+	<bean id="conveyance_type_description" parent="martinlaw-shared-description" />
 
-	<bean id="conveyance_annex_type_name" parent="martinlaw-shared-name" />
+	<bean id="conveyance_type_name" parent="martinlaw-shared-name" p:label="Conveyance Type"/>
 
-	<bean id="conveyance_annex_type_id" parent="martinlaw-shared-id" />
+	<bean id="conveyance_type_id" parent="martinlaw-shared-id" />
 
 </beans>

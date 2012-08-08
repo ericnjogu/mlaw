@@ -11,15 +11,19 @@ martinlaw.Util = function() {};
  * enable it if at least one has a valid attachment<p>
  * 
  * @param convTypeId - the html id of the conveyance type select
- * @param dataAttr - the data attribute that marks the attachment select controls
- * @param msgId - the id of the span which will 'replace' the select field using display
+ * @param dataAttr - the data attribute that marks the attachment hidden timestamp input
+ * @param msgId - the id of the span which will 'replace' the select field using display:none manipulation
  */
 martinlaw.Util.prototype.toggleConvTypeOnAttCheck = function (convTypeId, dataAttr, msgId) {
 	var atts = jQuery('input[data-' + dataAttr + ']');
 	for (var i=0; i<atts.length; i++) {
 		if (atts[i].value && atts[i].value != "") {
-			jQuery('#'+convTypeId).css("display", "none");
+			// switch visibility
+			jQuery('#'+ convTypeId).css("display", "none");
 			jQuery('#'+ msgId).css("display", "inline");
+			// set current label on the message field (assuming the first span is meant to hold the message)
+			var convType = jQuery('#'+ convTypeId).find("option[value='" + jQuery('#'+ convTypeId).val() + "']").text();
+			jQuery('#'+ msgId).text(convType);
 			return;
 		}
 	}
@@ -40,12 +44,12 @@ martinlaw.Util.prototype.toggleConvTypeOnAttCheck = function (convTypeId, dataAt
  */
 martinlaw.Util.prototype.setSelectedValueOnHidden = function (annexSectionId, lightBoxMarkerAttr, timestamp, filename) {
 	if (timestamp && timestamp != "") {
-		var tsInput = jQuery('#' + annexSectionId + " input[data-" + lightBoxMarkerAttr + "]");
+		var tsInput = jQuery('#' + annexSectionId + " input[type='hidden'][data-" + lightBoxMarkerAttr + "]");
 		tsInput.val(timestamp);
 		tsInput.removeAttr('data-' + lightBoxMarkerAttr);
 		
-		var fnField = jQuery('#' + annexSectionId + " div[data-" + lightBoxMarkerAttr + "]");
-		fnField.find("span").text(filename);
+		var fnField = jQuery('#' + annexSectionId + " input[type='text'][data-" + lightBoxMarkerAttr + "]");
+		fnField.val(filename);
 		fnField.removeAttr('data-' + lightBoxMarkerAttr);
 	}
 };
@@ -77,15 +81,20 @@ martinlaw.Util.prototype.getHiddenAttSectionInfoMap = function (attSectionObj, t
  * @param annexSectionId - the id of the div holding the annexes
  * @param lightBoxMarkerAttr  - the data attribute to set to identify the filename and timestamp tags to receive the selected file information
  * @param popupId - the id of the div whose content used to create a lightbox
+ * @param dataAttr - the data attribute that marks the attachment hidden timestamp input
  * @returns the html if the map was not empty, an empty string if the map was empty
  */
-martinlaw.Util.prototype.attInfoMaptoHtmlList = function(infoMap, annexSectionId, lightBoxMarkerAttr, popupId) {
+martinlaw.Util.prototype.attInfoMaptoHtmlList = function(infoMap, annexSectionId, lightBoxMarkerAttr, popupId, convTypeId, 
+		convTypeMsgId, dataAttr) {
 	var result = "";
 	// not undefined and length not undefined and not zero length
 	for (var key in infoMap) {
 		result += "\t<li class=\"att_file\" onclick=\"var mlawUtil = new martinlaw.Util();" +
 			"mlawUtil.setSelectedValueOnHidden('" + annexSectionId + "', '" + 
-			lightBoxMarkerAttr + "', '" + key + "', '" + infoMap[key] + "'); jQuery('#" + popupId + "').dialog('close');\">" + infoMap[key] + "</li>\n";
+			lightBoxMarkerAttr + "', '" + key + "', '" + infoMap[key] + 
+			"'); jQuery('#" + popupId + "').dialog('close'); mlawUtil.toggleConvTypeOnAttCheck('" + convTypeId + "', '" + dataAttr +
+			"', '" + convTypeMsgId + "');\">" +
+			infoMap[key] + "</li>\n";
 	}
 	if (result != "") {
 		return "<ol>\n" + result + "</ol>\n";
@@ -107,8 +116,8 @@ martinlaw.Util.prototype.createLightboxMarkers = function(eventObj, attGrpAttr, 
 	var enclosingDiv = eventObj.parents('div[data-' + attGrpAttr + ']');
 	var tsInput = enclosingDiv.find('input[data-' + timestampAttr + ']');
 	tsInput.attr('data-' + markerAttr, "true");
-	var fnDiv = enclosingDiv.find('div[data-' + filenameAttr + ']');
-	fnDiv.attr('data-' + markerAttr, "true");
+	var fnInput = enclosingDiv.find('input[data-' + filenameAttr + ']');
+	fnInput.attr('data-' + markerAttr, "true");
 };
 
 /**
@@ -124,11 +133,13 @@ martinlaw.Util.prototype.createLightboxMarkers = function(eventObj, attGrpAttr, 
  * @param actionObj - a button which has been clicked and is in the same div with the tags holding a pair of timestamp and filename info
  * @param tsAttrLine - a data attribute that contains the time stamp of the attachment in the notes and atts section
  * @param fnAttrLine - a data attribute that contains the filename of the attachment in the notes and atts section
+ * @param convTypeId - the html id of the conveyance type select
+ * @param convTypeMsgId - the id of the span which will 'replace' the select field
  */
 martinlaw.Util.prototype.selectFileAction = function(noteSectionId, tsAttr, fnAttr, annexSectionId, lbMarkerAttr, popupId, 
-		attGrpId, actionObj, tsAttrLine, fnAttrLine) {
+		attGrpId, actionObj, tsAttrLine, fnAttrLine, convTypeId, convTypeMsgId) {
 	var infoMap = this.getHiddenAttSectionInfoMap(actionObj.parents('#' + annexSectionId).siblings('#' + noteSectionId), tsAttrLine, fnAttrLine);
-	var html = this.attInfoMaptoHtmlList(infoMap, annexSectionId, lbMarkerAttr, popupId);
+	var html = this.attInfoMaptoHtmlList(infoMap, annexSectionId, lbMarkerAttr, popupId, convTypeId, convTypeMsgId, tsAttr);
 	if (html != '')	{
 		jQuery('#' + popupId).html(html);
 		jQuery('#' + popupId).dialog({modal:true, title:'File Selection'});

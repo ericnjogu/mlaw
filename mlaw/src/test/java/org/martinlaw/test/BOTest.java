@@ -83,8 +83,8 @@ public class BOTest extends MartinlawTestsBase {
 		super.loadSuiteTestData();
 		//transactions are rolled back, no need to clear manually
 		//new SQLDataLoader("classpath:org/martinlaw/bo/clear-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/bo/sql/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/bo/insert-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/insert-test-data.sql", ";").runSql();
 		//bo xml files loaded from martinlaw-ModuleBeans(imported in BOTest-context.xml) as part of the data dictionary config
 	}
 
@@ -162,6 +162,8 @@ public class BOTest extends MartinlawTestsBase {
 		Status status = new Status();
 		status.setStatus("filed");
 		status.setType(Status.COURT_CASE_TYPE.getKey());
+		// save status since it is not updated from the court case - ojb config to prevent object modified errors when the status is changed
+		boSvc.save(status);
 		kase.setStatus(status);
 		kase.setName("Good vs Evil");
 		boSvc.save(kase);
@@ -793,14 +795,18 @@ public class BOTest extends MartinlawTestsBase {
 		// test the retrieving of the attachment
 		assertNotNull(convAtt.getAttachment());
 		assertEquals("filename.ext", convAtt.getAttachment().getAttachmentFileName());
+		assertNull(convAtt.getFilename());
 		// C
 		convAtt = new ConveyanceAttachment();
 		assertNull(convAtt.getAttachment());
-		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()).toString());
 		convAtt.setConveyanceAnnexId(1001l);
+		String filename = "info.odt";
+		convAtt.setFilename(filename);
 		boSvc.save(convAtt);
 		// R
 		convAtt.refresh();
+		assertEquals(filename, convAtt.getFilename());
 		// U
 		convAtt.setConveyanceAnnexId(1002l);
 		convAtt.refresh();
@@ -827,18 +833,22 @@ public class BOTest extends MartinlawTestsBase {
 		int existingConvAtts = boSvc.findAll(ConveyanceAttachment.class).size();
 		// retrieve object inserted via sql
 		ConveyanceAnnex convAnnex = boSvc.findBySinglePrimaryKey(ConveyanceAnnex.class, 1001l);
+		assertNotNull("should not be null", convAnnex);
+		assertEquals("should have 2 attachments", 2, convAnnex.getAttachments().size());
+		assertNotNull(" first conv att's attachment should not be null", convAnnex.getAttachments().get(0).getAttachment());
+		assertEquals(" first conv att's attachment filename does not match", "filename.ext", convAnnex.getAttachments().get(0).getAttachment().getAttachmentFileName());
+		assertNull(" second conv att's attachment should be null", convAnnex.getAttachments().get(1).getAttachment());
 		// C
-		assertNotNull(convAnnex);
 		convAnnex = new ConveyanceAnnex();
 		convAnnex.setConveyanceAnnexTypeId(1001l);
 		convAnnex.setConveyanceId(1001l);
 		// add attachments
 		List<ConveyanceAttachment> atts = new ArrayList<ConveyanceAttachment>();
 		ConveyanceAttachment convAtt = new ConveyanceAttachment();
-		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()).toString());
 		atts.add(convAtt);
 		convAtt = new ConveyanceAttachment();
-		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()).toString());
 		atts.add(convAtt);
 		convAnnex.setAttachments(atts);
 		boSvc.save(convAnnex);
@@ -912,8 +922,8 @@ public class BOTest extends MartinlawTestsBase {
 		assertEquals("received from karateka", conv.getFees().get(0).getDescription());
 		// conveyance annexes
 		assertEquals(1, conv.getAnnexes().size());
-		assertEquals(1, conv.getAnnexes().get(0).getAttachments().size());
-		assertEquals(Timestamp.valueOf("2012-07-19 00:00:00"), conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
+		assertEquals(2, conv.getAnnexes().get(0).getAttachments().size());
+		assertEquals("2012-07-19 00:00:00", conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 	}
 	
 	@Test
@@ -940,7 +950,7 @@ public class BOTest extends MartinlawTestsBase {
 		annex.setConveyanceAnnexTypeId(1003l);
 		ConveyanceAttachment convAtt = new ConveyanceAttachment();
 		Timestamp timestamp = new Timestamp(Calendar.getInstance().getTimeInMillis());
-		convAtt.setNoteTimestamp(timestamp);
+		convAtt.setNoteTimestamp(timestamp.toString());
 		annex.getAttachments().add(convAtt);
 		//need to set annexes externally since getAnnexes() will generate a default listing for th etype
 		List<ConveyanceAnnex> annexes = new ArrayList<ConveyanceAnnex>();
@@ -959,7 +969,7 @@ public class BOTest extends MartinlawTestsBase {
 		assertEquals(1, conv.getFees().size());
 		assertEquals(feeDescription, conv.getFees().get(0).getDescription());
 		assertEquals(1, conv.getAnnexes().size());
-		assertEquals(timestamp, conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
+		assertEquals(timestamp.toString(), conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 		
 		// U
 		String name2 = "EN/C010";

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.krad.bo.Attachment;
@@ -35,21 +36,19 @@ public class ConveyanceAttachment extends PersistableBusinessObjectBase {
 	/**
 	 * 
 	 */
-	@Transient
-	Log log = LogFactory.getLog(getClass());
 	private static final long serialVersionUID = 661753612067654890L;
 	@Id
 	@Column(name="convey_att_id")
 	private Long id;
 	// to help ojb associate attachment
-	@Column(name="note_timestamp", nullable=false)
-	private Timestamp noteTimestamp;
+	@Column(name="note_timestamp")
+	private String noteTimestamp;
 	@Column(name="convey_annex_id", nullable=false)
 	private Long conveyanceAnnexId;
 	@Transient
 	private Attachment attachment;
-	@Transient
-	private String filename;
+	@Column(name="filename")
+	private String filename = "[Not Selected]";
 	/**
 	 * gets the primary key
 	 * 
@@ -67,16 +66,20 @@ public class ConveyanceAttachment extends PersistableBusinessObjectBase {
 	/**
 	 * gets the {@link Note#getNotePostedTimestamp()}} of the note which contains the attachment associated here
 	 * 
+	 * <p>stored as a string value to avoid issues with validation on the UI. Can be null since a conveyance annex might contain
+	 * several of these whose attachments have not been specified yet</p>
+	 * 
+	 * 
 	 * @return the noteTimestamp
 	 */
-	public Timestamp getNoteTimestamp() {
+	public String getNoteTimestamp() {
 		return noteTimestamp;
 	}
 	/**
 	 * @param noteTimestamp the noteTimestamp to set
 	 */
-	public void setNoteTimestamp(Timestamp attachmentId) {
-		this.noteTimestamp = attachmentId;
+	public void setNoteTimestamp(String ts) {
+		this.noteTimestamp = ts;
 	}
 	/**
 	 * gets the foreign key of the conveyance annex in which this attachment is listed in
@@ -100,30 +103,34 @@ public class ConveyanceAttachment extends PersistableBusinessObjectBase {
 	 * @return the attachment, null if not found
 	 */
 	public Attachment getAttachment() {
+		// if attachment does not exist, and this object has been associated with an annex
 		if (attachment == null && getConveyanceAnnexId() != null) {
 			// get the conveyance annex
 			ConveyanceAnnex convAnnex = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
 					ConveyanceAnnex.class, getConveyanceAnnexId());
 			if (convAnnex == null) {
-				log.error("conveyance annex with id '" + getConveyanceAnnexId() + "' does not exist");
+				getLog().error("conveyance annex with id '" + getConveyanceAnnexId() + "' does not exist");
 			} else {
-				Conveyance conv = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
-						Conveyance.class, convAnnex.getConveyanceId());
-				// retrieve the note that was saved for the conveyance
-				Map<String, Object> criteria = new HashMap<String, Object>(2);
-				criteria.put("notePostedTimestamp", getNoteTimestamp());
-				criteria.put("remoteObjectIdentifier", conv.getObjectId());
-				
-				Collection<Note> notes = KRADServiceLocator.getBusinessObjectService().findMatching(
-						Note.class, criteria);
-				// there should just be one note matching
-				if (notes.size() == 1) {
-					for (Note n: notes) {
-						attachment = n.getAttachment();
+				// if an attachment has not been associated with this class, the timestamp will be null
+				if (!StringUtils.isEmpty(getNoteTimestamp())) {
+					Conveyance conv = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
+							Conveyance.class, convAnnex.getConveyanceId());
+					// retrieve the note that was saved for the conveyance
+					Map<String, Object> criteria = new HashMap<String, Object>(2);
+					criteria.put("notePostedTimestamp", Timestamp.valueOf(getNoteTimestamp()));
+					criteria.put("remoteObjectIdentifier", conv.getObjectId());
+					
+					Collection<Note> notes = KRADServiceLocator.getBusinessObjectService().findMatching(
+							Note.class, criteria);
+					// there should just be one note matching
+					if (notes.size() == 1) {
+						for (Note n: notes) {
+							attachment = n.getAttachment();
+						}
+					} else {
+						getLog().error("multiple notes matching remote(conveyance) object id '" +
+								conv.getObjectId() + "' and timestamp " + getNoteTimestamp());
 					}
-				} else {
-					log.error("multiple notes matching remote(conveyance) object id '" +
-							conv.getObjectId() + "' and timestamp " + getNoteTimestamp());
 				}
 			}
 		}
@@ -134,5 +141,32 @@ public class ConveyanceAttachment extends PersistableBusinessObjectBase {
 	 */
 	public void setAttachment(Attachment attachment) {
 		this.attachment = attachment;
+	}
+	
+	/**
+	 * gets the name of the filename
+	 * 
+	 * <p>used to display the filename pending saving of this object - since the attachment name would only be visible if
+	 * the object is saved - which may not happen until the doc is approve. Can be null pending the selection of an attachment</p>
+	 * 
+	 * <p>It mirrors getAttachment().attachmentFileName()</p>
+	 * 
+	 * @return the filename
+	 */
+	public String getFilename() {
+		return filename;
+	}
+	/**
+	 * @param filename the filename to set
+	 */
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	/**
+	 * avoids serialization errors when log is a field in the class 
+	 * @return the log
+	 */
+	public Log getLog() {
+		return LogFactory.getLog(getClass());
 	}
 }

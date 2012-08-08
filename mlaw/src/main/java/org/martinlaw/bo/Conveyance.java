@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +41,10 @@ public class Conveyance extends Matter {
 	@Id
 	@Column(name="conveyance_id")
 	private Long id;
+	// column def given on the object reference below - this is for the sake of ojb
+	@Transient
 	private Long typeId;
+	@Transient
 	private RiceServiceHelper RiceServiceHelper;
 	/**
 	 * default constructor which initializes lists
@@ -55,7 +59,6 @@ public class Conveyance extends Matter {
 	@OneToOne
 	@JoinColumn(name="convey_type_id", nullable=false, updatable=false)
 	private ConveyanceType type;
-	Log log = LogFactory.getLog(getClass());
 	/**
 	 * 
 	 */
@@ -111,10 +114,10 @@ public class Conveyance extends Matter {
 			}
 			if (getTypeId() != null && typeIdInAnnexes != null && !getTypeId().equals(typeIdInAnnexes)) {
 				if (hasAttachments()) {
-					log.error("conveyance type id '" + getTypeId() 
+					getLog().error("conveyance type id '" + getTypeId() 
 							+ "' does not match '" +  typeIdInAnnexes 
 							+ "' in current annexes with attachments already associated");
-					log.info("restoring type id to '" + typeIdInAnnexes + "'");
+					getLog().info("restoring type id to '" + typeIdInAnnexes + "'");
 					setTypeId(typeIdInAnnexes);
 				} else {
 					annexes = createAnnexes();	
@@ -206,11 +209,10 @@ public class Conveyance extends Matter {
 			} else {
 				for (ConveyanceAnnex annex: annexes) {
 					if (annex.getAttachments() != null && annex.getAttachments().size() != 0) {
-						/*TODO 
-						 * for now, it is possible to add an empty att (a bug) when the attachment 
-						dropdown is empty - try to check for that*/
+						 /*sometimes, when the conv att has not been persisted, get attachment will return null yet an attachment
+						 *may have been associated via the note time stamp*/
 						for (ConveyanceAttachment convAtt: annex.getAttachments()) {
-							if (convAtt.getAttachment() != null) {
+							if (convAtt.getAttachment() != null || convAtt.getNoteTimestamp() != null) {
 								return true;
 							}
 						}
@@ -232,5 +234,11 @@ public class Conveyance extends Matter {
 	public void setRiceServiceHelper(RiceServiceHelper riceServiceHelper) {
 		RiceServiceHelper = riceServiceHelper;
 	}
-	
+	/**
+	 * avoids serialization errors which occur when log is a member of this class 
+	 * @return the log
+	 */
+	protected Log getLog() {
+		return LogFactory.getLog(getClass());
+	}
 }

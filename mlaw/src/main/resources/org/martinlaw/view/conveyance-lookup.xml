@@ -10,7 +10,7 @@
     <property name="criteriaFields">
       <list>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="conveyanceTypeId"/>
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="localReference" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId">
@@ -20,7 +20,7 @@
     <property name="resultFields">
       <list>
          <bean parent="Uif-DataField" p:propertyName="id" />
-         <bean parent="Uif-DataField" p:propertyName="conveyanceType.name" />
+         <bean parent="Uif-DataField" p:propertyName="type.name" />
         <bean parent="Uif-DataField" p:propertyName="localReference" />
         <bean parent="Uif-DataField" p:propertyName="name" />
         <bean parent="Uif-DataField" p:propertyName="status.status"/>

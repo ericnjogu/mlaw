@@ -104,6 +104,9 @@ public class ConveyanceTest {
 		Attachment att = new Attachment();
 		when(convAtt.getAttachment()).thenReturn(att);
 		assertTrue("one conveyance att has an att", conv.hasAttachments());
+		when(convAtt.getAttachment()).thenReturn(null);
+		when(convAtt.getNoteTimestamp()).thenReturn("ts");
+		assertTrue("when conveyance att has the timestamp set, the result should be true", conv.hasAttachments());
 	}
 
 }

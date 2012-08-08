@@ -25,26 +25,26 @@ MlawTest.prototype.setUp = function () {
 	     <option value="1" selected="selected">Type1</option>
 	     <option value=""></option>
 	     </select>
-	     <span id="msg" style="display:none">Select not possible</span>
+	     <div id="msg" style="display:none"><div>
 	 <!-- expect the function to report that there is an attachment selected in this div -->
      <div id="conv-annexes-section">
      <!--simulate horizontal groups for hidden control and message field -->
  			<!-- simulates an already selected file-->
 	     <div data-attr-grp="true"> 
-		     <input id="att1"  data-mlaw-conv-att-timestamp="true" value="timestamp1" />
-		     <div id="fn1" data-mlaw-lightbox-target="true"><span></span></div>
+		     <input id="att1" type="hidden" data-mlaw-conv-att-timestamp="true" value="timestamp1" />
+		     <div id="fn1"><input data-mlaw-conv-att-filename="true" type='text' value="info.odt"/></div>
 		     <button id="actn1">select file</button>
 	     </div>
 	     <!-- simulates an att selector group where no action has been taken -->
 	     <div data-attr-grp="true">
-		     <input id="att2"  data-mlaw-conv-att-timestamp="true"/>
-		     <div id="fn2"  data-mlaw-conv-att-filename="true"><span></span></div>
+		     <input id="att2" type="hidden" data-mlaw-conv-att-timestamp="true"/>
+		     <div id="fn2"><input data-mlaw-conv-att-filename="true" type='text'/></div>
 		     <button id="actn2">select file</button>
 	     </div>
 	     <!-- simulates a attachment selector where a lightbox has been specified -->
 	     <div data-attr-grp="true"> 
-		     <input id="att3"  data-mlaw-conv-att-timestamp="true" data-mlaw-lightbox-target="true"/>
-		     <div id="fn3"  data-mlaw-conv-att-filename="true"  data-mlaw-lightbox-target="true"><span></span></div>
+		     <input id="att3" type="hidden"  data-mlaw-conv-att-timestamp="true" data-mlaw-lightbox-target="true"/>
+		     <div id="fn3"><input data-mlaw-conv-att-filename="true" type='text' data-mlaw-lightbox-target="true"/></div>
 		     <button id="actn3">select file</button>
 	     </div>
      </div>
@@ -76,6 +76,7 @@ MlawTest.prototype.testToggleConvTypeOnAttCheck = function () {
 	mlawUtil.toggleConvTypeOnAttCheck(convTypeId, 'mlaw-conv-att-timestamp', msgId);
     assertEquals("Conveyance type select should be invisible", "none", jQuery("#" + convTypeId).css("display"));
     assertEquals("The msg span should be visible", "inline" , jQuery("#" + msgId).css("display"));
+    assertEquals("The msg span should have text equal to the selected conveyance", "Type1" , jQuery("#" + msgId).text());
     // set selected att to blank
     jQuery("#att1").val("");
     mlawUtil.toggleConvTypeOnAttCheck(convTypeId, 'mlaw-conv-att-timestamp', msgId);
@@ -93,8 +94,8 @@ MlawTest.prototype.testSetSelectedValueOnHidden = function () {
 	var lightBoxMarkerAttr = "mlaw-lightbox-target";
 	mlawUtil.setSelectedValueOnHidden("conv-annexes-section", lightBoxMarkerAttr, timestamp, filename);
 	assertEquals("hidden value should have changed ",timestamp, jQuery("#att3").val());
-	assertEquals("filename should have been set ", filename, jQuery("#fn3 span").text());
-	assertEquals("lightbox marker should have been removed", undefined, jQuery("#fn3").attr(lightBoxMarkerAttr));
+	assertEquals("filename should have been set ", filename, jQuery("#fn3 input").val());
+	assertEquals("lightbox marker should have been removed", undefined, jQuery("#fn3 input").attr(lightBoxMarkerAttr));
 	assertEquals("lightbox marker should have been removed", undefined, jQuery("#att3").attr(lightBoxMarkerAttr));
 };
 
@@ -120,23 +121,34 @@ MlawTest.prototype.testAttInfoMaptoHtmlList = function () {
 	var secId = 'id1';
 	var markerAttr = 'data-lb';
 	var popupId = "pop3";
+	var convTypeId = 'ctId';
+	var tsMarkerAttr = 'ts';
+	var convTypeMsgId = 'msgId'; 
 	
-	assertEquals("empty map should result in a blank string", "", mlawUtil.attInfoMaptoHtmlList(attInfo, secId, markerAttr, popupId));
+	assertEquals("empty map should result in a blank string", "", mlawUtil.attInfoMaptoHtmlList(attInfo, secId, markerAttr, popupId, 
+			convTypeId, convTypeMsgId, tsMarkerAttr));
 	
 	attInfo = {ts1:'fn1'};
 	var expectedHtml = "<ol>\n\t<li class=\"att_file\" onclick=\"var mlawUtil = new martinlaw.Util();" +
-			"mlawUtil.setSelectedValueOnHidden('" + secId + "', '" + markerAttr + "', 'ts1', 'fn1'); jQuery('#" + popupId + "').dialog('close');\">" +
+			"mlawUtil.setSelectedValueOnHidden('" + secId + "', '" + markerAttr + 
+			"', 'ts1', 'fn1'); jQuery('#" + popupId + "').dialog('close'); mlawUtil.toggleConvTypeOnAttCheck('" + 
+			convTypeId + "', '" + tsMarkerAttr + "', '" + convTypeMsgId + "');\">" +
 					"fn1</li>\n</ol>\n";
-	assertEquals("html output differs from expected", expectedHtml, mlawUtil.attInfoMaptoHtmlList(attInfo, secId, markerAttr, popupId));
+	assertEquals("html output differs from expected", expectedHtml, mlawUtil.attInfoMaptoHtmlList(attInfo, secId, markerAttr, popupId,
+			convTypeId, convTypeMsgId, tsMarkerAttr));
 	
 	attInfo = {ts1:'fn1', ts2:'fn2'};
 	expectedHtml = "<ol>\n\t" +
 			"<li class=\"att_file\" onclick=\"var mlawUtil = new martinlaw.Util();" +
-	"mlawUtil.setSelectedValueOnHidden('" + secId + "', '" + markerAttr + "', 'ts1', 'fn1'); jQuery('#" + popupId + "').dialog('close');\">fn1</li>\n" +
+	"mlawUtil.setSelectedValueOnHidden('" + secId + "', '" + markerAttr + "', 'ts1', 'fn1'); jQuery('#" + popupId + "').dialog('close'); " +
+	"mlawUtil.toggleConvTypeOnAttCheck('" + convTypeId + "', '" + tsMarkerAttr + "', '" + convTypeMsgId + "');\">" +
+			"fn1</li>\n" +
 	"\t<li class=\"att_file\" onclick=\"var mlawUtil = new martinlaw.Util();" +
-	"mlawUtil.setSelectedValueOnHidden('" + secId + "', '" + markerAttr + "', 'ts2', 'fn2'); jQuery('#" + popupId + "').dialog('close');\">fn2</li>\n" +
-			"</ol>\n";
-	assertEquals("html output differs from expected", expectedHtml, mlawUtil.attInfoMaptoHtmlList(attInfo, secId, markerAttr, popupId));
+	"mlawUtil.setSelectedValueOnHidden('" + secId + "', '" + markerAttr + "', 'ts2', 'fn2'); jQuery('#" + popupId + "').dialog('close'); " +
+	"mlawUtil.toggleConvTypeOnAttCheck('" + convTypeId + "', '" + tsMarkerAttr + "', '" + convTypeMsgId + "');\">"  +
+			"fn2</li>\n</ol>\n";
+	assertEquals("html output differs from expected", expectedHtml, mlawUtil.attInfoMaptoHtmlList(attInfo, secId, markerAttr, popupId,
+			convTypeId, convTypeMsgId, tsMarkerAttr));
 };
 
 /**
@@ -146,7 +158,7 @@ MlawTest.prototype.testCreateLightboxMarkers = function () {
 	var mlawUtil = new martinlaw.Util();
 	mlawUtil.createLightboxMarkers(jQuery("#actn2"), 'attr-grp', "mlaw-conv-att-timestamp", "mlaw-conv-att-filename", "lb-mk");
 	assertEquals("does not contain lightbox marker attribute", "true", jQuery("#att2").attr('data-lb-mk'));
-	assertEquals("does not contain lightbox marker attribute", "true", jQuery("#fn2").attr('data-lb-mk'));
+	assertEquals("does not contain lightbox marker attribute", "true", jQuery("#fn2 input").attr('data-lb-mk'));
 	// use none existent id - see if there will be errors
 	mlawUtil.createLightboxMarkers(jQuery("#actnX"), 'attr-grp', "mlaw-conv-att-timestamp", "mlaw-conv-att-filename", "lb-mk");
 };

@@ -51,15 +51,13 @@
 					<property name="propertyName" value="witnesses" />
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="principalName" />
-							<bean parent="Uif-InputField" p:propertyName="person.firstName" />
-							<bean parent="Uif-InputField" p:propertyName="person.lastName" />
+							<bean parent="Uif-InputField" p:propertyName="person.principalName" />
+							<bean parent="Uif-InputField" p:propertyName="person.name" />
 						</list>
 					</property>
 					<property name="layoutManager.summaryFields">
 						<list>
-							<value>person.lastName</value>
-							<value>person.firstName</value>
+							<value>person.name</value>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Witness" />
@@ -75,19 +73,25 @@
 					<property name="propertyName" value="attachments" />
 					<property name="items">
 						<list>
-							<bean parent="Uif-ActionLink" p:methodToCall="downloadAttById"
-								p:actionLabel="@{#line.attachmentFileName}" p:title="@{#line.attachmentFileName}"
-								p:onClickScript="writeHiddenToForm(&quot;skipViewInit&quot;, &quot;true&quot;);
-											writeHiddenToForm(&quot;renderFullView&quot;, &quot;false&quot;);
-											writeHiddenToForm(&quot;unblockUIOnLoading&quot;, &quot;true&quot;);
-											writeHiddenToForm(&quot;actionParameters[attachmentId]&quot;, &quot;@{#line.id}&quot;);"/>
-            
+							<bean parent="Uif-HorizontalFieldGroup">
+								<property name="items">
+									<list>
+										<bean parent="Uif-LinkField" p:linkText="@{#line.attachmentFileName}">
+											<property name="href">
+												<value>
+													@{#ConfigProperties['application.url']}/kr-krad/@{#view.formPostUrl}?methodToCall=downloadAttById&amp;attachmentId=@{#line.noteIdentifier}&amp;skipViewInit=true&amp;renderFullView=false&amp;dataObjectClassName=org.martinlaw.bo.CourtCase
+												</value>
+											</property>
+										</bean>
+										<bean parent="Uif-MessageField" p:messageText="@{#line.getAttachmentFileSizeWithUnits()}"/>
+									</list>
+								</property>
+							</bean>
 						</list>
 					</property>
 					<property name="layoutManager.summaryFields">
 						<list>
 							<value>attachmentFileName</value>
-							<value>getAttachmentFileSizeWithUnits</value>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Annex" />

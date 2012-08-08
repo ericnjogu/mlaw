@@ -9,7 +9,6 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HttpConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.krad.bo.Attachment;
@@ -54,6 +53,7 @@ public class DownloadController extends InquiryController {
 	 * @return null
 	 * @throws IOException 
 	 */
+	@Deprecated()//use download by attachment id below
 	@RequestMapping(method = RequestMethod.POST, params = "methodToCall=downloadConveyanceAttachment")
     public ModelAndView downloadConveyanceAttachment(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
             HttpServletRequest request,
@@ -118,12 +118,22 @@ public class DownloadController extends InquiryController {
 		return attachmentService;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, params = "methodToCall=downloadAttById")
-    public ModelAndView downloadCaseAttachment(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
+	/**
+	 * downloads attachment by its primary key which is the same as the note that it belongs to
+	 * 
+	 * @param uifForm - the form object
+	 * @param result - the binding
+	 * @param request - the http request
+	 * @param response - the http response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(params = "methodToCall=downloadAttById")
+    public ModelAndView downloadAttachmentById(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
             HttpServletRequest request,
             HttpServletResponse response) throws IOException {
 		try {
-			Long attachmentId = Long.valueOf(uifForm.getActionParamaterValue("attachmentId"));
+			Long attachmentId = Long.valueOf(request.getParameter("attachmentId"));
 			// retrieve att
 			Attachment att = getBusinessObjectService().findBySinglePrimaryKey(
 					Attachment.class, attachmentId);
