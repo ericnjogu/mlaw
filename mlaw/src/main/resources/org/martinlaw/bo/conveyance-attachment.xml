@@ -36,7 +36,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 		<property name="name" value="noteTimestamp" />
 		<property name="label" value="Attachment" />
 		<property name="description" value="Attachment" />
-		<property name="required" value="true" />
+		<property name="required" value="false" />
 		<property name="controlField">
 				<bean parent="Uif-DropdownControl" />
 			</property>

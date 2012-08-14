@@ -35,8 +35,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
       </list>
     </property>
     <property name="objectLabel" value="Client"/>
-    <!-- commented out this pending deletion -->
-    <!-- <property name="relationships">
+
+    <property name="relationships">
       <list>
 		<bean parent="RelationshipDefinition">
           <property name="objectAttributeName" value="person"/>
@@ -52,7 +52,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
           </property>
         </bean>
       </list>
-    </property> -->
+    </property>
   </bean>
 
 <!-- Attribute Definitions -->

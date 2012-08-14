@@ -81,14 +81,13 @@
 		<property name="propertyName" value="clients" />
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="principalName">
-				</bean>
+				<bean parent="Uif-InputField" p:propertyName="principalName"/>
 			</list>
 		</property>
 		<property name="layoutManager.summaryTitle" value="Client" />
 		<property name="layoutManager.summaryFields">
 			<list>
-				<value>person.name</value>
+				<value>principalName</value>
 			</list>
 		</property>
 	</bean>

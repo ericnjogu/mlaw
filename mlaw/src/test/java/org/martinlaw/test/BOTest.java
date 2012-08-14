@@ -760,8 +760,9 @@ public class BOTest extends MartinlawTestsBase {
 	public void testCourtCasePersonName() {
 		MartinlawPerson client = new CourtCaseClient();
 		client.setPrincipalName("clientX");
-		// should there be an error here - if the principalName does not represent a valid newBo? 
+		// should there be an error here - if the principalName does not represent a existing principal? 
 		assertNotNull(client.getPerson().getName());
+		assertNull("should be null", client.getPerson().getPrincipalId());
 	}
 	
 	@Test

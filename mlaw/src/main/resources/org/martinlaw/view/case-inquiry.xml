@@ -51,13 +51,13 @@
 					<property name="propertyName" value="witnesses" />
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="person.principalName" />
+							<bean parent="Uif-InputField" p:propertyName="person.principalId" />
 							<bean parent="Uif-InputField" p:propertyName="person.name" />
 						</list>
 					</property>
 					<property name="layoutManager.summaryFields">
 						<list>
-							<value>person.name</value>
+							<value>principalName</value>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Witness" />
