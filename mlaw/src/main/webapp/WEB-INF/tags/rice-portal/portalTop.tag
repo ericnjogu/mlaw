@@ -44,6 +44,6 @@ if (top.location != self.location) {
     <img alt="mLaw Logo" src="${ConfigProperties.application.url}/images/mlaw-logo.png"></img>
   </div>
   <div id="feedback">
-  	<a class="portal_link" href="mailto:mlaw.support@gmail.com" target="_blank" title="Contact Support"><bean:message key="app.feedback.linkText" /></a>
+  	<a class="portal_link" href="mailto:mlaw.msaada@gmail.com" target="_blank" title="Contact Support"><bean:message key="app.feedback.linkText" /></a>
   </div>
   <div id="build">${ConfigProperties.version} (${ConfigProperties.datasource.ojb.platform})</div>
