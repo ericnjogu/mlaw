@@ -43,7 +43,7 @@
 		<property name="propertyName" value="clients" />
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="person.principalName" />
+				<bean parent="Uif-InputField" p:propertyName="person.principalId" />
 				<bean parent="Uif-InputField" p:propertyName="person.name" />
 			</list>
 		</property>

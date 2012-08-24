@@ -24,7 +24,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
   <bean id="conveyance-client-parentBean" abstract="true" parent="BusinessObjectEntry">
     <property name="businessObjectClass" value="org.martinlaw.bo.ConveyanceClient"/>
-    <property name="titleAttribute" value="person.name"/>
+    <property name="titleAttribute" value="principalName"/>
     <property name="attributes">
       <list>
       <!-- These are meant to be auto-gen, the id is auto-inc, the conveyance-client-id is from the associated court case 
