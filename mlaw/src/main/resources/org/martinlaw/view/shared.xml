@@ -75,7 +75,7 @@
 		<property name="layoutManager.summaryTitle" value="Fee" />
 	</bean>
 
-	<bean id="martinlaw_shared_client-maintenance-section" parent="Uif-MaintenanceStackedCollectionSection"
+	<bean id="martinlaw_shared_client-maintenance-section" parent="Uif-StackedCollectionSection"
 		abstract="true">
 		<property name="headerText" value="Clients" />
 		<property name="propertyName" value="clients" />
@@ -92,7 +92,7 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_fee-maintenance-section" parent="Uif-MaintenanceStackedCollectionSection"
+	<bean id="martinlaw_shared_fee-maintenance-section" parent="Uif-StackedCollectionSection"
 		abstract="true">
 		<property name="headerText" value="Fees Received" />
 		<property name="propertyName" value="fees" />

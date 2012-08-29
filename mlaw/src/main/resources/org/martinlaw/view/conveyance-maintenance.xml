@@ -39,21 +39,6 @@
 										<ref bean="conveyance_maintenance_view_typeMsg" />
 									</list>
 								</property>
-								<!-- pending a determination of how to display the message -->
-								<!-- <property name="propertyReplacers">
-									<list>
-										<bean parent="Uif-ConditionalBeanPropertyReplacer"
-											p:propertyName="help"
-											p:condition="#form.document.newMaintainableObject.dataObject.hasAttachments()">
-											<property name="replacement">
-												<bean parent="Uif-Help">
-													<property name="tooltipHelpContent"
-														value="Selection not possible when an attachment has been selected" />
-												</bean>
-											</property>
-										</bean>
-									</list>
-								</property> -->
 							</bean>
 
 							<!-- when the type changes, the annexes section should refresh to 
@@ -124,7 +109,7 @@
 	</bean>
 
 
-	<bean id="conveyance_maintenance_view_annexes" parent="Uif-MaintenanceStackedCollectionSection">
+	<bean id="conveyance_maintenance_view_annexes" parent="Uif-StackedCollectionSection">
 		<property name="headerText" value="Annexes" />
 		<property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceAnnex" />
 		<property name="propertyName" value="annexes" />
@@ -145,7 +130,7 @@
 		</property>
 		<property name="subCollections">
 			<list>
-				<bean parent="Uif-MaintenanceStackedSubCollection-WithinSection">
+				<bean parent="Uif-StackedSubCollection-WithinSection">
 					<property name="headerText" value="Attachments" />
 					<property name="collectionObjectClass" value="org.martinlaw.bo.ConveyanceAttachment" />
 					<property name="propertyName" value="attachments" />

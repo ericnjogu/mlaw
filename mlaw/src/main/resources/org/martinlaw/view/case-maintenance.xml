@@ -27,7 +27,7 @@
           </property>
           <property name="headerText" value="Case Information"/>
         </bean>
-        <bean parent="Uif-MaintenanceStackedCollectionSection">
+        <bean parent="Uif-StackedCollectionSection">
           <property name="headerText" value="Hearing Dates"/>
           <property name="collectionObjectClass" value="org.martinlaw.bo.HearingDate"/>
           <property name="propertyName" value="hearingDates"/>
@@ -49,7 +49,7 @@
           <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseClient"/>
         </bean>
         
-        <bean parent="Uif-MaintenanceStackedCollectionSection">
+        <bean parent="Uif-StackedCollectionSection">
           <property name="headerText" value="Witnesses"/>
           <property name="collectionObjectClass" value="org.martinlaw.bo.CourtCaseWitness"/>
           <property name="propertyName" value="witnesses"/>
