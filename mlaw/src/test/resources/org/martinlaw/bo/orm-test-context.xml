@@ -42,6 +42,9 @@
 				<value>org.martinlaw.bo.ConveyanceFee</value>
 				<value>org.martinlaw.bo.sequence.ConveySeq</value>
 				<value>org.martinlaw.bo.Conveyance</value>
+				
+				<value>org.martinlaw.bo.ContractType</value>
+				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

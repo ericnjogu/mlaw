@@ -117,6 +117,12 @@
          <value>classpath:org/martinlaw/view/conveyance-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/conveyance-lookup.xml</value>
          <value>classpath:org/martinlaw/view/conveyance-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/contract-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract-type.xml</value>
+         <value>classpath:org/martinlaw/view/contract-type-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract-type-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract-type-maintenance.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">
