@@ -10,8 +10,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.rule.Rule;
-import org.kuali.rice.kew.doctype.service.DocumentTypeService;
-import org.kuali.rice.kew.service.KEWServiceLocator;
 
 /**
  * @author mugo
@@ -23,12 +21,6 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	 */
 	private org.kuali.rice.kew.api.rule.RuleService getRuleSvc() {
 		return KewApiServiceLocator.getRuleService();
-	}
-	/**
-	 * convenience method to retrive obj ref 
-	 */
-	private DocumentTypeService getDocTypeSvc() {
-		return KEWServiceLocator.getDocumentTypeService();
 	}
 	@Test
 	public void testCaseRule() {

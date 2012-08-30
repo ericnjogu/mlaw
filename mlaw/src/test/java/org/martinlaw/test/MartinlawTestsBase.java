@@ -1,5 +1,8 @@
 package org.martinlaw.test;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,9 +10,16 @@ import javax.xml.namespace.QName;
 
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
+import org.kuali.rice.kew.doctype.service.DocumentTypeService;
+import org.kuali.rice.kew.service.KEWServiceLocator;
+import org.kuali.rice.krad.datadictionary.DataObjectEntry;
+import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.test.KRADTestCase;
 
 public abstract class MartinlawTestsBase extends KRADTestCase {
+	private BusinessObjectService boSvc;
 
 	public MartinlawTestsBase() {
 		// TODO - can this be retrieved from the properties? (maybe they are not available at this time) or JVM params?
@@ -36,6 +46,67 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 */
 	protected List<String> getConfigLocations() {
 		return Arrays.asList(new String[]{"classpath:META-INF/mlaw-test-config.xml", "classpath:META-INF/krad-test-config.xml"});
+	}
+
+	@Override
+	protected void setUpInternal() throws Exception {
+		super.setUpInternal();
+		setBoSvc(KRADServiceLocator.getBusinessObjectService());
+	}
+
+	/**
+	 * @return the boSvc
+	 */
+	public BusinessObjectService getBoSvc() {
+		return boSvc;
+	}
+
+	/**
+	 * @param boSvc the boSvc to set
+	 */
+	public void setBoSvc(BusinessObjectService boSvc) {
+		this.boSvc = boSvc;
+	}
+
+	/**
+	 * check for lookup, inquiry, maint view definitions, maintenance entry def
+	 * 
+	 * @param dataObjectClass - the data object class
+	 */
+	protected void verifyMaintDocDataDictEntries(Class<?> dataObjectClass) {
+		verifyInquiryLookup(dataObjectClass);
+		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
+		assertNotNull(KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
+	}
+
+	/**
+	 * check for lookup, inquiry view definitions
+	 * 
+	 * @param dataObjectClass - the data object class used in the definitions
+	 */
+	protected void verifyInquiryLookup(Class<?> dataObjectClass) {
+		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isInquirable(dataObjectClass));
+		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isLookupable(dataObjectClass));
+	}
+
+	/**
+	 * test whether a business object entry can be retrieved. contrived after null pointer exceptions
+	 * with court case status
+	 * could be modified to return the bo entry for specific tests
+	 * 
+	 * @param className - fully qualified class name
+	 */
+	protected void testBoAttributesPresent(String className) {
+		DataObjectEntry dataObject = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDataObjectEntry(className);
+		assertNotNull("data object should not be null", dataObject);
+		assertNotNull(dataObject.getAttributeNames());
+	}
+
+	/**
+	 * convenience method to retrive obj ref 
+	 */
+	protected DocumentTypeService getDocTypeSvc() {
+		return KEWServiceLocator.getDocumentTypeService();
 	}
 
 }

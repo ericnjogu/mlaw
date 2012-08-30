@@ -6,7 +6,6 @@ package org.martinlaw.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,10 +25,8 @@ import org.junit.Test;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.kuali.rice.krad.datadictionary.DataObjectEntry;
 import org.kuali.rice.krad.maintenance.MaintainableImpl;
 import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
-import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
@@ -63,7 +60,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 //@BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
 public class BOTest extends MartinlawTestsBase {
 	private Log log = LogFactory.getLog(getClass());
-	private org.kuali.rice.krad.service.BusinessObjectService boSvc;
 
 	@Override
 	protected List<Lifecycle> getSuiteLifecycles() {
@@ -88,15 +84,6 @@ public class BOTest extends MartinlawTestsBase {
 		//bo xml files loaded from martinlaw-ModuleBeans(imported in BOTest-context.xml) as part of the data dictionary config
 	}
 
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.kew.test.KEWTestCase#setUpInternal()
-	 */
-	@Override
-	protected void setUpInternal() throws Exception {
-		super.setUpInternal();
-		boSvc = KRADServiceLocator.getBusinessObjectService();
-	}
-
 	/**
 	 * test saving, retrieving a case BO
 	 * 
@@ -105,7 +92,7 @@ public class BOTest extends MartinlawTestsBase {
 	@Test
     public void testCaseRetrieveEdit() throws Exception {
         //BusinessObjectService boSvc = KRADServiceLocator.getBusinessObjectService();
-        CourtCase kase = boSvc.findBySinglePrimaryKey(CourtCase.class, new Long(1001));
+        CourtCase kase = getBoSvc().findBySinglePrimaryKey(CourtCase.class, new Long(1001));
         assertNotNull(kase);
         testCourtCaseFields(kase);
         //change fields
@@ -163,11 +150,11 @@ public class BOTest extends MartinlawTestsBase {
 		status.setStatus("filed");
 		status.setType(Status.COURT_CASE_TYPE.getKey());
 		// save status since it is not updated from the court case - ojb config to prevent object modified errors when the status is changed
-		boSvc.save(status);
+		getBoSvc().save(status);
 		kase.setStatus(status);
 		kase.setName("Good vs Evil");
-		boSvc.save(kase);
-		kase = boSvc.findBySinglePrimaryKey(CourtCase.class, kase.getId());
+		getBoSvc().save(kase);
+		kase = getBoSvc().findBySinglePrimaryKey(CourtCase.class, kase.getId());
 		assertEquals(null, kase.getCourtReference());
 		assertEquals("local1", kase.getLocalReference());
 		assertEquals(0,kase.getClients().size());
@@ -190,9 +177,9 @@ public class BOTest extends MartinlawTestsBase {
 		wits.add(wit);
 		kase.setWitnesses(wits);
 		
-		boSvc.save(kase);
+		getBoSvc().save(kase);
 		
-		kase = boSvc.findBySinglePrimaryKey(kase.getClass(), kase.getId());
+		kase = getBoSvc().findBySinglePrimaryKey(kase.getClass(), kase.getId());
 		assertNotNull(kase.getClients());
 		assertEquals(1, kase.getClients().size());
 		assertNotNull(kase.getWitnesses());
@@ -245,23 +232,23 @@ public class BOTest extends MartinlawTestsBase {
 	 * @param newBo TODO
 	 */
 	protected <T extends BusinessObject> void testMartinlawPersonCRUD(T t, String principalName, MartinlawPerson newBo) {
-		MartinlawPerson personRetrieve = (MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), new Long(1001));
+		MartinlawPerson personRetrieve = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), new Long(1001));
 		assertNotNull(personRetrieve);
 		assertEquals(principalName, personRetrieve.getPrincipalName());
 		// C
 		
 		newBo.setPrincipalName("mkoobs");
-		boSvc.save(newBo);
+		getBoSvc().save(newBo);
 		// R
-		newBo = (MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), newBo.getId());
+		newBo = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId());
 		assertNotNull(newBo);
 		// U
 		newBo.setPrincipalName("mogs");
-		boSvc.save(newBo);
+		getBoSvc().save(newBo);
 		newBo.refresh();
 		// D
-		boSvc.delete(newBo);
-		assertNull((MartinlawPerson) boSvc.findBySinglePrimaryKey(t.getClass(), newBo.getId()));
+		getBoSvc().delete(newBo);
+		assertNull((MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId()));
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -270,7 +257,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testCaseClientNullableFields() {
 		CourtCaseClient caseClient = new CourtCaseClient();
-		boSvc.save(caseClient);
+		getBoSvc().save(caseClient);
 	}
 	
 	@Test
@@ -289,7 +276,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testCaseWitnessNullableFields() {
 		CourtCaseWitness caseClient = new CourtCaseWitness();
-		boSvc.save(caseClient);
+		getBoSvc().save(caseClient);
 	}
 	
 	@Test
@@ -353,41 +340,6 @@ public class BOTest extends MartinlawTestsBase {
 	}
 	
 
-	/**
-	 * check for lookup, inquiry, maint view definitions, maintenance entry def
-	 * 
-	 * @param dataObjectClass - the data object class
-	 */
-	protected void verifyMaintDocDataDictEntries(
-			Class<?> dataObjectClass) {
-		verifyInquiryLookup(dataObjectClass);
-		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
-		assertNotNull(KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
-	}
-
-	/**
-	 * check for lookup, inquiry view definitions
-	 * 
-	 * @param dataObjectClass - the data object class used in the definitions
-	 */
-	protected void verifyInquiryLookup(Class<?> dataObjectClass) {
-		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isInquirable(dataObjectClass));
-		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isLookupable(dataObjectClass));
-	}
-
-	/**
-	 * test whether a business object entry can be retrieved. contrived after null pointer exceptions
-	 * with court case status
-	 * could be modified to return the bo entry for specific tests
-	 * 
-	 * @param className - fully qualified class name
-	 */
-	private void testBoAttributesPresent(String className) {
-		DataObjectEntry dataObject = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDataObjectEntry(className);
-		assertNotNull(dataObject);
-		assertNotNull(dataObject.getAttributeNames());
-	}
-	
 	@Test
 	/**
 	 * test that the court case is loaded into the data dictionary
@@ -452,7 +404,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testHearingDateNullableFields() {
 		HearingDate date = new HearingDate();
-		boSvc.save(date);
+		getBoSvc().save(date);
 	}
 	
 	private void testHearingDateFields(HearingDate hd) {
@@ -469,7 +421,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * tests that a hearing date, inserted via an sql script in {@link #loadSuiteTestData()} can be retrieved
 	 */
 	public void testHearingDateRetrieve() {
-		HearingDate date = boSvc.findBySinglePrimaryKey(HearingDate.class, new Long(1001));
+		HearingDate date = getBoSvc().findBySinglePrimaryKey(HearingDate.class, new Long(1001));
 		assertNotNull(date);
 		testHearingDateFields(date);
 	}
@@ -482,17 +434,17 @@ public class BOTest extends MartinlawTestsBase {
 		Date date = new Date(Calendar.getInstance().getTimeInMillis());
 		HearingDate hearingDate = new HearingDate(date, "soon", 1001l);
 		// C
-		boSvc.save(hearingDate);
+		getBoSvc().save(hearingDate);
 		// R
-		hearingDate =  boSvc.findBySinglePrimaryKey(HearingDate.class, hearingDate.getId());
+		hearingDate =  getBoSvc().findBySinglePrimaryKey(HearingDate.class, hearingDate.getId());
 		// U
 		hearingDate.setComment("later");
-		boSvc.save(hearingDate);
+		getBoSvc().save(hearingDate);
 		hearingDate.refresh();
 		assertEquals("later", hearingDate.getComment());
 		// D
-		boSvc.delete(hearingDate);
-		assertNull(boSvc.findBySinglePrimaryKey(HearingDate.class, hearingDate.getId()));
+		getBoSvc().delete(hearingDate);
+		assertNull(getBoSvc().findBySinglePrimaryKey(HearingDate.class, hearingDate.getId()));
 	}
 	
 	@Test
@@ -500,7 +452,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that a court case fee can be retrieved from the database by the primary key
 	 */
 	public void testCourtCaseFeeRetrieval() {
-		Fee fee = boSvc.findBySinglePrimaryKey(CourtCaseFee.class, new Long(1001));
+		Fee fee = getBoSvc().findBySinglePrimaryKey(CourtCaseFee.class, new Long(1001));
 		assertNotNull(fee);
 		testFeeFields(fee);
 	}
@@ -510,7 +462,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that a Conveyance fee can be retrieved from the database by the primary key
 	 */
 	public void testCourtConveyanceFeeRetrieval() {
-		ConveyanceFee fee = boSvc.findBySinglePrimaryKey(ConveyanceFee.class, new Long(1001));
+		ConveyanceFee fee = getBoSvc().findBySinglePrimaryKey(ConveyanceFee.class, new Long(1001));
 		assertNotNull(fee);
 		testFeeFields(fee);
 	}
@@ -538,7 +490,7 @@ public class BOTest extends MartinlawTestsBase {
 	public void testCourtCaseFeeNullableFields() {
 		CourtCaseFee fee = new CourtCaseFee();
 		//fee.setId(25l);
-		boSvc.save(fee);
+		getBoSvc().save(fee);
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -548,7 +500,7 @@ public class BOTest extends MartinlawTestsBase {
 	public void testConveyanceFeeNullableFields() {
 		ConveyanceFee fee = new ConveyanceFee();
 		//fee.setId(25l);
-		boSvc.save(fee);
+		getBoSvc().save(fee);
 	}
 	
 	@Test
@@ -582,23 +534,23 @@ public class BOTest extends MartinlawTestsBase {
 		fee.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
 		// leave description blank
 		//save
-		boSvc.save(fee);
+		getBoSvc().save(fee);
 		//retrieve
-		fee = boSvc.findBySinglePrimaryKey(klass, fee.getId());
+		fee = getBoSvc().findBySinglePrimaryKey(klass, fee.getId());
 		//fee.refresh();
 		assertNotNull(fee);
 		assertEquals(0, amount.compareTo(new BigDecimal(1000)));
 		//edit
 		amount = new BigDecimal(900); //discount 
 		fee.setAmount(amount);
-		boSvc.save(fee);
+		getBoSvc().save(fee);
 		//confirm change
 		// fee = boSvc.findBySinglePrimaryKey(CourtCaseFee.class, id);
 		fee.refresh();
 		assertEquals(0, amount.compareTo(new BigDecimal(900)));
 		//delete
-		boSvc.delete(fee);
-		assertNull(boSvc.findBySinglePrimaryKey(klass, fee.getId()));
+		getBoSvc().delete(fee);
+		assertNull(getBoSvc().findBySinglePrimaryKey(klass, fee.getId()));
 		
 	}
 	
@@ -607,10 +559,10 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that default annex types are retrieved ok
 	 */
 	public void testStatusRetrieve() {
-		List<Status> caseStatuses = (List<Status>) boSvc.findAll(Status.class);
+		List<Status> caseStatuses = (List<Status>) getBoSvc().findAll(Status.class);
 		assertNotNull(caseStatuses);
 		assertEquals(5, caseStatuses.size());
-		Status status = boSvc.findBySinglePrimaryKey(Status.class, new Long(1003));
+		Status status = getBoSvc().findBySinglePrimaryKey(Status.class, new Long(1003));
 		assertNotNull(status);
 		assertEquals("closed", status.getStatus());
 		assertEquals(Status.ANY_TYPE.getKey(), status.getType());
@@ -625,20 +577,20 @@ public class BOTest extends MartinlawTestsBase {
 		Status status = new Status();
 		status.setStatus("pending");
 		status.setType(Status.ANY_TYPE.getKey());
-		boSvc.save(status);
+		getBoSvc().save(status);
 		//refresh
 		status.refresh();
 		// retrieve
 		assertEquals("the courtCaseStatus does not match", "pending", status.getStatus());
 		//update
 		status.setStatus("appealed");
-		boSvc.save(status);
+		getBoSvc().save(status);
 		//refresh
 		status.refresh();
 		assertEquals("the courtCaseStatus does not match", "appealed", status.getStatus());
 		// delete
-		boSvc.delete(status);
-		assertNull(boSvc.findBySinglePrimaryKey(Status.class, status.getId()));
+		getBoSvc().delete(status);
+		assertNull(getBoSvc().findBySinglePrimaryKey(Status.class, status.getId()));
 	}
 	
 	/**
@@ -649,7 +601,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	protected Status retrieveandVerifyCourtCaseStatusValue(long id, String value) {
 		Status CourtCaseStatusRetrieved = null;
-		CourtCaseStatusRetrieved = boSvc.findBySinglePrimaryKey(Status.class, id);
+		CourtCaseStatusRetrieved = getBoSvc().findBySinglePrimaryKey(Status.class, id);
 		assertNotNull("the new annex type should have been saved to the db", CourtCaseStatusRetrieved);
 		assertEquals("the annex type value does not match", value, CourtCaseStatusRetrieved.getStatus());
 		return CourtCaseStatusRetrieved;
@@ -662,7 +614,7 @@ public class BOTest extends MartinlawTestsBase {
 	public void testCourtCaseStatusNullableFields() {
 		Status courtCaseStatus = new Status();
 		courtCaseStatus.setId(25l);
-		boSvc.save(courtCaseStatus);
+		getBoSvc().save(courtCaseStatus);
 	}
 	
 	@Test
@@ -671,14 +623,14 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceAnnexTypeCRUD() {
 		// retrieve object populated via sql script
-		ConveyanceAnnexType convAnnexType = boSvc.findBySinglePrimaryKey(ConveyanceAnnexType.class, 1001l);
+		ConveyanceAnnexType convAnnexType = getBoSvc().findBySinglePrimaryKey(ConveyanceAnnexType.class, 1001l);
 		assertNotNull(convAnnexType);
 		assertEquals("land board approval", convAnnexType.getName());
 		//C
 		convAnnexType = new ConveyanceAnnexType();
 		convAnnexType.setName("signed affidavit");
 		convAnnexType.setConveyanceTypeId(1001l);
-		boSvc.save(convAnnexType);
+		getBoSvc().save(convAnnexType);
 		//R
 		convAnnexType.refresh();
 		//U
@@ -686,8 +638,8 @@ public class BOTest extends MartinlawTestsBase {
 		convAnnexType.refresh();
 		assertNotNull(convAnnexType.getDescription());
 		//D
-		boSvc.delete(convAnnexType);
-		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAnnexType.class, convAnnexType.getId()));
+		getBoSvc().delete(convAnnexType);
+		assertNull(getBoSvc().findBySinglePrimaryKey(ConveyanceAnnexType.class, convAnnexType.getId()));
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -696,7 +648,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceAnnexTypeNullableFields() {
 		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
-		boSvc.save(convAnnexType);
+		getBoSvc().save(convAnnexType);
 	}
 	
 	@Test
@@ -705,9 +657,9 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceTypeCRUD() {
 		// get number of annex types before adding new
-		int existingAnnexTypes = boSvc.findAll(ConveyanceAnnexType.class).size();
+		int existingAnnexTypes = getBoSvc().findAll(ConveyanceAnnexType.class).size();
 		// retrieve object populated via sql script
-		ConveyanceType convType = boSvc.findBySinglePrimaryKey(ConveyanceType.class, 1001l);
+		ConveyanceType convType = getBoSvc().findBySinglePrimaryKey(ConveyanceType.class, 1001l);
 		assertNotNull(convType);
 		assertEquals("Sale of Urban Land", convType.getName());
 		//C
@@ -726,22 +678,22 @@ public class BOTest extends MartinlawTestsBase {
 		
 		convType.setAnnexTypes(annexTypes);
 		
-		boSvc.save(convType);
+		getBoSvc().save(convType);
 		//R
 		convType.refresh();
 		assertEquals(2, convType.getAnnexTypes().size());
-		assertEquals(2 + existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
+		assertEquals(2 + existingAnnexTypes, getBoSvc().findAll(ConveyanceAnnexType.class).size());
 		//U
 		convType.setDescription("hiring land from go.ke");
-		boSvc.delete(convType.getAnnexTypes().get(0));
+		getBoSvc().delete(convType.getAnnexTypes().get(0));
 		convType.refresh();
 		assertNotNull(convType.getDescription());
 		assertEquals(1, convType.getAnnexTypes().size());
-		assertEquals(1 + existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
+		assertEquals(1 + existingAnnexTypes, getBoSvc().findAll(ConveyanceAnnexType.class).size());
 		//D
-		boSvc.delete(convType);
-		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAnnexType.class, convType.getId()));
-		assertEquals(existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
+		getBoSvc().delete(convType);
+		assertNull(getBoSvc().findBySinglePrimaryKey(ConveyanceAnnexType.class, convType.getId()));
+		assertEquals(existingAnnexTypes, getBoSvc().findAll(ConveyanceAnnexType.class).size());
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -750,7 +702,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceTypeNullableFields() {
 		ConveyanceType convType = new ConveyanceType();
-		boSvc.save(convType);
+		getBoSvc().save(convType);
 	}
 	
 	@Test
@@ -791,7 +743,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceAttachmentCRUD() {
 		// retrieve object inserted via sql
-		ConveyanceAttachment convAtt = boSvc.findBySinglePrimaryKey(ConveyanceAttachment.class, 1001l);
+		ConveyanceAttachment convAtt = getBoSvc().findBySinglePrimaryKey(ConveyanceAttachment.class, 1001l);
 		assertNotNull(convAtt);
 		// test the retrieving of the attachment
 		assertNotNull(convAtt.getAttachment());
@@ -804,7 +756,7 @@ public class BOTest extends MartinlawTestsBase {
 		convAtt.setConveyanceAnnexId(1001l);
 		String filename = "info.odt";
 		convAtt.setFilename(filename);
-		boSvc.save(convAtt);
+		getBoSvc().save(convAtt);
 		// R
 		convAtt.refresh();
 		assertEquals(filename, convAtt.getFilename());
@@ -812,8 +764,8 @@ public class BOTest extends MartinlawTestsBase {
 		convAtt.setConveyanceAnnexId(1002l);
 		convAtt.refresh();
 		// D
-		boSvc.delete(convAtt);
-		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAttachment.class, convAtt.getId()));	
+		getBoSvc().delete(convAtt);
+		assertNull(getBoSvc().findBySinglePrimaryKey(ConveyanceAttachment.class, convAtt.getId()));	
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -822,7 +774,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceAttachmentNullableFields() {
 		ConveyanceAttachment convAtt = new ConveyanceAttachment();
-		boSvc.save(convAtt);
+		getBoSvc().save(convAtt);
 	}
 	
 	@Test
@@ -831,9 +783,9 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceAnnexCRUD() {
 		// check number of existing conveyance atts
-		int existingConvAtts = boSvc.findAll(ConveyanceAttachment.class).size();
+		int existingConvAtts = getBoSvc().findAll(ConveyanceAttachment.class).size();
 		// retrieve object inserted via sql
-		ConveyanceAnnex convAnnex = boSvc.findBySinglePrimaryKey(ConveyanceAnnex.class, 1001l);
+		ConveyanceAnnex convAnnex = getBoSvc().findBySinglePrimaryKey(ConveyanceAnnex.class, 1001l);
 		assertNotNull("should not be null", convAnnex);
 		assertEquals("should have 2 attachments", 2, convAnnex.getAttachments().size());
 		assertNotNull(" first conv att's attachment should not be null", convAnnex.getAttachments().get(0).getAttachment());
@@ -852,23 +804,23 @@ public class BOTest extends MartinlawTestsBase {
 		convAtt.setNoteTimestamp(new Timestamp(Calendar.getInstance().getTimeInMillis()).toString());
 		atts.add(convAtt);
 		convAnnex.setAttachments(atts);
-		boSvc.save(convAnnex);
+		getBoSvc().save(convAnnex);
 		// R
 		convAnnex.refresh();
 		assertEquals(2, convAnnex.getAttachments().size());
-		assertEquals(existingConvAtts + 2, boSvc.findAll(ConveyanceAttachment.class).size());
+		assertEquals(existingConvAtts + 2, getBoSvc().findAll(ConveyanceAttachment.class).size());
 		assertEquals("land board approval", convAnnex.getType().getName());
 		assertEquals(new Long(1001l), convAnnex.getType().getConveyanceTypeId());
 		// fail("why?");
 		// U
-		boSvc.delete(convAnnex.getAttachments().get(0));
+		getBoSvc().delete(convAnnex.getAttachments().get(0));
 		convAnnex.refresh();
 		assertEquals(1, convAnnex.getAttachments().size());
-		assertEquals(existingConvAtts + 1, boSvc.findAll(ConveyanceAttachment.class).size());
+		assertEquals(existingConvAtts + 1, getBoSvc().findAll(ConveyanceAttachment.class).size());
 		// D
-		boSvc.delete(convAnnex);
-		assertNull(boSvc.findBySinglePrimaryKey(ConveyanceAnnex.class, convAnnex.getId()));
-		assertEquals(existingConvAtts, boSvc.findAll(ConveyanceAttachment.class).size());
+		getBoSvc().delete(convAnnex);
+		assertNull(getBoSvc().findBySinglePrimaryKey(ConveyanceAnnex.class, convAnnex.getId()));
+		assertEquals(existingConvAtts, getBoSvc().findAll(ConveyanceAttachment.class).size());
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -877,7 +829,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceAnnexNullableFields() {
 		ConveyanceAnnex convAnnex = new ConveyanceAnnex();
-		boSvc.save(convAnnex);
+		getBoSvc().save(convAnnex);
 	}
 	
 	@Test()
@@ -909,7 +861,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test retrieving the {@link Conveyance} populated from sql
 	 */
 	public void testConveyanceRetrieve() {
-		Conveyance conv = boSvc.findBySinglePrimaryKey(Conveyance.class, 1001l);
+		Conveyance conv = getBoSvc().findBySinglePrimaryKey(Conveyance.class, 1001l);
 		assertNotNull(conv);
 		assertEquals("Sale of LR4589", conv.getName());
 		assertEquals("c1", conv.getLocalReference());
@@ -958,7 +910,7 @@ public class BOTest extends MartinlawTestsBase {
 		annexes.add(annex);
 		conv.setAnnexes(annexes);
 		
-		boSvc.save(conv);
+		getBoSvc().save(conv);
 		
 		// R
 		conv.refresh();
@@ -975,7 +927,7 @@ public class BOTest extends MartinlawTestsBase {
 		// U
 		String name2 = "EN/C010";
 		conv.setName(name2);
-		boSvc.delete(conv.getAnnexes().get(0));
+		getBoSvc().delete(conv.getAnnexes().get(0));
 
 		conv.refresh();
 		assertEquals(name2, conv.getName());
@@ -984,10 +936,10 @@ public class BOTest extends MartinlawTestsBase {
 		assertNull(conv.getAnnexes().get(0).getId());
 		
 		// D
-		boSvc.delete(conv);
+		getBoSvc().delete(conv);
 		assertNull("conveyance client should have been deleted", 
-				boSvc.findBySinglePrimaryKey(ConveyanceClient.class, conv.getClients().get(0).getId()));
+				getBoSvc().findBySinglePrimaryKey(ConveyanceClient.class, conv.getClients().get(0).getId()));
 		assertNull("conveyance fee should have been deleted", 
-				boSvc.findBySinglePrimaryKey(ConveyanceFee.class, conv.getFees().get(0).getId()));
+				getBoSvc().findBySinglePrimaryKey(ConveyanceFee.class, conv.getFees().get(0).getId()));
 	}
 }

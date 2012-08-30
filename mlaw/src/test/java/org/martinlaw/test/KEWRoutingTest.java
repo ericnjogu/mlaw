@@ -21,14 +21,7 @@ import org.junit.Test;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.bo.PersistableBusinessObject;
-import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
 import org.martinlaw.bo.Conveyance;
 import org.martinlaw.bo.ConveyanceAnnexType;
 import org.martinlaw.bo.ConveyanceType;
@@ -41,7 +34,6 @@ import org.martinlaw.bo.Status;
  */
 public class KEWRoutingTest extends KewTestsBase {
 	private Logger log = Logger.getLogger(getClass());
-	private org.kuali.rice.krad.service.BusinessObjectService boSvc;
 	/**
 	 * a common method to test clerk - lawyer routing for transactional docs
 	 * a document cannot be routed if there is no 
@@ -61,74 +53,6 @@ public class KEWRoutingTest extends KewTestsBase {
 		//re-retrieve document to get updated status
 		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
 		assertTrue(doc.isFinal());
-	}
-	/**
-	 * test routing for maintenance documents which cannot work with workflowdocument(...) when the default preprocessor is replaced
-	 * @param docType - the document type name
-	 * @param bo the business object
-	 * @throws WorkflowException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
-	public void testMaintenanceRouting(String docType, PersistableBusinessObject bo) throws WorkflowException, InstantiationException, IllegalAccessException {
-		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument(docType, bo);
-		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
-		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-		//retrieve as the lawyer
-		GlobalVariables.setUserSession(new UserSession("lawyer1"));
-		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-		assertTrue(doc.getDocumentHeader().getWorkflowDocument().isEnroute());
-		KRADServiceLocatorWeb.getDocumentService().approveDocument(doc, "right", null);
-		//retrieve again to confirm status
-		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-		assertTrue(doc.getDocumentHeader().getWorkflowDocument().isApproved());
-	}
-	
-	/**
-	 * test routing for maintenance documents which are submitted by the initiator into final status
-	 * 
-	 * @param docType - the document type name
-	 * @param bo the business object
-	 * @throws WorkflowException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
-	public void testMaintenanceRoutingInitToFinal(String docType, PersistableBusinessObject bo) throws WorkflowException, InstantiationException, IllegalAccessException {
-		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument(docType, bo);
-		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
-		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-		//retrieve again to confirm status
-		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-		assertTrue(doc.getDocumentHeader().getWorkflowDocument().isApproved());
-		assertTrue(doc.getDocumentHeader().getWorkflowDocument().isFinal());
-	}
-	
-	/**
-	 * creates a new maintenance document for the given doc type and business object
-	 * 
-	 * @param docType e.g. CaseMaintenanceDocument
-	 * @param bo TODO
-	 * @return the document, populated with BO info
-	 * @throws WorkflowException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
-	private Document getPopulatedMaintenanceDocument(String docType, PersistableBusinessObject bo)
-			throws WorkflowException, InstantiationException, IllegalAccessException {
-		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		MaintenanceDocument doc = (MaintenanceDocument) KRADServiceLocatorWeb.getDocumentService().getNewDocument(docType);
-		//old bo
-		doc.getOldMaintainableObject().setDataObjectClass(bo.getClass());
-		doc.getOldMaintainableObject().setDataObject(bo.getClass().newInstance());
-		//new object
-		doc.getNewMaintainableObject().setDataObjectClass(bo.getClass());
-		doc.getNewMaintainableObject().setDataObject(bo);
-		doc.getNewMaintainableObject().setMaintenanceAction(KRADConstants.MAINTENANCE_NEW_ACTION);
-		//required fields
-		doc.getDocumentHeader().setDocumentDescription("new test maint doc");
-		return doc;
 	}
 	/**
 	 * test initiating another edoc while one is saved, to verify 'maintenance record is locked' errors
@@ -159,11 +83,11 @@ public class KEWRoutingTest extends KewTestsBase {
 	 */
 	public void testCaseMaintenanceRouting() throws WorkflowException {
 		//set up test status
-		//boSvc.delete((List)boSvc.findAll(CourtCaseStatus.class));
+		//getBoSvc().delete((List)getBoSvc().findAll(CourtCaseStatus.class));
 		Status status = new Status();
 		status.setStatus("Testing");
 		status.setType(Status.ANY_TYPE.getKey());
-		boSvc.save(status);
+		getBoSvc().save(status);
 		status.refresh();
 		assertNotNull(status.getId());
 		//create new case bo
@@ -199,7 +123,7 @@ public class KEWRoutingTest extends KewTestsBase {
 		String statusText = "pending";
 		status.setStatus(statusText);
 		status.setType(Status.ANY_TYPE.getKey());
-		int existingStatus = boSvc.findAll(Status.class).size();
+		int existingStatus = getBoSvc().findAll(Status.class).size();
 		try {
 			testMaintenanceRoutingInitToFinal("StatusMaintenanceDocument", status);
 			Collection<Status> allStatus = KRADServiceLocator.getBusinessObjectService().findAll(Status.class);
@@ -208,7 +132,7 @@ public class KEWRoutingTest extends KewTestsBase {
 			Map map = new HashMap(1);
 			map.put("status", statusText);
 			@SuppressWarnings("rawtypes")
-			Collection result = boSvc.findMatching(Status.class, map);
+			Collection result = getBoSvc().findMatching(Status.class, map);
 			assertNotNull(result);
 			assertEquals(1, result.size());
 			
@@ -218,15 +142,7 @@ public class KEWRoutingTest extends KewTestsBase {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.kew.test.KEWTestCase#setUpAfterDataLoad()
-	 */
-	@Override
-	public void setUpInternal() throws Exception {
-		super.setUpInternal();
-		boSvc = KRADServiceLocator.getBusinessObjectService();
-	}
-	
+
 	@Test
 	@Ignore("to be maintained as part of conveyance type")
 	/**
@@ -246,7 +162,7 @@ public class KEWRoutingTest extends KewTestsBase {
 		// confirm that BO was saved to DB
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
-		Collection<ConveyanceAnnexType> result = boSvc.findMatching(ConveyanceAnnexType.class, params);
+		Collection<ConveyanceAnnexType> result = getBoSvc().findMatching(ConveyanceAnnexType.class, params);
 		assertEquals(1, result.size());
 	}
 	
@@ -268,7 +184,7 @@ public class KEWRoutingTest extends KewTestsBase {
 		annexTypes.add(convAnnexType);
 		convType.setAnnexTypes(annexTypes);
 		// get number of annex types before adding new
-		int existingAnnexTypes = boSvc.findAll(ConveyanceAnnexType.class).size();
+		int existingAnnexTypes = getBoSvc().findAll(ConveyanceAnnexType.class).size();
 		try {
 			testMaintenanceRouting("ConveyanceTypeMaintenanceDocument", convType);
 		} catch (Exception e) {
@@ -279,9 +195,9 @@ public class KEWRoutingTest extends KewTestsBase {
 		// confirm that BO was saved to DB
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", name);
-		Collection<ConveyanceType> result = boSvc.findMatching(ConveyanceType.class, params);
+		Collection<ConveyanceType> result = getBoSvc().findMatching(ConveyanceType.class, params);
 		assertEquals(1, result.size());
-		assertEquals(2 + existingAnnexTypes, boSvc.findAll(ConveyanceAnnexType.class).size());
+		assertEquals(2 + existingAnnexTypes, getBoSvc().findAll(ConveyanceAnnexType.class).size());
 	}
 	
 	@Test
@@ -289,19 +205,19 @@ public class KEWRoutingTest extends KewTestsBase {
 	 * test that a conveyance document is routed to the lawyer
 	 */
 	public void testConveyanceRouting() {
-		int existingConveyances = boSvc.findAll(Conveyance.class).size();
+		int existingConveyances = getBoSvc().findAll(Conveyance.class).size();
 		Conveyance conv = TestUtils.getTestConveyance();
 		// add a conveyance type to avoid data integrity exceptions
 		ConveyanceType convType = new ConveyanceType();
 		convType.setName("test type");
 		convType.setId(conv.getTypeId());
-		boSvc.save(convType);
+		getBoSvc().save(convType);
 		// add a status type to avoid data integrity exceptions
 		Status status =  new Status();
 		status.setStatus("test status");
 		status.setId(conv.getStatusId());
 		status.setType("test type");
-		boSvc.save(status);
+		getBoSvc().save(status);
 		try {
 			testMaintenanceRouting("ConveyanceMaintenanceDocument", conv);
 		} catch (Exception e) {
@@ -309,10 +225,10 @@ public class KEWRoutingTest extends KewTestsBase {
 			fail(e.getMessage());
 		}
 		// confirm BO was saved
-		assertEquals(existingConveyances + 1, boSvc.findAll(Conveyance.class).size());
+		assertEquals(existingConveyances + 1, getBoSvc().findAll(Conveyance.class).size());
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", conv.getName());
-		Collection<Conveyance> result = boSvc.findMatching(Conveyance.class, params);
+		Collection<Conveyance> result = getBoSvc().findMatching(Conveyance.class, params);
 		assertEquals(1, result.size());
 		
 	}
