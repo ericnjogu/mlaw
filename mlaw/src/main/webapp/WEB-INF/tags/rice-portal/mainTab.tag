@@ -16,5 +16,14 @@
 <%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
 
 <td class="content" valign="top">
-	    <mainChannel:martinlaw />
-	</td>
+	    <mainChannel:martinlaw-casemgt />
+</td>
+<td class="content" valign="top">
+	    <mainChannel:martinlaw-conveyancing />
+</td>
+<td class="content" valign="top">
+	    <mainChannel:martinlaw-contracting />
+</td>
+<td class="content" valign="top">
+	    <mainChannel:martinlaw-statusmgt />
+</td>
