@@ -9,23 +9,9 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
   
 
-  <bean id="conveyance_annex_type_maintenance_view" parent="Uif-MaintenanceView">
+  <bean id="conveyance_annex_type_maintenance_view" parent="martinlaw_shared_name_description_maintenance_view">
     <property name="headerText" value="Conveyance Annex Type"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.ConveyanceAnnexType"/>
-    <property name="items">
-      <list merge="true">
-        <bean parent="Uif-MaintenanceGridSection">
-          <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="id"  p:readOnly="true"/>
-              <bean parent="Uif-InputField" p:propertyName="name"/>
-              <bean parent="Uif-InputField" p:propertyName="description"/>
-            </list>
-          </property>
-          <property name="headerText" value="Details"/>
-        </bean>
-      </list>
-    </property>
   </bean>
 
 </beans>
