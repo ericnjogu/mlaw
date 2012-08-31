@@ -51,7 +51,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 	</bean>
 
-	<bean id="courtcase-name" parent="martinlaw-shared-name" />
+	<bean id="courtcase-name" parent="martinlaw-shared-name" p:label="Court Case Name"/>
 
 	<bean id="courtcase-statusId" parent="courtcase-statusId-parentBean" />
 

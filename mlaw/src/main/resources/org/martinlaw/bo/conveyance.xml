@@ -29,7 +29,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="conveyance-localReference" parent="martinlaw-shared-localReference-parentBean" />
 
-	<bean id="conveyance-name" parent="martinlaw-shared-name" />
+	<bean id="conveyance-name" parent="martinlaw-shared-name" p:label="Conveyance Name"/>
 
 	<bean id="conveyance-statusId" parent="conveyance-statusId-parentBean" />
 
