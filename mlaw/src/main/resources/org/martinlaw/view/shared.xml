@@ -166,4 +166,43 @@
       </list>
     </property>
   </bean>
+  
+  <bean id="martinlaw_shared_blank_label_inputfield" abstract="true" parent="Uif-InputField">
+		<property name="propertyReplacers">
+			<list>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="label" p:condition="true" p:replacement="" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_annexes_inquirySection" parent="Uif-Disclosure-StackedCollectionSection">
+					<property name="headerText" value="Annexes" />
+					<property name="collectionObjectClass" value="org.kuali.rice.krad.bo.Attachment" />
+					<property name="propertyName" value="attachments" />
+					<property name="items">
+						<list>
+							<bean parent="Uif-HorizontalFieldGroup">
+								<property name="items">
+									<list>
+										<bean parent="Uif-LinkField" p:linkText="@{#line.attachmentFileName}">
+											<property name="href">
+												<value>
+													@{#ConfigProperties['application.url']}/kr-krad/@{#view.formPostUrl}?methodToCall=downloadAttById&amp;attachmentId=@{#line.noteIdentifier}&amp;skipViewInit=true&amp;renderFullView=false&amp;dataObjectClassName=org.martinlaw.bo.CourtCase
+												</value>
+											</property>
+										</bean>
+										<bean parent="Uif-MessageField" p:messageText="@{#line.getAttachmentFileSizeWithUnits()}"/>
+									</list>
+								</property>
+							</bean>
+						</list>
+					</property>
+					<property name="layoutManager.summaryFields">
+						<list>
+							<value>attachmentFileName</value>
+						</list>
+					</property>
+					<property name="layoutManager.summaryTitle" value="Annex" />
+				</bean>
 </beans>

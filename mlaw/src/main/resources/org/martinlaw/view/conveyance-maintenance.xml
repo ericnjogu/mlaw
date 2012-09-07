@@ -76,17 +76,10 @@
 	<bean id="conveyance_maintenance_view_filepopup" parent="Uif-MessageField"
 		p:style="display:none" />
 
-	<bean id="conveyance_maintenance_view_typeId" parent="Uif-InputField"
+	<bean id="conveyance_maintenance_view_typeId" parent="martinlaw_shared_blank_label_inputfield"
 		p:propertyName="typeId"
 		p:readOnly="@{#form.document.newMaintainableObject.dataObject.hasAttachments()}"
-		p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false">
-		<property name="propertyReplacers">
-			<list>
-				<bean parent="Uif-ConditionalBeanPropertyReplacer"
-					p:propertyName="label" p:condition="true" p:replacement="" />
-			</list>
-		</property>
-	</bean>
+		p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false"/>
 
 	<bean id="conveyance_maintenance_view_typeMsg" parent="Uif-MessageField"
 		p:style="display:none" />
