@@ -3,9 +3,13 @@
  */
 package org.martinlaw.keyvalues;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.keyvalues.KeyValuesBase;
 import org.martinlaw.bo.Status;
@@ -17,7 +21,7 @@ import org.martinlaw.bo.Status;
  *
  */
 public class StatusTypeKeyValues extends KeyValuesBase {
-
+	Log log = LogFactory.getLog(getClass());
 	/**
 	 * 
 	 */
@@ -29,9 +33,19 @@ public class StatusTypeKeyValues extends KeyValuesBase {
 	@Override
 	public List<KeyValue> getKeyValues() {
 		List<KeyValue> kv = new ArrayList<KeyValue>(3);
-		kv.add(Status.ANY_TYPE);
-		kv.add(Status.CONVEYANCE_TYPE);
-		kv.add(Status.COURT_CASE_TYPE);
+		Status status = new Status();
+		Field[] fields = status.getClass().getFields();
+		for (Field field: fields) {
+			if (field.getType().isAssignableFrom(ConcreteKeyValue.class)) {
+				try {
+					kv.add((KeyValue) field.get(status));
+				} catch (IllegalArgumentException e) {
+					log.error("failed to get field value", e);
+				} catch (IllegalAccessException e) {
+					log.error("failed to get field value", e);
+				}
+			}
+		}
 		return kv;
 	}
 
