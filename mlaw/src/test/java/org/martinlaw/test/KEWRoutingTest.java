@@ -206,7 +206,7 @@ public class KEWRoutingTest extends KewTestsBase {
 	 */
 	public void testConveyanceRouting() {
 		int existingConveyances = getBoSvc().findAll(Conveyance.class).size();
-		Conveyance conv = TestUtils.getTestConveyance();
+		Conveyance conv = getTestUtils().getTestConveyance();
 		// add a conveyance type to avoid data integrity exceptions
 		ConveyanceType convType = new ConveyanceType();
 		convType.setName("test type");
@@ -218,6 +218,7 @@ public class KEWRoutingTest extends KewTestsBase {
 		status.setId(conv.getStatusId());
 		status.setType("test type");
 		getBoSvc().save(status);
+		status.refresh();
 		try {
 			testMaintenanceRouting("ConveyanceMaintenanceDocument", conv);
 		} catch (Exception e) {
@@ -230,6 +231,11 @@ public class KEWRoutingTest extends KewTestsBase {
 		params.put("name", conv.getName());
 		Collection<Conveyance> result = getBoSvc().findMatching(Conveyance.class, params);
 		assertEquals(1, result.size());
+		for (Conveyance conveyance: result) {
+			// TODO - test fails - possibly something to do with the ojb framework - or delays in document processing?
+			// assertNotNull("status should not be null", conveyance.getStatus());
+			assertNotNull("status id should not be null", conveyance.getStatusId());
+		}
 		
 	}
 }
