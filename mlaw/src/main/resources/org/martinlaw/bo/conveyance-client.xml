@@ -22,7 +22,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
   <bean id="conveyance-client" parent="conveyance-client-parentBean"/>
 
-  <bean id="conveyance-client-parentBean" abstract="true" parent="BusinessObjectEntry">
+  <bean id="conveyance-client-parentBean" abstract="true" parent="martinlaw_shared_person_parentBean">
     <property name="businessObjectClass" value="org.martinlaw.bo.ConveyanceClient"/>
     <property name="titleAttribute" value="principalName"/>
     <property name="attributes">
@@ -36,23 +36,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     </property>
     <property name="objectLabel" value="Client"/>
 
-    <property name="relationships">
-      <list>
-		<bean parent="RelationshipDefinition">
-          <property name="objectAttributeName" value="person"/>
-          <property name="primitiveAttributes">
-            <list>
-              <bean parent="PrimitiveAttributeDefinition" p:sourceName="principalName" p:targetName="principalName"/>
-            </list>
-          </property>
-          <property name="supportAttributes">
-            <list>
-              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="principalName" p:targetName="principalName"/>
-            </list>
-          </property>
-        </bean>
-      </list>
-    </property>
   </bean>
 
 <!-- Attribute Definitions -->

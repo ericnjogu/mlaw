@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2012 Protosoft Ltd
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  
+
+  <bean id="contract_inquiry_view" parent="Uif-InquiryView">
+    <property name="headerText" value="Contract Inquiry"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.Contract"/>
+    <property name="formPostUrl" value="inquiryWithAtts" />
+    <property name="items">
+      <list merge="true">
+        <bean parent="Uif-Disclosure-GridSection">
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="id" p:readOnly="true"/>
+              <bean parent="Uif-InputField" p:propertyName="localReference"/>
+              <bean parent="Uif-InputField" p:propertyName="name"/>
+              <bean parent="Uif-InputField" p:propertyName="type.name"/>
+              <bean parent="Uif-InputField" p:propertyName="statusId"/>
+            </list>
+          </property>
+          <property name="headerText" value="Contract Information"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-GridSection">
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="serviceOffered"/>
+            </list>
+          </property>
+          <property name="headerText" value="Service Offered"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-GridSection">
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="summaryOfTerms"/>
+            </list>
+          </property>
+          <property name="headerText" value="Summary of Terms and Conditions"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-GridSection">
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="contractConsideration.amount"/>
+              <bean parent="Uif-InputField" p:propertyName="contractConsideration.currency"/>
+              <bean parent="Uif-InputField" p:propertyName="contractConsideration.description">
+              </bean>
+            </list>
+          </property>
+          <property name="headerText" value="Contract Consideration"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-GridSection">
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="contractDuration.startDate"/>
+              <bean parent="Uif-InputField" p:propertyName="contractDuration.endDate"/>
+              <bean parent="Uif-InputField" p:propertyName="contractDuration.duration"/>
+              <bean parent="Uif-InputField" p:propertyName="contractDuration.durationTimeUnit"/>
+            </list>
+          </property>
+          <property name="headerText" value="Contract Duration"/>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Parties"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.ContractParty"/>
+          <property name="propertyName" value="parties"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="principalName">
+              </bean>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value="Party"/>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>person.name</value>
+            </list>
+           </property>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Signatories"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.ContractSignatory"/>
+          <property name="propertyName" value="signatories"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="principalName">
+              </bean>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value="Signatory"/>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>person.name</value>
+            </list>
+           </property>
+        </bean>
+        
+        <bean parent="martinlaw_shared_annexes_inquirySection"/>
+      </list>
+    </property>
+  </bean>
+
+</beans>

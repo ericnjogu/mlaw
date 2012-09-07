@@ -25,5 +25,5 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="contract_type_bo_id" parent="martinlaw-shared-id" />
 
-	<bean id="contract_type_bo_name" parent="martinlaw-shared-name" />
+	<bean id="contract_type_bo_name" parent="martinlaw-shared-name" p:label="Type Name"/>
 </beans>

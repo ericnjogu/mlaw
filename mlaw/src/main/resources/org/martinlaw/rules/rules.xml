@@ -52,6 +52,22 @@
 			</responsibilities>
 		</rule>
 		
+		<!-- ContractMaintenanceDocument rule -->
+		<rule>
+			<name>org.martinlaw.rules.contract</name>
+			<documentType>ContractMaintenanceDocument</documentType>
+			 <!-- The rule template does not have any use at now  -->
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for ContractDocument maintenance</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+		
 		</rules>
 </data>
 	

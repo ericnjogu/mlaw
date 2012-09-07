@@ -53,7 +53,7 @@ public class ContractTypeBOTest extends MartinlawTestsBase {
 	public void testContractTypeAttributes() {
 		testBoAttributesPresent("org.martinlaw.bo.ContractType");
 		Class<ContractType> dataObjectClass = ContractType.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+		verifyMaintDocDataDictEntries(dataObjectClass, null);
 	}
 
 	@Test

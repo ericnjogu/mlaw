@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--
+ Copyright 2012 Protosoft Ltd
+-->
+
+  <bean id="contractMaintDocument" parent="contractMaintDocument-parentBean"/>
+
+  <bean id="contractMaintDocument-parentBean" abstract="true" parent="uifMaintenanceDocumentEntry">
+    <property name="dataObjectClass" value="org.martinlaw.bo.Contract"/>
+    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
+    <property name="lockingKeys">
+      <list>
+        <value>localReference</value>
+      </list>
+    </property>
+
+    <property name="documentTypeName" value="ContractMaintenanceDocument"/>
+  </bean> 
+</beans>

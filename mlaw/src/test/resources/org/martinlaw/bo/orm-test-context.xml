@@ -44,7 +44,16 @@
 				<value>org.martinlaw.bo.Conveyance</value>
 				
 				<value>org.martinlaw.bo.ContractType</value>
+				<value>org.martinlaw.bo.ContractParty</value>
+				<value>org.martinlaw.bo.ContractSignatory</value>
+				<value>org.martinlaw.bo.ContractPerson</value>
+				<value>org.martinlaw.bo.ContractConsideration</value>
+				<value>org.martinlaw.bo.ContractDuration</value>
+				<value>org.martinlaw.bo.Contract</value>
+				
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
+				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>
+				<value>org.martinlaw.bo.sequence.ContractSignatorySeq</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

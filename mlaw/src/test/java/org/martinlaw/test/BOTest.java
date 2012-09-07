@@ -287,7 +287,7 @@ public class BOTest extends MartinlawTestsBase {
 		testBoAttributesPresent("org.martinlaw.bo.Status");
 		
 		Class<Status> dataObjectClass = Status.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+		verifyMaintDocDataDictEntries(dataObjectClass, null);
 	}
 	
 	@Test
@@ -298,7 +298,7 @@ public class BOTest extends MartinlawTestsBase {
 		testBoAttributesPresent("org.martinlaw.bo.ConveyanceType");
 		
 		Class<ConveyanceType> dataObjectClass = ConveyanceType.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+		verifyMaintDocDataDictEntries(dataObjectClass, null);
 	}
 	
 	@Test
@@ -309,7 +309,7 @@ public class BOTest extends MartinlawTestsBase {
 		testBoAttributesPresent("org.martinlaw.bo.Conveyance");
 		
 		Class<Conveyance> dataObjectClass = Conveyance.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+		verifyMaintDocDataDictEntries(dataObjectClass, null);
 	}
 	
 	@Test
@@ -347,7 +347,7 @@ public class BOTest extends MartinlawTestsBase {
 	public void testCourtCaseAttributes() {
 		testBoAttributesPresent("org.martinlaw.bo.CourtCase");
 		Class<CourtCase> dataObjectClass = CourtCase.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+		verifyMaintDocDataDictEntries(dataObjectClass, null);
 	}
 	
 	@Test
@@ -885,7 +885,7 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testConveyanceCRUD() {
 		// C
-		Conveyance conv = TestUtils.getTestConveyance();
+		Conveyance conv = getTestUtils().getTestConveyance();
 		// add client
 		ConveyanceClient client = new ConveyanceClient();
 		String principalName = "clientX";
@@ -916,7 +916,7 @@ public class BOTest extends MartinlawTestsBase {
 		conv.refresh();
 
 		conv.getAnnexes().get(0).refreshNonUpdateableReferences();
-		assertEquals(TestUtils.getTestConveyance().getName(), conv.getName());
+		assertEquals(getTestUtils().getTestConveyance().getName(), conv.getName());
 		assertEquals(1, conv.getClients().size());
 		assertEquals(principalName, conv.getClients().get(0).getPrincipalName());
 		assertEquals(1, conv.getFees().size());

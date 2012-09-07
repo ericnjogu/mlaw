@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Copyright 2012 Protosoft Ltd -->
+	<bean id="contract_consideration_bo" parent="contract_consideration_bo-parentBean" />
+
+	<bean id="contract_consideration_bo-parentBean" abstract="true"
+		parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.ContractConsideration" />
+
+		<property name="attributes">
+			<list>
+				<ref bean="contract_consideration_bo_id" />
+				<ref bean="contract_consideration_bo_description" />
+				<ref bean="contract_consideration_bo_amount" />
+				<ref bean="contract_consideration_bo_currency" />
+			</list>
+		</property>
+		<property name="objectLabel" value="Contract Consideration" />
+	</bean>
+
+	<!-- Attribute Definitions -->
+	<bean id="contract_consideration_bo_id" parent="martinlaw-shared-id" />
+	
+	<bean id="contract_consideration_bo_description" parent="martinlaw-shared-description" p:label="Comment" />
+
+	<bean id="contract_consideration_bo_amount" parent="martinlaw-shared-fee-amount-parentBean" p:label="Value"/>
+	
+	<bean id="contract_consideration_bo_currency" parent="AttributeDefinition">
+    <property name="forceUppercase" value="false"/>
+    <property name="shortLabel" value="Currency"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="false"/>
+    </property>
+    <property name="summary" value="Currency"/>
+    <property name="name" value="currency"/>
+    <property name="label" value="Currency"/>
+    <property name="description" value="Currency"/>
+    
+    <property name="controlField">
+				<bean parent="Uif-DropdownControl" >
+				<property name="options">
+                      <list>
+                        <bean parent="Uif-KeyLabelPair" p:key="KES" p:value="KES"/>
+                        <bean parent="Uif-KeyLabelPair" p:key="UGX" p:value="UGX"/>
+                        <bean parent="Uif-KeyLabelPair" p:key="TZS" p:value="TZX"/>
+                        <bean parent="Uif-KeyLabelPair" p:key="USD" p:value="USD"/>
+                        <bean parent="Uif-KeyLabelPair" p:key="EUR" p:value="EUR"/>
+                        <bean parent="Uif-KeyLabelPair" p:key="GBP" p:value="GBP"/>
+                      </list>
+                    </property>
+				</bean>
+			</property>
+  </bean>
+
+</beans>

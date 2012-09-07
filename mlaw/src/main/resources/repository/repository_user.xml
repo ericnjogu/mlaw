@@ -227,12 +227,11 @@
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
-		<!-- now being fetched dynamically, depending on the value of the note timestamp -->
-		<!-- <reference-descriptor name="attachment"
-			class-ref="org.kuali.rice.krad.bo.Attachment" auto-retrieve="true"
-			auto-update="true" auto-delete="none">
-			<foreignkey field-ref="attachmentId" />
-		</reference-descriptor> -->
+		<!-- now being fetched dynamically, depending on the value of the note 
+			timestamp -->
+		<!-- <reference-descriptor name="attachment" class-ref="org.kuali.rice.krad.bo.Attachment" 
+			auto-retrieve="true" auto-update="true" auto-delete="none"> <foreignkey field-ref="attachmentId" 
+			/> </reference-descriptor> -->
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.ConveyanceAnnex"
@@ -358,7 +357,7 @@
 			<inverse-foreignkey field-ref="conveyanceId" />
 		</collection-descriptor>
 	</class-descriptor>
-	
+
 	<class-descriptor class="org.martinlaw.bo.ContractType"
 		table="martinlaw_contract_type_t">
 		<field-descriptor name="id" column="contract_type_id"
@@ -376,4 +375,148 @@
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
+
+	<class-descriptor class="org.martinlaw.bo.ContractSignatory"
+		table="martinlaw_contract_signatory_t">
+		<field-descriptor name="id" column="contract_signatory_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_contract_signatory_id_s">
+		</field-descriptor>
+		<field-descriptor name="principalName" column="principal_name"
+			jdbc-type="VARCHAR" length="30">
+		</field-descriptor>
+		<field-descriptor name="contractId" column="contract_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+	</class-descriptor>
+
+	<class-descriptor class="org.martinlaw.bo.ContractParty"
+		table="martinlaw_contract_party_t">
+		<field-descriptor name="id" column="contract_party_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_contract_party_id_s">
+		</field-descriptor>
+		<field-descriptor name="principalName" column="principal_name"
+			jdbc-type="VARCHAR" length="30">
+		</field-descriptor>
+		<field-descriptor name="contractId" column="contract_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+	</class-descriptor>
+
+	<class-descriptor class="org.martinlaw.bo.ContractDuration"
+		table="martinlaw_contract_duration_t">
+		<field-descriptor name="id" column="contract_duration_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true" sequence-name="martinlaw_contract_duration_id_s"/>
+			
+			<!-- <field-descriptor name="contractId" column="contract_id"
+			jdbc-type="BIGINT"/> -->
+		<field-descriptor name="startDate" column="start_date"
+			jdbc-type="DATE"/>
+			<field-descriptor name="endDate" column="end_date"
+			jdbc-type="DATE"/>
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="255">
+		</field-descriptor>
+		<field-descriptor name="duration" column="duration"
+			jdbc-type="BIGINT" />
+		<field-descriptor name="durationTimeUnit" column="duration_time_unit"
+			jdbc-type="BIGINT" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
+
+	<class-descriptor class="org.martinlaw.bo.ContractConsideration"
+		table="martinlaw_contract_consideration_t">
+		<field-descriptor name="id" column="contract_consideration_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true" sequence-name="martinlaw_contract_consideration_id_s"/>
+		<!-- <field-descriptor name="contractId" column="contract_id" jdbc-type="BIGINT"/> -->
+		<field-descriptor name="amount" column="amount"
+			jdbc-type="DECIMAL" length="20" precision="2" scale="0" />
+		<field-descriptor name="currency" column="currency"
+			jdbc-type="VARCHAR" length="10" />
+			<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="255"/>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
+
+	<class-descriptor class="org.martinlaw.bo.Contract"
+		table="martinlaw_contract_t">
+		<field-descriptor name="id" column="contract_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_contract_id_s" />
+		<field-descriptor name="name" column="name"
+			jdbc-type="VARCHAR" length="150" />
+		<field-descriptor name="localReference" column="local_reference"
+			jdbc-type="VARCHAR" length="20" />
+		<field-descriptor name="serviceOffered" column="service_offered"
+			jdbc-type="VARCHAR" length="255" />
+		<field-descriptor name="summaryOfTerms" column="summary_of_terms"
+			jdbc-type="VARCHAR" length="255" />
+			
+			<field-descriptor name="contractDurationId" column="contract_duration_id"
+			jdbc-type="BIGINT"/>
+			
+			<field-descriptor name="contractConsiderationId" column="contract_consideration_id"
+			jdbc-type="BIGINT"/>
+
+		<field-descriptor name="typeId" column="type_id"
+			jdbc-type="BIGINT" />
+		<reference-descriptor name="type"
+			class-ref="org.martinlaw.bo.ContractType" auto-retrieve="true"
+			auto-update="false" auto-delete="none">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
+
+		<field-descriptor name="statusId" column="status_id"
+			jdbc-type="BIGINT" indexed="true" />
+		<reference-descriptor name="status"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
+			auto-delete="none">
+			<foreignkey field-ref="statusId" />
+		</reference-descriptor>
+
+		<reference-descriptor name="contractConsideration"
+			class-ref="org.martinlaw.bo.ContractConsideration" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<foreignkey field-ref="contractConsiderationId" />
+		</reference-descriptor>
+
+		<reference-descriptor name="contractDuration"
+			class-ref="org.martinlaw.bo.ContractDuration" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<foreignkey field-ref="contractDurationId" />
+		</reference-descriptor>
+
+		<collection-descriptor name="signatories"
+			element-class-ref="org.martinlaw.bo.ContractSignatory" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="contractId" />
+		</collection-descriptor>
+
+		<collection-descriptor name="parties"
+			element-class-ref="org.martinlaw.bo.ContractParty" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="contractId" />
+		</collection-descriptor>
+
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
+
 </descriptor-repository>

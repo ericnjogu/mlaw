@@ -123,6 +123,29 @@
          <value>classpath:org/martinlaw/view/contract-type-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/contract-type-lookup.xml</value>
          <value>classpath:org/martinlaw/view/contract-type-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/contract-party.xml</value>
+         <value>classpath:org/martinlaw/bo/contract-signatory.xml</value>
+         <value>classpath:org/martinlaw/view/contract-party-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract-party-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract-signatory-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract-signatory-lookup.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/contract-consideration.xml</value>
+         <value>classpath:org/martinlaw/bo/contract-duration.xml</value>
+         <value>classpath:org/martinlaw/bo/contract-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract-party.xml</value>
+         <value>classpath:org/martinlaw/bo/contract-signatory.xml</value>
+         <value>classpath:org/martinlaw/bo/contract.xml</value>
+         
+         <value>classpath:org/martinlaw/view/contract-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/contract-party-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract-party-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract-signatory-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract-signatory-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract-lookup.xml</value>
+         
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

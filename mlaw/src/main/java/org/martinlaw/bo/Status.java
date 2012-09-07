@@ -21,11 +21,12 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 @Entity
 @Table(name="martinlaw_status_t")
 public class Status extends PersistableBusinessObjectBase {
-	// could possibly become a full blown maintainable when the scope goes beyond court cases and conveyancing
+	//TODO could possibly become a full blown maintainable - status type. How will we know which type has been assigned to which matter type?
 	//TODO use locale props to display strings
 	public static final ConcreteKeyValue COURT_CASE_TYPE = new ConcreteKeyValue("COURT_CASE_TYPE", "applies to court cases");
 	public static final ConcreteKeyValue CONVEYANCE_TYPE = new ConcreteKeyValue("CONVEYANCE_TYPE", "applies to conveyancing");
-	public static final ConcreteKeyValue ANY_TYPE = new ConcreteKeyValue("ANY_TYPE", "applies to conveyancing and court cases");
+	public static final ConcreteKeyValue CONTRACT_TYPE = new ConcreteKeyValue("CONTRACT_TYPE", "applies to contracts");
+	public static final ConcreteKeyValue ANY_TYPE = new ConcreteKeyValue("ANY_TYPE", "applies to any matter");
 	/**
 	 * initializes class with with default values for the fields
 	 * 
