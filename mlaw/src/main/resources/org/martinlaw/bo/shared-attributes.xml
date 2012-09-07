@@ -77,7 +77,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="label" value="Name" />
 		<property name="description" value="Name" />
 		<property name="controlField">
-			<bean parent="Uif-TextControl" p:size="80" />
+			<bean parent="Uif-TextControl" p:size="60" />
 		</property>
 		<property name="required" value="true" />
 	</bean>
@@ -144,5 +144,26 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 				<bean parent="Uif-DropdownControl" />
 			</property>
 	</bean>
+	
+	<bean id="martinlaw_shared_person_parentBean" abstract="true" parent="BusinessObjectEntry">
+
+    <property name="relationships">
+      <list>
+		<bean parent="RelationshipDefinition">
+          <property name="objectAttributeName" value="person"/>
+          <property name="primitiveAttributes">
+            <list>
+              <bean parent="PrimitiveAttributeDefinition" p:sourceName="principalName" p:targetName="principalName"/>
+            </list>
+          </property>
+          <property name="supportAttributes">
+            <list>
+              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="principalName" p:targetName="principalName"/>
+            </list>
+          </property>
+        </bean>
+      </list>
+    </property>
+  </bean>
 
 </beans>
