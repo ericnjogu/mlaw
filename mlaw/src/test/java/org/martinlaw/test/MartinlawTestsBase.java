@@ -16,10 +16,12 @@ import org.kuali.rice.krad.datadictionary.DataObjectEntry;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.test.KRADTestCase;
 
 public abstract class MartinlawTestsBase extends KRADTestCase {
 	private BusinessObjectService boSvc;
+	private TestUtils testUtils;
 
 	public MartinlawTestsBase() {
 		// TODO - can this be retrieved from the properties? (maybe they are not available at this time) or JVM params?
@@ -72,11 +74,14 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 * check for lookup, inquiry, maint view definitions, maintenance entry def
 	 * 
 	 * @param dataObjectClass - the data object class
+	 * @param viewId TODO
 	 */
-	protected void verifyMaintDocDataDictEntries(Class<?> dataObjectClass) {
+	protected void verifyMaintDocDataDictEntries(Class<?> dataObjectClass, String viewId) {
 		verifyInquiryLookup(dataObjectClass);
-		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
-		assertNotNull(KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
+		assertTrue(dataObjectClass + " should be maintainable", KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
+		assertNotNull("maint doc entry should not be null", KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
+		//params = 
+		//assertNotNull("View should not be null",				KRADServiceLocatorWeb.getDataDictionaryService().getViewByTypeIndex(UifConstants.ViewType.MAINTENANCE, viewId));
 	}
 
 	/**
@@ -107,6 +112,18 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 */
 	protected DocumentTypeService getDocTypeSvc() {
 		return KEWServiceLocator.getDocumentTypeService();
+	}
+	
+	/**
+	 * convenience method for access in derived tests
+	 * 
+	 * @return
+	 */
+	public TestUtils getTestUtils() {
+		if (testUtils == null) {
+			testUtils = new TestUtils();
+		}
+		return testUtils;
 	}
 
 }
