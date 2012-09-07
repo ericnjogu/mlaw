@@ -1,15 +1,22 @@
 package org.martinlaw.bo;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.krad.bo.Attachment;
+import org.kuali.rice.krad.bo.Note;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.kuali.rice.krad.service.KRADServiceLocator;
 /**
- * a super class that holds the information common to court case and conveyance
+ * a super class that holds the information common to court case, conveyance and contract
  * 
  * @author mugo
  *
@@ -37,6 +44,9 @@ public class Matter extends PersistableBusinessObjectBase {
 	@OneToOne
 	@JoinColumn(name = "status_id", nullable = false, updatable = false)
 	private Status status;
+	/**cache the dynamically fetched attachments locally*/
+	@Transient
+	private List<Attachment> attachments = null;
 	public Matter() {
 		super();
 	}
@@ -95,6 +105,33 @@ public class Matter extends PersistableBusinessObjectBase {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * gets the list of attachments associated with this court case
+	 * 
+	 * This is achieved by retrieving the notes whose remote obj id is equal to this object's obj id
+	 * and retrieving the attachments if present
+	 * 
+	 * @return the list of attachments if found, an empty list if not
+	 */
+	public List<Attachment> getAttachments() {
+		if (attachments == null) {
+			List<Attachment> atts = new ArrayList<Attachment>();
+			if (!StringUtils.isEmpty(getObjectId())) {
+				List<Note> notes = KRADServiceLocator.getNoteService().getByRemoteObjectId(getObjectId());
+				if (notes != null) {
+					for (Note note: notes) {
+						// only interested in file attachments
+						if (note.getAttachment() != null) {
+							atts.add(note.getAttachment());
+						}
+					}
+					attachments = atts;
+				}
+			}
+		}
+		return attachments;
 	}
 
 }
