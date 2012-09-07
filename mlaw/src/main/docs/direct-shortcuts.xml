@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter>
+  <title>mLaw Shortcuts</title>
+
+  <section>
+    <title>General</title>
+
+    <para>Document Search</para>
+
+    <para>Action List</para>
+  </section>
+
+  <section>
+    <title>Conveyancing</title>
+
+    <para>Create Conveyance</para>
+
+    <para>Lookup Conveyance</para>
+
+    <para>Create Conveyance Type</para>
+
+    <para>Lookup Conveyance Type</para>
+
+    <para>Assign Conveyance</para>
+
+    <para>Lookup Conveyance Assignment</para>
+
+    <section>
+      <title/>
+
+      <para/>
+    </section>
+  </section>
+</chapter>

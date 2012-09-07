@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter>
+  <title>mLaw Edoc (Electronic Document) Concepts</title>
+
+  <section>
+    <title>Introduction</title>
+
+    <para>Each action that creates or edits data in mLaw is represented by an
+    electronic document (edoc). Such an actions are creating or editing a
+    conveyance, a court case, or a contract, assigning or editing a court
+    case, conveyance or contract assignment, creating or editing a conveyance
+    type etc.</para>
+
+    <para> An edoc has a preset workflow that is aligned to the approval
+    levels in the organization. An edoc also posses a state - that changes
+    when the user takes actions on it. Each document has the following
+    information:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">Initiator</emphasis></para>
+
+        <para>This is the person who has initiated the action.</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">Actions</emphasis></para>
+
+        <para>These are:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Submit - forwards the information to the next person in the
+            workflow or commits the changes if there is no further approval
+            needed.</para>
+          </listitem>
+
+          <listitem>
+            <para>Cancel - Cancels the edo. Any changes made will be
+            lost.</para>
+          </listitem>
+
+          <listitem>
+            <para>Save - Saves the edoc so that it can be worked on at a later
+            date. Saved documents can be retrieved from the action list or
+            edoc search. Notifications may also be generated for saved
+            documents depending on the user's configuration.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">Status</emphasis></para>
+
+        <para>Once an document is created it has the status 'initiated'. When
+        it is saved, it has the status 'saved'. If an initiated edoc is closed
+        before it is saved, any changes are lost and cannot be recovered. The
+        initiator clicks the 'submit' button to forward it to the next stage
+        of the workflow if it exists. An edoc that needs further approval will
+        have a status of enroute and will appear on the action list of the
+        person/people who need to attend to it. An edoc that has no further
+        approval stage in the workflow will have a status of 'final' once it
+        is submitted.</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">eDoc number</emphasis></para>
+
+        <para>This is a unique number that is assigned to each document and is
+        incremental</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">The creation time</emphasis></para>
+
+        <para>The time the document was initiated</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">Description</emphasis></para>
+
+        <para>This describes in summary, the circumstances sorrounding the
+        action being taken e.g. 'New conveyance for client James', 'adding
+        terms of service', 'Steve Vs John'</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">Explanation</emphasis></para>
+
+        <para>This a more detailed description of the circumstances e.g. 'as
+        agreed in the board meeting on 07 Sept 2012 where it was suggested by
+        Director Peter and seconded by Director Paul'</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">Notes and Attachments</emphasis></para>
+
+        <para>This section allows the attachment of relevant files e.g. copies
+        of certificates, certificates of search, scanned identification
+        documents etc.</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">Route log</emphasis></para>
+
+        <para>It contains information as to the actions that have been taken
+        on the document starting from the initiator to the present. It also
+        links the actions of the users to the state of the document at
+        specific times.</para>
+
+        <para/>
+      </listitem>
+    </itemizedlist>
+
+    <section>
+      <title>Edoc Search</title>
+
+      <para>This is accessible on the main menu by clicking the 'doc search'
+      menu or using the direct links in the shortcuts page. Using doc search,
+      it is possible to locate documents based on their type, the initiator
+      and the date created.</para>
+
+      <section>
+        <title>Action List</title>
+
+        <para>The action list is where edocs pending action are displayed.
+        This applies to documents that have been saved by the user. When a
+        user has been specified as an approver in a workflow, the submitted
+        documents also appear on the action list in addition to receiving an
+        email notification. The action list shows the type of document, the
+        status, the action requested, edoc number among other details.</para>
+      </section>
+    </section>
+  </section>
+</chapter>
