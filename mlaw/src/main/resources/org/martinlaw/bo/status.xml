@@ -43,7 +43,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     <property name="description" value="Status"/>
     <property name="controlField">
     
-      <bean parent="Uif-TextControl" p:size="100"/>
+      <bean parent="Uif-TextControl" p:size="60"/>
     </property>
   </bean>
  
