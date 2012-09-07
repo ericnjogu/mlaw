@@ -17,7 +17,7 @@ import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.web.controller.InquiryController;
 import org.kuali.rice.krad.web.form.UifFormBase;
-import org.martinlaw.bo.ConveyanceAttachment;
+import org.martinlaw.bo.conveyance.ConveyanceAttachment;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;

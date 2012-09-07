@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.ConveyanceType}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.conveyance.ConveyanceType}
  * 
  * @author mugo
  *

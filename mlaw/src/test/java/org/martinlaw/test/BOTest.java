@@ -31,22 +31,22 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
 import org.kuali.rice.test.SQLDataLoader;
-import org.martinlaw.bo.Conveyance;
-import org.martinlaw.bo.ConveyanceAnnex;
-import org.martinlaw.bo.ConveyanceAnnexType;
-import org.martinlaw.bo.ConveyanceAttachment;
-import org.martinlaw.bo.ConveyanceClient;
-import org.martinlaw.bo.ConveyanceFee;
-import org.martinlaw.bo.ConveyanceType;
-import org.martinlaw.bo.CourtCase;
-import org.martinlaw.bo.CourtCaseClient;
-import org.martinlaw.bo.CourtCaseFee;
-import org.martinlaw.bo.CourtCasePerson;
-import org.martinlaw.bo.CourtCaseWitness;
 import org.martinlaw.bo.Fee;
 import org.martinlaw.bo.HearingDate;
 import org.martinlaw.bo.MartinlawPerson;
 import org.martinlaw.bo.Status;
+import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.conveyance.ConveyanceAnnex;
+import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
+import org.martinlaw.bo.conveyance.ConveyanceAttachment;
+import org.martinlaw.bo.conveyance.ConveyanceClient;
+import org.martinlaw.bo.conveyance.ConveyanceFee;
+import org.martinlaw.bo.conveyance.ConveyanceType;
+import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.courtcase.CourtCaseClient;
+import org.martinlaw.bo.courtcase.CourtCaseFee;
+import org.martinlaw.bo.courtcase.CourtCasePerson;
+import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValues;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
@@ -284,7 +284,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that the court case status is loaded into the data dictionary
 	 */
 	public void testCourtCaseStatusAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.Status");
+		testBoAttributesPresent(Status.class.getCanonicalName());
 		
 		Class<Status> dataObjectClass = Status.class;
 		verifyMaintDocDataDictEntries(dataObjectClass, null);
@@ -295,7 +295,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that {@link ConveyanceType} is loaded into the data dictionary
 	 */
 	public void testConveyanceTypeAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.ConveyanceType");
+		testBoAttributesPresent(ConveyanceType.class.getCanonicalName());
 		
 		Class<ConveyanceType> dataObjectClass = ConveyanceType.class;
 		verifyMaintDocDataDictEntries(dataObjectClass, null);
@@ -306,7 +306,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that {@link Conveyance} is loaded into the data dictionary
 	 */
 	public void testConveyanceAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.Conveyance");
+		testBoAttributesPresent(Conveyance.class.getCanonicalName());
 		
 		Class<Conveyance> dataObjectClass = Conveyance.class;
 		verifyMaintDocDataDictEntries(dataObjectClass, null);
@@ -317,7 +317,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that {@link ConveyanceAnnexType} is loaded into the data dictionary
 	 */
 	public void testConveyanceAnnexTypeAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.ConveyanceAnnexType");
+		testBoAttributesPresent(ConveyanceAnnexType.class.getCanonicalName());
 		// will maintained as part of conveyance type
 /*		Class<ConveyanceAnnexType> dataObjectClass = ConveyanceAnnexType.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);*/
@@ -328,7 +328,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that {@link ConveyanceAttachment} is loaded into the data dictionary
 	 */
 	public void testConveyanceAttachmentAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.ConveyanceAttachment");
+		testBoAttributesPresent(ConveyanceAttachment.class.getCanonicalName());
 	}
 	
 	@Test
@@ -336,7 +336,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that {@link ConveyanceAnnex} is loaded into the data dictionary
 	 */
 	public void testConveyanceAnnexAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.ConveyanceAnnex");
+		testBoAttributesPresent(ConveyanceAnnex.class.getCanonicalName());
 	}
 	
 
@@ -345,7 +345,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that the court case is loaded into the data dictionary
 	 */
 	public void testCourtCaseAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.CourtCase");
+		testBoAttributesPresent(CourtCase.class.getCanonicalName());
 		Class<CourtCase> dataObjectClass = CourtCase.class;
 		verifyMaintDocDataDictEntries(dataObjectClass, null);
 	}
@@ -355,7 +355,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that the client is loaded into the data dictionary
 	 */
 	public void testClientAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.CourtCaseClient");
+		testBoAttributesPresent(CourtCaseClient.class.getCanonicalName());
 		Class<CourtCaseClient> dataObjectClass = CourtCaseClient.class;
 		verifyInquiryLookup(dataObjectClass);
 	}
@@ -365,7 +365,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that the witness is loaded into the data dictionary
 	 */
 	public void testWitnessAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.CourtCaseWitness");
+		testBoAttributesPresent(CourtCaseWitness.class.getCanonicalName());
 		Class<CourtCaseWitness> dataObjectClass = CourtCaseWitness.class;
 		verifyInquiryLookup(dataObjectClass);
 	}
@@ -375,7 +375,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that the witness is loaded into the data dictionary
 	 */
 	public void testConveyanceClientAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.ConveyanceClient");
+		testBoAttributesPresent(ConveyanceClient.class.getCanonicalName());
 		Class<ConveyanceClient> dataObjectClass = ConveyanceClient.class;
 		verifyInquiryLookup(dataObjectClass);
 	}
@@ -385,7 +385,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * test that the conveyance fee is loaded into the data dictionary
 	 */
 	public void testConveyanceFeeAttributes() {
-		testBoAttributesPresent("org.martinlaw.bo.ConveyanceFee");
+		testBoAttributesPresent(ConveyanceFee.class.getCanonicalName());
 		//TODO has no lookup/inquiry at present - would someone want to lookup a fee?
 	}
 	

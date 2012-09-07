@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="courtcase_LookupView" parent="Uif-LookupView">
+    <property name="headerText" value="Court Case Lookup" />
+    <property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
+    <property name="criteriaFields">
+      <list>
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="localReference" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="courtReference" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId">
+        </bean>
+      </list>
+    </property>
+    <property name="resultFields">
+      <list>
+         <bean parent="Uif-DataField" p:propertyName="id" />
+        <bean parent="Uif-DataField" p:propertyName="localReference" />
+        <bean parent="Uif-DataField" p:propertyName="courtReference" />
+        <bean parent="Uif-DataField" p:propertyName="name" />
+        <bean parent="Uif-DataField" p:propertyName="status.status"/>
+      </list>
+    </property>
+  </bean>
+</beans>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Copyright 2010-2011 Protosoft Ltd -->
+	
+	<bean id="case" parent="case-parentBean" />
+
+	<bean id="case-parentBean" abstract="true" parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.courtcase.CourtCase" />
+		<property name="titleAttribute" value="name" />
+		<property name="attributes">
+			<list>
+				<ref bean="case-id" />
+				<ref bean="courtcase-name" />
+				<ref bean="courtcase-statusId" />
+				<ref bean="case-localReference" />
+				<ref bean="case-courtReference" />
+			</list>
+		</property>
+		<property name="boNotesEnabled" value="true" />
+		<property name="objectLabel" value="name" />
+	</bean>
+
+	<!-- Attribute Definitions -->
+
+	<bean id="case-id" parent="martinlaw-shared-id-parentBean" p:label="Court Case Id" />
+
+	<bean id="case-localReference" parent="martinlaw-shared-localReference-parentBean" />
+
+	<bean id="case-courtReference" parent="case-courtReference-parentBean" />
+
+	<bean id="case-courtReference-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="true" />
+		<property name="shortLabel" value="Case Number" />
+		<property name="maxLength" value="20" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" /> <!-- p:allowWhitespace="true"/> -->
+		</property>
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="20" />
+		</property>
+		<property name="summary" value="Court Case Number" />
+		<property name="name" value="courtReference" />
+		<property name="label" value="Court Case Number" />
+		<property name="description" value="Court Case Number" />
+		<property name="controlField">
+			<bean parent="Uif-TextControl" p:size="20" />
+		</property>
+	</bean>
+
+	<bean id="courtcase-name" parent="martinlaw-shared-name" p:label="Court Case Name"/>
+
+	<bean id="courtcase-statusId" parent="courtcase-statusId-parentBean" />
+
+	<bean id="courtcase-statusId-parentBean" parent="martinlaw-shared-statusId-parentBean">	
+		<property name="optionsFinder">
+			<bean class="org.martinlaw.keyvalues.CourtCaseStatusKeyValues" />
+		</property>
+
+	</bean>
+
+</beans>

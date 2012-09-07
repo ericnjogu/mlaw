@@ -188,7 +188,7 @@
 										<bean parent="Uif-LinkField" p:linkText="@{#line.attachmentFileName}">
 											<property name="href">
 												<value>
-													@{#ConfigProperties['application.url']}/kr-krad/@{#view.formPostUrl}?methodToCall=downloadAttById&amp;attachmentId=@{#line.noteIdentifier}&amp;skipViewInit=true&amp;renderFullView=false&amp;dataObjectClassName=org.martinlaw.bo.CourtCase
+													@{#ConfigProperties['application.url']}/kr-krad/@{#view.formPostUrl}?methodToCall=downloadAttById&amp;attachmentId=@{#line.noteIdentifier}&amp;skipViewInit=true&amp;renderFullView=false&amp;dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase
 												</value>
 											</property>
 										</bean>

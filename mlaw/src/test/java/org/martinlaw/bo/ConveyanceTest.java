@@ -18,11 +18,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.service.BusinessObjectService;
+import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.conveyance.ConveyanceAnnex;
+import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
+import org.martinlaw.bo.conveyance.ConveyanceAttachment;
 import org.martinlaw.service.RiceServiceHelper;
 
 
 /**
- * tests methods in {@link org.martinlaw.bo.Conveyance}
+ * tests methods in {@link org.martinlaw.bo.conveyance.Conveyance}
  * 
  * @author mugo
  *
@@ -37,7 +41,7 @@ public class ConveyanceTest {
 	}
 
 	/**
-	 * Test method for {@link org.martinlaw.bo.Conveyance#getAnnexes()}.
+	 * Test method for {@link org.martinlaw.bo.conveyance.Conveyance#getAnnexes()}.
 	 */
 	@Test
 	public void testGetAnnexes() {
@@ -77,7 +81,7 @@ public class ConveyanceTest {
 	}
 
 	/**
-	 * Test method for {@link org.martinlaw.bo.Conveyance#hasAttachments()}.
+	 * Test method for {@link org.martinlaw.bo.conveyance.Conveyance#hasAttachments()}.
 	 */
 	@Test
 	public void testHasAttachments() {

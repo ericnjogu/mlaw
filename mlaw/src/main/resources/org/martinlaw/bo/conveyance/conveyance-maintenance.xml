@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--
+ Copyright 2012 Protosoft Ltd
+-->
+
+  <bean id="conveyance_MaintDocument"  parent="uifMaintenanceDocumentEntry">
+    <property name="dataObjectClass" value="org.martinlaw.bo.conveyance.Conveyance"/>
+    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <property name="lockingKeys">
+      <list>
+        <value>name</value>
+        <value>localReference</value>
+      </list>
+    </property>
+    <property name="documentTypeName" value="ConveyanceMaintenanceDocument"/>
+  </bean>
+
+</beans>

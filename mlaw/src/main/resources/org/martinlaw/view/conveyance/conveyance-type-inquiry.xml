@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="conveyance_type_inquiry_view" parent="Uif-InquiryView">
+    <property name="headerText" value="Conveyance Type Inquiry"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.ConveyanceType"/>
+    <property name="Items">
+      <list>
+        <bean parent="Uif-Disclosure-GridSection">
+          <property name="headerText" value="Conveyance Type"/>
+          <property name="layoutManager.numberOfColumns" value="2"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="id"/>
+              <bean parent="Uif-InputField" p:propertyName="name"/>
+              <bean parent="Uif-InputField" p:propertyName="description"/>
+            </list>
+          </property>
+        </bean>
+        
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+          <property name="headerText" value="Annex Types"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnexType"/>
+          <property name="propertyName" value="annexTypes"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="name"/>
+              <bean parent="Uif-InputField" p:propertyName="description"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>name</value>
+            </list>           
+          </property>
+          <property name="layoutManager.summaryTitle" value ="Annex Type"/>
+        </bean>
+      </list>
+    </property>
+  </bean>
+</beans>

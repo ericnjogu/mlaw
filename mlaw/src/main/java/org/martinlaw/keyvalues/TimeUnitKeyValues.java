@@ -10,7 +10,7 @@ import java.util.List;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.keyvalues.KeyValuesBase;
-import org.martinlaw.bo.ContractDuration;
+import org.martinlaw.bo.contract.ContractDuration;
 
 /**
  * displays time units derived from {@link Calendar} to be used to specify the value of {@link ContractDuration#getDurationTimeUnit()}

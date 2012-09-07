@@ -15,8 +15,8 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.uif.control.UifKeyValuesFinderBase;
 import org.kuali.rice.krad.uif.view.ViewModel;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
-import org.martinlaw.bo.Conveyance;
-import org.martinlaw.bo.ConveyanceAnnexType;
+import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
 
 /**
  * generates a list of {@code ConveyanceAnnexType} key values for the set 

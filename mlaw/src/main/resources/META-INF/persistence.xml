@@ -3,7 +3,7 @@
 	<persistence-unit name="martinlaw-rice2" transaction-type="RESOURCE_LOCAL">
 		<!-- <mapping-file>META-INF/orm.xml</mapping-file> -->
 		<!-- <mapping-file>META-INF/eclipselink-orm.xml</mapping-file> -->
-		<class>org.martinlaw.bo.CourtCaseFee</class>
+		<class>org.martinlaw.bo.courtcase.CourtCaseFee</class>
 		<class>org.martinlaw.bo.AnnexType</class>
 		<!-- <exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
@@ -17,6 +17,6 @@
 			<property name="eclipselink.create-ddl-jdbc-file-name" value="martinlaw-create.sql"/>
 			<property name="eclipselink.drop-ddl-jdbc-file-name" value="martinlaw-drop.sql"/>
 		</properties> -->
-		<!-- <class>org.martinlaw.bo.CourtCaseCollectionBase</class> -->
+		<!-- <class>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</class> -->
 	</persistence-unit>
 </persistence>

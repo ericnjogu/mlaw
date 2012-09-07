@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- Copyright 2010-2011 Protosoft Ltd -->
+	
+	<bean id="conveyance-annex" parent="conveyance-annex-parentBean" />
+
+	<bean id="conveyance-annex-parentBean" abstract="true" parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnex" />
+		<property name="titleAttribute" value="type.name" />
+		<property name="attributes">
+			<list>
+			<!-- defines only the foreign key of the conveyance type
+			 the rest of the attributes - id (pk) and conveyance id should be assigned by the persistence framework
+			 the list of conveyance atts will be defined on the conveyance maintenance view-->
+				<ref bean="conveyance-annex-type-id" />
+			</list>
+		</property>
+		<property name="objectLabel" value="Conveyance Annex" />
+	</bean>
+
+	<!-- Attribute Definitions -->
+
+	<bean id="conveyance-annex-type-id" parent="conveyance-annex-type-id-parentBean" />
+
+	<bean id="conveyance-annex-type-id-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="true" />
+		<property name="shortLabel" value="Annex Type" />
+		<property name="maxLength" value="100" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
+		<property name="summary" value="Annex Type" />
+		<property name="name" value="conveyanceAnnexTypeId" />
+		<property name="label" value="Annex Type" />
+		<property name="description" value="Annex Type" />
+		<property name="required" value="true" />
+		<property name="optionsFinder">
+			<bean
+				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
+				p:keyAttributeName="id"	p:labelAttributeName="name">
+			</bean>
+		</property>
+		<property name="controlField">
+				<bean parent="Uif-DropdownControl" />
+			</property>
+	</bean>
+
+
+</beans>

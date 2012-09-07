@@ -13,13 +13,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.martinlaw.bo.Contract;
-import org.martinlaw.bo.ContractConsideration;
-import org.martinlaw.bo.ContractDuration;
-import org.martinlaw.bo.ContractParty;
-import org.martinlaw.bo.ContractSignatory;
-import org.martinlaw.bo.ContractType;
-import org.martinlaw.bo.Conveyance;
+import org.martinlaw.bo.contract.Contract;
+import org.martinlaw.bo.contract.ContractConsideration;
+import org.martinlaw.bo.contract.ContractDuration;
+import org.martinlaw.bo.contract.ContractParty;
+import org.martinlaw.bo.contract.ContractSignatory;
+import org.martinlaw.bo.contract.ContractType;
+import org.martinlaw.bo.conveyance.Conveyance;
 
 /**
  * holds various methods used across test cases

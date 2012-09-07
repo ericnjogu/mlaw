@@ -61,7 +61,7 @@
     <property name="initializeDataDictionary" value="true"/>
     <property name="dataDictionaryPackages">
       <list>
-        <value>classpath:org/martinlaw/bo/case-fee.xml</value>
+        <value>classpath:org/martinlaw/bo/courtcase/case-fee.xml</value>
         <value>classpath:org/martinlaw/bo/shared-fee.xml</value>
          <value>classpath:org/martinlaw/bo/shared-attributes.xml</value>
          
@@ -72,25 +72,25 @@
          <value>classpath:org/martinlaw/view/status-lookup.xml</value>
          <value>classpath:org/martinlaw/view/status-inquiry.xml</value>
          
-         <value>classpath:org/martinlaw/bo/case.xml</value>
-         <value>classpath:org/martinlaw/bo/case-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-maintenance.xml</value>
          
-         <value>classpath:org/martinlaw/view/case-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/case-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/case-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-inquiry.xml</value>
          
-         <value>classpath:org/martinlaw/bo/case-client.xml</value>
-         <value>classpath:org/martinlaw/bo/case-witness.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-client.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-witness.xml</value>
          <value>classpath:org/martinlaw/bo/hearing-date.xml</value>
          
-         <value>classpath:org/martinlaw/bo/conveyance-annex-type.xml</value>
-         <value>classpath:org/martinlaw/bo/conveyance-type.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-annex-type.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-type.xml</value>
          
-         <value>classpath:org/martinlaw/view/conveyance-type-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-type-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-type-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-type-lookup.xml</value>
          
-         <value>classpath:org/martinlaw/bo/conveyance-type-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-type-maintenance.xml</value>
          <!-- to be maintained as part of conveyance type -->
          <!-- 
          <value>classpath:org/martinlaw/bo/conveyance-annex-type-maintenance.xml</value>
@@ -99,52 +99,52 @@
          <value>classpath:org/martinlaw/view/conveyance-annex-type-inquiry.xml</value>
           -->
          
-         <value>classpath:org/martinlaw/view/case-client-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/case-client-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/case-witness-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/case-witness-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-client-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-client-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-witness-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-witness-lookup.xml</value>
          
-         <value>classpath:org/martinlaw/bo/conveyance-attachment.xml</value>
-         <value>classpath:org/martinlaw/bo/conveyance-annex.xml</value>
-         <value>classpath:org/martinlaw/bo/conveyance-client.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-client-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-client-inquiry.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-attachment.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-annex.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-client.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-client-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-client-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/shared.xml</value>
          
-         <value>classpath:org/martinlaw/bo/conveyance-fee.xml</value>
-         <value>classpath:org/martinlaw/bo/conveyance.xml</value>
-         <value>classpath:org/martinlaw/bo/conveyance-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-fee.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-maintenance.xml</value>
          
-         <value>classpath:org/martinlaw/bo/contract-type-maintenance.xml</value>
-         <value>classpath:org/martinlaw/bo/contract-type.xml</value>
-         <value>classpath:org/martinlaw/view/contract-type-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract-type-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/contract-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-type.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-type-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-type-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-type-maintenance.xml</value>
          
-         <value>classpath:org/martinlaw/bo/contract-party.xml</value>
-         <value>classpath:org/martinlaw/bo/contract-signatory.xml</value>
-         <value>classpath:org/martinlaw/view/contract-party-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract-party-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/contract-signatory-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract-signatory-lookup.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-party.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-signatory.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-party-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-party-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-signatory-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-signatory-lookup.xml</value>
          
-         <value>classpath:org/martinlaw/bo/contract-consideration.xml</value>
-         <value>classpath:org/martinlaw/bo/contract-duration.xml</value>
-         <value>classpath:org/martinlaw/bo/contract-maintenance.xml</value>
-         <value>classpath:org/martinlaw/bo/contract-party.xml</value>
-         <value>classpath:org/martinlaw/bo/contract-signatory.xml</value>
-         <value>classpath:org/martinlaw/bo/contract.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-consideration.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-duration.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-party.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-signatory.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract.xml</value>
          
-         <value>classpath:org/martinlaw/view/contract-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/contract-party-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract-party-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/contract-signatory-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract-signatory-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/contract-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-party-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-party-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-signatory-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-signatory-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-lookup.xml</value>
          
       </list>
     </property>

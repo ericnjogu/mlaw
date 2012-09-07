@@ -5,10 +5,10 @@ package org.martinlaw.test;
 
 
 import org.junit.Test;
-import org.martinlaw.bo.Conveyance;
-import org.martinlaw.bo.ConveyanceType;
-import org.martinlaw.bo.CourtCase;
 import org.martinlaw.bo.Status;
+import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.conveyance.ConveyanceType;
+import org.martinlaw.bo.courtcase.CourtCase;
 
 /**
  * holds various permissions tests

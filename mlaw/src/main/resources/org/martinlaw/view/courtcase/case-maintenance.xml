@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2012 Protosoft Ltd
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  
+
+  <bean id="case_maintenance_view" parent="Uif-MaintenanceView">
+    <property name="headerText" value="Case Maintenance"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase"/>
+    <property name="items">
+      <list merge="true">
+        <bean parent="Uif-MaintenanceGridSection">
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="id" p:readOnly="true"/>
+              <bean parent="Uif-InputField" p:propertyName="localReference"/>
+              <bean parent="Uif-InputField" p:propertyName="courtReference"/>
+              <bean parent="Uif-InputField" p:propertyName="name"/>
+              <bean parent="Uif-InputField" p:propertyName="statusId">
+              </bean>
+            </list>
+          </property>
+          <property name="headerText" value="Case Information"/>
+        </bean>
+        <bean parent="Uif-StackedCollectionSection">
+          <property name="headerText" value="Hearing Dates"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.HearingDate"/>
+          <property name="propertyName" value="hearingDates"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="date"/>
+              <bean parent="Uif-InputField" p:propertyName="comment"/>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value="Hearing Date"/>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>date</value>
+            </list>
+          </property>
+        </bean>
+        
+        <bean parent="martinlaw_shared_client-maintenance-section">
+          <property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseClient"/>
+        </bean>
+        
+        <bean parent="Uif-StackedCollectionSection">
+          <property name="headerText" value="Witnesses"/>
+          <property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseWitness"/>
+          <property name="propertyName" value="witnesses"/>
+          <property name="items">
+            <list>
+              <bean parent="Uif-InputField" p:propertyName="principalName">
+              </bean>
+            </list>
+          </property>
+          <property name="layoutManager.summaryTitle" value="Witness"/>
+          <property name="layoutManager.summaryFields">
+            <list>
+              <value>person.name</value>
+            </list>
+          </property>
+        </bean>
+        
+        <bean parent="martinlaw_shared_fee-maintenance-section">
+          <property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseFee"/>
+        </bean>
+      </list>
+    </property>
+  </bean>
+
+</beans>

@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.martinlaw.bo.courtcase.CourtCaseCollectionBase;
+
 /**
  * represents a hearing date set for a case
  * 

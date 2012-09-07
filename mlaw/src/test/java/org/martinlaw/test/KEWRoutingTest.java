@@ -22,11 +22,11 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.martinlaw.bo.Conveyance;
-import org.martinlaw.bo.ConveyanceAnnexType;
-import org.martinlaw.bo.ConveyanceType;
-import org.martinlaw.bo.CourtCase;
 import org.martinlaw.bo.Status;
+import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
+import org.martinlaw.bo.conveyance.ConveyanceType;
+import org.martinlaw.bo.courtcase.CourtCase;
 
 /**
  * @author mugo

@@ -9,47 +9,47 @@
 		<property name="dataSource" ref="myDataSource" />
 		<property name="annotatedClasses">
 			<list>
-			<value>org.martinlaw.bo.CourtCaseCollectionBase</value>
-				<value>org.martinlaw.bo.CourtCaseFee</value>
+			<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>
+				<value>org.martinlaw.bo.courtcase.CourtCaseFee</value>
 				<value>org.martinlaw.bo.Status</value>
 				<value>org.martinlaw.bo.Fee</value>
 				<value>org.martinlaw.bo.sequence.CaseFeeSeq</value>
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>
 				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
 				<value>org.martinlaw.bo.HearingDate</value>
-				<value>org.martinlaw.bo.CourtCaseWitness</value>
-				<value>org.martinlaw.bo.CourtCaseClient</value>
+				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
+				<value>org.martinlaw.bo.courtcase.CourtCaseClient</value>
 				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseClientSeq</value>
 				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
-				<value>org.martinlaw.bo.CourtCasePerson</value>
-				<value>org.martinlaw.bo.CourtCase</value>
+				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
+				<value>org.martinlaw.bo.courtcase.CourtCase</value>
 				<value>org.martinlaw.bo.sequence.CaseSeq</value>
 				
-				<value>org.martinlaw.bo.ConveyanceAnnexType</value>
-				<value>org.martinlaw.bo.ConveyanceType</value>
+				<value>org.martinlaw.bo.conveyance.ConveyanceAnnexType</value>
+				<value>org.martinlaw.bo.conveyance.ConveyanceType</value>
 				<value>org.martinlaw.bo.sequence.ConveyAnnexTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ConveyTypeSeq</value>
 				<value>org.martinlaw.bo.MartinlawPerson</value>
 				<value>org.martinlaw.bo.sequence.ConveyAnnexSeq</value>
-				<value>org.martinlaw.bo.ConveyanceAttachment</value>
-				<value>org.martinlaw.bo.ConveyanceAnnex</value>
+				<value>org.martinlaw.bo.conveyance.ConveyanceAttachment</value>
+				<value>org.martinlaw.bo.conveyance.ConveyanceAnnex</value>
 				<value>org.martinlaw.bo.sequence.ConveyAttSeq</value>
 				<value>org.martinlaw.bo.sequence.ConveyClientSeq</value>
-				<value>org.martinlaw.bo.ConveyanceClient</value>
+				<value>org.martinlaw.bo.conveyance.ConveyanceClient</value>
 				<value>org.martinlaw.bo.Matter</value>
 				<value>org.martinlaw.bo.sequence.ConveyFeeSeq</value>
-				<value>org.martinlaw.bo.ConveyanceFee</value>
+				<value>org.martinlaw.bo.conveyance.ConveyanceFee</value>
 				<value>org.martinlaw.bo.sequence.ConveySeq</value>
-				<value>org.martinlaw.bo.Conveyance</value>
+				<value>org.martinlaw.bo.conveyance.Conveyance</value>
 				
-				<value>org.martinlaw.bo.ContractType</value>
-				<value>org.martinlaw.bo.ContractParty</value>
-				<value>org.martinlaw.bo.ContractSignatory</value>
-				<value>org.martinlaw.bo.ContractPerson</value>
-				<value>org.martinlaw.bo.ContractConsideration</value>
-				<value>org.martinlaw.bo.ContractDuration</value>
-				<value>org.martinlaw.bo.Contract</value>
+				<value>org.martinlaw.bo.contract.ContractType</value>
+				<value>org.martinlaw.bo.contract.ContractParty</value>
+				<value>org.martinlaw.bo.contract.ContractSignatory</value>
+				<value>org.martinlaw.bo.contract.ContractPerson</value>
+				<value>org.martinlaw.bo.contract.ContractConsideration</value>
+				<value>org.martinlaw.bo.contract.ContractDuration</value>
+				<value>org.martinlaw.bo.contract.Contract</value>
 				
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>
