@@ -25,8 +25,8 @@ insert into martinlaw_court_case_witness_t (court_case_witness_id,court_case_id,
 insert into martinlaw_convey_client_t (convey_client_id, conveyance_id, principal_name) values (1001, 1001, 'client2');
 
  insert into 
- martinlaw_court_case_hearing_date_t 
- (court_case_hearing_date_id, hearing_date, date_comment, court_case_id, ver_nbr, obj_id) 
+ martinlaw_court_case_date_t 
+ (court_case_date_id, matter_date, date_comment, court_case_id, ver_nbr, obj_id) 
  values 
  (1001, '2011-06-01','first hearing date', 1001, default, 1);
 

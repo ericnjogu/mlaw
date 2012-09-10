@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.martinlaw.bo.HearingDate;
 import org.martinlaw.bo.Matter;
 
 
@@ -48,7 +47,7 @@ public class CourtCase extends Matter {
 	private List<CourtCaseWitness> witnesses;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
-	private List<HearingDate> hearingDates;
+	private List<CourtCaseDate> dates;
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "courtCaseId")
 	private List<CourtCaseClient> clients;
@@ -61,7 +60,7 @@ public class CourtCase extends Matter {
 		//initialize collections
 		setClients(new ArrayList<CourtCaseClient>());
 		setWitnesses(new ArrayList<CourtCaseWitness>());
-		setHearingDates(new ArrayList<HearingDate>());
+		setDates(new ArrayList<CourtCaseDate>());
 		setFees(new ArrayList<CourtCaseFee>());
 	}
 	/**
@@ -112,16 +111,16 @@ public class CourtCase extends Matter {
 		this.witnesses = witnesses;
 	}
 	/**
-	 * @param hearingDates the hearingDates to set
+	 * @param dates the dates to set
 	 */
-	public void setHearingDates(List<HearingDate> hearingDates) {
-		this.hearingDates = hearingDates;
+	public void setDates(List<CourtCaseDate> courtCaseDates) {
+		this.dates = courtCaseDates;
 	}
 	/**
-	 * @return the hearingDates
+	 * @return the dates
 	 */
-	public List<HearingDate> getHearingDates() {
-		return hearingDates;
+	public List<CourtCaseDate> getDates() {
+		return dates;
 	}
 	/**
 	 * @return the clients

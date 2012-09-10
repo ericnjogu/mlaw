@@ -32,8 +32,8 @@ import org.kuali.rice.krad.service.LookupService;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.Fee;
-import org.martinlaw.bo.HearingDate;
 import org.martinlaw.bo.MartinlawPerson;
+import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
@@ -47,6 +47,7 @@ import org.martinlaw.bo.courtcase.CourtCaseClient;
 import org.martinlaw.bo.courtcase.CourtCaseFee;
 import org.martinlaw.bo.courtcase.CourtCasePerson;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
+import org.martinlaw.bo.courtcase.CourtCaseDate;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValues;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
@@ -125,9 +126,9 @@ public class BOTest extends MartinlawTestsBase {
         assertEquals("witness1", witness.getPrincipalName());
         assertEquals("Witness",witness.getPerson().getFirstName());
         //hearing date
-        List<HearingDate> dates = kase.getHearingDates();
+        List<CourtCaseDate> dates = kase.getDates();
         assertEquals(1,dates.size());
-        testHearingDateFields(kase.getHearingDates().get(0));
+        testHearingDateFields(kase.getDates().get(0));
         //client fees
         assertEquals(2, kase.getFees().size());
         testFeeFields(kase.getFees().get(0));
@@ -403,11 +404,11 @@ public class BOTest extends MartinlawTestsBase {
 	 * tests non nullable fields are checked
 	 */
 	public void testHearingDateNullableFields() {
-		HearingDate date = new HearingDate();
+		CourtCaseDate date = new CourtCaseDate();
 		getBoSvc().save(date);
 	}
 	
-	private void testHearingDateFields(HearingDate hd) {
+	private void testHearingDateFields(MatterDate hd) {
 		assertEquals("first hearing date",hd.getComment());
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(hd.getDate().getTime());
@@ -421,7 +422,7 @@ public class BOTest extends MartinlawTestsBase {
 	 * tests that a hearing date, inserted via an sql script in {@link #loadSuiteTestData()} can be retrieved
 	 */
 	public void testHearingDateRetrieve() {
-		HearingDate date = getBoSvc().findBySinglePrimaryKey(HearingDate.class, new Long(1001));
+		MatterDate date = getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, new Long(1001));
 		assertNotNull(date);
 		testHearingDateFields(date);
 	}
@@ -432,19 +433,19 @@ public class BOTest extends MartinlawTestsBase {
 	 */
 	public void testHearingDateCRUD() {
 		Date date = new Date(Calendar.getInstance().getTimeInMillis());
-		HearingDate hearingDate = new HearingDate(date, "soon", 1001l);
+		CourtCaseDate courtCaseDate = new CourtCaseDate(date, "soon", 1001l);
 		// C
-		getBoSvc().save(hearingDate);
+		getBoSvc().save(courtCaseDate);
 		// R
-		hearingDate =  getBoSvc().findBySinglePrimaryKey(HearingDate.class, hearingDate.getId());
+		courtCaseDate =  getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, courtCaseDate.getId());
 		// U
-		hearingDate.setComment("later");
-		getBoSvc().save(hearingDate);
-		hearingDate.refresh();
-		assertEquals("later", hearingDate.getComment());
+		courtCaseDate.setComment("later");
+		getBoSvc().save(courtCaseDate);
+		courtCaseDate.refresh();
+		assertEquals("later", courtCaseDate.getComment());
 		// D
-		getBoSvc().delete(hearingDate);
-		assertNull(getBoSvc().findBySinglePrimaryKey(HearingDate.class, hearingDate.getId()));
+		getBoSvc().delete(courtCaseDate);
+		assertNull(getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, courtCaseDate.getId()));
 	}
 	
 	@Test

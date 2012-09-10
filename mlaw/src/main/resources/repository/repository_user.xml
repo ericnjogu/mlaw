@@ -59,8 +59,8 @@
 			<inverse-foreignkey field-ref="courtCaseId" />
 		</collection-descriptor>
 
-		<collection-descriptor name="hearingDates"
-			element-class-ref="org.martinlaw.bo.HearingDate" auto-retrieve="true"
+		<collection-descriptor name="dates"
+			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseDate" auto-retrieve="true"
 			auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="courtCaseId" />
 		</collection-descriptor>
@@ -120,16 +120,16 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.HearingDate"
-		table="martinlaw_court_case_hearing_date_t">
-		<field-descriptor name="id" column="court_case_hearing_date_id"
+	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCaseDate"
+		table="martinlaw_court_case_date_t">
+		<field-descriptor name="id" column="court_case_date_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_hearing_date_id_s">
+			sequence-name="martinlaw_court_case_date_id_s">
 		</field-descriptor>
 		<field-descriptor name="courtCaseId" column="court_case_id"
 			jdbc-type="BIGINT" indexed="true" />
 
-		<field-descriptor name="date" column="hearing_date"
+		<field-descriptor name="date" column="matter_date"
 			jdbc-type="DATE">
 		</field-descriptor>
 

@@ -3,10 +3,10 @@
  */
 package org.martinlaw.bo.courtcase;
 
-import java.util.LinkedHashMap;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+
+import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
  * holds the common fields present in objects that appear in the court case as a collection
@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
  * @author mugo
  */
 @MappedSuperclass
-public class CourtCaseCollectionBase extends org.kuali.rice.krad.bo.PersistableBusinessObjectBase {
+public class CourtCaseCollectionBase extends PersistableBusinessObjectBase {
 	/**
 	 * 
 	 */
@@ -27,15 +27,6 @@ public class CourtCaseCollectionBase extends org.kuali.rice.krad.bo.PersistableB
 	 */
 	@Column(name="court_case_id", nullable=false)
 	private Long courtCaseId;
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.kns.bo.BusinessObjectBase#toStringMapper()
-	 */
-	// @Override
-	protected LinkedHashMap<String, Object> toStringMapper() {
-		LinkedHashMap<String, Object> propMap = new LinkedHashMap<String, Object>();
-		propMap.put("courtCaseId", getCourtCaseId());
-		return propMap;
-	}
 	
 	/**
 	 * @return the courtCaseId

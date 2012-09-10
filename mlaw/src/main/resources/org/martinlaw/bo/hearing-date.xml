@@ -23,7 +23,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
   <bean id="court-case-hearing-date" parent="court-case-hearing-date-parentBean" />
 
   <bean id="court-case-hearing-date-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="businessObjectClass" value="org.martinlaw.bo.HearingDate"/>
+    <property name="businessObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseDate"/>
     <property name="inquiryDefinition">
       <ref bean="court-case-hearing-date-inquiryDefinition"/>
     </property>

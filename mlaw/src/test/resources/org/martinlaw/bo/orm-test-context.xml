@@ -15,13 +15,11 @@
 				<value>org.martinlaw.bo.Fee</value>
 				<value>org.martinlaw.bo.sequence.CaseFeeSeq</value>
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>
-				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
-				<value>org.martinlaw.bo.HearingDate</value>
+				<value>org.martinlaw.bo.courtcase.CourtCaseDate</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseClient</value>
 				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseClientSeq</value>
-				<value>org.martinlaw.bo.sequence.HearingDateSeq</value>
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
 				<value>org.martinlaw.bo.courtcase.CourtCase</value>
 				<value>org.martinlaw.bo.sequence.CaseSeq</value>
@@ -38,6 +36,7 @@
 				<value>org.martinlaw.bo.sequence.ConveyClientSeq</value>
 				<value>org.martinlaw.bo.conveyance.ConveyanceClient</value>
 				<value>org.martinlaw.bo.Matter</value>
+				<value>org.martinlaw.bo.MatterDate</value>
 				<value>org.martinlaw.bo.sequence.ConveyFeeSeq</value>
 				<value>org.martinlaw.bo.conveyance.ConveyanceFee</value>
 				<value>org.martinlaw.bo.sequence.ConveySeq</value>

@@ -24,9 +24,9 @@
 				</bean>
 
 				<bean parent="Uif-Disclosure-StackedCollectionSection">
-					<property name="headerText" value="Hearing Dates" />
-					<property name="collectionObjectClass" value="org.martinlaw.bo.HearingDate" />
-					<property name="propertyName" value="hearingDates" />
+					<property name="headerText" value="Dates" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseDate" />
+					<property name="propertyName" value="dates" />
 					<property name="items">
 						<list>
 							<bean parent="Uif-InputField" p:propertyName="date" />
@@ -38,7 +38,7 @@
 							<value>date</value>
 						</list>
 					</property>
-					<property name="layoutManager.summaryTitle" value="Hearing Date" />
+					<property name="layoutManager.summaryTitle" value="Date" />
 				</bean>
 
 				<bean parent="martinlaw_shared_client_inquiry_section">
