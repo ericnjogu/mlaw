@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * a super class that holds some common fields
+ * a super class that holds some common fields useful for creating types
  * 
  * @author mugo
  */

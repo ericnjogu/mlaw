@@ -15,6 +15,10 @@
 				<value>org.martinlaw.bo.Fee</value>
 				<value>org.martinlaw.bo.sequence.CaseFeeSeq</value>
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>
+				
+				<value>org.martinlaw.bo.CalendarEvent</value>
+				<value>org.martinlaw.bo.DateType</value>
+				
 				<value>org.martinlaw.bo.courtcase.CourtCaseDate</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseClient</value>

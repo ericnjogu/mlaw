@@ -31,6 +31,8 @@
 						<list>
 							<bean parent="Uif-InputField" p:propertyName="date" />
 							<bean parent="Uif-InputField" p:propertyName="comment" />
+							<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
+              p:href="@{#line.calendarEvent.url}" p:label="Calendar Event" p:render="@{!#isEmpty(#line.calendarEvent)}"/>
 						</list>
 					</property>
 					<property name="layoutManager.summaryFields">

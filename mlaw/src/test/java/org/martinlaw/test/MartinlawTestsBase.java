@@ -16,7 +16,6 @@ import org.kuali.rice.krad.datadictionary.DataObjectEntry;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.test.KRADTestCase;
 
 public abstract class MartinlawTestsBase extends KRADTestCase {

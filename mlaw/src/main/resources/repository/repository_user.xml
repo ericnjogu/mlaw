@@ -518,5 +518,18 @@
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.CalendarEvent"
+		table="martinlaw_calendar_event_t">
+		<field-descriptor name="id" column="calendar_event_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true" sequence-name="martinlaw_calendar_event_id_s"/>
+		<field-descriptor name="dateVersionNumber" column="date_ver_nbr" jdbc-type="BIGINT"/>
+			<field-descriptor name="url" column="url"
+			jdbc-type="VARCHAR" length="255"/>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
 
 </descriptor-repository>
