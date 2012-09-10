@@ -5,25 +5,9 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Copyright 2012 Protosoft Ltd -->
-	
-	<bean id="contract_type_bo" parent="BusinessObjectEntry">
-	<property name="businessObjectClass" value="org.martinlaw.bo.contract.ContractType"/>
-		<property name="titleAttribute" value="name" />
-		<property name="attributes">
-			<list>
-				<ref bean="contract_type_bo_id" />
-				<ref bean="contract_type_bo_name" />
-				<ref bean="contract_type_bo_description" />
-			</list>
-		</property>
+
+	<bean id="contract_type_bo" parent="martinlaw_shared_type_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.contract.ContractType" />
 		<property name="objectLabel" value="Contract Type" />
 	</bean>
-
-	<!-- Attribute Definitions -->
-
-	<bean id="contract_type_bo_description" parent="martinlaw-shared-description" />
-
-	<bean id="contract_type_bo_id" parent="martinlaw-shared-id" />
-
-	<bean id="contract_type_bo_name" parent="martinlaw-shared-name" p:label="Type Name"/>
 </beans>

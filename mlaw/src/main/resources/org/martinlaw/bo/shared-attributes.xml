@@ -165,5 +165,16 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
       </list>
     </property>
   </bean>
+  
+  <bean id="martinlaw_shared_type_bo" abstract="true" parent="BusinessObjectEntry">
+		<property name="titleAttribute" value="name" />
+		<property name="attributes">
+			<list>
+				<bean parent="martinlaw-shared-description" />
+				<bean parent="martinlaw-shared-id" />
+				<bean parent="martinlaw-shared-name" p:label="Type Name"/>
+			</list>
+		</property>
+	</bean>
 
 </beans>
