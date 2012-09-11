@@ -116,9 +116,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="contract-serviceOffered" parent="AttributeDefinition">
     <property name="forceUppercase" value="false"/>
     <property name="shortLabel" value="Service Offered"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
-    </property>
     <property name="summary" value="Service Offered"/>
     <property name="name" value="serviceOffered"/>
     <property name="label" value="Service Offered"/>
@@ -131,9 +128,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   <bean id="contract-summaryOfTerms" parent="AttributeDefinition">
     <property name="forceUppercase" value="false"/>
     <property name="shortLabel" value="Summary of Terms"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
-    </property>
     <property name="summary" value="Summary of Terms"/>
     <property name="name" value="summaryOfTerms"/>
     <property name="label" value="Summary of Terms  and Conditions"/>

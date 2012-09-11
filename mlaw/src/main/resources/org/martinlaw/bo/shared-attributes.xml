@@ -33,9 +33,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     <property name="forceUppercase" value="false"/>
     <property name="shortLabel" value="System Id"/>
     <property name="maxLength" value="20"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"/>
-    </property>
     <property name="summary" value="Id"/>
     <property name="name" value="id"/>
     <property name="label" value="Id"/>
@@ -51,9 +48,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
   <bean id="martinlaw-shared-description-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="forceUppercase" value="false"/>
     <property name="shortLabel" value="Description"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
-    </property>
     <property name="summary" value="Description"/>
     <property name="name" value="description"/>
     <property name="label" value="Description"/>
@@ -69,9 +63,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Name" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
-		</property>
 		<property name="summary" value="Name" />
 		<property name="name" value="name" />
 		<property name="label" value="Name" />
@@ -89,9 +80,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     <property name="forceUppercase" value="false"/>
     <property name="shortLabel" value="name"/>
     <property name="maxLength" value="30"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false"/>
-    </property>
     <property name="control">
       <bean parent="TextControlDefinition" p:size="30"/>
     </property>
@@ -110,9 +98,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="forceUppercase" value="true" />
 		<property name="shortLabel" value="Ref Num" />
 		<property name="maxLength" value="20" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" />
-		</property>
 		<property name="control">
 			<bean parent="TextControlDefinition" p:size="20" />
 		</property>
@@ -131,9 +116,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="forceUppercase" value="true" />
 		<property name="shortLabel" value="Status" />
 		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
-		</property>
 		<property name="summary" value="Status" />
 		<property name="name" value="statusId" />
 		<property name="label" value="Status" />

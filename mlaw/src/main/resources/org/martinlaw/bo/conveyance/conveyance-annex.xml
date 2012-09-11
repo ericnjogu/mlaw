@@ -30,9 +30,6 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 		<property name="forceUppercase" value="true" />
 		<property name="shortLabel" value="Annex Type" />
 		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
-		</property>
 		<property name="summary" value="Annex Type" />
 		<property name="name" value="conveyanceAnnexTypeId" />
 		<property name="label" value="Annex Type" />
