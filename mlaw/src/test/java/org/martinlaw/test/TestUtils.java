@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -130,5 +131,19 @@ public class TestUtils {
 	 */
 	public void setTestConveyanceName(String testConveyanceName) {
 		this.testConveyanceName = testConveyanceName;
+	}
+	
+	/**
+	 * 
+	 * tests fields of {@link MatterDate} 
+	 * @param date
+	 */
+	public void testMatterDateFields(MatterDate date) {
+		assertEquals("first hearing date",date.getComment());
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(date.getDate().getTime());
+		assertEquals(2011,cal.get(Calendar.YEAR));
+		assertEquals(Calendar.JUNE, cal.get(Calendar.MONTH));
+		assertEquals(1, cal.get(Calendar.DATE));
 	}
 }

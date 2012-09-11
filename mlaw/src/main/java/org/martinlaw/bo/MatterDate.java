@@ -23,8 +23,13 @@ public class MatterDate extends PersistableBusinessObjectBase {
 	@Transient
 	private Long calendarEventId;
 	@OneToOne
-	@JoinColumn(name = "calendar_event_id", nullable = false, updatable = true)
+	@JoinColumn(name = "calendar_event_id", nullable = true, updatable = true)
 	private CalendarEvent calendarEvent;
+	@Transient
+	private Long typeId;
+	@OneToOne
+	@JoinColumn(name = "type_id", nullable = false, updatable = true)
+	private DateType type;
 
 	public MatterDate() {
 		super();
@@ -90,5 +95,33 @@ public class MatterDate extends PersistableBusinessObjectBase {
 	 */
 	public void setCalendarEvent(CalendarEvent calendarEvent) {
 		this.calendarEvent = calendarEvent;
+	}
+
+	/**
+	 * @return the typeId
+	 */
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	/**
+	 * @param typeId the typeId to set
+	 */
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public DateType getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(DateType type) {
+		this.type = type;
 	}
 }

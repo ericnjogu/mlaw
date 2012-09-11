@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="court_case_date_inquiry_view" parent="Uif-InquiryView">
+		<property name="headerText" value="Court Case Date Inquiry" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCaseDate" />
+		<property name="Items">
+			<list>
+				<bean parent="Uif-Disclosure-GridSection">
+					<property name="headerText" value="Case Information" />
+					<property name="layoutManager.numberOfColumns" value="2" />
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="type.name" />
+							<bean parent="Uif-InputField" p:propertyName="date" />
+							<bean parent="Uif-InputField" p:propertyName="comment" />
+							<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
+								p:href="@{#line.calendarEvent.url}" p:label="Calendar Event"
+								p:render="@{!#isEmpty(#line.calendarEvent)}" />
+						</list>
+					</property>
+				</bean>
+
+			</list>
+		</property>
+	</bean>
+</beans>

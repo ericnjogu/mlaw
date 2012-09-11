@@ -1,10 +1,5 @@
 -- insert test data
 
-insert into martinlaw_court_case_t 
-(court_case_id,local_reference, court_reference, status_id, name, obj_id) 
-values 
-(1001,'l1', 'c1',1002,"Barca vs Man U (2011)", "case1");
-
 insert into
 martinlaw_convey_type_t
 (convey_type_id, name, description, ver_nbr, obj_id)
@@ -23,12 +18,6 @@ insert into martinlaw_court_case_client_t (court_case_client_id,court_case_id, p
 insert into martinlaw_court_case_witness_t (court_case_witness_id,court_case_id, principal_name) values (1001, 1001, 'witness1');
 
 insert into martinlaw_convey_client_t (convey_client_id, conveyance_id, principal_name) values (1001, 1001, 'client2');
-
- insert into 
- martinlaw_court_case_date_t 
- (court_case_date_id, matter_date, date_comment, court_case_id, ver_nbr, obj_id) 
- values 
- (1001, '2011-06-01','first hearing date', 1001, default, 1);
 
 insert into
 martinlaw_court_case_fee_t

@@ -81,7 +81,7 @@
 		<property name="propertyName" value="clients" />
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="principalName"/>
+				<bean parent="Uif-InputField" p:propertyName="principalName" />
 			</list>
 		</property>
 		<property name="layoutManager.summaryTitle" value="Client" />
@@ -117,57 +117,61 @@
 		</property>
 	</bean>
 
-<bean id="martinlaw_shared_name_description_LookupView" parent="Uif-LookupView">
-    <property name="criteriaFields">
-      <list>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="description" />
-      </list>
-    </property>
-    <property name="resultFields">
-      <list>
-         <bean parent="Uif-DataField" p:propertyName="id" />
-        <bean parent="Uif-DataField" p:propertyName="name" />
-        <bean parent="Uif-DataField" p:propertyName="description" />
-      </list>
-    </property>
-  </bean>
-  
-  <bean id="martinlaw_shared_name_description_inquiry_view" parent="Uif-InquiryView">
-    <property name="Items">
-      <list>
-        <bean parent="Uif-Disclosure-GridSection">
-          <property name="layoutManager.numberOfColumns" value="2"/>
-          <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="id"/>
-              <bean parent="Uif-InputField" p:propertyName="name"/>
-              <bean parent="Uif-InputField" p:propertyName="description"/>
-            </list>
-          </property>
-        </bean>
-      </list>
-    </property>
-  </bean>
-  
-  <bean id="martinlaw_shared_name_description_maintenance_view" parent="Uif-MaintenanceView">
-    <property name="items">
-      <list merge="true">
-        <bean parent="Uif-MaintenanceGridSection">
-          <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="id"  p:readOnly="true"/>
-              <bean parent="Uif-InputField" p:propertyName="name"/>
-              <bean parent="Uif-InputField" p:propertyName="description"/>
-            </list>
-          </property>
-          <property name="headerText" value="Details"/>
-        </bean>
-      </list>
-    </property>
-  </bean>
-  
-  <bean id="martinlaw_shared_blank_label_inputfield" abstract="true" parent="Uif-InputField">
+	<bean id="martinlaw_shared_name_description_LookupView" parent="Uif-LookupView">
+		<property name="criteriaFields">
+			<list>
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="description" />
+			</list>
+		</property>
+		<property name="resultFields">
+			<list>
+				<bean parent="Uif-DataField" p:propertyName="id" />
+				<bean parent="Uif-DataField" p:propertyName="name" />
+				<bean parent="Uif-DataField" p:propertyName="description" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_name_description_inquiry_view" parent="Uif-InquiryView">
+		<property name="Items">
+			<list>
+				<bean parent="Uif-Disclosure-GridSection">
+					<property name="layoutManager.numberOfColumns" value="2" />
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="id" />
+							<bean parent="Uif-InputField" p:propertyName="name" />
+							<bean parent="Uif-InputField" p:propertyName="description" />
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_name_description_maintenance_view"
+		parent="Uif-MaintenanceView">
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-MaintenanceGridSection">
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="id"
+								p:readOnly="true" />
+							<bean parent="Uif-InputField" p:propertyName="name"
+								p:inquiry.enableDirectInquiry="false" />
+							<bean parent="Uif-InputField" p:propertyName="description" />
+						</list>
+					</property>
+					<property name="headerText" value="Details" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_blank_label_inputfield" abstract="true"
+		parent="Uif-InputField">
 		<property name="propertyReplacers">
 			<list>
 				<bean parent="Uif-ConditionalBeanPropertyReplacer"
@@ -175,34 +179,34 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="martinlaw_shared_annexes_inquirySection" parent="Uif-Disclosure-StackedCollectionSection">
-					<property name="headerText" value="Annexes" />
-					<property name="collectionObjectClass" value="org.kuali.rice.krad.bo.Attachment" />
-					<property name="propertyName" value="attachments" />
+		<property name="headerText" value="Annexes" />
+		<property name="collectionObjectClass" value="org.kuali.rice.krad.bo.Attachment" />
+		<property name="propertyName" value="attachments" />
+		<property name="items">
+			<list>
+				<bean parent="Uif-HorizontalFieldGroup">
 					<property name="items">
 						<list>
-							<bean parent="Uif-HorizontalFieldGroup">
-								<property name="items">
-									<list>
-										<bean parent="Uif-LinkField" p:linkText="@{#line.attachmentFileName}">
-											<property name="href">
-												<value>
-													@{#ConfigProperties['application.url']}/kr-krad/@{#view.formPostUrl}?methodToCall=downloadAttById&amp;attachmentId=@{#line.noteIdentifier}&amp;skipViewInit=true&amp;renderFullView=false&amp;dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase
-												</value>
-											</property>
-										</bean>
-										<bean parent="Uif-MessageField" p:messageText="@{#line.getAttachmentFileSizeWithUnits()}"/>
-									</list>
+							<bean parent="Uif-LinkField" p:linkText="@{#line.attachmentFileName}">
+								<property name="href">
+									<value>
+										@{#ConfigProperties['application.url']}/kr-krad/@{#view.formPostUrl}?methodToCall=downloadAttById&amp;attachmentId=@{#line.noteIdentifier}&amp;skipViewInit=true&amp;renderFullView=false&amp;dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase
+									</value>
 								</property>
 							</bean>
+							<bean parent="Uif-MessageField" p:messageText="@{#line.getAttachmentFileSizeWithUnits()}" />
 						</list>
 					</property>
-					<property name="layoutManager.summaryFields">
-						<list>
-							<value>attachmentFileName</value>
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Annex" />
 				</bean>
+			</list>
+		</property>
+		<property name="layoutManager.summaryFields">
+			<list>
+				<value>attachmentFileName</value>
+			</list>
+		</property>
+		<property name="layoutManager.summaryTitle" value="Annex" />
+	</bean>
 </beans>

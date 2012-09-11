@@ -73,6 +73,7 @@
          <value>classpath:org/martinlaw/view/status-inquiry.xml</value>
          
          <value>classpath:org/martinlaw/bo/courtcase/case.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-date.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/view/courtcase/case-maintenance.xml</value>
@@ -81,7 +82,7 @@
          
          <value>classpath:org/martinlaw/bo/courtcase/case-client.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-witness.xml</value>
-         <value>classpath:org/martinlaw/bo/hearing-date.xml</value>
+         <value>classpath:org/martinlaw/bo/shared-date.xml</value>
          
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-annex-type.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-type.xml</value>
@@ -146,6 +147,15 @@
          <value>classpath:org/martinlaw/view/contract/contract-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-lookup.xml</value>
          
+         <value>classpath:org/martinlaw/bo/date-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/date-type.xml</value>
+         <value>classpath:org/martinlaw/view/date-type-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/date-type-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/date-type-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/courtcase/case-date.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-date-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-date-lookup.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

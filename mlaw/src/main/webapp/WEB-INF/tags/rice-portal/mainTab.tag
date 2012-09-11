@@ -25,5 +25,5 @@
 	    <mainChannel:martinlaw-contracting />
 </td>
 <td class="content" valign="top">
-	    <mainChannel:martinlaw-statusmgt />
+	    <mainChannel:martinlaw-shared />
 </td>

@@ -139,6 +139,15 @@
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
+		
+		<field-descriptor name="typeId" column="type_id"
+			jdbc-type="BIGINT" />
+		
+		<reference-descriptor name="type"
+			class-ref="org.martinlaw.bo.DateType" auto-retrieve="true"
+			auto-update="false" auto-delete="none">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCaseFee"
@@ -526,6 +535,24 @@
 		<field-descriptor name="dateVersionNumber" column="date_ver_nbr" jdbc-type="BIGINT"/>
 			<field-descriptor name="url" column="url"
 			jdbc-type="VARCHAR" length="255"/>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.DateType"
+		table="martinlaw_date_type_t">
+		<field-descriptor name="id" column="date_type_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_date_type_id_s">
+		</field-descriptor>
+		<field-descriptor name="name" column="name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"

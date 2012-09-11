@@ -73,7 +73,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 * check for lookup, inquiry, maint view definitions, maintenance entry def
 	 * 
 	 * @param dataObjectClass - the data object class
-	 * @param viewId TODO
+	 * @param viewId - the bean id of the declaring bean in the xml config
 	 */
 	protected void verifyMaintDocDataDictEntries(Class<?> dataObjectClass, String viewId) {
 		verifyInquiryLookup(dataObjectClass);

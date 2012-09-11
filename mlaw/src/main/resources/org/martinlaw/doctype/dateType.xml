@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ns:workflow resource:WorkflowData">
+		
+	<documentTypes xmlns="ns:workflow/DocumentType"
+		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+		<documentType>
+			<name>DateTypeMaintenanceDocument</name>
+			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is maintenance doc -->
+			<description>Date Type Maintenance Document</description>
+			<label>Date Type Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
+
+			<routePaths>
+				<routePath>
+					<start name="Initiated" /> 
+				</routePath>
+			</routePaths>
+			<routeNodes>
+			<!-- routes to final -->
+				<start name="Initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>true</finalApproval>
+				</start>
+			</routeNodes>
+		</documentType>
+	</documentTypes>
+
+</data>
+	

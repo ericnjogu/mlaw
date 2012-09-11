@@ -33,7 +33,6 @@ import org.kuali.rice.krad.web.form.MaintenanceForm;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.Fee;
 import org.martinlaw.bo.MartinlawPerson;
-import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
@@ -44,10 +43,10 @@ import org.martinlaw.bo.conveyance.ConveyanceFee;
 import org.martinlaw.bo.conveyance.ConveyanceType;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.CourtCaseClient;
+import org.martinlaw.bo.courtcase.CourtCaseDate;
 import org.martinlaw.bo.courtcase.CourtCaseFee;
 import org.martinlaw.bo.courtcase.CourtCasePerson;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
-import org.martinlaw.bo.courtcase.CourtCaseDate;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValues;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
@@ -81,6 +80,7 @@ public class BOTest extends MartinlawTestsBase {
 		//transactions are rolled back, no need to clear manually
 		//new SQLDataLoader("classpath:org/martinlaw/bo/clear-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/case-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/insert-test-data.sql", ";").runSql();
 		//bo xml files loaded from martinlaw-ModuleBeans(imported in BOTest-context.xml) as part of the data dictionary config
 	}
@@ -128,7 +128,7 @@ public class BOTest extends MartinlawTestsBase {
         //hearing date
         List<CourtCaseDate> dates = kase.getDates();
         assertEquals(1,dates.size());
-        testHearingDateFields(kase.getDates().get(0));
+        getTestUtils().testMatterDateFields(kase.getDates().get(0));
         //client fees
         assertEquals(2, kase.getFees().size());
         testFeeFields(kase.getFees().get(0));
@@ -399,54 +399,7 @@ public class BOTest extends MartinlawTestsBase {
 		KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().validateDD(true);
 	}
 	
-	@Test(expected=DataIntegrityViolationException.class)
-	/**
-	 * tests non nullable fields are checked
-	 */
-	public void testHearingDateNullableFields() {
-		CourtCaseDate date = new CourtCaseDate();
-		getBoSvc().save(date);
-	}
 	
-	private void testHearingDateFields(MatterDate hd) {
-		assertEquals("first hearing date",hd.getComment());
-		Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(hd.getDate().getTime());
-		assertEquals(2011,cal.get(Calendar.YEAR));
-		assertEquals(Calendar.JUNE, cal.get(Calendar.MONTH));
-		assertEquals(1, cal.get(Calendar.DATE));
-	}
-	
-	@Test
-	/**
-	 * tests that a hearing date, inserted via an sql script in {@link #loadSuiteTestData()} can be retrieved
-	 */
-	public void testHearingDateRetrieve() {
-		MatterDate date = getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, new Long(1001));
-		assertNotNull(date);
-		testHearingDateFields(date);
-	}
-	
-	@Test
-	/**
-	 * tests that hearing date CRUD ops
-	 */
-	public void testHearingDateCRUD() {
-		Date date = new Date(Calendar.getInstance().getTimeInMillis());
-		CourtCaseDate courtCaseDate = new CourtCaseDate(date, "soon", 1001l);
-		// C
-		getBoSvc().save(courtCaseDate);
-		// R
-		courtCaseDate =  getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, courtCaseDate.getId());
-		// U
-		courtCaseDate.setComment("later");
-		getBoSvc().save(courtCaseDate);
-		courtCaseDate.refresh();
-		assertEquals("later", courtCaseDate.getComment());
-		// D
-		getBoSvc().delete(courtCaseDate);
-		assertNull(getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, courtCaseDate.getId()));
-	}
 	
 	@Test
 	/**

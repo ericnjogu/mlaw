@@ -15,13 +15,18 @@
 --%>
 <%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
 
-<channel:portalChannelTop channelTitle="Status Management" />
+<channel:portalChannelTop channelTitle="Building Blocks" />
 <div class="body">
-  
+  <strong>Status</strong>
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Status" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status" /></li>
   <li><portal:portalLink displayTitle="true" title="Lookup Status" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
- 
+  </ul>
+  <br/>
+  <strong>Date Type</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Date Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.DateType" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Date Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.DateType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
 
   

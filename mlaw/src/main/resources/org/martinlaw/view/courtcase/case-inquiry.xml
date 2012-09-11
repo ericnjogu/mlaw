@@ -29,6 +29,7 @@
 					<property name="propertyName" value="dates" />
 					<property name="items">
 						<list>
+							<bean parent="Uif-InputField" p:propertyName="type.name" />
 							<bean parent="Uif-InputField" p:propertyName="date" />
 							<bean parent="Uif-InputField" p:propertyName="comment" />
 							<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
