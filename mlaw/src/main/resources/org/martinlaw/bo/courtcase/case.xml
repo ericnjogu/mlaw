@@ -36,6 +36,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="forceUppercase" value="true" />
 		<property name="shortLabel" value="Case Number" />
 		<property name="maxLength" value="20" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" /> <!-- p:allowWhitespace="true"/> -->
+		</property>
 		<property name="control">
 			<bean parent="TextControlDefinition" p:size="20" />
 		</property>

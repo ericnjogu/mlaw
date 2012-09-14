@@ -33,6 +33,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     <property name="forceUppercase" value="true"/>
     <property name="shortLabel" value="Status"/>
     <property name="maxLength" value="100"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true"/>
+    </property>
     <property name="required" value="true"/>
     <property name="summary" value="Status"/>
     <property name="name" value="status"/>
@@ -51,6 +54,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="maxLength" value="100"/>
 		<property name="forceUppercase" value="true" />
 		<property name="shortLabel" value="Status" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
 		<property name="summary" value="Status Type" />
 		<property name="name" value="type" />
 		<property name="label" value="Status Type" />

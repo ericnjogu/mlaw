@@ -31,6 +31,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="contract_consideration_bo_currency" parent="AttributeDefinition">
     <property name="forceUppercase" value="false"/>
     <property name="shortLabel" value="Currency"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="false"/>
+    </property>
     <property name="summary" value="Currency"/>
     <property name="name" value="currency"/>
     <property name="label" value="Currency"/>
