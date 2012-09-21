@@ -46,7 +46,7 @@ public class ContractBOTest extends ContractBoTestBase {
 	public void testContractTypeAttributes() {
 		testBoAttributesPresent(Contract.class.getCanonicalName());
 		Class<Contract> dataObjectClass = Contract.class;
-		verifyMaintDocDataDictEntries(dataObjectClass, null);
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 
 	@Test

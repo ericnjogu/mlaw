@@ -54,7 +54,7 @@ public class ContractTypeBOTest extends MartinlawTestsBase {
 	public void testContractTypeAttributes() {
 		testBoAttributesPresent(ContractType.class.getCanonicalName());
 		Class<ContractType> dataObjectClass = ContractType.class;
-		verifyMaintDocDataDictEntries(dataObjectClass, null);
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 
 	@Test
