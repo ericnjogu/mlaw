@@ -12,3 +12,8 @@ insert into martinlaw_contract_t
 (contract_id, local_reference, status_id, obj_id, ver_nbr, type_id, name, contract_consideration_id, contract_duration_id)
 values
 (1001, "en/cn/001", 1001, 'cn1', 1, 1001, 'buru ph2 h24', 1001, 1001);
+
+insert into martinlaw_contract_t
+(contract_id, local_reference, status_id, obj_id, ver_nbr, type_id, name, contract_consideration_id, contract_duration_id)
+values
+(1002, "en/cn/002", 1001, 'cn2', 1, 1001, 'nyayo est ph2 m241', 1001, 1001);
