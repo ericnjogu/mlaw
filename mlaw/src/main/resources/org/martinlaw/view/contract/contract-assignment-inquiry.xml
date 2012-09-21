@@ -8,7 +8,7 @@
 
 	<bean id="contract_assignment_inquiry_view" parent="Uif-InquiryView">
 		<property name="headerText" value="Contract Assignment Inquiry" />
-		<property name="dataObjectClassName" value="org.martinlaw.bo.contract.ContractAssignment" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.contract.Assignment" />
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-Disclosure-GridSection">
@@ -28,7 +28,7 @@
 				<bean parent="Uif-Disclosure-StackedCollectionSection">
 					<property name="headerText" value="Assignees" />
 					<property name="collectionObjectClass"
-						value="org.martinlaw.bo.contract.ContractAssignee" />
+						value="org.martinlaw.bo.contract.Assignee" />
 					<property name="propertyName" value="assignees" />
 					<property name="items">
 						<list>

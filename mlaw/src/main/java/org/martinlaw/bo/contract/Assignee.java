@@ -18,7 +18,7 @@ import org.martinlaw.bo.MartinlawPerson;
  */
 @Entity
 @Table(name="martinlaw_contract_assignee_t")
-public class ContractAssignee extends MartinlawPerson {
+public class Assignee extends MartinlawPerson {
 	/**
 	 * 
 	 */

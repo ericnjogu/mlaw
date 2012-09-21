@@ -26,13 +26,13 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
  */
 @Entity
 @Table(name="martinlaw_contract_assignment_t")
-public class ContractAssignment extends PersistableBusinessObjectBase {
+public class Assignment extends PersistableBusinessObjectBase {
 	/**
 	 * 
 	 */
-	public ContractAssignment() {
+	public Assignment() {
 		super();
-		assignees = new ArrayList<ContractAssignee>();
+		assignees = new ArrayList<Assignee>();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class ContractAssignment extends PersistableBusinessObjectBase {
 	@Column(name="contract_assignment_id")
 	private Long id;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="contractAssignmentId")
-	private List<ContractAssignee> assignees;
+	private List<Assignee> assignees;
 	@Transient
 	private Long contractId;
 	@OneToOne
@@ -86,14 +86,14 @@ public class ContractAssignment extends PersistableBusinessObjectBase {
 	/**
 	 * @return the assignees
 	 */
-	public List<ContractAssignee> getAssignees() {
+	public List<Assignee> getAssignees() {
 		return assignees;
 	}
 
 	/**
 	 * @param assignees the assignees to set
 	 */
-	public void setAssignees(List<ContractAssignee> assignees) {
+	public void setAssignees(List<Assignee> assignees) {
 		this.assignees = assignees;
 	}
 

@@ -12,12 +12,12 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.rice.test.SQLDataLoader;
-import org.martinlaw.bo.contract.ContractAssignee;
-import org.martinlaw.bo.contract.ContractAssignment;
+import org.martinlaw.bo.contract.Assignee;
+import org.martinlaw.bo.contract.Assignment;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
- * test various BO ops for {@link ContractAssignment}
+ * test various BO ops for {@link Assignment}
  * 
  * @author mugo
  * 
@@ -43,17 +43,17 @@ public class ContractAssignmentBOTest extends ContractBoTestBase {
 	 * tests that non nullable fields are checked
 	 */
 	public void testContractAssignmentNullableFields() {
-		ContractAssignment contractAssignment = new ContractAssignment();
-		getBoSvc().save(contractAssignment);
+		Assignment assignment = new Assignment();
+		getBoSvc().save(assignment);
 	}
 
 	@Test
 	/**
-	 * test that the ContractAssignment is loaded into the data dictionary
+	 * test that the Assignment is loaded into the data dictionary
 	 */
 	public void testContractAssignmentAttributes() {
-		testBoAttributesPresent(ContractAssignment.class.getCanonicalName());
-		Class<ContractAssignment> dataObjectClass = ContractAssignment.class;
+		testBoAttributesPresent(Assignment.class.getCanonicalName());
+		Class<Assignment> dataObjectClass = Assignment.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 
@@ -63,30 +63,30 @@ public class ContractAssignmentBOTest extends ContractBoTestBase {
 	 */
 	public void testContractAssignmentRetrieve() {
 		// retrieve object populated via sql script
-		ContractAssignment contractAssignment = getBoSvc().findBySinglePrimaryKey(
-				ContractAssignment.class, 1001l);
-		assertNotNull(contractAssignment);
-		assertEquals("number of assignees did not match", 2, contractAssignment.getAssignees().size());
-		assertEquals("assignee principal name did not match", "lawyer1", contractAssignment.getAssignees().get(0).getPrincipalName());
-		assertEquals("assignee principal name did not match", "clerk1", contractAssignment.getAssignees().get(1).getPrincipalName());
-		assertEquals("contract id did not match", new Long(1001), contractAssignment.getContractId());
+		Assignment assignment = getBoSvc().findBySinglePrimaryKey(
+				Assignment.class, 1001l);
+		assertNotNull(assignment);
+		assertEquals("number of assignees did not match", 2, assignment.getAssignees().size());
+		assertEquals("assignee principal name did not match", "lawyer1", assignment.getAssignees().get(0).getPrincipalName());
+		assertEquals("assignee principal name did not match", "clerk1", assignment.getAssignees().get(1).getPrincipalName());
+		assertEquals("contract id did not match", new Long(1001), assignment.getContractId());
 	}
 
 	@Test
 	/**
-	 * test CRUD for {@link ContractAssignment}
+	 * test CRUD for {@link Assignment}
 	 */
 	public void testContractAssignmentCRUD() {
 		// C
-		ContractAssignment contractAssignment = getTestUtils().getTestContractAssignment();
+		Assignment assignment = getTestUtils().getTestContractAssignment();
 		
-		getBoSvc().save(contractAssignment);
+		getBoSvc().save(assignment);
 		// R
-		contractAssignment.refresh();
-		getTestUtils().testContractAssignmentFields(contractAssignment);
+		assignment.refresh();
+		getTestUtils().testContractAssignmentFields(assignment);
 		// U
 		// TODO new collection items do not appear to be persisted when refresh is called
-		/*ContractAssignee assignee3 = new ContractAssignee();
+		/*Assignee assignee3 = new Assignee();
 		String name3 = "hw";
 		assignee.setPrincipalName(name3);
 		contractAssignment.getAssignees().add(assignee3);
@@ -94,10 +94,10 @@ public class ContractAssignmentBOTest extends ContractBoTestBase {
 		assertEquals("number of assignees does not match", 3, contractAssignment.getAssignees().size());
 		assertEquals("assignee principal name did not match", name3, contractAssignment.getAssignees().get(2).getPrincipalName());*/
 		// D
-		getBoSvc().delete(contractAssignment);
-		assertNull("contract assignment should have been deleted", getBoSvc().findBySinglePrimaryKey(ContractAssignment.class,	contractAssignment.getId()));
+		getBoSvc().delete(assignment);
+		assertNull("contract assignment should have been deleted", getBoSvc().findBySinglePrimaryKey(Assignment.class,	assignment.getId()));
 		Map<String, Object> criteria = new HashMap<String, Object>();
-		criteria.put("contractAssignmentId", contractAssignment.getId());
-		assertEquals("assignees should have been deleted", 0, getBoSvc().findMatching(ContractAssignee.class, criteria).size());
+		criteria.put("contractAssignmentId", assignment.getId());
+		assertEquals("assignees should have been deleted", 0, getBoSvc().findMatching(Assignee.class, criteria).size());
 	}
 }

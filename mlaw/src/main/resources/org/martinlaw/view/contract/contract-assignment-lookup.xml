@@ -6,7 +6,7 @@
 
 <bean id="contract_assignment_LookupView" parent="Uif-LookupView">
     <property name="headerText" value="Contract Assignment Lookup" />
-    <property name="dataObjectClassName" value="org.martinlaw.bo.contract.ContractAssignment" />
+    <property name="dataObjectClassName" value="org.martinlaw.bo.contract.Assignment" />
     <property name="criteriaFields">
       <list>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />

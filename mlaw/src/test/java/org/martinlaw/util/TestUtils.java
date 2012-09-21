@@ -15,8 +15,8 @@ import java.util.List;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.contract.Contract;
-import org.martinlaw.bo.contract.ContractAssignee;
-import org.martinlaw.bo.contract.ContractAssignment;
+import org.martinlaw.bo.contract.Assignee;
+import org.martinlaw.bo.contract.Assignment;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
@@ -152,26 +152,26 @@ public class TestUtils {
 	}
 	
 	/**
-	 * creates a test {@link ContractAssignment}
+	 * creates a test {@link Assignment}
 	 * 
 	 * @return the test object
 	 */
-	public ContractAssignment getTestContractAssignment() {
-		ContractAssignment contractAssignment = new ContractAssignment();
+	public Assignment getTestContractAssignment() {
+		Assignment assignment = new Assignment();
 		long contractId = 1002l;
-		contractAssignment.setContractId(contractId);
+		assignment.setContractId(contractId);
 		
-		ContractAssignee assignee = new ContractAssignee();
+		Assignee assignee = new Assignee();
 		
 		assignee.setPrincipalName(assignee1);
-		contractAssignment.getAssignees().add(assignee);
+		assignment.getAssignees().add(assignee);
 		
-		ContractAssignee contractAssignee = new ContractAssignee();
-		contractAssignee.setPrincipalName(assignee2);
+		Assignee assignee3 = new Assignee();
+		assignee3.setPrincipalName(assignee2);
 		//contractAssignee.setContractId(contractId);
-		contractAssignment.getAssignees().add(contractAssignee);
+		assignment.getAssignees().add(assignee3);
 		
-		return contractAssignment;
+		return assignment;
 	}
 
 	/**
@@ -203,14 +203,14 @@ public class TestUtils {
 	}
 
 	/**
-	 * tests the {@link ContractAssignment} fields have the expected values
+	 * tests the {@link Assignment} fields have the expected values
 	 * 
-	 * @param contractAssignment - the test object
+	 * @param assignment - the test object
 	 */
 	public void testContractAssignmentFields(
-			ContractAssignment contractAssignment) {
-		assertEquals("number of assignees does not match", 2, contractAssignment.getAssignees().size());
-		assertEquals("assignee principal name did not match", getAssignee1(), contractAssignment.getAssignees().get(0).getPrincipalName());
-		assertEquals("assignee principal name did not match", getAssignee2(), contractAssignment.getAssignees().get(1).getPrincipalName());
+			Assignment assignment) {
+		assertEquals("number of assignees does not match", 2, assignment.getAssignees().size());
+		assertEquals("assignee principal name did not match", getAssignee1(), assignment.getAssignees().get(0).getPrincipalName());
+		assertEquals("assignee principal name did not match", getAssignee2(), assignment.getAssignees().get(1).getPrincipalName());
 	}
 }

@@ -5,7 +5,7 @@
 -->
 
   <bean id="contract_assignment_MaintDocument" parent="uifMaintenanceDocumentEntry">
-    <property name="dataObjectClass" value="org.martinlaw.bo.contract.ContractAssignment"/>
+    <property name="dataObjectClass" value="org.martinlaw.bo.contract.Assignment"/>
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <property name="lockingKeys">
       <list>
