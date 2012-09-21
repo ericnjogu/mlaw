@@ -57,5 +57,9 @@ public class ContractAssignmentRoutingTest extends KewTestsBase {
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-perms-roles.sql", ";").runSql();
+		// needed for the one-one relationship with contract and contract's relationships with contract type and status
+		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-test-data.sql", ";").runSql();
 	}
 }
