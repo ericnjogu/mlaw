@@ -561,11 +561,11 @@
 	
 	<class-descriptor class="org.martinlaw.bo.contract.Assignee"
 		table="martinlaw_contract_assignee_t">
-		<field-descriptor name="id" column="contract_assignee_id"
+		<field-descriptor name="id" column="assignee_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"	sequence-name="martinlaw_contract_assignee_s"/>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30"/>
-		<field-descriptor name="contractAssignmentId" column="contract_assignment_id"
+		<field-descriptor name="assignmentId" column="assignment_id"
 			jdbc-type="BIGINT" indexed="true"/>
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
@@ -575,7 +575,7 @@
 	
 	<class-descriptor class="org.martinlaw.bo.contract.Assignment"
 		table="martinlaw_contract_assignment_t">
-		<field-descriptor name="id" column="contract_assignment_id"
+		<field-descriptor name="id" column="assignment_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_contract_assignment_s">
 		</field-descriptor>
@@ -590,7 +590,7 @@
 		<collection-descriptor name="assignees"
 			element-class-ref="org.martinlaw.bo.contract.Assignee" auto-retrieve="true"
 			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="contractAssignmentId" />
+			<inverse-foreignkey field-ref="assignmentId" />
 		</collection-descriptor>
 		
 		<reference-descriptor name="contract"

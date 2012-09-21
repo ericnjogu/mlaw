@@ -97,7 +97,7 @@ public class ContractAssignmentBOTest extends ContractBoTestBase {
 		getBoSvc().delete(assignment);
 		assertNull("contract assignment should have been deleted", getBoSvc().findBySinglePrimaryKey(Assignment.class,	assignment.getId()));
 		Map<String, Object> criteria = new HashMap<String, Object>();
-		criteria.put("contractAssignmentId", assignment.getId());
+		criteria.put("assignmentId", assignment.getId());
 		assertEquals("assignees should have been deleted", 0, getBoSvc().findMatching(Assignee.class, criteria).size());
 	}
 }

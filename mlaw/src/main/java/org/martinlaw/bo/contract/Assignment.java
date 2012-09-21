@@ -45,9 +45,9 @@ public class Assignment extends PersistableBusinessObjectBase {
 			@Parameter(name="sequence_name",value="martinlaw_contract_assignment_s"),
 			@Parameter(name="value_column",value="id")
 	})*/
-	@Column(name="contract_assignment_id")
+	@Column(name="assignment_id")
 	private Long id;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="contractAssignmentId")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="assignmentId")
 	private List<Assignee> assignees;
 	@Transient
 	private Long contractId;
