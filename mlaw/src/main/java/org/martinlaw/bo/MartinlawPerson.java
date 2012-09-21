@@ -66,10 +66,10 @@ public abstract class MartinlawPerson extends PersistableBusinessObjectBase {
 	}
 
 	/**
-	 * @param client the client to set
+	 * @param person the person to set
 	 */
-	public void setPerson(Person client) {
-		this.person = client;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	/**

@@ -29,6 +29,7 @@
 							<bean parent="Uif-InputField" p:propertyName="id" />
 							<!-- hoping an inquiry link will appear here for a drill down on the 
 								principal details -->
+							<bean parent="Uif-InputField" p:propertyName="person.principalId" />
 							<bean parent="Uif-InputField" p:propertyName="principalName" />
 						</list>
 					</property>

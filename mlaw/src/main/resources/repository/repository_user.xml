@@ -558,5 +558,46 @@
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.contract.ContractAssignee"
+		table="martinlaw_contract_assignee_t">
+		<field-descriptor name="id" column="contract_assignee_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"	sequence-name="martinlaw_contract_assignee_s"/>
+		<field-descriptor name="principalName" column="principal_name"
+			jdbc-type="VARCHAR" length="30"/>
+		<field-descriptor name="contractAssignmentId" column="contract_assignment_id"
+			jdbc-type="BIGINT" indexed="true"/>
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.contract.ContractAssignment"
+		table="martinlaw_contract_assignment_t">
+		<field-descriptor name="id" column="contract_assignment_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_contract_assignment_s">
+		</field-descriptor>
+		<field-descriptor name="contractId" column="contract_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+			
+		<collection-descriptor name="assignees"
+			element-class-ref="org.martinlaw.bo.contract.ContractAssignee" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="contractAssignmentId" />
+		</collection-descriptor>
+		
+		<reference-descriptor name="contract"
+			class-ref="org.martinlaw.bo.contract.Contract" auto-retrieve="true"
+			auto-update="false" auto-delete="false">
+			<foreignkey field-ref="contractId" />
+		</reference-descriptor>
+	</class-descriptor>
 
 </descriptor-repository>

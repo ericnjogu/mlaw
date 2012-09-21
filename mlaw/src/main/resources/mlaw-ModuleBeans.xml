@@ -156,6 +156,13 @@
          <value>classpath:org/martinlaw/bo/courtcase/case-date.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-date-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-date-lookup.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/contract/contract-assignee.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-assignment-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-assignment.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-assignment-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-assignment-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-assignment-maintenance.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

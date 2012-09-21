@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -17,8 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.martinlaw.bo.Matter;
 
 /**
@@ -31,11 +28,11 @@ import org.martinlaw.bo.Matter;
 @Table(name="martinlaw_contract_t")
 public class Contract extends Matter {
 	@Id
-    @GeneratedValue(generator="martinlaw_contract_id_s")
+    /*@GeneratedValue(generator="martinlaw_contract_id_s")
 	@GenericGenerator(name="martinlaw_contract_id_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
 			@Parameter(name="sequence_name",value="martinlaw_contract_id_s"),
 			@Parameter(name="value_column",value="id")
-	})
+	})*/
 	@Column(name="contract_id")
 	private Long id;
 	/**

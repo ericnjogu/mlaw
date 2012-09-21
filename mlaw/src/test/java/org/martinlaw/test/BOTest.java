@@ -290,7 +290,7 @@ public class BOTest extends MartinlawTestsBase {
 		testBoAttributesPresent(Status.class.getCanonicalName());
 		
 		Class<Status> dataObjectClass = Status.class;
-		verifyMaintDocDataDictEntries(dataObjectClass, null);
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 	
 	@Test
@@ -301,7 +301,7 @@ public class BOTest extends MartinlawTestsBase {
 		testBoAttributesPresent(ConveyanceType.class.getCanonicalName());
 		
 		Class<ConveyanceType> dataObjectClass = ConveyanceType.class;
-		verifyMaintDocDataDictEntries(dataObjectClass, null);
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 	
 	@Test
@@ -312,7 +312,7 @@ public class BOTest extends MartinlawTestsBase {
 		testBoAttributesPresent(Conveyance.class.getCanonicalName());
 		
 		Class<Conveyance> dataObjectClass = Conveyance.class;
-		verifyMaintDocDataDictEntries(dataObjectClass, null);
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 	
 	@Test
@@ -350,7 +350,7 @@ public class BOTest extends MartinlawTestsBase {
 	public void testCourtCaseAttributes() {
 		testBoAttributesPresent(CourtCase.class.getCanonicalName());
 		Class<CourtCase> dataObjectClass = CourtCase.class;
-		verifyMaintDocDataDictEntries(dataObjectClass, null);
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 	
 	@Test

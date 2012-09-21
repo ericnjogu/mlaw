@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.martinlaw.test;
+package org.martinlaw.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -15,6 +15,8 @@ import java.util.List;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.contract.Contract;
+import org.martinlaw.bo.contract.ContractAssignee;
+import org.martinlaw.bo.contract.ContractAssignment;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
@@ -32,6 +34,8 @@ public class TestUtils {
 	private String testContractLocalReference = "cn/rent/01";
 	private String contractName = "rent of flat";
 	private String testConveyanceName = "sale of KAZ 457T";
+	private String assignee1 = "pn";
+	private String assignee2 = "aw";
 
 	/**
 	 * get a test conveyance object
@@ -145,5 +149,68 @@ public class TestUtils {
 		assertEquals(2011,cal.get(Calendar.YEAR));
 		assertEquals(Calendar.JUNE, cal.get(Calendar.MONTH));
 		assertEquals(1, cal.get(Calendar.DATE));
+	}
+	
+	/**
+	 * creates a test {@link ContractAssignment}
+	 * 
+	 * @return the test object
+	 */
+	public ContractAssignment getTestContractAssignment() {
+		ContractAssignment contractAssignment = new ContractAssignment();
+		long contractId = 1002l;
+		contractAssignment.setContractId(contractId);
+		
+		ContractAssignee assignee = new ContractAssignee();
+		
+		assignee.setPrincipalName(assignee1);
+		contractAssignment.getAssignees().add(assignee);
+		
+		ContractAssignee contractAssignee = new ContractAssignee();
+		contractAssignee.setPrincipalName(assignee2);
+		//contractAssignee.setContractId(contractId);
+		contractAssignment.getAssignees().add(contractAssignee);
+		
+		return contractAssignment;
+	}
+
+	/**
+	 * @return the assignee1
+	 */
+	public String getAssignee1() {
+		return assignee1;
+	}
+
+	/**
+	 * @param assignee1 the assignee1 to set
+	 */
+	public void setAssignee1(String assignee1) {
+		this.assignee1 = assignee1;
+	}
+
+	/**
+	 * @return the assignee2
+	 */
+	public String getAssignee2() {
+		return assignee2;
+	}
+
+	/**
+	 * @param assignee2 the assignee2 to set
+	 */
+	public void setAssignee2(String assignee2) {
+		this.assignee2 = assignee2;
+	}
+
+	/**
+	 * tests the {@link ContractAssignment} fields have the expected values
+	 * 
+	 * @param contractAssignment - the test object
+	 */
+	public void testContractAssignmentFields(
+			ContractAssignment contractAssignment) {
+		assertEquals("number of assignees does not match", 2, contractAssignment.getAssignees().size());
+		assertEquals("assignee principal name did not match", getAssignee1(), contractAssignment.getAssignees().get(0).getPrincipalName());
+		assertEquals("assignee principal name did not match", getAssignee2(), contractAssignment.getAssignees().get(1).getPrincipalName());
 	}
 }

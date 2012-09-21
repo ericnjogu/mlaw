@@ -53,10 +53,15 @@
 				<value>org.martinlaw.bo.contract.ContractConsideration</value>
 				<value>org.martinlaw.bo.contract.ContractDuration</value>
 				<value>org.martinlaw.bo.contract.Contract</value>
+				<value>org.martinlaw.bo.contract.ContractAssignment</value>
+				<value>org.martinlaw.bo.contract.ContractAssignee</value>
 				
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>
 				<value>org.martinlaw.bo.sequence.ContractSignatorySeq</value>
+				<value>org.martinlaw.bo.sequence.ContractAssigneeSeq</value>
+				<value>org.martinlaw.bo.sequence.ContractAssignmentSeq</value>
+				<value>org.martinlaw.bo.sequence.ContractSeq</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
