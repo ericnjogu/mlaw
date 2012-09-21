@@ -54,7 +54,7 @@ public class DateTypeBOTest extends MartinlawTestsBase {
 	public void testDateTypeAttributes() {
 		testBoAttributesPresent(DateType.class.getCanonicalName());
 		Class<DateType> dataObjectClass = DateType.class;
-		verifyMaintDocDataDictEntries(dataObjectClass, null);
+		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
 
 	@Test

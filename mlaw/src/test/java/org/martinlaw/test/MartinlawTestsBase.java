@@ -17,6 +17,7 @@ import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.test.KRADTestCase;
+import org.martinlaw.util.TestUtils;
 
 public abstract class MartinlawTestsBase extends KRADTestCase {
 	private BusinessObjectService boSvc;
@@ -73,9 +74,8 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 * check for lookup, inquiry, maint view definitions, maintenance entry def
 	 * 
 	 * @param dataObjectClass - the data object class
-	 * @param viewId - the bean id of the declaring bean in the xml config
 	 */
-	protected void verifyMaintDocDataDictEntries(Class<?> dataObjectClass, String viewId) {
+	protected void verifyMaintDocDataDictEntries(Class<?> dataObjectClass) {
 		verifyInquiryLookup(dataObjectClass);
 		assertTrue(dataObjectClass + " should be maintainable", KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
 		assertNotNull("maint doc entry should not be null", KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
