@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class GenericAssignee extends MartinlawPerson {
+public abstract class MatterAssignee extends MartinlawPerson {
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public abstract class GenericAssignee extends MartinlawPerson {
 	@Column(name = "assignment_id")
 	private Long assignmentId;
 
-	public GenericAssignee() {
+	public MatterAssignee() {
 		super();
 	}
 
