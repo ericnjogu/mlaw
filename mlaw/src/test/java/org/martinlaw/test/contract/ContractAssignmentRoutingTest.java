@@ -3,43 +3,19 @@
  */
 package org.martinlaw.test.contract;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
-import java.util.Collection;
 
 import org.junit.Test;
 import org.kuali.rice.test.SQLDataLoader;
+import org.martinlaw.bo.contract.Assignee;
 import org.martinlaw.bo.contract.Assignment;
-import org.martinlaw.test.KewTestsBase;
 
 /**
  * tests routing for {@link Assignment}
  * @author mugo
  *
  */
-public class ContractAssignmentRoutingTest extends KewTestsBase {
-	@Test
-	/**
-	 * test that ContractAssignmentMaintenanceDocument routes to clerk then lawyer on submit
-	 */
-	public void testContractAssignmentTypeRouting() {
-		Assignment testContractAssignment = getTestUtils().getTestContractAssignment();
-		try {
-			testMaintenanceRouting("ContractAssignmentMaintenanceDocument", testContractAssignment);
-		} catch (Exception e) {
-			log.error("test failed", e);
-			fail("test routing ContractAssignmentMaintenanceDocument caused an exception");
-		}
-		// confirm that BO was saved to DB
-		Collection<Assignment> result = getBoSvc().findAll(Assignment.class);
-		assertEquals("number of contract assignments was not the expected number", 1, result.size());
-		for (Assignment assignment: result) {
-			getTestUtils().testContractAssignmentFields(assignment);
-		}
-
-	}
-	
+public class ContractAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	@Test
 	/**
 	 * test that a contract maint doc can be created and edited by the authorized users only
@@ -50,16 +26,25 @@ public class ContractAssignmentRoutingTest extends KewTestsBase {
 		testCreateMaintain(Assignment.class, "ContractAssignmentMaintenanceDocument");
 	}
 	
+	/**
+	 * tests contract assignment maintenance doc routing
+	 * 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * 
+	 */
+	@Test
+	public void testContractAssignmentTypeRouting() throws InstantiationException, IllegalAccessException {
+		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
+		super.testAssignmentRouting(testAssignment, "ContractAssignmentMaintenanceDocument");
+	}
+
 	/* (non-Javadoc)
-	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
+	 * @see org.martinlaw.test.contract.BaseAssignmentRoutingTest#loadSuiteTestData()
 	 */
 	@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-perms-roles.sql", ";").runSql();
-		// needed for the one-one relationship with contract and contract's relationships with contract type and status
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-test-data.sql", ";").runSql();
 	}
 }

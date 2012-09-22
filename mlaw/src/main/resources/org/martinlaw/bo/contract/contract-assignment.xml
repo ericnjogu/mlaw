@@ -11,22 +11,23 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="attributes">
 			<list>
 				<ref bean="contract_assignment_bo_id" />
-				<ref bean="contract_assignment_bo_contractId" />
+				<ref bean="contract_assignment_bo_matterId" />
 			</list>
 		</property>
 		<property name="objectLabel" value="Contract Assignment" />
 		<property name="relationships">
       <list>
 		<bean parent="RelationshipDefinition">
-          <property name="objectAttributeName" value="contract"/>
+          <property name="objectAttributeName" value="matter"/>
+          <property name="targetClass" value="org.martinlaw.bo.contract.Contract" />
           <property name="primitiveAttributes">
             <list>
-              <bean parent="PrimitiveAttributeDefinition" p:sourceName="contractId" p:targetName="id"/>
+              <bean parent="PrimitiveAttributeDefinition" p:sourceName="matterId" p:targetName="id"/>
             </list>
           </property>
           <property name="supportAttributes">
             <list>
-              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="contractId" p:targetName="id"/>
+              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="matterId" p:targetName="id"/>
             </list>
           </property>
         </bean>
@@ -37,12 +38,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- Attribute Definitions -->
 	<bean id="contract_assignment_bo_id" parent="martinlaw-shared-id" />
 
-	<bean id="contract_assignment_bo_contractId" parent="AttributeDefinition">
+	<bean id="contract_assignment_bo_matterId" parent="AttributeDefinition">
 		<property name="maxLength" value="20"/>
 		<property name="validationPattern">
 			<bean parent="NumericValidationPattern"/>
 		</property>
-		<property name="name" value="contractId" />
+		<property name="name" value="matterId" />
 		<property name="label" value="Contract" />
 		<property name="required" value="true" />
 		<property name="controlField">

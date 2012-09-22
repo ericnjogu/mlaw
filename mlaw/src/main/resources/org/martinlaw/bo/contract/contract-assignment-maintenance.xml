@@ -9,7 +9,7 @@
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <property name="lockingKeys">
       <list>
-        <value>contractId</value>
+        <value>matterId</value>
       </list>
     </property>
     <property name="documentTypeName" value="ContractAssignmentMaintenanceDocument"/>

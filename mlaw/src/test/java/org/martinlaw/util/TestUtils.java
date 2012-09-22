@@ -13,10 +13,12 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.martinlaw.bo.MatterAssignee;
+import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterDate;
-import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.Assignee;
 import org.martinlaw.bo.contract.Assignment;
+import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
@@ -152,16 +154,19 @@ public class TestUtils {
 	}
 	
 	/**
-	 * creates a test {@link Assignment}
+	 * creates a test {@link MatterAssignment} of the type passed in the input params
 	 * 
 	 * @return the test object
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public Assignment getTestContractAssignment() {
-		Assignment assignment = new Assignment();
-		long contractId = 1002l;
-		assignment.setContractId(contractId);
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public <A extends MatterAssignment, T extends MatterAssignee> A getTestAssignment(Class<A> a, Class<T> t) throws InstantiationException, IllegalAccessException {
+		A assignment = a.newInstance();
+		long matterId = 1002l;
+		assignment.setMatterId(matterId);
 		
-		Assignee assignee = new Assignee();
+		 T assignee = t.newInstance();
 		
 		assignee.setPrincipalName(assignee1);
 		assignment.getAssignees().add(assignee);
@@ -208,7 +213,7 @@ public class TestUtils {
 	 * @param assignment - the test object
 	 */
 	public void testContractAssignmentFields(
-			Assignment assignment) {
+			MatterAssignment<?, ?> assignment) {
 		assertEquals("number of assignees does not match", 2, assignment.getAssignees().size());
 		assertEquals("assignee principal name did not match", getAssignee1(), assignment.getAssignees().get(0).getPrincipalName());
 		assertEquals("assignee principal name did not match", getAssignee2(), assignment.getAssignees().get(1).getPrincipalName());

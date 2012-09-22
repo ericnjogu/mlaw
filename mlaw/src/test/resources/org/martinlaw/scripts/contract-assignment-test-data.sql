@@ -1,5 +1,5 @@
 insert into martinlaw_contract_assignment_t
-(assignment_id, contract_id, obj_id, ver_nbr)
+(assignment_id, matter_id, obj_id, ver_nbr)
 values
 (1001, 1001, 'can1', 1);
 

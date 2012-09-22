@@ -69,16 +69,16 @@ public class ContractAssignmentBOTest extends ContractBoTestBase {
 		assertEquals("number of assignees did not match", 2, assignment.getAssignees().size());
 		assertEquals("assignee principal name did not match", "lawyer1", assignment.getAssignees().get(0).getPrincipalName());
 		assertEquals("assignee principal name did not match", "clerk1", assignment.getAssignees().get(1).getPrincipalName());
-		assertEquals("contract id did not match", new Long(1001), assignment.getContractId());
+		assertEquals("contract id did not match", new Long(1001), assignment.getMatterId());
 	}
 
 	@Test
 	/**
 	 * test CRUD for {@link Assignment}
 	 */
-	public void testContractAssignmentCRUD() {
+	public void testContractAssignmentCRUD() throws InstantiationException, IllegalAccessException {
 		// C
-		Assignment assignment = getTestUtils().getTestContractAssignment();
+		Assignment assignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
 		
 		getBoSvc().save(assignment);
 		// R
