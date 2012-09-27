@@ -4,14 +4,8 @@
  Copyright 2012 Protosoft Ltd
 -->
 
-  <bean id="contract_assignment_MaintDocument" parent="uifMaintenanceDocumentEntry">
+  <bean id="contract_assignment_MaintDocument" parent="martinlaw_shared_assignment_MaintDocument">
     <property name="dataObjectClass" value="org.martinlaw.bo.contract.Assignment"/>
-    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
-    <property name="lockingKeys">
-      <list>
-        <value>matterId</value>
-      </list>
-    </property>
     <property name="documentTypeName" value="ContractAssignmentMaintenanceDocument"/>
   </bean>
 

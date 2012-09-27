@@ -177,7 +177,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_assignee_bo" parent="martinlaw_shared_person_parentBean">
+	<bean id="martinlaw_shared_assignee_bo" abstract="true" parent="martinlaw_shared_person_parentBean">
     <property name="titleAttribute" value="principalName"/>
     <property name="attributes">
       <list>
@@ -186,5 +186,14 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     </property>
     <property name="objectLabel" value="Assignee"/>
     </bean>
+    
+    <bean id="martinlaw_shared_assignment_MaintDocument" parent="uifMaintenanceDocumentEntry">
+    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <property name="lockingKeys">
+      <list>
+        <value>matterId</value>
+      </list>
+    </property>
+  </bean>
 
 </beans>
