@@ -9,20 +9,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
  
 -->
 
-  <bean id="contract_assignee_bo" parent="martinlaw_shared_person_parentBean">
+  <bean id="contract_assignee_bo" parent="martinlaw_shared_assignee_bo">
     <property name="businessObjectClass" value="org.martinlaw.bo.contract.Assignee"/>
-    <property name="titleAttribute" value="principalName"/>
-    <property name="attributes">
-      <list>
-        <ref bean="contract_assignee_bo-principal-name"/>
-      </list>
-    </property>
-    <property name="objectLabel" value="Assignee"/>
-
   </bean>
-
-<!-- Attribute Definitions -->
- 
- <bean id="contract_assignee_bo-principal-name" parent="martinlaw-shared-principal-name" p:label="Assignee"/>
 
 </beans>
