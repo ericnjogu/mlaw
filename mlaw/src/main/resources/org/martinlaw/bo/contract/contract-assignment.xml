@@ -6,48 +6,18 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Copyright 2012 Protosoft Ltd -->
 
-	<bean id="contract_assignment_bo" parent="BusinessObjectEntry">
+	<bean id="contract_assignment_bo" parent="martinlaw_shared_assignment_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.contract.Assignment" />
 		<property name="attributes">
-			<list>
-				<ref bean="contract_assignment_bo_id" />
-				<ref bean="contract_assignment_bo_matterId" />
+			<list merge="true">
+				<bean parent="martinlaw_shared_assignment_bo_matterId" p:label="Contract"/>
 			</list>
 		</property>
 		<property name="objectLabel" value="Contract Assignment" />
 		<property name="relationships">
       <list>
-		<bean parent="RelationshipDefinition">
-          <property name="objectAttributeName" value="matter"/>
-          <property name="targetClass" value="org.martinlaw.bo.contract.Contract" />
-          <property name="primitiveAttributes">
-            <list>
-              <bean parent="PrimitiveAttributeDefinition" p:sourceName="matterId" p:targetName="id"/>
-            </list>
-          </property>
-          <property name="supportAttributes">
-            <list>
-              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="matterId" p:targetName="id"/>
-            </list>
-          </property>
-        </bean>
+		<bean parent="martinlaw_shared_assignment_bo_matter_relationship" p:targetClass="org.martinlaw.bo.contract.Contract"/>
       </list>
     </property>
-	</bean>
-
-	<!-- Attribute Definitions -->
-	<bean id="contract_assignment_bo_id" parent="martinlaw-shared-id" />
-
-	<bean id="contract_assignment_bo_matterId" parent="AttributeDefinition">
-		<property name="maxLength" value="20"/>
-		<property name="validationPattern">
-			<bean parent="NumericValidationPattern"/>
-		</property>
-		<property name="name" value="matterId" />
-		<property name="label" value="Contract" />
-		<property name="required" value="true" />
-		<property name="controlField">
-			<bean parent="Uif-TextControl" p:size="20" />
-		</property>
 	</bean>
 </beans>
