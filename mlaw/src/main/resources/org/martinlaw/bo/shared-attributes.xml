@@ -187,7 +187,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     <property name="objectLabel" value="Assignee"/>
     </bean>
     
-    <bean id="martinlaw_shared_assignment_MaintDocument" parent="uifMaintenanceDocumentEntry">
+    <bean id="martinlaw_shared_assignment_MaintDocument" abstract="true" parent="uifMaintenanceDocumentEntry">
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <property name="lockingKeys">
       <list>
