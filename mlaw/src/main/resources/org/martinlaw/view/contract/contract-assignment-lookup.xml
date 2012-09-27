@@ -4,20 +4,8 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="contract_assignment_LookupView" parent="Uif-LookupView">
+<bean id="contract_assignment_LookupView" parent="martinlaw_shared_assignment_LookupView">
     <property name="headerText" value="Contract Assignment Lookup" />
     <property name="dataObjectClassName" value="org.martinlaw.bo.contract.Assignment" />
-    <property name="criteriaFields">
-      <list>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractId" p:inquiry.enableDirectInquiry="false"/>
-      </list>
-    </property>
-    <property name="resultFields">
-      <list>
-         <bean parent="Uif-DataField" p:propertyName="id" />
-        <bean parent="Uif-DataField" p:propertyName="contract.name" />
-      </list>
-    </property>
   </bean>
 </beans>

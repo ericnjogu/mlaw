@@ -5,43 +5,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-
-	<bean id="contract_assignment_inquiry_view" parent="Uif-InquiryView">
+	<bean id="contract_assignment_inquiry_view" parent="martinlaw_shared_assignment_inquiry_view">
 		<property name="headerText" value="Contract Assignment Inquiry" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.contract.Assignment" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="Uif-Disclosure-GridSection">
-					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="id"/>
-							<bean parent="Uif-InputField" p:propertyName="contractId"
-								p:readOnly="true">
-								<property name="propertyNamesForAdditionalDisplay"
-									value="contract.name" />
-							</bean>
-						</list>
-					</property>
-					<property name="headerText" value="Contract Information" />
-				</bean>
-
-				<bean parent="Uif-Disclosure-StackedCollectionSection">
-					<property name="headerText" value="Assignees" />
+				<bean parent="martinlaw_shared_assignment_inquiry_view_assignees">
 					<property name="collectionObjectClass"
 						value="org.martinlaw.bo.contract.Assignee" />
-					<property name="propertyName" value="assignees" />
-					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="principalName">
-							</bean>
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Assignee" />
-					<property name="layoutManager.summaryFields">
-						<list>
-							<value>person.name</value>
-						</list>
-					</property>
 				</bean>
 			</list>
 		</property>
