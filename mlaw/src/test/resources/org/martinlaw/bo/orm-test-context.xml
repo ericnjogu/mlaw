@@ -22,11 +22,15 @@
 				<value>org.martinlaw.bo.courtcase.CourtCaseDate</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseClient</value>
+				<value>org.martinlaw.bo.courtcase.Assignee</value>
+				<value>org.martinlaw.bo.courtcase.Assignment</value>
 				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseClientSeq</value>
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
 				<value>org.martinlaw.bo.courtcase.CourtCase</value>
 				<value>org.martinlaw.bo.sequence.CaseSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseAssigneeSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseAssignmentSeq</value>
 				
 				<value>org.martinlaw.bo.conveyance.ConveyanceAnnexType</value>
 				<value>org.martinlaw.bo.conveyance.ConveyanceType</value>

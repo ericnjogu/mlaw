@@ -100,6 +100,22 @@
 			</responsibilities>
 		</rule>
 		
+		<!-- CourtCaseAssignmentMaintenanceDocument rule -->
+		<rule>
+			<name>org.martinlaw.rules.courtcase.assignment</name>
+			<documentType>CourtCaseAssignmentMaintenanceDocument</documentType>
+			 <!-- The rule template does not have any use at now  -->
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for CourtCaseAssignment maintenance</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+		
 		</rules>
 </data>
 	

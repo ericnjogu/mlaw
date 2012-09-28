@@ -24,6 +24,11 @@
 	<li><portal:portalLink displayTitle="true" title="Lookup Court Case Date" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.CourtCaseDate&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=false" /></li>	
   </ul>
 
+<strong>Assign Court Case</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Court Case Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Assignment" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Court Case Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  </ul>
   
 </div>
 <channel:portalChannelBottom />
