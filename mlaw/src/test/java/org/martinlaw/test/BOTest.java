@@ -80,10 +80,9 @@ public class BOTest extends MartinlawTestsBase {
 		//transactions are rolled back, no need to clear manually
 		//new SQLDataLoader("classpath:org/martinlaw/bo/clear-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/case-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/date-type-default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/case-date-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-test-data.sql", ";").runSql();
 		//bo xml files loaded from martinlaw-ModuleBeans(imported in BOTest-context.xml) as part of the data dictionary config
 	}
