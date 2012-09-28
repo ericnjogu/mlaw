@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Copyright 2012 Protosoft Ltd -->
+
+	<bean id="conveyance_assignment_bo" parent="martinlaw_shared_assignment_bo" p:jstlKey="conveyance_assignment">
+		<property name="businessObjectClass" value="org.martinlaw.bo.conveyance.Assignment" />
+		<property name="attributes">
+			<list merge="true">
+				<bean parent="martinlaw_shared_assignment_bo_matterId" p:label="Conveyance"/>
+			</list>
+		</property>
+		<property name="objectLabel" value="Conveyance Assignment" />
+		<property name="relationships">
+      <list>
+		<bean parent="martinlaw_shared_assignment_bo_matter_relationship" p:targetClass="org.martinlaw.bo.conveyance.Conveyance"/>
+      </list>
+    </property>
+	</bean>
+</beans>

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.contract.Assignee;
 import org.martinlaw.bo.contract.Assignment;
+import org.martinlaw.test.BaseAssignmentRoutingTest;
 
 /**
  * tests routing for {@link Assignment}
@@ -22,7 +23,7 @@ public class ContractAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	 * 
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
-	public void testContractAssignmentTypeMaintDocPerms() {
+	public void testContractAssignmentMaintDocPerms() {
 		testCreateMaintain(Assignment.class, "ContractAssignmentMaintenanceDocument");
 	}
 	
@@ -34,7 +35,7 @@ public class ContractAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	 * 
 	 */
 	@Test
-	public void testContractAssignmentTypeRouting() throws InstantiationException, IllegalAccessException {
+	public void testContractAssignmentRouting() throws InstantiationException, IllegalAccessException {
 		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
 		super.testAssignmentRouting(testAssignment, "ContractAssignmentMaintenanceDocument");
 	}
@@ -45,6 +46,9 @@ public class ContractAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
+		// needed for the one-one relationship with contract and contract's relationships with contract type and status
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-perms-roles.sql", ";").runSql();
 	}
 }

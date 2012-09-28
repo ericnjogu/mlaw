@@ -16,8 +16,6 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterDate;
-import org.martinlaw.bo.contract.Assignee;
-import org.martinlaw.bo.contract.Assignment;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -171,7 +169,7 @@ public class TestUtils {
 		assignee.setPrincipalName(assignee1);
 		assignment.getAssignees().add(assignee);
 		
-		Assignee assignee3 = new Assignee();
+		T assignee3 = t.newInstance();
 		assignee3.setPrincipalName(assignee2);
 		//contractAssignee.setContractId(contractId);
 		assignment.getAssignees().add(assignee3);
@@ -208,11 +206,11 @@ public class TestUtils {
 	}
 
 	/**
-	 * tests the {@link Assignment} fields have the expected values
+	 * tests the {@link MatterAssignment} fields have the expected values
 	 * 
 	 * @param assignment - the test object
 	 */
-	public void testContractAssignmentFields(
+	public void testAssignmentFields(
 			MatterAssignment<?, ?> assignment) {
 		assertEquals("number of assignees does not match", 2, assignment.getAssignees().size());
 		assertEquals("assignee principal name did not match", getAssignee1(), assignment.getAssignees().get(0).getPrincipalName());

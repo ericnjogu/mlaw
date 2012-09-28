@@ -27,7 +27,11 @@
   	  <ul class="chan">  	
   	<li><portal:portalLink displayTitle="true" title="New Conveyance Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.ConveyanceType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
   	<li><portal:portalLink displayTitle="true" title="Lookup Conveyance Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.ConveyanceType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
-	
+  </ul>
+<strong>Assign Conveyance</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Conveyance Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Assignment" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Conveyance Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
 
   

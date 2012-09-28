@@ -64,6 +64,11 @@
 				<value>org.martinlaw.bo.sequence.ContractAssigneeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractAssignmentSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractSeq</value>
+				
+				<value>org.martinlaw.bo.conveyance.Assignee</value>
+				<value>org.martinlaw.bo.conveyance.Assignment</value>
+				<value>org.martinlaw.bo.sequence.ConvAssignmentSeq</value>
+				<value>org.martinlaw.bo.sequence.ConvAssigneeSeq</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

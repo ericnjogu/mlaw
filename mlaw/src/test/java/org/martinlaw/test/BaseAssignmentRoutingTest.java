@@ -1,4 +1,4 @@
-package org.martinlaw.test.contract;
+package org.martinlaw.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -7,8 +7,6 @@ import java.util.Collection;
 
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterAssignment;
-import org.martinlaw.bo.contract.Assignment;
-import org.martinlaw.test.KewTestsBase;
 
 public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 	/**
@@ -29,13 +27,14 @@ public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 			testMaintenanceRouting(docType, testAssignment);
 		} catch (Exception e) {
 			log.error("test failed", e);
-			fail("test routing ContractAssignmentMaintenanceDocument caused an exception");
+			fail("test routing ConveyanceAssignmentMaintenanceDocument caused an exception");
 		}
 		// confirm that BO was saved to DB
-		Collection<Assignment> result = getBoSvc().findAll(Assignment.class);
-		assertEquals("number of contract assignments was not the expected number", 1, result.size());
-		for (Assignment assignment: result) {
-			getTestUtils().testContractAssignmentFields(assignment);
+		@SuppressWarnings("rawtypes")
+		Collection<? extends MatterAssignment> result = getBoSvc().findAll(testAssignment.getClass());
+		assertEquals("number of assignments was not the expected number", 1, result.size());
+		for (@SuppressWarnings("rawtypes") MatterAssignment assignment: result) {
+			getTestUtils().testAssignmentFields(assignment);
 		}
 	
 	}
@@ -43,10 +42,7 @@ public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 	@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
-		// needed for the one-one relationship with contract and contract's relationships with contract type and status
 		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-test-data.sql", ";").runSql();
 	}
 
 }

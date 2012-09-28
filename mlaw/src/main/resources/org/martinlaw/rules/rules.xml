@@ -84,6 +84,22 @@
 			</responsibilities>
 		</rule>
 		
+		<!-- ConveyanceAssignmentMaintenanceDocument rule -->
+		<rule>
+			<name>org.martinlaw.rules.conveyance.assignment</name>
+			<documentType>ConveyanceAssignmentMaintenanceDocument</documentType>
+			 <!-- The rule template does not have any use at now  -->
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for ConveyanceAssignment maintenance</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+		
 		</rules>
 </data>
 	

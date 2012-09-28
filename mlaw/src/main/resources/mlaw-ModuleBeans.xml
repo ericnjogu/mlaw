@@ -64,6 +64,7 @@
         <value>classpath:org/martinlaw/bo/courtcase/case-fee.xml</value>
         <value>classpath:org/martinlaw/bo/shared-fee.xml</value>
          <value>classpath:org/martinlaw/bo/shared-attributes.xml</value>
+         <value>classpath:org/martinlaw/bo/shared-assignment.xml</value>
          
          <value>classpath:org/martinlaw/bo/status.xml</value>
          <value>classpath:org/martinlaw/bo/status-maintenance.xml</value>
@@ -111,12 +112,20 @@
          <value>classpath:org/martinlaw/view/conveyance/conveyance-client-lookup.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-client-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/shared.xml</value>
+         <value>classpath:org/martinlaw/view/shared-assignment-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/shared-assignment-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-fee.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignment.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignment-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignee.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-assignment-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-assignment-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-assignment-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/contract/contract-type-maintenance.xml</value>
