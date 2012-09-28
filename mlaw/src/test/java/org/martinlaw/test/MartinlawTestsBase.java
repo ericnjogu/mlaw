@@ -77,8 +77,10 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 */
 	protected void verifyMaintDocDataDictEntries(Class<?> dataObjectClass) {
 		verifyInquiryLookup(dataObjectClass);
-		assertTrue(dataObjectClass + " should be maintainable", KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
-		assertNotNull("maint doc entry should not be null", KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
+		assertTrue(dataObjectClass + " should be maintainable",
+				KRADServiceLocatorWeb.getViewDictionaryService().isMaintainable(dataObjectClass));
+		assertNotNull("maint doc entry should not be null",
+				KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getMaintenanceDocumentEntryForBusinessObjectClass(dataObjectClass));
 		//params = 
 		//assertNotNull("View should not be null",				KRADServiceLocatorWeb.getDataDictionaryService().getViewByTypeIndex(UifConstants.ViewType.MAINTENANCE, viewId));
 	}
@@ -89,8 +91,10 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 * @param dataObjectClass - the data object class used in the definitions
 	 */
 	protected void verifyInquiryLookup(Class<?> dataObjectClass) {
-		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isInquirable(dataObjectClass));
-		assertTrue(KRADServiceLocatorWeb.getViewDictionaryService().isLookupable(dataObjectClass));
+		assertTrue(dataObjectClass + " should be inquirable", 
+				KRADServiceLocatorWeb.getViewDictionaryService().isInquirable(dataObjectClass));
+		assertTrue(dataObjectClass + " should be lookupable",
+				KRADServiceLocatorWeb.getViewDictionaryService().isLookupable(dataObjectClass));
 	}
 
 	/**
