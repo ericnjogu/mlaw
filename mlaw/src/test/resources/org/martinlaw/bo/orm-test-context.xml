@@ -61,6 +61,7 @@
 				<value>org.martinlaw.bo.contract.Assignee</value>
 				<value>org.martinlaw.bo.MatterAssignee</value>
 				<value>org.martinlaw.bo.MatterAssignment</value>
+				<value>org.martinlaw.bo.MatterClient</value>
 				
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>

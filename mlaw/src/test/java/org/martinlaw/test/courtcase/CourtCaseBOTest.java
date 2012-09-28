@@ -146,7 +146,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		assertNotNull(kase.getId());
 		//create and save client, witness
 		CourtCaseClient cl = new CourtCaseClient();
-		cl.setCourtCaseId(kase.getId());
+		cl.setMatterId(kase.getId());
 		cl.setPrincipalName("somename");//TODO needs to be verified (business rule?)
 		List<CourtCaseClient> clts = new ArrayList<CourtCaseClient>(1);
 		clts.add(cl);
@@ -185,7 +185,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	 */
 	public void testCaseClient() {
 		CourtCaseClient person = new CourtCaseClient();
-		person.setCourtCaseId(1001l);
+		person.setMatterId(1001l);
 		testMartinlawPersonCRUD(new CourtCaseClient(), "client1", person);
 	}
 

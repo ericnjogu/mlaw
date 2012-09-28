@@ -27,9 +27,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
     <property name="titleAttribute" value="principalName"/>
     <property name="attributes">
       <list>
-      <!-- These are meant to be auto-gen, the id is auto-inc, the conveyance-client-id is from the associated court case 
-      	<ref bean="conveyance-client-id"/>
-        <ref bean="conveyance-client-case-id"/>
+      <!-- The matter id is not listed here as it is populated by ojb
        -->
         <ref bean="conveyance-client-principal-name"/>
       </list>

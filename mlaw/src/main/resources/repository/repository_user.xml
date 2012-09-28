@@ -43,7 +43,7 @@
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseClient" auto-retrieve="true"
 			auto-update="true" auto-delete="false">
-			<inverse-foreignkey field-ref="courtCaseId" />
+			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 		<field-descriptor name="statusId" column="status_id"
 			jdbc-type="BIGINT" indexed="true">
@@ -68,14 +68,14 @@
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCaseClient"
 		table="martinlaw_court_case_client_t">
-		<field-descriptor name="id" column="court_case_client_id"
+		<field-descriptor name="id" column="client_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_court_case_client_id_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
 		</field-descriptor>
-		<field-descriptor name="courtCaseId" column="court_case_id"
+		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -275,14 +275,14 @@
 
 	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceClient"
 		table="martinlaw_convey_client_t">
-		<field-descriptor name="id" column="convey_client_id"
+		<field-descriptor name="id" column="client_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_convey_client_id_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
 		</field-descriptor>
-		<field-descriptor name="conveyanceId" column="conveyance_id"
+		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -344,7 +344,7 @@
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.conveyance.ConveyanceClient" auto-retrieve="true"
 			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="conveyanceId" />
+			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 		<field-descriptor name="statusId" column="status_id"
 			jdbc-type="BIGINT" indexed="true">

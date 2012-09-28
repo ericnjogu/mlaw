@@ -35,7 +35,7 @@ import org.martinlaw.service.RiceServiceHelper;
 public class Conveyance extends Matter {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
 	private List<ConveyanceFee> fees;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<ConveyanceClient> clients;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
 	private List<ConveyanceAnnex> annexes;
