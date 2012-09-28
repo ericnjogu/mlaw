@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.contract.Contract;
@@ -21,6 +23,8 @@ import org.martinlaw.test.KewTestsBase;
  *
  */
 public class ContractRoutingTest extends KewTestsBase {
+	private Log log = LogFactory.getLog(getClass());
+
 	@Test
 	/**
 	 * test that ContractMaintenanceDocument routes to clerk then lawyer on submit

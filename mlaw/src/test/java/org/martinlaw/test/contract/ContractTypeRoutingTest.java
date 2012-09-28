@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.test.SQLDataLoader;
@@ -24,6 +26,8 @@ import org.martinlaw.test.KewTestsBase;
  *
  */
 public class ContractTypeRoutingTest extends KewTestsBase {
+	private Log log = LogFactory.getLog(getClass());
+
 	@Test
 	/**
 	 * test that ConveyanceAnnexTypeDocument routes to final on submit
@@ -36,7 +40,7 @@ public class ContractTypeRoutingTest extends KewTestsBase {
 			testMaintenanceRoutingInitToFinal("ContractTypeMaintenanceDocument", contractType);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			log.error("test failed", e);
+			log .error("test failed", e);
 			fail("test routing ContractTypeMaintenanceDocument caused an exception");
 		}
 		// confirm that BO was saved to DB
