@@ -5,10 +5,14 @@ import static org.junit.Assert.fail;
 
 import java.util.Collection;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterAssignment;
 
 public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
+	private Log log = LogFactory.getLog(getClass());
+
 	/**
 	 * default constructor
 	 */
@@ -26,7 +30,7 @@ public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 		try {
 			testMaintenanceRouting(docType, testAssignment);
 		} catch (Exception e) {
-			log.error("test failed", e);
+			log .error("test failed", e);
 			fail("test routing ConveyanceAssignmentMaintenanceDocument caused an exception");
 		}
 		// confirm that BO was saved to DB
