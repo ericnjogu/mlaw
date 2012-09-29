@@ -4,26 +4,17 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="conveyance_LookupView" parent="Uif-LookupView">
+<bean id="conveyance_LookupView" parent="martinlaw_shared_matter_LookupView">
     <property name="headerText" value="Conveyance Lookup" />
     <property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
     <property name="criteriaFields">
-      <list>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
+      <list merge="true">
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="localReference" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId">
-        </bean>
       </list>
     </property>
     <property name="resultFields">
-      <list>
-         <bean parent="Uif-DataField" p:propertyName="id" />
+      <list merge="true">
          <bean parent="Uif-DataField" p:propertyName="type.name" />
-        <bean parent="Uif-DataField" p:propertyName="localReference" />
-        <bean parent="Uif-DataField" p:propertyName="name" />
-        <bean parent="Uif-DataField" p:propertyName="status.status"/>
       </list>
     </property>
   </bean>

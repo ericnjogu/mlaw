@@ -239,4 +239,24 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="martinlaw_shared_matter_LookupView" abstract="true" parent="Uif-LookupView">
+    <property name="criteriaFields">
+      <list>
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="localReference" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId">
+        </bean>
+      </list>
+    </property>
+    <property name="resultFields">
+      <list>
+         <bean parent="Uif-DataField" p:propertyName="id" />
+        <bean parent="Uif-DataField" p:propertyName="localReference" />
+        <bean parent="Uif-DataField" p:propertyName="name" />
+        <bean parent="Uif-DataField" p:propertyName="status.status"/>
+      </list>
+    </property>
+  </bean>
 </beans>
