@@ -108,10 +108,10 @@ public class Matter extends PersistableBusinessObjectBase {
 	}
 
 	/**
-	 * gets the list of attachments associated with this court case
+	 * gets the list of attachments associated with this matter
 	 * 
-	 * This is achieved by retrieving the notes whose remote obj id is equal to this object's obj id
-	 * and retrieving the attachments if present
+	 * <p>This is achieved by retrieving the notes whose remote obj id is equal to this object's obj id
+	 * and retrieving the attachments if present</p>
 	 * 
 	 * @return the list of attachments if found, an empty list if not
 	 */
