@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="courtcase_LookupView" parent="martinlaw_shared_matter_LookupView">
-    <property name="headerText" value="Court Case Lookup" />
-    <property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
-  </bean>
+	<bean id="courtcase_LookupView" parent="martinlaw_shared_matter_LookupView">
+		<property name="headerText" value="Court Case Lookup" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
+		<property name="criteriaFields">
+			<list merge="true">
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="courtReference" />
+			</list>
+		</property>
+		<property name="resultFields">
+			<list merge="true">
+				<bean parent="Uif-DataField" p:propertyName="courtReference" />
+			</list>
+		</property>
+	</bean>
 </beans>

@@ -11,6 +11,11 @@
 			<list>
 				<bean parent="martinlaw_shared_matter_info_inquiry">
 					<property name="headerText" value="Case Information" />
+					<property name="items">
+						<list merge="true">
+							<bean parent="Uif-InputField" p:propertyName="courtReference" />
+						</list>
+					</property>
 				</bean>
 
 				<bean parent="Uif-Disclosure-StackedCollectionSection">
@@ -23,7 +28,8 @@
 							<bean parent="Uif-InputField" p:propertyName="date" />
 							<bean parent="Uif-InputField" p:propertyName="comment" />
 							<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
-              p:href="@{#line.calendarEvent.url}" p:label="Calendar Event" p:render="@{!#isEmpty(#line.calendarEvent)}"/>
+								p:href="@{#line.calendarEvent.url}" p:label="Calendar Event"
+								p:render="@{!#isEmpty(#line.calendarEvent)}" />
 						</list>
 					</property>
 					<property name="layoutManager.summaryFields">
@@ -35,12 +41,14 @@
 				</bean>
 
 				<bean parent="martinlaw_shared_client_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseClient" />
+					<property name="collectionObjectClass"
+						value="org.martinlaw.bo.courtcase.CourtCaseClient" />
 				</bean>
 
 				<bean parent="Uif-Disclosure-StackedCollectionSection">
 					<property name="headerText" value="Witnesses" />
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseWitness" />
+					<property name="collectionObjectClass"
+						value="org.martinlaw.bo.courtcase.CourtCaseWitness" />
 					<property name="propertyName" value="witnesses" />
 					<property name="items">
 						<list>
@@ -60,7 +68,7 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseFee" />
 				</bean>
 
-				<bean parent="martinlaw_shared_annexes_inquirySection"/>
+				<bean parent="martinlaw_shared_annexes_inquirySection" />
 			</list>
 		</property>
 	</bean>
