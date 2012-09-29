@@ -52,7 +52,7 @@ public class CourtCase extends Matter {
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
 	private List<CourtCaseClient> clients;
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "courtCaseId")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
 	private List<CourtCaseFee> fees;
 	
 	public CourtCase() {

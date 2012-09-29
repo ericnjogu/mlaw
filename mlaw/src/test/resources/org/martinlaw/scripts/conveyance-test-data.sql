@@ -17,7 +17,7 @@ insert into martinlaw_convey_client_t (client_id, matter_id, principal_name) val
 
 insert into
 martinlaw_convey_fee_t
-(convey_fee_id,conveyance_id,amount,date_received,description, ver_nbr, obj_id)
+(fee_id, matter_id,amount,date_received,description, ver_nbr, obj_id)
 values
 (1001,1001,2500.58,'2011-06-12','received from karateka', default, 1);
 

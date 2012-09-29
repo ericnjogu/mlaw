@@ -56,7 +56,7 @@
 		<collection-descriptor name="fees"
 			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseFee" auto-retrieve="true"
 			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="courtCaseId" />
+			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 
 		<collection-descriptor name="dates"
@@ -152,11 +152,11 @@
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCaseFee"
 		table="martinlaw_court_case_fee_t">
-		<field-descriptor name="id" column="court_case_fee_id"
+		<field-descriptor name="id" column="fee_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_court_case_fee_id_s">
 		</field-descriptor>
-		<field-descriptor name="courtCaseId" column="court_case_id"
+		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
@@ -293,11 +293,11 @@
 
 	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceFee"
 		table="martinlaw_convey_fee_t">
-		<field-descriptor name="id" column="convey_fee_id"
+		<field-descriptor name="id" column="fee_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_convey_fee_id_s">
 		</field-descriptor>
-		<field-descriptor name="conveyanceId" column="conveyance_id"
+		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
@@ -357,7 +357,7 @@
 		<collection-descriptor name="fees"
 			element-class-ref="org.martinlaw.bo.conveyance.ConveyanceFee" auto-retrieve="true"
 			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="conveyanceId" />
+			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 
 		<collection-descriptor name="annexes"
@@ -708,5 +708,6 @@
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 	</class-descriptor>
+
 
 </descriptor-repository>

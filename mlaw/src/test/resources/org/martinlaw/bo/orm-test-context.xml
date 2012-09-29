@@ -29,6 +29,7 @@
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
 				<value>org.martinlaw.bo.courtcase.CourtCase</value>
 				<value>org.martinlaw.bo.sequence.CaseSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseDateSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseAssigneeSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseAssignmentSeq</value>
 				
@@ -59,9 +60,11 @@
 				<value>org.martinlaw.bo.contract.Contract</value>
 				<value>org.martinlaw.bo.contract.Assignment</value>
 				<value>org.martinlaw.bo.contract.Assignee</value>
+				
 				<value>org.martinlaw.bo.MatterAssignee</value>
 				<value>org.martinlaw.bo.MatterAssignment</value>
 				<value>org.martinlaw.bo.MatterClient</value>
+				<value>org.martinlaw.bo.MatterFee</value>
 				
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>

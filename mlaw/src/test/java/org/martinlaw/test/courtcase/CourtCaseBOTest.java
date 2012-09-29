@@ -284,7 +284,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	 */
 	public void testCourtCaseFeeCRUD() {
 		CourtCaseFee fee = new CourtCaseFee();
-		fee.setCourtCaseId(1001l);
+		fee.setMatterId(1001l);
 		testFeeCRUD(fee, fee.getClass());
 	}
 	

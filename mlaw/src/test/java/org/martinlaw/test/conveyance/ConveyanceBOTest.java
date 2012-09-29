@@ -23,6 +23,7 @@ import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterClient;
+import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
@@ -166,7 +167,7 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 	 * test that a Conveyance fee can be retrieved from the database by the primary key
 	 */
 	public void testCourtConveyanceFeeRetrieval() {
-		ConveyanceFee fee = getBoSvc().findBySinglePrimaryKey(ConveyanceFee.class, new Long(1001));
+		MatterFee fee = getBoSvc().findBySinglePrimaryKey(ConveyanceFee.class, new Long(1001));
 		assertNotNull(fee);
 		testFeeFields(fee);
 	}
@@ -305,8 +306,8 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 	 * tests Conveyance fee CRUD
 	 */
 	public void testConveyanceFeeCRUD() {
-		ConveyanceFee fee = new ConveyanceFee();
-		fee.setConveyanceId(1001l);
+		MatterFee fee = new ConveyanceFee();
+		fee.setMatterId(1001l);
 		testFeeCRUD(fee, fee.getClass());
 	}
 	
