@@ -268,7 +268,6 @@
 				<bean parent="Uif-InputField" p:propertyName="id" p:readOnly="true" />
 				<bean parent="Uif-InputField" p:propertyName="localReference" />
 				<bean parent="Uif-InputField" p:propertyName="name" />
-				<bean parent="Uif-InputField" p:propertyName="typeId" />
 				<bean parent="Uif-InputField" p:propertyName="statusId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
 			</list>
