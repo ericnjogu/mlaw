@@ -11,16 +11,10 @@
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="Uif-MaintenanceGridSection">
+				<bean parent="martinlaw_shared_matter_info_maintenance">
 					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="id"
-								p:readOnly="true" />
-							<bean parent="Uif-InputField" p:propertyName="localReference" />
+						<list merge="true">
 							<bean parent="Uif-InputField" p:propertyName="courtReference" />
-							<bean parent="Uif-InputField" p:propertyName="name" />
-							<bean parent="Uif-InputField" p:propertyName="statusId">
-							</bean>
 						</list>
 					</property>
 					<property name="headerText" value="Case Information" />
