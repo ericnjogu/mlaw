@@ -9,16 +9,11 @@
 		<property name="formPostUrl" value="inquiryWithAtts" />
 		<property name="Items">
 			<list>
-				<bean parent="Uif-Disclosure-GridSection">
+				<bean parent="martinlaw_shared_matter_info_inquiry">
 					<property name="headerText" value="Conveyance Information" />
-					<property name="layoutManager.numberOfColumns" value="2" />
 					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="id" />
-							<bean parent="Uif-InputField" p:propertyName="type.name" />
-							<bean parent="Uif-InputField" p:propertyName="localReference" />
-							<bean parent="Uif-InputField" p:propertyName="name" />
-							<bean parent="Uif-InputField" p:propertyName="statusId" />
+						<list merge="true">
+							<bean parent="Uif-InputField" p:propertyName="type.name" />						
 						</list>
 					</property>
 				</bean>
@@ -79,7 +74,7 @@
 				</bean>
 
 				<bean parent="martinlaw_shared_fee_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseFee" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceFee" />
 				</bean>
 			</list>
 		</property>

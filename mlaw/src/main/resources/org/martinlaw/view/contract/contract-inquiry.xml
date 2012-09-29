@@ -15,14 +15,11 @@
     <property name="formPostUrl" value="inquiryWithAtts" />
     <property name="items">
       <list merge="true">
-        <bean parent="Uif-Disclosure-GridSection">
+        <bean parent="martinlaw_shared_matter_info_inquiry">
           <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="id" p:readOnly="true"/>
-              <bean parent="Uif-InputField" p:propertyName="localReference"/>
-              <bean parent="Uif-InputField" p:propertyName="name"/>
+            <list merge="true">
               <bean parent="Uif-InputField" p:propertyName="type.name"/>
-              <bean parent="Uif-InputField" p:propertyName="statusId"/>
+
             </list>
           </property>
           <property name="headerText" value="Contract Information"/>
