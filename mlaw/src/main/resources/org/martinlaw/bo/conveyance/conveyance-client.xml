@@ -20,24 +20,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
  limitations under the License.
 -->
 
-  <bean id="conveyance-client" parent="conveyance-client-parentBean"/>
-
-  <bean id="conveyance-client-parentBean" abstract="true" parent="martinlaw_shared_person_parentBean">
+  <bean id="conveyance_client_bo" parent="martinlaw_shared_client_bo">
     <property name="businessObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceClient"/>
-    <property name="titleAttribute" value="principalName"/>
-    <property name="attributes">
-      <list>
-      <!-- The matter id is not listed here as it is populated by ojb
-       -->
-        <ref bean="conveyance-client-principal-name"/>
-      </list>
-    </property>
-    <property name="objectLabel" value="Client"/>
-
   </bean>
-
-<!-- Attribute Definitions -->
- 
- <bean id="conveyance-client-principal-name" parent="martinlaw-shared-principal-name" p:label="Client Name"/>
-
 </beans>

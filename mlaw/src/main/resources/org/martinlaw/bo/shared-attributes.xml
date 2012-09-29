@@ -195,5 +195,18 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
       </list>
     </property>
   </bean>
+  
+  <bean id="martinlaw_shared_client_bo" abstract="true" parent="martinlaw_shared_person_parentBean">
+    <property name="titleAttribute" value="principalName"/>
+    <property name="attributes">
+      <list>
+      <!-- The matter id is not listed here as it is populated by ojb
+       -->
+        <bean parent="martinlaw-shared-principal-name" p:label="Client Name"/>
+      </list>
+    </property>
+    <property name="objectLabel" value="Client"/>
+
+  </bean>
 
 </beans>
