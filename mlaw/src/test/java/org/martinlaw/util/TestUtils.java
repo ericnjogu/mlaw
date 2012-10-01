@@ -5,13 +5,17 @@ package org.martinlaw.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
@@ -23,6 +27,8 @@ import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.bo.contract.ContractSignatory;
 import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.courtcase.Assignee;
+import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.bo.opinion.OpinionClient;
 import org.martinlaw.bo.opinion.OpinionFee;
@@ -219,6 +225,7 @@ public class TestUtils {
 	 */
 	public void testAssignmentFields(
 			MatterAssignment<?, ?> assignment) {
+		assertNotNull(assignment);
 		assertEquals("number of assignees does not match", 2, assignment.getAssignees().size());
 		assertEquals("assignee principal name did not match", getAssignee1(), assignment.getAssignees().get(0).getPrincipalName());
 		assertEquals("assignee principal name did not match", getAssignee2(), assignment.getAssignees().get(1).getPrincipalName());
@@ -275,5 +282,41 @@ public class TestUtils {
 	 */
 	public String getTestOpinionLocalReference() {
 		return testOpinionLocalReference;
+	}
+	
+	/**
+	 * convenience method to test matter assignment CRUD
+	 * 
+	 * @param assignment - the BO to perform CRUD with
+	 */
+	public void testAssignmentCRUD(MatterAssignment<?, ?> assignment) {
+		// C
+		getBoSvc().save(assignment);
+		// R
+		assignment.refresh();
+		testAssignmentFields(assignment);
+		// U
+		// TODO new collection items do not appear to be persisted when refresh is called
+		/*Assignee assignee3 = new Assignee();
+		String name3 = "hw";
+		assignee.setPrincipalName(name3);
+		contractAssignment.getAssignees().add(assignee3);
+		contractAssignment.refresh();
+		assertEquals("number of assignees does not match", 3, contractAssignment.getAssignees().size());
+		assertEquals("assignee principal name did not match", name3, contractAssignment.getAssignees().get(2).getPrincipalName());*/
+		// D
+		getBoSvc().delete(assignment);
+		assertNull("CourtCase assignment should have been deleted", getBoSvc().findBySinglePrimaryKey(Assignment.class,	assignment.getId()));
+		Map<String, Object> criteria = new HashMap<String, Object>();
+		criteria.put("assignmentId", assignment.getId());
+		assertEquals("assignees should have been deleted", 0, getBoSvc().findMatching(Assignee.class, criteria).size());
+	}
+
+	/**
+	 * convenience method to access service
+	 * @return
+	 */
+	private BusinessObjectService getBoSvc() {
+		return KRADServiceLocator.getBusinessObjectService();
 	}
 }
