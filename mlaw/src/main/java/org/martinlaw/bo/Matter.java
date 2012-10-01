@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
@@ -28,6 +29,9 @@ public class Matter extends PersistableBusinessObjectBase {
 	 * 
 	 */
 	private static final long serialVersionUID = -3504756475357807641L;
+	@Id
+	@Column(name="matter_id")
+	private Long id;
 	/**law firms ref e.g. NN/N201/MN
 	 * @ojb.field  column="local_reference"
 	 */
@@ -132,6 +136,19 @@ public class Matter extends PersistableBusinessObjectBase {
 			}
 		}
 		return attachments;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

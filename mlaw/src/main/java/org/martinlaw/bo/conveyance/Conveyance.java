@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -39,9 +37,6 @@ public class Conveyance extends Matter {
 	private List<ConveyanceClient> clients;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
 	private List<ConveyanceAnnex> annexes;
-	@Id
-	@Column(name="conveyance_id")
-	private Long id;
 	// column def given on the object reference below - this is for the sake of ojb
 	@Transient
 	private Long typeId;
@@ -157,18 +152,7 @@ public class Conveyance extends Matter {
 	public void setAnnexes(List<ConveyanceAnnex> annexes) {
 		this.annexes = annexes;
 	}
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	/**
 	 * @return the typeId
 	 */

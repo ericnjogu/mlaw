@@ -21,7 +21,7 @@
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="150">
 		</field-descriptor>
-		<field-descriptor name="id" column="court_case_id"
+		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_court_case_id_s">
 		</field-descriptor>
@@ -319,7 +319,7 @@
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="150">
 		</field-descriptor>
-		<field-descriptor name="id" column="conveyance_id"
+		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_convey_id_s">
 		</field-descriptor>
@@ -464,7 +464,7 @@
 
 	<class-descriptor class="org.martinlaw.bo.contract.Contract"
 		table="martinlaw_contract_t">
-		<field-descriptor name="id" column="contract_id"
+		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_contract_id_s" />
 		<field-descriptor name="name" column="name"

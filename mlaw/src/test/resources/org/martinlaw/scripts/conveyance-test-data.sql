@@ -8,7 +8,7 @@ values
 (1002, "Sale of Motor Vehicle", null, default, 1);
 
 insert into martinlaw_convey_t 
-(conveyance_id, local_reference, status_id, name, convey_type_id, obj_id) 
+(matter_id, local_reference, status_id, name, convey_type_id, obj_id) 
 values 
 (1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1'),
 (1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2');

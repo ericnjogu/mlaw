@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,14 +26,7 @@ import org.martinlaw.bo.Matter;
 @Entity
 @Table(name="martinlaw_contract_t")
 public class Contract extends Matter {
-	@Id
-    /*@GeneratedValue(generator="martinlaw_contract_id_s")
-	@GenericGenerator(name="martinlaw_contract_id_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
-			@Parameter(name="sequence_name",value="martinlaw_contract_id_s"),
-			@Parameter(name="value_column",value="id")
-	})*/
-	@Column(name="contract_id")
-	private Long id;
+	
 	/**
 	 * 
 	 */
@@ -99,18 +91,7 @@ public class Contract extends Matter {
 	public void setType(ContractType contractType) {
 		this.type = contractType;
 	}
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	/**
 	 * @return the serviceOffered
 	 */
