@@ -23,6 +23,9 @@ import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.bo.contract.ContractSignatory;
 import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.opinion.Opinion;
+import org.martinlaw.bo.opinion.OpinionClient;
+import org.martinlaw.bo.opinion.OpinionFee;
 
 /**
  * holds various methods used across test cases
@@ -36,6 +39,10 @@ public class TestUtils {
 	private String testConveyanceName = "sale of KAZ 457T";
 	private String assignee1 = "pn";
 	private String assignee2 = "aw";
+	private String testOpinionName;
+	private String testOpinionClientName;
+	private String testOpinionLocalReference;
+	private String testOpinionDescription;
 
 	/**
 	 * get a test conveyance object
@@ -215,5 +222,58 @@ public class TestUtils {
 		assertEquals("number of assignees does not match", 2, assignment.getAssignees().size());
 		assertEquals("assignee principal name did not match", getAssignee1(), assignment.getAssignees().get(0).getPrincipalName());
 		assertEquals("assignee principal name did not match", getAssignee2(), assignment.getAssignees().get(1).getPrincipalName());
+	}
+
+	/**
+	 * create a test {@link Opinion}
+	 * 
+	 * @return
+	 */
+	public Opinion getTestOpinion() {
+		Opinion opinion = new Opinion();
+		testOpinionName = "legal opinion regarding the status quo";
+		opinion.setName(testOpinionName);
+		testOpinionLocalReference = "en/op/01";
+		opinion.setLocalReference(testOpinionLocalReference);
+		opinion.setStatusId(1001l);
+		
+		OpinionClient client = new OpinionClient();
+		testOpinionClientName = "pnk";
+		client.setPrincipalName(testOpinionClientName);
+		opinion.getClients().add(client);
+		
+		OpinionFee fee = new OpinionFee();
+		fee.setAmount(new BigDecimal(5000l));
+		testOpinionDescription = "received from mwn";
+		fee.setDescription(testOpinionDescription );
+		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		opinion.getFees().add(fee);
+		
+		return opinion;
+	}
+
+	/**
+	 * verify the test {@link Opinion} field values
+	 * 
+	 * @param opinion
+	 */
+	public void testOpinionFields(Opinion opinion) {
+		assertEquals("opinion name differs", testOpinionName, opinion.getName());
+		assertEquals("opinion local ref differs", testOpinionLocalReference, opinion.getLocalReference());
+		// for some reason, the status object is not fetched, so test for the id instead
+		assertNotNull("opinion status should not be null", opinion.getStatusId());
+		
+		assertEquals("opinion fees not the expected number", 1, opinion.getFees().size());
+		assertEquals("opinion fee description differs", testOpinionDescription, opinion.getFees().get(0).getDescription());
+		
+		assertEquals("opinion clients not the expected number", 1, opinion.getClients().size());
+		assertEquals("opinion client name not the expected value", testOpinionClientName, opinion.getClients().get(0).getPrincipalName());
+	}
+
+	/**
+	 * @return the testOpinionLocalReference
+	 */
+	public String getTestOpinionLocalReference() {
+		return testOpinionLocalReference;
 	}
 }

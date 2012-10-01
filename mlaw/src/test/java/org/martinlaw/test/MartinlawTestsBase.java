@@ -119,7 +119,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	protected void testBoAttributesPresent(String className) {
 		DataObjectEntry dataObject = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDataObjectEntry(className);
 		assertNotNull("data object should not be null", dataObject);
-		assertNotNull(dataObject.getAttributeNames());
+		assertNotNull("attribute names should not be null", dataObject.getAttributeNames());
 	}
 
 	/**

@@ -1,71 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns:p="http://www.springframework.org/schema/p" 
-xsi:schemaLocation="http://www.springframework.org/schema/beans         
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-<!--
- Copyright 2012 Protosoft Ltd
---> 
+	<!-- Copyright 2012 Protosoft Ltd -->
 
-<bean id="martinlaw-shared-date" parent="martinlaw-shared-date-parentBean"/>
+	<bean id="martinlaw-shared-date" parent="martinlaw-shared-date-parentBean" />
 
-	<bean id="martinlaw-shared-date-parentBean" abstract="true" parent="AttributeReferenceDummy-genericDate">
-		<property name="name" value="date"/>
-		<property name="label" value="Date"/>
-		<property name="description" value="Date"/>
-		<property name="shortLabel" value="Date"/>
-		<property name="summary" value="Date"/>
-		<property name="maxLength" value="30"/>
-		<property name="required" value="true"/>
+	<bean id="martinlaw-shared-date-parentBean" abstract="true"
+		parent="AttributeReferenceDummy-genericDate">
+		<property name="name" value="date" />
+		<property name="label" value="Date" />
+		<property name="description" value="Date" />
+		<property name="shortLabel" value="Date" />
+		<property name="summary" value="Date" />
+		<property name="maxLength" value="30" />
+		<property name="required" value="true" />
 		<property name="control">
-			<bean parent="TextControlDefinition" p:size="15" p:datePicker="true"/>
+			<bean parent="TextControlDefinition" p:size="15" p:datePicker="true" />
 		</property>
 		<property name="controlField">
-      <bean parent="Uif-DateControl"/>
-    </property> 
+			<bean parent="Uif-DateControl" />
+		</property>
 	</bean>
-	
-	<bean id="martinlaw-shared-id" parent="martinlaw-shared-id-parentBean"/>
 
-<!-- only meant to be displayed -->
-  <bean id="martinlaw-shared-id-parentBean" abstract="true" parent="AttributeReferenceDummy-genericSystemId">
-    <property name="forceUppercase" value="false"/>
-    <property name="shortLabel" value="System Id"/>
-    <property name="maxLength" value="20"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"/>
-    </property>
-    <property name="summary" value="Id"/>
-    <property name="name" value="id"/>
-    <property name="label" value="Id"/>
-    <property name="description" value="Unique System Id"/>
-    <!-- can be changed into Uif-HiddenControl -->
+	<bean id="martinlaw-shared-id" parent="martinlaw-shared-id-parentBean" />
+
+	<!-- only meant to be displayed -->
+	<bean id="martinlaw-shared-id-parentBean" abstract="true"
+		parent="AttributeReferenceDummy-genericSystemId">
+		<property name="forceUppercase" value="false" />
+		<property name="shortLabel" value="System Id" />
+		<property name="maxLength" value="20" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" />
+		</property>
+		<property name="summary" value="Id" />
+		<property name="name" value="id" />
+		<property name="label" value="Id" />
+		<property name="description" value="Unique System Id" />
+		<!-- can be changed into Uif-HiddenControl -->
 		<property name="controlField">
 			<bean parent="Uif-TextControl" p:size="20" />
 		</property>
-  </bean>
-  
-  <bean id="martinlaw-shared-description" parent="martinlaw-shared-description-parentBean"/>
-  
-  <bean id="martinlaw-shared-description-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="false"/>
-    <property name="shortLabel" value="Description"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
-    </property>
-    <property name="summary" value="Description"/>
-    <property name="name" value="description"/>
-    <property name="label" value="Description"/>
-    <property name="description" value="Description"/>
-    <property name="controlField">
-      <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="30" p:maxLength="100"/>
-    </property>  
-  </bean>
-  
-  <bean id="martinlaw-shared-name" parent="martinlaw-shared-name-parentBean"/>
-  
-  <bean id="martinlaw-shared-name-parentBean" abstract="true"
+	</bean>
+
+	<bean id="martinlaw-shared-description" parent="martinlaw-shared-description-parentBean" />
+
+	<bean id="martinlaw-shared-description-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="false" />
+		<property name="shortLabel" value="Description" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
+		<property name="summary" value="Description" />
+		<property name="name" value="description" />
+		<property name="label" value="Description" />
+		<property name="description" value="Description" />
+		<property name="controlField">
+			<bean parent="Uif-TextAreaControl" p:rows="5" p:cols="30"
+				p:maxLength="100" />
+		</property>
+	</bean>
+
+	<bean id="martinlaw-shared-name" parent="martinlaw-shared-name-parentBean" />
+
+	<bean id="martinlaw-shared-name-parentBean" abstract="true"
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Name" />
@@ -81,31 +82,33 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 		<property name="required" value="true" />
 	</bean>
-	
-	
-	<bean id="martinlaw-shared-principal-name" parent="martinlaw-shared-principal-name-parentBean"/>
-	
-	 <bean id="martinlaw-shared-principal-name-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="false"/>
-    <property name="shortLabel" value="name"/>
-    <property name="maxLength" value="30"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false"/>
-    </property>
-    <property name="control">
-      <bean parent="TextControlDefinition" p:size="30"/>
-    </property>
-    <property name="required" value="true"/>
-    <property name="summary" value="Name"/>
-    <property name="name" value="principalName"/>
-    <property name="label" value="Name"/>
-    <property name="description" value="Name"/>
-    <property name="controlField">
-      <bean parent="Uif-KimPersonControl" p:personNamePropertyName="person.name" p:principalIdPropertyName="person.principalId"/>
-    </property>
-  </bean>
-  
-  <bean id="martinlaw-shared-localReference-parentBean" abstract="true"
+
+
+	<bean id="martinlaw-shared-principal-name" parent="martinlaw-shared-principal-name-parentBean" />
+
+	<bean id="martinlaw-shared-principal-name-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="forceUppercase" value="false" />
+		<property name="shortLabel" value="name" />
+		<property name="maxLength" value="30" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false" />
+		</property>
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="30" />
+		</property>
+		<property name="required" value="true" />
+		<property name="summary" value="Name" />
+		<property name="name" value="principalName" />
+		<property name="label" value="Name" />
+		<property name="description" value="Name" />
+		<property name="controlField">
+			<bean parent="Uif-KimPersonControl" p:personNamePropertyName="person.name"
+				p:principalIdPropertyName="person.principalId" />
+		</property>
+	</bean>
+
+	<bean id="martinlaw-shared-localReference-parentBean" abstract="true"
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="true" />
 		<property name="shortLabel" value="Ref Num" />
@@ -125,7 +128,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<bean parent="Uif-TextControl" p:size="20" />
 		</property>
 	</bean>
-	
+
 	<bean id="martinlaw-shared-statusId-parentBean" abstract="true"
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="true" />
@@ -141,72 +144,78 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="required" value="true" />
 		<!-- options finder is provided in court case or conveyance -->
 		<property name="controlField">
-				<bean parent="Uif-DropdownControl" />
-			</property>
+			<bean parent="Uif-DropdownControl" />
+		</property>
 	</bean>
-	
-	<bean id="martinlaw_shared_person_parentBean" abstract="true" parent="BusinessObjectEntry">
 
-    <property name="relationships">
-      <list>
-		<bean parent="RelationshipDefinition">
-          <property name="objectAttributeName" value="person"/>
-          <property name="primitiveAttributes">
-            <list>
-              <bean parent="PrimitiveAttributeDefinition" p:sourceName="principalName" p:targetName="principalName"/>
-            </list>
-          </property>
-          <property name="supportAttributes">
-            <list>
-              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="principalName" p:targetName="principalName"/>
-            </list>
-          </property>
-        </bean>
-      </list>
-    </property>
-  </bean>
-  
-  <bean id="martinlaw_shared_type_bo" abstract="true" parent="BusinessObjectEntry">
+	<bean id="martinlaw_shared_person_parentBean" abstract="true"
+		parent="BusinessObjectEntry">
+
+		<property name="relationships">
+			<list>
+				<bean parent="RelationshipDefinition">
+					<property name="objectAttributeName" value="person" />
+					<property name="primitiveAttributes">
+						<list>
+							<bean parent="PrimitiveAttributeDefinition" p:sourceName="principalName"
+								p:targetName="principalName" />
+						</list>
+					</property>
+					<property name="supportAttributes">
+						<list>
+							<bean parent="SupportAttributeDefinition" p:identifier="true"
+								p:sourceName="principalName" p:targetName="principalName" />
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_type_bo" abstract="true" parent="BusinessObjectEntry">
 		<property name="titleAttribute" value="name" />
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-description" />
 				<bean parent="martinlaw-shared-id" />
-				<bean parent="martinlaw-shared-name" p:label="Type Name"/>
+				<bean parent="martinlaw-shared-name" p:label="Type Name" />
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="martinlaw_shared_assignee_bo" abstract="true" parent="martinlaw_shared_person_parentBean">
-    <property name="titleAttribute" value="principalName"/>
-    <property name="attributes">
-      <list>
-        <bean parent="martinlaw-shared-principal-name" p:label="Assignee"/>
-      </list>
-    </property>
-    <property name="objectLabel" value="Assignee"/>
-    </bean>
-    
-    <bean id="martinlaw_shared_assignment_MaintDocument" abstract="true" parent="uifMaintenanceDocumentEntry">
-    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
-    <property name="lockingKeys">
-      <list>
-        <value>matterId</value>
-      </list>
-    </property>
-  </bean>
-  
-  <bean id="martinlaw_shared_client_bo" abstract="true" parent="martinlaw_shared_person_parentBean">
-    <property name="titleAttribute" value="principalName"/>
-    <property name="attributes">
-      <list>
-      <!-- The matter id is not listed here as it is populated by ojb
-       -->
-        <bean parent="martinlaw-shared-principal-name" p:label="Client Name"/>
-      </list>
-    </property>
-    <property name="objectLabel" value="Client"/>
 
-  </bean>
+	<bean id="martinlaw_shared_assignee_bo" abstract="true"
+		parent="martinlaw_shared_person_parentBean">
+		<property name="titleAttribute" value="principalName" />
+		<property name="attributes">
+			<list>
+				<bean parent="martinlaw-shared-principal-name" p:label="Assignee" />
+			</list>
+		</property>
+		<property name="objectLabel" value="Assignee" />
+	</bean>
+
+	<bean id="martinlaw_shared_assignment_MaintDocument" abstract="true"
+		parent="uifMaintenanceDocumentEntry">
+		<property name="maintainableClass"
+			value="org.kuali.rice.krad.maintenance.MaintainableImpl" />
+		<property name="lockingKeys">
+			<list>
+				<value>matterId</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_client_bo" abstract="true"
+		parent="martinlaw_shared_person_parentBean">
+		<property name="titleAttribute" value="principalName" />
+		<property name="attributes">
+			<list>
+				<!-- The matter id is not listed here as it is populated by ojb -->
+				<bean parent="martinlaw-shared-principal-name" p:label="Client Name" />
+			</list>
+		</property>
+		<property name="objectLabel" value="Client" />
+
+	</bean>
 
 </beans>

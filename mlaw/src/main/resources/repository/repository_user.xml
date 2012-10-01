@@ -709,5 +709,92 @@
 		</reference-descriptor>
 	</class-descriptor>
 
+	
+	<class-descriptor class="org.martinlaw.bo.opinion.Opinion"
+		table="martinlaw_opinion_t">
+		<field-descriptor name="name" column="name"
+			jdbc-type="VARCHAR" length="150">
+		</field-descriptor>
+		<field-descriptor name="id" column="matter_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_opinion_s">
+		</field-descriptor>
+		<field-descriptor name="localReference" column="local_reference"
+			jdbc-type="VARCHAR" length="20">
+		</field-descriptor>
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
 
+		<!-- <field-descriptor name="typeId" column="convey_type_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+
+		<reference-descriptor name="type"
+			class-ref="org.martinlaw.bo.conveyance.ConveyanceType" auto-retrieve="true"
+			auto-update="false" auto-delete="none">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor> -->
+
+		<collection-descriptor name="clients"
+			element-class-ref="org.martinlaw.bo.opinion.OpinionClient" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		<field-descriptor name="statusId" column="status_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<reference-descriptor name="status"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
+			auto-delete="none">
+			<foreignkey field-ref="statusId" />
+		</reference-descriptor>
+		<collection-descriptor name="fees"
+			element-class-ref="org.martinlaw.bo.opinion.OpinionFee" auto-retrieve="true"
+			auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.opinion.OpinionFee"
+		table="martinlaw_opinion_fee_t">
+		<field-descriptor name="id" column="fee_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_opinion_fee_s">
+		</field-descriptor>
+		<field-descriptor name="matterId" column="matter_id"
+			jdbc-type="BIGINT" indexed="true" />
+		<field-descriptor name="amount" column="amount"
+			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
+		</field-descriptor>
+		<field-descriptor name="date" column="date_received"
+			jdbc-type="DATE">
+		</field-descriptor>
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.opinion.OpinionClient"
+		table="martinlaw_opinion_client_t">
+		<field-descriptor name="id" column="client_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_opinion_client_s">
+		</field-descriptor>
+		<field-descriptor name="principalName" column="principal_name"
+			jdbc-type="VARCHAR" length="30">
+		</field-descriptor>
+		<field-descriptor name="matterId" column="matter_id"
+			jdbc-type="BIGINT" indexed="true">
+		</field-descriptor>
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+	</class-descriptor>
 </descriptor-repository>

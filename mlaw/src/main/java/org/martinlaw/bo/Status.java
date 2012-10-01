@@ -3,8 +3,6 @@
  */
 package org.martinlaw.bo;
 
-import java.util.LinkedHashMap;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +24,7 @@ public class Status extends PersistableBusinessObjectBase {
 	public static final ConcreteKeyValue COURT_CASE_TYPE = new ConcreteKeyValue("COURT_CASE_TYPE", "applies to court cases");
 	public static final ConcreteKeyValue CONVEYANCE_TYPE = new ConcreteKeyValue("CONVEYANCE_TYPE", "applies to conveyancing");
 	public static final ConcreteKeyValue CONTRACT_TYPE = new ConcreteKeyValue("CONTRACT_TYPE", "applies to contracts");
+	public static final ConcreteKeyValue OPINION_TYPE = new ConcreteKeyValue("OPINION_TYPE", "applies to opinions");
 	public static final ConcreteKeyValue ANY_TYPE = new ConcreteKeyValue("ANY_TYPE", "applies to any matter");
 	/**
 	 * initializes class with with default values for the fields
@@ -87,16 +86,6 @@ public class Status extends PersistableBusinessObjectBase {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.kns.bo.BusinessObjectBase#toStringMapper()
-	 */
-	// @Override
-	protected LinkedHashMap<String, Object> toStringMapper() {
-		LinkedHashMap<String, Object> propMap = new LinkedHashMap<String, Object>();
-		propMap.put("id", getId());
-		propMap.put("status", getStatus());
-		return propMap;
 	}
 
 	/**

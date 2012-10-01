@@ -25,5 +25,8 @@
 	    <mainChannel:martinlaw-contracting />
 </td>
 <td class="content" valign="top">
+	    <mainChannel:martinlaw-opinionmgt />
+</td>
+<td class="content" valign="top">
 	    <mainChannel:martinlaw-shared />
 </td>
