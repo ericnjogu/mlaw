@@ -4,7 +4,6 @@
 package org.martinlaw.test.contract;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
@@ -65,11 +64,7 @@ public class ContractAssignmentBOTest extends ContractBoTestBase {
 		// retrieve object populated via sql script
 		Assignment assignment = getBoSvc().findBySinglePrimaryKey(
 				Assignment.class, 1001l);
-		assertNotNull(assignment);
-		assertEquals("number of assignees did not match", 2, assignment.getAssignees().size());
-		assertEquals("assignee principal name did not match", "lawyer1", assignment.getAssignees().get(0).getPrincipalName());
-		assertEquals("assignee principal name did not match", "clerk1", assignment.getAssignees().get(1).getPrincipalName());
-		assertEquals("contract id did not match", new Long(1001), assignment.getMatterId());
+		getTestUtils().testAssignmentFields(assignment);
 	}
 
 	@Test
