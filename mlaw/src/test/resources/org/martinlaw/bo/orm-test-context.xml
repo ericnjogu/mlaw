@@ -81,9 +81,13 @@
 				<value>org.martinlaw.bo.opinion.Opinion</value>
 				<value>org.martinlaw.bo.opinion.OpinionFee</value>
 				<value>org.martinlaw.bo.opinion.OpinionClient</value>
+				<value>org.martinlaw.bo.opinion.Assignment</value>
+				<value>org.martinlaw.bo.opinion.Assignee</value>
 				<value>org.martinlaw.bo.sequence.OpinionFeeSeq</value>
 				<value>org.martinlaw.bo.sequence.OpinionSeq</value>
 				<value>org.martinlaw.bo.sequence.OpinionClientSeq</value>
+				<value>org.martinlaw.bo.sequence.OpinionAssigneeSeq</value>
+				<value>org.martinlaw.bo.sequence.OpinionAssignmentSeq</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

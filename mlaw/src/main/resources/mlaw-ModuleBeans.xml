@@ -184,9 +184,15 @@
          <value>classpath:org/martinlaw/bo/opinion/opinion-fee.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion.xml</value>
+         <value>classpath:org/martinlaw/bo/opinion/opinion-assignee.xml</value>
+         <value>classpath:org/martinlaw/bo/opinion/opinion-assignment.xml</value>
+         <value>classpath:org/martinlaw/bo/opinion/opinion-assignment-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-lookup.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/opinion/opinion-assignment-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/opinion/opinion-assignment-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/opinion/opinion-assignment-maintenance.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">
