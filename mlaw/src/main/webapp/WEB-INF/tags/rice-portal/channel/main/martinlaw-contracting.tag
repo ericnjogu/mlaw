@@ -22,7 +22,6 @@
   <strong>Assign Contract</strong>
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Contract Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Assignment" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Contract Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
 
 </div>
