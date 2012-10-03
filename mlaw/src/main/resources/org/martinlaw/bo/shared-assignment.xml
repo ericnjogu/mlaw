@@ -7,11 +7,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- Copyright 2012 Protosoft Ltd -->
 
 	<bean id="martinlaw_shared_assignment_bo" abstract="true" parent="BusinessObjectEntry">
-		<property name="attributes">
+	<!-- matterId is now the pk -->
+		<!-- <property name="attributes">
 			<list>
-				<bean parent="martinlaw-shared-id"/>
+				<bean parent="martinlaw-shared-id" p:name="matterId"/>
 			</list>
-		</property>
+		</property> -->
 	</bean>
 
 	<!-- Attribute Definitions -->

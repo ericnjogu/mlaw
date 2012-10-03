@@ -23,7 +23,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_court_case_t")
-public class CourtCase extends Matter {
+public class CourtCase extends Matter<Assignee> {
 
 	/**
 	 * 

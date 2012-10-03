@@ -63,6 +63,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/date-type-default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/case-date-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-test-data.sql", ";").runSql();
 		//bo xml files loaded from martinlaw-ModuleBeans(imported in CourtCaseBOTest-context.xml) as part of the data dictionary config
 	}
 
@@ -117,6 +118,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         assertEquals("number of attachments not the expected quantity", 2, kase.getAttachments().size());
         assertEquals("first attachment name differs", "submission.pdf", kase.getAttachments().get(0).getAttachmentFileName());
         assertEquals("second attachment name differs", "pleading.odt", kase.getAttachments().get(1).getAttachmentFileName());
+        // assignment
+        getTestUtils().testAssignees(kase.getAssignees());
 	}
 	
 	@Test

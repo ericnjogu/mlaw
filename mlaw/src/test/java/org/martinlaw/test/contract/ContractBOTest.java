@@ -67,6 +67,7 @@ public class ContractBOTest extends ContractBoTestBase {
 		assertNotNull("contract duration should not be null" ,contract.getContractDuration());
 		assertNotNull("contract duration start date should not be null", contract.getContractDuration().getStartDate());
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());
+		getTestUtils().testAssignees(contract.getAssignees());
 	}
 
 	@Test

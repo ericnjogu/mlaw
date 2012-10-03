@@ -76,6 +76,11 @@
 				<bean parent="martinlaw_shared_fee_inquiry_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceFee" />
 				</bean>
+				
+				<bean parent="martinlaw_shared_assignment_inquiry_view_assignees">
+					<property name="collectionObjectClass"
+						value="org.martinlaw.bo.conveyance.Assignee" />
+				</bean>
 			</list>
 		</property>
 	</bean>

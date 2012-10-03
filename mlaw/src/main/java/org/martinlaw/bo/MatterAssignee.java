@@ -14,8 +14,8 @@ public abstract class MatterAssignee extends MartinlawPerson {
 	@Id
 	@Column(name = "assignee_id")
 	private Long id;
-	@Column(name = "assignment_id")
-	private Long assignmentId;
+	@Column(name = "matter_id")
+	private Long matterId;
 
 	public MatterAssignee() {
 		super();
@@ -33,17 +33,17 @@ public abstract class MatterAssignee extends MartinlawPerson {
 	}
 
 	/**
-	 * @return the assignmentId
+	 * @return the matterId
 	 */
-	public Long getAssignmentId() {
-		return assignmentId;
+	public Long getMatterId() {
+		return matterId;
 	}
 
 	/**
-	 * @param assignmentId the assignmentId to set
+	 * @param matterId the matterId to set
 	 */
-	public void setAssignmentId(Long assignmentId) {
-		this.assignmentId = assignmentId;
+	public void setMatterId(Long assignmentId) {
+		this.matterId = assignmentId;
 	}
 
 }

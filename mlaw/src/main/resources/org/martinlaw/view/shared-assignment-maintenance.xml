@@ -13,8 +13,6 @@
 				<bean parent="Uif-MaintenanceGridSection">
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="id"
-								p:readOnly="true" />
 							<bean parent="Uif-InputField" p:propertyName="matterId">
 								<property name="propertyNamesForAdditionalDisplay"
 									value="matter.name" />

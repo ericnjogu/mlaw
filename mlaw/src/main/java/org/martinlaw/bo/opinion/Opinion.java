@@ -24,7 +24,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_opinion_t")
-public class Opinion extends Matter {
+public class Opinion extends Matter<Assignee> {
 	/**
 	 * 
 	 */

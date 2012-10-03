@@ -52,6 +52,7 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		assertNotNull("opinion fees should not be null", opinion.getFees());
 		assertEquals("opinion fees not the expected number", 2, opinion.getFees().size());
 		assertEquals("opinion fee name not the expected value", "received from znm", opinion.getFees().get(0).getDescription());
+		getTestUtils().testAssignees(opinion.getAssignees());
 	}
 	
 	/**

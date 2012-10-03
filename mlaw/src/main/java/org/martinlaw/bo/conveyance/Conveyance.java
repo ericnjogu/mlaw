@@ -30,7 +30,7 @@ import org.martinlaw.service.RiceServiceHelper;
  */
 @Entity
 @Table(name="martinlaw_convey_t")
-public class Conveyance extends Matter {
+public class Conveyance extends Matter<Assignee> {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<ConveyanceFee> fees;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")

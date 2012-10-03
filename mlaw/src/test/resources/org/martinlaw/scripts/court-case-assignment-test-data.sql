@@ -1,11 +1,11 @@
 insert into martinlaw_court_case_assignment_t
-(assignment_id, matter_id, obj_id, ver_nbr)
+(matter_id, obj_id, ver_nbr)
 values
-(1001, 1001, 'can1', 1);
+( 1001, 'can1', 1);
 
 
 insert into martinlaw_court_case_assignee_t
-(assignee_id, assignment_id, principal_name, obj_id, ver_nbr)
+(assignee_id, matter_id, principal_name, obj_id, ver_nbr)
 values
 (1001, 1001, 'pn', 'ca1', 1),
 (1002, 1001, 'aw', 'ca2', 1);

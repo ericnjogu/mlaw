@@ -4,10 +4,12 @@ package org.martinlaw.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -17,13 +19,13 @@ import org.kuali.rice.krad.bo.Note;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 /**
- * a super class that holds the information common to court case, conveyance and contract
+ * a super class that holds the information common to court case, conveyance, contract etc
  * 
  * @author mugo
  *
  */
 @MappedSuperclass
-public class Matter extends PersistableBusinessObjectBase {
+public class Matter<A extends MatterAssignee> extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -51,6 +53,8 @@ public class Matter extends PersistableBusinessObjectBase {
 	/**cache the dynamically fetched attachments locally*/
 	@Transient
 	private List<Attachment> attachments = null;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
+	protected List<A> assignees;
 	public Matter() {
 		super();
 	}
@@ -151,4 +155,17 @@ public class Matter extends PersistableBusinessObjectBase {
 		this.id = id;
 	}
 
+	/**
+	 * @return the assignees
+	 */
+	public List<A> getAssignees() {
+		return assignees;
+	}
+
+	/**
+	 * @param assignees the assignees to set
+	 */
+	public void setAssignees(List<A> assignees) {
+		this.assignees = assignees;
+	}
 }

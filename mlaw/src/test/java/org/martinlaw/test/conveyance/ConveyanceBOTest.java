@@ -124,6 +124,7 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		assertEquals(1, conv.getAnnexes().size());
 		assertEquals(2, conv.getAnnexes().get(0).getAttachments().size());
 		assertEquals("2012-07-19 00:00:00", conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
+		getTestUtils().testAssignees(conv.getAssignees());
 	}
 	
 	@Test
@@ -348,5 +349,6 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-test-data.sql", ";").runSql();
 	}
 }

@@ -104,6 +104,10 @@
         </bean>
         
         <bean parent="martinlaw_shared_annexes_inquirySection"/>
+        
+        <bean parent="martinlaw_shared_assignment_inquiry_view_assignees">
+			<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Assignee" />
+		</bean>
       </list>
     </property>
   </bean>

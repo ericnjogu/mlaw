@@ -226,9 +226,19 @@ public class TestUtils {
 	public void testAssignmentFields(
 			MatterAssignment<?, ?> assignment) {
 		assertNotNull(assignment);
-		assertEquals("number of assignees does not match", 2, assignment.getAssignees().size());
-		assertEquals("assignee principal name did not match", getAssignee1(), assignment.getAssignees().get(0).getPrincipalName());
-		assertEquals("assignee principal name did not match", getAssignee2(), assignment.getAssignees().get(1).getPrincipalName());
+		List<? extends MatterAssignee> assignees = assignment.getAssignees();
+		testAssignees(assignees);
+	}
+
+	/**
+	 * test assignee fields
+	 * 
+	 * @param assignees
+	 */
+	public void testAssignees(List<? extends MatterAssignee> assignees) {
+		assertEquals("number of assignees does not match", 2, assignees.size());
+		assertEquals("assignee principal name did not match", getAssignee1(), assignees.get(0).getPrincipalName());
+		assertEquals("assignee principal name did not match", getAssignee2(), assignees.get(1).getPrincipalName());
 	}
 
 	/**
@@ -306,9 +316,9 @@ public class TestUtils {
 		assertEquals("assignee principal name did not match", name3, contractAssignment.getAssignees().get(2).getPrincipalName());*/
 		// D
 		getBoSvc().delete(assignment);
-		assertNull("CourtCase assignment should have been deleted", getBoSvc().findBySinglePrimaryKey(Assignment.class,	assignment.getId()));
+		assertNull("CourtCase assignment should have been deleted", getBoSvc().findBySinglePrimaryKey(Assignment.class,	assignment.getMatterId()));
 		Map<String, Object> criteria = new HashMap<String, Object>();
-		criteria.put("assignmentId", assignment.getId());
+		criteria.put("matterId", assignment.getMatterId());
 		assertEquals("assignees should have been deleted", 0, getBoSvc().findMatching(Assignee.class, criteria).size());
 	}
 

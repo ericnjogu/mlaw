@@ -10,10 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
+@SuppressWarnings("rawtypes")
 @MappedSuperclass
 public abstract class MatterAssignment<M extends Matter, A extends MatterAssignee> extends PersistableBusinessObjectBase {
 
@@ -21,12 +21,10 @@ public abstract class MatterAssignment<M extends Matter, A extends MatterAssigne
 	 * 
 	 */
 	private static final long serialVersionUID = -1294047536564649104L;
-	@Id
-	@Column(name = "assignment_id")
-	private Long id;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "assignmentId")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
 	protected List<A> assignees;
-	@Transient
+	@Id
+	@Column(name = "matter_id")
 	private Long matterId;
 	@OneToOne
 	@JoinColumn(name = "matter_id", nullable = false, updatable = false)
@@ -55,18 +53,18 @@ public abstract class MatterAssignment<M extends Matter, A extends MatterAssigne
 
 	/**
 	 * @return the id
-	 */
+	 *//*
 	public Long getId() {
 		return id;
 	}
 
-	/**
+	*//**
 	 * @param id the id to set
-	 */
+	 *//*
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+*/
 	/**
 	 * @return the assignees
 	 */
