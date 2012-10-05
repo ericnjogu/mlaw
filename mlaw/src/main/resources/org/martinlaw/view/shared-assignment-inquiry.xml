@@ -32,8 +32,8 @@
 		<property name="propertyName" value="assignees" />
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="principalName">
-				</bean>
+				<bean parent="Uif-InputField" p:propertyName="person.principalId" />
+				<bean parent="Uif-InputField" p:propertyName="principalName"/>
 			</list>
 		</property>
 		<property name="layoutManager.summaryTitle" value="Assignee" />
