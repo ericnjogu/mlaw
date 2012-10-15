@@ -148,6 +148,22 @@
 			</responsibilities>
 		</rule>
 		
+		<!-- ContractWorkDocument rule -->
+		<rule>
+			<name>org.martinlaw.rules.contract.work</name>
+			<documentType>ContractWorkDocument</documentType>
+			 <!-- The rule template does not have any use at now  -->
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for Contract Work</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace= "MARTINLAW" >lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+		
 		</rules>
 </data>
 	

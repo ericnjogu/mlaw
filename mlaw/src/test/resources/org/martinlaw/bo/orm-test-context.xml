@@ -88,6 +88,10 @@
 				<value>org.martinlaw.bo.sequence.OpinionClientSeq</value>
 				<value>org.martinlaw.bo.sequence.OpinionAssigneeSeq</value>
 				<value>org.martinlaw.bo.sequence.OpinionAssignmentSeq</value>
+				
+				<value>org.martinlaw.bo.contract.Work</value>
+				<value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>
+				<value>org.kuali.rice.krad.bo.DocumentHeader</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

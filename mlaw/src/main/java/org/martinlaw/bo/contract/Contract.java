@@ -25,7 +25,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_contract_t")
-public class Contract extends Matter<Assignee> {
+public class Contract extends Matter<Assignee, Work> {
 	
 	/**
 	 * 
@@ -187,5 +187,9 @@ public class Contract extends Matter<Assignee> {
 	 */
 	public void setContractDuration(ContractDuration contractDuration) {
 		this.contractDuration = contractDuration;
+	}
+	@Override
+	public Class<Work> getWorkClass() {
+		return Work.class;
 	}
 }

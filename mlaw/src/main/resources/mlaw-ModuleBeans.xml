@@ -193,6 +193,9 @@
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-lookup.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/contract/contract-work.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-work.xml</value>
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

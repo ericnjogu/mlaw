@@ -2,7 +2,9 @@ package org.martinlaw.bo;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +20,7 @@ import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.bo.Note;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.martinlaw.Constants;
 /**
  * a super class that holds the information common to court case, conveyance, contract etc
  * 
@@ -25,7 +28,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
  *
  */
 @MappedSuperclass
-public class Matter<A extends MatterAssignee> extends PersistableBusinessObjectBase {
+public abstract class Matter<A extends MatterAssignee, W extends MatterWork> extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -54,7 +57,11 @@ public class Matter<A extends MatterAssignee> extends PersistableBusinessObjectB
 	@Transient
 	private List<Attachment> attachments = null;
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
-	protected List<A> assignees;
+	private List<A> assignees;
+	// in Work, the pk is the document id, not matterId, so we cannot configure a many-one mapping
+	/*@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")*/
+	@Transient
+	private List<W> work;
 	public Matter() {
 		super();
 	}
@@ -167,5 +174,36 @@ public class Matter<A extends MatterAssignee> extends PersistableBusinessObjectB
 	 */
 	public void setAssignees(List<A> assignees) {
 		this.assignees = assignees;
+	}
+
+	/**
+	 * fetch a list of work documents whose matter id matches this objects matter id
+	 * 
+	 * @return the work
+	 */
+	public List<W> getWork() {
+		// TODO using the caching mechanism for this so that we can handle the creation of new work items
+		if (work == null) {
+			Map<String, Object> criteria = new HashMap<String, Object>(1);
+			criteria.put(Constants.PropertyNames.MATTER_ID, getId());
+			work = (List<W>) KRADServiceLocator.getBusinessObjectService().findMatching(getWorkClass(), criteria);
+			return work;
+		}
+		return work;
+	}
+
+	/**
+	 * retrieves the class type of the parametrized work, which is used in populating {@link #getWork()}
+	 * 
+	 * @return the work class type
+	 */
+	public abstract  Class<W> getWorkClass();
+
+
+	/**
+	 * @param work the work to set
+	 */
+	public void setWork(List<W> work) {
+		this.work = work;
 	}
 }

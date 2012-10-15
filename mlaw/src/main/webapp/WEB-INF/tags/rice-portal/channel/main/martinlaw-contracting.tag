@@ -23,6 +23,11 @@
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Contract Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Assignment" /></li>
   </ul>
+  
+  <strong>Contract Work</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Contract Work" url="${ConfigProperties.application.url}/kr-krad/work?docTypeName=ContractWorkDocument&methodToCall=docHandler&command=initiate&viewId=contract_work_doc_view" /></li>
+  </ul>
 
 </div>
 <channel:portalChannelBottom />

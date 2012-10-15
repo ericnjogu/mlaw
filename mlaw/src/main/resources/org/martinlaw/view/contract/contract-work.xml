@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2005-2012 Protosoft Ltd -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="contract_work_doc_view" parent="Uif-DocumentView">
+		<property name="documentClass" value="org.martinlaw.bo.contract.Work" />
+		<property name="formPostUrl" value="work?docTypeName=ContractWorkDocument"></property>
+		<property name="headerText" value="Contract Work" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-GridSection">
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="matterId" p:dictionaryObjectEntry="org.martinlaw.bo.contract.Work">
+								<property name="validCharactersConstraint">
+									<bean parent="IntegerPatternConstraint" />
+								</property>
+								<property name="quickfinder">
+									<bean parent="Uif-QuickFinderByScript" />
+								</property>
+								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.contract.Contract" />
+								<property name="quickfinder.fieldConversions">
+									<map>
+										<entry key="id" value="matterId" />
+									</map>
+								</property>
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

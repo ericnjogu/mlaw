@@ -42,8 +42,8 @@ public abstract class MatterAssignee extends MartinlawPerson {
 	/**
 	 * @param matterId the matterId to set
 	 */
-	public void setMatterId(Long assignmentId) {
-		this.matterId = assignmentId;
+	public void setMatterId(Long matterId) {
+		this.matterId = matterId;
 	}
 
 }

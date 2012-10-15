@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
+import org.kuali.rice.test.SQLDataLoader;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
@@ -68,6 +69,8 @@ public class ContractBOTest extends ContractBoTestBase {
 		assertNotNull("contract duration start date should not be null", contract.getContractDuration().getStartDate());
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());
 		getTestUtils().testAssignees(contract.getAssignees());
+		assertNotNull("work list should not be null", contract.getWork());
+		assertEquals("expected number of work differs", 2, contract.getWork().size());
 	}
 
 	@Test
@@ -121,6 +124,16 @@ public class ContractBOTest extends ContractBoTestBase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rule-templates.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contract.xml"));
 		return suiteLifecycles;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.contract.ContractBoTestBase#loadSuiteTestData()
+	 */
+	@Override
+	protected void loadSuiteTestData() throws Exception {
+		super.loadSuiteTestData();
+		// loads contract work
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-work-test-data.sql", ";").runSql();
 	}
 
 }
