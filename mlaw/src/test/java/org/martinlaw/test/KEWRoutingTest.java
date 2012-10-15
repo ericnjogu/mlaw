@@ -6,7 +6,6 @@ package org.martinlaw.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.kuali.rice.kew.api.WorkflowDocument;
-import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.Status;
@@ -34,47 +31,7 @@ import org.martinlaw.bo.courtcase.CourtCase;
  */
 public class KEWRoutingTest extends KewTestsBase {
 	private Logger log = Logger.getLogger(getClass());
-	/**
-	 * a common method to test clerk - lawyer routing for transactional docs
-	 * a document cannot be routed if there is no 
-	 * @param docType
-	 * @throws WorkflowException 
-	 */
-	@SuppressWarnings("unused")
-	private void testTransactionalRouting(String docType) throws WorkflowException {
-		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("clerk1"), docType);
-		doc.saveDocument("saved");
-		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("clerk1"), doc.getDocumentId());
-		assertTrue(doc.isSaved());
-		doc.approve("routing");
-		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
-		assertTrue(doc.isEnroute());
-		doc.approve("OK");
-		//re-retrieve document to get updated status
-		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
-		assertTrue(doc.isFinal());
-	}
-	/**
-	 * test initiating another edoc while one is saved, to verify 'maintenance record is locked' errors
-	 * @throws WorkflowException
-	 */
-	@SuppressWarnings("unused")
-	private void testInitiatingTransactionalDocTwice(String docType) throws WorkflowException {
-		// "CaseMaintenanceDocument";
-		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("clerk1"), docType);
-		doc.saveDocument("saved");
-		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("clerk1"), doc.getDocumentId());
-		assertTrue(doc.isSaved());
 	
-		WorkflowDocument doc2 = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("lawyer1"), docType);
-		doc2.saveDocument("saved");
-		//re-retrieve document to get updated status
-		doc2 = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc2.getDocumentId());
-		assertTrue(doc2.isSaved());
-		doc.cancel("canceled");
-		doc2.cancel("canceled");
-	}
-	@SuppressWarnings({ })
 	@Test
 	/**
 	 * test that routing a court case maintenance document works as expected

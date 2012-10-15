@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.UserSession;
@@ -44,6 +46,7 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/status.xml"));
 		// to be maintained via the conveyance type
 		/*suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceAnnexType.xml"));*/
+		// the document types need to be here since they are all mentioned in rules.xml
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyance.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contract.xml"));
@@ -52,6 +55,7 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseAssignment.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinion.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionAssignment.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/testContractWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rules.xml"));
 		return suiteLifecycles;
 	}
@@ -194,5 +198,24 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 				fail(e.getMessage());
 			}
 		}
+	}
+	
+	/**
+	 * a common method to test clerk - lawyer routing for transactional docs
+	 * @param docType
+	 * @throws WorkflowException 
+	 */
+	public void testTransactionalRouting(String docType) throws WorkflowException {
+		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("clerk1"), docType);
+		doc.saveDocument("saved");
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("clerk1"), doc.getDocumentId());
+		assertTrue(doc.isSaved());
+		doc.approve("routing");
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
+		assertTrue(doc.isEnroute());
+		doc.approve("OK");
+		//re-retrieve document to get updated status
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
+		assertTrue(doc.isFinal());
 	}
 }
