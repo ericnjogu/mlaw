@@ -29,6 +29,11 @@
   <li><portal:portalLink displayTitle="true" title="New Court Case Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Assignment" /></li>
   </ul>
   
+ <strong>Court Case Work</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Court Case Work" url="${ConfigProperties.dochandler_courtcase_work}&command=initiate" /></li>
+  </ul>
+  
 </div>
 <channel:portalChannelBottom />
 
