@@ -3,10 +3,10 @@
  */
 package org.martinlaw.bo;
 
-import javax.persistence.JoinColumn;
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
 import org.kuali.rice.krad.document.TransactionalDocumentBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 
@@ -22,12 +22,9 @@ public abstract class MatterWork extends TransactionalDocumentBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 3637053012196079706L;
-	// for the sake of ojb config
-	@Transient
+	@Column(name = "matter_id")
 	private Long matterId;
-	@OneToOne
-	@JoinColumn(name = "matter_id", nullable = false, updatable = false)
-	/*private M matter;*/
+	@Transient
 	private Class<? extends Matter<? extends MatterAssignee, ? extends MatterWork>> matterClass;
 	/**
 	 * @return the matterId
