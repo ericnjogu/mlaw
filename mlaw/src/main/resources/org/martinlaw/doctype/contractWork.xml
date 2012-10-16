@@ -19,7 +19,7 @@
 			 -->
 			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=ContractWorkDocument&amp;viewId=contract_work_doc_view</docHandler>
+			<docHandler>${dochandler_contract_work}</docHandler>
 
 			<routePaths>
 				<routePath>

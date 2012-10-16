@@ -1,0 +1,4 @@
+<config>
+  <param name="doctype_contract_work">ContractWorkDocument</param>
+  <param name="dochandler_contract_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_contract_work}&amp;viewId=contract_work_doc_view</param>
+</config>

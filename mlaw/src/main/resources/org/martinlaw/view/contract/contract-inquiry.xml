@@ -117,7 +117,7 @@
 							<bean parent="Uif-LinkField" p:linkText="@{#line.documentNumber}" p:target="_blank">
 								<property name="href">
 									<value>
-										@{#ConfigProperties['application.url']}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=ContractWorkDocument&amp;viewId=contract_work_doc_view&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+										@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
 									</value>
 								</property>
 							</bean>
