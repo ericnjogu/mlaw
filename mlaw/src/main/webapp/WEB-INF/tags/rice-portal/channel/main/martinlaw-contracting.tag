@@ -26,7 +26,7 @@
   
   <strong>Contract Work</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Contract Work" url="${ConfigProperties.application.url}/kr-krad/work?docTypeName=ContractWorkDocument&methodToCall=docHandler&command=initiate&viewId=contract_work_doc_view" /></li>
+  <li><portal:portalLink displayTitle="true" title="New Contract Work" url="${ConfigProperties.dochandler_contract_work}&command=initiate" /></li>
   </ul>
 
 </div>
