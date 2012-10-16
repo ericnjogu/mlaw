@@ -41,7 +41,6 @@ public class ContractWorkBOTest extends WorkBOTestBase {
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
 		// since not derived from ContractBoTestBase, all dependent data needs to be included here
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-test-data.sql", ";").runSql();

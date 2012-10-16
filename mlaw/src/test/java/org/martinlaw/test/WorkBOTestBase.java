@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.martinlaw.Constants;
+import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterWork;
 
 /**
@@ -35,7 +35,7 @@ public class WorkBOTestBase extends MartinlawTestsBase {
 	 */
 	public void testWorkDD(String docType, Class<? extends MatterWork> klass) {
 		assertNotNull("document entry should not be null", KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(docType));
-		assertEquals("document type name does not match", Constants.DocTypes.CONTRACT_WORK, KRADServiceLocatorWeb.getDataDictionaryService().getDocumentTypeNameByClass(klass));
+		assertEquals("document type name does not match", docType, KRADServiceLocatorWeb.getDataDictionaryService().getDocumentTypeNameByClass(klass));
 	}
 
 	/**
@@ -47,5 +47,15 @@ public class WorkBOTestBase extends MartinlawTestsBase {
 		assertFalse("matter id should be invalid", work.isMatterIdValid());
 		work.setMatterId(1001l);
 		assertTrue("matter id should be valid", work.isMatterIdValid());
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
+	 */
+	@Override
+	protected void loadSuiteTestData() throws Exception {
+		super.loadSuiteTestData();
+		// since not derived from ContractBoTestBase, all dependent data needs to be included here
+		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 	}
 }
