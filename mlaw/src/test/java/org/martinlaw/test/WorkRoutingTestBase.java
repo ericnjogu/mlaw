@@ -9,6 +9,7 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.rules.DocumentRuleBase;
 import org.kuali.rice.krad.rules.TransactionalDocumentRuleBase;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.MatterWorkRule;
 
@@ -57,6 +58,15 @@ public class WorkRoutingTestBase extends KewTestsBase {
 		workDoc.setMatterId(1001l);
 		assertTrue("rule should return true", rule.processCustomSaveDocumentBusinessRules(workDoc));
 		assertTrue("there should be no errors", GlobalVariables.getMessageMap().hasNoErrors());
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
+	 */
+	@Override
+	protected void loadSuiteTestData() throws Exception {
+		super.loadSuiteTestData();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 	}
 
 }

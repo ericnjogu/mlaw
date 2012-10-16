@@ -36,7 +36,6 @@ public class ContractWorkRoutingTest extends WorkRoutingTestBase {
 	@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-test-data.sql", ";").runSql();
 	}
