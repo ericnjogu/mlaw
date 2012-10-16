@@ -15,19 +15,8 @@
 				<bean parent="Uif-GridSection">
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="matterId" p:dictionaryObjectEntry="org.martinlaw.bo.contract.Work">
-								<property name="validCharactersConstraint">
-									<bean parent="IntegerPatternConstraint" />
-								</property>
-								<property name="quickfinder">
-									<bean parent="Uif-QuickFinderByScript" />
-								</property>
+							<bean parent="martinlaw_shared_matter_id_scriptlookup" p:dictionaryObjectEntry="org.martinlaw.bo.contract.Work">
 								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.contract.Contract" />
-								<property name="quickfinder.fieldConversions">
-									<map>
-										<entry key="id" value="matterId" />
-									</map>
-								</property>
 							</bean>
 						</list>
 					</property>

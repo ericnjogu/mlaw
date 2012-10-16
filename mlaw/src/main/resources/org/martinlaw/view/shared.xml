@@ -262,7 +262,8 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_matter_info_maintenance" abstract="true" parent="Uif-MaintenanceGridSection">
+	<bean id="martinlaw_shared_matter_info_maintenance" abstract="true"
+		parent="Uif-MaintenanceGridSection">
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="id" p:readOnly="true" />
@@ -271,6 +272,21 @@
 				<bean parent="Uif-InputField" p:propertyName="statusId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
 			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_matter_id_scriptlookup" parent="Uif-InputField"
+		p:propertyName="matterId">
+		<property name="validCharactersConstraint">
+			<bean parent="IntegerPatternConstraint" />
+		</property>
+		<property name="quickfinder">
+			<bean parent="Uif-QuickFinderByScript" />
+		</property>
+		<property name="quickfinder.fieldConversions">
+			<map>
+				<entry key="id" value="matterId" />
+			</map>
 		</property>
 	</bean>
 </beans>
