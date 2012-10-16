@@ -289,4 +289,29 @@
 			</map>
 		</property>
 	</bean>
+
+	<bean id="martinlaw_shared_work_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
+		<property name="propertyName" value="work" />
+		<!-- <property name="layoutManager.numberOfColumns" value="2"/> -->
+		<property name="items">
+			<list>
+
+				<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
+				<!-- till we figure out a way to retrieve the documents from the document 
+					service and efficiently -->
+				<!-- <bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.principalId" 
+					/> <bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.dateCreated" 
+					/> -->
+			</list>
+		</property>
+		<property name="layoutManager.summaryTitle" value="Work" />
+		<property name="layoutManager.summaryFields">
+			<list>
+				<value>documentHeader.documentDescription</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_work_docnumber_linkfield" parent="Uif-LinkField"
+		p:linkText="@{#line.documentNumber}" p:target="_blank"/>
 </beans>

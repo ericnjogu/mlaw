@@ -107,30 +107,18 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Assignee" />
 				</bean>
 
-				<bean parent="Uif-Disclosure-StackedCollectionSection">
+				<bean parent="martinlaw_shared_work_inquiry_section">
 					<property name="headerText" value="Work" />
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Work" />
-					<property name="propertyName" value="work" />
-					<!-- <property name="layoutManager.numberOfColumns" value="2"/> -->
 					<property name="items">
-						<list>
-							<bean parent="Uif-LinkField" p:linkText="@{#line.documentNumber}" p:target="_blank">
+						<list merge="true">
+							<bean parent="martinlaw_shared_work_docnumber_linkfield">
 								<property name="href">
 									<value>
 										@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
 									</value>
 								</property>
 							</bean>
-							<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
-							<!-- till we figure out a way to retrieve the documents from the document service and efficiently -->
-							<!-- <bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.principalId" />
-							<bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.dateCreated" /> -->
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Work" />
-					<property name="layoutManager.summaryFields">
-						<list>
-							<value>documentHeader.documentDescription</value>
 						</list>
 					</property>
 				</bean>
