@@ -86,8 +86,7 @@
 	<bean id="configProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetObject" ref="bootstrapConfig" />
 		<property name="targetMethod" value="getProperties" />
-	</bean>
-	
+	</bean>	
 	<import resource="classpath:mlaw-RiceJTASpringBeans.xml"/>
 	<import resource="classpath:mlaw-RiceDataSourceSpringBeans.xml"/>
 	<import resource="classpath:mlaw-RiceSpringBeans.xml"/>

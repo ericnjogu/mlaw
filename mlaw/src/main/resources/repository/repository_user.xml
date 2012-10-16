@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- left out the doctype declaration whose dtd location configuration prooved 
+<!-- left out the doctype declaration whose dtd location configuration proved 
 	problematic -->
 <descriptor-repository version="1.0"
 	isolation-level="read-uncommitted">
@@ -876,5 +876,17 @@
 			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor> -->
+    	</class-descriptor>
+    	
+    	<class-descriptor class="org.martinlaw.bo.courtcase.Work" table="martinlaw_court_case_work_doc_t">
+    	<field-descriptor name="documentNumber" column="DOC_HDR_ID" jdbc-type="VARCHAR" primarykey="true" />
+    	<field-descriptor name="versionNumber" column="ver_nbr" jdbc-type="BIGINT" locking="true" />
+    	<field-descriptor name="objectId" column="obj_id" jdbc-type="VARCHAR" index="true" />
+    	<reference-descriptor name="documentHeader" class-ref="org.kuali.rice.krad.bo.DocumentHeader" auto-retrieve="true" auto-update="object" auto-delete="object" proxy="true" >
+        	<foreignkey field-ref="documentNumber" />
+    	</reference-descriptor>
+    	
+    	<field-descriptor name="matterId" column="matter_id"
+			jdbc-type="BIGINT"/>
     	</class-descriptor>
 </descriptor-repository>

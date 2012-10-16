@@ -74,6 +74,21 @@
 					<property name="collectionObjectClass"
 						value="org.martinlaw.bo.courtcase.Assignee" />
 				</bean>
+				
+				<bean parent="martinlaw_shared_work_inquiry_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Work" />
+					<property name="items">
+						<list merge="true">
+							<bean parent="martinlaw_shared_work_docnumber_linkfield">
+								<property name="href">
+									<value>
+										@{#ConfigProperties['dochandler_courtcase_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+									</value>
+								</property>
+							</bean>
+						</list>
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>

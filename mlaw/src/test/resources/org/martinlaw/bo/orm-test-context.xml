@@ -92,6 +92,8 @@
 				<value>org.martinlaw.bo.contract.Work</value>
 				<value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>
 				<value>org.kuali.rice.krad.bo.DocumentHeader</value>
+				
+				<value>org.martinlaw.bo.courtcase.Work</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

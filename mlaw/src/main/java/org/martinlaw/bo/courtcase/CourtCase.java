@@ -23,7 +23,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_court_case_t")
-public class CourtCase extends Matter<Assignee> {
+public class CourtCase extends Matter<Assignee, Work> {
 
 	/**
 	 * 
@@ -117,6 +117,10 @@ public class CourtCase extends Matter<Assignee> {
 	 */
 	public List<CourtCaseFee> getFees() {
 		return fees;
+	}
+	@Override
+	public Class<Work> getWorkClass() {
+		return Work.class;
 	}
 
 }

@@ -196,6 +196,10 @@
          
          <value>classpath:org/martinlaw/bo/contract/contract-work.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-work.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/courtcase/case-work.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-work.xml</value>
+         
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

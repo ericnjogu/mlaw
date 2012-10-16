@@ -1,4 +1,7 @@
 <config>
   <param name="doctype_contract_work">ContractWorkDocument</param>
   <param name="dochandler_contract_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_contract_work}&amp;viewId=contract_work_doc_view</param>
+  
+  <param name="doctype_courtcase_work">CourtCaseWorkDocument</param>
+  <param name="dochandler_courtcase_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_courtcase_work}&amp;viewId=courtcase_work_doc_view</param>
 </config>
