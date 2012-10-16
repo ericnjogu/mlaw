@@ -108,7 +108,6 @@
 				</bean>
 
 				<bean parent="martinlaw_shared_work_inquiry_section">
-					<property name="headerText" value="Work" />
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Work" />
 					<property name="items">
 						<list merge="true">

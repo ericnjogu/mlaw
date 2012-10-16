@@ -292,6 +292,7 @@
 
 	<bean id="martinlaw_shared_work_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
 		<property name="propertyName" value="work" />
+		<property name="headerText" value="Work" />
 		<!-- <property name="layoutManager.numberOfColumns" value="2"/> -->
 		<property name="items">
 			<list>
