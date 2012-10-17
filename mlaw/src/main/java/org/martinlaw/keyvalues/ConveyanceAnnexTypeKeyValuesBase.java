@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.martinlaw.keyvalues;
 
 import java.util.ArrayList;
@@ -14,36 +11,39 @@ import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.uif.control.UifKeyValuesFinderBase;
 import org.kuali.rice.krad.uif.view.ViewModel;
-import org.kuali.rice.krad.web.form.MaintenanceForm;
-import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
-
 /**
- * generates a list of {@code ConveyanceAnnexType} key values for the set 
- *  
- *  to be displayed as a drop down box on the conveyance annexes collection section add line 
+ * holds common logic for maintenance and tx docs
  * 
- * @see ConveyanceAnnexType
  * @author mugo
  *
  */
-public class ConveyanceAnnexTypeKeyValues extends UifKeyValuesFinderBase {
+public abstract class ConveyanceAnnexTypeKeyValuesBase extends
+		UifKeyValuesFinderBase {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9206469740259414962L;
+	private static final long serialVersionUID = 889118964987850907L;
+
+	public ConveyanceAnnexTypeKeyValuesBase() {
+		super();
+	}
+	
+	/**
+	 * get the conveyance type id to use in fetching annex types
+	 * 
+	 * @param model - provides the tx or maintenance document which is used to lookup the type id
+	 * @return
+	 */
+	protected abstract Long getConveyanceTypeId(ViewModel model);
 
 	@Override
 	public List<KeyValue> getKeyValues(ViewModel model) {
 		List<KeyValue> keyValues = new ArrayList<KeyValue>();
 		// to be added by default during rendering
 		// keyValues.add(new ConcreteKeyValue("", ""));
-		Long conveyanceTypeId = null;
-		MaintenanceForm form = (MaintenanceForm) model;
-		if (form.getDocument() != null) {
-			conveyanceTypeId = ((Conveyance)form.getDocument().getNewMaintainableObject().getDataObject()).getTypeId();
-		}
+		Long conveyanceTypeId = getConveyanceTypeId(model);
 		if (conveyanceTypeId != null) {
 			// fetch all conveyance annex types that belonging to the supplied conveyance type id
 			Map<String, Object> params = new HashMap<String, Object>();
@@ -57,4 +57,5 @@ public class ConveyanceAnnexTypeKeyValues extends UifKeyValuesFinderBase {
 		}
 		return keyValues;
 	}
+
 }

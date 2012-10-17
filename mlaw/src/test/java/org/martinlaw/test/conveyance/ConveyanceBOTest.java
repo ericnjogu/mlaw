@@ -29,7 +29,8 @@ import org.martinlaw.bo.conveyance.ConveyanceAnnex;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
 import org.martinlaw.bo.conveyance.ConveyanceClient;
 import org.martinlaw.bo.conveyance.ConveyanceFee;
-import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValues;
+import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
+import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesMaint;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -175,10 +176,10 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 	
 	@Test()
 	/**
-	 * test that {@link ConveyanceAnnexTypeKeyValues} works as expected
+	 * test that {@link ConveyanceAnnexTypeKeyValuesMaint} works as expected
 	 */
 	public void testConveyanceAnnexTypeKeyValues() {
-		ConveyanceAnnexTypeKeyValues keyValues = new ConveyanceAnnexTypeKeyValues();
+		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesMaint();
 		
 		MaintenanceForm maintForm = mock(MaintenanceForm.class);
 		Conveyance conv = new Conveyance();
@@ -192,9 +193,7 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		
 		List<KeyValue> result = keyValues.getKeyValues(maintForm);
 		// expect two non blank key values
-		assertEquals(2, result.size());
-		assertEquals("land board approval", result.get(0).getValue());
-		assertEquals("city council approval", result.get(1).getValue());
+		getTestUtils().testAnnexTypeKeyValues(result);
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)

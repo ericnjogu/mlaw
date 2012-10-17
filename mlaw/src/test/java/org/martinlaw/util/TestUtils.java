@@ -4,6 +4,7 @@
 package org.martinlaw.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.MatterAssignee;
@@ -328,5 +330,17 @@ public class TestUtils {
 	 */
 	private BusinessObjectService getBoSvc() {
 		return KRADServiceLocator.getBusinessObjectService();
+	}
+	
+	/**
+	 * convenience method to test for annex type key values
+	 * 
+	 * @param result
+	 */
+	public void testAnnexTypeKeyValues(List<KeyValue> result) {
+		assertFalse("key values list should not be empty", result.isEmpty());
+		assertEquals("key values list size differs", 2, result.size());
+		assertEquals("annex type value differs", "land board approval", result.get(0).getValue());
+		assertEquals("annex type value differs", "city council approval", result.get(1).getValue());
 	}
 }
