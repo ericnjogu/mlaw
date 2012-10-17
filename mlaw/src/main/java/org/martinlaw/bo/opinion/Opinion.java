@@ -24,7 +24,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_opinion_t")
-public class Opinion extends Matter<Assignee> {
+public class Opinion extends Matter<Assignee, Work> {
 	/**
 	 * 
 	 */
@@ -78,5 +78,9 @@ public class Opinion extends Matter<Assignee> {
 	 */
 	public void setFees(List<OpinionFee> fees) {
 		this.fees = fees;
+	}
+	@Override
+	public Class<Work> getWorkClass() {
+		return Work.class;
 	}
 }

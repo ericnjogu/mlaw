@@ -4,4 +4,7 @@
   
   <param name="doctype_courtcase_work">CourtCaseWorkDocument</param>
   <param name="dochandler_courtcase_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_courtcase_work}&amp;viewId=courtcase_work_doc_view</param>
+  
+  <param name="doctype_opinion_work">OpinionWorkDocument</param>
+  <param name="dochandler_opinion_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_opinion_work}&amp;viewId=opinion_work_doc_view</param>
 </config>

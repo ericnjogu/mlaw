@@ -27,6 +27,21 @@
 					<property name="collectionObjectClass"
 						value="org.martinlaw.bo.opinion.Assignee" />
 				</bean>
+				
+				<bean parent="martinlaw_shared_work_inquiry_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.Work" />
+					<property name="items">
+						<list merge="true">
+							<bean parent="martinlaw_shared_work_docnumber_linkfield">
+								<property name="href">
+									<value>
+										@{#ConfigProperties['dochandler_opinion_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+									</value>
+								</property>
+							</bean>
+						</list>
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ns:workflow resource:WorkflowData">
+		
+	<documentTypes xmlns="ns:workflow/DocumentType"
+		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+		<documentType>
+			<name>OpinionWorkDocument</name>
+			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is tx doc -->
+			<description>Opinion Work Transactional Document</description>
+			<label>Opinion Work Document</label>
+			<!-- fails with error below if the corresponding BO is not present 
+			 java.lang.RuntimeException: post processor caught exception while handling do action taken change: unable to get class for unknown documentTypeName 'CaseMaintenanceDocument'
+			 -->
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			 <!-- for testing if BO (which in turn refers to the 'entity' BO) for this maint doc is not present -->
+			 <!-- 
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+			 -->
+			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<docHandler>${dochandler_opinion_work}</docHandler>
+
+			<routePaths>
+				<routePath>
+					<start name="Initiated" nextNode="approvalNode" />
+					<requests name="approvalNode" />
+				</routePath>
+			</routePaths>
+			<routeNodes>
+				<start name="Initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</start>
+				<requests name="approvalNode">
+					<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</requests>
+			</routeNodes>
+		</documentType>
+	</documentTypes>
+
+</data>
+	
