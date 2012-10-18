@@ -96,6 +96,8 @@
 				<value>org.martinlaw.bo.courtcase.Work</value>
 				
 				<value>org.martinlaw.bo.opinion.Work</value>
+				
+				<value>org.martinlaw.bo.conveyance.Work</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -7,4 +7,7 @@
   
   <param name="doctype_opinion_work">OpinionWorkDocument</param>
   <param name="dochandler_opinion_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_opinion_work}&amp;viewId=opinion_work_doc_view</param>
+  
+  <param name="doctype_conveyance_work">ConveyanceWorkDocument</param>
+  <param name="dochandler_conveyance_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_conveyance_work}&amp;viewId=conveyance_work_doc_view</param>
 </config>

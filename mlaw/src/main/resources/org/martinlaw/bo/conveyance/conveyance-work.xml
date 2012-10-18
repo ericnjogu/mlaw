@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Copyright 2012 Protosoft Ltd -->
+	<bean id="conveyance_work_doc" parent="uifTransactionalDocumentEntry">
+		<property name="documentTypeName" value="ConveyanceWorkDocument" />
+		<property name="documentClass" value="org.martinlaw.bo.conveyance.Work" />
+		<property name="businessRulesClass" value="org.martinlaw.bo.MatterWorkRule" />
+		<property name="attributes">
+			<list>
+				<bean parent="martinlaw_shared_assignment_bo_matterId" p:label="Conveyance Id" />
+
+				<bean parent="AttributeDefinition">
+					<property name="maxLength" value="100" />
+					<property name="validationPattern">
+						<bean parent="NumericValidationPattern" />
+					</property>
+					<property name="name" value="conveyanceAnnexTypeId" />
+					<property name="label" value="Conveyance Annex Type" />
+					<property name="required" value="true" />
+					<property name="optionsFinder">
+						<bean
+							class="org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesTx"/>
+					</property>
+					<property name="controlField">
+						<bean parent="Uif-DropdownControl" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

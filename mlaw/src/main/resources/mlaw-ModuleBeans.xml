@@ -203,6 +203,9 @@
          <value>classpath:org/martinlaw/bo/opinion/opinion-work.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-work.xml</value>
          
+          <value>classpath:org/martinlaw/bo/conveyance/conveyance-work.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-work.xml</value>
+         
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

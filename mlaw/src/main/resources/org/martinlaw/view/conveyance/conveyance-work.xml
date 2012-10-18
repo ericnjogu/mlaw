@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2005-2012 Protosoft Ltd -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="conveyance_work_doc_view" parent="Uif-DocumentView">
+		<property name="documentClass" value="org.martinlaw.bo.conveyance.Work" />
+		<property name="formPostUrl" value="work?docTypeName=@{#ConfigProperties['doctype_conveyance_work']}"></property>
+		<property name="headerText" value="Conveyance Work" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-GridSection">
+					<property name="items">
+						<list>
+							<bean parent="martinlaw_shared_matter_id_scriptlookup" p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work">
+								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
+							</bean>
+							<bean parent="Uif-InputField" p:propertyName="conveyanceAnnexTypeId" 
+							p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work" p:conditionalRefresh="!#empty(document.matterId)" 
+							p:refreshWhenChangedPropertyNames="matterId"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

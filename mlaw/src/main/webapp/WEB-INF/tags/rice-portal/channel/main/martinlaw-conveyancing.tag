@@ -32,8 +32,11 @@
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Conveyance Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Assignment" /></li>
   </ul>
-
   
+  <strong>Conveyance Work</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Conveyance Work" url="${ConfigProperties.dochandler_conveyance_work}&command=initiate&viewId=contract_work_doc_view" /></li>
+  </ul>
 </div>
 <channel:portalChannelBottom />
 

@@ -9,7 +9,7 @@
 	<bean id="conveyance_maintenance_view" parent="Uif-MaintenanceView">
 		<property name="headerText" value="Conveyance Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
-		<property name="additionalScriptFiles">
+		<!-- <property name="additionalScriptFiles">
 			<list>
 				<value>scripts/mlaw.js</value>
 			</list>
@@ -18,11 +18,10 @@
 			<list>
 				<value>css/mlaw.css</value>
 			</list>
-		</property>
+		</property> -->
 		<property name="items">
-			<list><!-- contains a reordering of the notes section - so we had to include 
-					all the other sections as well -->
-				<bean parent="Uif-DocumentOverviewSection" />
+			<list merge="true">
+				<!-- <bean parent="Uif-DocumentOverviewSection" /> -->
 
 				<bean parent="martinlaw_shared_matter_info_maintenance">
 					<property name="items">
@@ -43,9 +42,9 @@
 					<property name="headerText" value="Conveyance Information" />
 				</bean>
 
-				<ref local="conveyance_maintenance_view_notes" />
+				<!-- <ref local="conveyance_maintenance_view_notes" />
 
-				<ref local="conveyance_maintenance_view_annexes" />
+				<ref local="conveyance_maintenance_view_annexes" /> -->
 
 				<bean parent="martinlaw_shared_client-maintenance-section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceClient" />
@@ -55,22 +54,22 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceFee" />
 				</bean>
 
-				<bean parent="Uif-DocumentAdHocRecipientsSection"
+				<!-- <bean parent="Uif-DocumentAdHocRecipientsSection"
 					p:disclosure.defaultOpen="false" />
 
 				<bean parent="Uif-DocumentRouteLogSection"
 					p:disclosure.defaultOpen="false" />
-				<!-- holds the dynamically generated html content to show in lightbox -->
-				<ref bean="conveyance_maintenance_view_filepopup" />
+				holds the dynamically generated html content to show in lightbox
+				<ref bean="conveyance_maintenance_view_filepopup" /> -->
 			</list>
 		</property>
 	</bean>
 
 	<!-- defined out here so that they can be referred to by id -->
 
-	<bean id="conveyance_maintenance_view_filepopup" parent="Uif-MessageField"
+	<!-- <bean id="conveyance_maintenance_view_filepopup" parent="Uif-MessageField"
 		p:style="display:none" />
-
+ -->
 	<bean id="conveyance_maintenance_view_typeId" parent="martinlaw_shared_blank_label_inputfield"
 		p:propertyName="typeId"
 		p:readOnly="@{#form.document.newMaintainableObject.dataObject.hasAttachments()}"
@@ -79,14 +78,14 @@
 	<bean id="conveyance_maintenance_view_typeMsg" parent="Uif-MessageField"
 		p:style="display:none" />
 
-	<bean id="conveyance_maintenance_view_notes" parent="Uif-DocumentNotesSection"
+	<!-- <bean id="conveyance_maintenance_view_notes" parent="Uif-DocumentNotesSection"
 		p:disclosure.defaultOpen="true">
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-MessageField" p:label="[Blank]" p:style="display:none">
 					<property name="dataAttributes">
 						<map>
-							<!-- allows selection of all attachments in jquery -->
+							allows selection of all attachments in jquery
 							<entry key="mlaw-conv-att-line-time" value="@{#line.notePostedTimestamp?.toString()}" />
 							<entry key="mlaw-conv-att-line-filename" value="@{#line.attachment?.attachmentFileName}" />
 						</map>
@@ -94,10 +93,10 @@
 				</bean>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 
 
-	<bean id="conveyance_maintenance_view_annexes" parent="Uif-StackedCollectionSection">
+	<!-- <bean id="conveyance_maintenance_view_annexes" parent="Uif-StackedCollectionSection">
 		<property name="headerText" value="Annexes" />
 		<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnex" />
 		<property name="propertyName" value="annexes" />
@@ -126,12 +125,12 @@
 					<property name="items">
 						<list>
 							<bean parent="Uif-HorizontalFieldGroup" p:label="Attached File">
-								<!-- the select will know how to set the time stamp by looking for 
+								the select will know how to set the time stamp by looking for 
 									a parent with the id given for this group (div) the searching for the select 
-									with the specified data attribute -->
+									with the specified data attribute
 								<property name="dataAttributes">
 									<map>
-										<!-- allows setting of selected attachment identifier - timestamp -->
+										allows setting of selected attachment identifier - timestamp
 										<entry key="mlaw-conv-att-grp" value="true" />
 									</map>
 								</property>
@@ -142,7 +141,7 @@
 												<bean parent="Uif-HiddenControl">
 													<property name="dataAttributes">
 														<map>
-															<!-- allows setting of selected attachment identifier - timestamp -->
+															allows setting of selected attachment identifier - timestamp
 															<entry key="mlaw-conv-att-timestamp" value="true" />
 														</map>
 													</property>
@@ -161,12 +160,12 @@
 										<bean parent="Uif-InputField" p:style="width:170px"
 											p:propertyName="filename" p:render="@{!#isAddLine}">
 											<property name="control">
-												<!-- set readonly via script so that this control is not replaced 
-													by a span -->
+												set readonly via script so that this control is not replaced 
+													by a span
 												<bean parent="Uif-TextControl" p:readOnly="true">
 													<property name="dataAttributes">
 														<map>
-															<!-- allows setting of selected attachment filename -->
+															allows setting of selected attachment filename
 															<entry key="mlaw-conv-att-filename" value="true" />
 														</map>
 													</property>
@@ -201,6 +200,6 @@
 				</bean>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 
 </beans>
