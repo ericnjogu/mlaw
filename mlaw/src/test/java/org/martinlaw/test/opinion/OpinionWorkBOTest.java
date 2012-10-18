@@ -4,7 +4,6 @@
 package org.martinlaw.test.opinion;
 
 
-import org.junit.Test;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.Constants;
 import org.martinlaw.bo.opinion.Work;
@@ -18,21 +17,7 @@ import org.martinlaw.test.WorkBOTestBase;
  */
 public class OpinionWorkBOTest extends WorkBOTestBase {
 	
-	@Test
-	/**
-	 * test that {@link Work} is loaded into the data dictionary
-	 */
-	public void testOpinionWorkDD() {
-		testWorkDD(Constants.DocTypes.OPINION_WORK, Work.class);
-	}
-	
-	/**
-	 * test retrieving a {@link Work} that has been created through sql
-	 */
-	@Test
-	public void testOpinionWorkRetrieve() {
-		testWorkRetrieve(Work.class);
-	}
+
 	
 	/* (non-Javadoc)
 	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
@@ -42,15 +27,18 @@ public class OpinionWorkBOTest extends WorkBOTestBase {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-work-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-test-data.sql", ";").runSql();
 	}
 	
-	@Test
-	/**
-	 * tests {@link org.martinlaw.bo.MatterWork#isMatterIdValid()}
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.MartinlawTestsBase#setUpInternal()
 	 */
-	public void testMatterIdValidity() {
-		Work work = new Work();
-		testMatterIdValidity(work);
+	@Override
+	protected void setUpInternal() throws Exception {
+		super.setUpInternal();
+		setWork(new Work());
+		setWorkClass(Work.class);
+		setDocType(Constants.DocTypes.OPINION_WORK);
 	}
 	
 }
