@@ -65,6 +65,18 @@
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
+		
+		<collection-descriptor name="fees"
+			element-class-ref="org.martinlaw.bo.courtcase.ClientFee"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="work"
+			element-class-ref="org.martinlaw.bo.courtcase.Work"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.Client"
@@ -367,6 +379,18 @@
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
+		
+		<collection-descriptor name="fees"
+			element-class-ref="org.martinlaw.bo.conveyance.ClientFee"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="work"
+			element-class-ref="org.martinlaw.bo.conveyance.Work"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.contract.ContractType"
@@ -538,6 +562,18 @@
 		
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.contract.Client"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="fees"
+			element-class-ref="org.martinlaw.bo.contract.ClientFee"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="work"
+			element-class-ref="org.martinlaw.bo.contract.Work"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
@@ -758,11 +794,6 @@
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 
-		<!-- <field-descriptor name="typeId" column="convey_type_id" jdbc-type="BIGINT" 
-			indexed="true"> </field-descriptor> <reference-descriptor name="type" class-ref="org.martinlaw.bo.conveyance.ConveyanceType" 
-			auto-retrieve="true" auto-update="false" auto-delete="none"> <foreignkey 
-			field-ref="typeId" /> </reference-descriptor> -->
-
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.opinion.Client"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
@@ -780,6 +811,18 @@
 		<collection-descriptor name="assignees"
 			element-class-ref="org.martinlaw.bo.opinion.Assignee" auto-retrieve="true"
 			auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="fees"
+			element-class-ref="org.martinlaw.bo.opinion.ClientFee"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="work"
+			element-class-ref="org.martinlaw.bo.opinion.Work"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 	</class-descriptor>

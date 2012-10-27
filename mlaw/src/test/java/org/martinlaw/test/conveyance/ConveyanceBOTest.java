@@ -119,6 +119,8 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		getTestUtils().testAssignees(conv.getAssignees());
 		
 		getTestUtils().testClientFeeList(conv.getFees());
+		
+		getTestUtils().testWorkList(conv.getWork());
 	}
 	
 	@Test
@@ -323,5 +325,6 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-fee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-work-test-data.sql", ";").runSql();
 	}
 }

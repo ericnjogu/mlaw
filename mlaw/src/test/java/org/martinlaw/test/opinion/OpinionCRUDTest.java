@@ -32,6 +32,9 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-fee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-work-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-test-data.sql", ";").runSql();
 	}
 	
 	/**
@@ -47,11 +50,13 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		
 		assertNotNull("opinion clients should not be null", opinion.getClients());
 		assertEquals("opinion clients not the expected number", 2, opinion.getClients().size());
-		assertEquals("opinion client name not the expected value", "jnn", opinion.getClients().get(0).getPrincipalName());
-		
-		assertNotNull("opinion fees should not be null", opinion.getFees());
-		assertEquals("opinion fees not the expected number", 2, opinion.getFees().size());
+		assertEquals("opinion client name not the expected value", "client1", opinion.getClients().get(0).getPrincipalName());
+
 		getTestUtils().testAssignees(opinion.getAssignees());
+		
+		getTestUtils().testClientFeeList(opinion.getFees());
+		
+		getTestUtils().testWorkList(opinion.getWork());
 	}
 	
 	/**

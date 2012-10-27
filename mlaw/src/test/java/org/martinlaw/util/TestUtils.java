@@ -23,6 +23,7 @@ import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterDate;
+import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -259,11 +260,6 @@ public class TestUtils {
 		client.setPrincipalName(testOpinionClientName);
 		opinion.getClients().add(client);
 		
-		/*Fee fee = new Fee();
-		fee.setAmount(new BigDecimal(5000l));
-		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
-		opinion.getFees().add(fee);*/
-		
 		return opinion;
 	}
 
@@ -277,8 +273,6 @@ public class TestUtils {
 		assertEquals("opinion local ref differs", testOpinionLocalReference, opinion.getLocalReference());
 		// for some reason, the status object is not fetched, so test for the id instead
 		assertNotNull("opinion status should not be null", opinion.getStatusId());
-		
-		assertEquals("opinion fees not the expected number", 1, opinion.getFees().size());
 		
 		assertEquals("opinion clients not the expected number", 1, opinion.getClients().size());
 		assertEquals("opinion client name not the expected value", testOpinionClientName, opinion.getClients().get(0).getPrincipalName());
@@ -348,5 +342,15 @@ public class TestUtils {
 		assertNotNull("fee list should not be null", fees);
 		assertEquals("expected number of fees differs", 2, fees.size());
 		assertEquals("client name differs", "mawanja", fees.get(0).getFee().getClientPrincipalName());
+	}
+	
+	/**
+	 * test work list that was populated via sql
+	 * 
+	 * @param work
+	 */
+	public void testWorkList(List<? extends MatterWork> work) {
+		assertNotNull("work list should not be null", work);
+        assertEquals("expected number of work differs", 2, work.size());
 	}
 }

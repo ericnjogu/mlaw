@@ -26,6 +26,7 @@ import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.CourtCaseDate;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
+import org.martinlaw.bo.courtcase.Work;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -63,6 +64,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-fee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-work-test-data.sql", ";").runSql();
 		//bo xml files loaded from martinlaw-ModuleBeans(imported in CourtCaseBOTest-context.xml) as part of the data dictionary config
 	}
 
@@ -120,7 +122,12 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         getTestUtils().testAssignees(kase.getAssignees());
         // fees
         getTestUtils().testClientFeeList(kase.getFees());
+        //work
+        List<Work> work = kase.getWork();
+        getTestUtils().testWorkList(work);
 	}
+
+	
 	
 	@Test
 	/**

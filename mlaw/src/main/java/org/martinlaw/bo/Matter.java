@@ -2,9 +2,7 @@ package org.martinlaw.bo;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +18,6 @@ import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.bo.Note;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.martinlaw.Constants;
 /**
  * a super class that holds the information common to court case, conveyance, contract etc
  * 
@@ -58,8 +55,8 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private List<Attachment> attachments = null;
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
 	private List<A> assignees;
-	// in Work the pk is the document id, not matterId, so we cannot configure a many-one mapping
-	@Transient
+	// in Work the pk is the document id, not matterId, so we cannot configure a many-one mapping - not
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<W> work;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<F> fees;
@@ -189,13 +186,6 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 * @return the work
 	 */
 	public List<W> getWork() {
-		// TODO using the caching mechanism for this so that we can handle the creation of new work items
-		if (work == null) {
-			Map<String, Object> criteria = new HashMap<String, Object>(1);
-			criteria.put(Constants.PropertyNames.MATTER_ID, getId());
-			work = (List<W>) KRADServiceLocator.getBusinessObjectService().findMatching(getWorkClass(), criteria);
-			return work;
-		}
 		return work;
 	}
 
@@ -225,12 +215,6 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 * @return the fees
 	 */
 	public List<F> getFees() {
-		// TODO using the caching mechanism for this so that we can handle the creation of new work items
-		if (fees == null) {
-			Map<String, Object> criteria = new HashMap<String, Object>(1);
-			criteria.put(Constants.PropertyNames.MATTER_ID, getId());
-			fees = (List<F>) KRADServiceLocator.getBusinessObjectService().findMatching(getFeeClass(), criteria);
-		}
 		return fees;
 	}
 
