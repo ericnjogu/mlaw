@@ -6,6 +6,6 @@
 
 <bean id="conveyance_client_inquiry_view" parent="martinlaw_shared_person_inquiry_view">
     <property name="headerText" value="Conveyance Client Inquiry"/>
-    <property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.ConveyanceClient"/>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Client"/>
   </bean>
 </beans>

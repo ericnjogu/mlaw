@@ -312,7 +312,26 @@
 			</list>
 		</property>
 	</bean>
-
-	<bean id="martinlaw_shared_work_docnumber_linkfield" parent="Uif-LinkField"
-		p:linkText="@{#line.documentNumber}" p:target="_blank"/>
+	
+	<bean id="martinlaw_shared_fee_doc_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
+		<property name="propertyName" value="fees" />
+		<property name="headerText" value="Fees" />
+		<property name="items">
+			<list>
+				<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
+				<bean parent="Uif-InputField" p:propertyName="fee.amount" />
+				<bean parent="Uif-InputField" p:propertyName="fee.date" />
+				<bean parent="Uif-InputField" p:propertyName="fee.clientPrincipalName" />
+			</list>
+		</property>
+		<property name="layoutManager.summaryTitle" value="Fee" />
+		<property name="layoutManager.summaryFields">
+			<list>
+				<value>documentHeader.documentDescription</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_line_docnumber_linkfield" parent="Uif-LinkField"
+		p:linkText="@{#line.documentNumber}" p:target="_blank" p:label="Document Number"/>
 </beans>

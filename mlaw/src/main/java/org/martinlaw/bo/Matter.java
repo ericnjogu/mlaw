@@ -28,7 +28,7 @@ import org.martinlaw.Constants;
  *
  */
 @MappedSuperclass
-public abstract class Matter<A extends MatterAssignee, W extends MatterWork> extends PersistableBusinessObjectBase {
+public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, F extends MatterClientFee<? extends MatterFee>, C extends MatterClient> extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -58,10 +58,17 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterWork> ext
 	private List<Attachment> attachments = null;
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
 	private List<A> assignees;
-	// in Work, the pk is the document id, not matterId, so we cannot configure a many-one mapping
-	/*@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")*/
+	// in Work the pk is the document id, not matterId, so we cannot configure a many-one mapping
 	@Transient
 	private List<W> work;
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
+	private List<F> fees;
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
+	private List<C> clients;
+	
+	/**
+	 * default constructor
+	 */
 	public Matter() {
 		super();
 	}
@@ -198,6 +205,13 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterWork> ext
 	 * @return the work class type
 	 */
 	public abstract  Class<W> getWorkClass();
+	
+	/**
+	 * retrieves the class type of the parametrized work, which is used in populating {@link #getFees()}
+	 * 
+	 * @return the work class type
+	 */
+	public abstract  Class<F> getFeeClass();
 
 
 	/**
@@ -205,5 +219,39 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterWork> ext
 	 */
 	public void setWork(List<W> work) {
 		this.work = work;
+	}
+
+	/**
+	 * @return the fees
+	 */
+	public List<F> getFees() {
+		// TODO using the caching mechanism for this so that we can handle the creation of new work items
+		if (fees == null) {
+			Map<String, Object> criteria = new HashMap<String, Object>(1);
+			criteria.put(Constants.PropertyNames.MATTER_ID, getId());
+			fees = (List<F>) KRADServiceLocator.getBusinessObjectService().findMatching(getFeeClass(), criteria);
+		}
+		return fees;
+	}
+
+	/**
+	 * @param fees the fees to set
+	 */
+	public void setFees(List<F> fees) {
+		this.fees = fees;
+	}
+
+	/**
+	 * @return the clients
+	 */
+	public List<C> getClients() {
+		return clients;
+	}
+
+	/**
+	 * @param clients the clients to set
+	 */
+	public void setClients(List<C> clients) {
+		this.clients = clients;
 	}
 }

@@ -34,5 +34,5 @@
   <param name="version">${project.name} :: ${project.version} :: ${kuali.build.timestamp}</param>
   
 <param name="config.location">classpath:META-INF/tx-doc-config.xml</param>
-<param name="resourceBundleNames">org.martinlaw.mlaw</param> 
+<param name="resourceBundleNames">org.martinlaw.mlaw,org.kuali.rice.krad.KRADApplicationResources,org.kuali.rice.krad.ApplicationResources</param> 
 </config>

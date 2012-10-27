@@ -13,3 +13,9 @@ insert into martinlaw_contract_t
 values
 (1001, "en/cn/001", 1001, 'cn1', 1, 1001, 'buru ph2 h24', 1001, 1001),
 (1002, "en/cn/002", 1001, 'cn2', 1, 1001, 'nyayo est ph2 m241', 1001, 1001);
+
+insert into martinlaw_contract_client_t 
+(client_id, matter_id, principal_name) 
+values 
+(1001, 1001, 'client1'),
+(1002, 1001, 'client2');

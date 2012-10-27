@@ -21,6 +21,7 @@ import org.kuali.rice.kew.doctype.service.DocumentTypeService;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.datadictionary.DataObjectEntry;
+import org.kuali.rice.krad.document.DocumentBase;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
@@ -154,7 +155,6 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	protected void testFeeFields(Fee fee) {
 		log.info("fee amount is: " + fee.getAmount().toPlainString());
 		assertEquals("2500.58", fee.getAmount().toPlainString());
-		assertEquals("received from karateka", fee.getDescription());
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(fee.getDate().getTime());
 		assertEquals(2011,cal.get(Calendar.YEAR));
@@ -219,4 +219,16 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 				assertNull((MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId()));
 			}
 
+	/**
+	 * test DD entries for a transactional doc
+	 * 
+	 * @param docType - the document type name
+	 * @param klass - the document class
+	 * @param viewId - the view id
+	 */
+	public void testTxDocDD (String docType, Class<? extends DocumentBase> klass, String viewId) {
+		assertNotNull("document entry should not be null", KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(docType));
+		assertEquals("document type name does not match", docType, KRADServiceLocatorWeb.getDataDictionaryService().getDocumentTypeNameByClass(klass));
+		assertNotNull("viewId should not be null", KRADServiceLocatorWeb.getDataDictionaryService().getViewById(viewId));
+	}
 }

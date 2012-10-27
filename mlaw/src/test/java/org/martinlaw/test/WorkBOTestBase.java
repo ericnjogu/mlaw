@@ -1,13 +1,12 @@
 package org.martinlaw.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.test.SQLDataLoader;
+import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.MatterWorkRule;
 
@@ -18,9 +17,10 @@ import org.martinlaw.bo.MatterWorkRule;
  */
 public abstract class WorkBOTestBase extends MartinlawTestsBase {
 
-	private MatterWork work;
+	private MatterTxDocBase work;
 	private Class<? extends MatterWork> workClass;
 	private String docType;
+	private String viewId;
 
 	public WorkBOTestBase() {
 		super();
@@ -32,9 +32,8 @@ public abstract class WorkBOTestBase extends MartinlawTestsBase {
 	 */
 	@Test
 	public void testWorkRetrieve() {
-		MatterWork workTemp = getBoSvc().findBySinglePrimaryKey(getWorkClass(), 1001l);
+		MatterTxDocBase workTemp = getBoSvc().findBySinglePrimaryKey(getWorkClass(), 1001l);
 		assertNotNull("result should not be null", workTemp);
-		//assertNotNull("contract should not be null", contractWork.getMatter());
 	}
 
 	/**
@@ -42,8 +41,11 @@ public abstract class WorkBOTestBase extends MartinlawTestsBase {
 	 */
 	@Test
 	public void testWorkDD() {
-		assertNotNull("document entry should not be null", KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocType()));
-		assertEquals("document type name does not match", getDocType(), KRADServiceLocatorWeb.getDataDictionaryService().getDocumentTypeNameByClass(workClass));
+		testTxDocDD(getDocType(), getWorkClass(), getViewId());
+	}
+
+	private String getViewId() {
+		return viewId;
 	}
 
 	/**
@@ -87,14 +89,14 @@ public abstract class WorkBOTestBase extends MartinlawTestsBase {
 	/**
 	 * @return the work
 	 */
-	public MatterWork getWork() {
+	public MatterTxDocBase getWork() {
 		return work;
 	}
 
 	/**
 	 * @param work the work to set
 	 */
-	public void setWork(MatterWork work) {
+	public void setWork(MatterTxDocBase work) {
 		this.work = work;
 	}
 
@@ -124,5 +126,12 @@ public abstract class WorkBOTestBase extends MartinlawTestsBase {
 	 */
 	public void setDocType(String docType) {
 		this.docType = docType;
+	}
+
+	/**
+	 * @param viewId the viewId to set
+	 */
+	public void setViewId(String viewId) {
+		this.viewId = viewId;
 	}
 }

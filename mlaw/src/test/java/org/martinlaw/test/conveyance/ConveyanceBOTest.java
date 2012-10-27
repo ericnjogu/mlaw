@@ -9,8 +9,6 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,12 +21,11 @@ import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterClient;
-import org.martinlaw.bo.MatterFee;
+import org.martinlaw.bo.conveyance.Client;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
-import org.martinlaw.bo.conveyance.ConveyanceClient;
-import org.martinlaw.bo.conveyance.ConveyanceFee;
+import org.martinlaw.bo.conveyance.Fee;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesMaint;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
@@ -48,17 +45,15 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		// C
 		Conveyance conv = getTestUtils().getTestConveyance();
 		// add client
-		ConveyanceClient client = new ConveyanceClient();
+		Client client = new Client();
 		String principalName = "clientX";
 		client.setPrincipalName(principalName);
 		conv.getClients().add(client);
 		// add fee
-		ConveyanceFee fee = new ConveyanceFee();
+		/*Fee fee = new Fee();
 		fee.setAmount(new BigDecimal(5000));
 		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
-		String feeDescription = "received from mkenya";
-		fee.setDescription(feeDescription);
-		conv.getFees().add(fee);
+		conv.getFees().add(fee);*/
 		// add annex
 		ConveyanceAnnex annex = new ConveyanceAnnex();
 		annex.setConveyanceAnnexTypeId(1003l);
@@ -80,8 +75,7 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		assertEquals(getTestUtils().getTestConveyance().getName(), conv.getName());
 		assertEquals(1, conv.getClients().size());
 		assertEquals(principalName, conv.getClients().get(0).getPrincipalName());
-		assertEquals(1, conv.getFees().size());
-		assertEquals(feeDescription, conv.getFees().get(0).getDescription());
+		/*assertEquals(1, conv.getFees().size());*/
 		assertEquals(1, conv.getAnnexes().size());
 		assertEquals(timestamp.toString(), conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 		
@@ -99,9 +93,9 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		// D
 		getBoSvc().delete(conv);
 		assertNull("conveyance client should have been deleted", 
-				getBoSvc().findBySinglePrimaryKey(ConveyanceClient.class, conv.getClients().get(0).getId()));
-		assertNull("conveyance fee should have been deleted", 
-				getBoSvc().findBySinglePrimaryKey(ConveyanceFee.class, conv.getFees().get(0).getId()));
+				getBoSvc().findBySinglePrimaryKey(Client.class, conv.getClients().get(0).getId()));
+		/*assertNull("conveyance fee should have been deleted", 
+				getBoSvc().findBySinglePrimaryKey(Fee.class, conv.getFees().get(0).getId()));*/
 	}
 	
 	@Test
@@ -116,16 +110,15 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		assertEquals("Sale of Urban Land", conv.getType().getName());
 		assertEquals("pending", conv.getStatus().getStatus());
 		// clients
-		assertEquals(1, conv.getClients().size());
-		assertEquals("client2", conv.getClients().get(0).getPrincipalName());
-		// fees
-		assertEquals(1, conv.getFees().size());
-		assertEquals("received from karateka", conv.getFees().get(0).getDescription());
+		assertEquals(2, conv.getClients().size());
+		assertEquals("client1", conv.getClients().get(0).getPrincipalName());
 		// conveyance annexes
 		assertEquals(1, conv.getAnnexes().size());
 		assertEquals(2, conv.getAnnexes().get(0).getAttachments().size());
 		assertEquals("2012-07-19 00:00:00", conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 		getTestUtils().testAssignees(conv.getAssignees());
+		
+		getTestUtils().testClientFeeList(conv.getFees());
 	}
 	
 	@Test
@@ -160,19 +153,9 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 	 * test that the conveyance fee is loaded into the data dictionary
 	 */
 	public void testConveyanceFeeAttributes() {
-		testBoAttributesPresent(ConveyanceFee.class.getCanonicalName());
-		//TODO has no lookup/inquiry at present - would someone want to lookup a fee?
+		testBoAttributesPresent(Fee.class.getCanonicalName());
 	}
 	
-	@Test
-	/**
-	 * test that a Conveyance fee can be retrieved from the database by the primary key
-	 */
-	public void testCourtConveyanceFeeRetrieval() {
-		MatterFee fee = getBoSvc().findBySinglePrimaryKey(ConveyanceFee.class, new Long(1001));
-		assertNotNull(fee);
-		testFeeFields(fee);
-	}
 	
 	@Test()
 	/**
@@ -301,22 +284,12 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		getBoSvc().save(convAtt);
 	}
 	
-	@Test
-	/**
-	 * tests Conveyance fee CRUD
-	 */
-	public void testConveyanceFeeCRUD() {
-		MatterFee fee = new ConveyanceFee();
-		fee.setMatterId(1001l);
-		testFeeCRUD(fee, fee.getClass());
-	}
-	
 	@Test(expected=DataIntegrityViolationException.class)
 	/**
 	 * tests that annex type generates errors when non-nullable fields are blank
 	 */
 	public void testConveyanceFeeNullableFields() {
-		ConveyanceFee fee = new ConveyanceFee();
+		Fee fee = new Fee();
 		//fee.setId(25l);
 		getBoSvc().save(fee);
 	}
@@ -326,8 +299,8 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 	 * test that the witness is loaded into the data dictionary
 	 */
 	public void testConveyanceClientAttributes() {
-		testBoAttributesPresent(ConveyanceClient.class.getCanonicalName());
-		Class<ConveyanceClient> dataObjectClass = ConveyanceClient.class;
+		testBoAttributesPresent(Client.class.getCanonicalName());
+		Class<Client> dataObjectClass = Client.class;
 		verifyInquiryLookup(dataObjectClass);
 	}
 	
@@ -336,9 +309,9 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 	 * tests retrieving a conveyance client present in the db, then CRUD ops
 	 */
 	public void testConveyanceClient() {
-		MatterClient person = new ConveyanceClient();
+		MatterClient person = new Client();
 		person.setMatterId(1001l);
-		testMartinlawPersonCRUD(new ConveyanceClient(), "client2", person);
+		testMartinlawPersonCRUD(new Client(), "client1", person);
 	}
 
 	/* (non-Javadoc)
@@ -349,5 +322,6 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-fee-test-data.sql", ";").runSql();
 	}
 }

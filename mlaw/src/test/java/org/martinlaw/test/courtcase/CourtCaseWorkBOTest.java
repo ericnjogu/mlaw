@@ -37,5 +37,6 @@ public class CourtCaseWorkBOTest extends WorkBOTestBase {
 		setWork(new Work());
 		setWorkClass(Work.class);
 		setDocType(Constants.DocTypes.COURTCASE_WORK);
+		setViewId(Constants.ViewIds.COURTCASE_WORK);
 	}
 }

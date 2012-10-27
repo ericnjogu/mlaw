@@ -34,6 +34,11 @@
   <li><portal:portalLink displayTitle="true" title="New Court Case Work" url="${ConfigProperties.dochandler_courtcase_work}&command=initiate&viewId=contract_work_doc_view" /></li>
   </ul>
   
+  <strong>Court Case Fee</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Court Case Fee" url="${ConfigProperties.dochandler_courtcase_fee}&command=initiate" /></li>
+  </ul>
+  
 </div>
 <channel:portalChannelBottom />
 

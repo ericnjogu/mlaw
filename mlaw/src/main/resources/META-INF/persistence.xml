@@ -3,7 +3,7 @@
 	<persistence-unit name="martinlaw-rice2" transaction-type="RESOURCE_LOCAL">
 		<!-- <mapping-file>META-INF/orm.xml</mapping-file> -->
 		<!-- <mapping-file>META-INF/eclipselink-orm.xml</mapping-file> -->
-		<class>org.martinlaw.bo.courtcase.CourtCaseFee</class>
+		<class>org.martinlaw.bo.courtcase.Fee</class>
 		<class>org.martinlaw.bo.AnnexType</class>
 		<!-- <exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>

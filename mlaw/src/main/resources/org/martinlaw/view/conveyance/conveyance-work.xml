@@ -8,7 +8,7 @@
 
 	<bean id="conveyance_work_doc_view" parent="Uif-DocumentView">
 		<property name="documentClass" value="org.martinlaw.bo.conveyance.Work" />
-		<property name="formPostUrl" value="work?docTypeName=@{#ConfigProperties['doctype_conveyance_work']}"></property>
+		<property name="formPostUrl" value="tx?docTypeName=@{#ConfigProperties['doctype_conveyance_work']}"></property>
 		<property name="headerText" value="Conveyance Work" />
 		<property name="items">
 			<list merge="true">

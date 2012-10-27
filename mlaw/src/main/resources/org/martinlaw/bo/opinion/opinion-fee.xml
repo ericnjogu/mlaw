@@ -8,8 +8,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
  Copyright 2012 Protosoft Ltd
 -->
 
-  <bean id="opinion_fee_bo" parent="martinlaw-shared-fee-parentBean">
-    <property name="businessObjectClass" value="org.martinlaw.bo.opinion.OpinionFee"/>
+  <bean id="opinion_fee_bo" parent="martinlaw-shared-fee-parentBean" p:jstlKey="opinion_fee">
+    <property name="businessObjectClass" value="org.martinlaw.bo.opinion.Fee"/>
   </bean>
 
 </beans>

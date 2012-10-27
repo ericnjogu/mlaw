@@ -11,14 +11,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		parent="AttributeReferenceDummy-genericDate">
 		<property name="name" value="date" />
 		<property name="label" value="Date" />
-		<property name="description" value="Date" />
-		<property name="shortLabel" value="Date" />
-		<property name="summary" value="Date" />
 		<property name="maxLength" value="30" />
 		<property name="required" value="true" />
-		<property name="control">
-			<bean parent="TextControlDefinition" p:size="15" p:datePicker="true" />
-		</property>
 		<property name="controlField">
 			<bean parent="Uif-DateControl" />
 		</property>
@@ -30,12 +24,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	<bean id="martinlaw-shared-id-parentBean" abstract="true"
 		parent="AttributeReferenceDummy-genericSystemId">
 		<property name="forceUppercase" value="false" />
-		<property name="shortLabel" value="System Id" />
 		<property name="maxLength" value="20" />
 		<property name="validationPattern">
 			<bean parent="AnyCharacterValidationPattern" />
 		</property>
-		<property name="summary" value="Id" />
 		<property name="name" value="id" />
 		<property name="label" value="Id" />
 		<property name="description" value="Unique System Id" />
@@ -215,7 +207,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			</list>
 		</property>
 		<property name="objectLabel" value="Client" />
-
 	</bean>
 
 </beans>

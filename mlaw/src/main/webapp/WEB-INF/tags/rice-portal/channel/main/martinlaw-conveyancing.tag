@@ -37,6 +37,11 @@
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Conveyance Work" url="${ConfigProperties.dochandler_conveyance_work}&command=initiate&viewId=contract_work_doc_view" /></li>
   </ul>
+  
+  <strong>Conveyance Fee</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Conveyance Fee" url="${ConfigProperties.dochandler_conveyance_fee}&command=initiate" /></li>
+  </ul>
 </div>
 <channel:portalChannelBottom />
 

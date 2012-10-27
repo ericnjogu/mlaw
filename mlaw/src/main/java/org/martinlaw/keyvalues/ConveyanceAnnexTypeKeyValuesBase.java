@@ -13,7 +13,7 @@ import org.kuali.rice.krad.uif.control.UifKeyValuesFinderBase;
 import org.kuali.rice.krad.uif.view.ViewModel;
 import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
 /**
- * holds common logic for maintenance and tx docs
+ * holds common logic for maintenance and TX docs
  * 
  * @author mugo
  *
@@ -33,7 +33,7 @@ public abstract class ConveyanceAnnexTypeKeyValuesBase extends
 	/**
 	 * get the conveyance type id to use in fetching annex types
 	 * 
-	 * @param model - provides the tx or maintenance document which is used to lookup the type id
+	 * @param model - provides the TX or maintenance document which is used to lookup the type id
 	 * @return
 	 */
 	protected abstract Long getConveyanceTypeId(ViewModel model);

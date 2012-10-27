@@ -4,6 +4,7 @@
 package org.martinlaw.test.conveyance;
 
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,6 +48,7 @@ public class ConveyanceWorkBOTest extends WorkBOTestBase {
 		setWork(new Work());
 		setWorkClass(Work.class);
 		setDocType(Constants.DocTypes.CONVEYANCE_WORK);
+		setViewId(Constants.ViewIds.CONVEYANCE_WORK);
 	}
 	
 	@Test()
@@ -63,6 +65,16 @@ public class ConveyanceWorkBOTest extends WorkBOTestBase {
 		List<KeyValue> result = keyValues.getKeyValues(txForm);
 		
 		getTestUtils().testAnnexTypeKeyValues(result);
+	}
+	
+	/**
+	 * test that the associated conveyance annex type is fetched
+	 */
+	@Test
+	public void testConveyanceAnnexTypeRetrieve() {
+		Work workTemp = (Work) getBoSvc().findBySinglePrimaryKey(getWorkClass(), 1001l);
+		assertNotNull("result should not be null", workTemp);
+		assertNotNull("contract should not be null", workTemp.getConveyanceAnnexType());
 	}
 	
 }

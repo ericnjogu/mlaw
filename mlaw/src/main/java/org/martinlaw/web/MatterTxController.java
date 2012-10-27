@@ -3,6 +3,7 @@
  */
 package org.martinlaw.web;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -16,17 +17,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * a controller for {@link MatterWork} documents
+ * a controller for transactional documents
+ * 
  * @author mugo
  *
  */
 @Controller
-@RequestMapping(value = "/" + Constants.RequestMappings.WORK)
-public class MatterWorkController extends TransactionalDocumentController {
+@RequestMapping(value = "/" + Constants.RequestMappings.TX)
+public class MatterTxController extends TransactionalDocumentController {
 	Log log = LogFactory.getLog(getClass());
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.krad.web.controller.TransactionalDocumentController#createInitialForm(javax.servlet.http.HttpServletRequest)
-	 */
+	
 	/**
 	 * gets the doc type name from the request string if present
 	 */

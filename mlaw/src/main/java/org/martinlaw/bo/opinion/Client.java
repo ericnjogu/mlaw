@@ -16,7 +16,7 @@ import org.martinlaw.bo.MatterClient;
  */
 @Entity
 @Table(name="martinlaw_opinion_client_t")
-public class OpinionClient extends MatterClient {
+public class Client extends MatterClient {
 
 	/**
 	 * 

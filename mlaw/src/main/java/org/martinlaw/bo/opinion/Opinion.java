@@ -4,12 +4,8 @@
 package org.martinlaw.bo.opinion;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.martinlaw.bo.Matter;
@@ -24,7 +20,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_opinion_t")
-public class Opinion extends Matter<Assignee, Work> {
+public class Opinion extends Matter<Assignee, Work, ClientFee, Client> {
 	/**
 	 * 
 	 */
@@ -34,15 +30,10 @@ public class Opinion extends Matter<Assignee, Work> {
 	 */
 	public Opinion() {
 		super();
-		fees = new ArrayList<OpinionFee>();
-		clients = new ArrayList<OpinionClient>(); 
+		setClients(new ArrayList<Client>()); 
 	}
 	@Column(name="summary")
 	private String summary;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<OpinionClient> clients;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<OpinionFee> fees;
 	/**
 	 * @return the summary
 	 */
@@ -55,32 +46,13 @@ public class Opinion extends Matter<Assignee, Work> {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-	/**
-	 * @return the clients
-	 */
-	public List<OpinionClient> getClients() {
-		return clients;
-	}
-	/**
-	 * @param clients the clients to set
-	 */
-	public void setClients(List<OpinionClient> clients) {
-		this.clients = clients;
-	}
-	/**
-	 * @return the fees
-	 */
-	public List<OpinionFee> getFees() {
-		return fees;
-	}
-	/**
-	 * @param fees the fees to set
-	 */
-	public void setFees(List<OpinionFee> fees) {
-		this.fees = fees;
-	}
+
 	@Override
 	public Class<Work> getWorkClass() {
 		return Work.class;
+	}
+	@Override
+	public Class<ClientFee> getFeeClass() {
+		return ClientFee.class;
 	}
 }

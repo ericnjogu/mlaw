@@ -24,8 +24,11 @@ public abstract class Fee extends PersistableBusinessObjectBase {
 	private BigDecimal amount;
 	@Column(name = "date_received", nullable = false)
 	private Date date;
-	@Column(name = "description", length = 100)
-	private String description;
+	// description can be provided on the fee document explanation
+	/*@Column(name = "description", length = 100)
+	private String description;*/
+	@Column(name = "client_principal_name", length = 100, nullable=false)
+	private String clientPrincipalName;
 
 	public Fee() {
 		super();
@@ -64,21 +67,37 @@ public abstract class Fee extends PersistableBusinessObjectBase {
 	/**
 	 * e.g. received from Macharia
 	 * @return the description
-	 */
+	 *//*
 	public String getDescription() {
 		return description;
 	}
 
-	/**
+	*//**
 	 * @param description the description to set
-	 */
+	 *//*
 	public void setDescription(String description) {
 		this.description = description;
-	}
+	}*/
 	
 	/**
 	 * gets the primary key that will be provided by implementing classes
 	 * @return
 	 */
 	public abstract Long getId();
+
+	/**
+	 * gets the principal name of the client who made this payment
+	 * 
+	 * @return the clientPrincipalName
+	 */
+	public String getClientPrincipalName() {
+		return clientPrincipalName;
+	}
+
+	/**
+	 * @param clientPrincipalName the clientPrincipalName to set
+	 */
+	public void setClientPrincipalName(String clientPrincipalName) {
+		this.clientPrincipalName = clientPrincipalName;
+	}
 }

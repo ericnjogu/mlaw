@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.martinlaw.bo.conveyance;
+package org.martinlaw.bo.opinion;
 
 
 import javax.persistence.Entity;
@@ -14,9 +14,9 @@ import org.martinlaw.bo.MatterFee;
  * Fee represents a fee paid to a lawyer by a client
  * @author mugo
  */
-@Entity
-@Table(name="martinlaw_convey_fee_t")
-public class ConveyanceFee extends MatterFee {
+@Entity(name="opinion_fee")
+@Table(name="martinlaw_opinion_fee_t")
+public class Fee extends MatterFee {
 	/**
 	 * 
 	 */

@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.test.SQLDataLoader;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
+import org.martinlaw.bo.contract.ClientFee;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -71,6 +72,9 @@ public class ContractBOTest extends ContractBoTestBase {
 		getTestUtils().testAssignees(contract.getAssignees());
 		assertNotNull("work list should not be null", contract.getWork());
 		assertEquals("expected number of work differs", 2, contract.getWork().size());
+		
+		List<ClientFee> fees = contract.getFees();
+		getTestUtils().testClientFeeList(fees);
 	}
 
 	@Test
@@ -134,6 +138,7 @@ public class ContractBOTest extends ContractBoTestBase {
 		super.loadSuiteTestData();
 		// loads contract work
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-work-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-fee-test-data.sql", ";").runSql();
 	}
 
 }

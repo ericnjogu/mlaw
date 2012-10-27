@@ -5,6 +5,6 @@
 
 	<bean id="conveyance_client_LookupView" parent="martinlaw_shared_person_LookupView">
 		<property name="headerText" value="Conveyance Client Lookup" />
-		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.ConveyanceClient" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Client" />
 	</bean>
 </beans>

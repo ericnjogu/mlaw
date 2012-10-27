@@ -28,6 +28,11 @@
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Contract Work" url="${ConfigProperties.dochandler_contract_work}&command=initiate" /></li>
   </ul>
+  
+  <strong>Contract Fee</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Contract Fee" url="${ConfigProperties.dochandler_contract_fee}&command=initiate" /></li>
+  </ul>
 
 </div>
 <channel:portalChannelBottom />

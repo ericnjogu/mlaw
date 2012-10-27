@@ -14,9 +14,9 @@ import org.martinlaw.bo.MatterClient;
  * @author mugo
  * 
  */
-@Entity
+@Entity(name="court_case_client")
 @Table(name="martinlaw_court_case_client_t")
-public class CourtCaseClient extends MatterClient {
+public class Client extends MatterClient {
 
 	/**
 	 * 

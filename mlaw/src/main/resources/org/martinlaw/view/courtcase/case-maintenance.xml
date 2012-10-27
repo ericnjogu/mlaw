@@ -40,7 +40,7 @@
 
 				<bean parent="martinlaw_shared_client-maintenance-section">
 					<property name="collectionObjectClass"
-						value="org.martinlaw.bo.courtcase.CourtCaseClient" />
+						value="org.martinlaw.bo.courtcase.Client" />
 				</bean>
 
 				<bean parent="Uif-StackedCollectionSection">
@@ -63,7 +63,7 @@
 				</bean>
 
 				<bean parent="martinlaw_shared_fee-maintenance-section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseFee" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Fee" />
 				</bean>
 			</list>
 		</property>

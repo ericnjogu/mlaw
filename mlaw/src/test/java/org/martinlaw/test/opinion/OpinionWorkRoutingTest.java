@@ -9,8 +9,8 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.Constants;
-import org.martinlaw.bo.MatterWork;
-import org.martinlaw.test.WorkRoutingTestBase;
+import org.martinlaw.bo.MatterTxDocBase;
+import org.martinlaw.test.TxRoutingTestBase;
 
 /**
  * tests routing and perms for {@link Work}
@@ -18,7 +18,7 @@ import org.martinlaw.test.WorkRoutingTestBase;
  * @author mugo
  *
  */
-public class OpinionWorkRoutingTest extends WorkRoutingTestBase {
+public class OpinionWorkRoutingTest extends TxRoutingTestBase {
 	/* (non-Javadoc)
 	 * @see org.martinlaw.test.MartinlawTestsBase#setUpInternal()
 	 */
@@ -26,8 +26,8 @@ public class OpinionWorkRoutingTest extends WorkRoutingTestBase {
 	protected void setUpInternal() throws Exception {
 		super.setUpInternal();
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		docType = Constants.DocTypes.OPINION_WORK;
-		workDoc = (MatterWork) KRADServiceLocatorWeb.getDocumentService().getNewDocument(docType);
+		setDocType(Constants.DocTypes.OPINION_WORK);
+		setWorkDoc((MatterTxDocBase) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType()));
 	}
 
 	/* (non-Javadoc)

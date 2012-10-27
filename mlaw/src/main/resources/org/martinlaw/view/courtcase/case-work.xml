@@ -8,7 +8,7 @@
 
 	<bean id="courtcase_work_doc_view" parent="Uif-DocumentView">
 		<property name="documentClass" value="org.martinlaw.bo.courtcase.Work" />
-		<property name="formPostUrl" value="work?docTypeName=@{#ConfigProperties['doctype_courtcase_work']}"></property>
+		<property name="formPostUrl" value="tx?docTypeName=@{#ConfigProperties['doctype_courtcase_work']}"></property>
 		<property name="headerText" value="CourtCase Work" />
 		<property name="items">
 			<list merge="true">

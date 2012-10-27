@@ -18,63 +18,8 @@
 					</property>
 				</bean>
 
-				<bean parent="Uif-Disclosure-StackedCollectionSection">
-					<property name="headerText" value="Annexes" />
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnex" />
-					<property name="propertyName" value="annexes" />
-					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="type.name" />
-						</list>
-					</property>
-					<property name="layoutManager.summaryFields">
-						<list>
-							<value>type.name</value>
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Annex" />
-					<property name="subCollections">
-						<list>
-							<bean parent="Uif-StackedSubCollection-WithinSection">
-								<property name="headerText" value="Attachments" />
-								<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAttachment" />
-								<property name="propertyName" value="attachments" />
-								<property name="items">
-									<list>
-										<bean parent="Uif-HorizontalFieldGroup" p:render="@{!#empty(#line.attachment)}">
-											<property name="items">
-												<list>
-													<bean parent="Uif-LinkField" p:linkText="@{#line.filename}">
-														<property name="href">
-															<value>
-																@{#ConfigProperties['application.url']}/kr-krad/@{#view.formPostUrl}?methodToCall=downloadAttById&amp;attachmentId=@{#line.attachment?.noteIdentifier}&amp;skipViewInit=true&amp;renderFullView=false&amp;dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance
-															</value>
-														</property>
-													</bean>
-													<bean parent="Uif-MessageField"
-														p:messageText="@{#line.attachment?.getAttachmentFileSizeWithUnits()}" />
-												</list>
-											</property>
-										</bean>
-									</list>
-								</property>
-								<property name="layoutManager.summaryFields">
-									<list>
-										<value>filename</value>
-									</list>
-								</property>
-								<property name="layoutManager.summaryTitle" value="Attachment" />
-							</bean>
-						</list>
-					</property>
-				</bean>
-
 				<bean parent="martinlaw_shared_client_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceClient" />
-				</bean>
-
-				<bean parent="martinlaw_shared_fee_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceFee" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Client" />
 				</bean>
 				
 				<bean parent="martinlaw_shared_assignment_inquiry_view_assignees">
@@ -86,16 +31,34 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Work" />
 					<property name="items">
 						<list merge="true">
-							<bean parent="martinlaw_shared_work_docnumber_linkfield">
+							<bean parent="martinlaw_shared_line_docnumber_linkfield">
 								<property name="href">
 									<value>
 										@{#ConfigProperties['dochandler_conveyance_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
 									</value>
 								</property>
 							</bean>
+							<bean parent="Uif-InputField" p:propertyName="conveyanceAnnexType.name" />
 						</list>
 					</property>
 				</bean>
+				
+				<bean parent="martinlaw_shared_fee_doc_inquiry_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ClientFee" />
+					<property name="items">
+						<list merge="true">
+							<bean parent="martinlaw_shared_line_docnumber_linkfield" >
+								<property name="href">
+									<value>
+										@{#ConfigProperties['dochandler_conveyance_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+									</value>
+								</property>
+							</bean>
+						</list>
+					</property>
+				</bean>
+				
+				<bean parent="martinlaw_shared_annexes_inquirySection" />
 			</list>
 		</property>
 	</bean>

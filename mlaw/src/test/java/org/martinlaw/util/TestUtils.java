@@ -21,6 +21,7 @@ import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
+import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
@@ -31,9 +32,8 @@ import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
+import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Opinion;
-import org.martinlaw.bo.opinion.OpinionClient;
-import org.martinlaw.bo.opinion.OpinionFee;
 
 /**
  * holds various methods used across test cases
@@ -50,8 +50,6 @@ public class TestUtils {
 	private String testOpinionName;
 	private String testOpinionClientName;
 	private String testOpinionLocalReference;
-	private String testOpinionDescription;
-
 	/**
 	 * get a test conveyance object
 	 * @return
@@ -238,7 +236,7 @@ public class TestUtils {
 	 * @param assignees
 	 */
 	public void testAssignees(List<? extends MatterAssignee> assignees) {
-		assertEquals("number of assignees does not match", 2, assignees.size());
+		assertEquals("number of assignees does not match", 3, assignees.size());
 		assertEquals("assignee principal name did not match", getAssignee1(), assignees.get(0).getPrincipalName());
 		assertEquals("assignee principal name did not match", getAssignee2(), assignees.get(1).getPrincipalName());
 	}
@@ -256,17 +254,15 @@ public class TestUtils {
 		opinion.setLocalReference(testOpinionLocalReference);
 		opinion.setStatusId(1001l);
 		
-		OpinionClient client = new OpinionClient();
+		Client client = new Client();
 		testOpinionClientName = "pnk";
 		client.setPrincipalName(testOpinionClientName);
 		opinion.getClients().add(client);
 		
-		OpinionFee fee = new OpinionFee();
+		/*Fee fee = new Fee();
 		fee.setAmount(new BigDecimal(5000l));
-		testOpinionDescription = "received from mwn";
-		fee.setDescription(testOpinionDescription );
 		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
-		opinion.getFees().add(fee);
+		opinion.getFees().add(fee);*/
 		
 		return opinion;
 	}
@@ -283,7 +279,6 @@ public class TestUtils {
 		assertNotNull("opinion status should not be null", opinion.getStatusId());
 		
 		assertEquals("opinion fees not the expected number", 1, opinion.getFees().size());
-		assertEquals("opinion fee description differs", testOpinionDescription, opinion.getFees().get(0).getDescription());
 		
 		assertEquals("opinion clients not the expected number", 1, opinion.getClients().size());
 		assertEquals("opinion client name not the expected value", testOpinionClientName, opinion.getClients().get(0).getPrincipalName());
@@ -342,5 +337,16 @@ public class TestUtils {
 		assertEquals("key values list size differs", 2, result.size());
 		assertEquals("annex type value differs", "land board approval", result.get(0).getValue());
 		assertEquals("annex type value differs", "city council approval", result.get(1).getValue());
+	}
+	
+	/**
+	 * test a list of {@link MatterClientFee}, created via sql
+	 * 
+	 * @param fees - the list
+	 */
+	public void testClientFeeList(List<? extends MatterClientFee<?>> fees) {
+		assertNotNull("fee list should not be null", fees);
+		assertEquals("expected number of fees differs", 2, fees.size());
+		assertEquals("client name differs", "mawanja", fees.get(0).getFee().getClientPrincipalName());
 	}
 }

@@ -13,8 +13,8 @@ import java.util.Map;
 import org.junit.Test;
 import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.opinion.Opinion;
-import org.martinlaw.bo.opinion.OpinionClient;
-import org.martinlaw.bo.opinion.OpinionFee;
+import org.martinlaw.bo.opinion.Client;
+import org.martinlaw.bo.opinion.Fee;
 import org.martinlaw.test.MartinlawTestsBase;
 
 /**
@@ -51,7 +51,6 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		
 		assertNotNull("opinion fees should not be null", opinion.getFees());
 		assertEquals("opinion fees not the expected number", 2, opinion.getFees().size());
-		assertEquals("opinion fee name not the expected value", "received from znm", opinion.getFees().get(0).getDescription());
 		getTestUtils().testAssignees(opinion.getAssignees());
 	}
 	
@@ -80,8 +79,8 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		assertNull("opinion should not exist", getBoSvc().findBySinglePrimaryKey(Opinion.class, opinion.getId()));
 		Map<String, Object> criteria = new HashMap<String, Object>(1);
 		criteria.put("matterId", opinion.getId());
-		assertEquals("opinion clients should have been deleted", 0, getBoSvc().findMatching(OpinionClient.class, criteria).size());
-		assertEquals("opinion fees should have been deleted", 0, getBoSvc().findMatching(OpinionFee.class, criteria).size());
+		assertEquals("opinion clients should have been deleted", 0, getBoSvc().findMatching(Client.class, criteria).size());
+		assertEquals("opinion fees should have been deleted", 0, getBoSvc().findMatching(Fee.class, criteria).size());
 	}
 	
 }

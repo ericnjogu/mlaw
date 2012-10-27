@@ -42,7 +42,7 @@
 
 				<bean parent="martinlaw_shared_client_inquiry_section">
 					<property name="collectionObjectClass"
-						value="org.martinlaw.bo.courtcase.CourtCaseClient" />
+						value="org.martinlaw.bo.courtcase.Client" />
 				</bean>
 
 				<bean parent="Uif-Disclosure-StackedCollectionSection">
@@ -64,10 +64,6 @@
 					<property name="layoutManager.summaryTitle" value="Witness" />
 				</bean>
 
-				<bean parent="martinlaw_shared_fee_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseFee" />
-				</bean>
-
 				<bean parent="martinlaw_shared_annexes_inquirySection" />
 				
 				<bean parent="martinlaw_shared_assignment_inquiry_view_assignees">
@@ -79,10 +75,25 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Work" />
 					<property name="items">
 						<list merge="true">
-							<bean parent="martinlaw_shared_work_docnumber_linkfield">
+							<bean parent="martinlaw_shared_line_docnumber_linkfield">
 								<property name="href">
 									<value>
 										@{#ConfigProperties['dochandler_courtcase_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+									</value>
+								</property>
+							</bean>
+						</list>
+					</property>
+				</bean>
+				
+				<bean parent="martinlaw_shared_fee_doc_inquiry_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.ClientFee" />
+					<property name="items">
+						<list merge="true">
+							<bean parent="martinlaw_shared_line_docnumber_linkfield" >
+								<property name="href">
+									<value>
+										@{#ConfigProperties['dochandler_courtcase_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
 									</value>
 								</property>
 							</bean>

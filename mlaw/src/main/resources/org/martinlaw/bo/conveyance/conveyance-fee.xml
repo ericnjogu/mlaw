@@ -8,8 +8,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
  Copyright 2012 Protosoft Ltd
 -->
 
-  <bean id="conveyance-fee" parent="martinlaw-shared-fee-parentBean">
-    <property name="businessObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceFee"/>
+  <bean id="conveyance_fee_bo" parent="martinlaw-shared-fee-parentBean" p:jstlKey="conveyance_fee">
+    <property name="businessObjectClass" value="org.martinlaw.bo.conveyance.Fee"/>
   </bean>
 
 </beans>

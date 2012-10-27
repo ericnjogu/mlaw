@@ -6,12 +6,12 @@ package org.martinlaw.test.opinion;
 
 import org.junit.Test;
 import org.martinlaw.bo.opinion.Opinion;
-import org.martinlaw.bo.opinion.OpinionClient;
-import org.martinlaw.bo.opinion.OpinionFee;
+import org.martinlaw.bo.opinion.Client;
+import org.martinlaw.bo.opinion.Fee;
 import org.martinlaw.test.MartinlawTestsBase;
 
 /**
- * tests data dictionary of {@link Opinion}, {@link OpinionFee} and {@link OpinionClient}
+ * tests data dictionary of {@link Opinion}, {@link Fee} and {@link Client}
  * 
  * @author mugo
  *
@@ -19,18 +19,18 @@ import org.martinlaw.test.MartinlawTestsBase;
 public class OpinionDDTest extends MartinlawTestsBase {
 	@Test
 	/**
-	 * test that {@link OpinionClient} is loaded into the data dictionary
+	 * test that {@link Client} is loaded into the data dictionary
 	 */
 	public void testOpinionClientAttributes() {
-		super.testBoAttributesPresent(OpinionClient.class.getCanonicalName());
+		super.testBoAttributesPresent(Client.class.getCanonicalName());
 	}
 	
 	@Test
 	/**
-	 * test that {@link OpinionClient} is loaded into the data dictionary
+	 * test that {@link Client} is loaded into the data dictionary
 	 */
 	public void testOpinionFeeAttributes() {
-		super.testBoAttributesPresent(OpinionFee.class.getCanonicalName());
+		super.testBoAttributesPresent(Fee.class.getCanonicalName());
 	}
 	
 	@Test

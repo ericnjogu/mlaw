@@ -21,11 +21,7 @@
 				</bean>
 				
 				<bean parent="martinlaw_shared_client-maintenance-section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.OpinionClient" />
-				</bean>
-				
-				<bean parent="martinlaw_shared_fee-maintenance-section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.OpinionFee" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.Client" />
 				</bean>
 			</list>
 		</property>

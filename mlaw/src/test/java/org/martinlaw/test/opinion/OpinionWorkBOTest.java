@@ -39,6 +39,7 @@ public class OpinionWorkBOTest extends WorkBOTestBase {
 		setWork(new Work());
 		setWorkClass(Work.class);
 		setDocType(Constants.DocTypes.OPINION_WORK);
+		setViewId(Constants.ViewIds.OPINION_WORK);
 	}
 	
 }

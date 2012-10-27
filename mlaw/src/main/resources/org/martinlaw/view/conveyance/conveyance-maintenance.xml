@@ -9,19 +9,9 @@
 	<bean id="conveyance_maintenance_view" parent="Uif-MaintenanceView">
 		<property name="headerText" value="Conveyance Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
-		<!-- <property name="additionalScriptFiles">
-			<list>
-				<value>scripts/mlaw.js</value>
-			</list>
-		</property>
-		<property name="additionalCssFiles">
-			<list>
-				<value>css/mlaw.css</value>
-			</list>
-		</property> -->
+
 		<property name="items">
 			<list merge="true">
-				<!-- <bean parent="Uif-DocumentOverviewSection" /> -->
 
 				<bean parent="martinlaw_shared_matter_info_maintenance">
 					<property name="items">
@@ -42,164 +32,22 @@
 					<property name="headerText" value="Conveyance Information" />
 				</bean>
 
-				<!-- <ref local="conveyance_maintenance_view_notes" />
-
-				<ref local="conveyance_maintenance_view_annexes" /> -->
-
 				<bean parent="martinlaw_shared_client-maintenance-section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceClient" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Client" />
 				</bean>
 
-				<bean parent="martinlaw_shared_fee-maintenance-section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceFee" />
-				</bean>
-
-				<!-- <bean parent="Uif-DocumentAdHocRecipientsSection"
-					p:disclosure.defaultOpen="false" />
-
-				<bean parent="Uif-DocumentRouteLogSection"
-					p:disclosure.defaultOpen="false" />
-				holds the dynamically generated html content to show in lightbox
-				<ref bean="conveyance_maintenance_view_filepopup" /> -->
 			</list>
 		</property>
 	</bean>
 
 	<!-- defined out here so that they can be referred to by id -->
 
-	<!-- <bean id="conveyance_maintenance_view_filepopup" parent="Uif-MessageField"
-		p:style="display:none" />
- -->
 	<bean id="conveyance_maintenance_view_typeId" parent="martinlaw_shared_blank_label_inputfield"
 		p:propertyName="typeId"
-		p:readOnly="@{#form.document.newMaintainableObject.dataObject.hasAttachments()}"
 		p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false"/>
 
 	<bean id="conveyance_maintenance_view_typeMsg" parent="Uif-MessageField"
 		p:style="display:none" />
 
-	<!-- <bean id="conveyance_maintenance_view_notes" parent="Uif-DocumentNotesSection"
-		p:disclosure.defaultOpen="true">
-		<property name="items">
-			<list merge="true">
-				<bean parent="Uif-MessageField" p:label="[Blank]" p:style="display:none">
-					<property name="dataAttributes">
-						<map>
-							allows selection of all attachments in jquery
-							<entry key="mlaw-conv-att-line-time" value="@{#line.notePostedTimestamp?.toString()}" />
-							<entry key="mlaw-conv-att-line-filename" value="@{#line.attachment?.attachmentFileName}" />
-						</map>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean> -->
-
-
-	<!-- <bean id="conveyance_maintenance_view_annexes" parent="Uif-StackedCollectionSection">
-		<property name="headerText" value="Annexes" />
-		<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnex" />
-		<property name="propertyName" value="annexes" />
-		<property name="readOnly" value="true" />
-		<property name="conditionalRefresh"
-			value="!#empty(#form.document.newMaintainableObject.dataObject.typeId)" />
-		<property name="items">
-			<list>
-				<bean parent="Uif-InputField" p:propertyName="type.name"
-					p:readOnly="true" />
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Annex" />
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>type.name</value>
-			</list>
-		</property>
-		<property name="subCollections">
-			<list>
-				<bean parent="Uif-StackedSubCollection-WithinSection">
-					<property name="headerText" value="Attachments" />
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAttachment" />
-					<property name="propertyName" value="attachments" />
-					<property name="readOnly" value="false" />
-					<property name="items">
-						<list>
-							<bean parent="Uif-HorizontalFieldGroup" p:label="Attached File">
-								the select will know how to set the time stamp by looking for 
-									a parent with the id given for this group (div) the searching for the select 
-									with the specified data attribute
-								<property name="dataAttributes">
-									<map>
-										allows setting of selected attachment identifier - timestamp
-										<entry key="mlaw-conv-att-grp" value="true" />
-									</map>
-								</property>
-								<property name="items">
-									<list>
-										<bean parent="Uif-InputField" p:propertyName="noteTimestamp">
-											<property name="control">
-												<bean parent="Uif-HiddenControl">
-													<property name="dataAttributes">
-														<map>
-															allows setting of selected attachment identifier - timestamp
-															<entry key="mlaw-conv-att-timestamp" value="true" />
-														</map>
-													</property>
-												</bean>
-											</property>
-											<property name="propertyReplacers">
-												<list>
-													<bean parent="Uif-ConditionalBeanPropertyReplacer"
-														p:propertyName="label" p:condition="true" p:replacement="" />
-												</list>
-											</property>
-										</bean>
-
-										<bean parent="Uif-MessageField" p:messageText="Click 'Add' below" p:render="@{#isAddLine}"/>
-
-										<bean parent="Uif-InputField" p:style="width:170px"
-											p:propertyName="filename" p:render="@{!#isAddLine}">
-											<property name="control">
-												set readonly via script so that this control is not replaced 
-													by a span
-												<bean parent="Uif-TextControl" p:readOnly="true">
-													<property name="dataAttributes">
-														<map>
-															allows setting of selected attachment filename
-															<entry key="mlaw-conv-att-filename" value="true" />
-														</map>
-													</property>
-												</bean>
-											</property>
-										</bean>
-
-										<bean parent="Uif-PrimaryActionButton" p:actionLabel="Select File" p:render="@{!#isAddLine}">
-											<property name="actionScript">
-												<value>
-													var mlawUtil = new martinlaw.Util();
-													mlawUtil.selectFileAction('conveyance_maintenance_view_notes',
-													'mlaw-conv-att-timestamp',
-													'mlaw-conv-att-filename',
-													'conveyance_maintenance_view_annexes',
-													'mlaw-conv-att-lb-mk',
-													'conveyance_maintenance_view_filepopup',
-													'mlaw-conv-att-grp', jQuery(this),
-													'mlaw-conv-att-line-time',
-													'mlaw-conv-att-line-filename',
-													'conveyance_maintenance_view_typeId_control',
-													'conveyance_maintenance_view_typeMsg');
-												</value>
-											</property>
-										</bean>
-									</list>
-								</property>
-							</bean>
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Attachment" />
-				</bean>
-			</list>
-		</property>
-	</bean> -->
 
 </beans>

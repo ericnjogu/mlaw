@@ -1,13 +1,25 @@
 <config>
   <param name="doctype_contract_work">ContractWorkDocument</param>
-  <param name="dochandler_contract_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_contract_work}&amp;viewId=contract_work_doc_view</param>
+  <param name="dochandler_contract_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_contract_work}&amp;viewId=contract_work_doc_view</param>
   
   <param name="doctype_courtcase_work">CourtCaseWorkDocument</param>
-  <param name="dochandler_courtcase_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_courtcase_work}&amp;viewId=courtcase_work_doc_view</param>
+  <param name="dochandler_courtcase_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_courtcase_work}&amp;viewId=courtcase_work_doc_view</param>
   
   <param name="doctype_opinion_work">OpinionWorkDocument</param>
-  <param name="dochandler_opinion_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_opinion_work}&amp;viewId=opinion_work_doc_view</param>
+  <param name="dochandler_opinion_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_opinion_work}&amp;viewId=opinion_work_doc_view</param>
   
   <param name="doctype_conveyance_work">ConveyanceWorkDocument</param>
-  <param name="dochandler_conveyance_work">${application.url}/kr-krad/work?methodToCall=docHandler&amp;docTypeName=${doctype_conveyance_work}&amp;viewId=conveyance_work_doc_view</param>
+  <param name="dochandler_conveyance_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_conveyance_work}&amp;viewId=conveyance_work_doc_view</param>
+  
+  <param name="doctype_contract_fee">ContractFeeDocument</param>
+  <param name="dochandler_contract_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_contract_fee}&amp;viewId=contract_fee_doc_view</param>
+  
+  <param name="doctype_conveyance_fee">ConveyanceFeeDocument</param>
+  <param name="dochandler_conveyance_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_conveyance_fee}&amp;viewId=conveyance_fee_doc_view</param>
+  
+  <param name="doctype_courtcase_fee">CourtCaseFeeDocument</param>
+  <param name="dochandler_courtcase_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_courtcase_fee}&amp;viewId=courtcase_fee_doc_view</param>
+  
+  <param name="doctype_opinion_fee">OpinionFeeDocument</param>
+  <param name="dochandler_opinion_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_opinion_fee}&amp;viewId=opinion_fee_doc_view</param>
 </config>

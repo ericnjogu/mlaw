@@ -13,13 +13,11 @@ values
 (1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1'),
 (1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2');
 
-insert into martinlaw_convey_client_t (client_id, matter_id, principal_name) values (1001, 1001, 'client2');
-
-insert into
-martinlaw_convey_fee_t
-(fee_id, matter_id,amount,date_received,description, ver_nbr, obj_id)
-values
-(1001,1001,2500.58,'2011-06-12','received from karateka', default, 1);
+insert into martinlaw_convey_client_t 
+(client_id, matter_id, principal_name) 
+values 
+(1001, 1001, 'client1'),
+(1002, 1001, 'client2');
 
 insert into
 martinlaw_convey_annex_type_t

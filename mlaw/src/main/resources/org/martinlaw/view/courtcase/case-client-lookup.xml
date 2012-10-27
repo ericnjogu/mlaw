@@ -5,6 +5,6 @@
 
 	<bean id="court_case_client_LookupView" parent="martinlaw_shared_person_LookupView">
 		<property name="headerText" value="Court Case Client Lookup" />
-		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCaseClient" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.Client" />
 	</bean>
 </beans>

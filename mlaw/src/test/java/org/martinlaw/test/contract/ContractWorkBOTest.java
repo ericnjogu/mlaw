@@ -39,8 +39,6 @@ public class ContractWorkBOTest extends WorkBOTestBase {
 		setWork(new Work());
 		setWorkClass(Work.class);
 		setDocType(Constants.DocTypes.CONTRACT_WORK);
+		setViewId(Constants.ViewIds.CONTRACT_WORK);
 	}
-	
-	
-	
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2005-2012 Protosoft Ltd -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="courtcase_fee_doc_view" parent="Uif-DocumentView">
+		<property name="documentClass" value="org.martinlaw.bo.courtcase.ClientFee" />
+		<property name="formPostUrl"
+			value="tx?docTypeName=@{#ConfigProperties['doctype_courtcase_fee']}"></property>
+		<property name="headerText" value="Court Case Fee" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-GridSection">
+					<property name="items">
+						<list>
+							<bean parent="martinlaw_shared_matter_id_scriptlookup"
+								p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.ClientFee">
+								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
+							</bean>
+							<bean parent="courtcase_fee_doc_fee_detail" p:propertyName="fee.clientPrincipalName"
+								p:conditionalRefresh="!#empty(document.matterId)"
+								p:refreshWhenChangedPropertyNames="matterId">
+								<property name="optionsFinder">
+									<bean class="org.martinlaw.keyvalues.MatterClientNamesKeyValues" />
+								</property>
+							</bean>
+							<bean parent="courtcase_fee_doc_fee_detail" p:propertyName="fee.amount" />
+							<bean parent="courtcase_fee_doc_fee_detail" p:propertyName="fee.date" />
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="courtcase_fee_doc_fee_detail" parent="Uif-InputField"
+		abstract="true" p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.ClientFee" />
+</beans>

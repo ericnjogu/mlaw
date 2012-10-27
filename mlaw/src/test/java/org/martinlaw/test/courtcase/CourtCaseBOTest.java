@@ -20,13 +20,11 @@ import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
 import org.kuali.rice.test.SQLDataLoader;
-import org.martinlaw.bo.Fee;
 import org.martinlaw.bo.MartinlawPerson;
 import org.martinlaw.bo.Status;
+import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.bo.courtcase.CourtCaseClient;
 import org.martinlaw.bo.courtcase.CourtCaseDate;
-import org.martinlaw.bo.courtcase.CourtCaseFee;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -64,6 +62,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/case-date-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-fee-test-data.sql", ";").runSql();
 		//bo xml files loaded from martinlaw-ModuleBeans(imported in CourtCaseBOTest-context.xml) as part of the data dictionary config
 	}
 
@@ -96,9 +95,9 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         assertEquals("hearing", kase.getStatus().getStatus());
         assertEquals(Status.COURT_CASE_TYPE.getKey(), kase.getStatus().getType());
         //case client
-        List<CourtCaseClient> clients = kase.getClients();
-        assertEquals(1, clients.size());
-        CourtCaseClient client = clients.get(0);
+        List<Client> clients = kase.getClients();
+        assertEquals(2, clients.size());
+        Client client = clients.get(0);
         assertEquals("client1", client.getPrincipalName());
         assertEquals("Client", client.getPerson().getFirstName());
         //witness
@@ -111,15 +110,16 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         List<CourtCaseDate> dates = kase.getDates();
         assertEquals(1,dates.size());
         getTestUtils().testMatterDateFields(kase.getDates().get(0));
-        //client fees
-        assertEquals(2, kase.getFees().size());
-        testFeeFields(kase.getFees().get(0));
+
+        /*testFeeFields(kase.getFees().get(0));*/
         // attachments
         assertEquals("number of attachments not the expected quantity", 2, kase.getAttachments().size());
         assertEquals("first attachment name differs", "submission.pdf", kase.getAttachments().get(0).getAttachmentFileName());
         assertEquals("second attachment name differs", "pleading.odt", kase.getAttachments().get(1).getAttachmentFileName());
         // assignment
         getTestUtils().testAssignees(kase.getAssignees());
+        // fees
+        getTestUtils().testClientFeeList(kase.getFees());
 	}
 	
 	@Test
@@ -148,10 +148,10 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		log.debug("Created case with id " + kase.getId());
 		assertNotNull(kase.getId());
 		//create and save client, witness
-		CourtCaseClient cl = new CourtCaseClient();
+		Client cl = new Client();
 		cl.setMatterId(kase.getId());
 		cl.setPrincipalName("somename");//TODO needs to be verified (business rule?)
-		List<CourtCaseClient> clts = new ArrayList<CourtCaseClient>(1);
+		List<Client> clts = new ArrayList<Client>(1);
 		clts.add(cl);
 		kase.setClients(clts);
 		
@@ -187,9 +187,9 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	 * tests retrieving a client present in the db, then CRUD ops
 	 */
 	public void testCaseClient() {
-		CourtCaseClient person = new CourtCaseClient();
+		Client person = new Client();
 		person.setMatterId(1001l);
-		testMartinlawPersonCRUD(new CourtCaseClient(), "client1", person);
+		testMartinlawPersonCRUD(new Client(), "client1", person);
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
@@ -197,7 +197,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	 * tests that non nullable fields are checked
 	 */
 	public void testCaseClientNullableFields() {
-		CourtCaseClient caseClient = new CourtCaseClient();
+		Client caseClient = new Client();
 		getBoSvc().save(caseClient);
 	}
 	
@@ -246,8 +246,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	 * test that the client is loaded into the data dictionary
 	 */
 	public void testCourtCaseClientAttributes() {
-		testBoAttributesPresent(CourtCaseClient.class.getCanonicalName());
-		Class<CourtCaseClient> dataObjectClass = CourtCaseClient.class;
+		testBoAttributesPresent(Client.class.getCanonicalName());
+		Class<Client> dataObjectClass = Client.class;
 		verifyInquiryLookup(dataObjectClass);
 	}
 	
@@ -263,40 +263,10 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	
 	@Test
 	/**
-	 * test that a court case fee can be retrieved from the database by the primary key
-	 */
-	public void testCourtCaseFeeRetrieval() {
-		Fee fee = getBoSvc().findBySinglePrimaryKey(CourtCaseFee.class, new Long(1001));
-		assertNotNull(fee);
-		testFeeFields(fee);
-	}
-	
-	@Test(expected=DataIntegrityViolationException.class)
-	/**
-	 * tests that annex type generates errors when non-nullable fields are blank
-	 */
-	public void testCourtCaseFeeNullableFields() {
-		CourtCaseFee fee = new CourtCaseFee();
-		//fee.setId(25l);
-		getBoSvc().save(fee);
-	}
-	
-	@Test
-	/**
-	 * tests court case fee CRUD
-	 */
-	public void testCourtCaseFeeCRUD() {
-		CourtCaseFee fee = new CourtCaseFee();
-		fee.setMatterId(1001l);
-		testFeeCRUD(fee, fee.getClass());
-	}
-	
-	@Test
-	/**
 	 * test how a name is returned for clients/witnesses who are not yet created as KIM principals
 	 */
 	public void testCourtCasePersonName() {
-		MartinlawPerson client = new CourtCaseClient();
+		MartinlawPerson client = new Client();
 		client.setPrincipalName("clientX");
 		// should there be an error here - if the principalName does not represent a existing principal? 
 		assertNotNull(client.getPerson().getName());

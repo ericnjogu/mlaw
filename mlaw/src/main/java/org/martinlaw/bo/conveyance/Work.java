@@ -9,6 +9,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.martinlaw.bo.Matter;
+import org.martinlaw.bo.MatterAssignee;
+import org.martinlaw.bo.MatterClient;
+import org.martinlaw.bo.MatterClientFee;
+import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterWork;
 
 /**
@@ -30,16 +35,6 @@ public class Work extends MatterWork {
 	 * 
 	 */
 	private static final long serialVersionUID = -3180199728494497136L;
-
-	/**
-	 * default constructor to initialize matter class
-	 * 
-	 * adapted from {@link http://stackoverflow.com/questions/182636/how-to-determine-the-class-of-a-generic-type}
-	 */
-	public Work() {
-		super();
-		setMatterClass(Conveyance.class);
-	}
 
 	/**
 	 * gets the annex type e.g. search document or copy of certificate, as is determined by the conveyance type
@@ -74,5 +69,12 @@ public class Work extends MatterWork {
 	public void setConveyanceAnnexType(ConveyanceAnnexType conveyanceAnnexType) {
 		this.conveyanceAnnexType = conveyanceAnnexType;
 	}
+
+	@Override
+	public Class<? extends Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterClientFee<? extends MatterFee>, ? extends MatterClient>> getMatterClass() {
+		return Conveyance.class;
+	}
+	
+	
 
 }

@@ -76,10 +76,12 @@
          <value>classpath:org/martinlaw/bo/courtcase/case.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-date.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/client-fee-doc.xml</value>
          
          <value>classpath:org/martinlaw/view/courtcase/case-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-lookup.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/client-fee-doc.xml</value>
          
          <value>classpath:org/martinlaw/bo/courtcase/case-client.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-witness.xml</value>
@@ -121,12 +123,15 @@
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignment.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignment-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignee.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/client-fee-doc.xml</value>
+         
          <value>classpath:org/martinlaw/view/conveyance/conveyance-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-lookup.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-assignment-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-assignment-lookup.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-assignment-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/client-fee-doc.xml</value>
          
          <value>classpath:org/martinlaw/bo/contract/contract-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-type.xml</value>
@@ -147,6 +152,9 @@
          <value>classpath:org/martinlaw/bo/contract/contract-party.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-signatory.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-client.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/client-fee-doc.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-fee.xml</value>
          
          <value>classpath:org/martinlaw/view/contract/contract-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-party-inquiry.xml</value>
@@ -155,6 +163,7 @@
          <value>classpath:org/martinlaw/view/contract/contract-signatory-lookup.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/client-fee-doc.xml</value>
          
          <value>classpath:org/martinlaw/bo/date-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/date-type.xml</value>
@@ -187,12 +196,15 @@
          <value>classpath:org/martinlaw/bo/opinion/opinion-assignee.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-assignment.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-assignment-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/opinion/client-fee-doc.xml</value>
+         
          <value>classpath:org/martinlaw/view/opinion/opinion-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-lookup.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-lookup.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/opinion/client-fee-doc.xml</value>
          
          <value>classpath:org/martinlaw/bo/contract/contract-work.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-work.xml</value>

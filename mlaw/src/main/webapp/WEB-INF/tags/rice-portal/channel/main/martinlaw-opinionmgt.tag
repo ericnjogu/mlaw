@@ -23,6 +23,11 @@
   <li><portal:portalLink displayTitle="true" title="New Opinion Work" url="${ConfigProperties.dochandler_opinion_work}&command=initiate" /></li>
   </ul>
   
+  <strong>Opinion Fee</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Opinion Fee" url="${ConfigProperties.dochandler_opinion_fee}&command=initiate" /></li>
+  </ul>
+  
 </div>
 <channel:portalChannelBottom />
 

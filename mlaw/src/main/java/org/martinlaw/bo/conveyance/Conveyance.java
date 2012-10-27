@@ -30,11 +30,7 @@ import org.martinlaw.service.RiceServiceHelper;
  */
 @Entity
 @Table(name="martinlaw_convey_t")
-public class Conveyance extends Matter<Assignee, Work> {
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<ConveyanceFee> fees;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<ConveyanceClient> clients;
+public class Conveyance extends Matter<Assignee, Work, ClientFee, Client> {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
 	private List<ConveyanceAnnex> annexes;
 	// column def given on the object reference below - this is for the sake of ojb
@@ -46,8 +42,7 @@ public class Conveyance extends Matter<Assignee, Work> {
 	 * default constructor which initializes lists
 	 */
 	public Conveyance() {
-		fees = new ArrayList<ConveyanceFee>();
-		clients = new ArrayList<ConveyanceClient>();
+		setClients(new ArrayList<Client>());
 		annexes = new ArrayList<ConveyanceAnnex>();
 		setRiceServiceHelper(new RiceServiceHelper());
 	}
@@ -59,30 +54,7 @@ public class Conveyance extends Matter<Assignee, Work> {
 	 * 
 	 */
 	private static final long serialVersionUID = -7207626236630736596L;
-	/**
-	 * @return the fees
-	 */
-	public List<ConveyanceFee> getFees() {
-		return fees;
-	}
-	/**
-	 * @param fees the fees to set
-	 */
-	public void setFees(List<ConveyanceFee> fees) {
-		this.fees = fees;
-	}
-	/**
-	 * @return the clients
-	 */
-	public List<ConveyanceClient> getClients() {
-		return clients;
-	}
-	/**
-	 * @param clients the clients to set
-	 */
-	public void setClients(List<ConveyanceClient> clients) {
-		this.clients = clients;
-	}
+
 	/**
 	 * gets the annexes, replacing the current list if the type id has changed
 	 * 
@@ -229,5 +201,9 @@ public class Conveyance extends Matter<Assignee, Work> {
 	@Override
 	public Class<Work> getWorkClass() {
 		return Work.class;
+	}
+	@Override
+	public Class<ClientFee> getFeeClass() {
+		return ClientFee.class;
 	}
 }

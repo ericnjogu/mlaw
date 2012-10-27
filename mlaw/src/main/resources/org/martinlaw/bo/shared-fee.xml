@@ -1,43 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns:p="http://www.springframework.org/schema/p" 
-xsi:schemaLocation="http://www.springframework.org/schema/beans         
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-<!--
- Copyright 2012 Protosoft Ltd
--->
+	<!-- Copyright 2012 Protosoft Ltd -->
+	<bean id="martinlaw-shared-fee-parentBean" abstract="true"
+		parent="BusinessObjectEntry">
+		<property name="titleAttribute" value="amount" />
+		<property name="attributes">
+			<list>
+				<bean parent="martinlaw-shared-date" />
+				<bean parent="martinlaw-shared-fee-amount-parentBean" />
+				<bean parent="martinlaw-shared-fee-clientPrincipalName-parentBean" />
+			</list>
+		</property>
+		<property name="objectLabel" value="Fee" />
+	</bean>
 
-  <bean id="martinlaw-shared-fee-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="titleAttribute" value="amount"/>
-    <property name="attributes">
-      <list>    	
-      	<ref bean="martinlaw-shared-fee-description"/>
-      	<ref bean="martinlaw-shared-fee-date"/>
-      	<ref bean="martinlaw-shared-fee-amount"/>
-      </list>
-    </property>
-    <property name="objectLabel" value="Fee"/>
-  </bean>
+	<!-- Attribute Definitions -->
 
-<!-- Attribute Definitions -->
- 
- <bean id="martinlaw-shared-fee-description" parent="martinlaw-shared-description"/>
+	<bean id="martinlaw-shared-fee-amount-parentBean" abstract="true"
+		parent="AttributeDefinition">
+		<property name="name" value="amount" />
+		<property name="label" value="Amount" />
+		<property name="description" value="Amount" />
+		<property name="shortLabel" value="Amount" />
+		<property name="summary" value="Amount" />
+		<property name="maxLength" value="20" />
+		<property name="required" value="true" />
+		<property name="controlField">
+			<bean parent="Uif-TextControl" p:size="50" />
+		</property>
+	</bean>
 
-<bean id="martinlaw-shared-fee-amount" parent="martinlaw-shared-fee-amount-parentBean"/>
-
-	<bean id="martinlaw-shared-fee-amount-parentBean" abstract="true" parent="AttributeDefinition">
-		<property name="name" value="amount"/>
-		<property name="label" value="Amount"/>
-		<property name="description" value="Amount"/>
-		<property name="shortLabel" value="Amount"/>
-		<property name="summary" value="Amount"/>
-		<property name="maxLength" value="20"/>
-		<property name="required" value="true"/>
-    <property name="controlField">
-      <bean parent="Uif-TextControl" p:size="50" />
-    </property> 
+	<bean id="martinlaw-shared-fee-clientPrincipalName-parentBean"
+		abstract="true" parent="AttributeDefinition">
+		<property name="name" value="clientPrincipalName" />
+		<property name="label" value="Client" />
+		<property name="maxLength" value="100" />
+		<property name="required" value="true" />
+		<property name="controlField">
+			<bean parent="Uif-DropdownControl" />
+		</property>
 	</bean>
 	
-	<bean id="martinlaw-shared-fee-date" parent="martinlaw-shared-date"/>
+	<bean id="martinlaw_shared_client_fee_doc" abstract="true" parent="uifTransactionalDocumentEntry">
+		<property name="businessRulesClass" value="org.martinlaw.bo.MatterRule"/>
+		<property name="attributes">
+			<list>
+				<bean parent="martinlaw-shared-date" p:name="fee.date"/>
+				<bean parent="martinlaw-shared-fee-amount-parentBean" p:name="fee.amount"/>
+				<bean parent="martinlaw-shared-fee-clientPrincipalName-parentBean" p:name="fee.clientPrincipalName" />
+			</list>
+		</property>
+	</bean>
+
 </beans>

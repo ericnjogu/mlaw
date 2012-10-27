@@ -23,7 +23,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_court_case_t")
-public class CourtCase extends Matter<Assignee, Work> {
+public class CourtCase extends Matter<Assignee, Work, ClientFee, Client> {
 
 	/**
 	 * 
@@ -42,20 +42,13 @@ public class CourtCase extends Matter<Assignee, Work> {
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
 	private List<CourtCaseDate> dates;
-
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
-	private List<CourtCaseClient> clients;
-
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
-	private List<CourtCaseFee> fees;
 	
 	public CourtCase() {
 		super();
 		//initialize collections
-		setClients(new ArrayList<CourtCaseClient>());
+		setClients(new ArrayList<Client>());
 		setWitnesses(new ArrayList<CourtCaseWitness>());
 		setDates(new ArrayList<CourtCaseDate>());
-		setFees(new ArrayList<CourtCaseFee>());
 	}
 	/**
 	 * @return the courtReference
@@ -97,30 +90,13 @@ public class CourtCase extends Matter<Assignee, Work> {
 	/**
 	 * @return the clients
 	 */
-	public List<CourtCaseClient> getClients() {
-		return clients;
-	}
-	/**
-	 * @param clients the clients to set
-	 */
-	public void setClients(List<CourtCaseClient> clients) {
-		this.clients = clients;
-	}
-	/**
-	 * @param fees the fees to set
-	 */
-	public void setFees(List<CourtCaseFee> payments) {
-		this.fees = payments;
-	}
-	/**
-	 * @return the fees
-	 */
-	public List<CourtCaseFee> getFees() {
-		return fees;
-	}
+	
 	@Override
 	public Class<Work> getWorkClass() {
 		return Work.class;
 	}
-
+	@Override
+	public Class<ClientFee> getFeeClass() {
+		return ClientFee.class;
+	}
 }
