@@ -13,6 +13,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 --%>
+
+<!-- NOTICE: This rice file has been modified to display the martinlaw copyright message -->
+
 <%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
 
 <%@ attribute name="channelTitle" required="true" %>

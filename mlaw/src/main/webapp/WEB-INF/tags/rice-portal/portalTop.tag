@@ -14,6 +14,8 @@
  limitations under the License.
 --%>
 
+<!-- NOTICE: This file has been modified to display the martinlaw logo -->
+
 <%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
 
 <!DOCTYPE HTML>
