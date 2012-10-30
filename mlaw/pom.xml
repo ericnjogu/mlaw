@@ -52,9 +52,9 @@
 						<phase>process-sources</phase>
 						<configuration>
 							<licenseName>gpl_v3</licenseName>
-							<roots>
-								<root>src/test/java</root>
-							</roots>
+							<!-- <roots>
+								<root>src/test</root>
+							</roots> -->
 							<excludes>
 								<exclude>src/test/js/jquery-1.7.2.js</exclude>
 								<exclude>src/main/webapp/WEB-INF/krad-servlet.xml</exclude>
