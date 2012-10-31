@@ -68,4 +68,4 @@
 </c:choose>
 
  <div class="footerbevel">&nbsp;</div>
- <div id="footer-copyright"> <bean:message key="app.copyright" /></div>
+ <div id="footer-copyright">Copyright 2012 Eric Njogu. All rights reserved. <!-- <bean:message key="app.copyright" /> --></div>
