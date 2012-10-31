@@ -115,31 +115,6 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_fee-maintenance-section" parent="Uif-StackedCollectionSection"
-		abstract="true">
-		<property name="headerText" value="Fees Received" />
-		<property name="propertyName" value="fees" />
-		<property name="items">
-			<list>
-				<bean parent="Uif-InputField" p:propertyName="amount">
-					<property name="validCharactersConstraint">
-						<bean parent="FloatingPointPatternConstraint"
-							p:allowNegative="false" />
-					</property>
-				</bean>
-				<bean parent="Uif-InputField" p:propertyName="date" />
-				<bean parent="Uif-InputField" p:propertyName="description" />
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Fee" />
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>amount</value>
-				<value>date</value>
-			</list>
-		</property>
-	</bean>
-
 	<bean id="martinlaw_shared_name_description_LookupView" parent="Uif-LookupView">
 		<property name="criteriaFields">
 			<list>
