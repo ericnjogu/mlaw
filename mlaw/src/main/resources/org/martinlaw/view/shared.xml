@@ -286,6 +286,13 @@
 			</map>
 		</property>
 	</bean>
+	
+	<bean id="martinlaw_shared_matter_id_scriptlookup_refresh" parent="martinlaw_shared_matter_id_scriptlookup"
+		p:propertyName="matterId">
+		<property name="quickfinder">
+			<bean parent="Uif-QuickFinder" />
+		</property>
+	</bean>
 
 	<bean id="martinlaw_shared_work_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
 		<property name="propertyName" value="work" />

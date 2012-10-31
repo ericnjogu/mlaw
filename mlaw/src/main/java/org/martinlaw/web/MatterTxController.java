@@ -32,9 +32,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
+import org.kuali.rice.krad.uif.UifParameters;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.web.controller.TransactionalDocumentController;
+import org.kuali.rice.krad.web.form.DocumentFormBase;
 import org.kuali.rice.krad.web.form.TransactionForm;
+import org.kuali.rice.krad.web.form.UifFormBase;
+import org.kuali.rice.krad.web.form.UifFormManager;
 import org.martinlaw.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,9 +63,19 @@ public class MatterTxController extends TransactionalDocumentController {
 		
 		String docTypeName = request.getParameter(KRADConstants.DOCUMENT_TYPE_NAME);
 		if (docTypeName == null) {
-			throw new RiceRuntimeException("expected parameter " + KRADConstants.DOCUMENT_TYPE_NAME + " for use in form.setDocTypeName()");
+			// lookups supply the form key
+			UifFormManager uifFormManager = (UifFormManager) request.getSession().getAttribute(UifParameters.FORM_MANAGER);
+			if (uifFormManager != null && request.getParameter(UifParameters.FORM_KEY) != null) {
+				UifFormBase sessionForm = uifFormManager.getSessionForm(request.getParameter(UifParameters.FORM_KEY));
+				docTypeName = ((DocumentFormBase) sessionForm).getDocTypeName();
+				log.debug("retrieved doc type name from session form");
+			}
 		}
-		form.setDocTypeName(docTypeName);
+		if (docTypeName == null) {
+			throw new RiceRuntimeException("expected parameter " + KRADConstants.DOCUMENT_TYPE_NAME + " for use in form.setDocTypeName()");
+		} else {
+			form.setDocTypeName(docTypeName);
+		}
 		
 		return form;
 	}

@@ -38,7 +38,7 @@
 				<bean parent="Uif-GridSection">
 					<property name="items">
 						<list>
-							<bean parent="martinlaw_shared_matter_id_scriptlookup"
+							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh"
 								p:dictionaryObjectEntry="org.martinlaw.bo.contract.ClientFee">
 								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.contract.Contract" />
 							</bean>
