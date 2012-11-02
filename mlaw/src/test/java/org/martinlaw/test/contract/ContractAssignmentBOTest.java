@@ -27,7 +27,6 @@ package org.martinlaw.test.contract;
 
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.contract.Assignee;
 import org.martinlaw.bo.contract.Assignment;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -40,19 +39,6 @@ import org.springframework.dao.DataIntegrityViolationException;
  */
 // @BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
 public class ContractAssignmentBOTest extends ContractBoTestBase {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader(
-				"classpath:org/martinlaw/scripts/contract-assignment-test-data.sql",
-				";").runSql();
-	}
 
 	@Test(expected = DataIntegrityViolationException.class)
 	/**
