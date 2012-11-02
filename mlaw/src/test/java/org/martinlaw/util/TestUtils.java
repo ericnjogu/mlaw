@@ -211,6 +211,10 @@ public class TestUtils {
 		//contractAssignee.setContractId(contractId);
 		assignment.getAssignees().add(assignee3);
 		
+		T assignee4 = t.newInstance();
+		assignee4.setPrincipalName("clerk1");
+		assignment.getAssignees().add(assignee4);
+		
 		return assignment;
 	}
 
