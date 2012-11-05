@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
@@ -46,7 +47,6 @@ import org.junit.Test;
 import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.service.AttachmentService;
 import org.kuali.rice.krad.service.BusinessObjectService;
-import org.kuali.rice.krad.web.form.UifFormBase;
 import org.springframework.util.FileCopyUtils;
 
 /**
@@ -91,6 +91,7 @@ public class DownloadControllerTest {
 	 * Test method for {@link org.martinlaw.web.DownloadController#downloadConveyanceAttachment(org.kuali.rice.krad.web.form.UifFormBase, org.springframework.validation.BindingResult, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)}.
 	 */
 	@Test
+	@Ignore()
 	public void testDownloadConveyanceAttachment() {
 		fail("Not yet implemented");
 	}
@@ -116,12 +117,12 @@ public class DownloadControllerTest {
 	 */
 	@Test
 	public void testDownloadCaseAttachment() throws IOException {
-		UifFormBase form = mock(UifFormBase.class);
-		when(form.getActionParamaterValue("attachmentId")).thenReturn("1001");
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getParameter("attachmentId")).thenReturn("1001");
 		BusinessObjectService boSvc = mock(BusinessObjectService.class);
 		controller.setBusinessObjectService(boSvc);
 		when(boSvc.findBySinglePrimaryKey(Attachment.class, 1001l)).thenReturn(att);
-		controller.downloadAttachmentById(form, null, null, response);
+		controller.downloadAttachmentById(null, null, request, response);
 		testDownloadAttachmentAsStream();
 	}
 
