@@ -24,7 +24,7 @@
 INSERT INTO `krim_perm_t` 
 (`PERM_ID`,`OBJ_ID`,`VER_NBR`,`PERM_TMPL_ID`,`NMSPC_CD`,`NM`,`DESC_TXT`,`ACTV_IND`) 
 VALUES 
-('create_contract_assignment_maint','2JwaeTTWSMDY3LtKBC3cJAcmoKJqkq6cScu9',2,'42','KR-NS','Create Contract Assignment Maintenance Document','Allows user to create a new Contract Type maintenance document','Y');
+('create_contract_assignment_maint','2JwaeTTWSMDY3LtKBC3cJAcmoKJqkq6cScu9',2,'42','KR-NS','Create Contract Assignment Maintenance Document','Allows user to create a new Contract Assignment maintenance document','Y');
 
 
 -- document type names for the permissions
