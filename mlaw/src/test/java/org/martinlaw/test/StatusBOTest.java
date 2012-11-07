@@ -33,7 +33,6 @@ import static org.junit.Assert.assertNull;
 import java.util.List;
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.Status;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -117,10 +116,4 @@ public class StatusBOTest extends MartinlawTestsBase {
 		// expected 2 court case types and two of any type, plus a blank one
 		assertEquals(5, keyValues.getKeyValues().size());
 	}	
-	
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-	}
 }

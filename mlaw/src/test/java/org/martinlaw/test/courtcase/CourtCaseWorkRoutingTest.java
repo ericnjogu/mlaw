@@ -30,7 +30,6 @@ package org.martinlaw.test.courtcase;
 import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.Constants;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.test.TxRoutingTestBase;
@@ -51,17 +50,5 @@ public class CourtCaseWorkRoutingTest extends TxRoutingTestBase {
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
 		setDocType(Constants.DocTypes.COURTCASE_WORK);
 		setWorkDoc((MatterTxDocBase) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType()));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
-	 */
-	/**
-	 * needed to check for matter id validity
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
 	}
 }

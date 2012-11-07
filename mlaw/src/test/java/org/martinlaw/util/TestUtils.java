@@ -198,8 +198,7 @@ public class TestUtils {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <A extends MatterAssignment, T extends MatterAssignee> A getTestAssignment(Class<A> a, Class<T> t) throws InstantiationException, IllegalAccessException {
 		A assignment = a.newInstance();
-		long matterId = 1002l;
-		assignment.setMatterId(matterId);
+		assignment.setMatterId(1002l);
 		
 		 T assignee = t.newInstance();
 		
@@ -380,4 +379,18 @@ public class TestUtils {
 		assertNotNull("work list should not be null", work);
         assertEquals("expected number of work differs", 2, work.size());
 	}
+
+	/**
+	 * @return the testAssignmentId
+	 *//*
+	public long getTestAssignmentId() {
+		return testAssignmentId;
+	}
+
+	*//**
+	 * @param testAssignmentId the testAssignmentId to set
+	 *//*
+	public void setTestAssignmentId(long testAssignmentId) {
+		this.testAssignmentId = testAssignmentId;
+	}*/
 }

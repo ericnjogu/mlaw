@@ -65,14 +65,4 @@ public class ConveyanceAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
 		super.testAssignmentRouting(testAssignment, "ConveyanceAssignmentMaintenanceDocument");
 	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.BaseAssignmentRoutingTest#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-perms-roles.sql", ";").runSql();
-	}
 }

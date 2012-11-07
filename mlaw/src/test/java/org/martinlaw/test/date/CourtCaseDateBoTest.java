@@ -34,7 +34,6 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.courtcase.CourtCaseDate;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -103,12 +102,12 @@ public class CourtCaseDateBoTest extends MartinlawTestsBase {
 		verifyInquiryLookup(dataObjectClass);
 	}
 	
-	@Override
+	/*@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/case-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/date-type-default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/case-date-test-data.sql", ";").runSql();
-	}
+	}*/
 }

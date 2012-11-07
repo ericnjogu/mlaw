@@ -31,8 +31,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.contract.ContractSignatory;
+import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -41,20 +41,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author mugo
  * 
  */
-public class ContractSignatoryBOTest extends ContractBoTestBase {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader(
-				"classpath:org/martinlaw/scripts/contract-signatory-test-data.sql",
-				";").runSql();
-	}
+public class ContractSignatoryBOTest extends MartinlawTestsBase {
 
 	@Test(expected = DataIntegrityViolationException.class)
 	/**

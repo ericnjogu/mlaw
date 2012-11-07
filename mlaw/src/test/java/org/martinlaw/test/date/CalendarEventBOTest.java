@@ -32,7 +32,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.CalendarEvent;
 import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -45,18 +44,6 @@ import org.springframework.dao.DataIntegrityViolationException;
  * 
  */
 public class CalendarEventBOTest extends MartinlawTestsBase {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/calendar-event-test-data.sql", ";").runSql();
-	}
-
 	@Test(expected = DataIntegrityViolationException.class)
 	/**
 	 * tests that non nullable fields are checked

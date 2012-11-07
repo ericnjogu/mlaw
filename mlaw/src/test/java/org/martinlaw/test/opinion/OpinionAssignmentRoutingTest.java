@@ -68,11 +68,11 @@ public class OpinionAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 
 	/* (non-Javadoc)
 	 * @see org.martinlaw.test.BaseAssignmentRoutingTest#loadSuiteTestData()
-	 */
+	 
 	@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-perms-roles.sql", ";").runSql();
-	}
+	}*/
 }

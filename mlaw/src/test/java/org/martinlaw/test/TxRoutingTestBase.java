@@ -34,7 +34,6 @@ import org.kuali.rice.krad.rules.DocumentRuleBase;
 import org.kuali.rice.krad.rules.TransactionalDocumentRuleBase;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterRule;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWorkRule;
@@ -45,7 +44,7 @@ import org.martinlaw.bo.MatterWorkRule;
  * @author mugo
  *
  */
-public class TxRoutingTestBase extends KewTestsBase {
+public abstract class TxRoutingTestBase extends KewTestsBase {
 
 	private MatterTxDocBase workDoc;
 	private String docType;
@@ -109,15 +108,6 @@ public class TxRoutingTestBase extends KewTestsBase {
 			}
 		}
 		return rule;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 	}
 
 	/**

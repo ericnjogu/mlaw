@@ -28,7 +28,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.MatterWorkRule;
@@ -81,16 +80,6 @@ public abstract class WorkBOTestBase extends MartinlawTestsBase {
 		assertFalse("matter id should be invalid", getWork().isMatterIdValid());
 		getWork().setMatterId(1001l);
 		assertTrue("matter id should be valid", getWork().isMatterIdValid());
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		// since not derived from ContractBoTestBase, all dependent data needs to be included here
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 	}
 	
 	@Test

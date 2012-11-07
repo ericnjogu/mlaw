@@ -37,7 +37,6 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
-import org.kuali.rice.test.SQLDataLoader;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
 import org.martinlaw.bo.contract.ClientFee;
 import org.martinlaw.bo.contract.Contract;
@@ -45,6 +44,7 @@ import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.bo.contract.ContractSignatory;
+import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -53,7 +53,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author mugo
  * 
  */
-public class ContractBOTest extends ContractBoTestBase {
+public class ContractBOTest extends MartinlawTestsBase {
 
 	@Test(expected = DataIntegrityViolationException.class)
 	/**
@@ -152,16 +152,4 @@ public class ContractBOTest extends ContractBoTestBase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contract.xml"));
 		return suiteLifecycles;
 	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.contract.ContractBoTestBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		// loads contract work
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-fee-test-data.sql", ";").runSql();
-	}
-
 }

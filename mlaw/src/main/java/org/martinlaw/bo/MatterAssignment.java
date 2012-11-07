@@ -35,7 +35,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-
+/**
+ * 
+ * @author mugo
+ * associates a matter with some assignees
+ * 
+ * <p>This info is edited via a maintenance screen. The pk is the matter id to which assignment is being done</p>
+ *
+ * @param <M> - the matter type to be assigned
+ * @param <A> - the assignee type to be assigned
+ */
 @SuppressWarnings("rawtypes")
 @MappedSuperclass
 public abstract class MatterAssignment<M extends Matter, A extends MatterAssignee> extends PersistableBusinessObjectBase {

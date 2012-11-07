@@ -36,7 +36,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.KewTestsBase;
 
@@ -79,16 +78,5 @@ public class OpinionRoutingTest extends KewTestsBase {
 	 */
 	public void testOpinionTypeMaintDocPerms() {
 		testCreateMaintain(Opinion.class, "OpinionMaintenanceDocument");
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-perms-roles.sql", ";").runSql();
-		// for the status id
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 	}
 }

@@ -36,6 +36,7 @@ import java.util.List;
 import org.junit.Test;
 import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
 import org.martinlaw.bo.conveyance.ConveyanceType;
+import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -43,7 +44,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author mugo
  *
  */
-public class ConveyanceTypeBOTest extends ConveyanceBOTestBase {
+public class ConveyanceTypeBOTest extends MartinlawTestsBase {
 	@Test
 	/**
 	 * test that {@link ConveyanceType} is loaded into the data dictionary

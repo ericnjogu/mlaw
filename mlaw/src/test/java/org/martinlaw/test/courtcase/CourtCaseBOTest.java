@@ -38,10 +38,8 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.LookupService;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MartinlawPerson;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.courtcase.Client;
@@ -60,35 +58,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 //@BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
 public class CourtCaseBOTest extends MartinlawTestsBase {
 	private Log log = LogFactory.getLog(getClass());
-
-	@Override
-	protected List<Lifecycle> getSuiteLifecycles() {
-		List<Lifecycle> suiteLifecycles = super.getSuiteLifecycles();
-		 // needs to be here rather in loadData() since it leads to 'object modified' OJB exceptions
-		suiteLifecycles.add(new org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/users.xml"));
-		//groups do not appear to be needed for testing business objects
-		//suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/groups.xml"));
-		return suiteLifecycles;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KNSTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		//transactions are rolled back, no need to clear manually
-		//new SQLDataLoader("classpath:org/martinlaw/bo/clear-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/date-type-default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/case-date-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-fee-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-work-test-data.sql", ";").runSql();
-		//bo xml files loaded from martinlaw-ModuleBeans(imported in CourtCaseBOTest-context.xml) as part of the data dictionary config
-	}
 
 	/**
 	 * test saving, retrieving a case BO
@@ -194,10 +163,10 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		getBoSvc().save(kase);
 		
 		kase = getBoSvc().findBySinglePrimaryKey(kase.getClass(), kase.getId());
-		assertNotNull(kase.getClients());
-		assertEquals(1, kase.getClients().size());
-		assertNotNull(kase.getWitnesses());
-		assertEquals(1, kase.getWitnesses().size());
+		assertNotNull("clients should not be null", kase.getClients());
+		assertEquals("number of clients expected differs", 1, kase.getClients().size());
+		assertNotNull("witnesses should not be null",kase.getWitnesses());
+		assertEquals("number of witnesses expected differs", 1, kase.getWitnesses().size());
 	}
 
 	@Test
@@ -208,7 +177,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		Map formProps = new HashMap();
         @SuppressWarnings("unchecked")
 		Collection<CourtCase> cases = lookupService.findCollectionBySearchHelper(CourtCase.class, formProps, false);
-        assertEquals(1, cases.size());
+        assertEquals("number of cases differs", 2, cases.size());
 	}
 	
 	@Test

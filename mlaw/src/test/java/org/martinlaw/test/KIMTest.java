@@ -41,12 +41,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
  *
  */
 public class KIMTest extends KewTestsBase {
-
-	public void setUp() throws Exception {
-		super.setUp();
-		//groupService = (GroupServiceImpl)GlobalResourceLoader.getService(new QName("KIM", "kimGroupService"));
-		//groupUpdateService = (GroupUpdateServiceImpl)GlobalResourceLoader.getService(new QName("KIM", "kimGroupUpdateService"));
-	}
 	
 	@Test
 	public void testGroupsAndUsers() {

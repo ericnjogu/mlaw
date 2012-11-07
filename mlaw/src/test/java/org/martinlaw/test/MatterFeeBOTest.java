@@ -39,10 +39,10 @@ import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.uif.view.ViewModel;
 import org.kuali.rice.krad.web.form.TransactionForm;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.contract.ClientFee;
+import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.Fee;
 import org.martinlaw.keyvalues.MatterClientNamesKeyValues;
 
@@ -213,14 +213,5 @@ public abstract class MatterFeeBOTest extends MartinlawTestsBase {
 		assertFalse("key values list should not be empty", result.isEmpty());
 		assertEquals("key values list size differs", 2, result.size());
 		assertEquals("client name differs", "client1", result.get(0).getKey());
-	}
-
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 	}
 }

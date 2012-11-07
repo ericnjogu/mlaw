@@ -31,15 +31,11 @@ import static org.junit.Assert.fail;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.kuali.rice.core.api.lifecycle.Lifecycle;
-import org.kuali.rice.test.SQLDataLoader;
-import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
 import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.test.KewTestsBase;
 
@@ -81,27 +77,5 @@ public class ContractTypeRoutingTest extends KewTestsBase {
 	 */
 	public void testContractTypeMaintDocPerms() {
 		testCreateMaintain(ContractType.class, "ContractTypeMaintenanceDocument");
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KRADTestCase#getSuiteLifecycles()
-	 */
-	/**
-	 * provide the document type definition file.
-	 */
-	@Override
-	protected List<Lifecycle> getSuiteLifecycles() {
-		List<Lifecycle> suiteLifecycles = super.getSuiteLifecycles();
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractType.xml"));
-		return suiteLifecycles;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-perms-roles.sql", ";").runSql();
 	}
 }

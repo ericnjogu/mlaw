@@ -27,7 +27,6 @@ package org.martinlaw.test.contract;
 
 
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.Constants;
 import org.martinlaw.bo.MatterTxDocBase;
 
@@ -49,14 +48,5 @@ public class ContractWorkRoutingTest extends ContractTxRoutingTestBase {
 		super.setUpInternal();
 		setDocType(Constants.DocTypes.CONTRACT_WORK);
 		setWorkDoc((MatterTxDocBase) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType()));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.contract.ContractTxRoutingTestBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-test-data.sql", ";").runSql();
 	}
 }

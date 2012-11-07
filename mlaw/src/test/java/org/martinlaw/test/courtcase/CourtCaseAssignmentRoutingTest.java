@@ -68,11 +68,11 @@ public class CourtCaseAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 
 	/* (non-Javadoc)
 	 * @see org.martinlaw.test.BaseAssignmentRoutingTest#loadSuiteTestData()
-	 */
+	 
 	@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-perms-roles.sql", ";").runSql();
-	}
+	}*/
 }

@@ -42,7 +42,6 @@ import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.maintenance.MaintainableImpl;
 import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterClient;
 import org.martinlaw.bo.conveyance.Client;
 import org.martinlaw.bo.conveyance.Conveyance;
@@ -52,6 +51,7 @@ import org.martinlaw.bo.conveyance.Fee;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesMaint;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
+import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -59,7 +59,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author mugo
  *
  */
-public class ConveyanceBOTest extends ConveyanceBOTestBase {
+public class ConveyanceBOTest extends MartinlawTestsBase {
 	@Test
 	/**
 	 * test CRUD ops on {@link Conveyance}
@@ -339,15 +339,4 @@ public class ConveyanceBOTest extends ConveyanceBOTestBase {
 		testMartinlawPersonCRUD(new Client(), "client1", person);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.conveyance.ConveyanceBOTestBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-fee-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-work-test-data.sql", ";").runSql();
-	}
 }

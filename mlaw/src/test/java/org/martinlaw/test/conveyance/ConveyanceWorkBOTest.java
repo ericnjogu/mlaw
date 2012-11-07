@@ -36,7 +36,6 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.web.form.TransactionForm;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.Constants;
 import org.martinlaw.bo.conveyance.Work;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
@@ -50,17 +49,6 @@ import org.martinlaw.test.WorkBOTestBase;
  *
  */
 public class ConveyanceWorkBOTest extends WorkBOTestBase {
-	
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-test-data.sql", ";").runSql();
-	}
 	
 	/* (non-Javadoc)
 	 * @see org.martinlaw.test.MartinlawTestsBase#setUpInternal()

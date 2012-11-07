@@ -29,6 +29,7 @@ package org.martinlaw.test.contract;
 import org.junit.Test;
 import org.martinlaw.bo.contract.Assignee;
 import org.martinlaw.bo.contract.Assignment;
+import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -38,7 +39,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * 
  */
 // @BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
-public class ContractAssignmentBOTest extends ContractBoTestBase {
+public class ContractAssignmentBOTest extends MartinlawTestsBase {
 
 	@Test(expected = DataIntegrityViolationException.class)
 	/**

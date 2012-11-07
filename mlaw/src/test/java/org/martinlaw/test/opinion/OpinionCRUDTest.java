@@ -34,10 +34,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
-import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Fee;
+import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.MartinlawTestsBase;
 
 /**
@@ -46,19 +45,6 @@ import org.martinlaw.test.MartinlawTestsBase;
  *
  */
 public class OpinionCRUDTest extends MartinlawTestsBase {
-
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-fee-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-test-data.sql", ";").runSql();
-	}
 	
 	/**
 	 * tests that the data inserted via sql can be retrieved ok

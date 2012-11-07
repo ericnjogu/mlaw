@@ -25,8 +25,8 @@ insert into
 martinlaw_convey_type_t
 (convey_type_id, name, description, ver_nbr, obj_id)
 values
-(1001, "Sale of Urban Land", null, default, 1),
-(1002, "Sale of Motor Vehicle", null, default, 1);
+(1001, "Sale of Urban Land", null, default, 'ct1'),
+(1002, "Sale of Motor Vehicle", null, default, 'ct2');
 
 insert into martinlaw_convey_t 
 (matter_id, local_reference, status_id, name, convey_type_id, obj_id) 

@@ -27,7 +27,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Before;
@@ -48,6 +50,7 @@ public class AttachmentKeyValuesTest {
 	private List<Note> notes;
 	private DocumentFormBase model;
 	private Document doc;
+	private Timestamp noteTimestamp;
 
 	@Before
 	public void setUp() throws Exception {
@@ -59,7 +62,8 @@ public class AttachmentKeyValuesTest {
 		when(mockNoteWithoutAtt.getAttachment()).thenReturn(null);
 		notes.add(mockNoteWithoutAtt);
 		Note mockNoteWithAtt = mock(Note.class);
-		when(mockNoteWithAtt.getNoteIdentifier()).thenReturn(1001l);
+		noteTimestamp = new Timestamp(Calendar.getInstance().getTimeInMillis());
+		when(mockNoteWithAtt.getNotePostedTimestamp()).thenReturn(noteTimestamp);
 		Attachment att = new Attachment();
 		att.setAttachmentFileName("filename.ext");
 		when(mockNoteWithAtt.getAttachment()).thenReturn(att);
@@ -95,7 +99,7 @@ public class AttachmentKeyValuesTest {
 		//expect one where the attachment is present
 		List<KeyValue> keyValues = attKeyValues.getKeyValues(model);
 		assertEquals(1, keyValues.size());
-		assertEquals("1001", keyValues.get(0).getKey());
+		assertEquals(noteTimestamp.toString(), keyValues.get(0).getKey());
 		assertEquals("filename.ext", keyValues.get(0).getValue());
 	}
 

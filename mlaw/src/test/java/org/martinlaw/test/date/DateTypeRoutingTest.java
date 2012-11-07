@@ -27,19 +27,16 @@ package org.martinlaw.test.date;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.kuali.rice.core.api.lifecycle.Lifecycle;
-import org.kuali.rice.test.SQLDataLoader;
-import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
 import org.martinlaw.bo.DateType;
 import org.martinlaw.test.KewTestsBase;
 
@@ -82,25 +79,11 @@ public class DateTypeRoutingTest extends KewTestsBase {
 		testCreateMaintain(DateType.class, "DateTypeMaintenanceDocument");
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KRADTestCase#getSuiteLifecycles()
-	 */
+	@Test
 	/**
-	 * provide the document type definition file.
+	 * tests that the document type is loaded ok
 	 */
-	@Override
-	protected List<Lifecycle> getSuiteLifecycles() {
-		List<Lifecycle> suiteLifecycles = super.getSuiteLifecycles();
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/dateType.xml"));
-		return suiteLifecycles;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/date-type-perms-roles.sql", ";").runSql();
+	public void testContractTypeDocType() {
+		assertNotNull("document type should not be null", getDocTypeSvc().findByName("DateTypeMaintenanceDocument"));
 	}
 }

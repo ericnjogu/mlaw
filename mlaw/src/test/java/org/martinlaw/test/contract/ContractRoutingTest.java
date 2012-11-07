@@ -36,7 +36,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.test.KewTestsBase;
 
@@ -64,7 +63,7 @@ public class ContractRoutingTest extends KewTestsBase {
 		// confirm that BO was saved to DB
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("localReference", getTestUtils().getTestContractLocalReference());
-		Collection<Contract> result = getBoSvc().findAll(Contract.class);
+		Collection<Contract> result = getBoSvc().findMatching(Contract.class, params);
 		assertEquals(1, result.size());
 		for (Contract contract: result) {
 			getTestUtils().testContractFields(contract);
@@ -80,18 +79,5 @@ public class ContractRoutingTest extends KewTestsBase {
 	 */
 	public void testContractTypeMaintDocPerms() {
 		testCreateMaintain(Contract.class, "ContractMaintenanceDocument");
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.KewTestsBase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-perms-roles.sql", ";").runSql();
-		// for the status id
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		// for the contract type
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
 	}
 }

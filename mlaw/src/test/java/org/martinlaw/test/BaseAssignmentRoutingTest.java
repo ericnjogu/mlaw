@@ -23,15 +23,12 @@ package org.martinlaw.test;
  */
 
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
-import java.util.Collection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.MatterAssignment;
+import static org.junit.Assert.assertNotNull;;
 
 public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 	private Log log = LogFactory.getLog(getClass());
@@ -54,22 +51,14 @@ public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 			testMaintenanceRouting(docType, testAssignment);
 		} catch (Exception e) {
 			log .error("test failed", e);
-			fail("test routing ConveyanceAssignmentMaintenanceDocument caused an exception");
+			fail("test routing " + docType + " caused an exception");
 		}
 		// confirm that BO was saved to DB
 		@SuppressWarnings("rawtypes")
-		Collection<? extends MatterAssignment> result = getBoSvc().findAll(testAssignment.getClass());
-		assertEquals("number of assignments was not the expected number", 1, result.size());
-		for (@SuppressWarnings("rawtypes") MatterAssignment assignment: result) {
-			getTestUtils().testAssignmentFields(assignment);
-		}
+		MatterAssignment result = getBoSvc().findBySinglePrimaryKey(testAssignment.getClass(), testAssignment.getMatterId());
+		assertNotNull("assignment should have been persisted", result);
+		getTestUtils().testAssignmentFields(result);
+
 	
 	}
-
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-	}
-
 }

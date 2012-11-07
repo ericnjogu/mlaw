@@ -71,7 +71,8 @@ public class KEWRoutingTest extends KewTestsBase {
 		assertNotNull(status.getId());
 		//create new case bo
 		CourtCase caseBo = new CourtCase();
-		caseBo.setLocalReference("local-ref-1");
+		String localReference = "local-ref-1";
+		caseBo.setLocalReference(localReference);
 		caseBo.setCourtReference("high-court-211");
 		caseBo.setName("Flesh Vs Spirit (Lifetime)");
 		caseBo.setStatus(status);
@@ -79,10 +80,12 @@ public class KEWRoutingTest extends KewTestsBase {
 		caseBo.setStatusId(status.getId());
 		try {
 			testMaintenanceRouting("CaseMaintenanceDocument", caseBo);
-			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findAll(CourtCase.class);
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("localReference", localReference);
+			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findMatching(CourtCase.class, params);
 			assertEquals(1, cases.size());
 			for (CourtCase cse: cases) {
-				assertEquals("local-ref-1",cse.getLocalReference());
+				assertEquals(localReference,cse.getLocalReference());
 				assertEquals("high-court-211",cse.getCourtReference());
 				assertNotNull(cse.getStatus());
 				log.info("created status with id " + cse.getStatus().getId());
@@ -94,26 +97,20 @@ public class KEWRoutingTest extends KewTestsBase {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testCaseStatusMaintenanceRouting() throws WorkflowException {
 		//testTransactionalRouting("CaseStatusMaintenanceDocument");
 		Status status = new Status();
-		String statusText = "pending";
+		String statusText = "deadlock";
 		status.setStatus(statusText);
 		status.setType(Status.ANY_TYPE.getKey());
-		int existingStatus = getBoSvc().findAll(Status.class).size();
 		try {
 			testMaintenanceRoutingInitToFinal("StatusMaintenanceDocument", status);
-			Collection<Status> allStatus = KRADServiceLocator.getBusinessObjectService().findAll(Status.class);
-			assertEquals(existingStatus+1, allStatus.size());
-			@SuppressWarnings("rawtypes")
-			Map map = new HashMap(1);
-			map.put("status", statusText);
-			@SuppressWarnings("rawtypes")
-			Collection result = getBoSvc().findMatching(Status.class, map);
-			assertNotNull(result);
-			assertEquals(1, result.size());
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("status", statusText);
+			Collection<Status> result = KRADServiceLocator.getBusinessObjectService().findMatching(Status.class, params);
+			assertNotNull("status should have been persisted", result);
+			assertEquals("status should have been persisted", 1, result.size());
 			
 		} catch (Exception e) {
 			log.error("test failed", e);
@@ -186,18 +183,6 @@ public class KEWRoutingTest extends KewTestsBase {
 	public void testConveyanceRouting() {
 		int existingConveyances = getBoSvc().findAll(Conveyance.class).size();
 		Conveyance conv = getTestUtils().getTestConveyance();
-		// add a conveyance type to avoid data integrity exceptions
-		ConveyanceType convType = new ConveyanceType();
-		convType.setName("test type");
-		convType.setId(conv.getTypeId());
-		getBoSvc().save(convType);
-		// add a status type to avoid data integrity exceptions
-		Status status =  new Status();
-		status.setStatus("test status");
-		status.setId(conv.getStatusId());
-		status.setType("test type");
-		getBoSvc().save(status);
-		status.refresh();
 		try {
 			testMaintenanceRouting("ConveyanceMaintenanceDocument", conv);
 		} catch (Exception e) {

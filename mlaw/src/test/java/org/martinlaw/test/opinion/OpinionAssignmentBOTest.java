@@ -27,7 +27,6 @@ package org.martinlaw.test.opinion;
 
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.opinion.Assignee;
 import org.martinlaw.bo.opinion.Assignment;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -41,20 +40,6 @@ import org.springframework.dao.DataIntegrityViolationException;
  */
 // @BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
 public class OpinionAssignmentBOTest extends MartinlawTestsBase {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.kuali.test.KRADTestCase#loadSuiteTestData()
-	 */
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		// needed since they hold the status, opinion and the dependent data
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-test-data.sql", ";").runSql();
-	}
 
 	@Test(expected = DataIntegrityViolationException.class)
 	/**
@@ -92,8 +77,7 @@ public class OpinionAssignmentBOTest extends MartinlawTestsBase {
 	 */
 	public void testOpinionAssignmentCRUD() throws InstantiationException, IllegalAccessException {
 		// C
-		Assignment assignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
-		
+		Assignment assignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);	
 		getTestUtils().testAssignmentCRUD(assignment);
 	}
 }
