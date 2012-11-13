@@ -1,0 +1,9 @@
+<config>
+
+	<!-- LDAP Server Configurations -->
+	<param name="rice.ldap.username">uid=mlaw.ldap,ou=mlaw,ou=users,ou=system</param>
+	<param name="rice.ldap.password">k1pim0</param>
+	<param name="rice.ldap.url">ldap://127.0.0.1:10389</param>
+	<param name="rice.ldap.base">ou=sample-advocates,ou=users,ou=system</param>
+
+</config>

@@ -43,39 +43,34 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 public class KIMTest extends KewTestsBase {
 	
 	@Test
+	/**
+	 * requires the ldap server to be running to fetch principal details
+	 */
 	public void testGroupsAndUsers() {
 		//clerk
-		Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName("clerk1");
-		assertNotNull(principal);
-		assertEquals("ml.p2",principal.getPrincipalId());
-		List<Group> grpInfo = KimApiServiceLocator.getGroupService().getGroupsByPrincipalIdAndNamespaceCode(principal.getPrincipalId(), "MARTINLAW");
-		assertNotNull(grpInfo);
-		assertEquals(1, grpInfo.size());
-		assertEquals("org.martinlaw.clerk", grpInfo.get(0).getId());
-		assertTrue(KimApiServiceLocator.getGroupService().isMemberOfGroup(principal.getPrincipalId(), grpInfo.get(0).getId()));
+		testPrincipal("clerk1", 1, "org.martinlaw.clerk");
 		//witness
-		principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName("witness1");
-		assertNotNull(principal);
-		assertEquals("ml.p3",principal.getPrincipalId());
-		grpInfo = KimApiServiceLocator.getGroupService().getGroupsByPrincipalIdAndNamespaceCode(principal.getPrincipalId(), "MARTINLAW");
-		assertNotNull(grpInfo);
-		assertEquals("org.martinlaw.witness",grpInfo.get(0).getId());
-		assertTrue(KimApiServiceLocator.getGroupService().isMemberOfGroup(principal.getPrincipalId(), grpInfo.get(0).getId()));
+		testPrincipal("witness1", 1, "org.martinlaw.witness");
 		//client
-		principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName("client1");
-		assertNotNull(principal);
-		assertEquals("ml.p1",principal.getPrincipalId());
-		grpInfo = KimApiServiceLocator.getGroupService().getGroupsByPrincipalIdAndNamespaceCode(principal.getPrincipalId(), "MARTINLAW");
-		assertNotNull(grpInfo);
-		assertEquals("org.martinlaw.client",grpInfo.get(0).getId());
-		assertTrue(KimApiServiceLocator.getGroupService().isMemberOfGroup(principal.getPrincipalId(), grpInfo.get(0).getId()));
+		testPrincipal("client1", 1, "org.martinlaw.client");
 		//lawyer
-		principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName("lawyer1");
-		assertNotNull(principal);
-		assertEquals("ml.p4",principal.getPrincipalId());
-		grpInfo = KimApiServiceLocator.getGroupService().getGroupsByPrincipalIdAndNamespaceCode(principal.getPrincipalId(), "MARTINLAW");
-		assertNotNull(grpInfo);
-		assertEquals("org.martinlaw.lawyer",grpInfo.get(0).getId());
-		assertTrue(KimApiServiceLocator.getGroupService().isMemberOfGroup(principal.getPrincipalId(), grpInfo.get(0).getId()));
+		testPrincipal("lawyer1", 1, "org.martinlaw.lawyer");
+	}
+
+	/**
+	 * convenience method to test a principal
+	 * @param principalName - the principal name
+	 * @param numOfGroups - number of groups the principal is in
+	 * @param grpId - a group id the principal should belong to TODO - assumes only one group
+	 */
+	protected void testPrincipal(String principalName, int numOfGroups, String grpId) {
+		Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(principalName);
+		assertNotNull("principal should not be null", principal);
+		assertEquals("principal id does not match", principalName, principal.getPrincipalId());
+		List<Group> grpInfo = KimApiServiceLocator.getGroupService().getGroupsByPrincipalIdAndNamespaceCode(principal.getPrincipalId(), "MARTINLAW");
+		assertNotNull("group info should not be null", grpInfo);
+		assertEquals("number of groups differs", numOfGroups, grpInfo.size());
+		assertEquals("group id differs", grpId, grpInfo.get(0).getId());
+		assertTrue(principalName + " should belong to group", KimApiServiceLocator.getGroupService().isMemberOfGroup(principal.getPrincipalId(), grpInfo.get(0).getId()));
 	}
 }

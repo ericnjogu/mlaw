@@ -297,7 +297,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-work-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-perms-roles.sql", ";").runSql();
 		
-
+		new SQLDataLoader("classpath:org/martinlaw/ldap/ldap.sql", ";").runSql();
 	}
 
 	@Override
@@ -306,7 +306,8 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		/*
 		 * needs to be here rather in loadData() since it leads to 'object modified' OJB exceptions
 		 */
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/users.xml"));
+		// uncomment users.xml if unit tests are running without the ldap server
+		/*suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/users.xml"));*/
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/groups.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rule-templates.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/case.xml"));

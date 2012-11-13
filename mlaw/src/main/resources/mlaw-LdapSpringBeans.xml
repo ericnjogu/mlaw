@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  mlaw
+  %%
+  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="kimConstants" class="org.kuali.rice.kim.util.ConstantsImpl">
+      <property name="kimLdapIdProperty"         value="uid" />
+      <property name="kimLdapNameProperty"       value="uid" />
+      <property name="snLdapProperty"            value="sn" />
+      <property name="givenNameLdapProperty"     value="givenName" />
+      <property name="entityIdKimProperty"       value="uid" />
+      <property name="employeeMailLdapProperty"  value="mail" />
+      <property name="employeePhoneLdapProperty" value="employeePhone" />
+      <property name="defaultCountryCode"        value="254" />
+      <property name="mappedParameterName"       value="KIM_TO_LDAP_FIELD_MAPPINGS" />
+      <property name="mappedValuesName"          value="KIM_TO_LDAP_VALUE_MAPPINGS" />
+      <property name="parameterNamespaceCode"    value="KR-SYS" />
+      <property name="parameterDetailTypeCode"   value="Config" />
+      <property name="personEntityTypeCode"      value="PERSON" />
+      <property name="employeeIdProperty"        value="emplId" />
+      <property name="departmentLdapProperty"    value="employeePrimaryDept" />  
+      <property name="employeeTypeProperty"      value="employeeType" />
+      <property name="employeeStatusProperty"    value="employeeStatus" />
+      <!-- using ou for now before we are able to create a custom object class with an affiliation attribute -->
+      <property name="affiliationLdapProperty"   value="ou" />
+      <property name="primaryAffiliationLdapProperty"   value="eduPersonPrimaryAffiliation" />
+      <property name="defaultCampusCode"         value="MC" />
+      <property name="defaultChartCode"          value="UA" />
+      <property name="taxExternalIdTypeCode"     value="TAX" />
+      <property name="externalIdProperty"        value="externalIdentifiers.externalId" />
+      <property name="externalIdTypeProperty"    value="externalIdentifiers.externalIdentifierTypeCode" />
+      <property name="affiliationMappings"       value="staff=STAFF,faculty=FCLTY,employee=STAFF,student=STDNT,affilate=AFLT"/>
+      <property name="employeeAffiliationCodes"  value="STAFF,FCLTY" />
+    </bean>
+</beans>
