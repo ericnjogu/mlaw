@@ -35,7 +35,6 @@ import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.uif.control.UifKeyValuesFinderBase;
 import org.kuali.rice.krad.uif.view.ViewModel;
-import org.kuali.rice.krad.web.form.TransactionForm;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterClient;
@@ -43,6 +42,7 @@ import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWork;
+import org.martinlaw.web.MatterTxForm;
 
 /**
  * generate client names (value) and principal names (key) for use e.g. on fee TX docs
@@ -66,7 +66,7 @@ public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
 	@Override
 	public List<KeyValue> getKeyValues(ViewModel model) {
 		List<KeyValue> keyValues = new ArrayList<KeyValue>();
-		TransactionForm form = (TransactionForm) model;
+		MatterTxForm form = (MatterTxForm) model;
 		if (form.getDocument() != null) {
 			MatterTxDocBase doc = ((MatterTxDocBase)form.getDocument());
 			if (doc.isMatterIdValid()) {

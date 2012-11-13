@@ -38,13 +38,13 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.uif.view.ViewModel;
-import org.kuali.rice.krad.web.form.TransactionForm;
 import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.contract.ClientFee;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.Fee;
 import org.martinlaw.keyvalues.MatterClientNamesKeyValues;
+import org.martinlaw.web.MatterTxForm;
 
 /**
  * base class for testing the children of {@link MatterClientFee} transactional
@@ -202,7 +202,7 @@ public abstract class MatterFeeBOTest extends MartinlawTestsBase {
 	public void testClientNamesKeyValues() throws InstantiationException,
 			IllegalAccessException {
 		MatterClientNamesKeyValues keyValues = new MatterClientNamesKeyValues();
-		TransactionForm txForm = mock(TransactionForm.class);
+		MatterTxForm txForm = mock(MatterTxForm.class);
 
 		MatterClientFee<? extends MatterFee> clientFee = getDocumentClass()
 				.newInstance();

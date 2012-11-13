@@ -29,10 +29,10 @@ package org.martinlaw.keyvalues;
 
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.uif.view.ViewModel;
-import org.kuali.rice.krad.web.form.TransactionForm;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
+import org.martinlaw.web.MatterTxForm;
 
 /**
  * generates a list of {@code ConveyanceAnnexType} key values
@@ -58,7 +58,7 @@ public class ConveyanceAnnexTypeKeyValuesTx extends ConveyanceAnnexTypeKeyValues
 	@Override
 	protected Long getConveyanceTypeId(ViewModel model) {
 		Long conveyanceTypeId = null;
-		TransactionForm form = (TransactionForm) model;
+		MatterTxForm form = (MatterTxForm) model;
 		if (form.getDocument() != null) {
 			MatterTxDocBase work = ((MatterTxDocBase)form.getDocument());
 			if (work.isMatterIdValid()) {

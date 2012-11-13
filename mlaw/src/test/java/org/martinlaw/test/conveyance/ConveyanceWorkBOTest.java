@@ -35,12 +35,12 @@ import java.util.List;
 
 import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.krad.web.form.TransactionForm;
 import org.martinlaw.Constants;
 import org.martinlaw.bo.conveyance.Work;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesTx;
 import org.martinlaw.test.WorkBOTestBase;
+import org.martinlaw.web.MatterTxForm;
 
 /**
  * tests CRUD and data dictionary of {@link Work}
@@ -68,7 +68,7 @@ public class ConveyanceWorkBOTest extends WorkBOTestBase {
 	 */
 	public void testConveyanceAnnexTypeKeyValues() {
 		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesTx();
-		TransactionForm txForm = mock(TransactionForm.class);
+		MatterTxForm txForm = mock(MatterTxForm.class);
 		
 		Work doc = new Work();
 		doc.setMatterId(1001l);
