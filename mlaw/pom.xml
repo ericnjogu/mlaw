@@ -192,7 +192,7 @@
 		</dependency>
 		<!-- added the cmi-jndi and cmi-core-common to keep a jetty stacktrace from appearing. The error does not appear to affect
 		the normal running of the server -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.ow2.cmi</groupId>
 			<artifactId>cmi-jndi</artifactId>
 			<version>2.2.6</version>
@@ -201,7 +201,7 @@
 			<groupId>org.ow2.cmi</groupId>
 			<artifactId>cmi-core-common</artifactId>
 			<version>2.2.4</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	<repositories>
 		<repository>
@@ -209,10 +209,10 @@
 			<name>Kuali Repository</name>
 			<url>https://test.kuali.org/maven</url>
 		</repository>
-		<repository>
+<!-- 		<repository>
 			<id>central</id>
 			<name>Maven Central</name>
 			<url>http://repo1.maven.org/maven2</url>
-		</repository>
+		</repository> -->
 	</repositories>
 </project>
