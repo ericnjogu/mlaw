@@ -26,7 +26,7 @@
 
 	<ruleTemplates xmlns="ns:workflow/RuleTemplate"
 		xsi:schemaLocation="ns:workflow/RuleTemplate resource:RuleTemplate">
-		<ruleTemplate>
+		<ruleTemplate allowOverwrite="true">
 			<name>org.martinlaw.defaultApprovalTemplate</name>
 			<description>default martinlaw routing</description>
 			 <!-- 

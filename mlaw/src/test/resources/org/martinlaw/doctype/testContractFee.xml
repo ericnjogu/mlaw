@@ -58,6 +58,25 @@
 			</routeNodes>
 		</documentType>
 	</documentTypes>
+	
+	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+
+		<!-- ContractFeeDocument rule -->
+		<rule>
+			<name>org.martinlaw.rules.contract.fee</name>
+			<documentType>ContractFeeDocument</documentType>
+			<!-- The rule template does not have any use at now -->
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>Routing rule for Contract Fee</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace="MARTINLAW">lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+	</rules>
 
 </data>
 	
