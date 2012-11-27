@@ -36,7 +36,7 @@ import javax.persistence.Table;
  */
  
 @Entity
-@Table(name="martinlaw_convey_att_id_s")
+@Table(name="martinlaw_convey_att_s")
 public class ConveyAttSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")

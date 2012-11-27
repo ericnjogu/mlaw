@@ -29,7 +29,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="martinlaw_contract_signatory_id_s")
+@Table(name="martinlaw_contract_signatory_s")
 public class ContractSignatorySeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")

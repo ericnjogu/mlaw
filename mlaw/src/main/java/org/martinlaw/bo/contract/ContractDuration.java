@@ -87,9 +87,9 @@ public class ContractDuration extends PersistableBusinessObjectBase {
 	 */
 	private static final long serialVersionUID = -926646997349727724L;
 	@Id
-    @GeneratedValue(generator="martinlaw_contract_duration_id_s")
-	@GenericGenerator(name="martinlaw_contract_duration_id_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
-			@Parameter(name="sequence_name",value="martinlaw_contract_duration_id_s"),
+    @GeneratedValue(generator="martinlaw_contract_duration_s")
+	@GenericGenerator(name="martinlaw_contract_duration_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
+			@Parameter(name="sequence_name",value="martinlaw_contract_duration_s"),
 			@Parameter(name="value_column",value="id")
 	})
 	@Column(name="contract_duration_id", nullable=false)

@@ -51,9 +51,9 @@ public class DateType extends BaseDetail {
 	 */
 	private static final long serialVersionUID = 7245197877574711265L;
 	@Id
-	@GeneratedValue(generator="martinlaw_date_type_id_s")
-	@GenericGenerator(name="martinlaw_date_type_id_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
-			@Parameter(name="sequence_name",value="martinlaw_date_type_id_s"),
+	@GeneratedValue(generator="martinlaw_date_type_s")
+	@GenericGenerator(name="martinlaw_date_type_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
+			@Parameter(name="sequence_name",value="martinlaw_date_type_s"),
 			@Parameter(name="value_column",value="id")
 	})
 	@Column(name="date_type_id")

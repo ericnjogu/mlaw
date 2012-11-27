@@ -43,7 +43,9 @@
 					<excludes>
 						<exclude>**/OrmTest.java</exclude>
 						<exclude>**/ValidateDDTest.java</exclude>
+						<exclude>**/KimLdapTest</exclude>
 					</excludes>
+					<argLine>-XX:MaxPermSize=512m</argLine>
 				</configuration>
 			</plugin>
 

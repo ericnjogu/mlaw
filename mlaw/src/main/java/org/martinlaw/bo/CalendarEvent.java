@@ -52,9 +52,9 @@ public class CalendarEvent extends PersistableBusinessObjectBase {
 	 */
 	private static final long serialVersionUID = -7541372290907234648L;
 	@Id
-	@GeneratedValue(generator="martinlaw_calendar_event_id_s")
-	@GenericGenerator(name="martinlaw_calendar_event_id_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
-			@Parameter(name="sequence_name",value="martinlaw_calendar_event_id_s"),
+	@GeneratedValue(generator="martinlaw_calendar_event_s")
+	@GenericGenerator(name="martinlaw_calendar_event_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
+			@Parameter(name="sequence_name",value="martinlaw_calendar_event_s"),
 			@Parameter(name="value_column",value="id")
 	})
 	@Column(name="calendar_event_id")

@@ -45,7 +45,7 @@
 		</field-descriptor>
 		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_id_s">
+			sequence-name="martinlaw_court_case_s">
 		</field-descriptor>
 		<field-descriptor name="localReference" column="local_reference"
 			jdbc-type="VARCHAR" length="20">
@@ -130,7 +130,7 @@
 		table="martinlaw_court_case_client_t">
 		<field-descriptor name="id" column="client_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_client_id_s">
+			sequence-name="martinlaw_court_case_client_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
@@ -148,7 +148,7 @@
 		table="martinlaw_court_case_witness_t">
 		<field-descriptor name="id" column="court_case_witness_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_witness_id_s">
+			sequence-name="martinlaw_court_case_witness_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
@@ -166,7 +166,7 @@
 		table="martinlaw_status_t">
 		<field-descriptor name="id" column="status_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_status_id_s">
+			sequence-name="martinlaw_status_s">
 		</field-descriptor>
 		<field-descriptor name="status" column="status"
 			jdbc-type="VARCHAR" length="100">
@@ -214,7 +214,7 @@
 		table="martinlaw_court_case_fee_t">
 		<field-descriptor name="id" column="fee_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_fee_id_s">
+			sequence-name="martinlaw_court_case_fee_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
@@ -237,7 +237,7 @@
 		table="martinlaw_convey_type_t">
 		<field-descriptor name="id" column="convey_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_convey_type_id_s">
+			sequence-name="martinlaw_convey_type_s">
 		</field-descriptor>
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="150">
@@ -261,7 +261,7 @@
 		table="martinlaw_convey_annex_type_t">
 		<field-descriptor name="id" column="convey_annex_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_convey_annex_type_id_s">
+			sequence-name="martinlaw_convey_annex_type_s">
 		</field-descriptor>
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="150">
@@ -282,7 +282,7 @@
 		table="martinlaw_convey_att_t">
 		<field-descriptor name="id" column="convey_att_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_convey_att_id_s">
+			sequence-name="martinlaw_convey_att_s">
 		</field-descriptor>
 		<field-descriptor name="conveyanceAnnexId" column="convey_annex_id"
 			jdbc-type="BIGINT" indexed="true">
@@ -307,7 +307,7 @@
 		table="martinlaw_convey_annex_t">
 		<field-descriptor name="id" column="convey_annex_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_convey_annex_id_s">
+			sequence-name="martinlaw_convey_annex_s">
 		</field-descriptor>
 		<field-descriptor name="conveyanceAnnexTypeId"
 			column="convey_annex_type_id" jdbc-type="BIGINT" indexed="true">
@@ -337,7 +337,7 @@
 		table="martinlaw_convey_client_t">
 		<field-descriptor name="id" column="client_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_convey_client_id_s">
+			sequence-name="martinlaw_convey_client_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
@@ -355,7 +355,7 @@
 		table="martinlaw_convey_fee_t">
 		<field-descriptor name="id" column="fee_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_convey_fee_id_s">
+			sequence-name="martinlaw_convey_fee_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
@@ -381,7 +381,7 @@
 		</field-descriptor>
 		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_convey_id_s">
+			sequence-name="martinlaw_convey_s">
 		</field-descriptor>
 		<field-descriptor name="localReference" column="local_reference"
 			jdbc-type="VARCHAR" length="20">
@@ -469,7 +469,7 @@
 		table="martinlaw_contract_type_t">
 		<field-descriptor name="id" column="contract_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_type_id_s">
+			sequence-name="martinlaw_contract_type_s">
 		</field-descriptor>
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="100">
@@ -487,7 +487,7 @@
 		table="martinlaw_contract_signatory_t">
 		<field-descriptor name="id" column="contract_signatory_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_signatory_id_s">
+			sequence-name="martinlaw_contract_signatory_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
@@ -505,7 +505,7 @@
 		table="martinlaw_contract_party_t">
 		<field-descriptor name="id" column="contract_party_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_party_id_s">
+			sequence-name="martinlaw_contract_party_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
@@ -523,7 +523,7 @@
 		table="martinlaw_contract_duration_t">
 		<field-descriptor name="id" column="contract_duration_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_duration_id_s" />
+			sequence-name="martinlaw_contract_duration_s" />
 
 		<!-- <field-descriptor name="contractId" column="contract_id" jdbc-type="BIGINT"/> -->
 		<field-descriptor name="startDate" column="start_date"
@@ -547,7 +547,7 @@
 		table="martinlaw_contract_consideration_t">
 		<field-descriptor name="id" column="contract_consideration_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_consideration_id_s" />
+			sequence-name="martinlaw_contract_consideration_s" />
 		<!-- <field-descriptor name="contractId" column="contract_id" jdbc-type="BIGINT"/> -->
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0" />
@@ -565,7 +565,7 @@
 		table="martinlaw_contract_t">
 		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_id_s" />
+			sequence-name="martinlaw_contract_s" />
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="150" />
 		<field-descriptor name="localReference" column="local_reference"
@@ -698,7 +698,7 @@
 		table="martinlaw_calendar_event_t">
 		<field-descriptor name="id" column="calendar_event_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_calendar_event_id_s" />
+			sequence-name="martinlaw_calendar_event_s" />
 		<field-descriptor name="dateVersionNumber" column="date_ver_nbr"
 			jdbc-type="BIGINT" />
 		<field-descriptor name="url" column="url" jdbc-type="VARCHAR"
@@ -713,7 +713,7 @@
 		table="martinlaw_date_type_t">
 		<field-descriptor name="id" column="date_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_date_type_id_s">
+			sequence-name="martinlaw_date_type_s">
 		</field-descriptor>
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="100">
@@ -759,9 +759,6 @@
 
 	<class-descriptor class="org.martinlaw.bo.conveyance.Assignment"
 		table="martinlaw_convey_assignment_t">
-		<!-- <field-descriptor name="id" column="assignment_id" jdbc-type="BIGINT" 
-			primarykey="true" autoincrement="true" sequence-name="martinlaw_convey_assignment_s"> 
-			</field-descriptor> -->
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true">
 		</field-descriptor>
@@ -785,9 +782,6 @@
 
 	<class-descriptor class="org.martinlaw.bo.contract.Assignment"
 		table="martinlaw_contract_assignment_t">
-		<!-- <field-descriptor name="id" column="assignment_id" jdbc-type="BIGINT" 
-			primarykey="true" autoincrement="true" sequence-name="martinlaw_contract_assignment_s"> 
-			</field-descriptor> -->
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" primarykey="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -825,9 +819,6 @@
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.Assignment"
 		table="martinlaw_court_case_assignment_t">
-		<!-- <field-descriptor name="id" column="assignment_id" jdbc-type="BIGINT" 
-			primarykey="true" autoincrement="true" sequence-name="martinlaw_court_case_assignment_s"> 
-			</field-descriptor> -->
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true">
 		</field-descriptor>
@@ -982,9 +973,6 @@
 
 	<class-descriptor class="org.martinlaw.bo.opinion.Assignment"
 		table="martinlaw_opinion_assignment_t">
-		<!-- <field-descriptor name="id" column="assignment_id" jdbc-type="BIGINT" 
-			primarykey="true" autoincrement="true" sequence-name="martinlaw_opinion_assignment_s"> 
-			</field-descriptor> -->
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" primarykey="true" />
 
