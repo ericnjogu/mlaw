@@ -45,6 +45,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterClientFee;
+import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.contract.Contract;
@@ -110,7 +111,8 @@ public class TestUtils {
 		signs.add(new ContractSignatory("sign2"));
 		contract.setSignatories(signs);
 		// consideration
-		ContractConsideration contractConsideration = new ContractConsideration(new BigDecimal(1000), "UGS", "see breakdown in attached file");
+		ContractConsideration contractConsideration = new ContractConsideration(
+				new BigDecimal(1000), "UGS", "see breakdown in attached file");
 
 		contract.setContractConsideration(contractConsideration);
 		// duration
@@ -381,16 +383,24 @@ public class TestUtils {
 	}
 
 	/**
-	 * @return the testAssignmentId
-	 *//*
-	public long getTestAssignmentId() {
-		return testAssignmentId;
+	 * test that the {@link MatterConsideration} has the expected field values
+	 * @param consideration - the test object (created in code then saved to db)
+	 */
+	public void testConsiderationFields(MatterConsideration consideration) {
+		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(1000)));
+		String desc = "see breakdown in attached spreadsheet";
+		assertEquals("consideration description differs", desc, consideration.getDescription());
+		assertEquals("consideration currency differs", "KES", consideration.getCurrency());
 	}
-
-	*//**
-	 * @param testAssignmentId the testAssignmentId to set
-	 *//*
-	public void setTestAssignmentId(long testAssignmentId) {
-		this.testAssignmentId = testAssignmentId;
-	}*/
+	
+	/**
+	 * test that the  {@link MatterConsideration} has the expected field values
+	 * @param consideration - the test object - retrieved (from db)
+	 */
+	public void testRetrievedConsiderationFields(MatterConsideration consideration) {
+		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(41000)));
+		String desc = "to be paid in 2 installments";
+		assertEquals("consideration description differs", desc, consideration.getDescription());
+		assertEquals("consideration currency differs", "TZS", consideration.getCurrency());
+	}
 }

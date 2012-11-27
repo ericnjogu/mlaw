@@ -42,6 +42,7 @@ public class Constants {
 		public static final String CONVEYANCE_FEE = "ConveyanceFeeDocument";
 		public static final String COURTCASE_FEE = "CourtCaseFeeDocument";
 		public static final String OPINION_FEE = "OpinionFeeDocument";
+		public static final String CONTRACT = "ContractMaintenanceDocument";
 	}
 	
 	public class RequestMappings {

@@ -27,8 +27,8 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- Copyright 2012 Protosoft Ltd -->
 
-	<bean id="contract_consideration_bo" parent="martinlaw_shared_consideration_bo">
-		<property name="businessObjectClass" value="org.martinlaw.bo.contract.ContractConsideration" />
-		<property name="objectLabel" value="Contract Consideration" />
+	<bean id="opinion_client_consideration_bo" parent="martinlaw_shared_consideration_bo" 
+		p:jstlKey="opinion_client_consideration">
+		<property name="businessObjectClass" value="org.martinlaw.bo.opinion.Consideration" />
 	</bean>
 </beans>

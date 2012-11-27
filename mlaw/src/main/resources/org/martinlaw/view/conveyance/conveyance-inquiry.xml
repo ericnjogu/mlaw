@@ -44,6 +44,8 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Client" />
 				</bean>
 				
+				<bean parent="martinlaw_shared_consideration_inquiry_section"/>
+				
 				<bean parent="martinlaw_shared_assignment_inquiry_view_assignees">
 					<property name="collectionObjectClass"
 						value="org.martinlaw.bo.conveyance.Assignee" />

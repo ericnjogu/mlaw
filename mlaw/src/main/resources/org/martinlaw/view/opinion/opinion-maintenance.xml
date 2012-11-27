@@ -45,6 +45,8 @@
 				<bean parent="martinlaw_shared_client-maintenance-section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.Client" />
 				</bean>
+				
+				<bean parent="martinlaw_shared_consideration_maint_section"/>
 			</list>
 		</property>
 	</bean>

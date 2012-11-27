@@ -48,7 +48,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_contract_t")
-public class Contract extends Matter<Assignee, Work, ClientFee, Client> {
+public class Contract extends Matter<Assignee, Work, ClientFee, Client, Consideration> {
 	
 	/**
 	 * 
@@ -176,6 +176,8 @@ public class Contract extends Matter<Assignee, Work, ClientFee, Client> {
 		this.contractConsiderationId = contractConsiderationId;
 	}
 	/**
+	 * the value of the contract, not what the client is paying for the contract to be drawn up
+	 * 
 	 * @return the contractConsideration
 	 */
 	public ContractConsideration getContractConsideration() {

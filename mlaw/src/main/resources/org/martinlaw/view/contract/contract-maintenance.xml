@@ -131,6 +131,8 @@
 				<bean parent="martinlaw_shared_client-maintenance-section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Client" />
 				</bean>
+				
+				<!-- client consideration to be added here if neccessary -->
 			</list>
 		</property>
 	</bean>

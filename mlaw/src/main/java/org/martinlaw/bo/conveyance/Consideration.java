@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.martinlaw.bo.contract;
+package org.martinlaw.bo.conveyance;
 
 /*
  * #%L
@@ -40,16 +40,16 @@ import org.martinlaw.bo.MatterConsideration;
 
 
 /**
- * holds a contracts consideration details
+ * holds a {@link Conveyance} consideration details
  * 
  * <p>Having the info here enables changes without affecting the contract</p>
  * 
  * @author mugo
  *
  */
-@Entity
-@Table(name="martinlaw_contract_consideration_t")
-public class ContractConsideration extends MatterConsideration {
+@Entity(name="convey_consideration")
+@Table(name="martinlaw_convey_consideration_t")
+public class Consideration extends MatterConsideration {
 	/**
 	 * 
 	 */
@@ -57,15 +57,15 @@ public class ContractConsideration extends MatterConsideration {
 	/**
 	 * default constructor
 	 */
-	public ContractConsideration() {
+	public Consideration() {
 		super();
 	}
 	@Id
-	@GeneratedValue(generator = "martinlaw_contract_consideration_s")
-	@GenericGenerator(name = "martinlaw_contract_consideration_s", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "martinlaw_contract_consideration_s"),
+	@GeneratedValue(generator = "martinlaw_convey_consideration_s")
+	@GenericGenerator(name = "martinlaw_convey_consideration_s", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+			@Parameter(name = "sequence_name", value = "martinlaw_convey_consideration_s"),
 			@Parameter(name = "value_column", value = "id") })
-	@Column(name = "contract_consideration_id")
+	@Column(name = "consideration_id")
 	private Long id;
 	/**
 	 * @return the id
@@ -77,7 +77,7 @@ public class ContractConsideration extends MatterConsideration {
 	/**
 	 * @see MatterConsideration#MatterConsideration(BigDecimal, String, String)
 	 */
-	public ContractConsideration(BigDecimal amount, String currency,
+	public Consideration(BigDecimal amount, String currency,
 			String description) {
 		super(amount, currency, description);
 	}

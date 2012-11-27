@@ -48,7 +48,8 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
  *
  */
 @MappedSuperclass
-public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, F extends MatterClientFee<? extends MatterFee>, C extends MatterClient> extends PersistableBusinessObjectBase {
+public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, F extends MatterClientFee<? extends MatterFee>, 
+	C extends MatterClient, K extends MatterConsideration> extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -85,6 +86,12 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private List<F> fees;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<C> clients;
+	//column defined using reference below - this is for the sake of ojb
+	@Transient
+	private Long considerationId;
+	@OneToOne
+	@JoinColumn(name = "consideration_id", nullable = true)
+	private K consideration;
 	
 	/**
 	 * default constructor
@@ -260,5 +267,33 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public void setClients(List<C> clients) {
 		this.clients = clients;
+	}
+
+	/**
+	 * @return the considerationId
+	 */
+	public Long getConsiderationId() {
+		return considerationId;
+	}
+
+	/**
+	 * @param considerationId the considerationId to set
+	 */
+	public void setConsiderationId(Long considerationId) {
+		this.considerationId = considerationId;
+	}
+
+	/**
+	 * @return the consideration
+	 */
+	public K getConsideration() {
+		return consideration;
+	}
+
+	/**
+	 * @param consideration the consideration to set
+	 */
+	public void setConsideration(K consideration) {
+		this.consideration = consideration;
 	}
 }

@@ -63,7 +63,9 @@ public abstract class MatterTxDocBase extends TransactionalDocumentBase {
 	}
 
 	/**
-	 * @param matter the matter to set
+	 * provide a public method to log errors to console - useful for unit tests
+	 * 
+	 * @see org.kuali.rice.krad.document.DocumentBase#logErrors()
 	 */
 	@Override
 	public void logErrors() {
@@ -90,6 +92,7 @@ public abstract class MatterTxDocBase extends TransactionalDocumentBase {
 	 * 
 	 * @return the matterClass
 	 */
-	public abstract Class<? extends Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterClientFee<?>, ? extends MatterClient>> getMatterClass();
+	@SuppressWarnings("rawtypes")
+	public abstract Class<? extends Matter> getMatterClass();
 
 }

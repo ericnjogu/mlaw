@@ -28,11 +28,17 @@ values
 (1001, "Sale of Urban Land", null, default, 'ct1'),
 (1002, "Sale of Motor Vehicle", null, default, 'ct2');
 
+
+insert into martinlaw_convey_consideration_t
+(consideration_id, currency, description, amount)
+values
+(1001, 'TZS', 'to be paid in 2 installments', 41000);
+
 insert into martinlaw_convey_t 
-(matter_id, local_reference, status_id, name, convey_type_id, obj_id) 
+(matter_id, local_reference, status_id, name, convey_type_id, obj_id, consideration_id) 
 values 
-(1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1'),
-(1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2');
+(1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1', 1001),
+(1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2', null);
 
 insert into martinlaw_convey_client_t 
 (client_id, matter_id, principal_name) 
@@ -61,4 +67,5 @@ martinlaw_convey_att_t
 values
 (1001, 1001, default, 1, '2012-07-19 00:00:00'),
 (1002, 1001, default, 1, '');
+
 

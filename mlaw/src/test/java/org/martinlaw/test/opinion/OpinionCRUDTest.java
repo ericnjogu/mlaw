@@ -30,11 +30,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
 import org.martinlaw.bo.opinion.Client;
+import org.martinlaw.bo.opinion.Consideration;
 import org.martinlaw.bo.opinion.Fee;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -66,6 +68,8 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		getTestUtils().testClientFeeList(opinion.getFees());
 		
 		getTestUtils().testWorkList(opinion.getWork());
+		
+		getTestUtils().testRetrievedConsiderationFields(opinion.getConsideration());
 	}
 	
 	/**
@@ -75,12 +79,14 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 	public void testOpinionCRUD() {
 		// C
 		Opinion opinion = getTestUtils().getTestOpinion();
+		opinion.setConsideration(new Consideration(new BigDecimal(1000), "KES", "see breakdown in attached spreadsheet"));
 		
 		getBoSvc().save(opinion);
 		
 		// R
 		opinion.refresh();
 		getTestUtils().testOpinionFields(opinion);
+		getTestUtils().testConsiderationFields(opinion.getConsideration());
 		
 		// U
 		String summary = "see attached file";
@@ -97,4 +103,11 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		assertEquals("opinion fees should have been deleted", 0, getBoSvc().findMatching(Fee.class, criteria).size());
 	}
 	
+	@Test
+	/**
+	 * test that the {@link Consideration} is loaded into the data dictionary
+	 */
+	public void testConsiderationAttributes() {
+		testBoAttributesPresent(Consideration.class.getCanonicalName());
+	}
 }

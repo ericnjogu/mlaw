@@ -36,9 +36,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.rice.core.api.lifecycle.Lifecycle;
-import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
+import org.martinlaw.Constants;
 import org.martinlaw.bo.contract.ClientFee;
+import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -66,12 +66,20 @@ public class ContractBOTest extends MartinlawTestsBase {
 
 	@Test
 	/**
-	 * test that the ContractType is loaded into the data dictionary
+	 * test that the {@link Contract} is loaded into the data dictionary
 	 */
-	public void testContractTypeAttributes() {
+	public void testContractAttributes() {
 		testBoAttributesPresent(Contract.class.getCanonicalName());
 		Class<Contract> dataObjectClass = Contract.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
+	}
+	
+	@Test
+	/**
+	 * test that the {@link Consideration} is loaded into the data dictionary
+	 */
+	public void testConsiderationAttributes() {
+		testBoAttributesPresent(Consideration.class.getCanonicalName());
 	}
 
 	@Test
@@ -93,6 +101,7 @@ public class ContractBOTest extends MartinlawTestsBase {
 		assertNotNull("contract duration start date should not be null", contract.getContractDuration().getStartDate());
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());
 		getTestUtils().testAssignees(contract.getAssignees());
+		getTestUtils().testRetrievedConsiderationFields(contract.getConsideration());
 		
 		List<ClientFee> fees = contract.getFees();
 		getTestUtils().testClientFeeList(fees);
@@ -107,11 +116,13 @@ public class ContractBOTest extends MartinlawTestsBase {
 	public void testContractCRUD() {
 		// C
 		Contract contract = getTestUtils().getTestContract();
+		contract.setConsideration(new Consideration(new BigDecimal(1000), "KES", "see breakdown in attached spreadsheet"));
 		
 		getBoSvc().save(contract);
 		// R
 		contract.refresh();
 		getTestUtils().testContractFields(contract);
+		getTestUtils().testConsiderationFields(contract.getConsideration());
 		// U
 		String serviceOffered = "flat 3f2";
 		contract.setServiceOffered(serviceOffered);
@@ -134,22 +145,6 @@ public class ContractBOTest extends MartinlawTestsBase {
 	 * tests that the document type is loaded ok
 	 */
 	public void testContractDocType() {
-		assertNotNull("document type should not be null", getDocTypeSvc().findByName("ContractMaintenanceDocument"));
-	}
-
-	/* (non-Javadoc)
-	 * @see org.kuali.test.KRADTestCase#getSuiteLifecycles()
-	 */
-	/**
-	 * provide the document type definition file and the supporting files groups > users.
-	 */
-	@Override
-	protected List<Lifecycle> getSuiteLifecycles() {
-		List<Lifecycle> suiteLifecycles = super.getSuiteLifecycles();
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/users.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/groups.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rule-templates.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contract.xml"));
-		return suiteLifecycles;
+		assertNotNull("document type should not be null", getDocTypeSvc().findByName(Constants.DocTypes.CONTRACT ));
 	}
 }

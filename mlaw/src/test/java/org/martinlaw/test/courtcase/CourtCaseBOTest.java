@@ -29,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ import org.kuali.rice.krad.service.LookupService;
 import org.martinlaw.bo.MartinlawPerson;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.courtcase.Client;
+import org.martinlaw.bo.courtcase.Consideration;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.CourtCaseDate;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
@@ -116,6 +118,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         //work
         List<Work> work = kase.getWork();
         getTestUtils().testWorkList(work);
+        //consideration
+        getTestUtils().testRetrievedConsiderationFields(kase.getConsideration());
 	}
 
 	
@@ -160,6 +164,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		wits.add(wit);
 		kase.setWitnesses(wits);
 		
+		kase.setConsideration(new Consideration(new BigDecimal(1000), "KES", "see breakdown in attached spreadsheet"));
+		
 		getBoSvc().save(kase);
 		
 		kase = getBoSvc().findBySinglePrimaryKey(kase.getClass(), kase.getId());
@@ -167,6 +173,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		assertEquals("number of clients expected differs", 1, kase.getClients().size());
 		assertNotNull("witnesses should not be null",kase.getWitnesses());
 		assertEquals("number of witnesses expected differs", 1, kase.getWitnesses().size());
+		getTestUtils().testConsiderationFields(kase.getConsideration());
 	}
 
 	@Test
@@ -269,5 +276,13 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		// should there be an error here - if the principalName does not represent a existing principal? 
 		assertNotNull(client.getPerson().getName());
 		assertNull("should be null", client.getPerson().getPrincipalId());
+	}
+	
+	@Test
+	/**
+	 * test that the {@link Consideration} is loaded into the data dictionary
+	 */
+	public void testConsiderationAttributes() {
+		testBoAttributesPresent(Consideration.class.getCanonicalName());
 	}
 }

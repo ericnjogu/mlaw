@@ -53,7 +53,7 @@ import org.martinlaw.service.RiceServiceHelper;
  */
 @Entity
 @Table(name="martinlaw_convey_t")
-public class Conveyance extends Matter<Assignee, Work, ClientFee, Client> {
+public class Conveyance extends Matter<Assignee, Work, ClientFee, Client, Consideration> {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
 	private List<ConveyanceAnnex> annexes;
 	// column def given on the object reference below - this is for the sake of ojb

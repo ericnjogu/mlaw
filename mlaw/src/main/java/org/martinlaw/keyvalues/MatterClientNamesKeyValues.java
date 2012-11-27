@@ -36,12 +36,8 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.uif.control.UifKeyValuesFinderBase;
 import org.kuali.rice.krad.uif.view.ViewModel;
 import org.martinlaw.bo.Matter;
-import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterClient;
-import org.martinlaw.bo.MatterClientFee;
-import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterTxDocBase;
-import org.martinlaw.bo.MatterWork;
 import org.martinlaw.web.MatterTxForm;
 
 /**
@@ -70,10 +66,12 @@ public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
 		if (form.getDocument() != null) {
 			MatterTxDocBase doc = ((MatterTxDocBase)form.getDocument());
 			if (doc.isMatterIdValid()) {
-				Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterClientFee<? extends MatterFee>, ? extends MatterClient> matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
+				@SuppressWarnings("rawtypes")
+				Matter matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
 						doc.getMatterClass(), doc.getMatterId());
 				if (matter.getClients() != null && !matter.getClients().isEmpty()) {
-					for (MatterClient client: matter.getClients()) {
+					for (Object clientObj: matter.getClients()) {
+						MatterClient client = (MatterClient)clientObj;
 						String value = client.getPerson().getName();
 						if (StringUtils.isEmpty(value)) {
 							value = client.getPrincipalName();

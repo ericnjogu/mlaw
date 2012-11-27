@@ -32,6 +32,7 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +45,7 @@ import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
 import org.kuali.rice.krad.web.form.MaintenanceForm;
 import org.martinlaw.bo.MatterClient;
 import org.martinlaw.bo.conveyance.Client;
+import org.martinlaw.bo.conveyance.Consideration;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
@@ -67,6 +69,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	public void testConveyanceCRUD() {
 		// C
 		Conveyance conv = getTestUtils().getTestConveyance();
+		conv.setConsideration(new Consideration(new BigDecimal(1000), "KES", "see breakdown in attached spreadsheet"));
 		// add client
 		Client client = new Client();
 		String principalName = "clientX";
@@ -95,12 +98,13 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		conv.refresh();
 
 		conv.getAnnexes().get(0).refreshNonUpdateableReferences();
-		assertEquals(getTestUtils().getTestConveyance().getName(), conv.getName());
-		assertEquals(1, conv.getClients().size());
-		assertEquals(principalName, conv.getClients().get(0).getPrincipalName());
+		assertEquals("conveyance name differs", getTestUtils().getTestConveyance().getName(), conv.getName());
+		assertEquals("number of clients differs", 1, conv.getClients().size());
+		assertEquals("principal name differs", principalName, conv.getClients().get(0).getPrincipalName());
 		/*assertEquals(1, conv.getFees().size());*/
-		assertEquals(1, conv.getAnnexes().size());
-		assertEquals(timestamp.toString(), conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
+		assertEquals("number of annexes differs", 1, conv.getAnnexes().size());
+		assertEquals("timestamp differs", timestamp.toString(), conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
+		getTestUtils().testConsiderationFields(conv.getConsideration());
 		
 		// U
 		String name2 = "EN/C010";
@@ -144,6 +148,8 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		getTestUtils().testClientFeeList(conv.getFees());
 		
 		getTestUtils().testWorkList(conv.getWork());
+		
+		getTestUtils().testRetrievedConsiderationFields(conv.getConsideration());
 	}
 	
 	@Test
@@ -338,5 +344,12 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		person.setMatterId(1001l);
 		testMartinlawPersonCRUD(new Client(), "client1", person);
 	}
-
+	
+	@Test
+	/**
+	 * test that the {@link Consideration} is loaded into the data dictionary
+	 */
+	public void testConsiderationAttributes() {
+		testBoAttributesPresent(Consideration.class.getCanonicalName());
+	}
 }
