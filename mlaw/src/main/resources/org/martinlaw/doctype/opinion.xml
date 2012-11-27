@@ -21,14 +21,10 @@
 				maitenance doc -->
 			<description>Opinion Maintenance Document</description>
 			<label>Opinion Maintenance Document</label>
-			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor
-			</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer
-			</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin
-			</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler
-			</docHandler>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
 
 			<routePaths>
 				<routePath>
