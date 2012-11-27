@@ -22,20 +22,28 @@ package org.martinlaw.test;
  * #L%
  */
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.service.DataObjectAuthorizationService;
+import org.kuali.rice.krad.service.DocumentDictionaryService;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
@@ -46,6 +54,8 @@ import org.kuali.rice.krad.util.KRADConstants;
  *
  */
 public abstract class KewTestsBase extends MartinlawTestsBase {
+
+	private DocumentDictionaryService documentDictionaryService;
 
 	public KewTestsBase() {
 		super();
@@ -149,29 +159,50 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	 * 
 	 */
 	protected void testCreateMaintain(Class<?> klass, String docType) {
-		String[] authPrincipalNames = { "clerk1", "lawyer1"};
-		for (String principalName : authPrincipalNames) {
-			assertTrue(principalName + " has permission to create", getDataObjAuthSvc().canCreate(klass, 
-					KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName), docType));
-			
-			try {
-				assertTrue(principalName + " has permission to maintain", getDataObjAuthSvc().canMaintain(klass.newInstance(), 
-						KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName), docType));
-			} catch (InstantiationException e) {
-				fail(e.getMessage());
-			} catch (IllegalAccessException e) {
-				fail(e.getMessage());
-			}
-		}
+		// check for permission template
+		Map<String, String> permissionDetails = new HashMap<String, String>();
+		permissionDetails.put(
+				KimConstants.AttributeConstants.DOCUMENT_TYPE_NAME,
+				getDocumentDictionaryService().getMaintenanceDocumentTypeName(
+						klass));
+		permissionDetails.put(KRADConstants.MAINTENANCE_ACTN, KRADConstants.MAINTENANCE_NEW_ACTION);
+
+		assertTrue("permission not defined by template", getPermissionService().isPermissionDefinedByTemplate(
+				KRADConstants.KNS_NAMESPACE,
+				KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS,
+				permissionDetails));
 		
-		String[] nonAuthPrincipalNames = { "witness1", "client1" };
-		for (String principalName : nonAuthPrincipalNames) {
-			assertFalse(principalName + " has no permission to create", getDataObjAuthSvc().canCreate(klass,
-					KimApiServiceLocator.getPersonService()
-							.getPersonByPrincipalName(principalName), docType));
+		Map<String, Boolean> principalAuth = new HashMap<String, Boolean>();
+		principalAuth.put("clerk1", true);
+		principalAuth.put("lawyer1", true);
+		principalAuth.put("witness1", false);
+		principalAuth.put("client1", false);
+		List<String> roleIds = new ArrayList<String>(1);
+		String roleId = "org.mlaw.roles.functional";
+		roleIds.add(roleId);
+		for (String principalName : principalAuth.keySet()) {
+			boolean isAuth = principalAuth.get(principalName).booleanValue();
+			String principalId = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName).getPrincipalId();
+			assertEquals(principalName + " membership in role '" + roleId + "' should be " + isAuth,
+					isAuth, 
+					KimApiServiceLocator.getRoleService().principalHasRole(principalId, roleIds, new HashMap<String, String>()));
 			
+			assertEquals(principalName + " authorization by template should be " + principalAuth.get(principalName), 
+					isAuth,
+					getPermissionService().isAuthorizedByTemplate(
+					principalId, 
+					KRADConstants.KNS_NAMESPACE,
+	                KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS, permissionDetails,
+	                new HashMap<String, String>()));
+			
+			assertEquals(principalName + " permission's to create should be " + principalAuth.get(principalName), 
+					isAuth,
+					getDataObjAuthSvc().canCreate(klass, 
+					KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName), docType));
 			try {
-				assertFalse(principalName + " has no permission to maintain", getDataObjAuthSvc().canMaintain(klass.newInstance(), 
+				assertEquals(principalName + " permission's to maintain should be " + principalAuth.get(principalName), 
+						isAuth,
+						getDataObjAuthSvc().canMaintain(klass.newInstance(), 
 						KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName), docType));
 			} catch (InstantiationException e) {
 				fail(e.getMessage());
@@ -199,4 +230,18 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
 		assertTrue(doc.isFinal());
 	}
+	
+	/**
+	 * @see MaintenanceDocumentAuthorizerBase#getDocumentDictionaryService()
+	 */
+	protected DocumentDictionaryService getDocumentDictionaryService() {
+        if (documentDictionaryService == null) {
+            documentDictionaryService = KRADServiceLocatorWeb.getDocumentDictionaryService();
+        }
+        return documentDictionaryService;
+    }
+	
+	protected static PermissionService getPermissionService() {
+        return KimApiServiceLocator.getPermissionService();
+    }
 }

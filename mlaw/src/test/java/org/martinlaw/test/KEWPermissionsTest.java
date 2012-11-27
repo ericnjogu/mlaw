@@ -27,7 +27,10 @@ package org.martinlaw.test;
 
 
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceType;
@@ -59,7 +62,10 @@ public class KEWPermissionsTest extends KewTestsBase {
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
 	public void testCaseMaintDocPerms() {
-		testCreateMaintain(CourtCase.class, "CaseMaintenanceDocument");
+		String docType = "CaseMaintenanceDocument";
+		testCreateMaintain(CourtCase.class, docType);
+		assertTrue("docType should allow new and copy", 
+				KRADServiceLocatorWeb.getDocumentDictionaryService().getAllowsNewOrCopy(docType));
 	}
 	
 	@Test
