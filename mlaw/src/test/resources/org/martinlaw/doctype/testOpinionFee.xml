@@ -62,10 +62,10 @@
 	
 	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
 
-		<!-- OpinionWorkDocument rule -->
+		<!-- OpinionFeeDocument rule -->
 		<rule>
-			<name>org.martinlaw.rules.courtcase.work</name>
-			<documentType>OpinionWorkDocument</documentType>
+			<name>org.martinlaw.rules.opinion.fee</name>
+			<documentType>OpinionFeeDocument</documentType>
 			<!-- The rule template does not have any use at now -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for Opinion Work</description>

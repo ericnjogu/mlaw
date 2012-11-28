@@ -68,7 +68,7 @@
 	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
 			<!-- OpinionFeeDocument rule -->
 		<rule>
-			<name>org.martinlaw.rules.conveyance.fee</name>
+			<name>org.martinlaw.rules.opinion.fee</name>
 			<documentType>OpinionFeeDocument</documentType>
 			 <!-- The rule template does not have any use at now  -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>

@@ -64,7 +64,7 @@
 
 		<!-- CourtCaseFeeDocument rule -->
 		<rule>
-			<name>org.martinlaw.rules.conveyance.fee</name>
+			<name>org.martinlaw.rules.courtcase.fee</name>
 			<documentType>CourtCaseFeeDocument</documentType>
 			<!-- The rule template does not have any use at now -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>

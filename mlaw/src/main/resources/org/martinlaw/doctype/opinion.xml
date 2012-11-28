@@ -51,7 +51,7 @@
 	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
 		<!-- OpinionMaintenanceDocument rule -->
 		<rule>
-			<name>org.martinlaw.rules.opinion.assignment</name>
+			<name>org.martinlaw.rules.opinion</name>
 			<documentType>OpinionMaintenanceDocument</documentType>
 			<!-- The rule template does not have any use at now -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>

@@ -61,7 +61,7 @@
 
 		<!-- OpinionWorkDocument rule -->
 		<rule>
-			<name>org.martinlaw.rules.courtcase.work</name>
+			<name>org.martinlaw.rules.opinion.work</name>
 			<documentType>OpinionWorkDocument</documentType>
 			<!-- The rule template does not have any use at now -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>

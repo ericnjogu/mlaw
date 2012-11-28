@@ -62,7 +62,7 @@
 
 		<!-- ConveyanceWorkDocument rule -->
 		<rule>
-			<name>org.martinlaw.rules.courtcase.work</name>
+			<name>org.martinlaw.rules.convey.work</name>
 			<documentType>ConveyanceWorkDocument</documentType>
 			<!-- The rule template does not have any use at now -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
