@@ -66,7 +66,7 @@ public class KIMTest extends KewTestsBase {
 	protected void testPrincipal(String principalName, int numOfGroups, String grpId) {
 		Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(principalName);
 		assertNotNull("principal should not be null", principal);
-		assertEquals("principal id does not match", principalName, principal.getPrincipalId());
+		assertEquals("principal name does not match", principalName, principal.getPrincipalName());
 		List<Group> grpInfo = KimApiServiceLocator.getGroupService().getGroupsByPrincipalIdAndNamespaceCode(principal.getPrincipalId(), "MARTINLAW");
 		assertNotNull("group info should not be null", grpInfo);
 		assertEquals("number of groups differs", numOfGroups, grpInfo.size());
