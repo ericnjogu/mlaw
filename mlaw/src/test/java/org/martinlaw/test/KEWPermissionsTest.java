@@ -27,9 +27,14 @@ package org.martinlaw.test;
 
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.junit.Test;
+import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.conveyance.Conveyance;
@@ -86,6 +91,24 @@ public class KEWPermissionsTest extends KewTestsBase {
 	 */
 	public void testStatusMaintDocPerms() {
 		testCreateMaintain(Status.class, "StatusMaintenanceDocument");
+	}
+	
+	@Test
+	/**
+	 * test that users in the idmgr group have the relevant permission
+	 */
+	public void testIdMgrPermissions() {
+		Map<String, Boolean> authUsers = getTestUtils().getAuthUsers();
+		for (String principalName: authUsers.keySet()) {
+			String principalId = getPrincipalIdForName(principalName);
+			boolean auth = getPermissionService().isAuthorized(
+					principalId,
+					KimConstants.NAMESPACE_CODE,
+					KimConstants.PermissionNames.MODIFY_ENTITY,
+					Collections.singletonMap(KimConstants.AttributeConstants.PRINCIPAL_ID, principalId));
+			assertEquals(principalName + " authorization for identity manager is " + authUsers.get(principalName).booleanValue(),
+					authUsers.get(principalName).booleanValue(), auth);
+		}
 	}
 
 }

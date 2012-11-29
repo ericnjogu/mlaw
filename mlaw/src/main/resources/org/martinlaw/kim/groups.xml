@@ -77,6 +77,16 @@
 				 -->
 			</members>
 		</group>
+		<group>
+		<id>org.martinlaw.group.idmgr</id>
+			<namespace>MARTINLAW</namespace>
+			<name>idmgr</name>
+			<description>Identity Manager - Can create new users</description>
+			<members>
+				<principalName>clerk1</principalName>
+				<principalName>lawyer1</principalName>
+			</members>
+		</group>
 	</groups>
 </data>
 	

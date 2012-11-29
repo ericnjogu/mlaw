@@ -403,4 +403,18 @@ public class TestUtils {
 		assertEquals("consideration description differs", desc, consideration.getDescription());
 		assertEquals("consideration currency differs", "TZS", consideration.getCurrency());
 	}
+	
+	/**
+	 * users authorised by permissions
+	 *  
+	 * @return a list of principal names (key) and the corresponding boolean value of the authorization
+	 */
+	public Map<String, Boolean> getAuthUsers() {
+		Map<String, Boolean> principalAuth = new HashMap<String, Boolean>();
+		principalAuth.put("clerk1", true);
+		principalAuth.put("lawyer1", true);
+		principalAuth.put("witness1", false);
+		principalAuth.put("client1", false);
+		return principalAuth;
+	}
 }

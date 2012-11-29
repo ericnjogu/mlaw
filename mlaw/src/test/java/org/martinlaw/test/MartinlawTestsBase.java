@@ -296,6 +296,8 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-fee-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-work-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/test-identity-mgr-perm-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/identity-mgr-perm-roles.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/ldap/ldap.sql", ";").runSql();
 	}

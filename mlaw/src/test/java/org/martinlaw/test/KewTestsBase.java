@@ -172,17 +172,14 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 				KimConstants.PermissionTemplateNames.CREATE_MAINTAIN_RECORDS,
 				permissionDetails));
 		
-		Map<String, Boolean> principalAuth = new HashMap<String, Boolean>();
-		principalAuth.put("clerk1", true);
-		principalAuth.put("lawyer1", true);
-		principalAuth.put("witness1", false);
-		principalAuth.put("client1", false);
+		Map<String, Boolean> principalAuth =  getTestUtils().getAuthUsers();
+
 		List<String> roleIds = new ArrayList<String>(1);
 		String roleId = "org.mlaw.roles.functional";
 		roleIds.add(roleId);
 		for (String principalName : principalAuth.keySet()) {
 			boolean isAuth = principalAuth.get(principalName).booleanValue();
-			String principalId = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName).getPrincipalId();
+			String principalId = getPrincipalIdForName(principalName);
 			assertEquals(principalName + " membership in role '" + roleId + "' should be " + isAuth,
 					isAuth, 
 					KimApiServiceLocator.getRoleService().principalHasRole(principalId, roleIds, new HashMap<String, String>()));
