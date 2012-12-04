@@ -40,7 +40,7 @@
 							<bean parent="Uif-InputField" p:propertyName="comment" />
 							<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
 								p:href="@{#line.calendarEvent.url}" p:label="Calendar Event"
-								p:render="@{!#isEmpty(#line.calendarEvent)}" />
+								p:render="@{! #empty(#line.calendarEvent)}" />
 						</list>
 					</property>
 				</bean>
