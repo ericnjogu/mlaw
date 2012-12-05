@@ -27,7 +27,7 @@ public abstract class MatterConsideration extends PersistableBusinessObjectBase 
 	protected BigDecimal amount;
 	@Column(name = "currency", nullable = false)
 	protected String currency;
-	@Column(name = "description", length = 255)
+	@Column(name = "description", length = 250)
 	protected String description;
 
 	public MatterConsideration() {

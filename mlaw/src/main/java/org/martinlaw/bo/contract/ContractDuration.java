@@ -102,7 +102,7 @@ public class ContractDuration extends PersistableBusinessObjectBase {
 	private long duration;
 	@Column(name="duration_time_unit", nullable=true)
 	private long durationTimeUnit;
-	@Column(name = "description", length = 255)
+	@Column(name = "description", length = 250)
 	private String description;
 
 	/**

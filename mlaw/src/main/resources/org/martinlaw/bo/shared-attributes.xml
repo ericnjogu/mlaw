@@ -59,9 +59,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 
-	<bean id="martinlaw-shared-description" parent="martinlaw-shared-description-parentBean" />
-
-	<bean id="martinlaw-shared-description-parentBean" abstract="true"
+	<bean id="martinlaw-shared-description" abstract="true"
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Description" />
@@ -74,7 +72,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="description" value="Description" />
 		<property name="controlField">
 			<bean parent="Uif-TextAreaControl" p:rows="5" p:cols="30"
-				p:maxLength="100" />
+				p:maxLength="250" />
 		</property>
 	</bean>
 

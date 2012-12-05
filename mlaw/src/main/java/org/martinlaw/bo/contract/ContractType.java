@@ -51,7 +51,7 @@ public class ContractType extends PersistableBusinessObjectBase {
 	private Long id;
 	@Column(name="name", length = 50, nullable = false)
 	private String name;
-	@Column(name = "description", length = 100)
+	@Column(name = "description", length = 250)
 	private String description;
 
 	/**

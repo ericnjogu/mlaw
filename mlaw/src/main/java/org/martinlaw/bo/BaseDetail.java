@@ -45,7 +45,7 @@ public class BaseDetail extends PersistableBusinessObjectBase{
 	private static final long serialVersionUID = 8844219522196909942L;
 	@Column(name="name", length=100, nullable=false) 
 	private String name;
-	@Column(name = "description", length = 100)
+	@Column(name = "description", length = 250)
 	private String description;
 	/**
 	 * can be null if name is descriptive enough
