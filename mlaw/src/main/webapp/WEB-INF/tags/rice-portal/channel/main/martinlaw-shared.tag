@@ -28,6 +28,10 @@
   <li><portal:portalLink displayTitle="true" title="New Date Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.DateType" /></li>
   <li><portal:portalLink displayTitle="true" title="Lookup Date Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.DateType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
+  <strong>Create Users, Clients, Witnesses</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="Create Users, Clients, Witnesses" url="${ConfigProperties.application.url}/kim/identityManagementPersonDocument.do?returnLocation=${ConfigProperties.application.url}&docTypeName=IdentityManagementPersonDocument&methodToCall=docHandler&command=initiate" /></li>
+  </ul>
 
   
 </div>
