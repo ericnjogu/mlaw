@@ -150,7 +150,8 @@
         class="org.kuali.rice.krad.web.bind.UifConfigurableWebBindingInitializer"/>
 
   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    <property name="maxUploadSize" value="500000"/>
+  <!-- size expected in bytes -->
+    <property name="maxUploadSize" value="${spring_max_upload_size}"/>
   </bean>
 
   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -161,5 +162,7 @@
       </list>
     </property>
   </bean>
+  <!-- allows the resolving of ${} placeholders -->
+   <context:property-placeholder/>
 
 </beans>
