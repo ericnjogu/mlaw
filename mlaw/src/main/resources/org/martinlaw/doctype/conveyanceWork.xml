@@ -33,7 +33,7 @@
 				lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin
 			</defaultExceptionGroupName>
-			<docHandler>${dochandler_courtcase_work}</docHandler>
+			<docHandler>${dochandler_conveyance_work}</docHandler>
 
 			<routePaths>
 				<routePath>
