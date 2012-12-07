@@ -28,7 +28,7 @@ package org.martinlaw.keyvalues;
 
 
 import org.kuali.rice.krad.uif.view.ViewModel;
-import org.kuali.rice.krad.web.form.MaintenanceForm;
+import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
 
@@ -56,7 +56,7 @@ public class ConveyanceAnnexTypeKeyValuesMaint extends ConveyanceAnnexTypeKeyVal
 	 */
 	protected Long getConveyanceTypeId(ViewModel model) {
 		Long conveyanceTypeId = null;
-		MaintenanceForm form = (MaintenanceForm) model;
+		MaintenanceDocumentForm form = (MaintenanceDocumentForm) model;
 		if (form.getDocument() != null) {
 			conveyanceTypeId = ((Conveyance)form.getDocument().getNewMaintainableObject().getDataObject()).getTypeId();
 		}

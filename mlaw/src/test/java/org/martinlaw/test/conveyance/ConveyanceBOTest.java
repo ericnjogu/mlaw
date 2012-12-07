@@ -42,7 +42,7 @@ import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.maintenance.MaintainableImpl;
 import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
-import org.kuali.rice.krad.web.form.MaintenanceForm;
+import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.martinlaw.bo.MatterClient;
 import org.martinlaw.bo.conveyance.Client;
 import org.martinlaw.bo.conveyance.Consideration;
@@ -195,7 +195,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	public void testConveyanceAnnexTypeKeyValues() {
 		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesMaint();
 		
-		MaintenanceForm maintForm = mock(MaintenanceForm.class);
+		MaintenanceDocumentForm maintForm = mock(MaintenanceDocumentForm.class);
 		Conveyance conv = new Conveyance();
 		conv.setTypeId(1001l);
 		

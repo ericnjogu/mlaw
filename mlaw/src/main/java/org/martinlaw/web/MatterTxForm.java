@@ -3,14 +3,14 @@
  */
 package org.martinlaw.web;
 
-import org.kuali.rice.krad.web.form.TransactionDocumentFormBase;
+import org.kuali.rice.krad.web.form.TransactionalDocumentFormBase;
 
 /**
  * the default form for matter transactional docs
  * @author mugo
  *
  */
-public class MatterTxForm extends TransactionDocumentFormBase {
+public class MatterTxForm extends TransactionalDocumentFormBase {
 
 	/**
 	 * 

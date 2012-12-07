@@ -36,7 +36,7 @@ import org.kuali.rice.krad.uif.UifParameters;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.web.controller.TransactionalDocumentControllerBase;
 import org.kuali.rice.krad.web.form.DocumentFormBase;
-import org.kuali.rice.krad.web.form.TransactionDocumentFormBase;
+import org.kuali.rice.krad.web.form.TransactionalDocumentFormBase;
 import org.kuali.rice.krad.web.form.UifFormBase;
 import org.kuali.rice.krad.web.form.UifFormManager;
 import org.martinlaw.Constants;
@@ -58,8 +58,8 @@ public class MatterTxController extends TransactionalDocumentControllerBase {
 	 * gets the doc type name from the request string if present
 	 */
 	@Override
-	protected TransactionDocumentFormBase createInitialForm(HttpServletRequest request) {
-		TransactionDocumentFormBase form = new MatterTxForm();
+	protected TransactionalDocumentFormBase createInitialForm(HttpServletRequest request) {
+		TransactionalDocumentFormBase form = new MatterTxForm();
 		
 		String docTypeName = request.getParameter(KRADConstants.DOCUMENT_TYPE_NAME);
 		if (docTypeName == null) {
