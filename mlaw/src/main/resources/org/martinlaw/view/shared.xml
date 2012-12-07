@@ -285,11 +285,10 @@
 	<bean id="martinlaw_shared_work_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
 		<property name="propertyName" value="work" />
 		<property name="headerText" value="Work" />
-		<!-- <property name="layoutManager.numberOfColumns" value="2"/> -->
 		<property name="items">
 			<list>
 
-				<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
+				<bean parent="martinlaw_shared_work_inquiry_item_group"/>
 				<!-- till we figure out a way to retrieve the documents from the document 
 					service and efficiently -->
 				<!-- <bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.principalId" 
@@ -297,12 +296,12 @@
 					/> -->
 			</list>
 		</property>
-		<property name="layoutManager.summaryTitle" value="Work" />
+		<!-- <property name="layoutManager.summaryTitle" value="Work" />
 		<property name="layoutManager.summaryFields">
 			<list>
 				<value>documentHeader.documentDescription</value>
 			</list>
-		</property>
+		</property> -->
 	</bean>
 
 	<bean id="martinlaw_shared_fee_doc_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
@@ -352,4 +351,14 @@
 		</property>
 		<property name="headerText" value="Client Consideration" />
 	</bean>
+	
+	<bean id="martinlaw_shared_work_inquiry_item_group" parent="Uif-VerticalFieldGroup"
+		p:render="@{#line.statusIsFinal}" abstract="true">
+		<property name="fieldLabel.labelText" value="@{#line.documentHeader.documentDescription}"/>
+		<property name="items">
+			<list>
+				<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
+			</list>
+		</property>
+</bean>
 </beans>

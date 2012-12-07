@@ -211,21 +211,21 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	
 	/**
 	 * a common method to test clerk - lawyer routing for transactional docs
-	 * @param docType
+	 * @param docType - the document type name, used to create the document
 	 * @throws WorkflowException 
 	 */
 	public void testTransactionalRouting(String docType) throws WorkflowException {
 		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("clerk1"), docType);
 		doc.saveDocument("saved");
 		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("clerk1"), doc.getDocumentId());
-		assertTrue(doc.isSaved());
+		assertTrue("document should be saved but is '" + doc.getStatus() + "'", doc.isSaved());
 		doc.approve("routing");
 		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
-		assertTrue(doc.isEnroute());
+		assertTrue("document should be enroute but is '" + doc.getStatus() + "'", doc.isEnroute());
 		doc.approve("OK");
 		//re-retrieve document to get updated status
 		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
-		assertTrue(doc.isFinal());
+		assertTrue("document should be final but is '" + doc.getStatus()  + "'", doc.isFinal());
 	}
 	
 	/**

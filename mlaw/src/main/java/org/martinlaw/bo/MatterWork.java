@@ -27,6 +27,11 @@ package org.martinlaw.bo;
 
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+
+import org.kuali.rice.kew.api.WorkflowDocument;
+import org.kuali.rice.kew.api.WorkflowDocumentFactory;
+import org.kuali.rice.krad.util.GlobalVariables;
 
 
 /**
@@ -41,4 +46,29 @@ public abstract class MatterWork extends MatterTxDocBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 3637053012196079706L;
+	/*@Column(name = "final", nullable = false, length=1)
+	protected String status; //only used to get jpa to create the column but ojb will set statusIsFinal from/to db
+*/	@Transient //marked as so that we can create  column using a string data type above
+	private Boolean statusIsFinal = null;
+	/**
+	 * provides a way for us to select final documents
+	 * 
+	 * <p>This appeared to be a shortcut to creating a separate table where this BO would have been copied to on getting to final</p>
+	 * @return the statusIsFinal
+	 */
+	public Boolean getStatusIsFinal() {
+		WorkflowDocument workflowDoc = WorkflowDocumentFactory.loadDocument(GlobalVariables.getUserSession().getPrincipalId(), getDocumentNumber());
+		if (workflowDoc.isFinal()) {
+			setStatusIsFinal(true);
+		} else {
+			setStatusIsFinal(false);
+		}
+		return statusIsFinal;
+	}
+	/**
+	 * @param statusIsFinal the statusIsFinal to set
+	 */
+	public void setStatusIsFinal(Boolean statusIsFinal) {
+		this.statusIsFinal = statusIsFinal;
+	}
 }
