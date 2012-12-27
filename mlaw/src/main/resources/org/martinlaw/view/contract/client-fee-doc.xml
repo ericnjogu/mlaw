@@ -34,6 +34,14 @@
 			value="tx?docTypeName=@{#ConfigProperties['doctype_contract_fee']}"></property>
 		<property name="headerText" value="Contract Fee" />
 		<property name="items">
+			<list>
+			<ref local="contract_fee_doc_page"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="contract_fee_doc_page" parent="Uif-DocumentPage">
+	<property name="items">
 			<list merge="true">
 				<bean parent="Uif-GridSection">
 					<property name="items">

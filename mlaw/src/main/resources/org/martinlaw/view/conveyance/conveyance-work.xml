@@ -21,6 +21,14 @@
 			value="tx?docTypeName=@{#ConfigProperties['doctype_conveyance_work']}"></property>
 		<property name="headerText" value="Conveyance Work" />
 		<property name="items">
+			<list>
+				<ref local="conveyance_work_doc_page"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="conveyance_work_doc_page" parent="Uif-DocumentPage">
+	<property name="items">
 			<list merge="true">
 				<bean parent="Uif-GridSection">
 					<property name="items">

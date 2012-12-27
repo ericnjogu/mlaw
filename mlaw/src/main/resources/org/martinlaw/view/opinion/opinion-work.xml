@@ -33,6 +33,14 @@
 		<property name="formPostUrl" value="tx?docTypeName=@{#ConfigProperties['doctype_opinion_work']}"></property>
 		<property name="headerText" value="Opinion Work" />
 		<property name="items">
+			<list>
+				<ref local="opinion_work_doc_page"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="opinion_work_doc_page" parent="Uif-DocumentPage">
+	<property name="items">
 			<list merge="true">
 				<bean parent="Uif-GridSection">
 					<property name="items">

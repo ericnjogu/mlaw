@@ -28,22 +28,28 @@
                     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-	<bean id="courtcase_work_doc_view" parent="Uif-DocumentView">
+	<bean id="courtcase_work_doc_view" parent="Uif-TransactionalDocumentView">
 		<property name="documentClass" value="org.martinlaw.bo.courtcase.Work" />
-		<property name="formPostUrl" value="tx?docTypeName=@{#ConfigProperties['doctype_courtcase_work']}"></property>
+		<property name="formPostUrl" value="tx?docTypeName=@{#ConfigProperties['doctype_courtcase_work']}"/>
 		<property name="headerText" value="CourtCase Work" />
 		<property name="items">
-			<list merge="true">
-				<bean parent="Uif-GridSection">
-					<property name="items">
-						<list>
-							<bean parent="martinlaw_shared_matter_id_scriptlookup" p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.Work">
-								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
-							</bean>
-						</list>
-					</property>
-				</bean>
-			</list>
+			<ref local="courtcase_work_doc_page"/>
 		</property>
 	</bean>
+	
+	<bean id="courtcase_work_doc_page" parent="Uif-DocumentPage">
+				<property name="items">
+					<list merge="true">
+						<bean parent="Uif-GridSection">
+							<property name="items">
+								<list>
+									<bean parent="martinlaw_shared_matter_id_scriptlookup" p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.Work">
+										<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
+									</bean>
+								</list>
+							</property>
+						</bean>
+					</list>
+				</property>
+			</bean>
 </beans>
