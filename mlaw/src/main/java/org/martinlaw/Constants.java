@@ -33,6 +33,8 @@ package org.martinlaw;
  *
  */
 public class Constants {
+	
+	public final static String MODULE_NAMESPACE_CODE = "MARTINLAW";
 	public class DocTypes {
 		public final static String CONTRACT_WORK = "ContractWorkDocument";
 		public static final String COURTCASE_WORK = "CourtCaseWorkDocument";
@@ -54,7 +56,7 @@ public class Constants {
 	}
 	
 	public class MessageKeys {
-		public final static String ERROR_NOT_INITIATOR = "error.notInitiator";
+		public final static String ERROR_NOT_ASSIGNED = "error.notAssigned";
 	}
 	
 	public class ViewIds {

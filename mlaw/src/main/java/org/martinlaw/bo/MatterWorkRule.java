@@ -53,8 +53,9 @@ public class MatterWorkRule extends MatterRule {
 			if (isPrincipalNameInAssigneeList(matterWork, initiatorPrincipalName)) {
 				return true;
 			} else {
-				ErrorMessage errMsg = new ErrorMessage(Constants.MessageKeys.ERROR_NOT_INITIATOR, initiatorPrincipalName, 
+				ErrorMessage errMsg = new ErrorMessage(Constants.MessageKeys.ERROR_NOT_ASSIGNED, initiatorPrincipalName, 
 								matterWork.getMatterClass().getSimpleName());
+				errMsg.setNamespaceCode(Constants.MODULE_NAMESPACE_CODE);
 				addMatterIdError(errMsg);
 				return false;
 			}
@@ -71,6 +72,7 @@ public class MatterWorkRule extends MatterRule {
 	 * 
 	 * @return true if found, false if not or the list is empty
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean isPrincipalNameInAssigneeList(MatterTxDocBase matterWork, String principalName) {
 		Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterClientFee<?>, 
 				? extends MatterClient, ? extends MatterConsideration> matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
