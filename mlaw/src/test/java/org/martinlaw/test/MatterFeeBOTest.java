@@ -30,9 +30,6 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -150,15 +147,13 @@ public abstract class MatterFeeBOTest extends MartinlawTestsBase {
 		clientFee.setMatterId(1001l);
 
 		MatterFee fee = getFeeClass().newInstance();
-		fee.setAmount(new BigDecimal(2000l));
-		String clientPrincipalName = "pkk";
-		fee.setClientPrincipalName(clientPrincipalName);
-		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		getTestUtils().populateMatterFeeData(fee);
 
 		clientFee.setFee(fee);
 		getBoSvc().save(clientFee);
 
 		// R
+		String clientPrincipalName = "pkk";
 		clientFee = (MatterClientFee<MatterFee>) getBoSvc()
 				.findBySinglePrimaryKey(getDocumentClass(), documentNumber);
 		testClientFeeFields(clientFee, clientPrincipalName);
