@@ -154,7 +154,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="label" value="Status" />
 		<property name="description" value="Status" />
 		<property name="required" value="true" />
-		<!-- options finder is provided in court case or conveyance -->
+		<!-- options finder is provided in each matter -->
 		<property name="controlField">
 			<bean parent="Uif-DropdownControl" />
 		</property>

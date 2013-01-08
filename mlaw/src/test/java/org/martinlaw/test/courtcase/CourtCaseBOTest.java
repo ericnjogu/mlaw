@@ -133,20 +133,28 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	public void testCaseSaveRetrieve() throws Exception {
 		CourtCase kase = new CourtCase();
 		kase.setLocalReference("local1");
+
 		Status status = new Status();
-		status.setStatus("filed");
+		String statusText = "filed";
+		status.setStatus(statusText);
 		status.setType(Status.COURT_CASE_TYPE.getKey());
 		// save status since it is not updated from the court case - ojb config to prevent object modified errors when the status is changed
 		getBoSvc().save(status);
-		kase.setStatus(status);
-		kase.setName("Good vs Evil");
+		status.refresh();
+		kase.setStatusId(status.getId());
+		String name = "Future vs Past";
+		kase.setName(name);
 		getBoSvc().save(kase);
+		
 		kase = getBoSvc().findBySinglePrimaryKey(CourtCase.class, kase.getId());
-		assertEquals(null, kase.getCourtReference());
-		assertEquals("local1", kase.getLocalReference());
-		assertEquals(0,kase.getClients().size());
-		assertEquals(0,kase.getWitnesses().size());
-		assertEquals("filed", kase.getStatus().getStatus());
+		kase.refreshNonUpdateableReferences(); //without this, case status (object) is null
+		assertEquals("court reference should be null", null, kase.getCourtReference());
+		assertEquals("case name differs", name, kase.getName());
+		assertEquals("local reference differs", "local1", kase.getLocalReference());
+		assertEquals("clients size differs", 0, kase.getClients().size());
+		assertEquals("witnesses size differs", 0, kase.getWitnesses().size());
+		assertNotNull("status should not be null", kase.getStatus());
+		assertEquals(statusText, kase.getStatus().getStatus());
 		log.debug("Created case with id " + kase.getId());
 		assertNotNull(kase.getId());
 		//create and save client, witness
@@ -274,7 +282,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		MartinlawPerson client = new Client();
 		client.setPrincipalName("clientX");
 		// should there be an error here - if the principalName does not represent a existing principal? 
-		assertNotNull(client.getPerson().getName());
+		assertNotNull("person name should not be null", client.getPerson().getName());
 		assertNull("should be null", client.getPerson().getPrincipalId());
 	}
 	
