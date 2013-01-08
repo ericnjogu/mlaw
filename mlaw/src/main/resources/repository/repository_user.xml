@@ -59,19 +59,19 @@
 			jdbc-type="VARCHAR" index="true" />
 		<collection-descriptor name="witnesses"
 			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseWitness"
-			auto-retrieve="true" auto-update="true" auto-delete="false">
+			auto-retrieve="true" auto-update="true" auto-delete="none">
 			<inverse-foreignkey field-ref="courtCaseId" />
 		</collection-descriptor>
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.courtcase.Client"
-			auto-retrieve="true" auto-update="true" auto-delete="false">
+			auto-retrieve="true" auto-update="true" auto-delete="none">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 		<field-descriptor name="statusId" column="status_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
@@ -205,7 +205,7 @@
 
 		<reference-descriptor name="type"
 			class-ref="org.martinlaw.bo.DateType" auto-retrieve="true"
-			auto-update="false" auto-delete="none">
+			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
 	</class-descriptor>
@@ -322,7 +322,7 @@
 
 		<reference-descriptor name="type"
 			class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
-			auto-retrieve="true" auto-update="false" auto-delete="none">
+			auto-retrieve="true" auto-update="none" auto-delete="none">
 			<foreignkey field-ref="conveyanceAnnexTypeId" />
 		</reference-descriptor>
 
@@ -397,7 +397,7 @@
 
 		<reference-descriptor name="type"
 			class-ref="org.martinlaw.bo.conveyance.ConveyanceType" auto-retrieve="true"
-			auto-update="false" auto-delete="none">
+			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
 
@@ -410,7 +410,7 @@
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
@@ -585,14 +585,14 @@
 			jdbc-type="BIGINT" />
 		<reference-descriptor name="type"
 			class-ref="org.martinlaw.bo.contract.ContractType" auto-retrieve="true"
-			auto-update="false" auto-delete="none">
+			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
 
 		<field-descriptor name="statusId" column="status_id"
 			jdbc-type="BIGINT" indexed="true" />
 		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
@@ -775,7 +775,7 @@
 
 		<reference-descriptor name="matter"
 			class-ref="org.martinlaw.bo.conveyance.Conveyance" auto-retrieve="true"
-			auto-update="false" auto-delete="false">
+			auto-update="none" auto-delete="false">
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 	</class-descriptor>
@@ -797,7 +797,7 @@
 
 		<reference-descriptor name="matter"
 			class-ref="org.martinlaw.bo.contract.Contract" auto-retrieve="true"
-			auto-update="false" auto-delete="false">
+			auto-update="none" auto-delete="false">
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 	</class-descriptor>
@@ -835,7 +835,7 @@
 
 		<reference-descriptor name="matter"
 			class-ref="org.martinlaw.bo.courtcase.CourtCase" auto-retrieve="true"
-			auto-update="false" auto-delete="false">
+			auto-update="none" auto-delete="false">
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 	</class-descriptor>
@@ -866,7 +866,7 @@
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
 		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="false"
+			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
@@ -989,7 +989,7 @@
 
 		<reference-descriptor name="matter"
 			class-ref="org.martinlaw.bo.opinion.Opinion" auto-retrieve="true"
-			auto-update="false" auto-delete="false">
+			auto-update="none" auto-delete="false">
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 	</class-descriptor>
@@ -1073,7 +1073,7 @@
 
 		<reference-descriptor name="conveyanceAnnexType"
 			class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
-			auto-retrieve="true" auto-update="false" auto-delete="none">
+			auto-retrieve="true" auto-update="none" auto-delete="none">
 			<foreignkey field-ref="conveyanceAnnexTypeId" />
 		</reference-descriptor>
 	</class-descriptor>

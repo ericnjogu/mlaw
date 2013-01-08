@@ -28,8 +28,8 @@ package org.martinlaw.test.contract;
 
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.Constants;
-import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.contract.ClientFee;
+import org.martinlaw.bo.contract.Fee;
 
 /**
  * tests routing for {@link ClientFee}
@@ -44,7 +44,8 @@ public class ContractFeeRoutingTest extends ContractTxRoutingTestBase {
 	protected void setUpInternal() throws Exception {
 		super.setUpInternal();
 		setDocType(Constants.DocTypes.CONTRACT_FEE);
-		setWorkDoc((MatterTxDocBase) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType()));
+		ClientFee doc = (ClientFee) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
+		setWorkDoc(getTestUtils().populateClientFee(doc, new Fee()));
 	}
 
 }

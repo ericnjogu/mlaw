@@ -27,11 +27,8 @@ package org.martinlaw.test.conveyance;
 
 
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.UserSession;
@@ -58,27 +55,24 @@ public class ConveyanceWorkRoutingTest extends TxRoutingTestBase {
 		setDocType(Constants.DocTypes.CONVEYANCE_WORK);
 		Work newDocument = (Work) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
 		newDocument.setConveyanceAnnexTypeId(1001l);
-		newDocument.setMatterId(1001l);
-		newDocument.getDocumentHeader().setDocumentDescription("testing");
-		setWorkDoc(newDocument);
+		setWorkDoc(getTestUtils().populateMatterWork(newDocument));
 	}
 	
 	/**
-	 * checks for correct values in {@link org.martinlaw.bo.MatterWork#getStatusIsFinal()}
+	 * confirms that the documents that are routed/submitted directly while using 
+	 * {@link org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor} do not have an ojb error
 	 */
 	@Test
-	@Ignore("the test preprocessor does not save the bo's and the routing fails. The real preprocessor throws an error about loading the doc")
-	public void testCustomStatusInRouting() throws WorkflowException {
-		KRADServiceLocatorWeb.getDocumentService().saveDocument(getWorkDoc());
+	
+	public void testInitiateToRouteDirectly() throws WorkflowException {
+		/*KRADServiceLocatorWeb.getDocumentService().saveDocument(getWorkDoc());
 		Work doc = (Work) KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(getWorkDoc().getDocumentNumber());
 		assertNotNull("annex type id should not be null", doc.getConveyanceAnnexTypeId());
-		assertFalse("the status should not be final", doc.getStatusIsFinal());
+		assertFalse("the status should not be final", doc.getStatusIsFinal());*/
 		//getBoSvc().save(doc);
-		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
+		KRADServiceLocatorWeb.getDocumentService().routeDocument(getWorkDoc(), "submitted", null);
 		//retrieve again to confirm status
-		doc = (Work) KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-		assertTrue("the status should be final", doc.getStatusIsFinal());
-		assertTrue("document should have been approved", doc.getDocumentHeader().getWorkflowDocument().isApproved());
-		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isFinal());
+		Work doc = (Work) KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(getWorkDoc().getDocumentNumber());
+		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isEnroute());
 	}
 }

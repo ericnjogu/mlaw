@@ -47,6 +47,7 @@ import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterDate;
+import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
@@ -137,8 +138,7 @@ public class TestUtils {
 		assertNotNull("contract type id should not be null", contract.getTypeId());
 		assertNotNull("contract type should exist", 
 				KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(ContractType.class, contract.getTypeId()));
-		// TODO - test fails - possibly something to do with the ojb framework - or delays in document processing?
-		// assertNotNull("contract type should not be null", contract.getType());
+		assertNotNull("contract type should not be null", contract.getType());
 		assertNotNull("consideration id should not be null", contract.getContractConsiderationId());
 		assertNotNull("consideration should not be null", contract.getContractConsideration());
 		assertNotNull("duration should not be null", contract.getContractDuration());
@@ -299,9 +299,8 @@ public class TestUtils {
 	public void testOpinionFields(Opinion opinion) {
 		assertEquals("opinion name differs", testOpinionName, opinion.getName());
 		assertEquals("opinion local ref differs", testOpinionLocalReference, opinion.getLocalReference());
-		// for some reason, the status object is not fetched, so test for the id instead
-		assertNotNull("opinion status should not be null", opinion.getStatusId());
-		
+		assertNotNull("opinion status id should not be null", opinion.getStatusId());
+		assertNotNull("opinion status should not be null", opinion.getStatus());
 		assertEquals("opinion clients not the expected number", 1, opinion.getClients().size());
 		assertEquals("opinion client name not the expected value", testOpinionClientName, opinion.getClients().get(0).getPrincipalName());
 	}
@@ -416,5 +415,44 @@ public class TestUtils {
 		principalAuth.put("witness1", false);
 		principalAuth.put("client1", false);
 		return principalAuth;
+	}
+	
+	/**
+	 * populates a fee with test data
+	 * 
+	 * @param fee - the fee to populate, one of the several {@code MatterFee} descendants
+	 */
+	public MatterFee populateMatterFeeData(MatterFee fee) {
+		fee.setAmount(new BigDecimal(2000l));
+		String clientPrincipalName = "pkk";
+		fee.setClientPrincipalName(clientPrincipalName);
+		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		return fee;
+	}
+	
+	/**
+	 * sets test data to the required fields
+	 * 
+	 * @param newDocument the document to populate
+	 * @return the populated document
+	 */
+	public MatterWork populateMatterWork(MatterWork newDocument) {
+		newDocument.setMatterId(1001l);
+		newDocument.getDocumentHeader().setDocumentDescription("testing");
+		return newDocument;
+	}
+	
+	/**
+	 * populate a descendant of {@code MatterClientFee} with test data
+	 * @param doc - the doc to be populated
+	 * @param fee - the descendant of {@code MatterFee} to be populated
+	 * @return - the populated doc
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public MatterClientFee populateClientFee(MatterClientFee doc, MatterFee fee) {
+		doc.getDocumentHeader().setDocumentDescription("testing");
+		doc.setMatterId(1001l);
+		doc.setFee(populateMatterFeeData(fee));
+		return doc;
 	}
 }
