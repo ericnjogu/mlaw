@@ -211,10 +211,13 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	
 	/**
 	 * a common method to test clerk - lawyer routing for transactional docs
+	 * 
+	 * <p>Works with {@link org.kuali.rice.kew.postprocessor.DefaultPostProcessor} as the value of <postProcessorName>
+	 * in the docType xml definition. The document BO is not persisted to the DB and this tests the workflow logic only</p>
 	 * @param docType - the document type name, used to create the document
 	 * @throws WorkflowException 
 	 */
-	public void testTransactionalRouting(String docType) throws WorkflowException {
+	public void testTransactionalRoutingNoDocumentCRUD(String docType) throws WorkflowException {
 		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("clerk1"), docType);
 		doc.saveDocument("saved");
 		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("clerk1"), doc.getDocumentId());
