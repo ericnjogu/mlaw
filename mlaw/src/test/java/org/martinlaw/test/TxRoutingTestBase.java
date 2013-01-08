@@ -29,7 +29,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.datadictionary.DocumentEntry;
+import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.rules.DocumentRuleBase;
 import org.kuali.rice.krad.rules.TransactionalDocumentRuleBase;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
@@ -60,7 +62,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 */
 	@Test
 	public void testWorkRouting() throws WorkflowException {
-		this.testTransactionalRouting(docType);
+		testTransactionalRoutingAndDocumentCRUD(docType);
 	}
 
 	@Test
@@ -108,6 +110,40 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 			}
 		}
 		return rule;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testTransactionalRouting(java.lang.String)
+	 */
+	/**
+	 * tests routing in a real user-world manner since the postprocessor is {@link org.martinlaw.service.PostProcessorServiceImpl}
+	 * 
+	 * <p>The business object persistence is also tested</p>
+	 */
+	public void testTransactionalRoutingAndDocumentCRUD(String docType)
+			throws WorkflowException {
+		// changing doc type at runtime did not work
+		/*DocumentType docTypeObj = KEWServiceLocator.getDocumentTypeService().findByName(getDocType());
+		//prepare to save new version
+		docTypeObj.setVersionNumber(null);
+		docTypeObj.setDocumentTypeId(null);
+		docTypeObj.setPostProcessorName("org.kuali.rice.kew.postprocessor.DefaultPostProcessor");
+		KEWServiceLocator.getDocumentTypeService().versionAndSave(docTypeObj);*/
+		
+		Document doc = KRADServiceLocatorWeb.getDocumentService().saveDocument(getWorkDoc());
+		assertTrue("document should have been saved", doc.getDocumentHeader().getWorkflowDocument().isSaved());
+		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
+		
+		// approve as lawyer1
+		GlobalVariables.setUserSession(new UserSession("lawyer1"));
+		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+		assertTrue("document should be enroute", doc.getDocumentHeader().getWorkflowDocument().isEnroute());
+		KRADServiceLocatorWeb.getDocumentService().approveDocument(doc, "approved", null);
+		
+		//retrieve again to confirm status
+		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+		assertTrue("document should have been approved", doc.getDocumentHeader().getWorkflowDocument().isApproved());
+		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isFinal());
 	}
 
 	/**
