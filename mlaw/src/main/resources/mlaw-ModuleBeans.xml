@@ -194,7 +194,6 @@
          <value>classpath:org/martinlaw/view/date-type-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/courtcase/case-date.xml</value>
-         <value>classpath:org/martinlaw/view/courtcase/case-date-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-date-lookup.xml</value>
          
          <value>classpath:org/martinlaw/bo/contract/contract-assignee.xml</value>
