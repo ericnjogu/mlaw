@@ -64,4 +64,15 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
             </list>
           </property>
         </bean>
+
+	<bean id="martinlaw_shared_assignment_MaintDocument" abstract="true"
+		parent="uifMaintenanceDocumentEntry">
+		<property name="maintainableClass"
+			value="org.kuali.rice.krad.maintenance.MaintainableImpl" />
+		<property name="lockingKeys">
+			<list>
+				<value>matterId</value>
+			</list>
+		</property>
+	</bean>
 </beans>
