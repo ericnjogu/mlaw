@@ -67,6 +67,7 @@ public class MatterRule extends TransactionalDocumentRuleBase {
 			ErrorMessage errMsg = new ErrorMessage(RiceKeyConstants.ERROR_EXISTENCE, 
 					KRADServiceLocatorWeb.getDataDictionaryService().getAttributeLabel(
 							matterWork.getMatterClass(), Constants.PropertyNames.MATTER_ID));
+			errMsg.setNamespaceCode(Constants.MODULE_NAMESPACE_CODE);
 			addMatterIdError(errMsg);
 			
 			return false;
