@@ -39,7 +39,7 @@
 				<value>org.martinlaw.bo.CalendarEvent</value>
 				<value>org.martinlaw.bo.DateType</value>
 				
-				<value>org.martinlaw.bo.courtcase.CourtCaseDate</value>
+				<value>org.martinlaw.bo.courtcase.MyDate</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
 				<value>org.martinlaw.bo.courtcase.Client</value>
 				<value>org.martinlaw.bo.courtcase.Assignee</value>
@@ -56,6 +56,7 @@
 				<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>
 				<value>org.martinlaw.bo.courtcase.Fee</value>
 				<value>org.martinlaw.bo.courtcase.Consideration</value>
+				<value>org.martinlaw.bo.sequence.CaseConsiderationSeq</value>
 				
 				<value>org.martinlaw.bo.conveyance.ConveyanceAnnexType</value>
 				<value>org.martinlaw.bo.conveyance.ConveyanceType</value>
@@ -76,6 +77,7 @@
 				<value>org.martinlaw.bo.conveyance.Conveyance</value>
 				<value>org.martinlaw.bo.conveyance.ClientFee</value>
 				<value>org.martinlaw.bo.conveyance.Consideration</value>
+				<value>org.martinlaw.bo.sequence.OpinionConsiderationSeq</value>
 				
 				<value>org.martinlaw.bo.contract.ContractType</value>
 				<value>org.martinlaw.bo.contract.ContractParty</value>
@@ -90,15 +92,8 @@
 				<value>org.martinlaw.bo.contract.Fee</value>
 				<value>org.martinlaw.bo.contract.ClientFee</value>
 				<value>org.martinlaw.bo.contract.Consideration</value>
-				
-				<value>org.martinlaw.bo.MatterAssignee</value>
-				<value>org.martinlaw.bo.MatterAssignment</value>
-				<value>org.martinlaw.bo.MatterClient</value>
-				<value>org.martinlaw.bo.MatterFee</value>
-				<value>org.martinlaw.bo.MatterTxDocBase</value>
-				<value>org.martinlaw.bo.MatterClientFee</value>
-				<value>org.martinlaw.bo.MatterConsideration</value>
-				
+				<value>org.martinlaw.bo.sequence.ContractConsiderationSeq</value>
+				<value>org.martinlaw.bo.sequence.ClientContractConsiderationSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>
 				<value>org.martinlaw.bo.sequence.ContractSignatorySeq</value>
@@ -107,6 +102,15 @@
 				<value>org.martinlaw.bo.sequence.ContractSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractFeeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractClientSeq</value>
+				
+				<value>org.martinlaw.bo.MatterAssignee</value>
+				<value>org.martinlaw.bo.MatterAssignment</value>
+				<value>org.martinlaw.bo.MatterClient</value>
+				<value>org.martinlaw.bo.MatterFee</value>
+				<value>org.martinlaw.bo.MatterTxDocBase</value>
+				<value>org.martinlaw.bo.MatterClientFee</value>
+				<value>org.martinlaw.bo.MatterConsideration</value>
+				<value>org.martinlaw.bo.MatterMaintenanceHelper</value>
 				
 				<value>org.martinlaw.bo.conveyance.Assignee</value>
 				<value>org.martinlaw.bo.conveyance.Assignment</value>
@@ -125,6 +129,7 @@
 				<value>org.martinlaw.bo.sequence.OpinionAssignmentSeq</value>
 				<value>org.martinlaw.bo.opinion.ClientFee</value>
 				<value>org.martinlaw.bo.opinion.Consideration</value>
+				<value>org.martinlaw.bo.sequence.OpinionConsiderationSeq</value>
 				
 				<value>org.martinlaw.bo.contract.Work</value>
 				<value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>

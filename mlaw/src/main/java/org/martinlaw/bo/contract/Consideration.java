@@ -30,12 +30,9 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.martinlaw.bo.MatterConsideration;
 
 
@@ -61,10 +58,10 @@ public class Consideration extends MatterConsideration {
 		super();
 	}
 	@Id
-	@GeneratedValue(generator = "martinlaw_contract_client_consideration_s")
+	/*@GeneratedValue(generator = "martinlaw_contract_client_consideration_s")
 	@GenericGenerator(name = "martinlaw_contract_client_consideration_s", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
 			@Parameter(name = "sequence_name", value = "martinlaw_contract_client_consideration_s"),
-			@Parameter(name = "value_column", value = "id") })
+			@Parameter(name = "value_column", value = "id") })*/
 	@Column(name = "consideration_id")
 	private Long id;
 	/**
