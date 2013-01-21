@@ -86,7 +86,7 @@
          <value>classpath:org/martinlaw/bo/shared-attributes.xml</value>
          <value>classpath:org/martinlaw/bo/shared-assignment.xml</value>
          <value>classpath:org/martinlaw/bo/shared-consideration.xml</value>
-         <value>classpath:org/martinlaw/bo/shared-date.xml</value>
+         <value>classpath:org/martinlaw/bo/shared-matter-date.xml</value>
          <value>classpath:org/martinlaw/bo/status.xml</value>
          <value>classpath:org/martinlaw/bo/status-maintenance.xml</value>
          
@@ -96,6 +96,7 @@
          <value>classpath:org/martinlaw/view/status-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/status-lookup.xml</value>
          <value>classpath:org/martinlaw/view/status-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/shared-matter-date.xml</value>
          
          <value>classpath:org/martinlaw/bo/courtcase/case-fee.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case.xml</value>
@@ -105,6 +106,12 @@
          <value>classpath:org/martinlaw/bo/courtcase/case-consideration.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-client.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-witness.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-date-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/bo/courtcase/case-assignee.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-assignment.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-assignment-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/case-date.xml</value>
          
          <value>classpath:org/martinlaw/view/courtcase/case-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-lookup.xml</value>
@@ -123,6 +130,15 @@
          <value>classpath:org/martinlaw/view/courtcase/case-client-lookup.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-witness-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-witness-lookup.xml</value>
+         
+         <value>classpath:org/martinlaw/view/courtcase/case-date-lookup.xml</value>
+         <!-- optional file, inserted for unit tests to pass and for future customization -->
+         <value>classpath:org/martinlaw/view/courtcase/case-date-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-date-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/view/courtcase/case-assignment-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-assignment-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/case-assignment-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-annex-type.xml</value>
@@ -193,8 +209,7 @@
          <value>classpath:org/martinlaw/view/date-type-lookup.xml</value>
          <value>classpath:org/martinlaw/view/date-type-maintenance.xml</value>
          
-         <value>classpath:org/martinlaw/bo/courtcase/case-date.xml</value>
-         <value>classpath:org/martinlaw/view/courtcase/case-date-lookup.xml</value>
+         
          
          <value>classpath:org/martinlaw/bo/contract/contract-assignee.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-assignment-maintenance.xml</value>
@@ -202,13 +217,6 @@
          <value>classpath:org/martinlaw/view/contract/contract-assignment-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-assignment-lookup.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-assignment-maintenance.xml</value>
-         
-         <value>classpath:org/martinlaw/bo/courtcase/case-assignee.xml</value>
-         <value>classpath:org/martinlaw/bo/courtcase/case-assignment.xml</value>
-         <value>classpath:org/martinlaw/bo/courtcase/case-assignment-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/courtcase/case-assignment-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/courtcase/case-assignment-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/courtcase/case-assignment-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/opinion/opinion-client.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-fee.xml</value>
@@ -255,6 +263,8 @@
      <property name="resourceBundleNames">
       <list>
         <value>org.martinlaw.mlaw</value>
+        <value>org.kuali.rice.krad.KRADApplicationResources</value>
+        <value>org.kuali.rice.krad.ApplicationResources</value>
       </list>
     </property>
   </bean>
