@@ -39,7 +39,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Attribute Definitions -->
 
-	<bean id="martinlaw_shared_assignment_bo_matterId" parent="AttributeDefinition">
+	<bean id="martinlaw_shared_matterId_attr" parent="AttributeDefinition">
 		<property name="maxLength" value="20"/>
 		<property name="validationPattern">
 			<bean parent="NumericValidationPattern"/>
@@ -51,7 +51,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_assignment_bo_matter_relationship" abstract="true" parent="RelationshipDefinition">
+	<bean id="martinlaw_shared_matter_relationship" abstract="true" parent="RelationshipDefinition">
           <property name="objectAttributeName" value="matter"/>
           <property name="primitiveAttributes">
             <list>

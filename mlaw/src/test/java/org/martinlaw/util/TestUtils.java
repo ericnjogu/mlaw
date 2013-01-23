@@ -33,6 +33,7 @@ import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -178,10 +179,10 @@ public class TestUtils {
 	
 	/**
 	 * 
-	 * tests fields of {@link MatterDate} 
+	 * tests fields of {@link MatterDate} from sql data
 	 * @param date
 	 */
-	public void testMatterDateFields(MatterDate date) {
+	public void testRetrievedMatterDateFields(MatterDate<?> date) {
 		assertEquals("first hearing date",date.getComment());
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(date.getDate().getTime());
@@ -454,5 +455,46 @@ public class TestUtils {
 		doc.setMatterId(1001l);
 		doc.setFee(populateMatterFeeData(fee));
 		return doc;
+	}
+
+	/**
+	 * create and populate a matter date for testing
+	 * @param d
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public <D extends MatterDate<?>> D getTestMatterDate(Class<D> d) throws InstantiationException, IllegalAccessException {
+		D date = d.newInstance();
+		date.setComment("must attend");
+		date.setMatterId(1001l);
+		date.setTypeId(1001l);
+		date.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		return date;
+	}
+	
+	/**
+	 * tests CRUD for descendants of {@link MatterDate}
+	 * @param date - the object to test with
+	 * @param matterDate - the type of {@code MatterDate} for use in fetching from {@code #getBoSvc()}
+	 */
+	public <D extends MatterDate<?>> void testMatterDateCRUD(MatterDate<?> date, Class<D> matterDate) {
+		// C
+		getBoSvc().save(date);
+		// R
+		date.refresh();
+		assertEquals("comment differs", "must attend", date.getComment());
+		SimpleDateFormat sdf =  new SimpleDateFormat("dd-MM-yy");
+		assertEquals(sdf.format(Calendar.getInstance().getTime()), sdf.format(date.getDate()));
+		// U
+		final String comment = "must attend - dept heads only";
+		date.setComment(comment);
+		date.refresh();
+		assertEquals("comment differs", comment, date.getComment());
+		// D
+		getBoSvc().delete(date);
+		Map<String, Object> map = new HashMap<String, Object>(1);
+		map.put("comment", comment);
+		assertEquals("date should have been deleted", 0, getBoSvc().findMatching(matterDate, map).size());
 	}
 }

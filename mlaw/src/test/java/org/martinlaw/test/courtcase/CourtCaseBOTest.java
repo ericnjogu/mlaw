@@ -46,7 +46,7 @@ import org.martinlaw.bo.Status;
 import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.Consideration;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.bo.courtcase.CourtCaseDate;
+import org.martinlaw.bo.courtcase.MyDate;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.martinlaw.bo.courtcase.Work;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -102,9 +102,9 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         assertEquals("witness1", witness.getPrincipalName());
         assertEquals("Witness",witness.getPerson().getFirstName());
         //hearing date
-        List<CourtCaseDate> dates = kase.getDates();
+        List<MyDate> dates = kase.getDates();
         assertEquals(1,dates.size());
-        getTestUtils().testMatterDateFields(kase.getDates().get(0));
+        getTestUtils().testRetrievedMatterDateFields(kase.getDates().get(0));
 
         /*testFeeFields(kase.getFees().get(0));*/
         // attachments

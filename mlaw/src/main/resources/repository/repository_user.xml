@@ -77,9 +77,9 @@
 		</reference-descriptor>
 
 		<collection-descriptor name="dates"
-			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseDate"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="courtCaseId" />
+			element-class-ref="org.martinlaw.bo.courtcase.MyDate"
+			auto-retrieve="true" auto-update="none" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 
 		<collection-descriptor name="assignees"
@@ -180,13 +180,13 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCaseDate"
+	<class-descriptor class="org.martinlaw.bo.courtcase.MyDate"
 		table="martinlaw_court_case_date_t">
-		<field-descriptor name="id" column="court_case_date_id"
+		<field-descriptor name="id" column="id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_court_case_date_s">
 		</field-descriptor>
-		<field-descriptor name="courtCaseId" column="court_case_id"
+		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 
 		<field-descriptor name="date" column="matter_date"
@@ -207,6 +207,11 @@
 			class-ref="org.martinlaw.bo.DateType" auto-retrieve="true"
 			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
+		
+		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.courtcase.CourtCase" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> 
+			<foreignkey field-ref="matterId"/> 
 		</reference-descriptor>
 	</class-descriptor>
 

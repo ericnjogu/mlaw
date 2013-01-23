@@ -32,13 +32,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="businessObjectClass" value="org.martinlaw.bo.contract.Assignment" />
 		<property name="attributes">
 			<list merge="true">
-				<bean parent="martinlaw_shared_assignment_bo_matterId" p:label="Contract"/>
+				<bean parent="martinlaw_shared_matterId_attr" p:label="Contract"/>
 			</list>
 		</property>
 		<property name="objectLabel" value="Contract Assignment" />
 		<property name="relationships">
       <list>
-		<bean parent="martinlaw_shared_assignment_bo_matter_relationship" p:targetClass="org.martinlaw.bo.contract.Contract"/>
+		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.contract.Contract"/>
       </list>
     </property>
 	</bean>

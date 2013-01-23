@@ -67,7 +67,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	</bean>
 	
 	<bean id="martinlaw_shared_client_fee_doc" abstract="true" parent="uifTransactionalDocumentEntry">
-		<property name="businessRulesClass" value="org.martinlaw.bo.MatterRule"/>
+		<property name="businessRulesClass" value="org.martinlaw.bo.MatterTxBusinessRulesBase"/>
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-date" p:name="fee.date"/>

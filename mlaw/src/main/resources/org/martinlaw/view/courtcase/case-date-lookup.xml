@@ -26,23 +26,8 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="court_case_date_LookupView" parent="Uif-LookupView">
+<bean id="court_case_date_LookupView" parent="martinlaw_shared_court_case_date_LookupView">
     <property name="headerText" value="Court Case Date Lookup" />
-    <property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCaseDate" />
-    <property name="criteriaFields">
-      <list>
-      	<bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="date" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="comment" />
-      </list>
-    </property>
-    <property name="resultFields">
-      <list>
-         <bean parent="Uif-DataField" p:propertyName="courtCaseId" />
-        <bean parent="Uif-DataField" p:propertyName="type.name" />
-        <bean parent="Uif-DataField" p:propertyName="date" />
-        <bean parent="Uif-DataField" p:propertyName="comment" />
-      </list>
-    </property>
+    <property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.MyDate" />
   </bean>
 </beans>

@@ -31,7 +31,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 -->
 
   <bean id="court_case_date_bo" parent="martinlaw_shared_date_bo">
-    <property name="businessObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseDate"/>
+    <property name="businessObjectClass" value="org.martinlaw.bo.courtcase.MyDate"/>
+    <property name="relationships">
+      <list>
+		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.courtcase.CourtCase"/>
+      </list>
+    </property>
   </bean>
   
 </beans>

@@ -62,15 +62,15 @@ public class CourtCase extends Matter<Assignee, Work, ClientFee, Client, Conside
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
 	private List<CourtCaseWitness> witnesses;
 
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
-	private List<CourtCaseDate> dates;
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
+	private List<MyDate> dates;
 	
 	public CourtCase() {
 		super();
 		//initialize collections
 		setClients(new ArrayList<Client>());
 		setWitnesses(new ArrayList<CourtCaseWitness>());
-		setDates(new ArrayList<CourtCaseDate>());
+		setDates(new ArrayList<MyDate>());
 	}
 	/**
 	 * @return the courtReference
@@ -100,13 +100,13 @@ public class CourtCase extends Matter<Assignee, Work, ClientFee, Client, Conside
 	/**
 	 * @param dates the dates to set
 	 */
-	public void setDates(List<CourtCaseDate> courtCaseDates) {
-		this.dates = courtCaseDates;
+	public void setDates(List<MyDate> myDates) {
+		this.dates = myDates;
 	}
 	/**
 	 * @return the dates
 	 */
-	public List<CourtCaseDate> getDates() {
+	public List<MyDate> getDates() {
 		return dates;
 	}
 	/**

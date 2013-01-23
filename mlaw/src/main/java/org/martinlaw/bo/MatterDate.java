@@ -26,15 +26,15 @@ package org.martinlaw.bo;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
-
+@SuppressWarnings("rawtypes")
 @MappedSuperclass
-public class MatterDate extends PersistableBusinessObjectBase {
+public abstract class MatterDate <M extends Matter> extends MatterMaintenanceHelper {
 	/**
 	 * 
 	 */
@@ -53,9 +53,31 @@ public class MatterDate extends PersistableBusinessObjectBase {
 	@OneToOne
 	@JoinColumn(name = "type_id", nullable = false, updatable = true)
 	private DateType type;
+	@Id
+	@Column(name="id")
+	Long id;
+	private M matter;
+	
+	// there is not yet a clear client requirement for this feature
+	/*@Column(name = "active")
+	private Boolean active;*/
+	
 
 	public MatterDate() {
 		super();
+	}
+	
+	/**
+	 * get the primary key
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
@@ -146,5 +168,34 @@ public class MatterDate extends PersistableBusinessObjectBase {
 	 */
 	public void setType(DateType type) {
 		this.type = type;
+	}
+
+	/**
+	 * whether this date is active. The reasons for deactivation can be placed in the {@link}comment
+	 * @return the active
+	 *//*
+	public Boolean getActive() {
+		return active;
+	}
+
+	*//**
+	 * @param active the active to set
+	 *//*
+	public void setActive(Boolean active) {
+		this.active = active;
+	}*/
+	
+	/**
+	 * @return the matter
+	 */
+	public M getMatter() {
+		return matter;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(M m) {
+		this.matter = m;
 	}
 }

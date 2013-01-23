@@ -36,7 +36,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="documentClass" value="org.martinlaw.bo.conveyance.ClientFee" />
 		<property name="attributes">
 			<list merge="true">
-				<bean parent="martinlaw_shared_assignment_bo_matterId" p:label="Conveyance Id"/>
+				<bean parent="martinlaw_shared_matterId_attr" p:label="Conveyance Id"/>
 			</list>
 		</property>
 	</bean>

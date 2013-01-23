@@ -34,9 +34,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     <property name="titleAttribute" value="date"/>
     <property name="attributes">
       <list>    	
+      	<bean parent="martinlaw_shared_matterId_attr" p:label="Court Case" p:required="false"/>
       	<ref bean="martinlaw_shared_date_bo_comment"/>
       	<ref bean="martinlaw_shared_date_bo_type"/>
-      	<bean parent="martinlaw-shared-date"/>
+      	<bean parent="martinlaw-shared-date" p:required="false"/>
       </list>
     </property>
     <property name="objectLabel" value="Date"/>
@@ -72,7 +73,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<!-- label shown by the field group on maintenance screen-->
 		<property name="label" value="Date Type" />
 		<property name="description" value="Date Type" />
-		<property name="required" value="true" />
+		<!-- <property name="required" value="true" /> -->
 		<property name="optionsFinder">
 			<bean
 				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"

@@ -29,19 +29,16 @@ package org.martinlaw.test.courtcase;
 
 
 import org.junit.Test;
-import org.kuali.rice.test.SQLDataLoader;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.test.BaseAssignmentRoutingTest;
-import org.kuali.rice.test.BaselineTestCase;
 
 /**
  * tests routing for {@link Assignment}
  * @author mugo
  *
  */
-// @BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
-@SuppressWarnings("unused")
+
 public class CourtCaseAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	@Test
 	/**
@@ -65,14 +62,4 @@ public class CourtCaseAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
 		super.testAssignmentRouting(testAssignment, "CourtCaseAssignmentMaintenanceDocument");
 	}
-
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.BaseAssignmentRoutingTest#loadSuiteTestData()
-	 
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-perms-roles.sql", ";").runSql();
-	}*/
 }

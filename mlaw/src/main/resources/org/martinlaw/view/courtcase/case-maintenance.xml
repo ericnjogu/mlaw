@@ -29,7 +29,7 @@
 
 
 	<bean id="case_maintenance_view" parent="Uif-MaintenanceView">
-		<property name="headerText" value="Case Maintenance" />
+		<property name="headerText" value="Court Case Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
 		<property name="items">
 			<list merge="true">
@@ -41,9 +41,9 @@
 					</property>
 					<property name="headerText" value="Case Information" />
 				</bean>
-				<bean parent="Uif-StackedCollectionSection">
+				<!-- <bean parent="Uif-StackedCollectionSection">
 					<property name="headerText" value="Dates" />
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseDate" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.MyDate" />
 					<property name="propertyName" value="dates" />
 					<property name="items">
 						<list>
@@ -58,7 +58,7 @@
 							<value>date</value>
 						</list>
 					</property>
-				</bean>
+				</bean> -->
 
 				<bean parent="martinlaw_shared_client-maintenance-section">
 					<property name="collectionObjectClass"
@@ -74,8 +74,7 @@
 					<property name="propertyName" value="witnesses" />
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="principalName">
-							</bean>
+							<bean parent="Uif-InputField" p:propertyName="principalName"/>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Witness" />

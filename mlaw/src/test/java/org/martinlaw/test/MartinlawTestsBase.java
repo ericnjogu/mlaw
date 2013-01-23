@@ -134,9 +134,9 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	}
 
 	/**
-	 * test whether a business object entry can be retrieved. contrived after null pointer exceptions
-	 * with court case status
-	 * could be modified to return the bo entry for specific tests
+	 * test whether a business object entry can be retrieved. 
+	 * <p>contrived after null pointer exceptions
+	 * with court case status. Could be modified to return the bo entry for specific tests</p>
 	 * 
 	 * @param className - fully qualified class name
 	 */
@@ -281,9 +281,10 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-date-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/date-type-default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/case-date-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-date-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-fee-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-work-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/date-type-perms-roles.sql", ";").runSql();
@@ -334,6 +335,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseFee.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionFee.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/dateType.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseDate.xml"));
 		return suiteLifecycles;
 	}
 }

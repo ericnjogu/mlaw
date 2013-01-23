@@ -108,19 +108,21 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	public void testMaintenanceRouting(String docType, PersistableBusinessObject bo)
 			throws WorkflowException, InstantiationException,
 			IllegalAccessException {
-				//initiate as the clerk
-				Document doc = getPopulatedMaintenanceDocument(docType, bo);
-				KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
-				KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-				//retrieve as the lawyer
-				GlobalVariables.setUserSession(new UserSession("lawyer1"));
-				doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-				assertTrue(doc.getDocumentHeader().getWorkflowDocument().isEnroute());
-				KRADServiceLocatorWeb.getDocumentService().approveDocument(doc, "right", null);
-				//retrieve again to confirm status
-				doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-				assertTrue(doc.getDocumentHeader().getWorkflowDocument().isApproved());
-			}
+		// causes the document validation to fail if not cleared
+		GlobalVariables.getMessageMap().clearErrorMessages();
+		//initiate as the clerk
+		Document doc = getPopulatedMaintenanceDocument(docType, bo);
+		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
+		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
+		//retrieve as the lawyer
+		GlobalVariables.setUserSession(new UserSession("lawyer1"));
+		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+		assertTrue(doc.getDocumentHeader().getWorkflowDocument().isEnroute());
+		KRADServiceLocatorWeb.getDocumentService().approveDocument(doc, "right", null);
+		//retrieve again to confirm status
+		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+		assertTrue(doc.getDocumentHeader().getWorkflowDocument().isApproved());
+	}
 
 	/**
 	 * test routing for maintenance documents which are submitted by the initiator into final status

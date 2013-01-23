@@ -10,8 +10,7 @@
 <!-- NOTICE - Modified to specify the module name and properties file -->
 <config>
 
-	<param name="config.location">classpath:org/kuali/rice/standalone/config/standalone-config-defaults.xml
-	</param>
+	<param name="config.location">classpath:org/kuali/rice/standalone/config/standalone-config-defaults.xml</param>
 
 	<!-- the module name is used to locate the localized config files in ~/kuali/main/prd -->
 	<param name="module.name">mlaw</param>
@@ -30,4 +29,5 @@
 	
 	<!-- provide for a custom log4j logging file on deployment -->
 	<param name="log4j.settings.path">${external.config.home}/${module.name}-log4j.properties</param>
+	
 </config>

@@ -23,14 +23,9 @@ package org.martinlaw.bo;
  */
 
 
-import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.rules.TransactionalDocumentRuleBase;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.ErrorMessage;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.kuali.rice.krad.util.KRADConstants;
-import org.martinlaw.Constants;
+import org.martinlaw.MatterBusinessRulesHelper;
 
 /**
  * adds some validation checks for {@link MatterTxDocBase} documents
@@ -38,22 +33,18 @@ import org.martinlaw.Constants;
  * @author mugo
  *
  */
-public class MatterRule extends TransactionalDocumentRuleBase {
+public class MatterTxBusinessRulesBase extends TransactionalDocumentRuleBase {
 
-	public MatterRule() {
+	private MatterBusinessRulesHelper rulesHelper;
+
+
+
+	public MatterTxBusinessRulesBase() {
 		super();
+		setRulesHelper(new MatterBusinessRulesHelper());
 	}
 
-	/**
-	 * convenience method to add an error relating to the matter id to the global variables
-	 * 
-	 * @param matterWork
-	 */
-	protected void addMatterIdError(ErrorMessage errMsg) {
-		GlobalVariables.getMessageMap().addToErrorPath(KRADConstants.DOCUMENT_PROPERTY_NAME);
-		GlobalVariables.getMessageMap().putError(Constants.PropertyNames.MATTER_ID, errMsg);
-		GlobalVariables.getMessageMap().removeFromErrorPath(KRADConstants.DOCUMENT_PROPERTY_NAME);
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.rules.DocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.krad.document.Document)
@@ -64,14 +55,29 @@ public class MatterRule extends TransactionalDocumentRuleBase {
 		if (matterWork.isMatterIdValid()) {
 				return true;
 		} else {
-			ErrorMessage errMsg = new ErrorMessage(RiceKeyConstants.ERROR_EXISTENCE, 
-					KRADServiceLocatorWeb.getDataDictionaryService().getAttributeLabel(
-							matterWork.getMatterClass(), Constants.PropertyNames.MATTER_ID));
-			errMsg.setNamespaceCode(Constants.MODULE_NAMESPACE_CODE);
-			addMatterIdError(errMsg);
-			
+			@SuppressWarnings("rawtypes")
+			Class<? extends Matter> matterClass = matterWork.getMatterClass();
+			getRulesHelper().addMatterIdError(getRulesHelper().createMatterNotExistingError(matterClass));
 			return false;
 		}
+	}
+
+
+
+	/**
+	 * @return the rulesHelper
+	 */
+	public MatterBusinessRulesHelper getRulesHelper() {
+		return rulesHelper;
+	}
+
+
+
+	/**
+	 * @param rulesHelper the rulesHelper to set
+	 */
+	public void setRulesHelper(MatterBusinessRulesHelper rulesHelper) {
+		this.rulesHelper = rulesHelper;
 	}
 
 }

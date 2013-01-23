@@ -35,12 +35,12 @@ import java.util.Calendar;
 
 import org.junit.Test;
 import org.martinlaw.bo.MatterDate;
-import org.martinlaw.bo.courtcase.CourtCaseDate;
+import org.martinlaw.bo.courtcase.MyDate;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
- * tests {@link CourtCaseDate}
+ * tests {@link MyDate}
  * 
  * @author mugo
  *
@@ -51,7 +51,7 @@ public class CourtCaseDateBoTest extends MartinlawTestsBase {
 	 * tests non nullable fields are checked
 	 */
 	public void testCourtCaseDateDateNullableFields() {
-		CourtCaseDate date = new CourtCaseDate();
+		MyDate date = new MyDate();
 		getBoSvc().save(date);
 	}
 	
@@ -60,45 +60,45 @@ public class CourtCaseDateBoTest extends MartinlawTestsBase {
 	 * tests that a CourtCase date, inserted via an sql script in {@link #loadSuiteTestData()} can be retrieved
 	 */
 	public void testCourtCaseDateRetrieve() {
-		MatterDate date = getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, new Long(1001));
+		MatterDate date = getBoSvc().findBySinglePrimaryKey(MyDate.class, new Long(1001));
 		assertNotNull("date should be present in database", date);
-		getTestUtils().testMatterDateFields(date);
+		getTestUtils().testRetrievedMatterDateFields(date);
 		assertNotNull("date type should not be null", date.getType());
 		assertEquals("date type id not does not match", new Long(1002), date.getType().getId());
 	}
 	
 	@Test
 	/**
-	 * tests {@link CourtCaseDate}  CRUD ops
+	 * tests {@link MyDate}  CRUD ops
 	 */
 	public void testCourtCaseDateCRUD() {
 		Date date = new Date(Calendar.getInstance().getTimeInMillis());
-		CourtCaseDate courtCaseDate = new CourtCaseDate(date, "soon", 1001l);
-		courtCaseDate.setTypeId(1001l);
+		MyDate myDate = new MyDate(date, "soon", 1001l);
+		myDate.setTypeId(1001l);
 		// C
-		getBoSvc().save(courtCaseDate);
+		getBoSvc().save(myDate);
 		// R
-		courtCaseDate.refresh();
-		assertNotNull("date type should not be null", courtCaseDate.getType());
-		assertEquals("Date type name does not match", "Hearing", courtCaseDate.getType().getName());
+		myDate.refresh();
+		assertNotNull("date type should not be null", myDate.getType());
+		assertEquals("Date type name does not match", "Hearing", myDate.getType().getName());
 		// U
 		String comment = "later";
-		courtCaseDate.setComment(comment);
-		getBoSvc().save(courtCaseDate);
-		courtCaseDate.refresh();
-		assertEquals("comment does not match", comment, courtCaseDate.getComment());
+		myDate.setComment(comment);
+		getBoSvc().save(myDate);
+		myDate.refresh();
+		assertEquals("comment does not match", comment, myDate.getComment());
 		// D
-		getBoSvc().delete(courtCaseDate);
-		assertNull("BO should have been deleted", getBoSvc().findBySinglePrimaryKey(CourtCaseDate.class, courtCaseDate.getId()));
+		getBoSvc().delete(myDate);
+		assertNull("BO should have been deleted", getBoSvc().findBySinglePrimaryKey(MyDate.class, myDate.getId()));
 	}
 	
 	@Test
 	/**
-	 * test that the CourtCaseDate is loaded into the data dictionary
+	 * test that the MyDate is loaded into the data dictionary
 	 */
 	public void testCourtCaseDateAttributes() {
-		testBoAttributesPresent(CourtCaseDate.class.getCanonicalName());
-		Class<CourtCaseDate> dataObjectClass = CourtCaseDate.class;
+		testBoAttributesPresent(MyDate.class.getCanonicalName());
+		Class<MyDate> dataObjectClass = MyDate.class;
 		verifyInquiryLookup(dataObjectClass);
 	}
 	

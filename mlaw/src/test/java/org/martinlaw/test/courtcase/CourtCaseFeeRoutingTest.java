@@ -30,7 +30,6 @@ import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.Constants;
-import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.courtcase.ClientFee;
 import org.martinlaw.bo.courtcase.Fee;
 import org.martinlaw.test.TxRoutingTestBase;
@@ -50,7 +49,6 @@ public class CourtCaseFeeRoutingTest extends TxRoutingTestBase {
 		super.setUpInternal();
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
 		setDocType(Constants.DocTypes.COURTCASE_FEE);
-		setWorkDoc((MatterTxDocBase) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType()));
 		ClientFee doc = (ClientFee) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
 		setWorkDoc(getTestUtils().populateClientFee(doc, new Fee()));
 	}

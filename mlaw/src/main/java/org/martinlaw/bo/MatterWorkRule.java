@@ -38,7 +38,14 @@ import org.martinlaw.Constants;
  * @author mugo
  *
  */
-public class MatterWorkRule extends MatterRule {
+public class MatterWorkRule extends MatterTxBusinessRulesBase {
+
+	/**
+	 * 
+	 */
+	public MatterWorkRule() {
+		super();
+	}
 
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.rules.DocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.krad.document.Document)
@@ -56,7 +63,7 @@ public class MatterWorkRule extends MatterRule {
 				ErrorMessage errMsg = new ErrorMessage(Constants.MessageKeys.ERROR_NOT_ASSIGNED, initiatorPrincipalName, 
 								matterWork.getMatterClass().getSimpleName());
 				errMsg.setNamespaceCode(Constants.MODULE_NAMESPACE_CODE);
-				addMatterIdError(errMsg);
+				getRulesHelper().addMatterIdError(errMsg);
 				return false;
 			}
 		} else {

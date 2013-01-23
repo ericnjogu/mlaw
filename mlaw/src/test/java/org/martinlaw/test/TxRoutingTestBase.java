@@ -36,7 +36,7 @@ import org.kuali.rice.krad.rules.DocumentRuleBase;
 import org.kuali.rice.krad.rules.TransactionalDocumentRuleBase;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.martinlaw.bo.MatterRule;
+import org.martinlaw.bo.MatterTxBusinessRulesBase;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWorkRule;
 
@@ -50,7 +50,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 
 	private MatterTxDocBase workDoc;
 	private String docType;
-	private MatterRule rule;
+	private MatterTxBusinessRulesBase rule;
 
 	public TxRoutingTestBase() {
 		super();
@@ -62,11 +62,15 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 */
 	@Test
 	public void testWorkRouting() throws WorkflowException {
+		// causes the next document validation fail if not cleared
+		GlobalVariables.getMessageMap().clearErrorMessages();
 		testTransactionalRoutingAndDocumentCRUD(docType);
 	}
 
 	@Test
 	public void testAttributeValidation() throws WorkflowException {
+		// causes the validation test to fail if not cleared
+		GlobalVariables.getMessageMap().clearErrorMessages();
 		workDoc.setMatterId(1001l);
 		workDoc.getDocumentHeader().setDocumentDescription("testing");
 		DocumentRuleBase ruleBase = new TransactionalDocumentRuleBase();
@@ -102,11 +106,11 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	private MatterRule getRule() throws InstantiationException, IllegalAccessException {
+	private MatterTxBusinessRulesBase getRule() throws InstantiationException, IllegalAccessException {
 		if (rule == null) {
 			DocumentEntry entry = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocType());
 			if (entry != null) {
-				rule = (MatterRule) entry.getBusinessRulesClass().newInstance();
+				rule = (MatterTxBusinessRulesBase) entry.getBusinessRulesClass().newInstance();
 			}
 		}
 		return rule;
@@ -177,7 +181,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	/**
 	 * @param rule the rule to set
 	 */
-	public void setRule(MatterRule rule) {
+	public void setRule(MatterTxBusinessRulesBase rule) {
 		this.rule = rule;
 	}
 
