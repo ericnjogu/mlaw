@@ -28,9 +28,14 @@ package org.martinlaw.test.courtcase;
 
 
 
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.exception.ValidationException;
+import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.courtcase.MyDate;
 import org.martinlaw.test.KewTestsBase;
 
@@ -67,7 +72,7 @@ public class CourtCaseDateRoutingTest extends KewTestsBase {
 	}
 	
 	/**
-	 * verifies that the business rules create an error for a non existent court case id 
+	 * verifies that the business rules create an error for a non existent court case id on save
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws WorkflowException
@@ -76,6 +81,37 @@ public class CourtCaseDateRoutingTest extends KewTestsBase {
 	public void testCourtCaseDateRouting_InvalidMatterId() throws InstantiationException, IllegalAccessException, WorkflowException {
 		MyDate testDate = getTestUtils().getTestMatterDate(MyDate.class);
 		testDate.setMatterId(3000l);
-		super.testMaintenanceRouting("CourtCaseDateMaintenanceDocument", testDate);
+		GlobalVariables.getMessageMap().clearErrorMessages();
+		//initiate as the clerk
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate);
+		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
+	}
+	
+	/**
+	 * verifies that the required fields are validated on route not save
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws WorkflowException
+	 */
+	@Test
+	public void testCourtCaseDateRouting_required_validated_onroute() throws InstantiationException, WorkflowException, IllegalAccessException {
+		MyDate testDate = getTestUtils().getTestMatterDate(MyDate.class);
+		// required on route
+		testDate.setDate(null);
+		testDate.setTypeId(null);
+		GlobalVariables.getMessageMap().clearErrorMessages();
+		//initiate as the clerk
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate);
+		try {
+			KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
+		} catch (ValidationException ve) {
+			fail("should not have thrown a validation exception on save");
+		}
+		try {
+			KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
+			fail("should have thrown validation exception on route");
+		} catch (ValidationException e) {
+			// test succeeded
+		}
 	}
 }
