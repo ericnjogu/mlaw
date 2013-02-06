@@ -251,7 +251,6 @@
 		parent="Uif-MaintenanceGridSection">
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="id" p:readOnly="true" />
 				<bean parent="Uif-InputField" p:propertyName="localReference" />
 				<bean parent="Uif-InputField" p:propertyName="name" />
 				<bean parent="Uif-InputField" p:propertyName="statusId"
