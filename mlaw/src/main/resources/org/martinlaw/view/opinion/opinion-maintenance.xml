@@ -31,6 +31,7 @@
 	<bean id="opinion_maintenance_view" parent="Uif-MaintenanceView">
 		<property name="headerText" value="Opinion Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.opinion.Opinion" />
+		<property name="validateClientSide" value="false"/>
 		<property name="items">
 			<list merge="true">
 				<bean parent="martinlaw_shared_matter_info_maintenance">

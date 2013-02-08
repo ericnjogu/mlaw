@@ -49,6 +49,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 		<property name="boNotesEnabled" value="true" />
 		<property name="objectLabel" value="name" />
+		<property name="collections">
+	      <list>
+	        <bean parent="CollectionDefinition" p:name="clients" p:label="clients" p:shortLabel="clients" p:elementLabel="client"
+	        	p:dataObjectClass="org.martinlaw.bo.opinion.Client"/>
+	      </list>
+      	</property>
 	</bean>
 	
 	<bean id="opinion_bo_summary" parent="AttributeDefinition">
