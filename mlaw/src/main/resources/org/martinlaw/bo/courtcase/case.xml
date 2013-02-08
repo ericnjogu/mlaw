@@ -27,9 +27,7 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- Copyright 2010-2011 Protosoft Ltd -->
 	
-	<bean id="case" parent="case-parentBean" />
-
-	<bean id="case-parentBean" abstract="true" parent="BusinessObjectEntry">
+	<bean id="court_case_bo" parent="BusinessObjectEntry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.courtcase.CourtCase" />
 		<property name="titleAttribute" value="name" />
 		<property name="attributes">
@@ -40,13 +38,28 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				<bean parent="martinlaw-shared-localReference-parentBean" />
 				<bean parent="case-courtReference-parentBean" />
 				<!-- client consideration -->
-				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" />
+				<!-- the parent bean is shared by both maintenance and tx docs 
+				(for which state based validation may not work yet as they save data directly to the tables which have constraints), 
+				so negate the inherited required and insert a required via simple constraint to take effect in the maintenance docs on route -->
+				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" p:required="false">
+					<property name="simpleConstraint">
+						<bean parent="SimpleConstraint" p:required="true" p:states="R" />
+					</property>
+				</bean>
 				<bean parent="martinlaw_shared_consideration_bo_currency" p:name="consideration.currency"/>
 				<bean parent="martinlaw_shared_consideration_bo_description" p:name="consideration.description"/>
 			</list>
 		</property>
 		<property name="boNotesEnabled" value="true" />
 		<property name="objectLabel" value="name" />
+		<property name="collections">
+	      <list>
+	        <bean parent="CollectionDefinition" p:name="clients" p:label="clients" p:shortLabel="clients" p:elementLabel="client"
+	        	p:dataObjectClass="org.martinlaw.bo.courtcase.Client"/>
+	        <bean parent="CollectionDefinition" p:name="witnesses" p:label="witnesses" p:shortLabel="witnesses" p:elementLabel="witness"
+	        	p:dataObjectClass="org.martinlaw.bo.courtcase.CourtCaseWitness"/>
+	      </list>
+      	</property>
 	</bean>
 
 	<!-- Attribute Definitions -->

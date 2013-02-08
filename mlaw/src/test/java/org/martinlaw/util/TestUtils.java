@@ -50,6 +50,7 @@ import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterDate;
 import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterWork;
+import org.martinlaw.bo.Status;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -59,6 +60,7 @@ import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
+import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Opinion;
 
@@ -496,5 +498,32 @@ public class TestUtils {
 		Map<String, Object> map = new HashMap<String, Object>(1);
 		map.put("comment", comment);
 		assertEquals("date should have been deleted", 0, getBoSvc().findMatching(matterDate, map).size());
+	}
+	
+	/**
+	 * get a populated test court case
+	 * @param localRef - the local reference to set
+	 * @param courtRef - the court number to set
+	 * @return the test object
+	 */
+	public CourtCase getTestCourtCase(String localRef, String courtRef) {
+		//set up test status
+		Status status = new Status();
+		status.setStatus("Testing");
+		status.setType(Status.ANY_TYPE.getKey());
+		getBoSvc().save(status);
+		status.refresh();
+		assertNotNull(status.getId());
+		//create new case bo
+		CourtCase caseBo = new CourtCase();
+		
+		caseBo.setLocalReference(localRef);
+		caseBo.setCourtReference(courtRef);
+		caseBo.setName("Flesh Vs Spirit (Lifetime)");
+		caseBo.setStatus(status);
+		// side step validation error - error.required
+		caseBo.setStatusId(status.getId());
+		
+		return caseBo;
 	}
 }

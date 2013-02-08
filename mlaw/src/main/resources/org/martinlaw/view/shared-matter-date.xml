@@ -42,8 +42,8 @@
 									<bean parent="IntegerPatternConstraint" />
 								</property>
 							</bean>
-							<bean parent="martinlaw_shared_date_maintenance_view_inputfield" p:propertyName="typeId" />
-							<bean parent="martinlaw_shared_date_maintenance_view_inputfield" p:propertyName="date" />
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId" />
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="date" />
 							<bean parent="Uif-InputField" p:propertyName="comment" />
 						</list>
 					</property>
@@ -57,11 +57,6 @@
       		<bean parent="WorkflowStateMapping"/>
      	</property> -->
      	<property name="validateClientSide" value="false"/>
-	</bean>
-	
-	<!-- use a double asterix to show that required info is expected on route - to be explained in user manual -->
-	<bean id="martinlaw_shared_date_maintenance_view_inputfield" parent="Uif-InputField" abstract="true">
-		<property name="fieldLabel.requiredMessage.messageText" value="**"/>
 	</bean>
 	
 	<bean id="martinlaw_shared_court_case_date_LookupView" abstract="true"	parent="Uif-LookupView">

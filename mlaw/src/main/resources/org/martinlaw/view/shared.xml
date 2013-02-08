@@ -251,9 +251,9 @@
 		parent="Uif-MaintenanceGridSection">
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="localReference" />
-				<bean parent="Uif-InputField" p:propertyName="name" />
-				<bean parent="Uif-InputField" p:propertyName="statusId"
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="localReference" />
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="name" />
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="statusId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
 			</list>
 		</property>
@@ -330,8 +330,8 @@
 		abstract="true">
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="consideration.amount" />
-				<bean parent="Uif-InputField" p:propertyName="consideration.currency" />
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="consideration.amount" />
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="consideration.currency" />
 				<bean parent="Uif-InputField" p:propertyName="consideration.description">
 				</bean>
 			</list>
@@ -359,5 +359,10 @@
 				<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
 			</list>
 		</property>
-</bean>
+	</bean>
+	
+	<!-- use a double asterix to show that required info is expected on route - to be explained in user manual -->
+	<bean id="martinlaw_shared_custom_req_msg_inputfield" parent="Uif-InputField" abstract="true">
+		<property name="fieldLabel.requiredMessage.messageText" value="**"/>
+	</bean>
 </beans>

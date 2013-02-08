@@ -31,34 +31,17 @@
 	<bean id="case_maintenance_view" parent="Uif-MaintenanceView">
 		<property name="headerText" value="Court Case Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
+		<property name="validateClientSide" value="false"/>
 		<property name="items">
 			<list merge="true">
 				<bean parent="martinlaw_shared_matter_info_maintenance">
 					<property name="items">
 						<list merge="true">
-							<bean parent="Uif-InputField" p:propertyName="courtReference" />
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="courtReference" />
 						</list>
 					</property>
 					<property name="headerText" value="Case Information" />
 				</bean>
-				<!-- <bean parent="Uif-StackedCollectionSection">
-					<property name="headerText" value="Dates" />
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.MyDate" />
-					<property name="propertyName" value="dates" />
-					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="typeId" />
-							<bean parent="Uif-InputField" p:propertyName="date" />
-							<bean parent="Uif-InputField" p:propertyName="comment" />
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Date" />
-					<property name="layoutManager.summaryFields">
-						<list>
-							<value>date</value>
-						</list>
-					</property>
-				</bean> -->
 
 				<bean parent="martinlaw_shared_client-maintenance-section">
 					<property name="collectionObjectClass"

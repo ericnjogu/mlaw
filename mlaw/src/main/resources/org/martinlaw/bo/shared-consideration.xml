@@ -46,30 +46,33 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="martinlaw_shared_consideration_bo_amount" parent="martinlaw-shared-fee-amount-parentBean" p:label="Value"/>
 	
 	<bean id="martinlaw_shared_consideration_bo_currency" parent="AttributeDefinition">
-    <property name="forceUppercase" value="false"/>
-    <property name="shortLabel" value="Currency"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="false"/>
-    </property>
-    <property name="summary" value="Currency"/>
-    <property name="name" value="currency"/>
-    <property name="label" value="Currency"/>
-    <property name="description" value="Currency"/>
-    
-    <property name="controlField">
-				<bean parent="Uif-DropdownControl" >
+	    <property name="forceUppercase" value="false"/>
+	    <property name="shortLabel" value="Currency"/>
+	    <property name="validationPattern">
+	      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="false"/>
+	    </property>
+	    <property name="summary" value="Currency"/>
+	    <property name="name" value="currency"/>
+	    <property name="label" value="Currency"/>
+	    <property name="description" value="Currency"/>
+	    
+	    <property name="controlField">
+			<bean parent="Uif-DropdownControl">
 				<property name="options">
-                      <list>
-                        <bean parent="Uif-KeyLabelPair" p:key="KES" p:value="KES"/>
-                        <bean parent="Uif-KeyLabelPair" p:key="UGX" p:value="UGX"/>
-                        <bean parent="Uif-KeyLabelPair" p:key="TZS" p:value="TZX"/>
-                        <bean parent="Uif-KeyLabelPair" p:key="USD" p:value="USD"/>
-                        <bean parent="Uif-KeyLabelPair" p:key="EUR" p:value="EUR"/>
-                        <bean parent="Uif-KeyLabelPair" p:key="GBP" p:value="GBP"/>
-                      </list>
-                    </property>
-				</bean>
-			</property>
+					<list>
+						<bean parent="Uif-KeyLabelPair" p:key="KES" p:value="KES" />
+						<bean parent="Uif-KeyLabelPair" p:key="UGX" p:value="UGX" />
+						<bean parent="Uif-KeyLabelPair" p:key="TZS" p:value="TZX" />
+						<bean parent="Uif-KeyLabelPair" p:key="USD" p:value="USD" />
+						<bean parent="Uif-KeyLabelPair" p:key="EUR" p:value="EUR" />
+						<bean parent="Uif-KeyLabelPair" p:key="GBP" p:value="GBP" />
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="simpleConstraint">
+			<bean parent="SimpleConstraint" p:required="true" p:states="R" />
+		</property>
   </bean>
 
 </beans>

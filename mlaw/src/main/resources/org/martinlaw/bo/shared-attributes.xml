@@ -76,10 +76,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 
-	<bean id="martinlaw-shared-name" parent="martinlaw-shared-name-parentBean" />
-
-	<bean id="martinlaw-shared-name-parentBean" abstract="true"
-		parent="AttributeDefinition">
+	<bean id="martinlaw-shared-name" abstract="true" parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Name" />
 		<property name="validationPattern">
@@ -96,9 +93,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	</bean>
 
 
-	<bean id="martinlaw-shared-principal-name" parent="martinlaw-shared-principal-name-parentBean" />
-
-	<bean id="martinlaw-shared-principal-name-parentBean" abstract="true"
+	<bean id="martinlaw-shared-principal-name" abstract="true"
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="name" />
