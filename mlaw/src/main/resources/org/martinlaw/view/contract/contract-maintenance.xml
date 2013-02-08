@@ -31,12 +31,13 @@
 	<bean id="contract_maintenance_view" parent="Uif-MaintenanceView">
 		<property name="headerText" value="Contract Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.contract.Contract" />
+		<property name="validateClientSide" value="false"/>
 		<property name="items">
 			<list merge="true">
 				<bean parent="martinlaw_shared_matter_info_maintenance">
 					<property name="items">
 						<list merge="true">
-							<bean parent="Uif-InputField" p:propertyName="typeId" />
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId" />
 						</list>
 					</property>
 					<property name="headerText" value="Contract Information" />
@@ -81,7 +82,7 @@
 				<bean parent="Uif-MaintenanceGridSection">
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="contractConsideration.amount" />
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="contractConsideration.amount" />
 							<bean parent="Uif-InputField" p:propertyName="contractConsideration.currency" />
 							<bean parent="Uif-InputField" p:propertyName="contractConsideration.description">
 							</bean>
@@ -93,7 +94,7 @@
 				<bean parent="Uif-MaintenanceGridSection">
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="contractDuration.startDate" />
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="contractDuration.startDate" />
 							<bean parent="Uif-InputField" p:propertyName="contractDuration.endDate" />
 							<bean parent="Uif-HorizontalFieldGroup" p:label="Duration">
 								<property name="items">
