@@ -35,14 +35,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.junit.After;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.test.KewTestsBase;
@@ -94,7 +92,6 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		Client client = new Client();
 		client.setPrincipalName(null);
 		courtCase.getClients().add(client);
-		GlobalVariables.getMessageMap().clearErrorMessages();
 		//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument("CaseMaintenanceDocument", courtCase);
 		testRouting_required_validated_onroute(doc);
@@ -134,13 +131,5 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		} catch (ValidationException e) {
 			// test succeeded
 		}
-	}
-	
-	@After
-	/**
-	 * cleans up after test
-	 */
-	public void cleanup() {
-		GlobalVariables.getMessageMap().clearErrorMessages();
 	}
 }

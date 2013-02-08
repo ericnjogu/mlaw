@@ -109,7 +109,7 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 			throws WorkflowException, InstantiationException,
 			IllegalAccessException {
 		// causes the document validation to fail if not cleared
-		GlobalVariables.getMessageMap().clearErrorMessages();
+		
 		//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument(docType, bo);
 		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);

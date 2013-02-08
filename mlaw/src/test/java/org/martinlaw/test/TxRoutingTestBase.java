@@ -63,14 +63,14 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	@Test
 	public void testWorkRouting() throws WorkflowException {
 		// causes the next document validation fail if not cleared
-		GlobalVariables.getMessageMap().clearErrorMessages();
+		
 		testTransactionalRoutingAndDocumentCRUD(docType);
 	}
 
 	@Test
 	public void testAttributeValidation() throws WorkflowException {
 		// causes the validation test to fail if not cleared
-		GlobalVariables.getMessageMap().clearErrorMessages();
+		
 		workDoc.setMatterId(1001l);
 		workDoc.getDocumentHeader().setDocumentDescription("testing");
 		DocumentRuleBase ruleBase = new TransactionalDocumentRuleBase();

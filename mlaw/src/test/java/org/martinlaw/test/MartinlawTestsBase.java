@@ -46,6 +46,7 @@ import org.kuali.rice.krad.document.DocumentBase;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.test.SQLDataLoader;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
 import org.kuali.test.KRADTestCase;
@@ -337,5 +338,17 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/dateType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseDate.xml"));
 		return suiteLifecycles;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.kuali.rice.test.RiceTestCase#tearDown()
+	 */
+	/**
+	 * clear error messages from the global variables
+	 */
+	@Override
+	public void tearDown() throws Exception {
+		super.tearDown();
+		GlobalVariables.getMessageMap().clearErrorMessages();
 	}
 }

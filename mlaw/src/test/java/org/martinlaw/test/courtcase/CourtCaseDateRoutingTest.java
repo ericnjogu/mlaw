@@ -81,7 +81,7 @@ public class CourtCaseDateRoutingTest extends KewTestsBase {
 	public void testCourtCaseDateRouting_InvalidMatterId() throws InstantiationException, IllegalAccessException, WorkflowException {
 		MyDate testDate = getTestUtils().getTestMatterDate(MyDate.class);
 		testDate.setMatterId(3000l);
-		GlobalVariables.getMessageMap().clearErrorMessages();
+		
 		//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate);
 		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
@@ -99,7 +99,7 @@ public class CourtCaseDateRoutingTest extends KewTestsBase {
 		// required on route
 		testDate.setDate(null);
 		testDate.setTypeId(null);
-		GlobalVariables.getMessageMap().clearErrorMessages();
+		
 		//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate);
 		try {

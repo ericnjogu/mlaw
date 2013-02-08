@@ -74,7 +74,7 @@ public class MatterMaintenanceHelperBusinessRulesBaseTest {
 	public void testProcessCustomSaveDocumentBusinessRulesDocument_InvalidMatterId() {
 		when(maintHelper.isMatterIdValid()).thenReturn(false);
 		when(maintainable.getDataObject()).thenReturn(maintHelper);
-		GlobalVariables.getMessageMap().clearErrorMessages();
+		
 		assertFalse("should have returned 'false'", rulesBase.processCustomSaveDocumentBusinessRules(document));
 		assertTrue("there should be errors", GlobalVariables.getMessageMap().hasErrors());
 		assertEquals("number of error messages expected differs", 1, GlobalVariables.getMessageMap().getErrorCount());
