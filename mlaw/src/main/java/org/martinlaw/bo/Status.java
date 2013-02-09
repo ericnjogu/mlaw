@@ -34,7 +34,7 @@ import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * represents a court case or conveyance status
+ * represents a matter status
  * 
  * @author mugo
  */
@@ -43,11 +43,12 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 public class Status extends PersistableBusinessObjectBase {
 	//TODO could possibly become a full blown maintainable - status type. How will we know which type has been assigned to which matter type?
 	//TODO use locale props to display strings
+	public static final ConcreteKeyValue ANY_TYPE = new ConcreteKeyValue("ANY_TYPE", "applies to any matter");
 	public static final ConcreteKeyValue COURT_CASE_TYPE = new ConcreteKeyValue("COURT_CASE_TYPE", "applies to court cases");
 	public static final ConcreteKeyValue CONVEYANCE_TYPE = new ConcreteKeyValue("CONVEYANCE_TYPE", "applies to conveyancing");
 	public static final ConcreteKeyValue CONTRACT_TYPE = new ConcreteKeyValue("CONTRACT_TYPE", "applies to contracts");
 	public static final ConcreteKeyValue OPINION_TYPE = new ConcreteKeyValue("OPINION_TYPE", "applies to opinions");
-	public static final ConcreteKeyValue ANY_TYPE = new ConcreteKeyValue("ANY_TYPE", "applies to any matter");
+	
 	/**
 	 * initializes class with with default values for the fields
 	 * 

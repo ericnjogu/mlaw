@@ -52,6 +52,6 @@ public class StatusTypeKeyValuesTest {
 		assertFalse("key values size should not be zero", keyValues.size() == 0);
 		assertTrue("does not contain expected value", keyValues.contains(Status.ANY_TYPE));
 		assertTrue("does not contain expected value", keyValues.contains(Status.CONTRACT_TYPE));
+		assertTrue("ANY_TYPE is expected as the first value", keyValues.get(0).getKey().equalsIgnoreCase("ANY_TYPE"));
 	}
-
 }
