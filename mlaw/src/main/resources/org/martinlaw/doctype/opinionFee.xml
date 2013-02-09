@@ -28,17 +28,10 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>OpinionFeeDocument</name>
-			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is tx doc -->
+			<parent>RiceDocument</parent>
 			<description>Opinion Fee Transactional Document</description>
 			<label>Opinion Fee Document</label>
-			<!-- fails with error below if the corresponding BO is not present 
-			 java.lang.RuntimeException: post processor caught exception while handling do action taken change: unable to get class for unknown documentTypeName 'CaseMaintenanceDocument'
-			 -->
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			 <!-- for testing if BO (which in turn refers to the 'entity' BO) for this maint doc is not present -->
-			 <!-- 
-			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
-			 -->
 			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${dochandler_contract_fee}</docHandler>

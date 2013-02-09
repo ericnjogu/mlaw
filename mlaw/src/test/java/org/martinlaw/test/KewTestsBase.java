@@ -73,7 +73,7 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	/**
 	 * creates a new maintenance document for the given doc type and business object
 	 * 
-	 * @param docType e.g. CaseMaintenanceDocument
+	 * @param docType e.g. CourtCaseMaintenanceDocument
 	 * @param bo TODO
 	 * @return the document, populated with BO info
 	 * @throws WorkflowException

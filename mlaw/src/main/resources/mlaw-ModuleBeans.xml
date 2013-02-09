@@ -118,14 +118,6 @@
          <value>classpath:org/martinlaw/view/courtcase/case-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/client-fee-doc.xml</value>
          
-         <!-- to be maintained as part of conveyance type -->
-         <!-- 
-         <value>classpath:org/martinlaw/bo/conveyance-annex-type-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-annex-type-maintenance.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-annex-type-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance-annex-type-inquiry.xml</value>
-          -->
-         
          <value>classpath:org/martinlaw/view/courtcase/case-client-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-client-lookup.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-witness-inquiry.xml</value>

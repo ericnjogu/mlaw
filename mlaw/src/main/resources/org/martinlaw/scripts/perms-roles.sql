@@ -45,7 +45,7 @@ VALUES
 
 INSERT INTO `krim_perm_attr_data_t` (`ATTR_DATA_ID`,`OBJ_ID`,`VER_NBR`,`PERM_ID`,`KIM_TYP_ID`,`KIM_ATTR_DEFN_ID`,`ATTR_VAL`) 
 VALUES 
-('case_maint_doc','a1ae505d-67bb-4159-8b07-001e2afc7c4f',1,'create_case_maint','56','13','CaseMaintenanceDocument');
+('case_maint_doc','a1ae505d-67bb-4159-8b07-001e2afc7c4f',1,'create_case_maint','56','13','CourtCaseMaintenanceDocument');
 
 INSERT INTO `krim_perm_attr_data_t` (`ATTR_DATA_ID`,`OBJ_ID`,`VER_NBR`,`PERM_ID`,`KIM_TYP_ID`,`KIM_ATTR_DEFN_ID`,`ATTR_VAL`) 
 VALUES 

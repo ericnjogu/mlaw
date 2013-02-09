@@ -67,7 +67,7 @@ public class KEWPermissionsTest extends KewTestsBase {
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
 	public void testCaseMaintDocPerms() {
-		String docType = "CaseMaintenanceDocument";
+		String docType = "CourtCaseMaintenanceDocument";
 		testCreateMaintain(CourtCase.class, docType);
 		assertTrue("docType should allow new and copy", 
 				KRADServiceLocatorWeb.getDocumentDictionaryService().getAllowsNewOrCopy(docType));

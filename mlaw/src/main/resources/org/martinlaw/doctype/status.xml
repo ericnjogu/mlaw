@@ -28,17 +28,13 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>StatusMaintenanceDocument</name>
-			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is maitenance doc -->
+			<parent>RiceDocument</parent>
 			<description>Status Maintenance Document</description>
 			<label>Status Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
-			<!-- need to understand what this means -->
-			<!-- 
-			<serviceNamespace>KEYSAFE</serviceNamespace>
-			-->
 			<routePaths>
 				<routePath>
 					<start name="Initiated" />

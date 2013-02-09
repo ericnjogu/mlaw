@@ -50,7 +50,7 @@ public class DateTypeRoutingTest extends KewTestsBase {
 
 	@Test
 	/**
-	 * test that ConveyanceAnnexTypeDocument routes to final on submit
+	 * test that {@link DateType} routes to final on submit
 	 */
 	public void testDateTypeRouting() {
 		DateType dateType = new DateType();

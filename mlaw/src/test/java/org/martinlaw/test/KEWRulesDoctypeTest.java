@@ -72,7 +72,7 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	
 	@Test
 	public void testCaseDoctype() {
-		assertNotNull(getDocTypeSvc().findByName("CaseMaintenanceDocument"));
+		assertNotNull(getDocTypeSvc().findByName("CourtCaseMaintenanceDocument"));
 	}
 	
 	@Test
@@ -88,11 +88,5 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	@Test
 	public void testConveyanceTypeDocType() {
 		assertNotNull(getDocTypeSvc().findByName("ConveyanceTypeMaintenanceDocument"));
-	}
-	
-	@Test()
-	@Ignore("will maintained as part of conveyance type")
-	public void testConveyanceAnnexTypeDocType() {
-		assertNotNull(getDocTypeSvc().findByName("ConveyanceAnnexTypeDocument"));
 	}
 }

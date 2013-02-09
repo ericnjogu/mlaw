@@ -49,7 +49,7 @@ public class ContractTypeRoutingTest extends KewTestsBase {
 
 	@Test
 	/**
-	 * test that ConveyanceAnnexTypeDocument routes to final on submit
+	 * test that {@link ContractType} routes to final on submit
 	 */
 	public void testContractTypeRouting() {
 		ContractType contractType = new ContractType();

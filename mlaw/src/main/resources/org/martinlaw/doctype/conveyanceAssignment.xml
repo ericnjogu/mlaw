@@ -17,18 +17,13 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>ConveyanceAssignmentMaintenanceDocument</name>
-			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is 
-				maintenance doc -->
+			<parent>RiceDocument</parent>
 			<description>Conveyance Assignment Maintenance Document</description>
 			<label>Conveyance Assignment Maintenance Document</label>
-			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor
-			</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">
-				lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin
-			</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler
-			</docHandler>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
 
 			<routePaths>
 				<routePath>

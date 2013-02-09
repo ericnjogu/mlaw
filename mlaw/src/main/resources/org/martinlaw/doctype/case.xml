@@ -16,14 +16,11 @@
 	<documentTypes xmlns="ns:workflow/DocumentType"
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
-			<name>CaseMaintenanceDocument</name>
+			<name>CourtCaseMaintenanceDocument</name>
 			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is 
 				maitenance doc -->
 			<description>Case Maintenance Document</description>
 			<label>Case Maintenance Document</label>
-			<!-- fails with error below if the corresponding BO is not present java.lang.RuntimeException: 
-				post processor caught exception while handling do action taken change: unable 
-				to get class for unknown documentTypeName 'CaseMaintenanceDocument' -->
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor
 			</postProcessorName>
 			<!-- for testing if BO (which in turn refers to the 'entity' BO) for this 
@@ -65,7 +62,7 @@
 
 			<rule>
 				<name>org.martinlaw.rules.case</name>
-				<documentType>CaseMaintenanceDocument</documentType>
+				<documentType>CourtCaseMaintenanceDocument</documentType>
 				<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 				<description>Routing rule for case maintenance</description>
 				<responsibilities>

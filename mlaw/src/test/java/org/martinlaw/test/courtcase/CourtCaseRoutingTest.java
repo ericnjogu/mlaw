@@ -62,7 +62,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 	 */
 	public void testCaseMaintenanceRouting() throws WorkflowException {
 		try {
-			testMaintenanceRouting("CaseMaintenanceDocument", getTestUtils().getTestCourtCase(localReference, courtReference));
+			testMaintenanceRouting("CourtCaseMaintenanceDocument", getTestUtils().getTestCourtCase(localReference, courtReference));
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("localReference", localReference);
 			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findMatching(CourtCase.class, params);
@@ -93,7 +93,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		client.setPrincipalName(null);
 		courtCase.getClients().add(client);
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CaseMaintenanceDocument", courtCase);
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase);
 		testRouting_required_validated_onroute(doc);
 	}
 	
@@ -108,7 +108,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		CourtCase courtCase = getTestUtils().getTestCourtCase(localReference, courtReference);
 		courtCase.setLocalReference(null);
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CaseMaintenanceDocument", courtCase);
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase);
 		testRouting_required_validated_onroute(doc);
 	}
 	

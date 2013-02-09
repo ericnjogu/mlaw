@@ -17,8 +17,7 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>CourtCaseDateMaintenanceDocument</name>
-			<parent>RiceDocument</parent> <!-- parent with respect to workflow i.e routing. The parent w.r.t BO is 
-				maintenance doc -->
+			<parent>RiceDocument</parent>
 			<description>Court Case Date Maintenance Document</description>
 			<label>Court Case Date Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
