@@ -192,34 +192,17 @@
 			<artifactId>rice-kim-ldap</artifactId>
 			<version>${rice.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.birt.runtime</groupId>
-			<artifactId>org.eclipse.birt.runtime</artifactId>
-			<version>4.2.0</version>
-		</dependency>
-		<!-- added the cmi-jndi and cmi-core-common to keep a jetty stacktrace from appearing. The error does not appear to affect
-		the normal running of the server -->
-		<!-- <dependency>
-			<groupId>org.ow2.cmi</groupId>
-			<artifactId>cmi-jndi</artifactId>
-			<version>2.2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.ow2.cmi</groupId>
-			<artifactId>cmi-core-common</artifactId>
-			<version>2.2.4</version>
-		</dependency> -->
 	</dependencies>
-	<!-- <repositories>
+	<repositories>
 		<repository>
 			<id>kuali</id>
 			<name>Kuali Repository</name>
 			<url>https://test.kuali.org/maven</url>
 		</repository>
-		<repository>
+		<!-- <repository>
 			<id>central</id>
 			<name>Maven Central</name>
 			<url>http://repo1.maven.org/maven2</url>
-		</repository>
-	</repositories> -->
+		</repository> -->
+	</repositories>
 </project>
