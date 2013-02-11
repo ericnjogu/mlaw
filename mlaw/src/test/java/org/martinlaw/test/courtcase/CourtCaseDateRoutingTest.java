@@ -35,7 +35,6 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.courtcase.MyDate;
 import org.martinlaw.test.KewTestsBase;
 
@@ -102,16 +101,6 @@ public class CourtCaseDateRoutingTest extends KewTestsBase {
 		
 		//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate);
-		try {
-			KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
-		} catch (ValidationException ve) {
-			fail("should not have thrown a validation exception on save");
-		}
-		try {
-			KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-			fail("should have thrown validation exception on route");
-		} catch (ValidationException e) {
-			// test succeeded
-		}
+		testRouting_required_validated_onroute(doc);
 	}
 }

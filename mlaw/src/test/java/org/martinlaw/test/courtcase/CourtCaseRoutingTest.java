@@ -38,9 +38,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.document.Document;
-import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.test.KewTestsBase;
@@ -110,26 +108,5 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase);
 		testRouting_required_validated_onroute(doc);
-	}
-	
-	/**
-	 * common method to verify that required fields are validated on route not save
-	 * @param doc - the document to save and route
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws WorkflowException
-	 */
-	public void testRouting_required_validated_onroute(Document doc) throws InstantiationException, WorkflowException, IllegalAccessException {
-		try {
-			KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
-		} catch (ValidationException ve) {
-			fail("should not have thrown a validation exception on save");
-		}
-		try {
-			KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-			fail("should have thrown validation exception on route");
-		} catch (ValidationException e) {
-			// test succeeded
-		}
 	}
 }
