@@ -38,14 +38,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				<bean parent="martinlaw-shared-localReference-parentBean" />
 				<bean parent="case-courtReference-parentBean" />
 				<!-- client consideration -->
-				<!-- the parent bean is shared by both maintenance and tx docs 
-				(for which state based validation may not work yet as they save data directly to the tables which have constraints), 
-				so negate the inherited required and insert a required via simple constraint to take effect in the maintenance docs on route -->
-				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" p:required="false">
-					<property name="simpleConstraint">
-						<bean parent="SimpleConstraint" p:required="true" p:states="R" />
-					</property>
-				</bean>
+				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount"/>
 				<bean parent="martinlaw_shared_consideration_bo_currency" p:name="consideration.currency"/>
 				<bean parent="martinlaw_shared_consideration_bo_description" p:name="consideration.description"/>
 			</list>
