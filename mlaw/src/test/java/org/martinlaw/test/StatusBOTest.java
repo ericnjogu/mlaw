@@ -116,4 +116,14 @@ public class StatusBOTest extends MartinlawTestsBase {
 		// expected 2 court case types and two of any type, plus a blank one
 		assertEquals(5, keyValues.getKeyValues().size());
 	}	
+	
+	@Test
+	/**
+	 * test that the {@link Status} is loaded into the data dictionary
+	 */
+	public void testStatusAttributes() {
+		testBoAttributesPresent(Status.class.getCanonicalName());
+		Class<Status> dataObjectClass = Status.class;
+		verifyMaintDocDataDictEntries(dataObjectClass);
+	}
 }
