@@ -41,6 +41,7 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.document.Document;
+import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.service.DataObjectAuthorizationService;
 import org.kuali.rice.krad.service.DocumentDictionaryService;
@@ -75,15 +76,16 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	 * 
 	 * @param docType e.g. CourtCaseMaintenanceDocument
 	 * @param bo TODO
+	 * @param principalName TODO
 	 * @return the document, populated with BO info
 	 * @throws WorkflowException
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	protected Document getPopulatedMaintenanceDocument(String docType, PersistableBusinessObject bo)
+	protected Document getPopulatedMaintenanceDocument(String docType, PersistableBusinessObject bo, String principalName)
 			throws WorkflowException, InstantiationException,
 			IllegalAccessException {
-				GlobalVariables.setUserSession(new UserSession("clerk1"));
+				GlobalVariables.setUserSession(new UserSession(principalName));
 				MaintenanceDocument doc = (MaintenanceDocument) KRADServiceLocatorWeb.getDocumentService().getNewDocument(docType);
 				//old bo
 				doc.getOldMaintainableObject().setDataObjectClass(bo.getClass());
@@ -111,8 +113,8 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 		// causes the document validation to fail if not cleared
 		
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument(docType, bo);
-		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
+		Document doc = getPopulatedMaintenanceDocument(docType, bo, "clerk1");
+		doc = KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
 		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
 		//retrieve as the lawyer
 		GlobalVariables.setUserSession(new UserSession("lawyer1"));
@@ -136,15 +138,15 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	public void testMaintenanceRoutingInitToFinal(String docType, PersistableBusinessObject bo)
 			throws WorkflowException, InstantiationException,
 			IllegalAccessException {
-				//initiate as the clerk
-				Document doc = getPopulatedMaintenanceDocument(docType, bo);
-				KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
-				KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-				//retrieve again to confirm status
-				doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-				assertTrue("document should have been approved", doc.getDocumentHeader().getWorkflowDocument().isApproved());
-				assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isFinal());
-			}
+		//initiate as the clerk
+		Document doc = getPopulatedMaintenanceDocument(docType, bo, "lawyer1");
+		//KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
+		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
+		//retrieve again to confirm status
+		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+		assertTrue("document should have been approved", doc.getDocumentHeader().getWorkflowDocument().isApproved());
+		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isFinal());
+	}
 
 	protected DataObjectAuthorizationService getDataObjAuthSvc() {
 		return KRADServiceLocatorWeb
@@ -243,6 +245,29 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
         return documentDictionaryService;
     }
 	
+	/**
+	 * common method to verify that required fields are validated on route not save
+	 * @param doc - the document to save and route
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws WorkflowException
+	 */
+	public void testRouting_required_validated_onroute(Document doc)
+			throws InstantiationException, WorkflowException,
+			IllegalAccessException {
+				try {
+					KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
+				} catch (ValidationException ve) {
+					fail("should not have thrown a validation exception on save");
+				}
+				try {
+					KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
+					fail("should have thrown validation exception on route");
+				} catch (ValidationException e) {
+					// test succeeded
+				}
+			}
+
 	protected static PermissionService getPermissionService() {
         return KimApiServiceLocator.getPermissionService();
     }

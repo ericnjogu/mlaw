@@ -22,7 +22,7 @@
   -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-  <bean id="caseMaintDocument"  parent="uifMaintenanceDocumentEntry">
+  <bean id="court_case_maint_document_entry"  parent="uifMaintenanceDocumentEntry">
     <property name="dataObjectClass" value="org.martinlaw.bo.courtcase.CourtCase"/>
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
@@ -34,5 +34,79 @@
     </property>
 
     <property name="documentTypeName" value="CourtCaseMaintenanceDocument"/>
+    <property name="workflowAttributes">
+    	<ref bean="court_case_maint_document_entry_workflow_attrs"/>
+	</property>
   </bean> 
+  <bean id="court_case_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
+		<property name="searchingTypeDefinitions">
+		<list>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="court_case_maint_document_entry_search_attr">
+						<property name="attributeName" value="localReference" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.localReference</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="court_case_maint_document_entry_search_attr">
+						<property name="attributeName" value="courtReference" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.courtReference</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="court_case_maint_document_entry_search_attr">
+						<property name="attributeName" value="name" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.name</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="court_case_maint_document_entry_search_attr">
+						<property name="attributeName" value="statusId" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.statusId</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="court_case_maint_document_entry_search_attr">
+						<property name="attributeName" value="consideration.amount" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.consideration.amount</value>
+					</list>
+				</property>
+			</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="court_case_maint_document_entry_search_attr" parent="martinlaw_shared_workflow_search_attr_parent"
+		abstract="true">
+		<property name="businessObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
+	</bean>
 </beans>

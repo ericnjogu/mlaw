@@ -35,8 +35,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.junit.Test;
+import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
+import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.courtcase.Client;
@@ -60,7 +64,8 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 	 */
 	public void testCaseMaintenanceRouting() throws WorkflowException {
 		try {
-			testMaintenanceRouting("CourtCaseMaintenanceDocument", getTestUtils().getTestCourtCase(localReference, courtReference));
+			// with custom doc searching enabled, saving the document first introduces errors in which the kr users is recorded as routing the doc
+			testMaintenanceRoutingInitToFinal("CourtCaseMaintenanceDocument", getTestUtils().getTestCourtCase(localReference, courtReference));
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("localReference", localReference);
 			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findMatching(CourtCase.class, params);
@@ -73,7 +78,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 			}
 		} catch (Exception e) {
 			log.error("test failed", e);
-			fail("test failed");
+			fail("test failed due to an exception - " + e.getClass());
 		}
 	}
 	
@@ -91,7 +96,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		client.setPrincipalName(null);
 		courtCase.getClients().add(client);
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase);
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase, "clerk1");
 		testRouting_required_validated_onroute(doc);
 	}
 	
@@ -106,7 +111,55 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		CourtCase courtCase = getTestUtils().getTestCourtCase(localReference, courtReference);
 		courtCase.setLocalReference(null);
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase);
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase, "clerk1");
 		testRouting_required_validated_onroute(doc);
+	}
+	
+	@Test
+	/**
+	 * test that custom doc search works
+	 * 
+	 * @throws WorkflowException
+	 */
+	public void testCourtCase_doc_search() throws WorkflowException {
+		try {
+			// route 2 docs first
+			final String docType = "CourtCaseMaintenanceDocument";
+			CourtCase testCourtCase = getTestUtils().getTestCourtCase(localReference, courtReference);
+			final String caseName1 = "Bingu Vs Nchi";
+			testCourtCase.setName(caseName1);
+			testMaintenanceRoutingInitToFinal(docType, testCourtCase);
+			final String localRef = "localRef1";
+			final String courtRef = "courtRef1";
+			CourtCase testCourtCase2 = getTestUtils().getTestCourtCase(localRef, courtRef);
+			testCourtCase2.setName("Moto vs Maji");
+			testMaintenanceRoutingInitToFinal(docType, testCourtCase2);
+			
+			DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
+	        criteria.setDocumentTypeName(docType);
+	        criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
+	        
+	        // should find 2 documents
+	        DocumentSearchResults results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
+	        		criteria.build());
+	        assertEquals("expected number of documents not found", 2, results.getSearchResults().size());
+	        
+	        // search using local reference
+	        criteria.addDocumentAttributeValue("localReference", localRef);
+	        results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
+	        		criteria.build());
+	        assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
+	        
+	        // search using wildcard for case name
+	        criteria.getDocumentAttributeValues().clear();
+	        criteria.addDocumentAttributeValue("name", "Bingu*");
+	        results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
+	        		criteria.build());
+	        assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
+	        
+		} catch (Exception e) {
+			log.error("test failed", e);
+			fail("test failed due to an exception - " + e.getClass());
+		}
 	}
 }

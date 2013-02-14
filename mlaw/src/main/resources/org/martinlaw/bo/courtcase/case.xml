@@ -38,7 +38,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				<bean parent="martinlaw-shared-localReference-parentBean" />
 				<bean parent="case-courtReference-parentBean" />
 				<!-- client consideration -->
-				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount"/>
+				<!-- added label to amount for the sake of document search, which uses it -->
+				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" p:label="Consideration Amount"/>
 				<bean parent="martinlaw_shared_consideration_bo_currency" p:name="consideration.currency"/>
 				<bean parent="martinlaw_shared_consideration_bo_description" p:name="consideration.description"/>
 			</list>
@@ -80,6 +81,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="courtcase-statusId" parent="martinlaw-shared-statusId-parentBean">	
 		<property name="optionsFinder">
 			<bean class="org.martinlaw.keyvalues.CourtCaseStatusKeyValues" />
+		</property>
+		<!-- required for display in custom document search -->
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.martinlaw.keyvalues.CourtCaseStatusKeyValues"/>
 		</property>
 
 	</bean>

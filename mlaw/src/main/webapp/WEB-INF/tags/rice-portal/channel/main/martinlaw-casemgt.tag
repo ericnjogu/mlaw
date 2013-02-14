@@ -41,6 +41,10 @@
   <li><portal:portalLink displayTitle="true" title="New Court Case Fee" url="${ConfigProperties.dochandler_courtcase_fee}&command=initiate" /></li>
   </ul>
   
+	<strong>Document Search</strong>
+	<ul class="chan">
+		<li><portal:portalLink displayTitle="true" title="Court Case" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseMaintenanceDocument"/></li>	
+	</ul>
 </div>
 <channel:portalChannelBottom />
 

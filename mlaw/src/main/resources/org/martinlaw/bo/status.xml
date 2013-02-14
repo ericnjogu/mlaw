@@ -1,79 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  #%L
-  mlaw
-  %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
-  %%
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as
-  published by the Free Software Foundation, either version 3 of the 
-  License, or (at your option) any later version.
-  
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-  
-  You should have received a copy of the GNU General Public 
-  License along with this program.  If not, see
-  <http://www.gnu.org/licenses/gpl-3.0.html>.
-  #L%
-  -->
-
-<beans xmlns="http://www.springframework.org/schema/beans" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns:p="http://www.springframework.org/schema/p" 
-xsi:schemaLocation="http://www.springframework.org/schema/beans         
+<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+	program is free software: you can redistribute it and/or modify it under 
+	the terms of the GNU General Public License as published by the Free Software 
+	Foundation, either version 3 of the License, or (at your option) any later 
+	version. This program is distributed in the hope that it will be useful, 
+	but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+	more details. You should have received a copy of the GNU General Public License 
+	along with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
+	#L% -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-<!--
- Copyright 2012 Protosoft Ltd.
--->
+	<!-- Copyright 2012 Protosoft Ltd. -->
+	<bean id="case-status" parent="case-status-parentBean" />
 
-  <bean id="case-status" parent="case-status-parentBean"/>
+	<bean id="case-status-parentBean" abstract="true" parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.Status" />
+		<property name="titleAttribute" value="status" />
+		<property name="attributes">
+			<list>
+				<ref bean="case-status-id" />
+				<ref bean="case-status-text" />
+				<ref bean="case-status-type" />
+			</list>
+		</property>
+		<property name="objectLabel" value="Status" />
+		<!-- <property name="lookupDefinition">
+      		<ref bean="status_lookupDefinition_kns"/>
+    	</property> -->
+	</bean>
 
-  <bean id="case-status-parentBean" abstract="true" parent="BusinessObjectEntry">
-    <property name="businessObjectClass" value="org.martinlaw.bo.Status"/>
-    <property name="titleAttribute" value="status"/>
-    <property name="attributes">
-      <list>
-      	<ref bean="case-status-id"/>
-        <ref bean="case-status-text"/>
-        <ref bean="case-status-type"/>
-      </list>
-    </property>
-    <property name="objectLabel" value="Status"/>
-  </bean>
+	<!-- Attribute Definitions -->
+	<!-- enabled to avoid error stacktraces about missing id attribute on inquiry 
+		action -->
+	<bean id="case-status-id" parent="martinlaw-shared-id" />
 
-<!-- Attribute Definitions -->
- <!-- enabled to avoid error stacktraces about missing id attribute on inquiry action -->
- <bean id="case-status-id" parent="martinlaw-shared-id"/>
- 
-  <bean id="case-status-text" parent="case-status-text-parentBean"/>
+	<bean id="case-status-text" parent="AttributeDefinition">
+		<property name="forceUppercase" value="true" />
+		<property name="shortLabel" value="Status" />
+		<property name="maxLength" value="100" />
+		<property name="validationPattern">
+			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+		</property>
+		<property name="required" value="true" />
+		<property name="summary" value="Status" />
+		<property name="name" value="status" />
+		<property name="label" value="Status" />
+		<property name="description" value="Status" />
+		<property name="controlField">
 
-  <bean id="case-status-text-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="true"/>
-    <property name="shortLabel" value="Status"/>
-    <property name="maxLength" value="100"/>
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true"/>
-    </property>
-    <property name="required" value="true"/>
-    <property name="summary" value="Status"/>
-    <property name="name" value="status"/>
-    <property name="label" value="Status"/>
-    <property name="description" value="Status"/>
-    <property name="controlField">
-    
-      <bean parent="Uif-TextControl" p:size="60"/>
-    </property>
-  </bean>
- 
- <bean id="case-status-type" parent="case-status-type-parentBean" />
+			<bean parent="Uif-TextControl" p:size="60" />
+		</property>
+	</bean>
 
-	<bean id="case-status-type-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="maxLength" value="100"/>
+	<bean id="case-status-type" parent="AttributeDefinition">
+		<property name="maxLength" value="100" />
 		<property name="forceUppercase" value="true" />
 		<property name="shortLabel" value="Status" />
 		<property name="validationPattern">
@@ -85,11 +68,33 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="description" value="Status Type" />
 		<property name="required" value="true" />
 		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.StatusTypeKeyValues"/>
+			<bean class="org.martinlaw.keyvalues.StatusTypeKeyValues" />
 		</property>
 		<property name="controlField">
-				<bean parent="Uif-DropdownControl" />
-			</property>
+			<bean parent="Uif-DropdownControl" />
+		</property>
 	</bean>
- 
+	
+	<!-- used in the custom document search but does not work since status does not a KNS document entry
+	may work in rice 2.3 - see https://jira.kuali.org/browse/KULRICE-8831 -->
+	<!-- <bean id="status_lookupDefinition_kns" parent="LookupDefinition">
+		<property name="defaultSort">
+			<bean parent="SortDefinition">
+			</bean>
+		</property>
+		<property name="lookupFields">
+			<list>
+				<bean parent="FieldDefinition" p:attributeName="status" />
+				<bean parent="FieldDefinition" p:attributeName="type" />
+			</list>
+		</property>
+		<property name="resultFields">
+			<list>
+				<bean parent="FieldDefinition" p:attributeName="status" />
+				<bean parent="FieldDefinition" p:attributeName="type" />
+			</list>
+		</property>
+		<property name="title" value="Case Status Lookup" />
+	</bean> -->
+
 </beans>

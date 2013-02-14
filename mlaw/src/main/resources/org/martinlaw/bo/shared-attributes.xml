@@ -89,6 +89,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="controlField">
 			<bean parent="Uif-TextControl" p:size="60" />
 		</property>
+		<!-- needed for generating this field in custom document search -->
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="60" />
+		</property>
 		<property name="required" value="true" />
 	</bean>
 
@@ -211,6 +215,11 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			</list>
 		</property>
 		<property name="objectLabel" value="Client" />
+	</bean>
+	
+	<bean id="martinlaw_shared_workflow_search_attr_parent" abstract="true" class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
+		<property name="showAttributeInSearchCriteria" value="true" />
+		<property name="showAttributeInResultSet" value="true" />
 	</bean>
 
 </beans>

@@ -28,8 +28,6 @@ package org.martinlaw.test.courtcase;
 
 
 
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.document.Document;
@@ -82,7 +80,7 @@ public class CourtCaseDateRoutingTest extends KewTestsBase {
 		testDate.setMatterId(3000l);
 		
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate);
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate, "clerk1");
 		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
 	}
 	
@@ -100,7 +98,7 @@ public class CourtCaseDateRoutingTest extends KewTestsBase {
 		testDate.setTypeId(null);
 		
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate);
+		Document doc = getPopulatedMaintenanceDocument("CourtCaseDateMaintenanceDocument", testDate, "clerk1");
 		testRouting_required_validated_onroute(doc);
 	}
 }
