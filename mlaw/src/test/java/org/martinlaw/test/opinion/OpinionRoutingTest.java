@@ -29,15 +29,21 @@ package org.martinlaw.test.opinion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.martinlaw.bo.opinion.Consideration;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.KewTestsBase;
+import org.martinlaw.util.SearchTestCriteria;
 
 /**
  * tests routing for {@link Opinion}
@@ -54,7 +60,7 @@ public class OpinionRoutingTest extends KewTestsBase {
 	public void testOpinionRouting() {
 		Opinion testOpinion = getTestUtils().getTestOpinion();
 		try {
-			testMaintenanceRouting("OpinionMaintenanceDocument", testOpinion);
+			testMaintenanceRoutingInitToFinal("OpinionMaintenanceDocument", testOpinion);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log.error("test failed", e);
@@ -78,5 +84,37 @@ public class OpinionRoutingTest extends KewTestsBase {
 	 */
 	public void testOpinionTypeMaintDocPerms() {
 		testCreateMaintain(Opinion.class, "OpinionMaintenanceDocument");
+	}
+	
+	@Test
+	/**
+	 * test that OpinionMaintenanceDocument routes to clerk then lawyer on submit
+	 */
+	public void testOpinionDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
+		Opinion testOpinion = getTestUtils().getTestOpinion();
+		final String docType = "OpinionMaintenanceDocument";
+		testMaintenanceRoutingInitToFinal(docType, testOpinion);
+		
+		Opinion testOpinion2 = getTestUtils().getTestOpinion();
+		testOpinion2.setLocalReference("my/firm/opinions/2014/012");
+		testOpinion2.setConsideration(new Consideration(new BigDecimal(45000), "BGP", null));
+		testMaintenanceRoutingInitToFinal(docType, testOpinion2);
+		
+		SearchTestCriteria crit1 = new SearchTestCriteria();
+		crit1.setExpectedDocuments(2);
+		// search for local reference
+		SearchTestCriteria crit2 = new SearchTestCriteria();
+		crit2.setExpectedDocuments(1);
+		crit2.getFieldNamesToSearchValues().put("localReference", testOpinion.getLocalReference());
+		// search for local reference
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(1);
+		crit3.getFieldNamesToSearchValues().put("consideration.amount", "<50000");
+		
+		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+		crits.add(crit1);
+		crits.add(crit2);
+		crits.add(crit3);
+		runDocumentSearch(crits, docType);
 	}
 }

@@ -28,6 +28,12 @@
   <li><portal:portalLink displayTitle="true" title="New Opinion Fee" url="${ConfigProperties.dochandler_opinion_fee}&command=initiate" /></li>
   </ul>
   
+  <strong>Document Search</strong>
+	<ul class="chan">
+		<li><portal:portalLink displayTitle="true" title="Opinion" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=OpinionMaintenanceDocument"/></li>	
+		<li><portal:portalLink displayTitle="true" title="Opinion Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=OpinionAssignmentMaintenanceDocument"/></li>
+	</ul>
+  
 </div>
 <channel:portalChannelBottom />
 

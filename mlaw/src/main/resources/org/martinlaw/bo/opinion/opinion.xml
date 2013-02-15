@@ -39,10 +39,14 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 					<property name="optionsFinder">
 						<bean class="org.martinlaw.keyvalues.OpinionStatusKeyValues" />
 					</property>
+					<!-- required for display in custom document search -->
+					<property name="control">
+						<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.martinlaw.keyvalues.OpinionStatusKeyValues"/>
+					</property>
 				</bean>
 				<ref bean="opinion_bo_summary"/>
 				<!-- client consideration -->
-				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" />
+				<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" p:label="Consideration Amount"/>
 				<bean parent="martinlaw_shared_consideration_bo_currency" p:name="consideration.currency"/>
 				<bean parent="martinlaw_shared_consideration_bo_description" p:name="consideration.description"/>
 			</list>
@@ -58,13 +62,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	</bean>
 	
 	<bean id="opinion_bo_summary" parent="AttributeDefinition">
-    <property name="validationPattern">
-      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
-    </property>
-    <property name="name" value="summary"/>
-    <property name="label" value="Summary"/>
-    <property name="controlField">
-      <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="50" p:maxLength="255"/>
-    </property>  
-  </bean>
+	    <property name="validationPattern">
+	      <bean parent="AnyCharacterValidationPattern"  p:allowWhitespace="true"/>
+	    </property>
+	    <property name="name" value="summary"/>
+	    <property name="label" value="Summary"/>
+	    <property name="controlField">
+	      <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="50" p:maxLength="255"/>
+	    </property>  
+  	</bean>
 </beans>
