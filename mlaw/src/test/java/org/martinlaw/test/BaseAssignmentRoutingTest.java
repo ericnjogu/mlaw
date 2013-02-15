@@ -48,7 +48,7 @@ public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 	public void testAssignmentRouting(MatterAssignment<?, ?> testAssignment, String docType) {
 		// Assignment testAssignment = getTestUtils().getTestContractAssignment();
 		try {
-			testMaintenanceRouting(docType, testAssignment);
+			testMaintenanceRoutingInitToFinal(docType, testAssignment);
 		} catch (Exception e) {
 			log .error("test failed", e);
 			fail("test routing " + docType + " caused an exception");

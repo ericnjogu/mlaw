@@ -29,7 +29,8 @@ insert into martinlaw_court_case_t
 (matter_id,local_reference, court_reference, status_id, name, obj_id, consideration_id) 
 values 
 (1001,'l1', 'c1',1002,"Barca vs Man U (2011)", "case1", 1001),
-(1002,'l2', 'c2',1002,"Good vs Evil", "case2",null);
+(1002,'l2', 'c2',1002,"Good vs Evil", "case2",null),
+(1003,'l3', 'c2',1002,"Love vs Fear", "case3",null);
 
 insert into martinlaw_court_case_client_t 
 (client_id, matter_id, principal_name) 

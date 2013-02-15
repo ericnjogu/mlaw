@@ -35,12 +35,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 import org.junit.Test;
-import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
-import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.courtcase.Client;
@@ -135,27 +131,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 			testCourtCase2.setName("Moto vs Maji");
 			testMaintenanceRoutingInitToFinal(docType, testCourtCase2);
 			
-			DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
-	        criteria.setDocumentTypeName(docType);
-	        criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
-	        
-	        // should find 2 documents
-	        DocumentSearchResults results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
-	        		criteria.build());
-	        assertEquals("expected number of documents not found", 2, results.getSearchResults().size());
-	        
-	        // search using local reference
-	        criteria.addDocumentAttributeValue("localReference", localRef);
-	        results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
-	        		criteria.build());
-	        assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
-	        
-	        // search using wildcard for case name
-	        criteria.getDocumentAttributeValues().clear();
-	        criteria.addDocumentAttributeValue("name", "Bingu*");
-	        results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
-	        		criteria.build());
-	        assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
+			runDocumentSearch(docType, localRef, "Bingu*", "localReference", "name");
 	        
 		} catch (Exception e) {
 			log.error("test failed", e);

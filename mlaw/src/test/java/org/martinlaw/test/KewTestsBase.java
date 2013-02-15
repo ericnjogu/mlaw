@@ -32,9 +32,13 @@ import java.util.List;
 import java.util.Map;
 
 
+import org.joda.time.DateTime;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
+import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
+import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -266,6 +270,41 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 				} catch (ValidationException e) {
 					// test succeeded
 				}
+			}
+
+	/**
+	 * convenience method for running a document search where matter name and local reference are available fields
+	 * 
+	 * <p>First runs a general search for all documents, then uses a specific local ref, then a wildcard name</p>
+	 * @param docType - the document type
+	 * @param localRef - the local ref to match one doc
+	 * @param nameWildCard - the wildcard to match one doc
+	 * @param localRefFieldName - the attribute name/path for the local ref field
+	 * @param nameFieldName - the attribute name/path for the name field
+	 */
+	public void runDocumentSearch(final String docType, final String localRef, final String nameWildCard,
+			final String localRefFieldName, final String nameFieldName) {
+				DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
+				criteria.setDocumentTypeName(docType);
+				criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
+				
+				// should find 2 documents
+				DocumentSearchResults results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
+						criteria.build());
+				assertEquals("expected number of documents not found", 2, results.getSearchResults().size());
+				
+				// search using local reference
+				criteria.addDocumentAttributeValue(localRefFieldName, localRef);
+				results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
+						criteria.build());
+				assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
+				
+				// search using wildcard for name
+				criteria.getDocumentAttributeValues().clear();
+				criteria.addDocumentAttributeValue(nameFieldName, nameWildCard);
+				results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
+						criteria.build());
+				assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
 			}
 
 	protected static PermissionService getPermissionService() {
