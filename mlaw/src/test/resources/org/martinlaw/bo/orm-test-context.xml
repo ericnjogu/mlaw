@@ -51,7 +51,6 @@
 				<value>org.martinlaw.bo.sequence.CaseSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseDateSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseAssigneeSeq</value>
-				<value>org.martinlaw.bo.sequence.CaseAssignmentSeq</value>
 				<value>org.martinlaw.bo.courtcase.ClientFee</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>
 				<value>org.martinlaw.bo.courtcase.Fee</value>
