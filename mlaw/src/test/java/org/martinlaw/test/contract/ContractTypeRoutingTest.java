@@ -29,15 +29,19 @@ package org.martinlaw.test.contract;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.test.KewTestsBase;
+import org.martinlaw.util.SearchTestCriteria;
 
 /**
  * tests routing for {@link ContractType}
@@ -71,11 +75,47 @@ public class ContractTypeRoutingTest extends KewTestsBase {
 	
 	@Test
 	/**
-	 * test that a conveyance maint doc can be created and edited by the authorized users only
+	 * test that a Contract maint doc can be created and edited by the authorized users only
 	 * 
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
 	public void testContractTypeMaintDocPerms() {
 		testCreateMaintain(ContractType.class, "ContractTypeMaintenanceDocument");
+	}
+	
+	/**
+	 * test that ContractTypeDocument doc search works
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws WorkflowException 
+	 */
+	@Test
+	public void testContractTypeRoutingDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
+		ContractType contractType = new ContractType();
+		contractType.setName("permanent and pensionable");
+		final String docType = "ContractTypeMaintenanceDocument";
+		testMaintenanceRoutingInitToFinal(docType, contractType);
+		
+		ContractType contractType2 = new ContractType();
+		contractType2.setName("supply of goods and services");
+		testMaintenanceRoutingInitToFinal(docType, contractType2);
+		
+		// no document criteria given, so both documents should be found
+		SearchTestCriteria crit1 = new SearchTestCriteria();
+		crit1.setExpectedDocuments(2);
+		// search for name
+		SearchTestCriteria crit2 = new SearchTestCriteria();
+		crit2.setExpectedDocuments(1);
+		crit2.getFieldNamesToSearchValues().put("name", "permanent*");
+		// search for non-existent name
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(0);
+		crit3.getFieldNamesToSearchValues().put("name", "*temp*");
+		
+		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+		crits.add(crit1);
+		crits.add(crit2);
+		crits.add(crit3);
+		runDocumentSearch(crits, docType);
 	}
 }

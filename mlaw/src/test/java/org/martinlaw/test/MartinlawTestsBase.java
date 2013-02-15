@@ -219,24 +219,24 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 */
 	protected <T extends BusinessObject> void testMartinlawPersonCRUD(
 			T t, String principalName, MartinlawPerson newBo) {
-				MartinlawPerson personRetrieve = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), new Long(1001));
-				assertNotNull(personRetrieve);
-				assertEquals(principalName, personRetrieve.getPrincipalName());
-				// C
-				
-				newBo.setPrincipalName("mkoobs");
-				getBoSvc().save(newBo);
-				// R
-				newBo = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId());
-				assertNotNull(newBo);
-				// U
-				newBo.setPrincipalName("mogs");
-				getBoSvc().save(newBo);
-				newBo.refresh();
-				// D
-				getBoSvc().delete(newBo);
-				assertNull((MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId()));
-			}
+		MartinlawPerson personRetrieve = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), new Long(1001));
+		assertNotNull(personRetrieve);
+		assertEquals(principalName, personRetrieve.getPrincipalName());
+		// C
+		
+		newBo.setPrincipalName("mkoobs");
+		getBoSvc().save(newBo);
+		// R
+		newBo = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId());
+		assertNotNull(newBo);
+		// U
+		newBo.setPrincipalName("mogs");
+		getBoSvc().save(newBo);
+		newBo.refresh();
+		// D
+		getBoSvc().delete(newBo);
+		assertNull((MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId()));
+	}
 
 	/**
 	 * test DD entries for a transactional doc

@@ -78,21 +78,7 @@ public class ConveyanceTypeBOTest extends MartinlawTestsBase {
 		ConveyanceType convType = getBoSvc().findBySinglePrimaryKey(ConveyanceType.class, 1001l);
 		assertNotNull(convType);
 		assertEquals("Sale of Urban Land", convType.getName());
-		//C
-		convType = new ConveyanceType();
-		convType.setName("Lease of Gov Land");
-		//create annex types
-		List<ConveyanceAnnexType> annexTypes = new ArrayList<ConveyanceAnnexType>();
-		
-		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
-		convAnnexType.setName("signed affidavit");
-		annexTypes.add(convAnnexType);
-		
-		convAnnexType = new ConveyanceAnnexType();
-		convAnnexType.setName("title deed");
-		annexTypes.add(convAnnexType);
-		
-		convType.setAnnexTypes(annexTypes);
+		convType = getTestConveyanceType();
 		
 		getBoSvc().save(convType);
 		//R
@@ -110,6 +96,30 @@ public class ConveyanceTypeBOTest extends MartinlawTestsBase {
 		getBoSvc().delete(convType);
 		assertNull(getBoSvc().findBySinglePrimaryKey(ConveyanceAnnexType.class, convType.getId()));
 		assertEquals(existingAnnexTypes, getBoSvc().findAll(ConveyanceAnnexType.class).size());
+	}
+
+	/**
+	 * gets a test {@link ContractType} object
+	 * @return the test object
+	 */
+	public ConveyanceType getTestConveyanceType() {
+		ConveyanceType convType;
+		//C
+		convType = new ConveyanceType();
+		convType.setName("Lease of Gov Land");
+		//create annex types
+		List<ConveyanceAnnexType> annexTypes = new ArrayList<ConveyanceAnnexType>();
+		
+		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("signed affidavit");
+		annexTypes.add(convAnnexType);
+		
+		convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("title deed");
+		annexTypes.add(convAnnexType);
+		
+		convType.setAnnexTypes(annexTypes);
+		return convType;
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
