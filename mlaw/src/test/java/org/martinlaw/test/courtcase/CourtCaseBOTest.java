@@ -192,7 +192,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		Map formProps = new HashMap();
         @SuppressWarnings("unchecked")
 		Collection<CourtCase> cases = lookupService.findCollectionBySearchHelper(CourtCase.class, formProps, false);
-        assertEquals("number of cases differs", 2, cases.size());
+        assertEquals("number of cases differs", 3, cases.size());
 	}
 	
 	@Test
