@@ -66,13 +66,23 @@ public class OpinionAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		super.testAssignmentRouting(testAssignment, "OpinionAssignmentMaintenanceDocument");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.BaseAssignmentRoutingTest#loadSuiteTestData()
-	 
-	@Override
-	protected void loadSuiteTestData() throws Exception {
-		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-perms-roles.sql", ";").runSql();
-	}*/
+	/**
+	 * tests Opinion assignment maintenance doc search
+	 * 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * 
+	 */
+	@Test
+	public void testOpinionAssignmentDocSearch() throws InstantiationException, IllegalAccessException {
+		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
+		final String docType = "OpinionAssignmentMaintenanceDocument";
+		super.testAssignmentRouting(testAssignment, docType);
+		
+		Assignment testAssignment2 = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
+		testAssignment2.setMatterId(1003l);
+		super.testAssignmentRouting(testAssignment2, docType);
+		
+		runAssignmentDocumentSearch(docType, "op2", "*act*");
+	}
 }
