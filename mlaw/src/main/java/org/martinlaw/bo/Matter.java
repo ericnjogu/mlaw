@@ -61,7 +61,7 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	/**law firms ref e.g. NN/N201/MN
 	 * @ojb.field  column="local_reference"
 	 */
-	@Column(name = "local_reference", length = 20, nullable = false)
+	@Column(name = "local_reference", length = 50, nullable = false)
 	private String localReference;
 	//column defined using reference below - this is for the sake of ojb
 	@Transient

@@ -48,7 +48,7 @@
 			sequence-name="martinlaw_court_case_s">
 		</field-descriptor>
 		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="20">
+			jdbc-type="VARCHAR" length="50">
 		</field-descriptor>
 		<field-descriptor name="courtReference" column="court_reference"
 			jdbc-type="VARCHAR" length="20">
@@ -389,7 +389,7 @@
 			sequence-name="martinlaw_convey_s">
 		</field-descriptor>
 		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="20">
+			jdbc-type="VARCHAR" length="50">
 		</field-descriptor>
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
@@ -574,7 +574,7 @@
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="150" />
 		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="20" />
+			jdbc-type="VARCHAR" length="50" />
 		<field-descriptor name="serviceOffered" column="service_offered"
 			jdbc-type="VARCHAR" length="255" />
 		<field-descriptor name="summaryOfTerms" column="summary_of_terms"
@@ -855,7 +855,7 @@
 			sequence-name="martinlaw_opinion_s">
 		</field-descriptor>
 		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="20">
+			jdbc-type="VARCHAR" length="50">
 		</field-descriptor>
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
