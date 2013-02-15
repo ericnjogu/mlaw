@@ -39,7 +39,8 @@ insert into martinlaw_contract_t
 consideration_id)
 values
 (1001, "en/cn/001", 1001, 'cn1', 1, 1001, 'buru ph2 h24', 1001, 1001,1001),
-(1002, "en/cn/002", 1001, 'cn2', 1, 1001, 'nyayo est ph2 m241', 1001, 1001, null);
+(1002, "en/cn/002", 1001, 'cn2', 1, 1001, 'nyayo est ph2 m241', 1001, 1001, null),
+(1003, "en/cn/003", 1001, 'cn3', 1, 1001, 'supply of oxygen', 1001, 1001, null);
 
 insert into martinlaw_contract_client_t 
 (client_id, matter_id, principal_name) 
