@@ -34,7 +34,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<list merge="true">
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Conveyance"/>
 				<!-- placed here for the sake of the (KNS) document search, but not used anywhere else -->
-				<bean parent="martinlaw-shared-name" p:label="Court Case Name" p:name="matter.name"/>
+				<bean parent="martinlaw-shared-name" p:label="Conveyance Name" p:name="matter.name"/>
 				<bean parent="martinlaw-shared-localReference-parentBean" p:name="matter.localReference"/>
 				<!-- end KNS custom search attrs -->
 			</list>
