@@ -46,6 +46,11 @@
 					<finalApproval>false</finalApproval>
 				</requests>
 			</routeNodes>
+			<attributes>
+				<attribute>
+					<name>MlawDataDictionarySearchableAttribute</name>
+				</attribute>
+			</attributes>
 		</documentType>
 	</documentTypes>
 

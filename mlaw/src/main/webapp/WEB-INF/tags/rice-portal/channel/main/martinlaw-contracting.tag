@@ -33,6 +33,13 @@
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Contract Fee" url="${ConfigProperties.dochandler_contract_fee}&command=initiate" /></li>
   </ul>
+  
+  <strong>Document Search</strong>
+	<ul class="chan">
+		<li><portal:portalLink displayTitle="true" title="Contract" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Contract Type" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractTypeMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Contract Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractAssignmentMaintenanceDocument"/></li>
+	</ul>
 
 </div>
 <channel:portalChannelBottom />

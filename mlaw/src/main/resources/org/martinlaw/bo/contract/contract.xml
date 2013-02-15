@@ -52,7 +52,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<ref bean="contract_duration_timeUnit" />
 				
 				<!-- client consideration -->
-			<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" />
+			<bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" p:label="Client Consideration Amount"/>
 			<bean parent="martinlaw_shared_consideration_bo_currency"
 				p:name="consideration.currency" />
 			<bean parent="martinlaw_shared_consideration_bo_description"
@@ -112,7 +112,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="contract_duration_timeUnit" parent="contract_duration_bo_durationTimeUnit" p:name="contractDuration.durationTimeUnit" />
 	
-	<bean id="contract_consideration_amount" parent="martinlaw_shared_consideration_bo_amount" p:name="contractConsideration.amount" />
+	<bean id="contract_consideration_amount" parent="martinlaw_shared_consideration_bo_amount" p:name="contractConsideration.amount" p:label="Contract Amount"/>
 	
 	<bean id="contract_consideration_currency" parent="martinlaw_shared_consideration_bo_currency" p:name="contractConsideration.currency"/>
 	
@@ -129,6 +129,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="contract-statusId-parentBean" parent="martinlaw-shared-statusId-parentBean">	
 		<property name="optionsFinder">
 			<bean class="org.martinlaw.keyvalues.ContractStatusKeyValues" />
+		</property>
+		<!-- required for display in kns custom document search -->
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.martinlaw.keyvalues.ContractStatusKeyValues"/>
 		</property>
 	</bean>
 	
@@ -152,7 +156,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 		<property name="controlField">
 				<bean parent="Uif-DropdownControl" />
-			</property>
+		</property>
+		<!-- required for display in kns custom document search -->
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.contract.ContractType"
+				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
+		</property>
 	</bean>
 	
 	<bean id="contract-serviceOffered" parent="AttributeDefinition">

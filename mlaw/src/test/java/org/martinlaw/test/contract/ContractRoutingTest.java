@@ -29,15 +29,21 @@ package org.martinlaw.test.contract;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.martinlaw.bo.contract.Contract;
+import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.test.KewTestsBase;
+import org.martinlaw.util.SearchTestCriteria;
 
 /**
  * tests routing for {@link Contract}
@@ -51,14 +57,14 @@ public class ContractRoutingTest extends KewTestsBase {
 	/**
 	 * test that ContractMaintenanceDocument routes to clerk then lawyer on submit
 	 */
-	public void testContractTypeRouting() {
+	public void testContractRouting() {
 		Contract testContract = getTestUtils().getTestContract();
 		try {
-			testMaintenanceRouting("ContractMaintenanceDocument", testContract);
+			testMaintenanceRoutingInitToFinal("ContractMaintenanceDocument", testContract);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log.error("test failed", e);
-			fail("test routing ContractMaintenanceDocument caused an exception");
+			fail("test routing ContractMaintenanceDocument caused an exception " + e);
 		}
 		// confirm that BO was saved to DB
 		Map<String, String> params = new HashMap<String, String>();
@@ -79,5 +85,54 @@ public class ContractRoutingTest extends KewTestsBase {
 	 */
 	public void testContractTypeMaintDocPerms() {
 		testCreateMaintain(Contract.class, "ContractMaintenanceDocument");
+	}
+	
+	@Test
+	/**
+	 * test ContractMaintenanceDocument doc search
+	 */
+	public void testContractDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
+		Contract testContract = getTestUtils().getTestContract();
+		final String docType = "ContractMaintenanceDocument";
+		testMaintenanceRoutingInitToFinal(docType, testContract);
+		
+		Contract testContract2 = getTestUtils().getTestContract();
+		testContract2.setName("salary and terms for temporary dev");
+		testContract2.setLocalReference("my/firm/contracts/2013/27");
+		testMaintenanceRoutingInitToFinal(docType, testContract2);
+		
+		Contract testContract3 = getTestUtils().getTestContract();
+		testContract3.setName("supply of veges");
+		testContract3.setLocalReference("my/firm/contracts/2013/21");
+		testContract3.setContractConsideration(new ContractConsideration(new BigDecimal(100000), "ZAR", null));
+		testMaintenanceRoutingInitToFinal(docType, testContract3);
+		
+		// no document criteria given, so both documents should be found
+		SearchTestCriteria crit1 = new SearchTestCriteria();
+		crit1.setExpectedDocuments(3);
+		// search for exact local reference
+		SearchTestCriteria crit2 = new SearchTestCriteria();
+		crit2.setExpectedDocuments(1);
+		crit2.getFieldNamesToSearchValues().put("localReference", testContract.getLocalReference());
+		// search for name
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(1);
+		crit3.getFieldNamesToSearchValues().put("name", "*temporary*");
+		// search for consideration amount
+		SearchTestCriteria crit4 = new SearchTestCriteria();
+		crit4.setExpectedDocuments(1);
+		crit4.getFieldNamesToSearchValues().put("contractConsideration.amount", "100000");
+		// search for local reference wild-card
+		SearchTestCriteria crit5 = new SearchTestCriteria();
+		crit5.setExpectedDocuments(2);
+		crit5.getFieldNamesToSearchValues().put("localReference", "*2013*");
+		
+		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+		crits.add(crit1);
+		crits.add(crit2);
+		crits.add(crit3);
+		crits.add(crit4);
+		crits.add(crit5);
+		runDocumentSearch(crits, docType);
 	}
 }
