@@ -58,6 +58,8 @@ import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.bo.contract.ContractSignatory;
 import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
+import org.martinlaw.bo.conveyance.ConveyanceType;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.bo.courtcase.CourtCase;
@@ -525,5 +527,25 @@ public class TestUtils {
 		caseBo.setStatusId(status.getId());
 		
 		return caseBo;
+	}
+	
+	/**
+	 * get a test conveyance type object
+	 * @return the test object
+	 */
+	public ConveyanceType getTestConveyanceType() {
+		ConveyanceType convType = new ConveyanceType();
+		String name = "auction";
+		convType.setName(name);
+		// set annex types
+		List<ConveyanceAnnexType> annexTypes = new ArrayList<ConveyanceAnnexType>();
+		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("signed affidavit");
+		annexTypes.add(convAnnexType);
+		convAnnexType = new ConveyanceAnnexType();
+		convAnnexType.setName("title deed");
+		annexTypes.add(convAnnexType);
+		convType.setAnnexTypes(annexTypes);
+		return convType;
 	}
 }

@@ -26,9 +26,7 @@
  Copyright 2012 Protosoft Ltd
 -->
 
-  <bean id="conveyance_type_MaintDocument" parent="conveyance_type_MaintDocument-parentBean"/>
-
-  <bean id="conveyance_type_MaintDocument-parentBean" abstract="true" parent="uifMaintenanceDocumentEntry">
+  <bean id="conveyance_type_maint_document_entry" parent="uifMaintenanceDocumentEntry">
     <property name="dataObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceType"/>
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <property name="lockingKeys">
@@ -38,6 +36,29 @@
       </list>
     </property>
     <property name="documentTypeName" value="ConveyanceTypeMaintenanceDocument"/>
+    <property name="workflowAttributes">
+    	<ref bean="conveyance_type_maint_document_entry_workflow_attrs"/>
+	</property>
   </bean>
+  
+  <bean id="conveyance_type_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
+	<property name="searchingTypeDefinitions">
+		<list>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.conveyance.ConveyanceType" />
+						<property name="attributeName" value="name" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.name</value>
+					</list>
+				</property>
+			</bean>
+		</list>
+	</property>
+	</bean>
 
 </beans>
