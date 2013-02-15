@@ -28,10 +28,14 @@ package org.martinlaw.test.courtcase;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.test.BaseAssignmentRoutingTest;
+import org.martinlaw.util.SearchTestCriteria;
 
 /**
  * tests routing for {@link Assignment}
@@ -80,6 +84,22 @@ public class CourtCaseAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		testAssignment2.setMatterId(1003l);
 		super.testAssignmentRouting(testAssignment2, docType);
 		
-		runDocumentSearch(docType, "l2", "love*", "matter.localReference", "matter.name");
+		// no document criteria given, so both documents should be found
+		SearchTestCriteria crit1 = new SearchTestCriteria();
+		crit1.setExpectedDocuments(2);
+		// search for local reference
+		SearchTestCriteria crit2 = new SearchTestCriteria();
+		crit2.setExpectedDocuments(1);
+		crit2.getFieldNamesToSearchValues().put("matter.localReference", "l2");
+		// search for local reference
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(1);
+		crit3.getFieldNamesToSearchValues().put("matter.name", "love*");
+		
+		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+		crits.add(crit1);
+		crits.add(crit2);
+		crits.add(crit3);
+		runDocumentSearch(crits, docType);
 	}
 }

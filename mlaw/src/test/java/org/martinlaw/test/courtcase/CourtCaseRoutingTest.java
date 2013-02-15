@@ -30,8 +30,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -42,6 +44,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.test.KewTestsBase;
+import org.martinlaw.util.SearchTestCriteria;
 
 /**
  * @author mugo
@@ -131,7 +134,22 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 			testCourtCase2.setName("Moto vs Maji");
 			testMaintenanceRoutingInitToFinal(docType, testCourtCase2);
 			
-			runDocumentSearch(docType, localRef, "Bingu*", "localReference", "name");
+			SearchTestCriteria crit1 = new SearchTestCriteria();
+			crit1.setExpectedDocuments(2);
+			// search for local reference
+			SearchTestCriteria crit2 = new SearchTestCriteria();
+			crit2.setExpectedDocuments(1);
+			crit2.getFieldNamesToSearchValues().put("localReference", localRef);
+			// search for local reference
+			SearchTestCriteria crit3 = new SearchTestCriteria();
+			crit3.setExpectedDocuments(1);
+			crit3.getFieldNamesToSearchValues().put("name", "Bingu*");
+			
+			List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+			crits.add(crit1);
+			crits.add(crit2);
+			crits.add(crit3);
+			runDocumentSearch(crits, docType);
 	        
 		} catch (Exception e) {
 			log.error("test failed", e);

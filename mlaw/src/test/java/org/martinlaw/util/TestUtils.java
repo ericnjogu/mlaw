@@ -85,7 +85,7 @@ public class TestUtils {
 	 */
 	public Conveyance getTestConveyance() {
 		Conveyance conv = new Conveyance();
-		conv.setName(testConveyanceName);
+		conv.setName(getTestConveyanceName());
 		conv.setLocalReference("EN/C001");
 		conv.setTypeId(1002l);
 		conv.setStatusId(1001l);

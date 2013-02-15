@@ -42,6 +42,12 @@
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Conveyance Fee" url="${ConfigProperties.dochandler_conveyance_fee}&command=initiate" /></li>
   </ul>
+  
+  <strong>Document Search</strong>
+	<ul class="chan">
+		<li><portal:portalLink displayTitle="true" title="Conveyance" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ConveyanceMaintenanceDocument"/></li>	
+		<li><portal:portalLink displayTitle="true" title="Conveyance Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ConveyanceAssignmentMaintenanceDocument"/></li>
+	</ul>
 </div>
 <channel:portalChannelBottom />
 

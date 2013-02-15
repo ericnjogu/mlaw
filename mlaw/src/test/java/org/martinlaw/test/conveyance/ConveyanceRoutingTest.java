@@ -7,14 +7,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.martinlaw.bo.conveyance.Consideration;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.test.KewTestsBase;
+import org.martinlaw.util.SearchTestCriteria;
 
 /**
  * tests routing for {@link Conveyance}
@@ -32,7 +38,7 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		int existingConveyances = getBoSvc().findAll(Conveyance.class).size();
 		Conveyance conv = getTestUtils().getTestConveyance();
 		try {
-			testMaintenanceRouting("ConveyanceMaintenanceDocument", conv);
+			testMaintenanceRoutingInitToFinal("ConveyanceMaintenanceDocument", conv);
 		} catch (Exception e) {
 			log.error("error in testConveyanceRouting", e);
 			fail(e.getMessage());
@@ -45,9 +51,53 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		assertEquals(1, result.size());
 		for (Conveyance conveyance: result) {
 			// TODO - test fails - possibly something to do with the ojb framework - or delays in document processing?
-			// assertNotNull("status should not be null", conveyance.getStatus());
+			assertNotNull("status should not be null", conveyance.getStatus());
 			assertNotNull("status id should not be null", conveyance.getStatusId());
 		}
+	}
+	
+	@Test
+	/**
+	 * test conveyance document searching
+	 */
+	public void testConveyanceDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
+		Conveyance conv = getTestUtils().getTestConveyance();
+		conv.setConsideration(new Consideration(new BigDecimal(1000), "EBS", null));
+		final String docType = "ConveyanceMaintenanceDocument";
+		testMaintenanceRoutingInitToFinal(docType, conv);
 		
+		Conveyance conv2 = getTestUtils().getTestConveyance();
+		conv2.setLocalReference("my/firm/conv/15");
+		conv2.setName("sale of plot number 123");
+		conv2.setConsideration(new Consideration(new BigDecimal(1001), "TFX", null));
+		testMaintenanceRoutingInitToFinal(docType, conv2);
+	
+		// no document criteria given, so both documents should be found
+		SearchTestCriteria crit1 = new SearchTestCriteria();
+		crit1.setExpectedDocuments(2);
+		// search for local reference
+		SearchTestCriteria crit2 = new SearchTestCriteria();
+		crit2.setExpectedDocuments(1);
+		crit2.getFieldNamesToSearchValues().put("localReference", conv.getLocalReference());
+		// search for name
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(1);
+		crit3.getFieldNamesToSearchValues().put("name", "*plot*");
+		// search for consideration amount
+		SearchTestCriteria crit4 = new SearchTestCriteria();
+		crit4.setExpectedDocuments(1);
+		crit4.getFieldNamesToSearchValues().put("consideration.amount", ">1000");
+		// search for consideration amount
+		SearchTestCriteria crit5 = new SearchTestCriteria();
+		crit5.setExpectedDocuments(0);
+		crit5.getFieldNamesToSearchValues().put("consideration.amount", "<1000");
+		
+		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+		crits.add(crit1);
+		crits.add(crit2);
+		crits.add(crit3);
+		crits.add(crit4);
+		crits.add(crit5);
+		runDocumentSearch(crits, docType);
 	}
 }

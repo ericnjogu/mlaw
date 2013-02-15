@@ -52,6 +52,7 @@ import org.kuali.rice.krad.service.DocumentDictionaryService;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
+import org.martinlaw.util.SearchTestCriteria;
 /**
  * loads config files for testing routing
  * TODO - clear GlobalVariables error map after each test so that a failing test does not affect the rest
@@ -275,37 +276,24 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	/**
 	 * convenience method for running a document search where matter name and local reference are available fields
 	 * 
-	 * <p>First runs a general search for all documents, then uses a specific local ref, then a wildcard name</p>
-	 * @param docType - the document type
-	 * @param localRef - the local ref to match one doc
-	 * @param nameWildCard - the wildcard to match one doc
-	 * @param localRefFieldName - the attribute name/path for the local ref field
-	 * @param nameFieldName - the attribute name/path for the name field
+	 * @param testCriteria holds info on the fields, search values and expected number of documents to find
 	 */
-	public void runDocumentSearch(final String docType, final String localRef, final String nameWildCard,
-			final String localRefFieldName, final String nameFieldName) {
-				DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
-				criteria.setDocumentTypeName(docType);
-				criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
-				
-				// should find 2 documents
-				DocumentSearchResults results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
-						criteria.build());
-				assertEquals("expected number of documents not found", 2, results.getSearchResults().size());
-				
-				// search using local reference
-				criteria.addDocumentAttributeValue(localRefFieldName, localRef);
-				results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
-						criteria.build());
-				assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
-				
-				// search using wildcard for name
-				criteria.getDocumentAttributeValues().clear();
-				criteria.addDocumentAttributeValue(nameFieldName, nameWildCard);
-				results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
-						criteria.build());
-				assertEquals("expected number of documents not found", 1, results.getSearchResults().size());
+	public void runDocumentSearch(List<SearchTestCriteria> testCriteria, String docType) {
+		DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
+		criteria.setDocumentTypeName(docType);
+		criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
+		
+		for (SearchTestCriteria crit: testCriteria) {
+			criteria.getDocumentAttributeValues().clear();
+			for (String fieldName: crit.getFieldNamesToSearchValues().keySet()) {
+				criteria.addDocumentAttributeValue(fieldName,  crit.getFieldNamesToSearchValues().get(fieldName));
 			}
+			DocumentSearchResults results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
+					criteria.build());
+			assertEquals("expected number of documents not found for " + crit.toString(),
+					crit.getExpectedDocuments(), results.getSearchResults().size());
+		}
+	}
 
 	protected static PermissionService getPermissionService() {
         return KimApiServiceLocator.getPermissionService();
