@@ -65,4 +65,24 @@ public class ConveyanceAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
 		super.testAssignmentRouting(testAssignment, "ConveyanceAssignmentMaintenanceDocument");
 	}
+	
+	/**
+	 * tests CourtCase assignment maintenance doc search
+	 * 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * 
+	 */
+	@Test
+	public void testConveyanceAssignmentDocSearch() throws InstantiationException, IllegalAccessException {
+		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
+		final String docType = "ConveyanceAssignmentMaintenanceDocument";
+		super.testAssignmentRouting(testAssignment, docType);
+		
+		Assignment testAssignment2 = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
+		testAssignment2.setMatterId(1003l);
+		super.testAssignmentRouting(testAssignment2, docType);
+		
+		runAssignmentDocumentSearch(docType, "c2", "transfer*");
+	}
 }

@@ -28,7 +28,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Copyright 2012 Protosoft Ltd -->
 
-	<bean id="courtcase_assignment_bo" parent="martinlaw_shared_assignment_bo" p:jstlKey="courtcase_assignment">
+	<bean id="court_case_assignment_bo" parent="martinlaw_shared_assignment_bo" p:jstlKey="courtcase_assignment">
 		<property name="businessObjectClass" value="org.martinlaw.bo.courtcase.Assignment" />
 		<property name="attributes">
 			<list merge="true">

@@ -25,9 +25,14 @@ package org.martinlaw.test;
 
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.martinlaw.bo.MatterAssignment;
+import org.martinlaw.util.SearchTestCriteria;
+
 import static org.junit.Assert.assertNotNull;;
 
 public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
@@ -61,4 +66,29 @@ public abstract class BaseAssignmentRoutingTest extends KewTestsBase {
 
 	
 	}
+
+	/**
+	 * run document search for the custom fields exposed in assignment documents
+	 * @param docType
+	 */
+	public void runAssignmentDocumentSearch(final String docType, final String localRef,
+			final String name) {
+				// no document criteria given, so both documents should be found
+				SearchTestCriteria crit1 = new SearchTestCriteria();
+				crit1.setExpectedDocuments(2);
+				// search for local reference
+				SearchTestCriteria crit2 = new SearchTestCriteria();
+				crit2.setExpectedDocuments(1);
+				crit2.getFieldNamesToSearchValues().put("matter.localReference", localRef);
+				// search for name
+				SearchTestCriteria crit3 = new SearchTestCriteria();
+				crit3.setExpectedDocuments(1);
+				crit3.getFieldNamesToSearchValues().put("matter.name", name);
+				
+				List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+				crits.add(crit1);
+				crits.add(crit2);
+				crits.add(crit3);
+				runDocumentSearch(crits, docType);
+			}
 }

@@ -26,9 +26,46 @@
  Copyright 2012 Protosoft Ltd
 -->
 
-  <bean id="conveyance_assignment_MaintDocument" parent="martinlaw_shared_assignment_MaintDocument">
+  <bean id="conveyance_assignment_maint_document_entry" parent="martinlaw_shared_assignment_MaintDocument">
     <property name="dataObjectClass" value="org.martinlaw.bo.conveyance.Assignment"/>
     <property name="documentTypeName" value="ConveyanceAssignmentMaintenanceDocument"/>
+    <property name="workflowAttributes">
+    	<ref bean="conveyance_assignment_maint_document_entry_workflow_attrs"/>
+	</property>
   </bean>
+  
+  <bean id="conveyance_assignment_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
+	<property name="searchingTypeDefinitions">
+		<list>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.conveyance.Assignment" />
+						<property name="attributeName" value="matter.localReference" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.matter.localReference</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.conveyance.Assignment" />
+						<property name="attributeName" value="matter.name" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.matter.name</value>
+					</list>
+				</property>
+			</bean>
+			
+		</list>
+	</property>
+	</bean>
 
 </beans>

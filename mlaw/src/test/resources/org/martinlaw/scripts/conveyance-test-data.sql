@@ -38,7 +38,8 @@ insert into martinlaw_convey_t
 (matter_id, local_reference, status_id, name, convey_type_id, obj_id, consideration_id) 
 values 
 (1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1', 1001),
-(1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2', null);
+(1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2', null),
+(1003, 'c3', 1001, "Transfer of plot 2", 1001, 'conv3', null);
 
 insert into martinlaw_convey_client_t 
 (client_id, matter_id, principal_name) 
