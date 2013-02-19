@@ -39,6 +39,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.martinlaw.bo.Matter;
+import org.martinlaw.bo.courtcase.Client;
 
 /**
  * holds information on a contract
@@ -58,8 +59,9 @@ public class Contract extends Matter<Assignee, Work, ClientFee, Client, Consider
 	 * initializes fields
 	 */
 	public Contract() {
-		parties = new ArrayList<ContractParty>();
-		signatories = new ArrayList<ContractSignatory>();
+		setParties(new ArrayList<ContractParty>());
+		setSignatories(new ArrayList<ContractSignatory>());
+		setClients(new ArrayList<Client>());
 	}
 	//column defined using reference below - this is for the sake of ojb
 	@Transient
