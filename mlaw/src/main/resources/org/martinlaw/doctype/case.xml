@@ -47,9 +47,6 @@
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-				<!-- <attribute>
-					<name>matter_courtReference</name>
-				</attribute> -->
 			</attributes>
 		</documentType>
 	</documentTypes>
