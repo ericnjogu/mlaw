@@ -15,7 +15,7 @@ import org.kuali.rice.krad.maintenance.Maintainable;
 import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.service.DataDictionaryService;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.courtcase.CourtCase;
 /**
  * @author mugo
@@ -36,7 +36,7 @@ public class MatterMaintenanceHelperBusinessRulesBaseTest {
 		rulesBase = new MatterMaintenanceHelperBusinessRulesBase();
 		// mock the data dictionary svc since fetching it from KRADServiceLocatorWeb results in null pointer exception
 		DataDictionaryService ddSvc = mock(DataDictionaryService.class);
-		when(ddSvc.getAttributeLabel(CourtCase.class, Constants.PropertyNames.MATTER_ID)).thenReturn("Court Case");
+		when(ddSvc.getAttributeLabel(CourtCase.class, MartinlawConstants.PropertyNames.MATTER_ID)).thenReturn("Court Case");
 		rulesBase.getRulesHelper().setDataDictionaryService(ddSvc);
 		
 		document = mock(MaintenanceDocument.class);

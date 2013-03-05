@@ -42,7 +42,7 @@
 
 				<bean parent="Uif-Disclosure-StackedCollectionSection">
 					<property name="headerText" value="Dates" />
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.MyDate" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Event" />
 					<property name="propertyName" value="dates" />
 					<property name="items">
 						<list>

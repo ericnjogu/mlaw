@@ -35,7 +35,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.conveyance.Work;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesTx;
@@ -58,8 +58,8 @@ public class ConveyanceWorkBOTest extends WorkBOTestBase {
 		super.setUpInternal();
 		setWork(new Work());
 		setWorkClass(Work.class);
-		setDocType(Constants.DocTypes.CONVEYANCE_WORK);
-		setViewId(Constants.ViewIds.CONVEYANCE_WORK);
+		setDocType(MartinlawConstants.DocTypes.CONVEYANCE_WORK);
+		setViewId(MartinlawConstants.ViewIds.CONVEYANCE_WORK);
 	}
 	
 	@Test()

@@ -34,7 +34,7 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.conveyance.Work;
 import org.martinlaw.test.TxRoutingTestBase;
 
@@ -52,7 +52,7 @@ public class ConveyanceWorkRoutingTest extends TxRoutingTestBase {
 	protected void setUpInternal() throws Exception {
 		super.setUpInternal();
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		setDocType(Constants.DocTypes.CONVEYANCE_WORK);
+		setDocType(MartinlawConstants.DocTypes.CONVEYANCE_WORK);
 		Work newDocument = (Work) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
 		newDocument.setConveyanceAnnexTypeId(1001l);
 		setWorkDoc(getTestUtils().populateMatterWork(newDocument));

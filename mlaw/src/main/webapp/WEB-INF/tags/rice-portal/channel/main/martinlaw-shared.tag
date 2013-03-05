@@ -23,10 +23,10 @@
   <li><portal:portalLink displayTitle="true" title="Lookup Status" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <br/>
-  <strong>Date Type</strong>
+  <strong>Event Type</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Date Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.DateType" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Date Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.DateType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <li><portal:portalLink displayTitle="true" title="New Event Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.EventType" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Event Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.EventType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <strong>Create Users, Clients, Witnesses</strong>
   <ul class="chan">

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+	program is free software: you can redistribute it and/or modify it under 
+	the terms of the GNU General Public License as published by the Free Software 
+	Foundation, either version 3 of the License, or (at your option) any later 
+	version. This program is distributed in the hope that it will be useful, 
+	but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+	more details. You should have received a copy of the GNU General Public License 
+	along with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
+	#L% -->
+	
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<!--  this file may not needed since all fields are displayed on the lookup results as well as in the date section of each
+court case -->
+	<bean id="courtcase_date_inquiry_view" parent="Uif-InquiryView">
+		<property name="headerText" value="Court Case Event Inquiry" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.Event" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-Disclosure-GridSection">
+					<property name="layoutManager.numberOfColumns" value="2" />
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="matterId" />
+							<bean parent="Uif-InputField" p:propertyName="type.name" />
+							<bean parent="Uif-InputField" p:propertyName="startDate" />
+							<bean parent="Uif-InputField" p:propertyName="endDate" />
+							<bean parent="Uif-InputField" p:propertyName="location" />
+							<bean parent="Uif-InputField" p:propertyName="comment" />
+							<bean parent="Uif-LinkField" p:linkText="Calendar Event" p:label="Download Event">
+								<property name="href">
+									<value>
+										@{#ConfigProperties['application.url']}/kr-krad/calendar/date/@{dataObject.eventUID}
+									</value>
+								</property>
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+</beans>

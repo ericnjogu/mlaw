@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  mlaw
+  %%
+  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+  <bean id="case_event_maint_document_entry" parent="uifMaintenanceDocumentEntry">
+    <property name="dataObjectClass" value="org.martinlaw.bo.courtcase.Event"/>
+    <property name="maintainableClass" value="org.martinlaw.bo.MatterEventMaintainable"/>
+    <property name="businessRulesClass" value="org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase"/>
+    <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
+    <property name="lockingKeys">
+      <list>
+      	<value>matterId</value>
+      </list>
+    </property>
+
+    <property name="documentTypeName" value="CourtCaseEventMaintenanceDocument"/>
+  </bean> 
+</beans>

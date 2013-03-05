@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.contract.ClientFee;
 import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
@@ -145,6 +145,6 @@ public class ContractBOTest extends MartinlawTestsBase {
 	 * tests that the document type is loaded ok
 	 */
 	public void testContractDocType() {
-		assertNotNull("document type should not be null", getDocTypeSvc().findByName(Constants.DocTypes.CONTRACT ));
+		assertNotNull("document type should not be null", getDocTypeSvc().findByName(MartinlawConstants.DocTypes.CONTRACT ));
 	}
 }

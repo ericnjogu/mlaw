@@ -28,7 +28,7 @@ package org.martinlaw.test.conveyance;
 
 
 
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.conveyance.ClientFee;
 import org.martinlaw.bo.conveyance.Fee;
 import org.martinlaw.test.MatterFeeBOTest;
@@ -44,9 +44,9 @@ public class ConveyanceFeeBOTest extends MatterFeeBOTest {
 	 * default constructor
 	 */
 	public ConveyanceFeeBOTest() {
-		setDocType(Constants.DocTypes.CONVEYANCE_FEE);
+		setDocType(MartinlawConstants.DocTypes.CONVEYANCE_FEE);
 		setDocumentClass(ClientFee.class);
-		setViewId(Constants.ViewIds.CONVEYANCE_FEE);
+		setViewId(MartinlawConstants.ViewIds.CONVEYANCE_FEE);
 		setFeeClass(Fee.class);
 	}
 }

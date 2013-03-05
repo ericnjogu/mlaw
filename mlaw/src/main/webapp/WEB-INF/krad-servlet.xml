@@ -114,6 +114,8 @@
         <ref bean="moduleLockingHandlerInterceptor"/>
       </list>
     </property>
+    <!-- fix from http://stackoverflow.com/questions/3526523/spring-mvc-pathvariable-getting-truncated -->
+    <property name="useDefaultSuffixPattern" value="false" />
   </bean>
 
   <bean id="uifControllerHandlerInterceptor"

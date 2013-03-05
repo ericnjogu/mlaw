@@ -39,7 +39,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.martinlaw.bo.Matter;
-import org.martinlaw.bo.courtcase.Client;
 
 /**
  * holds information on a contract

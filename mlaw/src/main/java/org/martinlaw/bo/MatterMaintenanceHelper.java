@@ -6,7 +6,6 @@ package org.martinlaw.bo;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 
 /**
@@ -16,7 +15,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
  *
  */
 @MappedSuperclass
-public abstract class MatterMaintenanceHelper extends PersistableBusinessObjectBase {
+public abstract class MatterMaintenanceHelper extends MartinlawBusinessObjectBase {
 	/**
 	 * 
 	 */

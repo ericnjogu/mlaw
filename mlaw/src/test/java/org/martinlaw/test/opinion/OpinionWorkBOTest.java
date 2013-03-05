@@ -27,7 +27,7 @@ package org.martinlaw.test.opinion;
 
 
 
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.opinion.Work;
 import org.martinlaw.test.WorkBOTestBase;
 
@@ -44,8 +44,8 @@ public class OpinionWorkBOTest extends WorkBOTestBase {
 		super.setUpInternal();
 		setWork(new Work());
 		setWorkClass(Work.class);
-		setDocType(Constants.DocTypes.OPINION_WORK);
-		setViewId(Constants.ViewIds.OPINION_WORK);
+		setDocType(MartinlawConstants.DocTypes.OPINION_WORK);
+		setViewId(MartinlawConstants.ViewIds.OPINION_WORK);
 	}
 	
 }

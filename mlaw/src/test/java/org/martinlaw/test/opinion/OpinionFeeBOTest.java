@@ -28,7 +28,7 @@ package org.martinlaw.test.opinion;
 
 
 
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.opinion.ClientFee;
 import org.martinlaw.bo.opinion.Fee;
 import org.martinlaw.test.MatterFeeBOTest;
@@ -44,9 +44,9 @@ public class OpinionFeeBOTest extends MatterFeeBOTest {
 	 * default constructor
 	 */
 	public OpinionFeeBOTest() {
-		setDocType(Constants.DocTypes.OPINION_FEE);
+		setDocType(MartinlawConstants.DocTypes.OPINION_FEE);
 		setDocumentClass(ClientFee.class);
-		setViewId(Constants.ViewIds.OPINION_FEE);
+		setViewId(MartinlawConstants.ViewIds.OPINION_FEE);
 		setFeeClass(Fee.class);
 	}
 }

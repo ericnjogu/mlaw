@@ -27,7 +27,7 @@ package org.martinlaw.test.contract;
 
 
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterWork;
 
 
@@ -46,7 +46,7 @@ public class ContractWorkRoutingTest extends ContractTxRoutingTestBase {
 	@Override
 	protected void setUpInternal() throws Exception {
 		super.setUpInternal();
-		setDocType(Constants.DocTypes.CONTRACT_WORK);
+		setDocType(MartinlawConstants.DocTypes.CONTRACT_WORK);
 		setWorkDoc(getTestUtils().populateMatterWork((MatterWork) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType())));
 	}
 }

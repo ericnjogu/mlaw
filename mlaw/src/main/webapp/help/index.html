@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>mLaw Help</title>
+<style type="text/css">
+.sample_input {font-weight: bold;}
+.label {font-family: monospace;}
+</style>
+</head>
+<body>
+<h1>Help Topics</h1>
+<h2><a name="event_lookup">Event Lookup</a></h2>
+	<p>The <span class="label">Location</span> and <span class="label">Comment</span> fields can accept exact values e.g. 
+	<span class="sample_input">milimani</span> or <span class="sample_input">meeting</span>.<br/>
+	Wildcards can also be used for these fields to match data containing the specified value. e.g. <br/>
+	<span class="sample_input">*court*</span> - match any data containing the word <span class="sample_input">court</span>. <br/>
+	<span class="sample_input">*meeting*</span> - match any data containing the word <span class="sample_input">meeting<span class="sample_input">.
+	</p>
+	<p>
+	<span class="label">Start Date</span> and <span class="label">End Date</span> fields work best with a date range as below. Use the date button to select the first date then edit by hand. <br/> 
+	<span class="sample_input">02 Mar 2013 .. 01 Apr 2013 </span> searches for all dates between the two dates (inclusive)
+	<br/>
+	<span class="sample_input">&gt; 02 Mar 2013</span> searches for dates newer (more recent) than the date given
+	<br/>
+	<span class="sample_input">&lt; 02 Mar 2013</span> searches for dates older (less recent) than the date given
+	</p>
+</body>
+</html>

@@ -42,7 +42,6 @@ import org.kuali.rice.krad.web.controller.InquiryController;
 import org.kuali.rice.krad.web.form.UifFormBase;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,10 +57,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/inquiryWithAtts")
 public class DownloadController extends InquiryController {
+	private DownloadUtils downloadUtils;
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1252787649154520819L;
+	public DownloadController() {
+		super();
+		setDownloadUtils(new DownloadUtils());
+	}
+
 	Log log = LogFactory.getLog(getClass());
 	private AttachmentService attachmentService;
 	private BusinessObjectService boSvc;
@@ -113,19 +118,9 @@ public class DownloadController extends InquiryController {
 	protected void downloadAttachmentAsStream(HttpServletResponse response,
 			Attachment att) throws IOException {
 		InputStream is = getAttachmentService().retrieveAttachmentContents(att);
-
-		// Set the response headers
-		response.setContentType(att.getAttachmentMimeTypeCode());
-		response.setContentLength(att.getAttachmentFileSize().intValue());
-		// TODO replace the header strings with constants
-		response.setHeader("Expires", "0");
-		response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-		response.setHeader("Pragma", "public");
-		response.setHeader("Content-Disposition",
-		        "attachment; filename=\"" + att.getAttachmentFileName() + "\"");
-
-		// Copy the input stream to the response
-		FileCopyUtils.copy(is, response.getOutputStream());
+		
+		getDownloadUtils().downloadAsStream(response, is, att.getAttachmentMimeTypeCode(), 
+				att.getAttachmentFileSize().intValue(), att.getAttachmentFileName());
 	}
 	
 	/**
@@ -195,5 +190,19 @@ public class DownloadController extends InquiryController {
 	 */
 	public void setAttachmentService(AttachmentService attachmentService) {
 		this.attachmentService = attachmentService;
+	}
+
+	/**
+	 * @return the downloadUtils
+	 */
+	public DownloadUtils getDownloadUtils() {
+		return downloadUtils;
+	}
+
+	/**
+	 * @param downloadUtils the downloadUtils to set
+	 */
+	public void setDownloadUtils(DownloadUtils downloadUtils) {
+		this.downloadUtils = downloadUtils;
 	}
 }

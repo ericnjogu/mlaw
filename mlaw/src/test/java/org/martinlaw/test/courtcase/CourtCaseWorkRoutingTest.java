@@ -30,7 +30,7 @@ package org.martinlaw.test.courtcase;
 import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.test.TxRoutingTestBase;
 
@@ -48,7 +48,7 @@ public class CourtCaseWorkRoutingTest extends TxRoutingTestBase {
 	protected void setUpInternal() throws Exception {
 		super.setUpInternal();
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		setDocType(Constants.DocTypes.COURTCASE_WORK);
+		setDocType(MartinlawConstants.DocTypes.COURTCASE_WORK);
 		setWorkDoc(getTestUtils().populateMatterWork((MatterWork) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType())));
 	}
 }

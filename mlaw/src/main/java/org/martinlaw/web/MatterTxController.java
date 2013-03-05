@@ -39,7 +39,7 @@ import org.kuali.rice.krad.web.form.DocumentFormBase;
 import org.kuali.rice.krad.web.form.TransactionalDocumentFormBase;
 import org.kuali.rice.krad.web.form.UifFormBase;
 import org.kuali.rice.krad.web.form.UifFormManager;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -50,7 +50,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(value = "/" + Constants.RequestMappings.TX)
+@RequestMapping(value = "/" + MartinlawConstants.RequestMappings.TX)
 public class MatterTxController extends TransactionalDocumentControllerBase {
 	Log log = LogFactory.getLog(getClass());
 	

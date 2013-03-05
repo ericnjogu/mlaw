@@ -77,7 +77,7 @@
 		</reference-descriptor>
 
 		<collection-descriptor name="dates"
-			element-class-ref="org.martinlaw.bo.courtcase.MyDate"
+			element-class-ref="org.martinlaw.bo.courtcase.Event"
 			auto-retrieve="true" auto-update="none" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
@@ -180,8 +180,8 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.courtcase.MyDate"
-		table="martinlaw_court_case_date_t">
+	<class-descriptor class="org.martinlaw.bo.courtcase.Event"
+		table="martinlaw_court_case_event_t">
 		<field-descriptor name="id" column="id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_court_case_date_s">
@@ -189,11 +189,14 @@
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 
-		<field-descriptor name="date" column="matter_date"
-			jdbc-type="DATE">
-		</field-descriptor>
+		<field-descriptor name="startDate" column="start_date"	jdbc-type="TIMESTAMP"/>
+		<field-descriptor name="endDate" column="end_date"	jdbc-type="TIMESTAMP"/>
+		<field-descriptor name="dateCreated" column="date_created"	jdbc-type="TIMESTAMP"/>
+		<field-descriptor name="dateModified" column="date_modified" jdbc-type="TIMESTAMP"/>
 
 		<field-descriptor name="comment" column="date_comment"
+			jdbc-type="VARCHAR" length="150" />
+		<field-descriptor name="location" column="location"
 			jdbc-type="VARCHAR" length="150" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
@@ -204,7 +207,7 @@
 			jdbc-type="BIGINT" />
 
 		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.DateType" auto-retrieve="true"
+			class-ref="org.martinlaw.bo.EventType" auto-retrieve="true"
 			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
@@ -714,8 +717,8 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.DateType"
-		table="martinlaw_date_type_t">
+	<class-descriptor class="org.martinlaw.bo.EventType"
+		table="martinlaw_event_type_t">
 		<field-descriptor name="id" column="date_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_date_type_s">

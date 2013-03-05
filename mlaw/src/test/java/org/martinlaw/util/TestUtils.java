@@ -30,9 +30,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,11 +45,12 @@ import java.util.Map;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.martinlaw.bo.EventType;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterConsideration;
-import org.martinlaw.bo.MatterDate;
+import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
@@ -63,6 +66,7 @@ import org.martinlaw.bo.conveyance.ConveyanceType;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Opinion;
 
@@ -183,16 +187,18 @@ public class TestUtils {
 	
 	/**
 	 * 
-	 * tests fields of {@link MatterDate} from sql data
-	 * @param date
+	 * tests fields of {@link MatterEvent} from sql data
+	 * @param event
 	 */
-	public void testRetrievedMatterDateFields(MatterDate<?> date) {
-		assertEquals("first hearing date",date.getComment());
+	public void testRetrievedMatterEventFields(MatterEvent<?> event) {
+		assertNotNull("event should not be null", event);
+		assertEquals("first hearing date",event.getComment());
 		Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(date.getDate().getTime());
-		assertEquals(2011,cal.get(Calendar.YEAR));
-		assertEquals(Calendar.JUNE, cal.get(Calendar.MONTH));
-		assertEquals(1, cal.get(Calendar.DATE));
+		cal.setTimeInMillis(event.getStartDate().getTime());
+		assertEquals("event year differs", 2011,cal.get(Calendar.YEAR));
+		assertEquals("event month differs", Calendar.JUNE, cal.get(Calendar.MONTH));
+		assertEquals("event date differs", 1, cal.get(Calendar.DATE));
+		assertEquals("location differs", "nakuru", event.getLocation());
 	}
 	
 	/**
@@ -468,38 +474,55 @@ public class TestUtils {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public <D extends MatterDate<?>> D getTestMatterDate(Class<D> d) throws InstantiationException, IllegalAccessException {
+	public <D extends MatterEvent<?>> D getTestMatterEvent(Class<D> d) throws InstantiationException, IllegalAccessException {
 		D date = d.newInstance();
 		date.setComment("must attend");
 		date.setMatterId(1001l);
 		date.setTypeId(1001l);
-		date.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		date.setStartDate(new Timestamp(System.currentTimeMillis()));
+		date.setLocation("makadara");
 		return date;
 	}
 	
 	/**
-	 * tests CRUD for descendants of {@link MatterDate}
-	 * @param date - the object to test with
-	 * @param matterDate - the type of {@code MatterDate} for use in fetching from {@code #getBoSvc()}
+	 * tests CRUD for descendants of {@link MatterEvent}
+	 * @param event - the object to test with
+	 * @param matterEvent - the type of {@code MatterEvent} for use in fetching from {@code #getBoSvc()}
 	 */
-	public <D extends MatterDate<?>> void testMatterDateCRUD(MatterDate<?> date, Class<D> matterDate) {
+	public <D extends MatterEvent<?>> void testMatterEventCRUD(MatterEvent<?> event, Class<D> matterEvent) {
 		// C
-		getBoSvc().save(date);
+		final Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+		event.setDateModified(ts1);
+		getBoSvc().save(event);
 		// R
-		date.refresh();
-		assertEquals("comment differs", "must attend", date.getComment());
+		event.refresh(); // get the created pk
+		// for some reason, the date modified remains null even after a refresh, so re-fetch
+		event = getBoSvc().findBySinglePrimaryKey(event.getClass(), event.getId());
+		assertEquals("comment differs", "must attend", event.getComment());
 		SimpleDateFormat sdf =  new SimpleDateFormat("dd-MM-yy");
-		assertEquals(sdf.format(Calendar.getInstance().getTime()), sdf.format(date.getDate()));
+		assertEquals(sdf.format(Calendar.getInstance().getTime()), sdf.format(event.getStartDate()));
+		// test for default date values
+		assertNotNull("date created should have a default value", event.getDateCreated());
+		assertNotNull("date modified should have a default value", event.getDateModified());
+		
 		// U
 		final String comment = "must attend - dept heads only";
-		date.setComment(comment);
-		date.refresh();
-		assertEquals("comment differs", comment, date.getComment());
+		event.setComment(comment);
+		final Timestamp ts2 = new Timestamp(System.currentTimeMillis());
+		event.setDateModified(ts2);
+		assertTrue("for the update test to work, the initial and subsequent timestamps should be different", ts2.after(ts1));
+		//date.refresh();
+		getBoSvc().save(event);
+		event = getBoSvc().findBySinglePrimaryKey(event.getClass(), event.getId());
+		assertEquals("comment differs", comment, event.getComment());
+		//confirm that date modified has changed
+		// for some reason, the date modification test fails
+		assertTrue("date should have been updated", event.getDateModified().after(ts1));
 		// D
-		getBoSvc().delete(date);
+		getBoSvc().delete(event);
 		Map<String, Object> map = new HashMap<String, Object>(1);
 		map.put("comment", comment);
-		assertEquals("date should have been deleted", 0, getBoSvc().findMatching(matterDate, map).size());
+		assertEquals("date should have been deleted", 0, getBoSvc().findMatching(matterEvent, map).size());
 	}
 	
 	/**
@@ -547,5 +570,43 @@ public class TestUtils {
 		annexTypes.add(convAnnexType);
 		convType.setAnnexTypes(annexTypes);
 		return convType;
+	}
+	
+	/**
+	 * creates a test object of type {@link MatterEvent} containing info useful for testing templating
+	 * @see org.martinlaw.bo.MatterEventTest#testToIcalendar() 
+	 * @see org.martinlaw.bo.MatterDateMaintainableTest#testCreateNotificationMessage()
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public MatterEvent getTestMatterDateForStringTemplates() {
+		Event caseDate = new Event();
+		caseDate.setId(1001l);
+		EventType eventType = new EventType();
+		eventType.setName("judgement");
+		caseDate.setType(eventType);
+		
+		CourtCase theCase = new CourtCase();
+		theCase.setLocalReference("my/cases/1");
+		theCase.setName("water vs fire");
+		caseDate.setMatter(theCase);
+		
+		// create test date
+		Calendar testCal = Calendar.getInstance();
+		testCal.set(Calendar.YEAR, 2013);
+		testCal.set(Calendar.MONTH, 1);// months start at 0
+		testCal.set(Calendar.DATE, 22);
+		testCal.set(Calendar.HOUR_OF_DAY, 11);
+		testCal.set(Calendar.MINUTE, 19);
+		testCal.set(Calendar.SECOND, 15);
+		
+		Date testDate = new Date(testCal.getTimeInMillis());
+		
+		caseDate.setStartDate(new Timestamp(testDate.getTime()));
+		Timestamp ts = new Timestamp(testCal.getTimeInMillis());
+		caseDate.setDateCreated(ts);
+		caseDate.setDateModified(ts);
+		caseDate.setLocation("milimani");
+		return caseDate;
 	}
 }

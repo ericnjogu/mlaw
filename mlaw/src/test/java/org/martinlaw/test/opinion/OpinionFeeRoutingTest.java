@@ -29,7 +29,7 @@ package org.martinlaw.test.opinion;
 import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.opinion.ClientFee;
 import org.martinlaw.bo.opinion.Fee;
 import org.martinlaw.test.TxRoutingTestBase;
@@ -49,7 +49,7 @@ public class OpinionFeeRoutingTest extends TxRoutingTestBase {
 	protected void setUpInternal() throws Exception {
 		super.setUpInternal();
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		setDocType(Constants.DocTypes.OPINION_FEE);
+		setDocType(MartinlawConstants.DocTypes.OPINION_FEE);
 		ClientFee doc = (ClientFee) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
 		setWorkDoc(getTestUtils().populateClientFee(doc, new Fee()));
 	}

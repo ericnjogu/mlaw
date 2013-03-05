@@ -27,7 +27,7 @@ package org.martinlaw.test.contract;
 
 
 
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.contract.Work;
 import org.martinlaw.test.WorkBOTestBase;
 
@@ -47,7 +47,7 @@ public class ContractWorkBOTest extends WorkBOTestBase {
 		super.setUpInternal();
 		setWork(new Work());
 		setWorkClass(Work.class);
-		setDocType(Constants.DocTypes.CONTRACT_WORK);
-		setViewId(Constants.ViewIds.CONTRACT_WORK);
+		setDocType(MartinlawConstants.DocTypes.CONTRACT_WORK);
+		setViewId(MartinlawConstants.ViewIds.CONTRACT_WORK);
 	}
 }

@@ -30,7 +30,7 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.util.ErrorMessage;
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 
 /**
  * adds some validation checks for {@link MatterWork} documents
@@ -60,9 +60,9 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 			if (isPrincipalNameInAssigneeList(matterWork, initiatorPrincipalName)) {
 				return true;
 			} else {
-				ErrorMessage errMsg = new ErrorMessage(Constants.MessageKeys.ERROR_NOT_ASSIGNED, initiatorPrincipalName, 
+				ErrorMessage errMsg = new ErrorMessage(MartinlawConstants.MessageKeys.ERROR_NOT_ASSIGNED, initiatorPrincipalName, 
 								matterWork.getMatterClass().getSimpleName());
-				errMsg.setNamespaceCode(Constants.MODULE_NAMESPACE_CODE);
+				errMsg.setNamespaceCode(MartinlawConstants.MODULE_NAMESPACE_CODE);
 				getRulesHelper().addMatterIdError(errMsg);
 				return false;
 			}

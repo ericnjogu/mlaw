@@ -37,9 +37,9 @@
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>
 				
 				<value>org.martinlaw.bo.CalendarEvent</value>
-				<value>org.martinlaw.bo.DateType</value>
+				<value>org.martinlaw.bo.EventType</value>
 				
-				<value>org.martinlaw.bo.courtcase.MyDate</value>
+				<value>org.martinlaw.bo.courtcase.Event</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
 				<value>org.martinlaw.bo.courtcase.Client</value>
 				<value>org.martinlaw.bo.courtcase.Assignee</value>
@@ -69,7 +69,7 @@
 				<value>org.martinlaw.bo.sequence.ConveyClientSeq</value>
 				<value>org.martinlaw.bo.conveyance.Client</value>
 				<value>org.martinlaw.bo.Matter</value>
-				<value>org.martinlaw.bo.MatterDate</value>
+				<value>org.martinlaw.bo.MatterEvent</value>
 				<value>org.martinlaw.bo.sequence.ConveyFeeSeq</value>
 				<value>org.martinlaw.bo.conveyance.Fee</value>
 				<value>org.martinlaw.bo.sequence.ConveySeq</value>
@@ -110,6 +110,7 @@
 				<value>org.martinlaw.bo.MatterClientFee</value>
 				<value>org.martinlaw.bo.MatterConsideration</value>
 				<value>org.martinlaw.bo.MatterMaintenanceHelper</value>
+				<value>org.martinlaw.bo.MartinlawBusinessObjectBase</value>
 				
 				<value>org.martinlaw.bo.conveyance.Assignee</value>
 				<value>org.martinlaw.bo.conveyance.Assignment</value>

@@ -1,0 +1,5 @@
+${summary}
+
+The above date has been ${action} via document - ${application.url}/kew/DocHandler.do?command=displayDocSearchView&amp;docId=${docId}.
+
+The associated calendar event can be downloaded at - ${application.url}/kr-krad/calendar/date/${uid}.

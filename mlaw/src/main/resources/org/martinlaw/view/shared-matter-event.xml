@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  mlaw
+  %%
+  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+
+<!-- Copyright 2005-2012 Protosoft Ltd -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<bean id="martinlaw_shared_date_maintenance_view" abstract="true"
+		parent="Uif-MaintenanceView">
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-MaintenanceGridSection">
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="matterId">
+								<property name="propertyNamesForAdditionalDisplay"
+									value="matter.name" />
+								<property name="validCharactersConstraint">
+									<bean parent="IntegerPatternConstraint" />
+								</property>
+							</bean>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId" />
+							<bean parent="martinlaw_shared_date_maintenance_view_date_inputfield" p:propertyName="startDate" p:id="event_start_date">
+								<!-- to use config properties when https://jira.kuali.org/browse/KULRICE-9079 is resolved -->
+								<!-- <property name="onDocumentReadyScript" value="jq('#event_start_date_control').datetimepicker(@{#ConfigProperties['mlaw.jquery.datetime.options']});"/> -->
+								<property name="onDocumentReadyScript" value="jq('#event_start_date_control').datetimepicker({dateFormat:'dd M yy', timeFormat:'hh:mm tt', hour:7});"/>
+								<property name="fieldLabel.requiredMessage.messageText" value="**"/>
+							</bean>
+							<bean parent="martinlaw_shared_date_maintenance_view_date_inputfield" p:propertyName="endDate" p:id="event_end_date">
+								<!-- to use config properties when https://jira.kuali.org/browse/KULRICE-9079 is resolved -->
+								<!-- <property name="onDocumentReadyScript" value="jq('#event_end_date_control').datetimepicker(@{#ConfigProperties['mlaw.jquery.datetime.options']});"/> -->
+								<property name="onDocumentReadyScript" value="jq('#event_end_date_control').datetimepicker({dateFormat:'dd M yy', timeFormat:'hh:mm tt', hour:7});"/>
+							</bean>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="location" />
+							<bean parent="Uif-InputField" p:propertyName="comment" />
+						</list>
+					</property>
+					<property name="headerText" value="Event Information" />
+				</bean>
+			</list>
+		</property>
+     	<property name="validateClientSide" value="false"/>
+     	<property name="additionalScriptFiles">
+	      <list>
+	        <value>scripts/jquery-ui-timepicker-addon.js</value>
+	      </list>
+	    </property>
+	    <property name="additionalCssFiles">
+	      <list>
+	        <value>css/jquery-ui-timepicker-addon.css</value>
+	      </list>
+	    </property>
+	</bean>
+	
+	<bean id="martinlaw_shared_date_maintenance_view_date_inputfield" parent="Uif-InputField" abstract="true">
+		<property name="propertyReplacers">
+	      <list>
+	        <!-- <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="onDocumentReadyScript"
+	              p:condition="@{!#form.document.isNew() or !#form.document.isEdit()}" p:replacement=""/> -->
+	              <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="onDocumentReadyScript"
+	              p:condition="@{#view.readOnly}" p:replacement=""/>
+	      </list>
+	    </property>
+	</bean>
+	
+	<bean id="martinlaw_shared_matter_event_lookup_view" abstract="true"	parent="Uif-LookupView">
+		<property name="criteriaFields">
+			<list>
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId" />
+				<bean parent="martinlaw_shared_matter_event_lookup_view_date_field" p:propertyName="startDate" p:id="event_start_date"/>
+				<bean parent="martinlaw_shared_matter_event_lookup_view_date_field" p:propertyName="endDate" p:id="event_end_date"/>
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="location" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="comment" />
+			</list>
+		</property>
+		<property name="resultFields">
+			<list>
+				<bean parent="Uif-DataField" p:propertyName="matterId" />
+				<bean parent="Uif-DataField" p:propertyName="type.name" />
+				<bean parent="Uif-DataField" p:propertyName="startDate" />
+				<bean parent="Uif-DataField" p:propertyName="endDate" />
+				<bean parent="Uif-DataField" p:propertyName="location" />
+				<bean parent="Uif-DataField" p:propertyName="comment" />
+				<!-- to be rendered as drill down, where the link will be accessible on the inquiry screen or have the calendar url being the custom inquiry url -->
+				<bean parent="Uif-DataField"  p:label="Calendar Event" p:propertyName="calendarEvent"/>
+			</list>
+		</property>
+		<property name="additionalScriptFiles">
+	      <list>
+	        <value>scripts/jquery-ui-timepicker-addon.js</value>
+	      </list>
+	    </property>
+	    <property name="additionalCssFiles">
+	      <list>
+	        <value>css/jquery-ui-timepicker-addon.css</value>
+	      </list>
+	    </property>
+	    <property name="help">
+	      <bean parent="Uif-Help">
+	        <property name="externalHelpUrl" value="@{#ConfigProperties['application.url']}/help/index.html#event_lookup"/>
+	      </bean>
+	    </property>
+	</bean>
+	
+	<bean id="martinlaw_shared_matter_event_lookup_view_date_field" parent="Uif-LookupCriteriaInputField" abstract="true">
+		<property name="control">
+			<bean parent="Uif-DateControl" p:size="50">
+				<property name="datePicker">
+			      <bean parent="Uif-DatePicker">
+						<property name="templateOptions">
+				          <map merge="true">
+				          <!-- http://stackoverflow.com/questions/5868843/jquery-datepicker-date-manual-input -->
+				            <entry key="constrainInput" value="false"/>
+				            <entry key="dateFormat" value="dd M yy"/>
+				          </map>
+				        </property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>

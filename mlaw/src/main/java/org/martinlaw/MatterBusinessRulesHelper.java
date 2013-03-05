@@ -25,7 +25,7 @@ public class MatterBusinessRulesHelper {
 	 */
 	public void addMatterIdError(ErrorMessage errMsg) {
 		GlobalVariables.getMessageMap().addToErrorPath(KRADConstants.DOCUMENT_PROPERTY_NAME);
-		GlobalVariables.getMessageMap().putError(Constants.PropertyNames.MATTER_ID, errMsg);
+		GlobalVariables.getMessageMap().putError(MartinlawConstants.PropertyNames.MATTER_ID, errMsg);
 		GlobalVariables.getMessageMap().removeFromErrorPath(KRADConstants.DOCUMENT_PROPERTY_NAME);
 	}
 	
@@ -37,8 +37,8 @@ public class MatterBusinessRulesHelper {
 	public ErrorMessage createMatterNotExistingError(Class<?> klass) {
 		ErrorMessage errMsg = new ErrorMessage(RiceKeyConstants.ERROR_EXISTENCE, 
 				getDataDictionaryService().getAttributeLabel(
-						klass, Constants.PropertyNames.MATTER_ID));
-		errMsg.setNamespaceCode(Constants.MODULE_NAMESPACE_CODE);
+						klass, MartinlawConstants.PropertyNames.MATTER_ID));
+		errMsg.setNamespaceCode(MartinlawConstants.MODULE_NAMESPACE_CODE);
 		return errMsg;
 	}
 

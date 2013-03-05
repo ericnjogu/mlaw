@@ -27,7 +27,7 @@ package org.martinlaw.test.courtcase;
 
 
 
-import org.martinlaw.Constants;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.courtcase.Work;
 import org.martinlaw.test.WorkBOTestBase;
 
@@ -47,7 +47,7 @@ public class CourtCaseWorkBOTest extends WorkBOTestBase {
 		super.setUpInternal();
 		setWork(new Work());
 		setWorkClass(Work.class);
-		setDocType(Constants.DocTypes.COURTCASE_WORK);
-		setViewId(Constants.ViewIds.COURTCASE_WORK);
+		setDocType(MartinlawConstants.DocTypes.COURTCASE_WORK);
+		setViewId(MartinlawConstants.ViewIds.COURTCASE_WORK);
 	}
 }
