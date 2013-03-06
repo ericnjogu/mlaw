@@ -61,7 +61,7 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 			<description>my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM</description>
 			<location>milimani</location>
 			<startDateTime>2013-02-22 11:19:15.0</startDateTime>
-			<stopDateTime>2013-02-23 11:19:15.0</stopDateTime>
+			<stopDateTime></stopDateTime>
 		</event>
 	</content>
 </notification>

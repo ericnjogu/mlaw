@@ -25,7 +25,6 @@ package org.martinlaw.bo;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -230,8 +229,11 @@ public abstract class MatterEvent <M extends Matter> extends MatterMaintenanceHe
 		// set the start and end dates
 		SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyyMMdd'T'hhmmssZ");
 		eventData.put("DTSTART", sdfDateTime.format(getStartDate()));
-		eventData.put("DTEND", sdfDateTime.format(getEndDate()));
-		
+		if (getEndDate() == null) {
+			eventData.put("DTEND", "");
+		} else {
+			eventData.put("DTEND", sdfDateTime.format(getEndDate()));
+		}
 		
 		eventData.put("CREATED", sdfDateTime.format(getDateCreated()));
 		eventData.put("DTSTAMP", sdfDateTime.format(getDateModified()));
@@ -300,10 +302,13 @@ public abstract class MatterEvent <M extends Matter> extends MatterMaintenanceHe
 		eventData.put(MartinlawConstants.NotificationTemplateParameters.LOCATION, getLocation());
 		// set the nanos so that tests can pass - a different value was being generated each time
 		getStartDate().setNanos(0);
-		getEndDate().setNanos(0);
 		eventData.put(MartinlawConstants.NotificationTemplateParameters.STARTDATETIME, getStartDate().toString());
-		eventData.put(MartinlawConstants.NotificationTemplateParameters.STOPDATETIME, getEndDate().toString());
-		
+		if (getEndDate() == null) {
+			eventData.put(MartinlawConstants.NotificationTemplateParameters.STOPDATETIME, "");
+		} else {
+			getEndDate().setNanos(0);
+			eventData.put(MartinlawConstants.NotificationTemplateParameters.STOPDATETIME, getEndDate().toString());
+		}
 		return StrSubstitutor.replace(xmlTemplate, eventData);
 		
 	}
@@ -313,14 +318,14 @@ public abstract class MatterEvent <M extends Matter> extends MatterMaintenanceHe
 	 * @return the end
 	 */
 	public Timestamp getEndDate() {
-		if (endDate == null && startDate != null) {
+		/*if (endDate == null && startDate != null) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(getStartDate());
 			cal.roll(Calendar.DAY_OF_YEAR, true);
 			return new Timestamp(cal.getTimeInMillis());
-		} else {
+		} else {*/
 			return endDate;
-		}
+		/*}*/
 	}
 
 	/**
