@@ -30,7 +30,7 @@ public class MatterEventTest {
 		
 		// using court case date as matter date is abstract
 		TestUtils utils = new TestUtils();
-		Event caseDate = (Event) utils.getTestMatterDateForStringTemplates();
+		Event caseDate = (Event) utils.getTestMatterEventForStringTemplates();
 		
 		String actualResult = caseDate.toIcalendar(template);
 		
@@ -57,7 +57,7 @@ public class MatterEventTest {
 		TestUtils utils = new TestUtils();
 		String template = readAll("event-notfn-template.xml");
 		String expected = readAll("event-notfn-expected.xml");
-		Event caseDate = (Event) utils.getTestMatterDateForStringTemplates();
+		Event caseDate = (Event) utils.getTestMatterEventForStringTemplates();
 		assertEquals("expected output differs", expected, 
 				caseDate.toNotificationXML(template, MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_CHANNEL_NAME, 
 						MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_PRODUCER_NAME, 

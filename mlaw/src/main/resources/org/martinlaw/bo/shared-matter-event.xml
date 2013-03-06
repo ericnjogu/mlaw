@@ -41,7 +41,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<ref bean="martinlaw_shared_event_bo_type" />
 			<ref bean="martinlaw_shared_event_bo_location" />
 			<bean parent="martinlaw_shared_event_bo_date" p:name="startDate" p:required="true" p:label="Start Date"/>
-			<bean parent="martinlaw_shared_event_bo_date" p:name="endDate" p:label="End Date"/>
+			<bean parent="martinlaw_shared_event_bo_date" p:name="endDate" p:label="End Date" p:required="false" />
 		</list>
 	</property>
 	<property name="objectLabel" value="Date" />
@@ -49,11 +49,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <!-- Attribute Definitions -->
 
-<bean id="martinlaw_shared_event_bo_constrained_attr" parent="AttributeDefinition">
+<!-- <bean id="martinlaw_shared_event_bo_constrained_attr" parent="AttributeDefinition">
     <property name="simpleConstraint">
 		<bean parent="SimpleConstraint" p:required="true" p:states="R"/>
 	</property>
-  </bean>
+  </bean> -->
  
  <bean id="martinlaw_shared_event_bo_comment" parent="AttributeDefinition">
     <property name="forceUppercase" value="false"/>
@@ -75,34 +75,36 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     <property name="forceUppercase" value="false"/>
     <property name="maxLength" value="150"/>
     <property name="required" value="true" />
-    <property name="control">
-      <bean parent="TextareaControlDefinition" p:rows="5" p:cols="30"/>
-    </property>
     <property name="name" value="location"/>
     <property name="label" value="Location"/>
     <property name="controlField">
       <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="30" p:maxLength="150"/>
     </property>
+    <!-- needed for generating this field in custom document search -->
+	<property name="control">
+		<bean parent="TextControlDefinition" p:size="30" />
+	</property>
   </bean>
   
-  <bean id="martinlaw_shared_event_bo_type"	parent="martinlaw_shared_event_bo_constrained_attr">
-		<property name="forceUppercase" value="true" />
-		<property name="shortLabel" value="Date Type" />
-		<property name="maxLength" value="100" />
+  <bean id="martinlaw_shared_event_bo_type"	parent="AttributeDefinition">
 		<property name="validationPattern">
 			<bean parent="NumericValidationPattern" />
 		</property>
-		<property name="summary" value="Date Type" />
 		<property name="name" value="typeId" />
 		<!-- label shown by the field group on maintenance screen-->
 		<property name="label" value="Date Type" />
-		<property name="description" value="Date Type" />
-		<!-- <property name="required" value="true" /> -->
+		<property name="required" value="true" />
 		<property name="optionsFinder">
 			<bean
 				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
 				p:businessObjectClass="org.martinlaw.bo.EventType"
 				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
+		</property>
+		<!-- required for display in kns custom document search -->
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.EventType"
+				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
 		</property>
 		<property name="controlField">
 				<bean parent="Uif-DropdownControl" />
@@ -117,7 +119,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 		<property name="validCharactersConstraint">
             <bean parent="DatePatternConstraint"/>
-          </property>
+        </property>
+        <!-- for use by document search kns -->
+        <property name="control">
+	      <bean parent="TextControlDefinition" p:datePicker="true" p:size="10"/>
+	    </property>
 	</bean>
 
 </beans>

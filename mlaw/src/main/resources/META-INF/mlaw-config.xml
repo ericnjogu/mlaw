@@ -32,7 +32,8 @@
 	<!-- change both (or provide different values in local config file) so that the date pattern validation will work -->
 	<param name="mlaw.jquery.datetime.options">{dateFormat:'dd M yy', timeFormat:'hh:mm tt', hour:7}</param>
 	<param name="STRING_TO_DATE_FORMATS">dd MMM yyyy hh:mm a;d MMM yyyy hh:mm a;dd MMM yyyy;d MMM yyyy;MM/dd/yyyy hh:mm a;MM/dd/yy;MM/dd/yyyy</param>
+	<param name="STRING_TO_TIMESTAMP_FORMATS">dd MMM yyyy hh:mm a;d MMM yyyy hh:mm a;dd MMM yyyy;d MMM yyyy;MM/dd/yyyy hh:mm a;MM/dd/yy;MM/dd/yyyy;dd MMM yyyy HH:mm:ss</param>
 	<param name="TIMESTAMP_TO_STRING_FORMAT_FOR_USER_INTERFACE">dd MMM yyyy hh:mm a</param>
-	
+	<param name="DATE_TO_STRING_FORMAT_FOR_USER_INTERFACE">dd MMM yyyy</param>
 	
 </config>

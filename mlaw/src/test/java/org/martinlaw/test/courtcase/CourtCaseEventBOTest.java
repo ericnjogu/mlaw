@@ -25,11 +25,19 @@ package org.martinlaw.test.courtcase;
  * #L%
  */
 
-
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
+
+import java.util.Iterator;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.directory.shared.ldap.util.ReflectionToStringBuilder;
 import org.junit.Test;
+import org.kuali.rice.krad.datadictionary.validation.result.ConstraintValidationResult;
+import org.kuali.rice.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.courtcase.Event;
@@ -42,23 +50,24 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author mugo
  * 
  */
-//@BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
+// @BaselineTestCase.BaselineMode(BaselineTestCase.Mode.NONE)
 public class CourtCaseEventBOTest extends MartinlawTestsBase {
+	private Log log = LogFactory.getLog(getClass());
 
 	@Test(expected = DataIntegrityViolationException.class)
 	/**
 	 * tests that non nullable fields are checked
 	 */
 	public void testCourtCaseDateNullableFields() {
-		Event date = new Event();
-		getBoSvc().save(date);
+		Event event = new Event();
+		getBoSvc().save(event);
 	}
 
 	@Test
 	/**
 	 * test that the date is loaded into the data dictionary
 	 */
-	public void testCourtCaseDateAttributes() {
+	public void testCourtCaseEventAttributes() {
 		testBoAttributesPresent(Event.class.getCanonicalName());
 		Class<Event> dataObjectClass = Event.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
@@ -68,30 +77,54 @@ public class CourtCaseEventBOTest extends MartinlawTestsBase {
 	/**
 	 * tests retrieving from data inserted via sql
 	 */
-	public void testCourtCaseDateRetrieve() {
+	public void testCourtCaseEventRetrieve() {
 		// retrieve object populated via sql script
-		Event date = getBoSvc().findBySinglePrimaryKey(
-				Event.class, 1001l);
-		getTestUtils().testRetrievedMatterEventFields(date);
+		Event event = getBoSvc().findBySinglePrimaryKey(Event.class, 1001l);
+		getTestUtils().testRetrievedMatterEventFields(event);
 	}
 
 	@Test
 	/**
 	 * test CRUD for {@link Date}
 	 */
-	public void testCourtCaseDateCRUD() throws InstantiationException, IllegalAccessException {
-		Event date = getTestUtils().<Event>getTestMatterEvent(Event.class);
-		
-		getTestUtils().testMatterEventCRUD(date, Event.class);
+	public void testCourtCaseEventCRUD() throws InstantiationException,
+			IllegalAccessException {
+		Event event = getTestUtils().<Event> getTestMatterEvent(Event.class);
+
+		getTestUtils().testMatterEventCRUD(event, Event.class);
 	}
-	
+
 	/**
 	 * confirm that the set label can be retrieved
 	 */
 	@Test
 	public void testMatterIdLabel() {
-		assertFalse("label should not be blank", 
-				StringUtils.isEmpty(KRADServiceLocatorWeb.getDataDictionaryService().getAttributeLabel(
-						Event.class, MartinlawConstants.PropertyNames.MATTER_ID)));
+		assertFalse("label should not be blank",
+				StringUtils.isEmpty(KRADServiceLocatorWeb
+						.getDataDictionaryService().getAttributeLabel(
+								Event.class,
+								MartinlawConstants.PropertyNames.MATTER_ID)));
+	}
+
+	@Test
+	/**
+	 * test validation for end date which is not required but has a valid characters constraint (date pattern)
+	 */
+	public void testCourtCaseEvent_date_validation() throws InstantiationException, IllegalAccessException {
+		try {
+			Event event = getTestUtils().<Event>getTestMatterEvent(Event.class);
+			DictionaryValidationResult result = KRADServiceLocatorWeb.getDictionaryValidationService().validate(
+					event, event.getClass().getCanonicalName(), "endDate", true);
+			final Iterator<ConstraintValidationResult> iterator = result.iterator();
+			while (iterator.hasNext()) {
+				final ConstraintValidationResult validationResult = iterator.next();
+				// using error level to avoid having to configure logging
+				log.error(ReflectionToStringBuilder.toString(validationResult));
+			}
+			assertEquals("expected no errors", 0, result.getNumberOfErrors());
+		} catch (Exception e) {
+			log.error("exception occured", e);
+			fail("exception occured");
+		}
 	}
 }

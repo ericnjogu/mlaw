@@ -44,6 +44,7 @@
 	<strong>Document Search</strong>
 	<ul class="chan">
 		<li><portal:portalLink displayTitle="true" title="Court Case" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseMaintenanceDocument"/></li>	
+		<li><portal:portalLink displayTitle="true" title="Court Case Event" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseEventMaintenanceDocument"/></li>
 		<li><portal:portalLink displayTitle="true" title="Court Case Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseAssignmentMaintenanceDocument"/></li>
 	</ul>
 </div>

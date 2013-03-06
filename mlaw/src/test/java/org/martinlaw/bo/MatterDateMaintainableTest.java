@@ -30,7 +30,7 @@ public class MatterDateMaintainableTest {
 		String expected = IOUtils.toString(getClass().getResourceAsStream("notfn-msg-expected.txt"));
 		assertEquals("expected output differs", expected, 
 				dateMaint.createNotificationMessage(KRADConstants.MAINTENANCE_EDIT_ACTION, "1200", 
-						utils.getTestMatterDateForStringTemplates(), template));
+						utils.getTestMatterEventForStringTemplates(), template));
 	}
 
 }

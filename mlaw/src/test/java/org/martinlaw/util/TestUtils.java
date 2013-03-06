@@ -579,17 +579,17 @@ public class TestUtils {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public MatterEvent getTestMatterDateForStringTemplates() {
-		Event caseDate = new Event();
-		caseDate.setId(1001l);
+	public MatterEvent getTestMatterEventForStringTemplates() {
+		Event caseEvent = new Event();
+		caseEvent.setId(1001l);
 		EventType eventType = new EventType();
 		eventType.setName("judgement");
-		caseDate.setType(eventType);
+		caseEvent.setType(eventType);
 		
 		CourtCase theCase = new CourtCase();
 		theCase.setLocalReference("my/cases/1");
 		theCase.setName("water vs fire");
-		caseDate.setMatter(theCase);
+		caseEvent.setMatter(theCase);
 		
 		// create test date
 		Calendar testCal = Calendar.getInstance();
@@ -602,11 +602,11 @@ public class TestUtils {
 		
 		Date testDate = new Date(testCal.getTimeInMillis());
 		
-		caseDate.setStartDate(new Timestamp(testDate.getTime()));
+		caseEvent.setStartDate(new Timestamp(testDate.getTime()));
 		Timestamp ts = new Timestamp(testCal.getTimeInMillis());
-		caseDate.setDateCreated(ts);
-		caseDate.setDateModified(ts);
-		caseDate.setLocation("milimani");
-		return caseDate;
+		caseEvent.setDateCreated(ts);
+		caseEvent.setDateModified(ts);
+		caseEvent.setLocation("milimani");
+		return caseEvent;
 	}
 }
