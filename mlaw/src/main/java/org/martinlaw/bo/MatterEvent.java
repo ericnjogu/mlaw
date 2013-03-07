@@ -300,21 +300,23 @@ public abstract class MatterEvent <M extends Matter> extends MatterMaintenanceHe
 		eventData.put(MartinlawConstants.NotificationTemplateParameters.SUMMARY, getEventSummary());
 		
 		eventData.put(MartinlawConstants.NotificationTemplateParameters.LOCATION, getLocation());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		// set the nanos so that tests can pass - a different value was being generated each time
 		getStartDate().setNanos(0);
-		eventData.put(MartinlawConstants.NotificationTemplateParameters.STARTDATETIME, getStartDate().toString());
+		final String formattedStartDate = sdf.format(getStartDate());
+		eventData.put(MartinlawConstants.NotificationTemplateParameters.STARTDATETIME, formattedStartDate);
 		if (getEndDate() == null) {
-			eventData.put(MartinlawConstants.NotificationTemplateParameters.STOPDATETIME, "");
+			eventData.put(MartinlawConstants.NotificationTemplateParameters.STOPDATETIME, formattedStartDate);
 		} else {
 			getEndDate().setNanos(0);
-			eventData.put(MartinlawConstants.NotificationTemplateParameters.STOPDATETIME, getEndDate().toString());
+			eventData.put(MartinlawConstants.NotificationTemplateParameters.STOPDATETIME, sdf.format(getEndDate()));
 		}
 		return StrSubstitutor.replace(xmlTemplate, eventData);
 		
 	}
 	
 	/**
-	 * retrieves the end startDate. if null, the start startDate is rolled forwards by one day
+	 * retrieves the end date
 	 * @return the end
 	 */
 	public Timestamp getEndDate() {

@@ -16,7 +16,7 @@ import org.martinlaw.util.TestUtils;
  * @author mugo
  *
  */
-public class MatterDateMaintainableTest {
+public class MatterEventMaintainableTest {
 
 	/**
 	 * Test method for {@link org.martinlaw.bo.MatterEventMaintainable#createNotificationMessage(String, String, org.martinlaw.bo.MatterEvent, String)}.
@@ -25,12 +25,13 @@ public class MatterDateMaintainableTest {
 	@Test
 	public void testCreateNotificationMessage() throws IOException {
 		TestUtils utils = new TestUtils();
-		MatterEventMaintainable dateMaint = new MatterEventMaintainable();
-		String template = IOUtils.toString(getClass().getResourceAsStream("notfn-msg-template.txt"));
-		String expected = IOUtils.toString(getClass().getResourceAsStream("notfn-msg-expected.txt"));
+		MatterEventMaintainable eventMaint = new MatterEventMaintainable();
+		String template = IOUtils.toString(MatterEventMaintainableTest.class.getResourceAsStream("notfn-msg-template.txt"));
+		final String notificationMessage = eventMaint.createNotificationMessage(KRADConstants.MAINTENANCE_EDIT_ACTION, "1200", 
+				utils.getTestMatterEventForStringTemplates(), template);
+		String expected = IOUtils.toString(MatterEventMaintainableTest.class.getResourceAsStream("notfn-msg-expected.txt"));
 		assertEquals("expected output differs", expected, 
-				dateMaint.createNotificationMessage(KRADConstants.MAINTENANCE_EDIT_ACTION, "1200", 
-						utils.getTestMatterEventForStringTemplates(), template));
+				notificationMessage);
 	}
 
 }

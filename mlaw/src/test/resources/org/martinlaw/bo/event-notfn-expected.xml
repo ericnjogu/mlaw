@@ -14,21 +14,13 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 
 	<!-- these are the people that the message is sent on -->
 	<!-- behalf of -->
-	<!-- <senders>
-		<sender>ag266</sender>
-		<sender>jaf30</sender>
-		<sender>arh14</sender>
-	</senders> -->
+	<senders>
+		<sender>clerk1</sender>
+	</senders>
 
-	<!-- who is the notification going to? -->
-	<!-- <recipients>
-		<group>KR-WKFLW:Group X</group>
-		<group>KR-WKFLW:Group Z</group>
-
-		<user>ag266</user>
-		<user>jaf30</user>
-		<user>arh14</user>
-	</recipients> -->
+	<recipients>
+		<group>MARTINLAW:lawyer</group>
+	</recipients>
 
 	<!--  fyi or acknowledge -->
 	<deliveryType>fyi</deliveryType>
@@ -60,8 +52,8 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 			<summary>my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM</summary>
 			<description>my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM</description>
 			<location>milimani</location>
-			<startDateTime>2013-02-22 11:19:15.0</startDateTime>
-			<stopDateTime></stopDateTime>
+			<startDateTime>2013-02-22T11:19:15</startDateTime>
+			<stopDateTime>2013-02-22T11:19:15</stopDateTime>
 		</event>
 	</content>
 </notification>

@@ -32,6 +32,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -42,15 +43,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.EventType;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterClientFee;
 import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterEvent;
+import org.martinlaw.bo.MatterEventTest;
 import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
@@ -575,7 +579,7 @@ public class TestUtils {
 	/**
 	 * creates a test object of type {@link MatterEvent} containing info useful for testing templating
 	 * @see org.martinlaw.bo.MatterEventTest#testToIcalendar() 
-	 * @see org.martinlaw.bo.MatterDateMaintainableTest#testCreateNotificationMessage()
+	 * @see org.martinlaw.bo.MatterEventMaintainableTest#testCreateNotificationMessage()
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
@@ -608,5 +612,19 @@ public class TestUtils {
 		caseEvent.setDateModified(ts);
 		caseEvent.setLocation("milimani");
 		return caseEvent;
+	}
+	
+	/**
+	 * gets a notification request in xml populated with test values
+	 * @return the xml
+	 * @throws IOException
+	 */
+	public String getTestNotificationXml() throws IOException {
+		String template = IOUtils.toString(MatterEventTest.class.getResourceAsStream("event-notfn-template.xml"));
+		Event caseDate = (Event) getTestMatterEventForStringTemplates();
+		final String notificationXML = caseDate.toNotificationXML(template, MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_CHANNEL_NAME, 
+				MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_PRODUCER_NAME, 
+				"May you prosper and be in good health.");
+		return notificationXML;
 	}
 }

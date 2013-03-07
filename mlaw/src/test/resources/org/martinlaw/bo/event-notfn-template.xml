@@ -14,21 +14,13 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 
 	<!-- these are the people that the message is sent on -->
 	<!-- behalf of -->
-	<!-- <senders>
-		<sender>ag266</sender>
-		<sender>jaf30</sender>
-		<sender>arh14</sender>
-	</senders> -->
+	<senders>
+		<sender>clerk1</sender>
+	</senders>
 
-	<!-- who is the notification going to? -->
-	<!-- <recipients>
-		<group>KR-WKFLW:Group X</group>
-		<group>KR-WKFLW:Group Z</group>
-
-		<user>ag266</user>
-		<user>jaf30</user>
-		<user>arh14</user>
-	</recipients> -->
+	<recipients>
+		<group>MARTINLAW:lawyer</group>
+	</recipients>
 
 	<!--  fyi or acknowledge -->
 	<deliveryType>fyi</deliveryType>

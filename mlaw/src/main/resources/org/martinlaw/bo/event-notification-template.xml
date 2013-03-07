@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<notification xmlns="ns:notification/NotificationRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ns:notification/NotificationRequest resource:notification/NotificationRequest">
 <!--
 adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xml
 -->
-
-<notification xmlns="ns:notification/NotificationRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ns:notification/NotificationRequest resource:notification/NotificationRequest">
 	<!-- this is the name of the notification channel -->
 	<!-- that has been registered in the system -->
 	<channel>${channel_name}</channel>
@@ -14,21 +13,15 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 
 	<!-- these are the people that the message is sent on -->
 	<!-- behalf of -->
-	<!-- <senders>
-		<sender>ag266</sender>
-		<sender>jaf30</sender>
-		<sender>arh14</sender>
-	</senders> -->
+	<senders>
+		<sender>clerk1</sender>
+	</senders>
 
 	<!-- who is the notification going to? -->
-	<!-- <recipients>
-		<group>KR-WKFLW:Group X</group>
-		<group>KR-WKFLW:Group Z</group>
-
-		<user>ag266</user>
-		<user>jaf30</user>
-		<user>arh14</user>
-	</recipients> -->
+	<recipients>
+		<group>MARTINLAW:clerk</group>
+		<group>MARTINLAW:lawyer</group>
+	</recipients>
 
 	<!--  fyi or acknowledge -->
 	<deliveryType>fyi</deliveryType>

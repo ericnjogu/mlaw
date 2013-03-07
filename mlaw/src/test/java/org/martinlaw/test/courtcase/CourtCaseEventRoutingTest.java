@@ -28,17 +28,27 @@ package org.martinlaw.test.courtcase;
 
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.ken.api.KenApiConstants;
+import org.kuali.rice.ken.api.notification.NotificationResponse;
+import org.kuali.rice.ken.api.service.SendNotificationService;
+import org.kuali.rice.ken.util.NotificationConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.exception.ValidationException;
@@ -46,6 +56,7 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.test.KewTestsBase;
 import org.martinlaw.util.SearchTestCriteria;
+import org.martinlaw.util.TestUtils;
 
 /**
  * tests routing for {@link Event}
@@ -163,5 +174,28 @@ public class CourtCaseEventRoutingTest extends KewTestsBase {
 			log.error("test failed", e);
 			fail("exception occurred");
 		}
+	}
+	
+	@Test
+	/**
+	 * tests sending a notification
+	 * @see org.kuali.rice.ken.services.impl.NotificationServiceImplTest#testSendNotificationAsXml_validInput
+	 * @throws RiceIllegalArgumentException
+	 * @throws IOException
+	 */
+	public void testSendEventNotification() throws RiceIllegalArgumentException, IOException {
+		try {
+			TestUtils utils = new TestUtils();
+			// send notification
+			final SendNotificationService sendNotificationService = (SendNotificationService) GlobalResourceLoader.getService(
+					new QName(KenApiConstants.Namespaces.KEN_NAMESPACE_2_0, "sendNotificationService"));
+			NotificationResponse response = sendNotificationService.invoke(utils.getTestNotificationXml());
+
+			assertEquals("response status is not success", NotificationConstants.RESPONSE_STATUSES.SUCCESS, response.getStatus());
+		} catch (Exception e) {
+			log.error("exception occured", e);
+			fail("exception occured");
+		}
+		
 	}
 }
