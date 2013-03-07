@@ -277,12 +277,13 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	 * convenience method for running a document search where matter name and local reference are available fields
 	 * 
 	 * @param testCriteria holds info on the fields, search values and expected number of documents to find
+	 * @return the list of results
 	 */
-	public void runDocumentSearch(List<SearchTestCriteria> testCriteria, String docType) {
+	public List<DocumentSearchResults> runDocumentSearch(List<SearchTestCriteria> testCriteria, String docType) {
 		DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
 		criteria.setDocumentTypeName(docType);
 		criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
-		
+		ArrayList<DocumentSearchResults> resultsList = new ArrayList<DocumentSearchResults>(testCriteria.size());
 		for (SearchTestCriteria crit: testCriteria) {
 			criteria.getDocumentAttributeValues().clear();
 			for (String fieldName: crit.getFieldNamesToSearchValues().keySet()) {
@@ -292,7 +293,9 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 					criteria.build());
 			assertEquals("expected number of documents not found for " + crit.toString(),
 					crit.getExpectedDocuments(), results.getSearchResults().size());
+			resultsList.add(results);
 		}
+		return resultsList;
 	}
 
 	protected static PermissionService getPermissionService() {
