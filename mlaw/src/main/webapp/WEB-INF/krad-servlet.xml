@@ -166,5 +166,7 @@
   </bean>
   <!-- allows the resolving of ${} placeholders -->
    <context:property-placeholder/>
+   
+   <import resource="mlaw-security.xml"/>
 
 </beans>

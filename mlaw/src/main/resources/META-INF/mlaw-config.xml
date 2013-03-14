@@ -15,10 +15,16 @@
 	<!-- the module name is used to locate the localized config files in ~/kuali/main/prd -->
 	<param name="module.name">mlaw</param>
 	<param name="application.id">mlaw</param>
-
-	<param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
+	<!-- login using username only - for demo/dev -->
+	<!-- <param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
+	<param name="filtermapping.login.1">/*</param> -->
+	<!-- end demo login -->
+	
+	<!-- open id login  -->
+	<param name="filter.login.class">org.springframework.web.filter.DelegatingFilterProxy</param>
 	<param name="filtermapping.login.1">/*</param>
-
+	<!-- end open id login -->
+	
 	<param name="config.location">classpath:META-INF/common-config-defaults.xml</param>
 	<param name="config.location">classpath:META-INF/common-config-locations.xml
 	</param>

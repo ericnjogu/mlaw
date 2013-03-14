@@ -198,7 +198,7 @@
   </listener>
 
   <listener>
-    <listener-class>org.kuali.rice.core.web.listener.KualiInitializeListener</listener-class>
+    <listener-class>org.martinlaw.web.MartinlawInitializeListener</listener-class>
   </listener>
 
   <listener>
