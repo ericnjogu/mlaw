@@ -47,7 +47,9 @@
 					<property name="items">
 						<list>
 							<bean parent="Uif-InputField" p:propertyName="type.name" />
-							<bean parent="Uif-InputField" p:propertyName="date" />
+							<bean parent="Uif-InputField" p:propertyName="startDate" />
+							<bean parent="Uif-InputField" p:propertyName="endDate" />
+							<bean parent="Uif-InputField" p:propertyName="location" />
 							<bean parent="Uif-InputField" p:propertyName="comment" />
 							<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
 								p:href="@{#line.calendarEvent.url}" p:label="Calendar Event"
@@ -57,7 +59,8 @@
 					<property name="layoutManager.summaryFields">
 						<list>
 							<value>type.name</value>
-							<value>date</value>
+							<value>startDate</value>
+							<value>location</value>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Date" />
