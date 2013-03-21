@@ -3,11 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>OpenID Login</title>
+    <title>mLaw OpenID Login</title>
 
     <!-- Simple OpenID Selector -->
     <link rel="stylesheet" href="<c:url value='/css/openid.css'/>" />
-    <script type="text/javascript" src="<c:url value='/krad/plugins/jquery/jquery-1.8.0.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/jquery-1.2.6.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/openid-jquery.js'/>"></script>
 
     <script type="text/javascript">
@@ -23,6 +23,7 @@
         body {
             font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
         }
+        #input_identifier {width:250px}
     </style>
 </head>
 
