@@ -17,10 +17,10 @@
 	<param name="application.id">mlaw</param>
 	
 	<!-- start demo login config using username only - uncomment to enable, while commenting out openid config in web.xml -->
-	<!-- 
+	
 	<param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
 	<param name="filtermapping.login.1">/*</param> 
-	-->
+	
 	<!-- end demo login config -->
 	
 	<param name="config.location">classpath:META-INF/common-config-defaults.xml</param>

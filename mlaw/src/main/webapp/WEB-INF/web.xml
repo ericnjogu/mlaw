@@ -403,7 +403,7 @@
   <!-- start of openid login config from the spring security open id sample -->
   <!-- comment out this block to disable openid. One more change will have to made to /META-INF/mlaw-config to enable demo login -->
   <!-- openid login local verification made possible by http://siege.org/phpmyid.php-->
-  <context-param>
+  <!-- <context-param>
        <param-name>contextConfigLocation</param-name>
        <param-value>
            /WEB-INF/mlaw-security.xml
@@ -422,7 +422,7 @@
 
    <listener>
        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-   </listener>
+   </listener> -->
    <!--  end of openid config -->
 </web-app>
 
