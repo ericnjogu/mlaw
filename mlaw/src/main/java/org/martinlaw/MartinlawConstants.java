@@ -39,6 +39,7 @@ public class MartinlawConstants {
 	public final static String VCALENDAR_NOTIFICATION_TEMPLATE_MSG_FILE = "vcalendar-ntfcn-msg.txt";
 	public final static String EVENT_NOTIFICATION_TEMPLATE_XML = "event-notification-template.xml";
 	public final static String VCALENDAR_UID_PATTERN = "^[\\d].*-[\\S].*@mlaw.co.ke$";
+	public final static String OPENID_TYPE_CODE = "OPENID";
 	public class DocTypes {
 		public final static String CONTRACT_WORK = "ContractWorkDocument";
 		public static final String COURTCASE_WORK = "CourtCaseWorkDocument";

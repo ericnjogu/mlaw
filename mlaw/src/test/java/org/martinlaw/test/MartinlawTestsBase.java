@@ -303,6 +303,8 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/test-identity-mgr-perm-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/identity-mgr-perm-roles.sql", ";").runSql();
 		
+		new SQLDataLoader("classpath:org/martinlaw/scripts/openid-setup.sql", ";").runSql();
+		
 		new SQLDataLoader("classpath:org/martinlaw/ldap/ldap.sql", ";").runSql();
 	}
 

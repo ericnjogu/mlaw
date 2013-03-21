@@ -1,0 +1,25 @@
+ENABLING OPENID
+
+- src/main/webapp/WEB-INF/web.xml
+	Uncomment the configuration contained within the section marked 
+	<!-- start of openid login .. -->
+	...
+	<!-- end of openid login-->
+
+- src/main/resources/META-INF/mlaw-config.xml
+	comment out the configuration contained within the section
+	<!-- start demo login config ... -->
+	...
+	<!-- end demo login config -->
+
+- src/main/resources/org/martinlaw/scripts/openid-setup.sql
+	execute the sql contained in this file to setup an external identifier of type 'OPENID'
+	
+- Add open ids for each existing user (principal) by modifying and using the sql below
+
+INSERT INTO `krim_entity_ext_id_t`
+ (`ENTITY_EXT_ID_ID`, `OBJ_ID`, `VER_NBR`, `ENTITY_ID`, `EXT_ID_TYP_CD`, `EXT_ID`) 
+VALUES 
+('admin-openid', 'qC2rUa0GVKOmkW6yhSkXsCyhsWJKcOgoBhcu', 1, 
+(select entity_id from krim_prncpl_t where prncpl_nm = 'admin'), 
+'OPENID', 'http://localhost/admin-openid.html');

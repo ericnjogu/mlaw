@@ -399,5 +399,30 @@
       <taglib-location>/WEB-INF/tld/kuali-struts-html-el.tld</taglib-location>
     </taglib>
   </jsp-config>
+  
+  <!-- start of openid login config from the spring security open id sample -->
+  <!-- comment out this block to disable openid. One more change will have to made to /META-INF/mlaw-config to enable demo login -->
+  <!-- openid login local verification made possible by http://siege.org/phpmyid.php-->
+  <context-param>
+       <param-name>contextConfigLocation</param-name>
+       <param-value>
+           /WEB-INF/mlaw-security.xml
+       </param-value>
+   </context-param>
+
+   <filter>
+       <filter-name>springSecurityFilterChain</filter-name>
+       <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+   </filter>
+
+   <filter-mapping>
+     <filter-name>springSecurityFilterChain</filter-name>
+     <url-pattern>/*</url-pattern>
+   </filter-mapping>
+
+   <listener>
+       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+   </listener>
+   <!--  end of openid config -->
 </web-app>
 
