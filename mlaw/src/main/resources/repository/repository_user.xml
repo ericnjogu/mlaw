@@ -184,7 +184,7 @@
 		table="martinlaw_court_case_event_t">
 		<field-descriptor name="id" column="id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_date_s">
+			sequence-name="martinlaw_court_case_event_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
