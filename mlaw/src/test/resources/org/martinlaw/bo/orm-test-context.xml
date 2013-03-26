@@ -49,7 +49,7 @@
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
 				<value>org.martinlaw.bo.courtcase.CourtCase</value>
 				<value>org.martinlaw.bo.sequence.CaseSeq</value>
-				<value>org.martinlaw.bo.sequence.CaseDateSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseEventSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseAssigneeSeq</value>
 				<value>org.martinlaw.bo.courtcase.ClientFee</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>

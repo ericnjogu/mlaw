@@ -37,7 +37,7 @@ import javax.persistence.Table;
  
 @Entity
 @Table(name="martinlaw_court_case_date_s")
-public class CaseDateSeq {
+public class CaseEventSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")
 	private Long id;
