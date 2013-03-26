@@ -447,7 +447,7 @@
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 	
-	<reference-descriptor name="consideration"
+		<reference-descriptor name="consideration"
 			class-ref="org.martinlaw.bo.conveyance.Consideration"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<foreignkey field-ref="considerationId" />
@@ -471,6 +471,44 @@
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.conveyance.Event"
+		table="martinlaw_conveyance_event_t">
+		<field-descriptor name="id" column="id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_conveyance_event_s">
+		</field-descriptor>
+		<field-descriptor name="matterId" column="matter_id"
+			jdbc-type="BIGINT" indexed="true" />
+
+		<field-descriptor name="startDate" column="start_date"	jdbc-type="TIMESTAMP"/>
+		<field-descriptor name="endDate" column="end_date"	jdbc-type="TIMESTAMP"/>
+		<field-descriptor name="dateCreated" column="date_created"	jdbc-type="TIMESTAMP"/>
+		<field-descriptor name="dateModified" column="date_modified" jdbc-type="TIMESTAMP"/>
+
+		<field-descriptor name="comment" column="date_comment"
+			jdbc-type="VARCHAR" length="150" />
+		<field-descriptor name="location" column="location"
+			jdbc-type="VARCHAR" length="150" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+
+		<field-descriptor name="typeId" column="type_id"
+			jdbc-type="BIGINT" />
+
+		<reference-descriptor name="type"
+			class-ref="org.martinlaw.bo.EventType" auto-retrieve="true"
+			auto-update="none" auto-delete="none">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
+		
+		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.conveyance.Conveyance" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> 
+			<foreignkey field-ref="matterId"/> 
+		</reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.contract.ContractType"
