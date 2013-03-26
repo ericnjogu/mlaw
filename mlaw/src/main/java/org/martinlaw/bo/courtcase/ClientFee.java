@@ -33,7 +33,7 @@ import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterClientFee;
 
 /**
- * tx document that holds information of a payment made by a client for contract
+ * tx document that holds information of a payment made by a client for a court case
  *  
  * @author mugo
  *
