@@ -19,13 +19,13 @@
 -- <http://www.gnu.org/licenses/gpl-3.0.html>.
 -- #L%
 ---
-insert into martinlaw_convey_assignment_t
+insert into martinlaw_conveyance_assignment_t
 (matter_id, obj_id, ver_nbr)
 values
 (1001, 'can1', 1);
 
 
-insert into martinlaw_convey_assignee_t
+insert into martinlaw_conveyance_assignee_t
 (assignee_id, matter_id, principal_name, obj_id, ver_nbr)
 values
 (1001, 1001, 'pn', 'ca1', 1),

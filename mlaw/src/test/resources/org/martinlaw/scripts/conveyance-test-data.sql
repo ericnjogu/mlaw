@@ -22,33 +22,33 @@
 -- insert test data
 
 insert into
-martinlaw_convey_type_t
+martinlaw_conveyance_type_t
 (convey_type_id, name, description, ver_nbr, obj_id)
 values
 (1001, "Sale of Urban Land", null, default, 'ct1'),
 (1002, "Sale of Motor Vehicle", null, default, 'ct2');
 
 
-insert into martinlaw_convey_consideration_t
+insert into martinlaw_conveyance_consideration_t
 (consideration_id, currency, description, amount)
 values
 (1001, 'TZS', 'to be paid in 2 installments', 41000);
 
-insert into martinlaw_convey_t 
+insert into martinlaw_conveyance_t 
 (matter_id, local_reference, status_id, name, convey_type_id, obj_id, consideration_id) 
 values 
 (1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1', 1001),
 (1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2', null),
 (1003, 'c3', 1001, "Transfer of plot 2", 1001, 'conv3', null);
 
-insert into martinlaw_convey_client_t 
+insert into martinlaw_conveyance_client_t 
 (client_id, matter_id, principal_name) 
 values 
 (1001, 1001, 'client1'),
 (1002, 1001, 'client2');
 
 insert into
-martinlaw_convey_annex_type_t
+martinlaw_conveyance_annex_type_t
 (convey_annex_type_id, convey_type_id, name, description, ver_nbr, obj_id)
 values
 (1001, 1001, "land board approval", null, default, 1),
@@ -56,14 +56,14 @@ values
 (1003, 1002, "sale agreement", null, default, 1);
 
 insert into
-martinlaw_convey_annex_t
+martinlaw_conveyance_annex_t
 (convey_annex_id, convey_annex_type_id, conveyance_id, ver_nbr, obj_id)
 values
 (1001, 1001, 1001, default, 1),
 (1002, 1002, 1002, default, 1);
 
 insert into
-martinlaw_convey_att_t
+martinlaw_conveyance_att_t
 (convey_att_id, convey_annex_id, ver_nbr, obj_id, note_timestamp)
 values
 (1001, 1001, default, 1, '2012-07-19 00:00:00'),

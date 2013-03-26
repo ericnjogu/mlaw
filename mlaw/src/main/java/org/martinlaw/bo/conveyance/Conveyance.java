@@ -52,7 +52,7 @@ import org.martinlaw.service.RiceServiceHelper;
  * @author mugo
  */
 @Entity
-@Table(name="martinlaw_convey_t")
+@Table(name="martinlaw_conveyance_t")
 public class Conveyance extends Matter<Assignee, Work, ClientFee, Client, Consideration> {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
 	private List<ConveyanceAnnex> annexes;

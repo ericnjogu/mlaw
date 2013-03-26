@@ -45,7 +45,7 @@ import org.martinlaw.bo.MatterConsideration;
  *
  */
 @Entity(name="convey_consideration")
-@Table(name="martinlaw_convey_consideration_t")
+@Table(name="martinlaw_conveyance_consideration_t")
 public class Consideration extends MatterConsideration {
 	/**
 	 * 
@@ -58,9 +58,9 @@ public class Consideration extends MatterConsideration {
 		super();
 	}
 	@Id
-	/*@GeneratedValue(generator = "martinlaw_convey_consideration_s")
-	@GenericGenerator(name = "martinlaw_convey_consideration_s", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "martinlaw_convey_consideration_s"),
+	/*@GeneratedValue(generator = "martinlaw_conveyance_consideration_s")
+	@GenericGenerator(name = "martinlaw_conveyance_consideration_s", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+			@Parameter(name = "sequence_name", value = "martinlaw_conveyance_consideration_s"),
 			@Parameter(name = "value_column", value = "id") })*/
 	@Column(name = "consideration_id")
 	private Long id;

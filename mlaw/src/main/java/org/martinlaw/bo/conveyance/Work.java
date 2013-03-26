@@ -42,7 +42,7 @@ import org.martinlaw.bo.MatterWork;
  *
  */
 @Entity(name="convey_work")
-@Table(name="martinlaw_convey_work_doc_t")
+@Table(name="martinlaw_conveyance_work_doc_t")
 public class Work extends MatterWork {
 	// declared using join column below @Column(name="convey_annex_type_id", nullable=false)
 	@Transient

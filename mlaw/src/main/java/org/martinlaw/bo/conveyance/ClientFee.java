@@ -39,7 +39,7 @@ import org.martinlaw.bo.MatterClientFee;
  *
  */
 @Entity(name="convey_client_fee")
-@Table(name="martinlaw_convey_fee_doc_t")
+@Table(name="martinlaw_conveyance_fee_doc_t")
 public class ClientFee extends MatterClientFee<Fee> {
 
 

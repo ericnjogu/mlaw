@@ -39,7 +39,7 @@ import org.martinlaw.bo.MatterAssignee;
  *
  */
 @Entity(name="conveyance_assignee")
-@Table(name="martinlaw_convey_assignee_t")
+@Table(name="martinlaw_conveyance_assignee_t")
 public class Assignee extends MatterAssignee {
 
 	/**

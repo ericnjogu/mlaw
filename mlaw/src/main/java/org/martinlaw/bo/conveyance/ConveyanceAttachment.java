@@ -54,7 +54,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
  *
  */
 @Entity
-@Table(name="martinlaw_convey_att_t")
+@Table(name="martinlaw_conveyance_att_t")
 public class ConveyanceAttachment extends PersistableBusinessObjectBase {
 	/**
 	 * 

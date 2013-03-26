@@ -51,7 +51,7 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
  *
  */
 @Entity
-@Table(name="martinlaw_convey_annex_t")
+@Table(name="martinlaw_conveyance_annex_t")
 public class ConveyanceAnnex extends PersistableBusinessObjectBase {
 	/**
 	 * 

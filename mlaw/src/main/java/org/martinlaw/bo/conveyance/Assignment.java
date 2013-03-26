@@ -39,7 +39,7 @@ import org.martinlaw.bo.MatterAssignment;
  *
  */
 @Entity(name="conv_assignment")
-@Table(name="martinlaw_convey_assignment_t")
+@Table(name="martinlaw_conveyance_assignment_t")
 public class Assignment extends MatterAssignment<Conveyance, Assignee> {
 
 	/**

@@ -37,7 +37,7 @@ import org.martinlaw.bo.MatterFee;
  * @author mugo
  */
 @Entity(name="convey_fee")
-@Table(name="martinlaw_convey_fee_t")
+@Table(name="martinlaw_conveyance_fee_t")
 public class Fee extends MatterFee {
 	/**
 	 * 

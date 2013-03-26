@@ -44,7 +44,7 @@ import org.martinlaw.bo.BaseDetail;
  * @author mugo
  */
 @Entity
-@Table(name="martinlaw_convey_type_t")
+@Table(name="martinlaw_conveyance_type_t")
 public class ConveyanceType extends BaseDetail {
 	/**
 	 * 

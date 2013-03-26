@@ -38,7 +38,7 @@ import org.martinlaw.bo.MatterClient;
  * 
  */
 @Entity(name="convey_client")
-@Table(name="martinlaw_convey_client_t")
+@Table(name="martinlaw_conveyance_client_t")
 public class Client extends MatterClient {
 
 	/**

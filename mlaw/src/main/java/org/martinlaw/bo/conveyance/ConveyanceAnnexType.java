@@ -41,7 +41,7 @@ import org.martinlaw.bo.BaseDetail;
  *
  */
 @Entity
-@Table(name="martinlaw_convey_annex_type_t")
+@Table(name="martinlaw_conveyance_annex_type_t")
 public class ConveyanceAnnexType extends BaseDetail {
 	/**
 	 * 
