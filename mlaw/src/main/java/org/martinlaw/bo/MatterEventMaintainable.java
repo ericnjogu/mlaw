@@ -40,7 +40,6 @@ public class MatterEventMaintainable extends MaintainableImpl {
 	/**
 	 * overrides the parent method to set the modified timestamp
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public void prepareForSave() {
 		((MatterEvent)getDataObject()).setDateModified(new Timestamp(System.currentTimeMillis()));
@@ -55,7 +54,6 @@ public class MatterEventMaintainable extends MaintainableImpl {
 		// send notification on channels
 		// only send notification when document is fully processed.
 		if (documentHeader.getWorkflowDocument().isProcessed()) {
-			@SuppressWarnings("rawtypes")
 			final MatterEvent matterEvent = (MatterEvent)getDataObject();
 			
 			try {
@@ -88,7 +86,7 @@ public class MatterEventMaintainable extends MaintainableImpl {
 	 * @return the message
 	 */
 	public String createNotificationMessage(String maintenanceAction, String documentNumber, 
-			@SuppressWarnings("rawtypes") MatterEvent matterEvent, String template) {
+			MatterEvent matterEvent, String template) {
 		// create notification message
 		Map<String, String> notificationDetails = new HashMap<String, String>();
 		
