@@ -44,11 +44,29 @@ public class MatterMaintenanceHelperBusinessRulesBase extends MaintenanceDocumen
 		setRulesHelper(new MatterBusinessRulesHelper());
 	}
 
+	/**
+	 * @return the rulesHelper
+	 */
+	public MatterBusinessRulesHelper getRulesHelper() {
+		return rulesHelper;
+	}
+
+	/**
+	 * @param rulesHelper the rulesHelper to set
+	 */
+	public void setRulesHelper(MatterBusinessRulesHelper rulesHelper) {
+		this.rulesHelper = rulesHelper;
+	}
+
 	/* (non-Javadoc)
-	 * @see org.kuali.rice.krad.rules.MaintenanceDocumentRuleBase#processCustomSaveDocumentBusinessRules(MaintenanceDocument document)
+	 * @see org.kuali.rice.krad.rules.MaintenanceDocumentRuleBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.krad.maintenance.MaintenanceDocument)
+	 */
+	/**
+	 * checks whether the matter id specified in the maintainable object is valid
 	 */
 	@Override
-	public boolean processCustomSaveDocumentBusinessRules(MaintenanceDocument document) {
+	protected boolean processCustomRouteDocumentBusinessRules(
+			MaintenanceDocument document) {
 		if (document instanceof MaintenanceDocument) {
 			final Maintainable newMaintainableObject = ((MaintenanceDocument)document).getNewMaintainableObject();
 			if (newMaintainableObject.getDataObject() instanceof MatterMaintenanceHelper) {
@@ -66,20 +84,6 @@ public class MatterMaintenanceHelperBusinessRulesBase extends MaintenanceDocumen
 		} else {
 			throw new RuntimeException("Expected an instance of MaintenanceDocument. Received '" + document + "'");
 		}
-	}
-
-	/**
-	 * @return the rulesHelper
-	 */
-	public MatterBusinessRulesHelper getRulesHelper() {
-		return rulesHelper;
-	}
-
-	/**
-	 * @param rulesHelper the rulesHelper to set
-	 */
-	public void setRulesHelper(MatterBusinessRulesHelper rulesHelper) {
-		this.rulesHelper = rulesHelper;
 	}
 
 }
