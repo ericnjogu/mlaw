@@ -102,9 +102,9 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         assertEquals("witness1", witness.getPrincipalName());
         assertEquals("Witness",witness.getPerson().getFirstName());
         //hearing date
-        List<Event> dates = kase.getDates();
+        List<Event> dates = kase.getEvents();
         assertEquals(1,dates.size());
-        getTestUtils().testRetrievedMatterEventFields(kase.getDates().get(0));
+        getTestUtils().testRetrievedMatterEventFields(kase.getEvents().get(0));
 
         /*testFeeFields(kase.getFees().get(0));*/
         // attachments

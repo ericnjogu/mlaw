@@ -7,7 +7,7 @@ package org.martinlaw.bo.courtcase;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -29,6 +29,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterEvent;
@@ -41,7 +42,9 @@ import org.martinlaw.bo.MatterEvent;
  */
 @Entity(name="court_case_event")
 @Table(name="martinlaw_court_case_event_t")
-public class Event extends MatterEvent<CourtCase> {
+public class Event extends MatterEvent {
+	@Transient
+	private CourtCase matter;
 
 	/**
 	 * default constructor
@@ -73,5 +76,17 @@ public class Event extends MatterEvent<CourtCase> {
 	@Override
 	public Class<? extends Matter> getMatterClass() {
 		return CourtCase.class;
+	}
+
+
+	@Override
+	public CourtCase getMatter() {
+		return matter;
+	}
+
+
+	public void setMatter(CourtCase m) {
+		this.matter = m;
+		
 	}
 }

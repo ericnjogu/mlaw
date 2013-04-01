@@ -29,7 +29,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class MatterAssignee extends MartinlawPerson {
-
+	//TODO may need to support an assignee type that is maintainable e.g. internal, external, researcher, intern, auditor
 	/**
 	 * 
 	 */

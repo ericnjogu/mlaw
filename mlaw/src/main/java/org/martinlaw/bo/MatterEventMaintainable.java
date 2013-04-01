@@ -14,11 +14,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.ken.api.KenApiConstants;
 import org.kuali.rice.ken.api.service.SendNotificationService;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.maintenance.MaintainableImpl;
+import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.martinlaw.MartinlawConstants;
 
@@ -52,14 +54,16 @@ public class MatterEventMaintainable extends MaintainableImpl {
 	@Override
 	public void doRouteStatusChange(DocumentHeader documentHeader) {
 		// send notification on channels
-		// only send notification when document is fully processed.
-		if (documentHeader.getWorkflowDocument().isProcessed()) {
-			final MatterEvent matterEvent = (MatterEvent)getDataObject();
-			
+		// only send notification when document is fully processed and when the matter event has a valid matter ref
+		final MatterEvent matterEvent = (MatterEvent)getDataObject();
+		if (documentHeader.getWorkflowDocument().isProcessed() && matterEvent.getMatter() != null) {
 			try {
+				//refresh matter event to populate the generated id
+				matterEvent.refresh();
 				// create message
 				String message = createNotificationMessage(getMaintenanceAction(), getDocumentNumber(), matterEvent, 
-						IOUtils.toString(getClass().getResourceAsStream(MartinlawConstants.VCALENDAR_NOTIFICATION_TEMPLATE_MSG_FILE)));
+						IOUtils.toString(getClass().getResourceAsStream(MartinlawConstants.VCALENDAR_NOTIFICATION_TEMPLATE_MSG_FILE)), 
+						getKualiConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY));
 				//populate notification
 				String notificationXml = matterEvent.toNotificationXML(
 						IOUtils.toString(getClass().getResourceAsStream(MartinlawConstants.EVENT_NOTIFICATION_TEMPLATE_XML)), 
@@ -83,10 +87,11 @@ public class MatterEventMaintainable extends MaintainableImpl {
 	 * @param documentNumber - the document number
 	 * @param matterEvent - the object being maintained
 	 * @param template TODO
+	 * @param applicationUrl TODO
 	 * @return the message
 	 */
 	public String createNotificationMessage(String maintenanceAction, String documentNumber, 
-			MatterEvent matterEvent, String template) {
+			MatterEvent matterEvent, String template, String applicationUrl) {
 		// create notification message
 		Map<String, String> notificationDetails = new HashMap<String, String>();
 		
@@ -99,11 +104,20 @@ public class MatterEventMaintainable extends MaintainableImpl {
 		}
 		
 		notificationDetails.put(KRADConstants.PARAMETER_DOC_ID, documentNumber);
+		notificationDetails.put(KRADConstants.APPLICATION_URL_KEY, applicationUrl);
 		
 		notificationDetails.put(MartinlawConstants.NotificationTemplateParameters.UID, 
 				matterEvent.getEventUID());
 		
 		return StrSubstitutor.replace(template, notificationDetails);
+	}
+
+	/**
+	 * a mock friendly way to retrieve the configuration service
+	 * @return
+	 */
+	public ConfigurationService getKualiConfigurationService() {
+		return KRADServiceLocator.getKualiConfigurationService();
 	}
 
 }

@@ -49,7 +49,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
  */
 @MappedSuperclass
 public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, F extends MatterClientFee<? extends MatterFee>, 
-	C extends MatterClient, K extends MatterConsideration> extends PersistableBusinessObjectBase {
+	C extends MatterClient, K extends MatterConsideration, E extends MatterEvent> extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -86,6 +86,8 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private List<F> fees;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<C> clients;
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
+	private List<E> events;
 	//column defined using reference below - this is for the sake of ojb
 	@Transient
 	private Long considerationId;
@@ -295,5 +297,18 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public void setConsideration(K consideration) {
 		this.consideration = consideration;
+	}
+	
+	/**
+	 * @param events the events to set
+	 */
+	public void setEvents(List<E> events) {
+		this.events = events;
+	}
+	/**
+	 * @return the events
+	 */
+	public List<E> getEvents() {
+		return events;
 	}
 }

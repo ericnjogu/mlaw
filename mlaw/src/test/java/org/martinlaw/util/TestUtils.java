@@ -194,7 +194,7 @@ public class TestUtils {
 	 * tests fields of {@link MatterEvent} from sql data
 	 * @param event
 	 */
-	public void testRetrievedMatterEventFields(MatterEvent<?> event) {
+	public void testRetrievedMatterEventFields(MatterEvent event) {
 		assertNotNull("event should not be null", event);
 		assertEquals("first hearing date",event.getComment());
 		Calendar cal = Calendar.getInstance();
@@ -203,6 +203,7 @@ public class TestUtils {
 		assertEquals("event month differs", Calendar.JUNE, cal.get(Calendar.MONTH));
 		assertEquals("event date differs", 1, cal.get(Calendar.DATE));
 		assertEquals("location differs", "nakuru", event.getLocation());
+		assertTrue("event should be active", event.getActive());
 	}
 	
 	/**
@@ -478,7 +479,7 @@ public class TestUtils {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public <D extends MatterEvent<?>> D getTestMatterEvent(Class<D> d) throws InstantiationException, IllegalAccessException {
+	public <D extends MatterEvent> D getTestMatterEvent(Class<D> d) throws InstantiationException, IllegalAccessException {
 		D date = d.newInstance();
 		date.setComment("must attend");
 		date.setMatterId(1001l);
@@ -493,7 +494,7 @@ public class TestUtils {
 	 * @param event - the object to test with
 	 * @param matterEvent - the type of {@code MatterEvent} for use in fetching from {@code #getBoSvc()}
 	 */
-	public <D extends MatterEvent<?>> void testMatterEventCRUD(MatterEvent<?> event, Class<D> matterEvent) {
+	public <D extends MatterEvent> void testMatterEventCRUD(MatterEvent event, Class<D> matterEvent) {
 		// C
 		final Timestamp ts1 = new Timestamp(System.currentTimeMillis());
 		event.setDateModified(ts1);
@@ -582,7 +583,6 @@ public class TestUtils {
 	 * @see org.martinlaw.bo.MatterEventMaintainableTest#testCreateNotificationMessage()
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
 	public MatterEvent getTestMatterEventForStringTemplates() {
 		Event caseEvent = new Event();
 		caseEvent.setId(1001l);

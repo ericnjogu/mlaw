@@ -22,17 +22,9 @@
   -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-  <bean id="case_event_maint_document_entry" parent="uifMaintenanceDocumentEntry">
+  <bean id="case_event_maint_document_entry" parent="martinlaw_shared_event_maint_document_entry">
     <property name="dataObjectClass" value="org.martinlaw.bo.courtcase.Event"/>
     <property name="maintainableClass" value="org.martinlaw.bo.MatterEventMaintainable"/>
-    <property name="businessRulesClass" value="org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase"/>
-    <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
-    <property name="lockingKeys">
-      <list>
-      	<value>matterId</value>
-      </list>
-    </property>
-
     <property name="documentTypeName" value="CourtCaseEventMaintenanceDocument"/>
     <property name="workflowAttributes">
     	<ref bean="case_event_maint_document_entry_workflow_attrs"/>

@@ -274,7 +274,7 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 			}
 
 	/**
-	 * convenience method for running a document search where matter name and local reference are available fields
+	 * convenience method for running a document search
 	 * 
 	 * @param testCriteria holds info on the fields, search values and expected number of documents to find
 	 * @return the list of results

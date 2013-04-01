@@ -21,14 +21,13 @@
   #L%
   -->
 
-<!-- Copyright 2005-2012 Protosoft Ltd -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<bean id="martinlaw_shared_date_maintenance_view" abstract="true"
+	<bean id="martinlaw_shared_matter_event_maintenance_view" abstract="true"
 		parent="Uif-MaintenanceView">
 		<property name="items">
 			<list merge="true">
@@ -43,19 +42,20 @@
 								</property>
 							</bean>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId" />
-							<bean parent="martinlaw_shared_date_maintenance_view_date_inputfield" p:propertyName="startDate" p:id="event_start_date">
+							<bean parent="martinlaw_shared_matter_event_maintenance_view_date_inputfield" p:propertyName="startDate" p:id="event_start_date">
 								<!-- to use config properties when https://jira.kuali.org/browse/KULRICE-9079 is resolved -->
 								<!-- <property name="onDocumentReadyScript" value="jq('#event_start_date_control').datetimepicker(@{#ConfigProperties['mlaw.jquery.datetime.options']});"/> -->
 								<property name="onDocumentReadyScript" value="jq('#event_start_date_control').datetimepicker({dateFormat:'dd M yy', timeFormat:'hh:mm tt', hour:7});"/>
 								<property name="fieldLabel.requiredMessage.messageText" value="**"/>
 							</bean>
-							<bean parent="martinlaw_shared_date_maintenance_view_date_inputfield" p:propertyName="endDate" p:id="event_end_date">
+							<bean parent="martinlaw_shared_matter_event_maintenance_view_date_inputfield" p:propertyName="endDate" p:id="event_end_date">
 								<!-- to use config properties when https://jira.kuali.org/browse/KULRICE-9079 is resolved -->
 								<!-- <property name="onDocumentReadyScript" value="jq('#event_end_date_control').datetimepicker(@{#ConfigProperties['mlaw.jquery.datetime.options']});"/> -->
 								<property name="onDocumentReadyScript" value="jq('#event_end_date_control').datetimepicker({dateFormat:'dd M yy', timeFormat:'hh:mm tt', hour:7});"/>
 							</bean>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="location" />
 							<bean parent="Uif-InputField" p:propertyName="comment" />
+							<bean parent="Uif-InputField" p:propertyName="active" />
 						</list>
 					</property>
 					<property name="headerText" value="Event Information" />
@@ -75,7 +75,7 @@
 	    </property>
 	</bean>
 	
-	<bean id="martinlaw_shared_date_maintenance_view_date_inputfield" parent="Uif-InputField" abstract="true">
+	<bean id="martinlaw_shared_matter_event_maintenance_view_date_inputfield" parent="Uif-InputField" abstract="true">
 		<property name="propertyReplacers">
 	      <list>
 	        <!-- <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="onDocumentReadyScript"
@@ -95,6 +95,7 @@
 				<bean parent="martinlaw_shared_matter_event_lookup_view_date_field" p:propertyName="endDate" p:id="event_end_date"/>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="location" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="comment" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="active" />
 			</list>
 		</property>
 		<property name="resultFields">
@@ -107,6 +108,7 @@
 				<bean parent="Uif-DataField" p:propertyName="comment" />
 				<!-- to be rendered as drill down, where the link will be accessible on the inquiry screen or have the calendar url being the custom inquiry url -->
 				<bean parent="Uif-DataField"  p:label="Calendar Event" p:propertyName="calendarEvent"/>
+				<bean parent="Uif-DataField" p:propertyName="active" />
 			</list>
 		</property>
 		<property name="additionalScriptFiles">
@@ -142,5 +144,59 @@
 				</property>
 			</bean>
 		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_matter_event_inquiry_view" parent="Uif-InquiryView" abstract="true">
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-Disclosure-GridSection">
+					<property name="layoutManager.numberOfColumns" value="2" />
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="matterId" />
+							<bean parent="Uif-InputField" p:propertyName="type.name" />
+							<bean parent="Uif-InputField" p:propertyName="startDate" />
+							<bean parent="Uif-InputField" p:propertyName="endDate" />
+							<bean parent="Uif-InputField" p:propertyName="location" />
+							<bean parent="Uif-InputField" p:propertyName="comment" />
+							<bean parent="Uif-InputField" p:propertyName="active" />
+							<bean parent="Uif-LinkField" p:linkText="Calendar Event" p:label="Download Event">
+								<property name="href">
+									<value>
+										@{#ConfigProperties['application.url']}/kr-krad/calendar/date/@{dataObject.eventUID}
+									</value>
+								</property>
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_matter_event_stacked_collection_section" parent="Uif-Disclosure-StackedCollectionSection">
+		<property name="headerText" value="Events" />
+		<property name="propertyName" value="events" />
+		<property name="items">
+			<list>
+				<bean parent="Uif-InputField" p:propertyName="type.name" />
+				<bean parent="Uif-InputField" p:propertyName="startDate" />
+				<bean parent="Uif-InputField" p:propertyName="endDate" />
+				<bean parent="Uif-InputField" p:propertyName="location" />
+				<bean parent="Uif-InputField" p:propertyName="comment" />
+				<bean parent="Uif-InputField" p:propertyName="active" />
+				<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
+					p:href="@{#line.calendarEvent.url}" p:label="Calendar Event"
+					p:render="@{! #empty(#line.calendarEvent)}" />
+			</list>
+		</property>
+		<property name="layoutManager.summaryFields">
+			<list>
+				<value>type.name</value>
+				<value>startDate</value>
+				<value>location</value>
+			</list>
+		</property>
+		<property name="layoutManager.summaryTitle" value="Event" />
 	</bean>
 </beans>

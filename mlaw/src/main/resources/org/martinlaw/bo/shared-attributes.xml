@@ -221,5 +221,19 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="showAttributeInSearchCriteria" value="true" />
 		<property name="showAttributeInResultSet" value="true" />
 	</bean>
+	
+	<bean id="martinlaw_shared_matter_relationship" abstract="true" parent="RelationshipDefinition">
+       <property name="objectAttributeName" value="matter"/>
+       <property name="primitiveAttributes">
+         <list>
+           <bean parent="PrimitiveAttributeDefinition" p:sourceName="matterId" p:targetName="id"/>
+         </list>
+       </property>
+       <property name="supportAttributes">
+         <list>
+           <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="matterId" p:targetName="id"/>
+         </list>
+       </property>
+     </bean>
 
 </beans>

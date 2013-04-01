@@ -82,7 +82,7 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 	@SuppressWarnings("unchecked")
 	public boolean isPrincipalNameInAssigneeList(MatterTxDocBase matterWork, String principalName) {
 		Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterClientFee<?>, 
-				? extends MatterClient, ? extends MatterConsideration> matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
+				? extends MatterClient, ? extends MatterConsideration, ? extends MatterEvent> matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
 				matterWork.getMatterClass(), matterWork.getMatterId());
 		if (matter == null || matter.getAssignees() == null || matter.getAssignees().size() == 0) {
 			return false;

@@ -40,30 +40,8 @@
 					</property>
 				</bean>
 
-				<bean parent="Uif-Disclosure-StackedCollectionSection">
-					<property name="headerText" value="Dates" />
+				<bean parent="martinlaw_shared_matter_event_stacked_collection_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Event" />
-					<property name="propertyName" value="events" />
-					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="type.name" />
-							<bean parent="Uif-InputField" p:propertyName="startDate" />
-							<bean parent="Uif-InputField" p:propertyName="endDate" />
-							<bean parent="Uif-InputField" p:propertyName="location" />
-							<bean parent="Uif-InputField" p:propertyName="comment" />
-							<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
-								p:href="@{#line.calendarEvent.url}" p:label="Calendar Event"
-								p:render="@{! #empty(#line.calendarEvent)}" />
-						</list>
-					</property>
-					<property name="layoutManager.summaryFields">
-						<list>
-							<value>type.name</value>
-							<value>startDate</value>
-							<value>location</value>
-						</list>
-					</property>
-					<property name="layoutManager.summaryTitle" value="Date" />
 				</bean>
 
 				<bean parent="martinlaw_shared_client_inquiry_section">

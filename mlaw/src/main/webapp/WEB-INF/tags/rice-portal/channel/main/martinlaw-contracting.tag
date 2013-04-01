@@ -11,6 +11,9 @@
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Contract" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Contract" /></li>
   <li><portal:portalLink displayTitle="true" title="Lookup Contract" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Contract&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="New Contract Event" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.contract.Event&methodToCall=start" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Contract Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <br/>
    <strong>Contract Type</strong>
@@ -39,6 +42,7 @@
 		<li><portal:portalLink displayTitle="true" title="Contract" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractMaintenanceDocument"/></li>
 		<li><portal:portalLink displayTitle="true" title="Contract Type" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractTypeMaintenanceDocument"/></li>
 		<li><portal:portalLink displayTitle="true" title="Contract Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractAssignmentMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Contract Event" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractEventMaintenanceDocument"/></li>
 	</ul>
 
 </div>

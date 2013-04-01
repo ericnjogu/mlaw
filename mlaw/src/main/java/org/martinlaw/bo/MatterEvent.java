@@ -47,7 +47,7 @@ import org.martinlaw.MartinlawConstants;
  */
 @SuppressWarnings("rawtypes")
 @MappedSuperclass
-public abstract class MatterEvent <M extends Matter> extends MatterMaintenanceHelper {
+public abstract class MatterEvent extends MatterMaintenanceHelper {
 	/**
 	 * 
 	 */
@@ -70,17 +70,13 @@ public abstract class MatterEvent <M extends Matter> extends MatterMaintenanceHe
 	@Column(name="id")
 	Long id;
 	@Transient
-	private M matter;
-	@Transient
 	private String eventSummary;
 	@Column(name = "end_date",  columnDefinition="datetime null")
 	private Timestamp endDate;
 	@Column(name = "location", nullable=false)
 	private String location;
-	
-	// there is not yet a clear client requirement for this feature
-	/*@Column(name = "active")
-	private Boolean active;*/
+	@Column(name = "active", columnDefinition=" varchar(1) not null")
+	private Boolean active = true;
 	
 
 	public MatterEvent() {
@@ -191,33 +187,26 @@ public abstract class MatterEvent <M extends Matter> extends MatterMaintenanceHe
 	}
 
 	/**
-	 * whether this startDate is active. The reasons for deactivation can be placed in the {@link}comment
+	 * whether this event is active. The reasons for deactivation can be placed in the {@link #comment}
 	 * @return the active
-	 *//*
+	 */
 	public Boolean getActive() {
 		return active;
 	}
 
-	*//**
+	/**
 	 * @param active the active to set
-	 *//*
+	 */
 	public void setActive(Boolean active) {
 		this.active = active;
-	}*/
+	}
 	
 	/**
 	 * @return the matter
 	 */
-	public M getMatter() {
+	public abstract Matter getMatter();/* {
 		return matter;
-	}
-
-	/**
-	 * @param matter the matter to set
-	 */
-	public void setMatter(M m) {
-		this.matter = m;
-	}
+	}*/
 	
 	/**
 	 * produce an icalendar representing this startDate as an entry

@@ -24,15 +24,15 @@
 INSERT INTO `krim_perm_t` 
 (`PERM_ID`,`OBJ_ID`,`VER_NBR`,`PERM_TMPL_ID`,`NMSPC_CD`,`NM`,`DESC_TXT`,`ACTV_IND`) 
 VALUES 
-('create_courtcase_date_maint','VMVKHV0LFxEPziafECLPl8fVygasWAtozs7G',2,'42','KR-NS','Create CourtCase date Maintenance Document','Allows user to create a new CourtCase Date maintenance document','Y');
+('create_courtcase_event_maint','VMVKHV0LFxEPziafECLPl8fVygasWAtozs7G',2,'42','KR-NS','Create CourtCase event Maintenance Document','Allows user to create a new CourtCase Date maintenance document','Y');
 
 
 -- document type names for the permissions
 INSERT INTO `krim_perm_attr_data_t` (`ATTR_DATA_ID`,`OBJ_ID`,`VER_NBR`,`PERM_ID`,`KIM_TYP_ID`,`KIM_ATTR_DEFN_ID`,`ATTR_VAL`) 
 VALUES 
-('courtcase_date_maint_doc','eejNhgb4NlSXDyiZUgP1VadT5fcUMprPuyRv',1,'create_courtcase_date_maint','56','13','CourtCaseEventMaintenanceDocument');
+('courtcase_event_maint_doc','eejNhgb4NlSXDyiZUgP1VadT5fcUMprPuyRv',1,'create_courtcase_event_maint','56','13','CourtCaseEventMaintenanceDocument');
 
   
 -- assign permissions to martinlaw functional role
 INSERT INTO KRIM_ROLE_PERM_T (ACTV_IND,OBJ_ID,PERM_ID,ROLE_ID,ROLE_PERM_ID,VER_NBR)
-  VALUES ('Y','NUSuJsMIZLSHQKK5cM7kOmjJUIOFEy3B0EGM','create_courtcase_date_maint','org.mlaw.roles.functional','fnl_create_courtcase_date',1);
+  VALUES ('Y','NUSuJsMIZLSHQKK5cM7kOmjJUIOFEy3B0EGM','create_courtcase_event_maint','org.mlaw.roles.functional','fnl_create_courtcase_event',1);

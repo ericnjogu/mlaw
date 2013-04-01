@@ -21,6 +21,9 @@
   <ul class="chan">  
   <li><portal:portalLink displayTitle="true" title="New Conveyance" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
   	<li><portal:portalLink displayTitle="true" title="Lookup Conveyance" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  	<br/>
+  <li><portal:portalLink displayTitle="true" title="New Conveyance Event" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.conveyance.Event&methodToCall=start" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Conveyance Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   	</ul>
   	</br>
   	<strong>Conveyance Type</strong>  
@@ -35,7 +38,7 @@
   
   <strong>Conveyance Work</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Conveyance Work" url="${ConfigProperties.dochandler_conveyance_work}&command=initiate&viewId=contract_work_doc_view" /></li>
+  <li><portal:portalLink displayTitle="true" title="New Conveyance Work" url="${ConfigProperties.dochandler_conveyance_work}&command=initiate&viewId=conveyance_work_doc_view" /></li>
   </ul>
   
   <strong>Conveyance Fee</strong>
@@ -48,6 +51,7 @@
 		<li><portal:portalLink displayTitle="true" title="Conveyance" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ConveyanceMaintenanceDocument"/></li>
 		<li><portal:portalLink displayTitle="true" title="Conveyance Type" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ConveyanceTypeMaintenanceDocument"/></li>
 		<li><portal:portalLink displayTitle="true" title="Conveyance Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ConveyanceAssignmentMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Conveyance Event" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ConveyanceEventMaintenanceDocument"/></li>
 	</ul>
 </div>
 <channel:portalChannelBottom />

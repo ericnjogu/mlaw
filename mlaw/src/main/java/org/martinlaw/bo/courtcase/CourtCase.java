@@ -45,7 +45,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_court_case_t")
-public class CourtCase extends Matter<Assignee, Work, ClientFee, Client, Consideration> {
+public class CourtCase extends Matter<Assignee, Work, ClientFee, Client, Consideration, Event> {
 
 	/**
 	 * 
@@ -61,16 +61,13 @@ public class CourtCase extends Matter<Assignee, Work, ClientFee, Client, Conside
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
 	private List<CourtCaseWitness> witnesses;
-
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<Event> dates;
 	
 	public CourtCase() {
 		super();
 		//initialize collections
 		setClients(new ArrayList<Client>());
 		setWitnesses(new ArrayList<CourtCaseWitness>());
-		setDates(new ArrayList<Event>());
+		setEvents(new ArrayList<Event>());
 	}
 	/**
 	 * @return the courtReference
@@ -96,18 +93,6 @@ public class CourtCase extends Matter<Assignee, Work, ClientFee, Client, Conside
 	 */
 	public void setWitnesses(List<CourtCaseWitness> witnesses) {
 		this.witnesses = witnesses;
-	}
-	/**
-	 * @param dates the dates to set
-	 */
-	public void setDates(List<Event> events) {
-		this.dates = events;
-	}
-	/**
-	 * @return the dates
-	 */
-	public List<Event> getDates() {
-		return dates;
 	}
 	/**
 	 * @return the clients

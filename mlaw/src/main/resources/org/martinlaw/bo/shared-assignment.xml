@@ -50,20 +50,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<bean parent="Uif-TextControl" p:size="20" />
 		</property>
 	</bean>
-	
-	<bean id="martinlaw_shared_matter_relationship" abstract="true" parent="RelationshipDefinition">
-          <property name="objectAttributeName" value="matter"/>
-          <property name="primitiveAttributes">
-            <list>
-              <bean parent="PrimitiveAttributeDefinition" p:sourceName="matterId" p:targetName="id"/>
-            </list>
-          </property>
-          <property name="supportAttributes">
-            <list>
-              <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="matterId" p:targetName="id"/>
-            </list>
-          </property>
-        </bean>
 
 	<bean id="martinlaw_shared_assignment_MaintDocument" abstract="true"
 		parent="uifMaintenanceDocumentEntry">

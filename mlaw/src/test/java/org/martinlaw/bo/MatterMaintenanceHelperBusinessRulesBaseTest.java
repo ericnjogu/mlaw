@@ -46,49 +46,49 @@ public class MatterMaintenanceHelperBusinessRulesBaseTest {
 	}
 
 	/**
-	 * Test method for {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.krad.document.Document)}.
+	 * Test method for {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.krad.document.Document)}.
 	 *<p>Verify that only a maintenance doc will be accepted</p>
 	 *//*
 	@Test(expected=RuntimeException.class)
-	public void testProcessCustomSaveDocumentBusinessRulesDocument_NotMaintenanceDoc() {
-		rulesBase.processCustomSaveDocumentBusinessRules(new ClientFee());
+	public void testProcessCustomRouteDocumentBusinessRulesDocument_NotMaintenanceDoc() {
+		rulesBase.processCustomRouteDocumentBusinessRules(new ClientFee());
 	}*/
 	
 	/**
-	 * tests {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
+	 * tests {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
 	 * <p>verify that nulls in {@link org.kuali.rice.krad.maintenance.MaintenanceDocument#getNewMaintainableObject()} contains a data object
 	 *  of type {@link org.martinlaw.bo.MatterMaintenanceHelper}</p>
 	 */
 	@Test(expected=RuntimeException.class)
-	public void testProcessCustomSaveDocumentBusinessRulesDocument_NotMaintenanceHelper() {
+	public void testProcessCustomRouteDocumentBusinessRulesDocument_NotMaintenanceHelper() {
 		// return non org.martinlaw.bo.MatterMaintenanceHelper - a string (null will also generate the error)
 		when(maintainable.getDataObject()).thenReturn("Joel 2:12-27");
-		rulesBase.processCustomSaveDocumentBusinessRules(document);
+		rulesBase.processCustomRouteDocumentBusinessRules(document);
 	}
 	
 	/**
-	 * tests {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
+	 * tests {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
 	 * <p>verifies that global variables has an error when the matter id is invalid</p> 
 	 */
 	@Test
-	public void testProcessCustomSaveDocumentBusinessRulesDocument_InvalidMatterId() {
+	public void testProcessCustomRouteDocumentBusinessRulesDocument_InvalidMatterId() {
 		when(maintHelper.isMatterIdValid()).thenReturn(false);
 		when(maintainable.getDataObject()).thenReturn(maintHelper);
 		
-		assertFalse("should have returned 'false'", rulesBase.processCustomSaveDocumentBusinessRules(document));
+		assertFalse("should have returned 'false'", rulesBase.processCustomRouteDocumentBusinessRules(document));
 		assertTrue("there should be errors", GlobalVariables.getMessageMap().hasErrors());
 		assertEquals("number of error messages expected differs", 1, GlobalVariables.getMessageMap().getErrorCount());
 	}
 	
 	/**
-	 * verifies that {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
+	 * verifies that {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
 	 * returns true when {@link  org.martinlaw.bo.MatterMaintenanceHelper#isMatterIdValid()} is true 
 	 */
 	@Test
-	public void testProcessCustomSaveDocumentBusinessRulesDocument_ValidMatterId() {
+	public void testProcessCustomRouteDocumentBusinessRulesDocument_ValidMatterId() {
 		when(maintHelper.isMatterIdValid()).thenReturn(true);
 		when(maintainable.getDataObject()).thenReturn(maintHelper);
-		assertTrue("should have returned 'true'", rulesBase.processCustomSaveDocumentBusinessRules(document));
+		assertTrue("should have returned 'true'", rulesBase.processCustomRouteDocumentBusinessRules(document));
 	}
 
 }

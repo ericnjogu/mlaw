@@ -147,6 +147,8 @@
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignee.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/client-fee-doc.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-consideration.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-event.xml</value>
+         <value>classpath:org/martinlaw/bo/conveyance/conveyance-event-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/view/conveyance/conveyance-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-client-lookup.xml</value>
@@ -161,19 +163,14 @@
          <value>classpath:org/martinlaw/view/conveyance/conveyance-type-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/conveyance/conveyance-type-lookup.xml</value>
          
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-event-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-event-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/conveyance/conveyance-event-maintenance.xml</value>
+         
          <value>classpath:org/martinlaw/bo/contract/contract-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-type.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-type-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-type-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-type-maintenance.xml</value>
-         
          <value>classpath:org/martinlaw/bo/contract/contract-party.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-signatory.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-party-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-party-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-signatory-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-signatory-lookup.xml</value>
-         
          <value>classpath:org/martinlaw/bo/contract/contract-consideration.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-client-consideration.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-duration.xml</value>
@@ -184,7 +181,19 @@
          <value>classpath:org/martinlaw/bo/contract/contract-client.xml</value>
          <value>classpath:org/martinlaw/bo/contract/client-fee-doc.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-fee.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-event.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-event-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-assignee.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-assignment-maintenance.xml</value>
+         <value>classpath:org/martinlaw/bo/contract/contract-assignment.xml</value>
          
+         <value>classpath:org/martinlaw/view/contract/contract-type-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-type-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-party-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-party-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-signatory-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-signatory-lookup.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-party-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-party-lookup.xml</value>
@@ -193,21 +202,19 @@
          <value>classpath:org/martinlaw/view/contract/contract-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-lookup.xml</value>
          <value>classpath:org/martinlaw/view/contract/client-fee-doc.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-assignment-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-assignment-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-assignment-maintenance.xml</value>
+         
+         <value>classpath:org/martinlaw/view/contract/contract-event-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-event-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/contract/contract-event-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/event-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/event-type.xml</value>
          <value>classpath:org/martinlaw/view/event-type-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/event-type-lookup.xml</value>
          <value>classpath:org/martinlaw/view/event-type-maintenance.xml</value>
-         
-         
-         
-         <value>classpath:org/martinlaw/bo/contract/contract-assignee.xml</value>
-         <value>classpath:org/martinlaw/bo/contract/contract-assignment-maintenance.xml</value>
-         <value>classpath:org/martinlaw/bo/contract/contract-assignment.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-assignment-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-assignment-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/contract/contract-assignment-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/opinion/opinion-client.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-fee.xml</value>
@@ -218,6 +225,8 @@
          <value>classpath:org/martinlaw/bo/opinion/opinion-assignment-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/client-fee-doc.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-consideration.xml</value>
+         <value>classpath:org/martinlaw/bo/opinion/opinion-event.xml</value>
+         <value>classpath:org/martinlaw/bo/opinion/opinion-event-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/view/opinion/opinion-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-lookup.xml</value>
@@ -226,6 +235,9 @@
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-lookup.xml</value>
          <value>classpath:org/martinlaw/view/opinion/opinion-assignment-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/opinion/client-fee-doc.xml</value>
+         <value>classpath:org/martinlaw/view/opinion/opinion-event-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/opinion/opinion-event-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/opinion/opinion-event-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/contract/contract-work.xml</value>
          <value>classpath:org/martinlaw/view/contract/contract-work.xml</value>

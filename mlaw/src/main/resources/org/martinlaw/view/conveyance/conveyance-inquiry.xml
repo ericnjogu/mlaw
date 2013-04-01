@@ -39,6 +39,10 @@
 						</list>
 					</property>
 				</bean>
+				
+				<bean parent="martinlaw_shared_matter_event_stacked_collection_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Event" />
+				</bean>
 
 				<bean parent="martinlaw_shared_client_inquiry_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Client" />
