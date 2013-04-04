@@ -5,6 +5,7 @@ package org.martinlaw.bo;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
@@ -18,6 +19,7 @@ import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.ken.api.KenApiConstants;
 import org.kuali.rice.ken.api.service.SendNotificationService;
+import org.kuali.rice.ken.bo.NotificationChannelBo;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.maintenance.MaintainableImpl;
 import org.kuali.rice.krad.service.KRADServiceLocator;
@@ -54,12 +56,25 @@ public class MatterEventMaintainable extends MaintainableImpl {
 	@Override
 	public void doRouteStatusChange(DocumentHeader documentHeader) {
 		// send notification on channels
-		// only send notification when document is fully processed and when the matter event has a valid matter ref
+		/*only send notification when document is fully processed, when the matter event has a valid matter ref,
+		 * when the matter event has a valid id and if the channel exists*/
+		Map<String, String> fieldValues = new HashMap<String, String>();
+		fieldValues.put("name", MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_CHANNEL_NAME);
+		List<NotificationChannelBo> channels = (List<NotificationChannelBo>) KRADServiceLocator.getBusinessObjectService().findMatching(NotificationChannelBo.class, fieldValues);
 		final MatterEvent matterEvent = (MatterEvent)getDataObject();
-		if (documentHeader.getWorkflowDocument().isProcessed() && matterEvent.getMatter() != null) {
+		//refresh matter event to populate the generated id
+		matterEvent.refresh();
+		if (channels.isEmpty()) {
+			log.warn("event notification will not be sent because channel '" + 
+					MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_CHANNEL_NAME + "' is not present");
+		}
+		if (matterEvent.getId() == null) {
+			log.warn("event notification will not be sent because channel matterEvent.getId() is null");
+		}
+		if (documentHeader.getWorkflowDocument().isFinal() && matterEvent.getMatter() != null &&  matterEvent.getId() != null
+				&& !channels.isEmpty()) {
 			try {
-				//refresh matter event to populate the generated id
-				matterEvent.refresh();
+				
 				// create message
 				String message = createNotificationMessage(getMaintenanceAction(), getDocumentNumber(), matterEvent, 
 						IOUtils.toString(getClass().getResourceAsStream(MartinlawConstants.VCALENDAR_NOTIFICATION_TEMPLATE_MSG_FILE)), 
