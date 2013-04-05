@@ -8,7 +8,7 @@
 	<artifactId>mlaw</artifactId>
 	<packaging>war</packaging>
 	<name>mlaw</name>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.1</version>
 
 	<properties>
 		<rice.version>2.2.0</rice.version>
