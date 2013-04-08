@@ -18,8 +18,8 @@
 		<documentType>
 			<name>CourtCaseWorkDocument</name>
 			<parent>RiceDocument</parent>
-			<description>CourtCase Work Transactional Document</description>
-			<label>CourtCase Work Document</label>
+			<description>Court Case Work Transactional Document</description>
+			<label>Court Case Work Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
@@ -55,7 +55,7 @@
 			<documentType>CourtCaseWorkDocument</documentType>
 			<!-- The rule template does not have any use at now -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-			<description>Routing rule for CourtCase Work</description>
+			<description>Routing rule for Court Case Work</description>
 			<responsibilities>
 				<responsibility>
 					<groupName namespace="MARTINLAW">lawyer</groupName>
