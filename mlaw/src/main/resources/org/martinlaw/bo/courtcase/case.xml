@@ -60,7 +60,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="case-courtReference-parentBean" abstract="true"
 		parent="AttributeDefinition">
-		<property name="forceUppercase" value="true" />
+		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Case Number" />
 		<property name="maxLength" value="20" />
 		<property name="validationPattern">
