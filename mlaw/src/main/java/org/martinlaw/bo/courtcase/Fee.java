@@ -32,7 +32,7 @@ import javax.persistence.Table;
 import org.martinlaw.bo.MatterFee;
 
 /**
- * CourtCaseFee represents a fee paid to a lawyer by a client for a court case
+ * Fee represents a fee paid to a lawyer by a client for a court case
  * @author mugo
  */
 @Entity(name="court_case_fee")
