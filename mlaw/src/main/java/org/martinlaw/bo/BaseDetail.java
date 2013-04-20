@@ -37,7 +37,7 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
  * @author mugo
  */
 @MappedSuperclass
-public class BaseDetail extends PersistableBusinessObjectBase{
+public abstract class BaseDetail extends PersistableBusinessObjectBase{
 	
 	/**
 	 * 
@@ -73,4 +73,10 @@ public class BaseDetail extends PersistableBusinessObjectBase{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * child classes need to implement this for retrieving the primary key
+	 * @return the id
+	 */
+	public abstract Long getId();
 }

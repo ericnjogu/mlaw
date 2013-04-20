@@ -29,11 +29,13 @@ package org.martinlaw.test.opinion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Consideration;
@@ -47,6 +49,7 @@ import org.martinlaw.test.MartinlawTestsBase;
  *
  */
 public class OpinionCRUDTest extends MartinlawTestsBase {
+	private Log log = LogFactory.getLog(getClass());
 	
 	/**
 	 * tests that the data inserted via sql can be retrieved ok
@@ -69,7 +72,7 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		
 		getTestUtils().testWorkList(opinion.getWork());
 		
-		getTestUtils().testRetrievedConsiderationFields(opinion.getConsideration());
+		getTestUtils().testRetrievedConsiderationFields(opinion.getConsiderations().get(0));
 	}
 	
 	/**
@@ -79,14 +82,19 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 	public void testOpinionCRUD() {
 		// C
 		Opinion opinion = getTestUtils().getTestOpinion();
-		opinion.setConsideration(new Consideration(new BigDecimal(1000), "KES", "see breakdown in attached spreadsheet"));
+		try {
+			opinion.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
+		} catch (Exception e) {
+			fail("Could not add consideration");
+			log.error(e);
+		}
 		
 		getBoSvc().save(opinion);
 		
 		// R
 		opinion.refresh();
 		getTestUtils().testOpinionFields(opinion);
-		getTestUtils().testConsiderationFields(opinion.getConsideration());
+		getTestUtils().testConsiderationFields(opinion.getConsiderations().get(0));
 		
 		// U
 		String summary = "see attached file";
@@ -105,9 +113,9 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 	
 	@Test
 	/**
-	 * test that the {@link Consideration} is loaded into the data dictionary
+	 * test that the {@link Opinion} is loaded into the data dictionary
 	 */
 	public void testConsiderationAttributes() {
-		testBoAttributesPresent(Consideration.class.getCanonicalName());
+		testBoAttributesPresent(Opinion.class.getCanonicalName());
 	}
 }

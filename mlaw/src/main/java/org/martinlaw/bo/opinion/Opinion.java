@@ -7,7 +7,7 @@ package org.martinlaw.bo.opinion;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -54,6 +54,7 @@ public class Opinion extends Matter<Assignee, Work, ClientFee, Client, Considera
 	public Opinion() {
 		super();
 		setClients(new ArrayList<Client>()); 
+		setConsiderations(new ArrayList<Consideration>());
 	}
 	@Column(name="summary")
 	private String summary;

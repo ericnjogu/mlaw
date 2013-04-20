@@ -2,7 +2,7 @@
 -- #%L
 -- mlaw
 -- %%
--- Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+-- Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
 -- %%
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as
@@ -28,18 +28,17 @@ values
 (1001, "Sale of Urban Land", null, default, 'ct1'),
 (1002, "Sale of Motor Vehicle", null, default, 'ct2');
 
+insert into martinlaw_conveyance_t 
+(matter_id, local_reference, status_id, name, convey_type_id, obj_id) 
+values 
+(1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1'),
+(1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2'),
+(1003, 'c3', 1001, "Transfer of plot 2", 1001, 'conv3');
 
 insert into martinlaw_conveyance_consideration_t
-(consideration_id, currency, description, amount)
+(consideration_id, currency, description, amount, consideration_type_id, matter_id)
 values
-(1001, 'TZS', 'to be paid in 2 installments', 41000);
-
-insert into martinlaw_conveyance_t 
-(matter_id, local_reference, status_id, name, convey_type_id, obj_id, consideration_id) 
-values 
-(1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1', 1001),
-(1002, 'c2', 1001, "Sale of kaq 784l", 1002, 'conv2', null),
-(1003, 'c3', 1001, "Transfer of plot 2", 1001, 'conv3', null);
+(1001, 'TZS', 'to be paid in 2 installments', 41000, 1001, 1001);
 
 insert into martinlaw_conveyance_client_t 
 (client_id, matter_id, principal_name) 

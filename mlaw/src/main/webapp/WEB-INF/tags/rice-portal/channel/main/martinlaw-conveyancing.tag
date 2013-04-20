@@ -41,7 +41,13 @@
   <li><portal:portalLink displayTitle="true" title="New Conveyance Work" url="${ConfigProperties.dochandler_conveyance_work}&command=initiate&viewId=conveyance_work_doc_view" /></li>
   </ul>
   
-  <strong>Conveyance Fee</strong>
+  <strong>Conveyance Consideration e.g. Legal Fee</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Conveyance Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Consideration" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Conveyance Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  </ul>
+  
+  <strong>Conveyance Transaction e.g. Receipt</strong>
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Conveyance Fee" url="${ConfigProperties.dochandler_conveyance_fee}&command=initiate" /></li>
   </ul>

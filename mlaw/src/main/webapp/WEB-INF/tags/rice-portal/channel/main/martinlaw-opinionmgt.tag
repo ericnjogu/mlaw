@@ -26,7 +26,13 @@
   <li><portal:portalLink displayTitle="true" title="New Opinion Work" url="${ConfigProperties.dochandler_opinion_work}&command=initiate" /></li>
   </ul>
   
-  <strong>Opinion Fee</strong>
+  <strong>Opinion Consideration e.g. Legal Fee</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Opinion Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.opinion.Consideration" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Opinion Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.opinion.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  </ul>
+  
+  <strong>Opinion Transaction e.g. Receipt</strong>
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Opinion Fee" url="${ConfigProperties.dochandler_opinion_fee}&command=initiate" /></li>
   </ul>

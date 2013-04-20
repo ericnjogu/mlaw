@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -25,19 +25,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<!-- Copyright 2012 Protosoft Ltd -->
+
 	<bean id="martinlaw_shared_consideration_bo" abstract="true"
 		parent="BusinessObjectEntry">
 
 		<property name="attributes">
 			<list>
-				<bean parent="martinlaw-shared-id" />
+				<ref bean="martinlaw_shared_consideration_bo_consideration_type_id"/>
 				<ref bean="martinlaw_shared_consideration_bo_description"/>
 				<ref bean="martinlaw_shared_consideration_bo_amount"/>
 				<ref bean="martinlaw_shared_consideration_bo_currency" />
 			</list>
 		</property>
-		<property name="objectLabel" value="Client Consideration" />
+		<property name="objectLabel" value="Consideration" />
 	</bean>
 
 	<!-- Attributes Defined outside bo entry since they need to refered to as nested attributes for contract and other matters -->
@@ -70,9 +70,57 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				</property>
 			</bean>
 		</property>
-		<property name="simpleConstraint">
-			<bean parent="SimpleConstraint" p:required="true" p:states="R" />
+		<!-- needed for generating this field in custom document search -->
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="20" />
 		</property>
   </bean>
+  
+  <bean id="martinlaw_shared_consideration_bo_consideration_type_id" parent="AttributeDefinition">
+		<property name="forceUppercase" value="false" />
+		<property name="maxLength" value="20" />
+		<property name="validationPattern">
+			<bean parent="NumericValidationPattern"/>
+		</property>
+		<property name="label" value="Type" />
+		<property name="required" value="true" />
+		<property name="name" value="considerationTypeId"/>
+		<property name="controlField">
+			<bean parent="Uif-DropdownControl" />
+		</property>
+		<property name="optionsFinder">
+			<bean
+				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.ConsiderationType"
+				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
+		</property>
+		<!-- required for display in kns custom document search -->
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:size="20" 
+				p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.ConsiderationType"
+				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_consideration_maint_document_entry" abstract="true" parent="uifMaintenanceDocumentEntry">
+		<property name="maintainableClass"	value="org.martinlaw.bo.MatterMaintenanceHelperMaintainable" />
+		<property name="lockingKeys">
+			<list>
+				<value>matterId</value>
+				<value>amount</value>
+				<value>considerationTypeId</value>
+			</list>
+		</property>
+		<property name="documentTypeName" value="ConsiderationMaintenanceDocument"/>
+		<!-- remove rules class when https://jira.kuali.org/browse/KULRICE-7666 is fixed -->
+		<property name="businessRulesClass" value="org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase"/>
+	    <!-- enable when we move to a kuali rice version with https://jira.kuali.org/browse/KULRICE-7666 fixed -->
+	    <!-- <property name="defaultExistenceChecks">
+	      <list>
+	        <bean parent="ReferenceDefinition" p:attributeName="matter" p:attributeToHighlightOnFail="matterId"/>
+	      </list>
+	    </property> -->
+	</bean>
 
 </beans>

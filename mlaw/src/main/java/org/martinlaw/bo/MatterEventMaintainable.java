@@ -3,7 +3,6 @@
  */
 package org.martinlaw.bo;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,6 @@ import org.kuali.rice.ken.api.KenApiConstants;
 import org.kuali.rice.ken.api.service.SendNotificationService;
 import org.kuali.rice.ken.bo.NotificationChannelBo;
 import org.kuali.rice.krad.bo.DocumentHeader;
-import org.kuali.rice.krad.maintenance.MaintainableImpl;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.martinlaw.MartinlawConstants;
@@ -31,24 +29,12 @@ import org.martinlaw.MartinlawConstants;
  * @author mugo
  *
  */
-public class MatterEventMaintainable extends MaintainableImpl {
+public class MatterEventMaintainable extends MatterMaintenanceHelperMaintainable {
 	Log log = LogFactory.getLog(getClass());
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4804930632329838049L;
-
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.krad.maintenance.MaintainableImpl#prepareForSave()
-	 */
-	/**
-	 * overrides the parent method to set the modified timestamp
-	 */
-	@Override
-	public void prepareForSave() {
-		((MatterEvent)getDataObject()).setDateModified(new Timestamp(System.currentTimeMillis()));
-		super.prepareForSave();
-	}
 
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.maintenance.MaintainableImpl#doRouteStatusChange(org.kuali.rice.krad.bo.DocumentHeader)

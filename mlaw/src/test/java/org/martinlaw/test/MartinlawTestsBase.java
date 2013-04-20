@@ -108,7 +108,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	}
 
 	/**
-	 * check for lookup, inquiry, maint view definitions, maintenance entry def
+	 * check for maintenance entry def
 	 * 
 	 * @param dataObjectClass - the data object class
 	 */
@@ -263,6 +263,9 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/event-type-default-data.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-perms-roles.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-perms-roles.sql", ";").runSql();
@@ -350,6 +353,8 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionEvent.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/considerationType.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/consideration.xml"));
 		return suiteLifecycles;
 	}
 

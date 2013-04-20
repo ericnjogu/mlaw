@@ -4,7 +4,7 @@ package org.martinlaw.bo;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -45,7 +45,6 @@ import org.martinlaw.MartinlawConstants;
  *
  * @param <M>
  */
-@SuppressWarnings("rawtypes")
 @MappedSuperclass
 public abstract class MatterEvent extends MatterMaintenanceHelper {
 	/**
@@ -64,7 +63,7 @@ public abstract class MatterEvent extends MatterMaintenanceHelper {
 	@Transient
 	private Long typeId;
 	@OneToOne
-	@JoinColumn(name = "type_id", nullable = false, updatable = true)
+	@JoinColumn(name = "event_type_id", nullable = false, updatable = true)
 	private EventType type;
 	@Id
 	@Column(name="id")
@@ -200,13 +199,6 @@ public abstract class MatterEvent extends MatterMaintenanceHelper {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	
-	/**
-	 * @return the matter
-	 */
-	public abstract Matter getMatter();/* {
-		return matter;
-	}*/
 	
 	/**
 	 * produce an icalendar representing this startDate as an entry

@@ -4,7 +4,7 @@ package org.martinlaw.bo;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -88,12 +88,8 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private List<C> clients;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<E> events;
-	//column defined using reference below - this is for the sake of ojb
-	@Transient
-	private Long considerationId;
-	@OneToOne
-	@JoinColumn(name = "consideration_id", nullable = true)
-	private K consideration;
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
+	private List<K> considerations;
 	
 	/**
 	 * default constructor
@@ -272,32 +268,32 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	}
 
 	/**
-	 * @return the considerationId
-	 */
-	public Long getConsiderationId() {
-		return considerationId;
+	 * @return the legalFeeId
+	 *//*
+	public Long getlegalFeeId() {
+		return legalFeeId;
 	}
 
-	/**
-	 * @param considerationId the considerationId to set
-	 */
-	public void setConsiderationId(Long considerationId) {
-		this.considerationId = considerationId;
+	*//**
+	 * @param legalFeeId the legalFeeId to set
+	 *//*
+	public void setLegalFeeId(Long legalFeeId) {
+		this.legalFeeId = legalFeeId;
 	}
 
-	/**
+	*//**
 	 * @return the consideration
-	 */
-	public K getConsideration() {
-		return consideration;
+	 *//*
+	public K getLegalFee() {
+		return legalFee;
 	}
 
-	/**
-	 * @param consideration the consideration to set
-	 */
-	public void setConsideration(K consideration) {
-		this.consideration = consideration;
-	}
+	*//**
+	 * @param legalFee the consideration to set
+	 *//*
+	public void setLegalFee(K legalFee) {
+		this.legalFee = legalFee;
+	}*/
 	
 	/**
 	 * @param events the events to set
@@ -310,5 +306,19 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public List<E> getEvents() {
 		return events;
+	}
+
+	/**
+	 * @return the considerations
+	 */
+	public List<K> getConsiderations() {
+		return considerations;
+	}
+
+	/**
+	 * @param considerations the considerations to set
+	 */
+	public void setConsiderations(List<K> considerations) {
+		this.considerations = considerations;
 	}
 }

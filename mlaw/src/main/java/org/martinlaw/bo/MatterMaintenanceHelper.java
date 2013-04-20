@@ -20,7 +20,7 @@ public abstract class MatterMaintenanceHelper extends MartinlawBusinessObjectBas
 	 * 
 	 */
 	private static final long serialVersionUID = 5216148157928934781L;
-	@Column(name = "matter_id")
+	@Column(name = "matter_id", nullable = false)
 	private Long matterId;
 	
 	/**
@@ -59,4 +59,10 @@ public abstract class MatterMaintenanceHelper extends MartinlawBusinessObjectBas
 	 */
 	@SuppressWarnings("rawtypes")
 	public abstract Class<? extends Matter> getMatterClass();
+
+	/**
+	 * @return the matter
+	 */
+	@SuppressWarnings("rawtypes")
+	public abstract Matter getMatter();
 }

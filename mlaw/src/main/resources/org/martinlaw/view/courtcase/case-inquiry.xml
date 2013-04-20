@@ -49,7 +49,9 @@
 						value="org.martinlaw.bo.courtcase.Client" />
 				</bean>
 				
-				<bean parent="martinlaw_shared_consideration_inquiry_section"/>
+				<bean parent="martinlaw_shared_consideration_inquiry_table_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Consideration" />
+				</bean>
 
 				<bean parent="Uif-Disclosure-StackedCollectionSection">
 					<property name="headerText" value="Witnesses" />

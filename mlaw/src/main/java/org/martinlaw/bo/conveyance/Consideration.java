@@ -7,7 +7,7 @@ package org.martinlaw.bo.conveyance;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,13 +26,11 @@ package org.martinlaw.bo.conveyance;
  */
 
 
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterConsideration;
 
 
@@ -44,45 +42,34 @@ import org.martinlaw.bo.MatterConsideration;
  * @author mugo
  *
  */
-@Entity(name="convey_consideration")
+@Entity(name="conveyance_consideration")
 @Table(name="martinlaw_conveyance_consideration_t")
 public class Consideration extends MatterConsideration {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9114507684352254606L;
-	/**
-	 * default constructor
-	 */
-	public Consideration() {
-		super();
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Class<? extends Matter> getMatterClass() {
+		return Conveyance.class;
 	}
-	@Id
-	/*@GeneratedValue(generator = "martinlaw_conveyance_consideration_s")
-	@GenericGenerator(name = "martinlaw_conveyance_consideration_s", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "martinlaw_conveyance_consideration_s"),
-			@Parameter(name = "value_column", value = "id") })*/
-	@Column(name = "consideration_id")
-	private Long id;
+
+	@Transient
+	private Conveyance matter;
+	
 	/**
-	 * @return the id
+	 * implements the parent class method to return the matter fetched via ojb
 	 */
-	public Long getId() {
-		return id;
+	public Conveyance getMatter() {
+		return matter;
 	}
 
 	/**
-	 * @see MatterConsideration#MatterConsideration(BigDecimal, String, String)
+	 * @param matter the matter to set
 	 */
-	public Consideration(BigDecimal amount, String currency,
-			String description) {
-		super(amount, currency, description);
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setMatter(Conveyance matter) {
+		this.matter = matter;
 	}
 }

@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -25,7 +25,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-	<!-- Copyright 2012 Protosoft Ltd -->
 
 	<bean id="martinlaw-shared-date" parent="martinlaw-shared-date-parentBean" />
 
@@ -48,7 +47,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="forceUppercase" value="false" />
 		<property name="maxLength" value="20" />
 		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" />
+			<bean parent="NumericValidationPattern" />
 		</property>
 		<property name="name" value="id" />
 		<property name="label" value="Id" />
@@ -73,6 +72,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="controlField">
 			<bean parent="Uif-TextAreaControl" p:rows="5" p:cols="30"
 				p:maxLength="250" />
+		</property>
+		<!-- needed for generating this field in custom document search -->
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="60" />
 		</property>
 	</bean>
 
@@ -146,7 +149,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="shortLabel" value="Status" />
 		<property name="maxLength" value="100" />
 		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
+			<bean parent="NumericValidationPattern"/>
 		</property>
 		<property name="summary" value="Status" />
 		<property name="name" value="statusId" />
@@ -235,5 +238,21 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
          </list>
        </property>
      </bean>
+     
+     <bean id="martinlaw_shared_matterId_attr" parent="AttributeDefinition">
+		<property name="maxLength" value="20"/>
+		<property name="validationPattern">
+			<bean parent="NumericValidationPattern"/>
+		</property>
+		<property name="name" value="matterId" />
+		<property name="required" value="true" />
+		<property name="controlField">
+			<bean parent="Uif-TextControl" p:size="20" />
+		</property>
+		<!-- needed for generating this field in custom document search -->
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="20" />
+		</property>
+	</bean>
 
 </beans>

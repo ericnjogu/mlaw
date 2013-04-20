@@ -7,7 +7,7 @@ package org.martinlaw.bo.conveyance;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -68,6 +68,7 @@ public class Conveyance extends Matter<Assignee, Work, ClientFee, Client, Consid
 		setClients(new ArrayList<Client>());
 		annexes = new ArrayList<ConveyanceAnnex>();
 		setRiceServiceHelper(new RiceServiceHelper());
+		setConsiderations(new ArrayList<Consideration>());
 	}
 	
 	@OneToOne

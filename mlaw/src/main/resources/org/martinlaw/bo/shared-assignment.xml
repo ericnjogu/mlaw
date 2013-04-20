@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -26,35 +26,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- Copyright 2012 Protosoft Ltd -->
-
-	<bean id="martinlaw_shared_assignment_bo" abstract="true" parent="BusinessObjectEntry">
-	<!-- matterId is now the pk -->
-		<!-- <property name="attributes">
-			<list>
-				<bean parent="martinlaw-shared-id" p:name="matterId"/>
-			</list>
-		</property> -->
-	</bean>
+	<bean id="martinlaw_shared_assignment_bo" abstract="true" parent="BusinessObjectEntry"/>
 
 	<!-- Attribute Definitions -->
 
-	<bean id="martinlaw_shared_matterId_attr" parent="AttributeDefinition">
-		<property name="maxLength" value="20"/>
-		<property name="validationPattern">
-			<bean parent="NumericValidationPattern"/>
-		</property>
-		<property name="name" value="matterId" />
-		<property name="required" value="true" />
-		<property name="controlField">
-			<bean parent="Uif-TextControl" p:size="20" />
-		</property>
-	</bean>
-
-	<bean id="martinlaw_shared_assignment_MaintDocument" abstract="true"
-		parent="uifMaintenanceDocumentEntry">
-		<property name="maintainableClass"
-			value="org.kuali.rice.krad.maintenance.MaintainableImpl" />
+	<bean id="martinlaw_shared_assignment_MaintDocument" abstract="true" parent="uifMaintenanceDocumentEntry">
+		<property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl" />
 		<property name="lockingKeys">
 			<list>
 				<value>matterId</value>

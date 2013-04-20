@@ -4,7 +4,7 @@ package org.martinlaw.bo.sequence;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -31,7 +31,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.contract.ContractConsideration}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.contract.Consideration}
  * 
  * @author mugo
  *

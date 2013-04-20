@@ -61,12 +61,13 @@ public class Contract extends Matter<Assignee, Work, ClientFee, Client, Consider
 		setParties(new ArrayList<ContractParty>());
 		setSignatories(new ArrayList<ContractSignatory>());
 		setClients(new ArrayList<Client>());
+		setConsiderations(new ArrayList<Consideration>());
 	}
 	//column defined using reference below - this is for the sake of ojb
 	@Transient
 	private Long typeId;
 	@OneToOne
-	@JoinColumn(name = "type_id", nullable = false, updatable = false)
+	@JoinColumn(name = "contract_type_id", nullable = false, updatable = false)
 	private ContractType type;
 	@Column(name="service_offered", length=255)
 	private String serviceOffered;
@@ -78,12 +79,12 @@ public class Contract extends Matter<Assignee, Work, ClientFee, Client, Consider
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="contractId")
 	private List<ContractSignatory> signatories;
 	
-	// column defined using reference below - this is for the sake of ojb
+	/*// column defined using reference below - this is for the sake of ojb
 	@Transient
-	private Long contractConsiderationId;
+	private Long considerationId;
 	@OneToOne
-	@JoinColumn(name = "contract_consideration_id", nullable = false, updatable = true)
-	private ContractConsideration contractConsideration;
+	@JoinColumn(name = "consideration_id", nullable = false, updatable = true)
+	private Consideration consideration;*/
 	
 	// column defined using reference below - this is for the sake of ojb
 	@Transient
@@ -165,31 +166,31 @@ public class Contract extends Matter<Assignee, Work, ClientFee, Client, Consider
 		this.signatories = signatories;
 	}
 	/**
-	 * @return the contractConsiderationId
-	 */
-	public Long getContractConsiderationId() {
-		return contractConsiderationId;
+	 * @return the considerationId
+	 *//*
+	public Long getConsiderationId() {
+		return considerationId;
 	}
-	/**
-	 * @param contractConsiderationId the contractConsiderationId to set
-	 */
-	public void setContractConsiderationId(Long contractConsiderationId) {
-		this.contractConsiderationId = contractConsiderationId;
-	}
+	*//**
+	 * @param considerationId the considerationId to set
+	 *//*
+	public void setConsiderationId(Long considerationId) {
+		this.considerationId = considerationId;
+	}*/
 	/**
 	 * the value of the contract, not what the client is paying for the contract to be drawn up
 	 * 
-	 * @return the contractConsideration
-	 */
-	public ContractConsideration getContractConsideration() {
-		return contractConsideration;
+	 * @return the consideration
+	 *//*
+	public Consideration getContractConsideration() {
+		return consideration;
 	}
-	/**
-	 * @param contractConsideration the contractConsideration to set
-	 */
-	public void setContractConsideration(ContractConsideration contractConsideration) {
-		this.contractConsideration = contractConsideration;
-	}
+	*//**
+	 * @param consideration the consideration to set
+	 *//*
+	public void setContractConsideration(Consideration consideration) {
+		this.consideration = consideration;
+	}*/
 	/**
 	 * @return the contractDurationId
 	 */
@@ -222,4 +223,16 @@ public class Contract extends Matter<Assignee, Work, ClientFee, Client, Consider
 	public Class<ClientFee> getFeeClass() {
 		return ClientFee.class;
 	}
+	/**
+	 * @return the consideration
+	 *//*
+	public Consideration getConsideration() {
+		return consideration;
+	}
+	*//**
+	 * @param consideration the consideration to set
+	 *//*
+	public void setConsideration(Consideration consideration) {
+		this.consideration = consideration;
+	}*/
 }

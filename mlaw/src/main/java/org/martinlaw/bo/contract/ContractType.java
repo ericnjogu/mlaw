@@ -31,7 +31,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.martinlaw.bo.BaseDetail;
 
 /**
  * represents a contract type
@@ -41,7 +41,7 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
  */
 @Entity
 @Table(name="martinlaw_contract_type_t")
-public class ContractType extends PersistableBusinessObjectBase {
+public class ContractType extends BaseDetail {
 	/**
 	 * 
 	 */
@@ -49,10 +49,6 @@ public class ContractType extends PersistableBusinessObjectBase {
 	@Id
 	@Column(name="contract_type_id")
 	private Long id;
-	@Column(name="name", length = 50, nullable = false)
-	private String name;
-	@Column(name = "description", length = 250)
-	private String description;
 
 	/**
 	 * @return the id
@@ -68,31 +64,4 @@ public class ContractType extends PersistableBusinessObjectBase {
 		this.id = id;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 }

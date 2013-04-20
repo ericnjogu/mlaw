@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -9,7 +9,7 @@
 	more details. You should have received a copy of the GNU General Public License 
 	along with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
 	#L% -->
-<!-- Copyright 2005-2012 Protosoft Ltd -->
+
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -46,7 +46,7 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Client" />
 				</bean>
 				
-				<bean parent="martinlaw_shared_consideration_maint_section"/>
+				<!-- <bean parent="martinlaw_shared_consideration_maint_section"/> -->
 			</list>
 		</property>
 	</bean>

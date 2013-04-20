@@ -48,7 +48,7 @@
 						value="org.martinlaw.bo.courtcase.Client" />
 				</bean>
 				
-				<bean parent="martinlaw_shared_consideration_maint_section"/>
+				<!-- <bean parent="martinlaw_shared_consideration_maint_section"/> -->
 
 				<bean parent="Uif-StackedCollectionSection">
 					<property name="headerText" value="Witnesses" />

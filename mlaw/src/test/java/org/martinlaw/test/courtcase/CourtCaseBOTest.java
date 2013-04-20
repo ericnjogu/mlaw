@@ -29,7 +29,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -119,7 +118,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         List<Work> work = kase.getWork();
         getTestUtils().testWorkList(work);
         //consideration
-        getTestUtils().testRetrievedConsiderationFields(kase.getConsideration());
+        getTestUtils().testRetrievedConsiderationFields(kase.getConsiderations().get(0));
 	}
 
 	
@@ -172,7 +171,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		wits.add(wit);
 		kase.setWitnesses(wits);
 		
-		kase.setConsideration(new Consideration(new BigDecimal(1000), "KES", "see breakdown in attached spreadsheet"));
+		kase.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		
 		getBoSvc().save(kase);
 		
@@ -181,7 +180,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		assertEquals("number of clients expected differs", 1, kase.getClients().size());
 		assertNotNull("witnesses should not be null",kase.getWitnesses());
 		assertEquals("number of witnesses expected differs", 1, kase.getWitnesses().size());
-		getTestUtils().testConsiderationFields(kase.getConsideration());
+		getTestUtils().testConsiderationFields(kase.getConsiderations().get(0));
 	}
 
 	@Test
@@ -288,9 +287,9 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 	
 	@Test
 	/**
-	 * test that the {@link Consideration} is loaded into the data dictionary
+	 * test that the {@link CourtCase} is loaded into the data dictionary
 	 */
 	public void testConsiderationAttributes() {
-		testBoAttributesPresent(Consideration.class.getCanonicalName());
+		testBoAttributesPresent(CourtCase.class.getCanonicalName());
 	}
 }

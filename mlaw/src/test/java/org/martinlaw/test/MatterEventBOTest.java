@@ -2,9 +2,16 @@ package org.martinlaw.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -48,10 +55,55 @@ public abstract class MatterEventBOTest extends MartinlawTestsBase {
 	}
 
 	@Test
-	public void testMatterEventCRUD() throws InstantiationException,
-			IllegalAccessException {
-				getTestUtils().testMatterEventCRUD(getTestUtils().getTestMatterEvent(getDataObjectClass()), getDataObjectClass());
-			}
+	public void testMatterEventCRUD() throws InstantiationException, IllegalAccessException {
+		testMatterEventCRUD(getTestUtils().getTestMatterEvent(getDataObjectClass()), getDataObjectClass());
+	}
+	
+	/**
+	 * tests CRUD for descendants of {@link MatterEvent}
+	 * @param event - the object to test with
+	 * @param matterEvent - the type of {@code MatterEvent} for use in fetching from {@code #getBoSvc()}
+	 */
+	public <D extends MatterEvent> void testMatterEventCRUD(MatterEvent event, Class<D> matterEvent) {
+		// C
+		final Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+		event.setDateModified(ts1);
+		getBoSvc().save(event);
+		// R
+		event.refresh(); // get the created pk
+		// for some reason, the date modified remains null even after a refresh, so re-fetch
+		event = getBoSvc().findBySinglePrimaryKey(event.getClass(), event.getId());
+		assertEquals("comment differs", "must attend", event.getComment());
+		SimpleDateFormat sdf =  new SimpleDateFormat("dd-MM-yy");
+		assertEquals(sdf.format(Calendar.getInstance().getTime()), sdf.format(event.getStartDate()));
+		// test for default date values
+		assertNotNull("date created should have a default value", event.getDateCreated());
+		assertNotNull("date modified should have a default value", event.getDateModified());
+		try {
+			Thread.sleep(10);//ensure that some time lapses before we update
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		// U
+		final String comment = "must attend - dept heads only";
+		event.setComment(comment);
+		final Timestamp ts2 = new Timestamp(System.currentTimeMillis());
+		event.setDateModified(ts2);
+		assertTrue("for the update test to work, the initial and subsequent timestamps should be different", ts2.after(ts1));
+		//date.refresh();
+		getBoSvc().save(event);
+		event = getBoSvc().findBySinglePrimaryKey(event.getClass(), event.getId());
+		assertEquals("comment differs", comment, event.getComment());
+		//confirm that date modified has changed
+		// for some reason, the date modification test fails
+		assertTrue("date should have been updated", event.getDateModified().after(ts1));
+		// D
+		getBoSvc().delete(event);
+		Map<String, Object> map = new HashMap<String, Object>(1);
+		map.put("comment", comment);
+		assertEquals("date should have been deleted", 0, getBoSvc().findMatching(matterEvent, map).size());
+	}
 
 	/**
 	 * confirm that the set label can be retrieved

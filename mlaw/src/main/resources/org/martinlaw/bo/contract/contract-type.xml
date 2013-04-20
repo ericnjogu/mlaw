@@ -26,8 +26,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- Copyright 2012 Protosoft Ltd -->
-
 	<bean id="contract_type_bo" parent="martinlaw_shared_type_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.contract.ContractType" />
 		<property name="objectLabel" value="Contract Type" />

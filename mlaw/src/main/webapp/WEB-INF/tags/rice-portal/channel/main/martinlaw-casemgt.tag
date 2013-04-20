@@ -38,9 +38,15 @@
   <li><portal:portalLink displayTitle="true" title="New Court Case Work" url="${ConfigProperties.dochandler_courtcase_work}&command=initiate&viewId=contract_work_doc_view" /></li>
   </ul>
   
-  <strong>Court Case Fee</strong>
+  <strong>Court Case Consideration e.g. Legal Fee</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Court Case Fee" url="${ConfigProperties.dochandler_courtcase_fee}&command=initiate" /></li>
+  <li><portal:portalLink displayTitle="true" title="New Court Case Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Consideration" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Court Case Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  </ul>
+  
+  <strong>Court Case Transaction e.g. Receipt</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Court Case Transaction" url="${ConfigProperties.dochandler_courtcase_fee}&command=initiate" /></li>
   </ul>
   
 	<strong>Document Search</strong>

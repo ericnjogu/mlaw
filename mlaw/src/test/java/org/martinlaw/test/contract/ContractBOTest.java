@@ -29,18 +29,19 @@ package org.martinlaw.test.contract;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.contract.ClientFee;
 import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
-import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.bo.contract.ContractSignatory;
@@ -54,7 +55,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * 
  */
 public class ContractBOTest extends MartinlawTestsBase {
-
+	private Log log = LogFactory.getLog(getClass());
 	@Test(expected = DataIntegrityViolationException.class)
 	/**
 	 * tests that non nullable fields are checked
@@ -94,14 +95,11 @@ public class ContractBOTest extends MartinlawTestsBase {
 		assertEquals("contract name not the expected value", "buru ph2 h24", contract.getName());
 		assertNotNull("contract type should not be null", contract.getType());
 		assertEquals("contract type name does not match", "rent agreement", contract.getType().getName());
-		assertNotNull("contract consideration should not be null", contract.getContractConsideration());
-		assertEquals("contract consideration amount differs", 0, 
-				contract.getContractConsideration().getAmount().compareTo(new BigDecimal(41000l)));
 		assertNotNull("contract duration should not be null" ,contract.getContractDuration());
 		assertNotNull("contract duration start date should not be null", contract.getContractDuration().getStartDate());
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());
 		getTestUtils().testAssignees(contract.getAssignees());
-		getTestUtils().testRetrievedConsiderationFields(contract.getConsideration());
+		getTestUtils().testRetrievedConsiderationFields(contract.getConsiderations().get(0));
 		
 		List<ClientFee> fees = contract.getFees();
 		getTestUtils().testClientFeeList(fees);
@@ -116,13 +114,17 @@ public class ContractBOTest extends MartinlawTestsBase {
 	public void testContractCRUD() {
 		// C
 		Contract contract = getTestUtils().getTestContract();
-		contract.setConsideration(new Consideration(new BigDecimal(1000), "KES", "see breakdown in attached spreadsheet"));
+		try {
+			contract.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
+		} catch (Exception e) {
+			fail("could not add consideration");
+			log.error(e);
+		}
 		
 		getBoSvc().save(contract);
 		// R
 		contract.refresh();
 		getTestUtils().testContractFields(contract);
-		getTestUtils().testConsiderationFields(contract.getConsideration());
 		// U
 		String serviceOffered = "flat 3f2";
 		contract.setServiceOffered(serviceOffered);
@@ -131,7 +133,7 @@ public class ContractBOTest extends MartinlawTestsBase {
 		// D
 		getBoSvc().delete(contract);
 		assertNull("contract should not exist", getBoSvc().findBySinglePrimaryKey(Contract.class, contract.getId()));
-		assertNull("consideration should not exist", getBoSvc().findBySinglePrimaryKey(ContractConsideration.class, contract.getId()));
+		assertNull("consideration should not exist", getBoSvc().findBySinglePrimaryKey(Consideration.class, contract.getId()));
 		assertNull("duration should not exist", getBoSvc().findBySinglePrimaryKey(ContractDuration.class, contract.getId()));
 		
 		Map<String, Object> criteria = new HashMap<String, Object>();

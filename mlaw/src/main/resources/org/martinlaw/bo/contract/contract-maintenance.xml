@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -94,30 +94,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans         http://w
 					</list>
 				</property>
 			</bean>
-			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
-				<property name="searchingAttribute">
-					<bean parent="contract_maint_document_entry_search_attr">
-						<property name="attributeName" value="consideration.amount" />
-					</bean>
-				</property>
-				<property name="documentValues">
-					<list>
-						<value>newMaintainableObject.dataObject.consideration.amount</value>
-					</list>
-				</property>
-			</bean>
-			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
-				<property name="searchingAttribute">
-					<bean parent="contract_maint_document_entry_search_attr">
-						<property name="attributeName" value="contractConsideration.amount" />
-					</bean>
-				</property>
-				<property name="documentValues">
-					<list>
-						<value>newMaintainableObject.dataObject.contractConsideration.amount</value>
-					</list>
-				</property>
-			</bean>
+
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="contract_maint_document_entry_search_attr">

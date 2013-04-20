@@ -26,14 +26,9 @@ package org.martinlaw.test.contract;
  */
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Test;
+import org.martinlaw.bo.BaseDetail;
 import org.martinlaw.bo.contract.ContractType;
-import org.martinlaw.test.MartinlawTestsBase;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.martinlaw.test.BaseDetailBoTestBase;
 
 /**
  * test various BO ops for {@link ContractType}
@@ -41,67 +36,33 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author mugo
  * 
  */
-public class ContractTypeBOTest extends MartinlawTestsBase {
+public class ContractTypeBOTest extends BaseDetailBoTestBase {
 
-	@Test(expected = DataIntegrityViolationException.class)
-	/**
-	 * tests that non nullable fields are checked
-	 */
-	public void testContractTypeNullableFields() {
-		ContractType contractType = new ContractType();
-		getBoSvc().save(contractType);
+	private ContractType contractType;
+
+	@Override
+	public Class<? extends BaseDetail> getDataObjectClass() {
+		return ContractType.class;
 	}
 
-	@Test
-	/**
-	 * test that the ContractType is loaded into the data dictionary
-	 */
-	public void testContractTypeAttributes() {
-		testBoAttributesPresent(ContractType.class.getCanonicalName());
-		Class<ContractType> dataObjectClass = ContractType.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+	@Override
+	public BaseDetail getExpectedOnRetrieve() {
+		return contractType;
 	}
 
-	@Test
 	/**
-	 * tests retrieving from date inserted via sql
+	 * 
 	 */
-	public void testContractTypeRetrieve() {
-		// retrieve object populated via sql script
-		ContractType contractType = getBoSvc().findBySinglePrimaryKey(
-				ContractType.class, 1001l);
-		assertNotNull(contractType);
-		assertEquals("rent agreement", contractType.getName());
+	public ContractTypeBOTest() {
+		contractType = new ContractType();
+		contractType.setId(1002l);
+		contractType.setName("life assurance");
+		contractType.setDescription("maisha");
 	}
 
-	@Test
-	/**
-	 * test CRUD for {@link ContractType}
-	 */
-	public void testContractTypeCRUD() {
-		// C
-		ContractType contractType = new ContractType();
-		String name = "employment";
-		contractType.setName(name);
-		getBoSvc().save(contractType);
-		// R
-		contractType.refresh();
-		assertEquals("contract name does not match", name, contractType.getName());
-		// U
-		contractType.setDescription("signed before a commissioner of oaths");
-		contractType.refresh();
-		assertNotNull("contract description should not be null", contractType.getDescription());
-		// D
-		getBoSvc().delete(contractType);
-		assertNull(getBoSvc().findBySinglePrimaryKey(ContractType.class,
-				contractType.getId()));
+	@Override
+	public String getDocTypeName() {
+		return "ContractTypeMaintenanceDocument";
 	}
-	
-	@Test
-	/**
-	 * tests that the document type is loaded ok
-	 */
-	public void testContractTypeDocType() {
-		assertNotNull("document type should not be null", getDocTypeSvc().findByName("ContractTypeMaintenanceDocument"));
-	}
+
 }

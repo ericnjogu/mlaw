@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -33,11 +33,13 @@
 			<list>
 				<value>org.martinlaw.bo.Status</value>
 				<value>org.martinlaw.bo.Fee</value>
-				<value>org.martinlaw.bo.sequence.CaseFeeSeq</value>
-				<value>org.martinlaw.bo.sequence.StatusSeq</value>
-				
 				<value>org.martinlaw.bo.CalendarEvent</value>
 				<value>org.martinlaw.bo.EventType</value>
+				<value>org.martinlaw.bo.ConsiderationType</value>
+				
+				<value>org.martinlaw.bo.sequence.StatusSeq</value>
+				<value>org.martinlaw.bo.sequence.ConsiderationTypeSeq</value>
+				<value>org.martinlaw.bo.sequence.EventTypeSeq</value>
 				
 				<value>org.martinlaw.bo.courtcase.Work</value>
 				<value>org.martinlaw.bo.courtcase.Event</value>
@@ -58,6 +60,7 @@
 				<value>org.martinlaw.bo.sequence.CaseEventSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseAssigneeSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseConsiderationSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseFeeSeq</value>
 				
 				<value>org.martinlaw.bo.conveyance.ConveyanceAnnexType</value>
 				<value>org.martinlaw.bo.conveyance.Work</value>
@@ -89,7 +92,7 @@
 				<value>org.martinlaw.bo.contract.ContractParty</value>
 				<value>org.martinlaw.bo.contract.ContractSignatory</value>
 				<value>org.martinlaw.bo.contract.ContractPerson</value>
-				<value>org.martinlaw.bo.contract.ContractConsideration</value>
+				<value>org.martinlaw.bo.contract.Consideration</value>
 				<value>org.martinlaw.bo.contract.ContractDuration</value>
 				<value>org.martinlaw.bo.contract.Contract</value>
 				<value>org.martinlaw.bo.contract.Assignment</value>
@@ -99,9 +102,9 @@
 				<value>org.martinlaw.bo.contract.ClientFee</value>
 				<value>org.martinlaw.bo.contract.Consideration</value>
 				<value>org.martinlaw.bo.contract.Event</value>
+				<value>org.martinlaw.bo.contract.Work</value>
 				
 				<value>org.martinlaw.bo.sequence.ContractConsiderationSeq</value>
-				<value>org.martinlaw.bo.sequence.ClientContractConsiderationSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>
 				<value>org.martinlaw.bo.sequence.ContractSignatorySeq</value>
@@ -143,7 +146,6 @@
 				<value>org.martinlaw.bo.sequence.OpinionConsiderationSeq</value>
 				<value>org.martinlaw.bo.sequence.OpinionEventSeq</value>
 				
-				<value>org.martinlaw.bo.contract.Work</value>
 				<value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>
 				<value>org.kuali.rice.krad.bo.DocumentHeader</value>
 				

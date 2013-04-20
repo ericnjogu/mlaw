@@ -29,7 +29,6 @@ package org.martinlaw.test.opinion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,7 +39,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.martinlaw.bo.opinion.Consideration;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.KewTestsBase;
 import org.martinlaw.util.SearchTestCriteria;
@@ -97,7 +95,7 @@ public class OpinionRoutingTest extends KewTestsBase {
 		
 		Opinion testOpinion2 = getTestUtils().getTestOpinion();
 		testOpinion2.setLocalReference("my/firm/opinions/2014/012");
-		testOpinion2.setConsideration(new Consideration(new BigDecimal(45000), "BGP", null));
+		//testOpinion2.getConsiderations().add(new Consideration(new BigDecimal(45000), "BGP", null));
 		testMaintenanceRoutingInitToFinal(docType, testOpinion2);
 		
 		SearchTestCriteria crit1 = new SearchTestCriteria();
@@ -106,15 +104,15 @@ public class OpinionRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit2 = new SearchTestCriteria();
 		crit2.setExpectedDocuments(1);
 		crit2.getFieldNamesToSearchValues().put("localReference", testOpinion.getLocalReference());
-		// search for local reference
+		/*// search for local reference
 		SearchTestCriteria crit3 = new SearchTestCriteria();
 		crit3.setExpectedDocuments(1);
-		crit3.getFieldNamesToSearchValues().put("consideration.amount", "<50000");
+		crit3.getFieldNamesToSearchValues().put("consideration.amount", "<50000");*/
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
 		crits.add(crit2);
-		crits.add(crit3);
+		//crits.add(crit3);
 		runDocumentSearch(crits, docType);
 	}
 }

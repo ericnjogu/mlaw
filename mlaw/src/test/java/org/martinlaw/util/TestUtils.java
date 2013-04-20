@@ -36,7 +36,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -44,6 +43,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
@@ -58,8 +59,8 @@ import org.martinlaw.bo.MatterEventTest;
 import org.martinlaw.bo.MatterFee;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
+import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
-import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.bo.contract.ContractSignatory;
@@ -89,6 +90,7 @@ public class TestUtils {
 	private String testOpinionName;
 	private String testOpinionClientName;
 	private String testOpinionLocalReference;
+	private Log log = LogFactory.getLog(getClass());
 	/**
 	 * get a test conveyance object
 	 * @return
@@ -105,8 +107,10 @@ public class TestUtils {
 	/**
 	 * gets a test contract
 	 * @return the unpersisted contract
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public Contract getTestContract() {
+	public Contract getTestContract()  {
 		Contract contract = new Contract();
 		contract.setName(contractName);
 		contract.setLocalReference(testContractLocalReference);
@@ -125,10 +129,12 @@ public class TestUtils {
 		signs.add(new ContractSignatory("sign2"));
 		contract.setSignatories(signs);
 		// consideration
-		ContractConsideration contractConsideration = new ContractConsideration(
-				new BigDecimal(1000), "UGS", "see breakdown in attached file");
-
-		contract.setContractConsideration(contractConsideration);
+		try {
+			contract.getConsiderations().add((Consideration) getTestConsideration(Consideration.class));
+		} catch (Exception e) {
+			//fail("could not add consideration");
+			log.error(e);
+		}
 		// duration
 		Calendar cal = Calendar.getInstance();
 		Date start = new Date(cal.getTimeInMillis());
@@ -139,6 +145,21 @@ public class TestUtils {
 		contract.setContractDuration(contractDuration);
 		
 		return contract;
+	}
+
+	/**
+	 * @return a test consideration
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public MatterConsideration getTestConsideration(Class<? extends MatterConsideration> klass) throws InstantiationException, IllegalAccessException {
+		MatterConsideration consideration = klass.newInstance();
+		consideration.setAmount(new BigDecimal(1000));
+		consideration.setCurrency("KES");
+		consideration.setDescription("see breakdown in attached file");
+		consideration.setConsiderationTypeId(1002l);
+		consideration.setMatterId(1001l);
+		return consideration;
 	}
 	
 	/**
@@ -152,8 +173,8 @@ public class TestUtils {
 		assertNotNull("contract type should exist", 
 				KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(ContractType.class, contract.getTypeId()));
 		assertNotNull("contract type should not be null", contract.getType());
-		assertNotNull("consideration id should not be null", contract.getContractConsiderationId());
-		assertNotNull("consideration should not be null", contract.getContractConsideration());
+		assertFalse("considerations should not be empty", contract.getConsiderations().isEmpty());
+		testConsiderationFields(contract.getConsiderations().get(0));
 		assertNotNull("duration should not be null", contract.getContractDuration());
 		assertNotNull("parties should not be null", contract.getParties());
 		assertEquals("parties not the expected number", 2, contract.getParties().size());
@@ -402,10 +423,14 @@ public class TestUtils {
 	 * @param consideration - the test object (created in code then saved to db)
 	 */
 	public void testConsiderationFields(MatterConsideration consideration) {
+		consideration.refreshNonUpdateableReferences();//to retrieve the consideration type
 		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(1000)));
-		String desc = "see breakdown in attached spreadsheet";
+		String desc = "see breakdown in attached file";
 		assertEquals("consideration description differs", desc, consideration.getDescription());
 		assertEquals("consideration currency differs", "KES", consideration.getCurrency());
+		assertNotNull("consideration type id should not be null", consideration.getConsiderationTypeId());
+		assertNotNull("consideration type should not be null", consideration.getConsiderationType());
+		assertEquals("consideration type name differs", "contract value", consideration.getConsiderationType().getName());
 	}
 	
 	/**
@@ -417,6 +442,8 @@ public class TestUtils {
 		String desc = "to be paid in 2 installments";
 		assertEquals("consideration description differs", desc, consideration.getDescription());
 		assertEquals("consideration currency differs", "TZS", consideration.getCurrency());
+		assertNotNull("consideration type should not be null", consideration.getConsiderationType());
+		assertEquals("consideration type name differs", "legal fee", consideration.getConsiderationType().getName());
 	}
 	
 	/**
@@ -489,46 +516,7 @@ public class TestUtils {
 		return date;
 	}
 	
-	/**
-	 * tests CRUD for descendants of {@link MatterEvent}
-	 * @param event - the object to test with
-	 * @param matterEvent - the type of {@code MatterEvent} for use in fetching from {@code #getBoSvc()}
-	 */
-	public <D extends MatterEvent> void testMatterEventCRUD(MatterEvent event, Class<D> matterEvent) {
-		// C
-		final Timestamp ts1 = new Timestamp(System.currentTimeMillis());
-		event.setDateModified(ts1);
-		getBoSvc().save(event);
-		// R
-		event.refresh(); // get the created pk
-		// for some reason, the date modified remains null even after a refresh, so re-fetch
-		event = getBoSvc().findBySinglePrimaryKey(event.getClass(), event.getId());
-		assertEquals("comment differs", "must attend", event.getComment());
-		SimpleDateFormat sdf =  new SimpleDateFormat("dd-MM-yy");
-		assertEquals(sdf.format(Calendar.getInstance().getTime()), sdf.format(event.getStartDate()));
-		// test for default date values
-		assertNotNull("date created should have a default value", event.getDateCreated());
-		assertNotNull("date modified should have a default value", event.getDateModified());
-		
-		// U
-		final String comment = "must attend - dept heads only";
-		event.setComment(comment);
-		final Timestamp ts2 = new Timestamp(System.currentTimeMillis());
-		event.setDateModified(ts2);
-		assertTrue("for the update test to work, the initial and subsequent timestamps should be different", ts2.after(ts1));
-		//date.refresh();
-		getBoSvc().save(event);
-		event = getBoSvc().findBySinglePrimaryKey(event.getClass(), event.getId());
-		assertEquals("comment differs", comment, event.getComment());
-		//confirm that date modified has changed
-		// for some reason, the date modification test fails
-		assertTrue("date should have been updated", event.getDateModified().after(ts1));
-		// D
-		getBoSvc().delete(event);
-		Map<String, Object> map = new HashMap<String, Object>(1);
-		map.put("comment", comment);
-		assertEquals("date should have been deleted", 0, getBoSvc().findMatching(matterEvent, map).size());
-	}
+	
 	
 	/**
 	 * get a populated test court case

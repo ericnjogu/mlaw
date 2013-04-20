@@ -29,7 +29,6 @@ package org.martinlaw.test.contract;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,8 +39,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
-import org.martinlaw.bo.contract.ContractConsideration;
 import org.martinlaw.test.KewTestsBase;
 import org.martinlaw.util.SearchTestCriteria;
 
@@ -62,7 +61,6 @@ public class ContractRoutingTest extends KewTestsBase {
 		try {
 			testMaintenanceRoutingInitToFinal("ContractMaintenanceDocument", testContract);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log.error("test failed", e);
 			fail("test routing ContractMaintenanceDocument caused an exception " + e);
 		}
@@ -104,7 +102,7 @@ public class ContractRoutingTest extends KewTestsBase {
 		Contract testContract3 = getTestUtils().getTestContract();
 		testContract3.setName("supply of veges");
 		testContract3.setLocalReference("my/firm/contracts/2013/21");
-		testContract3.setContractConsideration(new ContractConsideration(new BigDecimal(100000), "ZAR", null));
+		testContract3.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		testMaintenanceRoutingInitToFinal(docType, testContract3);
 		
 		// no document criteria given, so both documents should be found
@@ -118,10 +116,6 @@ public class ContractRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit3 = new SearchTestCriteria();
 		crit3.setExpectedDocuments(1);
 		crit3.getFieldNamesToSearchValues().put("name", "*temporary*");
-		// search for consideration amount
-		SearchTestCriteria crit4 = new SearchTestCriteria();
-		crit4.setExpectedDocuments(1);
-		crit4.getFieldNamesToSearchValues().put("contractConsideration.amount", "100000");
 		// search for local reference wild-card
 		SearchTestCriteria crit5 = new SearchTestCriteria();
 		crit5.setExpectedDocuments(2);
@@ -131,7 +125,6 @@ public class ContractRoutingTest extends KewTestsBase {
 		crits.add(crit1);
 		crits.add(crit2);
 		crits.add(crit3);
-		crits.add(crit4);
 		crits.add(crit5);
 		runDocumentSearch(crits, docType);
 	}

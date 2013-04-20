@@ -32,7 +32,13 @@
   <li><portal:portalLink displayTitle="true" title="New Contract Work" url="${ConfigProperties.dochandler_contract_work}&command=initiate" /></li>
   </ul>
   
-  <strong>Contract Fee</strong>
+  <strong>Contract Consideration e.g. Legal Fee</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Contract Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Consideration" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Contract Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  </ul>
+  
+  <strong>Contract Transaction e.g. Receipt</strong>
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="New Contract Fee" url="${ConfigProperties.dochandler_contract_fee}&command=initiate" /></li>
   </ul>

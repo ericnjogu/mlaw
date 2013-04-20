@@ -3,20 +3,21 @@ package org.martinlaw.bo;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
-
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 /**
- * holds information on the agreed consideration that the client is willing to pay for this matter
+ * holds the common information needed by a matter consideration (value/purchase price/legal fee/security deposit/bond)
  * 
- * <p>For a contract, there will be two considerations - one for the value of the contract and the other for how much it costs
- * to draw up the contract</p>
+ * <p>For a contract, there will be at least two considerations - one for the value of the contract and the other for the legal fee</p>
  * 
  * @author mugo
  *
  */
 @MappedSuperclass
-public abstract class MatterConsideration extends PersistableBusinessObjectBase {
+public abstract class MatterConsideration extends MatterMaintenanceHelper {
 
 	/**
 	 * 
@@ -29,6 +30,14 @@ public abstract class MatterConsideration extends PersistableBusinessObjectBase 
 	protected String currency;
 	@Column(name = "description", length = 250)
 	protected String description;
+	@Id
+	@Column(name = "consideration_id")
+	private Long id;
+	@Transient //placed here for ojb's sake, coz jpa uses the object field below
+	private Long considerationTypeId;
+	@OneToOne
+	@JoinColumn(name = "consideration_type_id", nullable = false)
+	private ConsiderationType considerationType; 
 
 	public MatterConsideration() {
 		super();
@@ -40,8 +49,7 @@ public abstract class MatterConsideration extends PersistableBusinessObjectBase 
 	 * @param currency - the currency
 	 * @param description - a comment
 	 */
-	public MatterConsideration(BigDecimal amount, String currency,
-			String description) {
+	public MatterConsideration(BigDecimal amount, String currency, String description) {
 		this.amount = amount;
 		this.currency = currency;
 		this.description = description;
@@ -91,5 +99,47 @@ public abstract class MatterConsideration extends PersistableBusinessObjectBase 
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the considerationTypeId
+	 */
+	public Long getConsiderationTypeId() {
+		return considerationTypeId;
+	}
+
+	/**
+	 * @param considerationTypeId the considerationTypeId to set
+	 */
+	public void setConsiderationTypeId(Long considerationTypeId) {
+		this.considerationTypeId = considerationTypeId;
+	}
+
+	/**
+	 * @return the considerationType
+	 */
+	public ConsiderationType getConsiderationType() {
+		return considerationType;
+	}
+
+	/**
+	 * @param considerationType the considerationType to set
+	 */
+	public void setConsiderationType(ConsiderationType considerationType) {
+		this.considerationType = considerationType;
 	}
 }

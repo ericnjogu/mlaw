@@ -23,38 +23,36 @@ package org.martinlaw.bo.sequence;
  */
 
 
-import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.contract.Consideration}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.ConsiderationType}
  * 
  * @author mugo
  *
  */
-
+ 
 @Entity
-@Table(name="martinlaw_contract_client_consideration_s")
-public class ClientContractConsiderationSeq {
+@Table(name="martinlaw_consideration_type_s")
+public class ConsiderationTypeSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")
-	private BigInteger id;
+	private Long id;
 
 	/**
 	 * @return the id
 	 */
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 }
