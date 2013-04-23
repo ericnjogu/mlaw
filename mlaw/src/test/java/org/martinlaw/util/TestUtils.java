@@ -52,11 +52,11 @@ import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.EventType;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
-import org.martinlaw.bo.MatterClientFee;
+import org.martinlaw.bo.MatterTransactionDoc;
 import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.bo.MatterEventTest;
-import org.martinlaw.bo.MatterFee;
+import org.martinlaw.bo.MatterTransaction;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.contract.Consideration;
@@ -398,14 +398,14 @@ public class TestUtils {
 	}
 	
 	/**
-	 * test a list of {@link MatterClientFee}, created via sql
+	 * test a list of {@link MatterTransactionDoc}, created via sql
 	 * 
 	 * @param fees - the list
 	 */
-	public void testClientFeeList(List<? extends MatterClientFee<?>> fees) {
+	public void testClientFeeList(List<? extends MatterTransactionDoc<?>> fees) {
 		assertNotNull("fee list should not be null", fees);
 		assertEquals("expected number of fees differs", 2, fees.size());
-		assertEquals("client name differs", "mawanja", fees.get(0).getFee().getClientPrincipalName());
+		assertEquals("client name differs", "mawanja", fees.get(0).getTransaction().getClientPrincipalName());
 	}
 	
 	/**
@@ -461,16 +461,28 @@ public class TestUtils {
 	}
 	
 	/**
-	 * populates a fee with test data
+	 * populates a transaction with test data
 	 * 
-	 * @param fee - the fee to populate, one of the several {@code MatterFee} descendants
+	 * @param transaction - the transaction to populate, one of the several {@code MatterTransaction} descendants
 	 */
-	public MatterFee populateMatterFeeData(MatterFee fee) {
-		fee.setAmount(new BigDecimal(2000l));
+	@SuppressWarnings("unchecked")
+	public MatterTransaction populateMatterTransactionData(MatterTransaction transaction) {
+		transaction.setAmount(new BigDecimal(2000l));
 		String clientPrincipalName = "pkk";
-		fee.setClientPrincipalName(clientPrincipalName);
-		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
-		return fee;
+		transaction.setClientPrincipalName(clientPrincipalName);
+		transaction.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
+		transaction.setTransactionTypeId(1001l);
+		MatterConsideration consideration;
+		try {
+			consideration = getTestConsideration((Class<? extends MatterConsideration>) transaction.getClass().getDeclaredField("consideration").getType());
+			getBoSvc().save(consideration);
+			consideration.refresh();
+			transaction.setConsiderationId(consideration.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return transaction;
 	}
 	
 	/**
@@ -486,16 +498,16 @@ public class TestUtils {
 	}
 	
 	/**
-	 * populate a descendant of {@code MatterClientFee} with test data
+	 * populate a descendant of {@code MatterTransactionDoc} with test data
 	 * @param doc - the doc to be populated
-	 * @param fee - the descendant of {@code MatterFee} to be populated
+	 * @param tx - the descendant of {@code MatterTransaction} to be populated
 	 * @return - the populated doc
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public MatterClientFee populateClientFee(MatterClientFee doc, MatterFee fee) {
+	public MatterTransactionDoc populateTransactionDocForRouting(MatterTransactionDoc doc, MatterTransaction tx) {
 		doc.getDocumentHeader().setDocumentDescription("testing");
 		doc.setMatterId(1001l);
-		doc.setFee(populateMatterFeeData(fee));
+		doc.setTransaction(populateMatterTransactionData(tx));
 		return doc;
 	}
 
@@ -614,5 +626,31 @@ public class TestUtils {
 				MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_PRODUCER_NAME, 
 				"May you prosper and be in good health.");
 		return notificationXML;
+	}
+	
+	/**
+	 * get a populated transaction doc for testing CRUD ops
+	 * @param txDoc - the transaction document class being tested 
+	 * @param tx - the transaction being tested
+	 * @param documentNumber - the document number to be used
+	 * @return the test object
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public <A extends MatterTransactionDoc, B extends MatterTransaction> MatterTransactionDoc<MatterTransaction> 
+		getTestTransactionDocForCRUD(Class<A> txDoc, Class<B> tx, String documentNumber) throws InstantiationException, IllegalAccessException {
+		MatterTransactionDoc transactionDoc = txDoc.newInstance();
+		transactionDoc.setDocumentNumber(documentNumber);
+		transactionDoc.getDocumentHeader().setDocumentNumber(documentNumber);
+		transactionDoc.getDocumentHeader().setDocumentDescription("cash");
+		transactionDoc.setMatterId(1001l);
+
+		MatterTransaction transaction = tx.newInstance();
+		populateMatterTransactionData(transaction);
+
+		transactionDoc.setTransaction(transaction);
+		
+		return transactionDoc;
 	}
 }

@@ -4,7 +4,7 @@ package org.martinlaw.test;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -50,8 +50,8 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.test.SQLDataLoader;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
 import org.kuali.test.KRADTestCase;
-import org.martinlaw.bo.Fee;
 import org.martinlaw.bo.MartinlawPerson;
+import org.martinlaw.bo.MatterTransaction;
 import org.martinlaw.bo.courtcase.CourtCasePerson;
 import org.martinlaw.util.TestUtils;
 
@@ -169,13 +169,13 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	/**
 	 * convenience method to verify fee attribute values
 	 * 
-	 * @param fee - the test fee
+	 * @param transaction - the test fee
 	 */
-	protected void testFeeFields(Fee fee) {
-		log.info("fee amount is: " + fee.getAmount().toPlainString());
-		assertEquals("2500.58", fee.getAmount().toPlainString());
+	protected void testFeeFields(MatterTransaction transaction) {
+		log.info("fee amount is: " + transaction.getAmount().toPlainString());
+		assertEquals("2500.58", transaction.getAmount().toPlainString());
 		Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(fee.getDate().getTime());
+		cal.setTimeInMillis(transaction.getDate().getTime());
 		assertEquals(2011,cal.get(Calendar.YEAR));
 		assertEquals(Calendar.JUNE, cal.get(Calendar.MONTH));
 		assertEquals(12, cal.get(Calendar.DATE));
@@ -184,38 +184,37 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	/**
 	 * common method to test court case and conveyance fee CRUD
 	 */
-	public void testFeeCRUD(Fee fee, Class<? extends Fee> klass) {
+	public void testFeeCRUD(MatterTransaction transaction, Class<? extends MatterTransaction> klass) {
 		//CourtCaseFee fee = new CourtCaseFee();
 		BigDecimal amount = new BigDecimal(1000);
-		fee.setAmount(amount);
+		transaction.setAmount(amount);
 		//fee.setCourtCaseId(1001l);
-		fee.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+		transaction.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
 		// leave description blank
 		//save
-		getBoSvc().save(fee);
+		getBoSvc().save(transaction);
 		//retrieve
-		fee = getBoSvc().findBySinglePrimaryKey(klass, fee.getId());
+		transaction = getBoSvc().findBySinglePrimaryKey(klass, transaction.getId());
 		//fee.refresh();
-		assertNotNull(fee);
+		assertNotNull(transaction);
 		assertEquals(0, amount.compareTo(new BigDecimal(1000)));
 		//edit
 		amount = new BigDecimal(900); //discount 
-		fee.setAmount(amount);
-		getBoSvc().save(fee);
+		transaction.setAmount(amount);
+		getBoSvc().save(transaction);
 		//confirm change
-		// fee = boSvc.findBySinglePrimaryKey(CourtCaseFee.class, id);
-		fee.refresh();
+		transaction.refresh();
 		assertEquals(0, amount.compareTo(new BigDecimal(900)));
 		//delete
-		getBoSvc().delete(fee);
-		assertNull(getBoSvc().findBySinglePrimaryKey(klass, fee.getId()));
+		getBoSvc().delete(transaction);
+		assertNull(getBoSvc().findBySinglePrimaryKey(klass, transaction.getId()));
 		
 	}
 
 	/**
 	 * a common method to perform CRUD on objects with {@link CourtCasePerson} as the parent
 	 * @param principalName - the principal name e.g. enjogu
-	 * @param newBo TODO
+	 * @param newBo - the new business object
 	 */
 	protected <T extends BusinessObject> void testMartinlawPersonCRUD(
 			T t, String principalName, MartinlawPerson newBo) {
@@ -266,12 +265,14 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/transaction-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/transaction-type-perms-roles.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-fee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-transaction-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-work-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-event-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-event-perms-roles.sql", ";").runSql();
@@ -281,7 +282,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-fee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-transaction-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-party-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-signatory-test-data.sql", ";").runSql();
@@ -294,7 +295,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-event-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-event-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-fee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-transaction-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-work-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/event-type-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/notification-content-event-type.sql", ";").runSql();
@@ -304,7 +305,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-fee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-transaction-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-work-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-event-test-data.sql", ";").runSql();
@@ -344,10 +345,10 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceWork.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractFee.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceFee.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseFee.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionFee.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractTransactionDoc.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceTransactionDoc.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseTransactionDoc.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionTransactionDoc.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/eventType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractEvent.xml"));
@@ -355,6 +356,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/considerationType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/consideration.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/transactionType.xml"));
 		return suiteLifecycles;
 	}
 

@@ -46,7 +46,7 @@ import org.martinlaw.MartinlawConstants;
  * @param <M>
  */
 @MappedSuperclass
-public abstract class MatterEvent extends MatterMaintenanceHelper {
+public abstract class MatterEvent extends MatterExtensionHelper {
 	/**
 	 * 
 	 */

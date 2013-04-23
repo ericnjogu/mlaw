@@ -64,7 +64,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	public void testWorkRouting() throws WorkflowException {
 		// causes the next document validation fail if not cleared
 		
-		testTransactionalRoutingAndDocumentCRUD(docType);
+		testTransactionalRoutingAndDocumentCRUD(docType, getWorkDoc());
 	}
 
 	@Test
@@ -123,8 +123,10 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * tests routing in a real user-world manner since the postprocessor is {@link org.martinlaw.service.PostProcessorServiceImpl}
 	 * 
 	 * <p>The business object persistence is also tested</p>
+	 * @param txDoc - the populated transactional document
+	 * @param docType - the document type
 	 */
-	public void testTransactionalRoutingAndDocumentCRUD(String docType)
+	public void testTransactionalRoutingAndDocumentCRUD(String docType, MatterTxDocBase txDoc)
 			throws WorkflowException {
 		// changing doc type at runtime did not work
 		/*DocumentType docTypeObj = KEWServiceLocator.getDocumentTypeService().findByName(getDocType());
@@ -134,7 +136,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 		docTypeObj.setPostProcessorName("org.kuali.rice.kew.postprocessor.DefaultPostProcessor");
 		KEWServiceLocator.getDocumentTypeService().versionAndSave(docTypeObj);*/
 		
-		Document doc = KRADServiceLocatorWeb.getDocumentService().saveDocument(getWorkDoc());
+		Document doc = KRADServiceLocatorWeb.getDocumentService().saveDocument(txDoc);
 		assertTrue("document should have been saved", doc.getDocumentHeader().getWorkflowDocument().isSaved());
 		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
 		

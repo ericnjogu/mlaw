@@ -69,8 +69,8 @@ public class MatterMaintenanceHelperBusinessRulesBase extends MaintenanceDocumen
 			MaintenanceDocument document) {
 		if (document instanceof MaintenanceDocument) {
 			final Maintainable newMaintainableObject = ((MaintenanceDocument)document).getNewMaintainableObject();
-			if (newMaintainableObject.getDataObject() instanceof MatterMaintenanceHelper) {
-				MatterMaintenanceHelper maintHelper = (MatterMaintenanceHelper) newMaintainableObject.getDataObject();
+			if (newMaintainableObject.getDataObject() instanceof MatterExtensionHelper) {
+				MatterExtensionHelper maintHelper = (MatterExtensionHelper) newMaintainableObject.getDataObject();
 				if (maintHelper.isMatterIdValid()) {
 						return true;
 				} else {
@@ -78,7 +78,7 @@ public class MatterMaintenanceHelperBusinessRulesBase extends MaintenanceDocumen
 					return false;
 				}
 			} else {
-				throw new RuntimeException("Expected 'org.martinlaw.bo.MatterMaintenanceHelper' for newMaintainableObject.getDataObject(). " +
+				throw new RuntimeException("Expected 'org.martinlaw.bo.MatterExtensionHelper' for newMaintainableObject.getDataObject(). " +
 						"Found '" + newMaintainableObject.getDataObject() + "'");
 			}
 		} else {

@@ -75,8 +75,8 @@
 					</property>
 				</bean>
 				
-				<bean parent="martinlaw_shared_fee_doc_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.ClientFee" />
+				<bean parent="martinlaw_shared_transaction_doc_inquiry_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.TransactionDoc" />
 					<property name="items">
 						<list merge="true">
 							<bean parent="martinlaw_shared_line_docnumber_linkfield" >

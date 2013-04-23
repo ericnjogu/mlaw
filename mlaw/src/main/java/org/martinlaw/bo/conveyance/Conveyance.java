@@ -53,7 +53,7 @@ import org.martinlaw.service.RiceServiceHelper;
  */
 @Entity
 @Table(name="martinlaw_conveyance_t")
-public class Conveyance extends Matter<Assignee, Work, ClientFee, Client, Consideration, Event> {
+public class Conveyance extends Matter<Assignee, Work, TransactionDoc, Client, Consideration, Event> {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
 	private List<ConveyanceAnnex> annexes;
 	// column def given on the object reference below - this is for the sake of ojb
@@ -227,7 +227,7 @@ public class Conveyance extends Matter<Assignee, Work, ClientFee, Client, Consid
 		return Work.class;
 	}
 	@Override
-	public Class<ClientFee> getFeeClass() {
-		return ClientFee.class;
+	public Class<TransactionDoc> getFeeClass() {
+		return TransactionDoc.class;
 	}
 }

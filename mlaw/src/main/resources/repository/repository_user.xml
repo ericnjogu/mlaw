@@ -89,7 +89,7 @@
 		</collection-descriptor>
 		
 		<collection-descriptor name="fees"
-			element-class-ref="org.martinlaw.bo.courtcase.ClientFee"
+			element-class-ref="org.martinlaw.bo.courtcase.TransactionDoc"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
@@ -233,18 +233,18 @@
 		</reference-descriptor>
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.courtcase.Fee"
-		table="martinlaw_court_case_fee_t">
-		<field-descriptor name="id" column="fee_id"
+	<class-descriptor class="org.martinlaw.bo.courtcase.Transaction"
+		table="martinlaw_court_case_transaction_t">
+		<field-descriptor name="id" column="transaction_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_fee_s">
+			sequence-name="martinlaw_court_case_transaction_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
 		</field-descriptor>
-		<field-descriptor name="date" column="date_received"
+		<field-descriptor name="date" column="transaction_date"
 			jdbc-type="DATE">
 		</field-descriptor>
 		<field-descriptor name="clientPrincipalName" column="client_principal_name"
@@ -374,18 +374,18 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.conveyance.Fee"
-		table="martinlaw_conveyance_fee_t">
-		<field-descriptor name="id" column="fee_id"
+	<class-descriptor class="org.martinlaw.bo.conveyance.Transaction"
+		table="martinlaw_conveyance_transaction_t">
+		<field-descriptor name="id" column="transaction_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_fee_s">
+			sequence-name="martinlaw_conveyance_transaction_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
 		</field-descriptor>
-		<field-descriptor name="date" column="date_received"
+		<field-descriptor name="date" column="transaction_date"
 			jdbc-type="DATE">
 		</field-descriptor>
 		<field-descriptor name="clientPrincipalName" column="client_principal_name"
@@ -451,7 +451,7 @@
 		</collection-descriptor>
 		
 		<collection-descriptor name="fees"
-			element-class-ref="org.martinlaw.bo.conveyance.ClientFee"
+			element-class-ref="org.martinlaw.bo.conveyance.TransactionDoc"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
@@ -726,7 +726,7 @@
 		</collection-descriptor>
 		
 		<collection-descriptor name="fees"
-			element-class-ref="org.martinlaw.bo.contract.ClientFee"
+			element-class-ref="org.martinlaw.bo.contract.TransactionDoc"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
@@ -992,7 +992,7 @@
 		</collection-descriptor>
 		
 		<collection-descriptor name="fees"
-			element-class-ref="org.martinlaw.bo.opinion.ClientFee"
+			element-class-ref="org.martinlaw.bo.opinion.TransactionDoc"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
@@ -1047,18 +1047,18 @@
 		</reference-descriptor>
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.opinion.Fee"
-		table="martinlaw_opinion_fee_t">
-		<field-descriptor name="id" column="fee_id"
+	<class-descriptor class="org.martinlaw.bo.opinion.Transaction"
+		table="martinlaw_opinion_transaction_t">
+		<field-descriptor name="id" column="transaction_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_opinion_fee_s">
+			sequence-name="martinlaw_opinion_transaction_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
 		</field-descriptor>
-		<field-descriptor name="date" column="date_received"
+		<field-descriptor name="date" column="transaction_date"
 			jdbc-type="DATE">
 		</field-descriptor>
 		<field-descriptor name="clientPrincipalName" column="client_principal_name"
@@ -1250,8 +1250,8 @@
 		</reference-descriptor>
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.contract.ClientFee"
-		table="martinlaw_contract_fee_doc_t">
+	<class-descriptor class="org.martinlaw.bo.contract.TransactionDoc"
+		table="martinlaw_contract_transaction_doc_t">
 		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
 			jdbc-type="VARCHAR" primarykey="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -1267,27 +1267,27 @@
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" />
 		<field-descriptor name="feeId"
-			column="fee_id" jdbc-type="BIGINT" />
+			column="transaction_id" jdbc-type="BIGINT" />
 
 		<reference-descriptor name="fee"
-			class-ref="org.martinlaw.bo.contract.Fee"
+			class-ref="org.martinlaw.bo.contract.Transaction"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<foreignkey field-ref="feeId" />
 		</reference-descriptor>
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.contract.Fee"
-		table="martinlaw_contract_fee_t">
-		<field-descriptor name="id" column="fee_id"
+	<class-descriptor class="org.martinlaw.bo.contract.Transaction"
+		table="martinlaw_contract_transaction_t">
+		<field-descriptor name="id" column="transaction_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_fee_s">
+			sequence-name="martinlaw_contract_transaction_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
 		</field-descriptor>
-		<field-descriptor name="date" column="date_received"
+		<field-descriptor name="date" column="transaction_date"
 			jdbc-type="DATE">
 		</field-descriptor>
 		<field-descriptor name="clientPrincipalName" column="client_principal_name"
@@ -1299,8 +1299,8 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.conveyance.ClientFee"
-		table="martinlaw_conveyance_fee_doc_t">
+	<class-descriptor class="org.martinlaw.bo.conveyance.TransactionDoc"
+		table="martinlaw_conveyance_transaction_doc_t">
 		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
 			jdbc-type="VARCHAR" primarykey="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -1316,17 +1316,17 @@
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" />
 		<field-descriptor name="feeId"
-			column="fee_id" jdbc-type="BIGINT" />
+			column="transaction_id" jdbc-type="BIGINT" />
 
 		<reference-descriptor name="fee"
-			class-ref="org.martinlaw.bo.conveyance.Fee"
+			class-ref="org.martinlaw.bo.conveyance.Transaction"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<foreignkey field-ref="feeId" />
 		</reference-descriptor>
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.courtcase.ClientFee"
-		table="martinlaw_court_case_fee_doc_t">
+	<class-descriptor class="org.martinlaw.bo.courtcase.TransactionDoc"
+		table="martinlaw_court_case_transaction_doc_t">
 		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
 			jdbc-type="VARCHAR" primarykey="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -1342,17 +1342,17 @@
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" />
 		<field-descriptor name="feeId"
-			column="fee_id" jdbc-type="BIGINT" />
+			column="transaction_id" jdbc-type="BIGINT" />
 
 		<reference-descriptor name="fee"
-			class-ref="org.martinlaw.bo.courtcase.Fee"
+			class-ref="org.martinlaw.bo.courtcase.Transaction"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<foreignkey field-ref="feeId" />
 		</reference-descriptor>
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.opinion.ClientFee"
-		table="martinlaw_opinion_fee_doc_t">
+	<class-descriptor class="org.martinlaw.bo.opinion.TransactionDoc"
+		table="martinlaw_opinion_transaction_doc_t">
 		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
 			jdbc-type="VARCHAR" primarykey="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -1368,10 +1368,10 @@
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" />
 		<field-descriptor name="feeId"
-			column="fee_id" jdbc-type="BIGINT" />
+			column="transaction_id" jdbc-type="BIGINT" />
 
 		<reference-descriptor name="fee"
-			class-ref="org.martinlaw.bo.opinion.Fee"
+			class-ref="org.martinlaw.bo.opinion.Transaction"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<foreignkey field-ref="feeId" />
 		</reference-descriptor>
@@ -1392,5 +1392,25 @@
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.TransactionType" table="martinlaw_transaction_type_t">
+		<field-descriptor name="id" column="transaction_type_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_transaction_type_s">
+		</field-descriptor>
+		<field-descriptor name="name" column="name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="effectOnConsideration" column="effect_on_consideration"
+			jdbc-type="VARCHAR" length="20">
+		</field-descriptor>
 	</class-descriptor>
 </descriptor-repository>

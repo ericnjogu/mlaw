@@ -17,7 +17,7 @@ import javax.persistence.Transient;
  *
  */
 @MappedSuperclass
-public abstract class MatterConsideration extends MatterMaintenanceHelper {
+public abstract class MatterConsideration extends MatterExtensionHelper {
 
 	/**
 	 * 

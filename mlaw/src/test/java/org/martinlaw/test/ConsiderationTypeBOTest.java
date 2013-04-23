@@ -28,9 +28,6 @@ import org.martinlaw.bo.ConsiderationType;
  * #L%
  */
 
-
-
-
 /**
  * test various BO ops for {@link ConsiderationType}
  * 

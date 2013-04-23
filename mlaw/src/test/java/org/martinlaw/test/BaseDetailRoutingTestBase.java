@@ -32,9 +32,7 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 
 	@Test
 	public void testBaseDetailRouting() throws InstantiationException, IllegalAccessException {
-		BaseDetail type = getDataObjectClass().newInstance();
-		String name = "resale agreement";
-		type.setName(name);
+		BaseDetail type = getDataObject();
 		try {
 			testMaintenanceRoutingInitToFinal(getDocTypeName(), type);
 		} catch (Exception e) {
@@ -44,9 +42,22 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 		}
 		// confirm that BO was saved to DB
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("name", name);
+		params.put("name", type.getName());
 		Collection<? extends BaseDetail> result = getBoSvc().findMatching(getDataObjectClass(), params);
 		assertEquals(1, result.size());
+	}
+	
+	/**
+	 * allow superclasses to populate data objects
+	 * @return a populated data object
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	protected BaseDetail getDataObject() throws InstantiationException, IllegalAccessException {
+		BaseDetail type = getDataObjectClass().newInstance();
+		String name = "resale agreement";
+		type.setName(name);
+		return type;
 	}
 
 	@Test
@@ -62,33 +73,33 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	 */
 	@Test
 	public void testBaseDetailRoutingDocSearch() throws WorkflowException,
-			InstantiationException, IllegalAccessException {
-				BaseDetail type = new ContractType();
-				type.setName("permanent for testing purposes");
-				final String docType = getDocTypeName();
-				testMaintenanceRoutingInitToFinal(docType, type);
-				
-				BaseDetail type2 = new ContractType();
-				type2.setName("supply of rain and shine");
-				testMaintenanceRoutingInitToFinal(docType, type2);
-				
-				// no document criteria given, so both documents should be found
-				SearchTestCriteria crit1 = new SearchTestCriteria();
-				crit1.setExpectedDocuments(2);
-				// search for name
-				SearchTestCriteria crit2 = new SearchTestCriteria();
-				crit2.setExpectedDocuments(1);
-				crit2.getFieldNamesToSearchValues().put("name", "permanent*");
-				// search for non-existent name
-				SearchTestCriteria crit3 = new SearchTestCriteria();
-				crit3.setExpectedDocuments(0);
-				crit3.getFieldNamesToSearchValues().put("name", "*temp*");
-				
-				List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
-				crits.add(crit1);
-				crits.add(crit2);
-				crits.add(crit3);
-				runDocumentSearch(crits, docType);
-			}
+		InstantiationException, IllegalAccessException {
+		BaseDetail type = new ContractType();
+		type.setName("permanent for testing purposes");
+		final String docType = getDocTypeName();
+		testMaintenanceRoutingInitToFinal(docType, type);
+		
+		BaseDetail type2 = new ContractType();
+		type2.setName("supply of rain and shine");
+		testMaintenanceRoutingInitToFinal(docType, type2);
+		
+		// no document criteria given, so both documents should be found
+		SearchTestCriteria crit1 = new SearchTestCriteria();
+		crit1.setExpectedDocuments(2);
+		// search for name
+		SearchTestCriteria crit2 = new SearchTestCriteria();
+		crit2.setExpectedDocuments(1);
+		crit2.getFieldNamesToSearchValues().put("name", "permanent*");
+		// search for non-existent name
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(0);
+		crit3.getFieldNamesToSearchValues().put("name", "*temp*");
+		
+		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+		crits.add(crit1);
+		crits.add(crit2);
+		crits.add(crit3);
+		runDocumentSearch(crits, docType);
+	}
 
 }

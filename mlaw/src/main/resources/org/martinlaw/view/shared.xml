@@ -66,9 +66,9 @@
 		<property name="layoutManager.summaryTitle" value="Client" />
 	</bean>
 
-	<bean id="martinlaw_shared_fee_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection"
+	<bean id="martinlaw_shared_transaction_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection"
 		abstract="true">
-		<property name="headerText" value="Fees Received" />
+		<property name="headerText" value="Transactions" />
 		<property name="propertyName" value="fees" />
 		<property name="items">
 			<list>
@@ -301,15 +301,18 @@
 		</property> -->
 	</bean>
 
-	<bean id="martinlaw_shared_fee_doc_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
+	<bean id="martinlaw_shared_transaction_doc_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
 		<property name="propertyName" value="fees" />
 		<property name="headerText" value="Fees" />
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
-				<bean parent="Uif-InputField" p:propertyName="fee.amount" />
-				<bean parent="Uif-InputField" p:propertyName="fee.date" />
-				<bean parent="Uif-InputField" p:propertyName="fee.clientPrincipalName" />
+				<bean parent="Uif-InputField" p:propertyName="transaction.transactionType.name" />
+				<bean parent="Uif-InputField" p:propertyName="transaction.considerationType.name" />
+				<bean parent="Uif-InputField" p:propertyName="transaction.date" />
+				<bean parent="Uif-InputField" p:propertyName="transaction.amount" />
+				<bean parent="Uif-InputField" p:propertyName="transaction.date" />
+				<bean parent="Uif-InputField" p:propertyName="transaction.clientPrincipalName" />
 			</list>
 		</property>
 		<property name="layoutManager.summaryTitle" value="Fee" />

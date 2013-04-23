@@ -32,14 +32,17 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>org.martinlaw.bo.Status</value>
-				<value>org.martinlaw.bo.Fee</value>
+				<value>org.martinlaw.bo.MatterTransaction</value>
+				<value>org.martinlaw.bo.MatterTransactionDoc</value>
 				<value>org.martinlaw.bo.CalendarEvent</value>
 				<value>org.martinlaw.bo.EventType</value>
 				<value>org.martinlaw.bo.ConsiderationType</value>
+				<value>org.martinlaw.bo.TransactionType</value>
 				
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>
 				<value>org.martinlaw.bo.sequence.ConsiderationTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.EventTypeSeq</value>
+				<value>org.martinlaw.bo.sequence.TransactionTypeSeq</value>
 				
 				<value>org.martinlaw.bo.courtcase.Work</value>
 				<value>org.martinlaw.bo.courtcase.Event</value>
@@ -49,9 +52,9 @@
 				<value>org.martinlaw.bo.courtcase.Assignment</value>
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
 				<value>org.martinlaw.bo.courtcase.CourtCase</value>
-				<value>org.martinlaw.bo.courtcase.ClientFee</value>
+				<value>org.martinlaw.bo.courtcase.TransactionDoc</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>
-				<value>org.martinlaw.bo.courtcase.Fee</value>
+				<value>org.martinlaw.bo.courtcase.Transaction</value>
 				<value>org.martinlaw.bo.courtcase.Consideration</value>
 				
 				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
@@ -68,9 +71,9 @@
 				<value>org.martinlaw.bo.conveyance.ConveyanceAttachment</value>
 				<value>org.martinlaw.bo.conveyance.ConveyanceAnnex</value>
 				<value>org.martinlaw.bo.conveyance.Client</value>
-				<value>org.martinlaw.bo.conveyance.Fee</value>
+				<value>org.martinlaw.bo.conveyance.Transaction</value>
 				<value>org.martinlaw.bo.conveyance.Conveyance</value>
-				<value>org.martinlaw.bo.conveyance.ClientFee</value>
+				<value>org.martinlaw.bo.conveyance.TransactionDoc</value>
 				<value>org.martinlaw.bo.conveyance.Consideration</value>
 				<value>org.martinlaw.bo.conveyance.Event</value>
 				<value>org.martinlaw.bo.conveyance.Assignee</value>
@@ -98,8 +101,8 @@
 				<value>org.martinlaw.bo.contract.Assignment</value>
 				<value>org.martinlaw.bo.contract.Assignee</value>
 				<value>org.martinlaw.bo.contract.Client</value>
-				<value>org.martinlaw.bo.contract.Fee</value>
-				<value>org.martinlaw.bo.contract.ClientFee</value>
+				<value>org.martinlaw.bo.contract.Transaction</value>
+				<value>org.martinlaw.bo.contract.TransactionDoc</value>
 				<value>org.martinlaw.bo.contract.Consideration</value>
 				<value>org.martinlaw.bo.contract.Event</value>
 				<value>org.martinlaw.bo.contract.Work</value>
@@ -118,23 +121,23 @@
 				<value>org.martinlaw.bo.MatterAssignee</value>
 				<value>org.martinlaw.bo.MatterAssignment</value>
 				<value>org.martinlaw.bo.MatterClient</value>
-				<value>org.martinlaw.bo.MatterFee</value>
+				<value>org.martinlaw.bo.MatterTransaction</value>
 				<value>org.martinlaw.bo.MatterTxDocBase</value>
-				<value>org.martinlaw.bo.MatterClientFee</value>
+				<value>org.martinlaw.bo.MatterTransactionDoc</value>
 				<value>org.martinlaw.bo.MatterConsideration</value>
-				<value>org.martinlaw.bo.MatterMaintenanceHelper</value>
+				<value>org.martinlaw.bo.MatterExtensionHelper</value>
 				<value>org.martinlaw.bo.MartinlawBusinessObjectBase</value>
 				<value>org.martinlaw.bo.Matter</value>
 				<value>org.martinlaw.bo.MatterEvent</value>
 				<value>org.martinlaw.bo.MartinlawPerson</value>
 				
 				<value>org.martinlaw.bo.opinion.Opinion</value>
-				<value>org.martinlaw.bo.opinion.Fee</value>
+				<value>org.martinlaw.bo.opinion.Transaction</value>
 				<value>org.martinlaw.bo.opinion.Client</value>
 				<value>org.martinlaw.bo.opinion.Assignment</value>
 				<value>org.martinlaw.bo.opinion.Assignee</value>
 				<value>org.martinlaw.bo.opinion.Event</value>
-				<value>org.martinlaw.bo.opinion.ClientFee</value>
+				<value>org.martinlaw.bo.opinion.TransactionDoc</value>
 				<value>org.martinlaw.bo.opinion.Consideration</value>
 				<value>org.martinlaw.bo.opinion.Work</value>
 				

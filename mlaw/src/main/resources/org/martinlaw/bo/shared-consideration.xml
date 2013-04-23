@@ -43,7 +43,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- Attributes Defined outside bo entry since they need to refered to as nested attributes for contract and other matters -->
 	<bean id="martinlaw_shared_consideration_bo_description" parent="martinlaw-shared-description" p:label="Comment" />
 	
-	<bean id="martinlaw_shared_consideration_bo_amount" parent="martinlaw-shared-fee-amount-parentBean" p:label="Value"/>
+	<bean id="martinlaw_shared_consideration_bo_amount" parent="martinlaw_shared_transaction_amount" p:label="Value"/>
 	
 	<bean id="martinlaw_shared_consideration_bo_currency" parent="AttributeDefinition">
 	    <property name="forceUppercase" value="false"/>

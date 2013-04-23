@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Consideration;
-import org.martinlaw.bo.opinion.Fee;
+import org.martinlaw.bo.opinion.Transaction;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.MartinlawTestsBase;
 
@@ -108,7 +108,7 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		Map<String, Object> criteria = new HashMap<String, Object>(1);
 		criteria.put("matterId", opinion.getId());
 		assertEquals("opinion clients should have been deleted", 0, getBoSvc().findMatching(Client.class, criteria).size());
-		assertEquals("opinion fees should have been deleted", 0, getBoSvc().findMatching(Fee.class, criteria).size());
+		assertEquals("opinion fees should have been deleted", 0, getBoSvc().findMatching(Transaction.class, criteria).size());
 	}
 	
 	@Test

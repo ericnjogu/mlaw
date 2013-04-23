@@ -39,7 +39,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.contract.ClientFee;
+import org.martinlaw.bo.contract.TransactionDoc;
 import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -101,7 +101,7 @@ public class ContractBOTest extends MartinlawTestsBase {
 		getTestUtils().testAssignees(contract.getAssignees());
 		getTestUtils().testRetrievedConsiderationFields(contract.getConsiderations().get(0));
 		
-		List<ClientFee> fees = contract.getFees();
+		List<TransactionDoc> fees = contract.getFees();
 		getTestUtils().testClientFeeList(fees);
 		
 		getTestUtils().testWorkList(contract.getWork());

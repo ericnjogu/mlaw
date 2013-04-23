@@ -51,7 +51,7 @@ import org.martinlaw.bo.conveyance.Consideration;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
-import org.martinlaw.bo.conveyance.Fee;
+import org.martinlaw.bo.conveyance.Transaction;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesMaint;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
@@ -84,7 +84,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		client.setPrincipalName(principalName);
 		conv.getClients().add(client);
 		// add fee
-		/*Fee fee = new Fee();
+		/*Transaction fee = new Transaction();
 		fee.setAmount(new BigDecimal(5000));
 		fee.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
 		conv.getFees().add(fee);*/
@@ -130,7 +130,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		assertNull("conveyance client should have been deleted", 
 				getBoSvc().findBySinglePrimaryKey(Client.class, conv.getClients().get(0).getId()));
 		/*assertNull("conveyance fee should have been deleted", 
-				getBoSvc().findBySinglePrimaryKey(Fee.class, conv.getFees().get(0).getId()));*/
+				getBoSvc().findBySinglePrimaryKey(Transaction.class, conv.getFees().get(0).getId()));*/
 	}
 	
 	@Test
@@ -192,7 +192,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	 * test that the conveyance fee is loaded into the data dictionary
 	 */
 	public void testConveyanceFeeAttributes() {
-		testBoAttributesPresent(Fee.class.getCanonicalName());
+		testBoAttributesPresent(Transaction.class.getCanonicalName());
 	}
 	
 	
@@ -328,9 +328,9 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	 * tests that annex type generates errors when non-nullable fields are blank
 	 */
 	public void testConveyanceFeeNullableFields() {
-		Fee fee = new Fee();
+		Transaction transaction = new Transaction();
 		//fee.setId(25l);
-		getBoSvc().save(fee);
+		getBoSvc().save(transaction);
 	}
 	
 	@Test

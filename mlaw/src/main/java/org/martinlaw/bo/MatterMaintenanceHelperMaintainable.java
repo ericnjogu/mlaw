@@ -24,7 +24,7 @@ public class MatterMaintenanceHelperMaintainable extends MaintainableImpl {
 	 */
 	@Override
 	public void prepareForSave() {
-		((MatterMaintenanceHelper)getDataObject()).setDateModified(new Timestamp(System.currentTimeMillis()));
+		((MatterExtensionHelper)getDataObject()).setDateModified(new Timestamp(System.currentTimeMillis()));
 		super.prepareForSave();
 	}
 

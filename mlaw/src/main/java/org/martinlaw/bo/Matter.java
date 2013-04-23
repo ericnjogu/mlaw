@@ -48,7 +48,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
  *
  */
 @MappedSuperclass
-public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, F extends MatterClientFee<? extends MatterFee>, 
+public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, F extends MatterTransactionDoc<? extends MatterTransaction>, 
 	C extends MatterClient, K extends MatterConsideration, E extends MatterEvent> extends PersistableBusinessObjectBase {
 
 	/**

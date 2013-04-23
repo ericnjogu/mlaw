@@ -19,12 +19,20 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		super();
 	}
 
+	/**
+	 * tests that non nullable fields are validated by the db
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	@Test(expected = DataIntegrityViolationException.class)
 	public void testTypeNullableFields() throws InstantiationException, IllegalAccessException {
 		BaseDetail type = getDataObjectClass().newInstance();
 		getBoSvc().save(type);
 	}
 
+	/**
+	 * tests data dictionary entries
+	 */
 	@Test
 	public void testBaseDetailAttributes() {
 		testBoAttributesPresent(getDataObjectClass().getCanonicalName());
@@ -39,9 +47,9 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		// retrieve object populated via sql script
 		BaseDetail type = getBoSvc().findBySinglePrimaryKey(
 				getDataObjectClass(), getExpectedOnRetrieve().getId());
-		assertNotNull(type);
-		assertEquals(getExpectedOnRetrieve().getName(), type.getName());
-		assertEquals(getExpectedOnRetrieve().getDescription(), type.getDescription());
+		assertNotNull("retrieved '" + getDataObjectClass() + "' should not be null", type);
+		assertEquals("name differs", getExpectedOnRetrieve().getName(), type.getName());
+		assertEquals("description differs", getExpectedOnRetrieve().getDescription(), type.getDescription());
 	}
 
 	/**
@@ -65,8 +73,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		assertNotNull("description should not be null", type.getDescription());
 		// D
 		getBoSvc().delete(type);
-		assertNull(getBoSvc().findBySinglePrimaryKey(getDataObjectClass(),
-				type.getId()));
+		assertNull(getBoSvc().findBySinglePrimaryKey(getDataObjectClass(),	type.getId()));
 	}
 
 	/**

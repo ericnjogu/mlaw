@@ -26,7 +26,7 @@ public class MatterMaintenanceHelperBusinessRulesBaseTest {
 	private MatterMaintenanceHelperBusinessRulesBase rulesBase;
 	private MaintenanceDocument document;
 	private Maintainable maintainable;
-	private MatterMaintenanceHelper maintHelper;
+	private MatterExtensionHelper maintHelper;
 
 	/**
 	 * @throws java.lang.Exception
@@ -42,7 +42,7 @@ public class MatterMaintenanceHelperBusinessRulesBaseTest {
 		document = mock(MaintenanceDocument.class);
 		maintainable = mock(Maintainable.class);
 		when(document.getNewMaintainableObject()).thenReturn(maintainable);
-		maintHelper = mock(MatterMaintenanceHelper.class);
+		maintHelper = mock(MatterExtensionHelper.class);
 	}
 
 	/**
@@ -51,17 +51,17 @@ public class MatterMaintenanceHelperBusinessRulesBaseTest {
 	 *//*
 	@Test(expected=RuntimeException.class)
 	public void testProcessCustomRouteDocumentBusinessRulesDocument_NotMaintenanceDoc() {
-		rulesBase.processCustomRouteDocumentBusinessRules(new ClientFee());
+		rulesBase.processCustomRouteDocumentBusinessRules(new TransactionDoc());
 	}*/
 	
 	/**
 	 * tests {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
 	 * <p>verify that nulls in {@link org.kuali.rice.krad.maintenance.MaintenanceDocument#getNewMaintainableObject()} contains a data object
-	 *  of type {@link org.martinlaw.bo.MatterMaintenanceHelper}</p>
+	 *  of type {@link org.martinlaw.bo.MatterExtensionHelper}</p>
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testProcessCustomRouteDocumentBusinessRulesDocument_NotMaintenanceHelper() {
-		// return non org.martinlaw.bo.MatterMaintenanceHelper - a string (null will also generate the error)
+		// return non org.martinlaw.bo.MatterExtensionHelper - a string (null will also generate the error)
 		when(maintainable.getDataObject()).thenReturn("Joel 2:12-27");
 		rulesBase.processCustomRouteDocumentBusinessRules(document);
 	}
@@ -82,7 +82,7 @@ public class MatterMaintenanceHelperBusinessRulesBaseTest {
 	
 	/**
 	 * verifies that {@link org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase#processCustomRouteDocumentBusinessRules(org.kuali.rice.krad.document.Document)}
-	 * returns true when {@link  org.martinlaw.bo.MatterMaintenanceHelper#isMatterIdValid()} is true 
+	 * returns true when {@link  org.martinlaw.bo.MatterExtensionHelper#isMatterIdValid()} is true 
 	 */
 	@Test
 	public void testProcessCustomRouteDocumentBusinessRulesDocument_ValidMatterId() {

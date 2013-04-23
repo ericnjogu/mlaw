@@ -29,7 +29,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.courtcase.Fee}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.courtcase.Transaction}
  * 
  * @author mugo
  *

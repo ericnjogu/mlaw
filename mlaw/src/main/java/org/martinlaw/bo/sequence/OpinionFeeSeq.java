@@ -29,14 +29,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.opinion.Fee}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.opinion.Transaction}
  * 
  * @author mugo
  *
  */
  
 @Entity
-@Table(name="martinlaw_opinion_fee_s")
+@Table(name="martinlaw_opinion_transaction_s")
 public class OpinionFeeSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")
