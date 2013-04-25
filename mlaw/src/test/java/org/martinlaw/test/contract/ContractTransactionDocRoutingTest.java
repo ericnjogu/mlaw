@@ -26,61 +26,44 @@ package org.martinlaw.test.contract;
  */
 
 
-import java.math.BigDecimal;
+import static org.junit.Assert.fail;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.MatterTransactionDoc;
+import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.contract.TransactionDoc;
-import org.martinlaw.bo.contract.Transaction;
+import org.martinlaw.test.TxRoutingTestBase;
 
 /**
  * tests routing for {@link TransactionDoc}
  * @author mugo
  *
  */
-public class ContractTransactionDocRoutingTest extends ContractTxRoutingTestBase {
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.MartinlawTestsBase#setUpInternal()
-	 */
+public class ContractTransactionDocRoutingTest extends TxRoutingTestBase {
+	private Log log = LogFactory.getLog(getClass());
+
 	@Override
-	protected void setUpInternal() throws Exception {
-		super.setUpInternal();
-		setDocType(MartinlawConstants.DocTypes.CONTRACT_TRANSACTION);
-		TransactionDoc doc = (TransactionDoc) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
-		setWorkDoc(getTestUtils().populateTransactionDocForRouting(doc, new Transaction()));
+	public MatterTxDocBase getTxDoc() throws WorkflowException {
+		return getTestUtils().populateTransactionDocForRouting(TransactionDoc.class);
 	}
-	
-	/**
-	 * test doc search
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws WorkflowException 
-	 */
-	@SuppressWarnings("rawtypes")
+
+	@Override
+	public String getDocType() {
+		return MartinlawConstants.DocTypes.CONTRACT_TRANSACTION;
+	}
+
+	@Override
 	@Test
-	public void testContractTransactionDocSearch() throws InstantiationException, IllegalAccessException, WorkflowException {
-		// route some test documents then search
-		MatterTransactionDoc txDoc1 = getTestUtils().populateTransactionDocForRouting(
-				TransactionDoc.class.newInstance(), Transaction.class.newInstance());
-		testTransactionalRoutingAndDocumentCRUD(MartinlawConstants.DocTypes.CONTRACT_TRANSACTION , txDoc1);
-		
-		MatterTransactionDoc txDoc2 = getTestUtils().populateTransactionDocForRouting(
-				TransactionDoc.class.newInstance(), Transaction.class.newInstance());
-		txDoc2.getTransaction().setAmount(new BigDecimal(50001));
-		txDoc2.getTransaction().setClientPrincipalName("kyaloda");
-		testTransactionalRoutingAndDocumentCRUD(MartinlawConstants.DocTypes.CONTRACT_TRANSACTION , txDoc2);
-		
-		MatterTransactionDoc txDoc3 = getTestUtils().populateTransactionDocForRouting(
-				TransactionDoc.class.newInstance(), Transaction.class.newInstance());
-		txDoc3.getTransaction().setAmount(new BigDecimal(45000));
-		txDoc3.getTransaction().setClientPrincipalName("sirarthur");
-		txDoc3.getTransaction().setTransactionTypeId(1003);
-		
-		testTransactionalRoutingAndDocumentCRUD(MartinlawConstants.DocTypes.CONTRACT_TRANSACTION , txDoc3);
-		
+	public void testDocSearch() {
+		try {
+			getTestUtils().testMatterTransactionDocSearch(TransactionDoc.class, getDocType());
+		} catch (Exception e) {
+			log.error("error occured", e);
+			fail("error occured");
+		}
 	}
 
 }

@@ -83,6 +83,6 @@ public class ConveyanceTypeRoutingTest extends KewTestsBase {
 		crits.add(crit1);
 		crits.add(crit2);
 		crits.add(crit3);
-		runDocumentSearch(crits, docType);
+		getTestUtils().runDocumentSearch(crits, docType);
 	}
 }

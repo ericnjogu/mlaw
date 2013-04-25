@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -21,7 +21,6 @@
   #L%
   -->
 
-<!-- Copyright 2005-2012 Protosoft Ltd -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -31,16 +30,16 @@
 	<bean id="conveyance_transaction_doc_view" parent="Uif-DocumentView">
 		<property name="documentClass" value="org.martinlaw.bo.conveyance.TransactionDoc" />
 		<property name="formPostUrl"
-			value="tx?docTypeName=@{#ConfigProperties['doctype_conveyance_fee']}"></property>
-		<property name="headerText" value="Conveyance Fee" />
+			value="tx?docTypeName=@{#ConfigProperties['doctype_conveyance_transaction']}"></property>
+		<property name="headerText" value="Conveyance Transaction" />
 		<property name="items">
 			<list>
-				<ref local="conveyance_fee_doc_page"/>
+				<ref local="conveyance_transaction_doc_page"/>
 			</list>
 		</property>
 	</bean>
 
-	<bean id="conveyance_fee_doc_page" parent="Uif-DocumentPage">
+	<bean id="conveyance_transaction_doc_page" parent="Uif-DocumentPage">
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-GridSection">
@@ -50,15 +49,18 @@
 								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.TransactionDoc">
 								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
 							</bean>
-							<bean parent="conveyance_fee_doc_fee_detail" p:propertyName="fee.clientPrincipalName"
+							<bean parent="conveyance_transaction_doc_transaction_detail" p:propertyName="clientPrincipalName"
 								p:conditionalRefresh="!#empty(document.matterId)"
 								p:refreshWhenChangedPropertyNames="matterId">
-								<property name="optionsFinder">
+								<!-- <property name="optionsFinder">
 									<bean class="org.martinlaw.keyvalues.MatterClientNamesKeyValues" />
-								</property>
+								</property> -->
 							</bean>
-							<bean parent="conveyance_fee_doc_fee_detail" p:propertyName="fee.amount" />
-							<bean parent="conveyance_fee_doc_fee_detail" p:propertyName="fee.date" />
+							<bean parent="conveyance_transaction_doc_transaction_detail" p:propertyName="amount" />
+							<bean parent="conveyance_transaction_doc_transaction_detail" p:propertyName="date" />
+							<bean parent="contract_transaction_doc_transaction_detail" p:propertyName="considerationId" 
+								p:conditionalRefresh="!#empty(document.matterId)"/>
+							<bean parent="contract_transaction_doc_transaction_detail" p:propertyName="transactionTypeId" />
 						</list>
 					</property>
 				</bean>
@@ -66,6 +68,6 @@
 		</property>
 	</bean>
 	
-	<bean id="conveyance_fee_doc_fee_detail" parent="Uif-InputField"
+	<bean id="conveyance_transaction_doc_transaction_detail" parent="Uif-InputField"
 		abstract="true" p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.TransactionDoc" />
 </beans>

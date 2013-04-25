@@ -7,7 +7,7 @@ package org.martinlaw.test.opinion;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -30,7 +30,6 @@ package org.martinlaw.test.opinion;
 import org.junit.Test;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.bo.opinion.Client;
-import org.martinlaw.bo.opinion.Transaction;
 import org.martinlaw.test.MartinlawTestsBase;
 
 /**
@@ -46,14 +45,6 @@ public class OpinionDDTest extends MartinlawTestsBase {
 	 */
 	public void testOpinionClientAttributes() {
 		super.testBoAttributesPresent(Client.class.getCanonicalName());
-	}
-	
-	@Test
-	/**
-	 * test that {@link Client} is loaded into the data dictionary
-	 */
-	public void testOpinionFeeAttributes() {
-		super.testBoAttributesPresent(Transaction.class.getCanonicalName());
 	}
 	
 	@Test

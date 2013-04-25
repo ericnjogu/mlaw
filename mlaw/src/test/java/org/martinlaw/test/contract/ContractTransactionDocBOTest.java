@@ -1,10 +1,13 @@
+/**
+ * 
+ */
 package org.martinlaw.test.contract;
 
 /*
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -23,25 +26,32 @@ package org.martinlaw.test.contract;
  */
 
 
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.util.GlobalVariables;
-import org.martinlaw.bo.contract.Contract;
-import org.martinlaw.test.TxRoutingTestBase;
+
+
+import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.MatterTransactionDoc;
+import org.martinlaw.bo.contract.TransactionDoc;
+import org.martinlaw.test.MatterTransactionDocBOTest;
+
 /**
- * base class for testing transactional documents that reference {@link Contract}
- * 
+ * tests DD and CRUD for {@link TransactionDoc}
  * @author mugo
  *
  */
-public class ContractTxRoutingTestBase extends TxRoutingTestBase {
+public class ContractTransactionDocBOTest extends MatterTransactionDocBOTest {
 
-	public ContractTxRoutingTestBase() {
-		super();
+	@Override
+	public Class<? extends MatterTransactionDoc> getMatterTransactionDocumentClass() {
+		return TransactionDoc.class;
 	}
 
 	@Override
-	protected void setUpInternal() throws Exception {
-		super.setUpInternal();
-		GlobalVariables.setUserSession(new UserSession("clerk1"));
+	public String getDocType() {
+		return MartinlawConstants.DocTypes.CONTRACT_TRANSACTION;
+	}
+
+	@Override
+	public String getViewId() {
+		return MartinlawConstants.ViewIds.CONTRACT_TRANSACTION;
 	}
 }

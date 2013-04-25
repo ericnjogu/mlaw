@@ -50,9 +50,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="contract_duration_bo_description" parent="martinlaw-shared-description" p:label="Comment" />
 
-	<bean id="contract_duration_bo_startDate" parent="martinlaw-shared-date-parentBean" p:label="Start Date" p:name="startDate"/>
+	<bean id="contract_duration_bo_startDate" parent="martinlaw_shared_date_attr" p:label="Start Date" p:name="startDate"/>
 	
-	<bean id="contract_duration_bo_endDate" parent="martinlaw-shared-date-parentBean" p:label="End Date" p:name="endDate" p:required="false"/>
+	<bean id="contract_duration_bo_endDate" parent="martinlaw_shared_date_attr" p:label="End Date" p:name="endDate" p:required="false"/>
 	
 	<bean id="contract_duration_bo_duration" parent="AttributeDefinition">
     <property name="forceUppercase" value="false"/>

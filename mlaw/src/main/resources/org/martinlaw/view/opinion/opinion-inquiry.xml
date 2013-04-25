@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -45,6 +45,13 @@
 				
 				<bean parent="martinlaw_shared_consideration_inquiry_table_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.Consideration" />
+					<property name="subCollections">
+				       <list>
+				         <bean parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
+				         	 <property name="collectionObjectClass" value="org.martinlaw.bo.opinion.TransactionDoc" />
+				         </bean>
+				       </list>
+				     </property>
 				</bean>
 				
 				<bean parent="martinlaw_shared_annexes_inquirySection"/>

@@ -7,7 +7,7 @@ package org.martinlaw.bo;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -52,8 +52,10 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 	 */
 	@Override
 	public boolean processCustomSaveDocumentBusinessRules(Document document) {
-		MatterTxDocBase matterWork = (MatterTxDocBase) document;
-		if (super.processCustomSaveDocumentBusinessRules(document)) {// checks matter id validity
+		// enforce only if org.martinlaw.MartinlawConstants.Options.RESTRICT_WORK_TO_ASSIGNEES is defined in the options as true
+		boolean restrictWorkToAssignees = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(MartinlawConstants.Options.RESTRICT_WORK_TO_ASSIGNEES);
+		if (restrictWorkToAssignees) {
+			MatterTxDocBase matterWork = (MatterTxDocBase) document;
 			// check if the initiator is an assignee for this matter
 			String principalId = document.getDocumentHeader().getWorkflowDocument().getInitiatorPrincipalId();
 			String initiatorPrincipalName = KimApiServiceLocator.getIdentityService().getPrincipal(principalId).getPrincipalName();
@@ -67,7 +69,7 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 				return false;
 			}
 		} else {
-			return false;
+			return true;
 		}
 	}
 
@@ -81,8 +83,8 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean isPrincipalNameInAssigneeList(MatterTxDocBase matterWork, String principalName) {
-		Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterTransactionDoc<?>, 
-				? extends MatterClient, ? extends MatterConsideration, ? extends MatterEvent> matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
+		Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterClient, 
+				? extends MatterConsideration<?>, ? extends MatterEvent> matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
 				matterWork.getMatterClass(), matterWork.getMatterId());
 		if (matter == null || matter.getAssignees() == null || matter.getAssignees().size() == 0) {
 			return false;

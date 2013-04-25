@@ -3,6 +3,28 @@
  */
 package org.martinlaw.web;
 
+/*
+ * #%L
+ * mlaw
+ * %%
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +72,6 @@ public class CalendarController {
 	 * @return null, while copying the vevent to the response out
 	 * @throws IOException
 	 */
-	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/date/{uid}")
 	public String downloadDate(HttpServletRequest request,  HttpServletResponse response, 
 			@PathVariable String uid) throws IOException {
@@ -70,7 +91,6 @@ public class CalendarController {
 	 * @param calendarUid - the event's uid which is in the form id-class e.g. 101-org.mlaw.mydate
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
 	public MatterEvent getMatterDate(String calendarUid) {
 		if (!uidMatchesPattern(calendarUid)) {
 			throw new RuntimeException("the provided uid - '" + calendarUid + 

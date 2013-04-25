@@ -19,16 +19,10 @@
 -- <http://www.gnu.org/licenses/gpl-3.0.html>.
 -- #L%
 ---
-insert into
-martinlaw_opinion_transaction_t
-(transaction_id,matter_id,amount,transaction_date, ver_nbr, obj_id, client_principal_name, consideration_id, transaction_type_id)
-values
-(1001,1001,2500.58,'2012-10-22', default, 1, 'mawanja', 1001, 1001),
-(1002,1001,10000.00,'2012-10-23', default, 1, 'granyanja', 1001, 1002);
 
 insert into
 martinlaw_opinion_transaction_doc_t
-(matter_id, DOC_HDR_ID, ver_nbr, obj_id, transaction_id)
+(matter_id, DOC_HDR_ID, ver_nbr, obj_id, amount,transaction_date, client_principal_name, consideration_id, transaction_type_id)
 values
-(1001, "1001", 1, 'cw1', 1001),
-(1001, "1002", 1, 'cw2', 1002);
+(1001, "1001", 1, 'cw1', 2501,'2012-10-22','mawanja', 1001, 1001),
+(1001, "1002", 1, 'cw2', 10000.00,'2012-10-23', 'granyanja', 1001, 1002);

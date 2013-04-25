@@ -4,7 +4,7 @@ package org.martinlaw.test;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -31,14 +31,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.uif.view.ViewModel;
-import org.martinlaw.bo.MatterTransaction;
 import org.martinlaw.bo.MatterTransactionDoc;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.keyvalues.MatterClientNamesKeyValues;
@@ -52,16 +52,15 @@ import org.martinlaw.web.MatterTxForm;
  * @author mugo
  * 
  */
-public abstract class MatterTransactionBOTest extends MartinlawTestsBase {
-
-	public MatterTransactionBOTest() {
+public abstract class MatterTransactionDocBOTest extends MartinlawTestsBase {
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+	public MatterTransactionDocBOTest() {
 		super();
 	}
 
 	/**
 	 * @return the transaction document class
 	 */
-	@SuppressWarnings("rawtypes")
 	public abstract Class<? extends MatterTransactionDoc> getMatterTransactionDocumentClass();
 
 	/**
@@ -81,13 +80,14 @@ public abstract class MatterTransactionBOTest extends MartinlawTestsBase {
 	
 	/**
 	 * retrieves object that was inserted via sql and compares it with expected info
+	 * @throws ParseException 
 	 */
 	@Test
-	public void testTransactionDocRetrieve() {
-		MatterTransactionDoc<?> transactionDoc = getBoSvc().findBySinglePrimaryKey(
+	public void testTransactionDocRetrieve() throws ParseException {
+		MatterTransactionDoc transactionDoc = getBoSvc().findBySinglePrimaryKey(
 				getMatterTransactionDocumentClass(), "1001");
-		testTransactionDocFields(transactionDoc, "mawanja", "22-Oct-2012", new BigDecimal(2500.58));
-		getTestUtils().testRetrievedConsiderationFields(transactionDoc.getTransaction().getConsideration());
+		testTransactionDocFields(transactionDoc, "mawanja", new Date(sdf.parse("22-Oct-2012").getTime()), new BigDecimal(2501));
+		//getTestUtils().testRetrievedConsiderationFields(transactionDoc.getConsideration());
 	}
 
 	/**
@@ -95,18 +95,17 @@ public abstract class MatterTransactionBOTest extends MartinlawTestsBase {
 	 * 
 	 * @param transactionDoc
 	 *            - the test object
-	 * @param expectedDate TODO
-	 * @param expectedAmount TODO
+	 * @param expectedDate - the expected date
+	 * @param expectedAmount - the expected amount
 	 */
-	protected void testTransactionDocFields(MatterTransactionDoc<?> transactionDoc,
-			String principalName, String expectedDate, BigDecimal expectedAmount) {
+	protected void testTransactionDocFields(MatterTransactionDoc transactionDoc,
+			String principalName, Date expectedDate, BigDecimal expectedAmount) {
 		assertNotNull("result should not be null", transactionDoc);
-		assertNotNull("transaction should not be null", transactionDoc.getTransaction());
-		assertEquals("principal name differs", principalName, transactionDoc.getTransaction().getClientPrincipalName());
-		assertNotNull("transaction type should not be null", transactionDoc.getTransaction().getTransactionType());
-		assertEquals("date differs", expectedDate, transactionDoc.getTransaction().getDate());
-		assertEquals("amount differs", expectedAmount, transactionDoc.getTransaction().getAmount());
-		assertNotNull("transaction type should not be null", transactionDoc.getTransaction().getTransactionType());
+		assertEquals("principal name differs", principalName, transactionDoc.getClientPrincipalName());
+		transactionDoc.refreshNonUpdateableReferences();
+		assertNotNull("transaction type should not be null", transactionDoc.getTransactionType());
+		assertEquals("date differs", sdf.format(expectedDate), sdf.format(transactionDoc.getDate()));
+		assertEquals("amount differs", 0, expectedAmount.compareTo(transactionDoc.getAmount()));
 	}
 
 	/**
@@ -114,44 +113,34 @@ public abstract class MatterTransactionBOTest extends MartinlawTestsBase {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	@SuppressWarnings({"unchecked" })
 	@Test
 	public void testTransactionDocCRUD() throws InstantiationException,
 			IllegalAccessException {
 		// C
 		String documentNumber = "2001";
-		MatterTransactionDoc<MatterTransaction> transactionDoc = getTestUtils().getTestTransactionDocForCRUD(
-				getMatterTransactionDocumentClass(), getTransactionClass(), documentNumber);
+		MatterTransactionDoc transactionDoc = getTestUtils().getTestTransactionDocForCRUD(
+				getMatterTransactionDocumentClass(), documentNumber);
 		getBoSvc().save(transactionDoc);
 
 		// R
 		String clientPrincipalName = "pkk";
-		transactionDoc = (MatterTransactionDoc<MatterTransaction>) getBoSvc()
+		transactionDoc = (MatterTransactionDoc) getBoSvc()
 				.findBySinglePrimaryKey(getMatterTransactionDocumentClass(), documentNumber);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-		testTransactionDocFields(transactionDoc, clientPrincipalName, sdf.format(Calendar.getInstance().getTime()), 
-				new BigDecimal(1000));
-		getTestUtils().testConsiderationFields(transactionDoc.getTransaction().getConsideration());
+		testTransactionDocFields(transactionDoc, clientPrincipalName, new Date(System.currentTimeMillis()), 
+				new BigDecimal(2000));
+		//getTestUtils().testConsiderationFields(transactionDoc.getConsideration());
 		// U
 		String clientPrincipalName2 = "hwn";
-		transactionDoc.getTransaction().setClientPrincipalName(clientPrincipalName2);
+		transactionDoc.setClientPrincipalName(clientPrincipalName2);
 		transactionDoc.refresh();
-		assertEquals("principal name differs", clientPrincipalName2, transactionDoc
-				.getTransaction().getClientPrincipalName());
+		assertEquals("principal name differs", clientPrincipalName2, transactionDoc.getClientPrincipalName());
 
 		// D
 		getBoSvc().delete(transactionDoc);
 		assertNull("object should not exist", getBoSvc()
 				.findBySinglePrimaryKey(getMatterTransactionDocumentClass(), documentNumber));
-		assertNull("object should not exist", getBoSvc()
-				.findBySinglePrimaryKey(getTransactionClass(), transactionDoc.getTransaction().getId()));
 	}
 	
-	/**
-	 * @return the transaction class being tested
-	 */
-	public abstract Class<? extends MatterTransaction> getTransactionClass();
-
 
 	/**
 	 * tests
@@ -188,7 +177,7 @@ public abstract class MatterTransactionBOTest extends MartinlawTestsBase {
 
 		assertFalse("key values list should not be empty", result.isEmpty());
 		assertEquals("key values list size differs", 1, result.size());
-		assertEquals("value differs", "legal fee - TZS - 41000", result.get(0).getKey());
+		assertEquals("value differs", "legal fee - TZS - 41000.00", result.get(0).getValue());
 	}
 
 	/**
@@ -200,8 +189,7 @@ public abstract class MatterTransactionBOTest extends MartinlawTestsBase {
 			IllegalAccessException {
 		MatterTxForm txForm = mock(MatterTxForm.class);
 
-		@SuppressWarnings("unchecked")
-		MatterTransactionDoc<? extends MatterTransaction> transactionDoc = getMatterTransactionDocumentClass().newInstance();
+		MatterTransactionDoc transactionDoc = getMatterTransactionDocumentClass().newInstance();
 		transactionDoc.setMatterId(1001l);
 		when(txForm.getDocument()).thenReturn(transactionDoc);
 		return txForm;

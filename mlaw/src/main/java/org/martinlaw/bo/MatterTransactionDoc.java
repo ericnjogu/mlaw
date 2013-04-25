@@ -26,6 +26,10 @@ package org.martinlaw.bo;
  */
 
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
+import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
@@ -38,54 +42,126 @@ import javax.persistence.Transient;
  *
  */
 @MappedSuperclass
-public abstract class MatterTransactionDoc<T extends MatterTransaction> extends MatterTxDocBase {
+public abstract class MatterTransactionDoc extends MatterTxDocBase {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4007181787439191485L;
+	
+	@Column(scale = 2, precision = 10, nullable = false)
+	private BigDecimal amount;
+	@Column(name = "transaction_date", nullable = false)
+	private Date date;
+	@Column(name = "client_principal_name", length = 100, nullable = false)
+	private String clientPrincipalName;
+	@Column(name = "consideration_id", nullable = false)
+	private Long considerationId;
 	@Transient
-	private  Long transactionId;
+	private long transactionTypeId;
 	@OneToOne
-	@JoinColumn(name = "transaction_id", nullable = false, updatable = true)
-	private T transaction;
+	@JoinColumn(name = "transaction_type_id", nullable = false, updatable = false)
+	private TransactionType transactionType;
 
 	/**
-	 * gets the transaction id of the {@link MatterTransaction} that is created along with this doc and that participates in a 1:1 relationship
-	 * @return the transactionId
+	 * e.g. 20,000.50
+	 * @return the amount
 	 */
-	public Long getTransactionId() {
-		return transactionId;
-	}
-
-	/**
-	 * @param transactionId the transactionId to set
-	 */
-	public void setTransactionId(Long transactionId) {
-		this.transactionId = transactionId;
+	public BigDecimal getAmount() {
+		return amount;
 	}
 
 	/**
-	 * gets the transaction object, while setting the matter id
-	 * @return the transaction
+	 * @param amount the amount to set
 	 */
-	public T getTransaction() {
-		return transaction;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	/**
-	 * @param transaction the transaction to set
+	 * e.g. 12-Jun-2011o[
+	 * @return the date
 	 */
-	public void setTransaction(T transaction) {
-		this.transaction = transaction;
+	public Date getDate() {
+		return date;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.krad.bo.PersistableBusinessObjectBase#prePersist()
+	/**
+	 * @param date the date to set
 	 */
-	@Override
-	protected void prePersist() {
-		// a hack since it was not clear how ojb/jpa keys could have been used to populate this value
-		transaction.setMatterId(getMatterId());
-		super.prePersist();
+	public void setDate(Date date) {
+		this.date = date;
 	}
+
+	/**
+	 * gets the principal name of the client who made this payment
+	 * 
+	 * @return the clientPrincipalName
+	 */
+	public String getClientPrincipalName() {
+		return clientPrincipalName;
+	}
+
+	/**
+	 * @param clientPrincipalName the clientPrincipalName to set
+	 */
+	public void setClientPrincipalName(String clientPrincipalName) {
+		this.clientPrincipalName = clientPrincipalName;
+	}
+
+	/**
+	 * @return the considerationId
+	 */
+	public Long getConsiderationId() {
+		return considerationId;
+	}
+
+	/**
+	 * @param considerationId the considerationId to set
+	 */
+	public void setConsiderationId(Long considerationId) {
+		this.considerationId = considerationId;
+	}
+
+	/**
+	 * @return the transactionTypeId
+	 */
+	public long getTransactionTypeId() {
+		return transactionTypeId;
+	}
+
+	/**
+	 * @param transactionTypeId the transactionTypeId to set
+	 */
+	public void setTransactionTypeId(long transactionTypeId) {
+		this.transactionTypeId = transactionTypeId;
+	}
+
+	/**
+	 * @return the transactionType
+	 */
+	public TransactionType getTransactionType() {
+		return transactionType;
+	}
+
+	/**
+	 * @param transactionType the transactionType to set
+	 */
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
+	}
+	
+	/**
+	 * returns the matter that has been populated by the ojb configuration
+	 * @return the matter
+	 */
+	@SuppressWarnings("rawtypes")
+	public abstract Matter getMatter();
+	
+	/**
+	 * returns the consideration that has been populated by the ojb configuration
+	 * @return the matter
+	 */
+	@SuppressWarnings("rawtypes")
+	public abstract MatterConsideration getConsideration();
+	
 }

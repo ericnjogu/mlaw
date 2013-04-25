@@ -7,7 +7,7 @@ package org.martinlaw;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -63,16 +63,19 @@ public class MartinlawConstants {
 	public class MessageKeys {
 		public final static String ERROR_NOT_ASSIGNED = "error.notAssigned";
 	}
+	public class Options {
+		public final static String RESTRICT_WORK_TO_ASSIGNEES = "restrict_work_to_assignees";
+	}
 	
 	public class ViewIds {
-		public final static String CONTRACT_FEE = "contract_transaction_doc_view";
+		public final static String CONTRACT_TRANSACTION = "contract_transaction_doc_view";
 		public static final String CONTRACT_WORK = "contract_work_doc_view";
 		public static final String CONVEYANCE_WORK = "conveyance_work_doc_view";
 		public static final String COURTCASE_WORK = "courtcase_work_doc_view";
 		public static final String OPINION_WORK = "opinion_work_doc_view";
-		public static final String CONVEYANCE_FEE = "conveyance_transaction_doc_view";
-		public static final String COURTCASE_FEE = "courtcase_transaction_doc_view";
-		public static final String OPINION_FEE = "opinion_transaction_doc_view";
+		public static final String CONVEYANCE_TRANSACTION = "conveyance_transaction_doc_view";
+		public static final String COURTCASE_TRANSACTION = "courtcase_transaction_doc_view";
+		public static final String OPINION_TRANSACTION = "opinion_transaction_doc_view";
 	}
 	
 	/**

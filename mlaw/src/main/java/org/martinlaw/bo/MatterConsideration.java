@@ -1,11 +1,36 @@
 package org.martinlaw.bo;
 
-import java.math.BigDecimal;
+/*
+ * #%L
+ * mlaw
+ * %%
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 /**
@@ -14,10 +39,11 @@ import javax.persistence.Transient;
  * <p>For a contract, there will be at least two considerations - one for the value of the contract and the other for the legal fee</p>
  * 
  * @author mugo
+ * @param <T>
  *
  */
 @MappedSuperclass
-public abstract class MatterConsideration extends MatterExtensionHelper {
+public abstract class MatterConsideration<T extends MatterTransactionDoc> extends MatterExtensionHelper {
 
 	/**
 	 * 
@@ -38,6 +64,8 @@ public abstract class MatterConsideration extends MatterExtensionHelper {
 	@OneToOne
 	@JoinColumn(name = "consideration_type_id", nullable = false)
 	private ConsiderationType considerationType; 
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
+	private List<T> transactions;
 
 	public MatterConsideration() {
 		super();
@@ -141,5 +169,21 @@ public abstract class MatterConsideration extends MatterExtensionHelper {
 	 */
 	public void setConsiderationType(ConsiderationType considerationType) {
 		this.considerationType = considerationType;
+	}
+
+	/**
+	 * used in the matter inquiry to display as a subcollection of each consideration
+	 * created via a specific matter transaction document
+	 * @return the transactions
+	 */
+	public List<T> getTransactions() {
+		return transactions;
+	}
+
+	/**
+	 * @param transactions the transactions to set
+	 */
+	public void setTransactions(List<T> transactions) {
+		this.transactions = transactions;
 	}
 }

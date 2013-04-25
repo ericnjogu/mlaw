@@ -7,7 +7,7 @@ package org.martinlaw.test.courtcase;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -149,7 +149,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 			crits.add(crit1);
 			crits.add(crit2);
 			crits.add(crit3);
-			runDocumentSearch(crits, docType);
+			getTestUtils().runDocumentSearch(crits, docType);
 	        
 		} catch (Exception e) {
 			log.error("test failed", e);

@@ -7,7 +7,7 @@ package org.martinlaw.test.contract;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,9 +26,12 @@ package org.martinlaw.test.contract;
  */
 
 
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWork;
+import org.martinlaw.test.TxRoutingTestBase;
 
 
 
@@ -38,15 +41,20 @@ import org.martinlaw.bo.MatterWork;
  * @author mugo
  *
  */
-public class ContractWorkRoutingTest extends ContractTxRoutingTestBase {
+public class ContractWorkRoutingTest extends TxRoutingTestBase {
 
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.contract.ContractTxRoutingTestBase#setUpInternal()
-	 */
 	@Override
-	protected void setUpInternal() throws Exception {
-		super.setUpInternal();
-		setDocType(MartinlawConstants.DocTypes.CONTRACT_WORK);
-		setWorkDoc(getTestUtils().populateMatterWork((MatterWork) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType())));
+	public MatterTxDocBase getTxDoc() throws WorkflowException {
+		return getTestUtils().populateMatterWork((MatterWork) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType()));
+	}
+
+	@Override
+	public String getDocType() {
+		return MartinlawConstants.DocTypes.CONTRACT_WORK;
+	}
+	
+	@Override
+	public void testDocSearch() {
+		// TODO not yet impl as doc search is not activated for matter work
 	}
 }

@@ -41,7 +41,7 @@ import org.martinlaw.test.MatterConsiderationBOTestBase;
 public class ConveyanceConsiderationBOTest extends MatterConsiderationBOTestBase {
 
 	@Override
-	public Class<? extends MatterConsideration> getDataObjectClass() {
+	public Class<? extends MatterConsideration<?>> getDataObjectClass() {
 		return Consideration.class;
 	}
 }

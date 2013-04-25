@@ -27,15 +27,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.core.framework.resourceloader.SpringResourceLoader;
 import org.kuali.rice.kew.doctype.service.DocumentTypeService;
@@ -51,14 +47,13 @@ import org.kuali.rice.test.SQLDataLoader;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
 import org.kuali.test.KRADTestCase;
 import org.martinlaw.bo.MartinlawPerson;
-import org.martinlaw.bo.MatterTransaction;
 import org.martinlaw.bo.courtcase.CourtCasePerson;
 import org.martinlaw.util.TestUtils;
 
 public abstract class MartinlawTestsBase extends KRADTestCase {
 	private BusinessObjectService boSvc;
 	private TestUtils testUtils;
-	private Log log = LogFactory.getLog(getClass());
+	//private Log log = LogFactory.getLog(getClass());
 
 	public MartinlawTestsBase() {
 		// TODO - can this be retrieved from the properties? (maybe they are not available at this time) or JVM params?
@@ -164,51 +159,6 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 			testUtils = new TestUtils();
 		}
 		return testUtils;
-	}
-
-	/**
-	 * convenience method to verify fee attribute values
-	 * 
-	 * @param transaction - the test fee
-	 */
-	protected void testFeeFields(MatterTransaction transaction) {
-		log.info("fee amount is: " + transaction.getAmount().toPlainString());
-		assertEquals("2500.58", transaction.getAmount().toPlainString());
-		Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(transaction.getDate().getTime());
-		assertEquals(2011,cal.get(Calendar.YEAR));
-		assertEquals(Calendar.JUNE, cal.get(Calendar.MONTH));
-		assertEquals(12, cal.get(Calendar.DATE));
-	}
-
-	/**
-	 * common method to test court case and conveyance fee CRUD
-	 */
-	public void testFeeCRUD(MatterTransaction transaction, Class<? extends MatterTransaction> klass) {
-		//CourtCaseFee fee = new CourtCaseFee();
-		BigDecimal amount = new BigDecimal(1000);
-		transaction.setAmount(amount);
-		//fee.setCourtCaseId(1001l);
-		transaction.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
-		// leave description blank
-		//save
-		getBoSvc().save(transaction);
-		//retrieve
-		transaction = getBoSvc().findBySinglePrimaryKey(klass, transaction.getId());
-		//fee.refresh();
-		assertNotNull(transaction);
-		assertEquals(0, amount.compareTo(new BigDecimal(1000)));
-		//edit
-		amount = new BigDecimal(900); //discount 
-		transaction.setAmount(amount);
-		getBoSvc().save(transaction);
-		//confirm change
-		transaction.refresh();
-		assertEquals(0, amount.compareTo(new BigDecimal(900)));
-		//delete
-		getBoSvc().delete(transaction);
-		assertNull(getBoSvc().findBySinglePrimaryKey(klass, transaction.getId()));
-		
 	}
 
 	/**

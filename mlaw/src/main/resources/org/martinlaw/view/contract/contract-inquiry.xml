@@ -67,6 +67,13 @@
 
 				<bean parent="martinlaw_shared_consideration_inquiry_table_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Consideration" />
+					<property name="subCollections">
+				       <list>
+				         <bean parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
+				         	 <property name="collectionObjectClass" value="org.martinlaw.bo.contract.TransactionDoc" />
+				         </bean>
+				       </list>
+				     </property>
 				</bean>
 
 				<bean parent="Uif-Disclosure-GridSection">

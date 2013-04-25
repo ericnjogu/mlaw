@@ -44,7 +44,7 @@ import org.martinlaw.bo.MatterConsideration;
  */
 @Entity(name="conveyance_consideration")
 @Table(name="martinlaw_conveyance_consideration_t")
-public class Consideration extends MatterConsideration {
+public class Consideration extends MatterConsideration<TransactionDoc> {
 	/**
 	 * 
 	 */

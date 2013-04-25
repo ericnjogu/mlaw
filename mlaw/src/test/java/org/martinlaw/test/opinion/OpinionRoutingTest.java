@@ -7,7 +7,7 @@ package org.martinlaw.test.opinion;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -104,15 +104,10 @@ public class OpinionRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit2 = new SearchTestCriteria();
 		crit2.setExpectedDocuments(1);
 		crit2.getFieldNamesToSearchValues().put("localReference", testOpinion.getLocalReference());
-		/*// search for local reference
-		SearchTestCriteria crit3 = new SearchTestCriteria();
-		crit3.setExpectedDocuments(1);
-		crit3.getFieldNamesToSearchValues().put("consideration.amount", "<50000");*/
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
 		crits.add(crit2);
-		//crits.add(crit3);
-		runDocumentSearch(crits, docType);
+		getTestUtils().runDocumentSearch(crits, docType);
 	}
 }

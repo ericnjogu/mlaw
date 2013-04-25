@@ -26,10 +26,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="martinlaw-shared-date" parent="martinlaw-shared-date-parentBean" />
-
-	<bean id="martinlaw-shared-date-parentBean" abstract="true"
-		parent="AttributeReferenceDummy-genericDate">
+	<bean id="martinlaw_shared_date_attr" parent="AttributeReferenceDummy-genericDate">
 		<property name="name" value="date" />
 		<property name="label" value="Date" />
 		<property name="maxLength" value="30" />
@@ -235,6 +232,20 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
        <property name="supportAttributes">
          <list>
            <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="matterId" p:targetName="id"/>
+         </list>
+       </property>
+     </bean>
+     
+     <bean id="martinlaw_shared_consideration_relationship" abstract="true" parent="RelationshipDefinition">
+       <property name="objectAttributeName" value="consideration"/>
+       <property name="primitiveAttributes">
+         <list>
+           <bean parent="PrimitiveAttributeDefinition" p:sourceName="considerationId" p:targetName="id"/>
+         </list>
+       </property>
+       <property name="supportAttributes">
+         <list>
+           <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="considerationId" p:targetName="id"/>
          </list>
        </property>
      </bean>

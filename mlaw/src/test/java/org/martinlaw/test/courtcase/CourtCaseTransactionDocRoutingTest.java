@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.martinlaw.test.contract;
+package org.martinlaw.test.courtcase;
 
 /*
  * #%L
@@ -26,40 +26,40 @@ package org.martinlaw.test.contract;
  */
 
 
+import static org.junit.Assert.fail;
 
-
+import org.junit.Test;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.MatterTransaction;
-import org.martinlaw.bo.MatterTransactionDoc;
-import org.martinlaw.bo.contract.TransactionDoc;
-import org.martinlaw.bo.contract.Transaction;
-import org.martinlaw.test.MatterTransactionBOTest;
+import org.martinlaw.bo.MatterTxDocBase;
+import org.martinlaw.bo.courtcase.TransactionDoc;
+import org.martinlaw.test.TxRoutingTestBase;
 
 /**
- * tests DD and CRUD for {@link TransactionDoc}
+ * tests {@link org.martinlaw.bo.courtcase.TransactionDoc} routing
  * @author mugo
  *
  */
-public class ContractTransactionBOTest extends MatterTransactionBOTest {
+public class CourtCaseTransactionDocRoutingTest extends TxRoutingTestBase {
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public Class<? extends MatterTransactionDoc> getMatterTransactionDocumentClass() {
-		return TransactionDoc.class;
+	public MatterTxDocBase getTxDoc() throws WorkflowException {
+		return getTestUtils().populateTransactionDocForRouting(TransactionDoc.class);
 	}
 
 	@Override
 	public String getDocType() {
-		return MartinlawConstants.DocTypes.CONTRACT_TRANSACTION;
+		return MartinlawConstants.DocTypes.COURTCASE_TRANSACTION;
 	}
 
 	@Override
-	public String getViewId() {
-		return MartinlawConstants.ViewIds.CONTRACT_FEE;
-	}
-
-	@Override
-	public Class<? extends MatterTransaction> getTransactionClass() {
-		return Transaction.class;
+	@Test
+	public void testDocSearch() {
+		try {
+			getTestUtils().testMatterTransactionDocSearch(TransactionDoc.class, getDocType());
+		} catch (Exception e) {
+			log.error(e);
+			fail("error occured");
+		}
 	}
 }

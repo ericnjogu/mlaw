@@ -4,7 +4,7 @@ package org.martinlaw.test;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -48,8 +48,6 @@ import org.martinlaw.bo.MatterWorkRule;
  */
 public abstract class TxRoutingTestBase extends KewTestsBase {
 
-	private MatterTxDocBase workDoc;
-	private String docType;
 	private MatterTxBusinessRulesBase rule;
 
 	public TxRoutingTestBase() {
@@ -61,21 +59,21 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * @throws WorkflowException 
 	 */
 	@Test
-	public void testWorkRouting() throws WorkflowException {
-		// causes the next document validation fail if not cleared
-		
-		testTransactionalRoutingAndDocumentCRUD(docType, getWorkDoc());
+	//@Ignore("tested in the document search")
+	public void testRouting() throws WorkflowException {
+		GlobalVariables.setUserSession(new UserSession("lawyer1"));
+		getTestUtils().testTransactionalRoutingInitToFinal(getTxDoc());
 	}
 
 	@Test
 	public void testAttributeValidation() throws WorkflowException {
 		// causes the validation test to fail if not cleared
 		
-		workDoc.setMatterId(1001l);
-		workDoc.getDocumentHeader().setDocumentDescription("testing");
+		getTxDoc().setMatterId(1001l);
+		getTxDoc().getDocumentHeader().setDocumentDescription("testing");
 		DocumentRuleBase ruleBase = new TransactionalDocumentRuleBase();
-		if (!ruleBase.isDocumentAttributesValid(workDoc, true)) {
-			workDoc.logErrors();
+		if (!ruleBase.isDocumentAttributesValid(getTxDoc(), true)) {
+			getTxDoc().logErrors();
 			fail("attributes should be valid");
 		}
 	}
@@ -84,18 +82,22 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * tests {@link org.martinlaw.bo.MatterWorkRule#processCustomSaveDocumentBusinessRules(Document)}
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
+	 * @throws WorkflowException 
 	 */
 	@Test
-	public void testprocessCustomSaveDocumentBusinessRules() throws InstantiationException, IllegalAccessException {
+	public void testProcessCustomSaveDocumentBusinessRules() throws InstantiationException, IllegalAccessException, WorkflowException {
 		// not setting a value will definitely result in an error - so use a non-existent value
-		workDoc.setMatterId(2001l);
-		assertFalse("rule should return false", getRule().processCustomSaveDocumentBusinessRules(workDoc));
+		GlobalVariables.setUserSession(new UserSession("clerk1"));
+		MatterTxDocBase txDoc = getTxDoc();
+		txDoc.setMatterId(2001l);
+		assertFalse("rule should return false", getRule().processCustomRouteDocumentBusinessRules(txDoc));
 		assertTrue("there should be errors", GlobalVariables.getMessageMap().hasErrors());
-		workDoc.logErrors();
+		txDoc.logErrors();
 		GlobalVariables.getMessageMap().clearErrorMessages();
 		
-		workDoc.setMatterId(1001l);
-		assertTrue("rule should return true", getRule().processCustomSaveDocumentBusinessRules(workDoc));
+		txDoc.setMatterId(1001l);
+		assertTrue("rule should return true", getRule().processCustomRouteDocumentBusinessRules(txDoc));
+		txDoc.logErrors();
 		assertTrue("there should be no errors", GlobalVariables.getMessageMap().hasNoErrors());
 	}
 	
@@ -126,16 +128,10 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * @param txDoc - the populated transactional document
 	 * @param docType - the document type
 	 */
+	@Deprecated//does now work anymore when document search is activated, causes 'user not authorized' errors
 	public void testTransactionalRoutingAndDocumentCRUD(String docType, MatterTxDocBase txDoc)
 			throws WorkflowException {
-		// changing doc type at runtime did not work
-		/*DocumentType docTypeObj = KEWServiceLocator.getDocumentTypeService().findByName(getDocType());
-		//prepare to save new version
-		docTypeObj.setVersionNumber(null);
-		docTypeObj.setDocumentTypeId(null);
-		docTypeObj.setPostProcessorName("org.kuali.rice.kew.postprocessor.DefaultPostProcessor");
-		KEWServiceLocator.getDocumentTypeService().versionAndSave(docTypeObj);*/
-		
+		GlobalVariables.setUserSession(new UserSession("clerk1"));
 		Document doc = KRADServiceLocatorWeb.getDocumentService().saveDocument(txDoc);
 		assertTrue("document should have been saved", doc.getDocumentHeader().getWorkflowDocument().isSaved());
 		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
@@ -151,34 +147,17 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 		assertTrue("document should have been approved", doc.getDocumentHeader().getWorkflowDocument().isApproved());
 		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isFinal());
 	}
-
+	
 	/**
-	 * @return the workDoc
+	 * @return the transaction document object
+	 * @throws WorkflowException 
 	 */
-	public MatterTxDocBase getWorkDoc() {
-		return workDoc;
-	}
-
-	/**
-	 * @param workDoc the workDoc to set
-	 */
-	public void setWorkDoc(MatterTxDocBase workDoc) {
-		this.workDoc = workDoc;
-	}
-
+	public abstract MatterTxDocBase getTxDoc() throws WorkflowException;
+	
 	/**
 	 * @return the docType
 	 */
-	public String getDocType() {
-		return docType;
-	}
-
-	/**
-	 * @param docType the docType to set
-	 */
-	public void setDocType(String docType) {
-		this.docType = docType;
-	}
+	public abstract String getDocType();
 
 	/**
 	 * @param rule the rule to set
@@ -186,5 +165,10 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	public void setRule(MatterTxBusinessRulesBase rule) {
 		this.rule = rule;
 	}
+	
+	/**
+	 * expect descendants to implement doc search
+	 */
+	public abstract void testDocSearch();
 
 }

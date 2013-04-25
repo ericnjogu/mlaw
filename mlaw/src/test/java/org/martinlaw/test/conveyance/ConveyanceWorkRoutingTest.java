@@ -7,7 +7,7 @@ package org.martinlaw.test.conveyance;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -27,14 +27,10 @@ package org.martinlaw.test.conveyance;
 
 
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.conveyance.Work;
 import org.martinlaw.test.TxRoutingTestBase;
 
@@ -45,34 +41,21 @@ import org.martinlaw.test.TxRoutingTestBase;
  *
  */
 public class ConveyanceWorkRoutingTest extends TxRoutingTestBase {
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.MartinlawTestsBase#setUpInternal()
-	 */
+
 	@Override
-	protected void setUpInternal() throws Exception {
-		super.setUpInternal();
-		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		setDocType(MartinlawConstants.DocTypes.CONVEYANCE_WORK);
+	public MatterTxDocBase getTxDoc() throws WorkflowException {
 		Work newDocument = (Work) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
 		newDocument.setConveyanceAnnexTypeId(1001l);
-		setWorkDoc(getTestUtils().populateMatterWork(newDocument));
+		return getTestUtils().populateMatterWork(newDocument);
 	}
-	
-	/**
-	 * confirms that the documents that are routed/submitted directly while using 
-	 * {@link org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor} do not have an ojb error
-	 */
-	@Test
-	
-	public void testInitiateToRouteDirectly() throws WorkflowException {
-		/*KRADServiceLocatorWeb.getDocumentService().saveDocument(getWorkDoc());
-		Work doc = (Work) KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(getWorkDoc().getDocumentNumber());
-		assertNotNull("annex type id should not be null", doc.getConveyanceAnnexTypeId());
-		assertFalse("the status should not be final", doc.getStatusIsFinal());*/
-		//getBoSvc().save(doc);
-		KRADServiceLocatorWeb.getDocumentService().routeDocument(getWorkDoc(), "submitted", null);
-		//retrieve again to confirm status
-		Work doc = (Work) KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(getWorkDoc().getDocumentNumber());
-		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isEnroute());
+
+	@Override
+	public String getDocType() {
+		return MartinlawConstants.DocTypes.CONVEYANCE_WORK;
+	}
+
+	@Override
+	public void testDocSearch() {
+		// TODO not yet impl as doc search is not activated for matter work
 	}
 }

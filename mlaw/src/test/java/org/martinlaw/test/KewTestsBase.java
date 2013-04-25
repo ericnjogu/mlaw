@@ -4,7 +4,7 @@ package org.martinlaw.test;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -32,13 +32,9 @@ import java.util.List;
 import java.util.Map;
 
 
-import org.joda.time.DateTime;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
-import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
-import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -52,7 +48,6 @@ import org.kuali.rice.krad.service.DocumentDictionaryService;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
-import org.martinlaw.util.SearchTestCriteria;
 /**
  * loads config files for testing routing
  * TODO - clear GlobalVariables error map after each test so that a failing test does not affect the rest
@@ -259,43 +254,18 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	 */
 	public void testRouting_required_validated_onroute(Document doc)
 			throws InstantiationException, WorkflowException,
-			IllegalAccessException {
-				try {
-					KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
-				} catch (ValidationException ve) {
-					fail("should not have thrown a validation exception on save");
-				}
-				try {
-					KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
-					fail("should have thrown validation exception on route");
-				} catch (ValidationException e) {
-					// test succeeded
-				}
-			}
-
-	/**
-	 * convenience method for running a document search
-	 * 
-	 * @param testCriteria holds info on the fields, search values and expected number of documents to find
-	 * @return the list of results
-	 */
-	public List<DocumentSearchResults> runDocumentSearch(List<SearchTestCriteria> testCriteria, String docType) {
-		DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
-		criteria.setDocumentTypeName(docType);
-		criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
-		ArrayList<DocumentSearchResults> resultsList = new ArrayList<DocumentSearchResults>(testCriteria.size());
-		for (SearchTestCriteria crit: testCriteria) {
-			criteria.getDocumentAttributeValues().clear();
-			for (String fieldName: crit.getFieldNamesToSearchValues().keySet()) {
-				criteria.addDocumentAttributeValue(fieldName,  crit.getFieldNamesToSearchValues().get(fieldName));
-			}
-			DocumentSearchResults results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(getPrincipalIdForName("clerk1"),
-					criteria.build());
-			assertEquals("expected number of documents not found for " + crit.toString(),
-					crit.getExpectedDocuments(), results.getSearchResults().size());
-			resultsList.add(results);
+	IllegalAccessException {
+		try {
+			KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);
+		} catch (ValidationException ve) {
+			fail("should not have thrown a validation exception on save");
 		}
-		return resultsList;
+		try {
+			KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
+			fail("should have thrown validation exception on route");
+		} catch (ValidationException e) {
+			// test succeeded
+		}
 	}
 
 	protected static PermissionService getPermissionService() {

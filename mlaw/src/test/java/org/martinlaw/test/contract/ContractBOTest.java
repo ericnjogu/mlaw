@@ -7,7 +7,7 @@ package org.martinlaw.test.contract;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -32,14 +32,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.contract.TransactionDoc;
 import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractDuration;
@@ -100,9 +98,6 @@ public class ContractBOTest extends MartinlawTestsBase {
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());
 		getTestUtils().testAssignees(contract.getAssignees());
 		getTestUtils().testRetrievedConsiderationFields(contract.getConsiderations().get(0));
-		
-		List<TransactionDoc> fees = contract.getFees();
-		getTestUtils().testClientFeeList(fees);
 		
 		getTestUtils().testWorkList(contract.getWork());
 	}

@@ -7,7 +7,7 @@ package org.martinlaw.test.opinion;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,25 +26,27 @@ package org.martinlaw.test.opinion;
  */
 
 
+import static org.junit.Assert.fail;
 
-
+import org.junit.Test;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.MatterTransaction;
-import org.martinlaw.bo.MatterTransactionDoc;
+import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.opinion.TransactionDoc;
-import org.martinlaw.bo.opinion.Transaction;
-import org.martinlaw.test.MatterTransactionBOTest;
+import org.martinlaw.test.TxRoutingTestBase;
 
 /**
- * tests DD and CRUD for {@link TransactionDoc}
+ * tests {@link org.martinlaw.bo.opinion.TransactionDoc} routing
+ * 
  * @author mugo
  *
  */
-public class OpinionTransactionBOTest extends MatterTransactionBOTest {
+public class OpinionTransactionDocRoutingTest extends TxRoutingTestBase {
 
 	@Override
-	public Class<? extends MatterTransactionDoc<? extends MatterTransaction>> getMatterTransactionDocumentClass() {
-		return TransactionDoc.class;
+	public MatterTxDocBase getTxDoc() throws WorkflowException {
+		return getTestUtils().populateTransactionDocForRouting(TransactionDoc.class);
+		
 	}
 
 	@Override
@@ -53,12 +55,13 @@ public class OpinionTransactionBOTest extends MatterTransactionBOTest {
 	}
 
 	@Override
-	public String getViewId() {
-		return MartinlawConstants.ViewIds.OPINION_FEE;
-	}
-
-	@Override
-	public Class<? extends MatterTransaction> getTransactionClass() {
-		return Transaction.class;
+	@Test
+	public void testDocSearch() {
+		try {
+			getTestUtils().testMatterTransactionDocSearch(TransactionDoc.class, getDocType());
+		} catch (Exception e) {
+			log.error(e);
+			fail("error occured");
+		}
 	}
 }

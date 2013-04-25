@@ -57,7 +57,7 @@ public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
 	 * @see org.kuali.rice.krad.uif.control.UifKeyValuesFinder#getKeyValues(org.kuali.rice.krad.uif.view.ViewModel)
 	 */
 	/**
-	 * unit test in {@link org.martinlaw.test.contract.ContractTransactionBOTest#testClientNamesKeyValues()}
+	 * unit test in {@link org.martinlaw.test.contract.ContractTransactionDocBOTest#testClientNamesKeyValues()}
 	 */
 	@Override
 	public List<KeyValue> getKeyValues(ViewModel model) {

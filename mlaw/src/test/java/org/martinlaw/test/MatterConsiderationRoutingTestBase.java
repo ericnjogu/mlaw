@@ -1,5 +1,27 @@
 package org.martinlaw.test;
 
+/*
+ * #%L
+ * mlaw
+ * %%
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -44,7 +66,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	@Test
 	public void testMatterConsiderationRouting() throws InstantiationException,
 			IllegalAccessException, WorkflowException {
-		MatterConsideration consideration = getTestUtils().getTestConsideration(getDataObjectClass());
+		MatterConsideration<?> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
 		this.testMaintenanceRoutingInitToFinal(getDocType(), consideration);
 	}
 
@@ -58,7 +80,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	public void testMatterConsiderationRouting_InvalidMatterId()
 			throws InstantiationException, IllegalAccessException,
 			WorkflowException {
-		MatterConsideration consideration = getTestUtils().getTestConsideration(getDataObjectClass());
+		MatterConsideration<?> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
 		consideration.setMatterId(3000l);
 		
 		/*//initiate as the clerk
@@ -77,7 +99,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	public void testMatterConsiderationRouting_required_validated_onroute()
 			throws InstantiationException, WorkflowException,
 			IllegalAccessException {
-		MatterConsideration consideration = getTestUtils().getTestConsideration(getDataObjectClass());
+		MatterConsideration<?> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
 		// required on route
 		consideration.setAmount(null);
 		consideration.setCurrency(null);
@@ -91,11 +113,11 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	public void testMatterConsideration_doc_search() {
 		try {
 			// route 2 docs first
-			MatterConsideration consideration1 = getTestUtils().getTestConsideration(getDataObjectClass());
+			MatterConsideration<?> consideration1 = getTestUtils().getTestConsideration(getDataObjectClass());
 			final String docType = getDocType();
 			testMaintenanceRoutingInitToFinal(docType, consideration1);
 			
-			MatterConsideration consideration2 = getTestUtils().getTestConsideration(getDataObjectClass());
+			MatterConsideration<?> consideration2 = getTestUtils().getTestConsideration(getDataObjectClass());
 			consideration2.setAmount(new BigDecimal(7500));
 			consideration2.setConsiderationTypeId(1003l);
 			testMaintenanceRoutingInitToFinal(docType, consideration2);
@@ -132,7 +154,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 			crits.add(crit4);
 			crits.add(crit5);
 			crits.add(crit6);
-			runDocumentSearch(crits, docType);
+			getTestUtils().runDocumentSearch(crits, docType);
 		} catch (Exception e) {
 			log.error("test failed", e);
 			fail("exception occurred");
@@ -151,6 +173,6 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	 * 
 	 * @return the data object (BO) class
 	 */
-	public abstract Class<? extends MatterConsideration> getDataObjectClass();
+	public abstract Class<? extends MatterConsideration<?>> getDataObjectClass();
 
 }

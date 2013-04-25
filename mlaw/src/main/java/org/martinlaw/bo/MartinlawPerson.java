@@ -4,7 +4,7 @@ package org.martinlaw.bo;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -35,7 +35,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 /**
- * a common parent used to associate people with court cases and conveyances
+ * a common parent used to associate people with matters
  * 
  * @author mugo
  *

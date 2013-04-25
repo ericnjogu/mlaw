@@ -30,6 +30,13 @@
 	<bean id="courtcase_consideration_inquiry_view" parent="martinlaw_shared_consideration_inquiry_view">
 		<property name="headerText" value="Court Case Consideration Inquiry" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.Consideration" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.TransactionDoc" />
+				</bean>
+			</list>
+		</property>
 	</bean>
 
 </beans>

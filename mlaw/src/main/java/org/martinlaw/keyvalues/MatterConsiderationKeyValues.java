@@ -56,7 +56,7 @@ public class MatterConsiderationKeyValues extends UifKeyValuesFinderBase {
 	 * @see org.kuali.rice.krad.uif.control.UifKeyValuesFinder#getKeyValues(org.kuali.rice.krad.uif.view.ViewModel)
 	 */
 	/**
-	 * unit test in {@link org.martinlaw.test.MatterTransactionBOTest#testMatterConsiderationKeyValues()}
+	 * unit test in {@link org.martinlaw.test.MatterTransactionDocBOTest#testMatterConsiderationKeyValues()}
 	 */
 	@Override
 	public List<KeyValue> getKeyValues(ViewModel model) {
@@ -70,7 +70,7 @@ public class MatterConsiderationKeyValues extends UifKeyValuesFinderBase {
 						doc.getMatterClass(), doc.getMatterId());
 				if (matter.getConsiderations() != null && !matter.getConsiderations().isEmpty()) {
 					for (Object considObj: matter.getConsiderations()) {
-						MatterConsideration consideration = (MatterConsideration)considObj;
+						MatterConsideration<?> consideration = (MatterConsideration<?>)considObj;
 						StringBuilder value = new StringBuilder();
 						value.append(consideration.getConsiderationType().getName());
 						value.append(" - ");

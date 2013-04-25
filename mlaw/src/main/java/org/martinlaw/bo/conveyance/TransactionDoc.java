@@ -38,11 +38,11 @@ import org.martinlaw.bo.MatterTransactionDoc;
  * @author mugo
  *
  */
-@Entity(name="convey_client_transaction_doc")
+@Entity(name="conveyance_transaction_doc")
 @Table(name="martinlaw_conveyance_transaction_doc_t")
-public class TransactionDoc extends MatterTransactionDoc<Transaction> {
-
-
+public class TransactionDoc extends MatterTransactionDoc {
+	private Consideration consideration;
+	private Conveyance matter;
 	/**
 	 * 
 	 */
@@ -55,6 +55,30 @@ public class TransactionDoc extends MatterTransactionDoc<Transaction> {
 	@Override
 	public Class<? extends Matter> getMatterClass() {
 		return Conveyance.class;
+	}
+	
+	@Override
+	public Conveyance getMatter() {
+		return matter;
+	}
+
+	@Override
+	public Consideration getConsideration() {
+		return consideration;
+	}
+
+	/**
+	 * @param consideration the consideration to set
+	 */
+	public void setConsideration(Consideration consideration) {
+		this.consideration = consideration;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(Conveyance matter) {
+		this.matter = matter;
 	}
 
 }

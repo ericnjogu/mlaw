@@ -40,8 +40,9 @@ import org.martinlaw.bo.MatterTransactionDoc;
  */
 @Entity(name="contract_transaction_doc")
 @Table(name="martinlaw_contract_transaction_doc_t")
-public class TransactionDoc extends MatterTransactionDoc<Transaction> {
-
+public class TransactionDoc extends MatterTransactionDoc {
+	private Consideration consideration;
+	private Contract matter;
 	/**
 	 * 
 	 */
@@ -54,6 +55,30 @@ public class TransactionDoc extends MatterTransactionDoc<Transaction> {
 	@Override
 	public Class<? extends Matter> getMatterClass() {
 		return Contract.class;
+	}
+
+	@Override
+	public Contract getMatter() {
+		return matter;
+	}
+
+	@Override
+	public Consideration getConsideration() {
+		return consideration;
+	}
+
+	/**
+	 * @param consideration the consideration to set
+	 */
+	public void setConsideration(Consideration consideration) {
+		this.consideration = consideration;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(Contract matter) {
+		this.matter = matter;
 	}
 
 }

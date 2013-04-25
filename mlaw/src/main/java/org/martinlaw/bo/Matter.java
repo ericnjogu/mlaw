@@ -48,8 +48,8 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
  *
  */
 @MappedSuperclass
-public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, F extends MatterTransactionDoc<? extends MatterTransaction>, 
-	C extends MatterClient, K extends MatterConsideration, E extends MatterEvent> extends PersistableBusinessObjectBase {
+public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, 
+	C extends MatterClient, K extends MatterConsideration<? extends MatterTransactionDoc>, E extends MatterEvent> extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -82,8 +82,6 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	// in Work the pk is the document id, not matterId, so we cannot configure a many-one mapping - not
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<W> work;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<F> fees;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<C> clients;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
@@ -228,8 +226,8 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 * retrieves the class type of the parametrized work, which is used in populating {@link #getFees()}
 	 * 
 	 * @return the work class type
-	 */
-	public abstract  Class<F> getFeeClass();
+	 *//*
+	public abstract  Class<F> getFeeClass();*/
 
 
 	/**
@@ -237,20 +235,6 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public void setWork(List<W> work) {
 		this.work = work;
-	}
-
-	/**
-	 * @return the fees
-	 */
-	public List<F> getFees() {
-		return fees;
-	}
-
-	/**
-	 * @param fees the fees to set
-	 */
-	public void setFees(List<F> fees) {
-		this.fees = fees;
 	}
 
 	/**

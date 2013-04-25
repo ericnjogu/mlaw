@@ -92,7 +92,6 @@
          <value>classpath:org/martinlaw/view/transaction-type-lookup.xml</value>
          <value>classpath:org/martinlaw/view/transaction-type-maintenance.xml</value>
          
-         <value>classpath:org/martinlaw/bo/courtcase/case-transaction.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-event.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-maintenance.xml</value>
@@ -137,8 +136,6 @@
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-annex.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-client.xml</value>
          
-         
-         <value>classpath:org/martinlaw/bo/conveyance/conveyance-transaction.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-assignment.xml</value>
@@ -183,7 +180,6 @@
          <value>classpath:org/martinlaw/bo/contract/contract.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-client.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-transaction-doc.xml</value>
-         <value>classpath:org/martinlaw/bo/contract/contract-transaction.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-event.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-event-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-assignee.xml</value>
@@ -224,7 +220,6 @@
          <value>classpath:org/martinlaw/view/event-type-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/opinion/opinion-client.xml</value>
-         <value>classpath:org/martinlaw/bo/opinion/opinion-transaction.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion.xml</value>
          <value>classpath:org/martinlaw/bo/opinion/opinion-assignee.xml</value>

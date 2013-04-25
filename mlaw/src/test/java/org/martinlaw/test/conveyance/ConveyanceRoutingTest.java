@@ -81,21 +81,11 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit3 = new SearchTestCriteria();
 		crit3.setExpectedDocuments(1);
 		crit3.getFieldNamesToSearchValues().put("name", "*plot*");
-		/*// search for consideration amount
-		SearchTestCriteria crit4 = new SearchTestCriteria();
-		crit4.setExpectedDocuments(1);
-		crit4.getFieldNamesToSearchValues().put("consideration.amount", ">1000");
-		// search for consideration amount
-		SearchTestCriteria crit5 = new SearchTestCriteria();
-		crit5.setExpectedDocuments(0);
-		crit5.getFieldNamesToSearchValues().put("consideration.amount", "<1000");*/
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
 		crits.add(crit2);
 		crits.add(crit3);
-		/*crits.add(crit4);
-		crits.add(crit5);*/
-		runDocumentSearch(crits, docType);
+		getTestUtils().runDocumentSearch(crits, docType);
 	}
 }

@@ -1,4 +1,7 @@
-package org.martinlaw.bo.sequence;
+/**
+ * 
+ */
+package org.martinlaw.test.courtcase;
 
 /*
  * #%L
@@ -23,36 +26,32 @@ package org.martinlaw.bo.sequence;
  */
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+
+import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.MatterTransactionDoc;
+import org.martinlaw.bo.courtcase.TransactionDoc;
+import org.martinlaw.test.MatterTransactionDocBOTest;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.courtcase.Transaction}
- * 
+ * tests DD and CRUD for {@link TransactionDoc}
  * @author mugo
  *
  */
- 
-@Entity
-@Table(name="martinlaw_court_case_transaction_s")
-public class CaseFeeSeq {
-	@Id
-	@Column(columnDefinition="bigint auto_increment")
-	private Long id;
+public class CourtCaseTransactionDocBOTest extends MatterTransactionDocBOTest {
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
+	@Override
+	public Class<? extends MatterTransactionDoc> getMatterTransactionDocumentClass() {
+		return TransactionDoc.class;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
+	@Override
+	public String getDocType() {
+		return MartinlawConstants.DocTypes.COURTCASE_TRANSACTION;
+	}
+
+	@Override
+	public String getViewId() {
+		return MartinlawConstants.ViewIds.COURTCASE_TRANSACTION;
 	}
 }

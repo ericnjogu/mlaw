@@ -7,7 +7,7 @@ package org.martinlaw.test.courtcase;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -112,8 +112,6 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         assertEquals("second attachment name differs", "pleading.odt", kase.getAttachments().get(1).getAttachmentFileName());
         // assignment
         getTestUtils().testAssignees(kase.getAssignees());
-        // fees
-        getTestUtils().testClientFeeList(kase.getFees());
         //work
         List<Work> work = kase.getWork();
         getTestUtils().testWorkList(work);

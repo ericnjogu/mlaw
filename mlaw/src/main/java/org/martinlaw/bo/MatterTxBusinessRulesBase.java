@@ -50,7 +50,7 @@ public class MatterTxBusinessRulesBase extends TransactionalDocumentRuleBase {
 	 * @see org.kuali.rice.krad.rules.DocumentRuleBase#processCustomSaveDocumentBusinessRules(org.kuali.rice.krad.document.Document)
 	 */
 	@Override
-	public boolean processCustomSaveDocumentBusinessRules(Document document) {
+	public boolean processCustomRouteDocumentBusinessRules(Document document) {
 		MatterTxDocBase matterWork = (MatterTxDocBase) document;
 		if (matterWork.isMatterIdValid()) {
 				return true;

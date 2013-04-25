@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -26,12 +26,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:p="http://www.springframework.org/schema/p" 
 xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--
- Copyright 2012 Protosoft Ltd
- 
--->
 
-  <bean id="courtcase_client_fee_doc" parent="martinlaw_shared_matter_transaction_doc_entry">
+  <bean id="courtcase_client_transaction_doc" parent="martinlaw_shared_matter_transaction_doc_entry">
 		<property name="documentTypeName" value="CourtCaseTransactionDocument" />
 		<property name="documentClass" value="org.martinlaw.bo.courtcase.TransactionDoc" />
 		<property name="attributes">
@@ -39,6 +35,101 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Court Case Id"/>
 			</list>
 		</property>
+	<property name="workflowAttributes">
+    	<ref bean="courtcase_transaction_doc_entry_workflow_attrs"/>
+	</property>
+	<property name="relationships">
+      <list>
+		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.courtcase.CourtCase"/>
+		<bean parent="martinlaw_shared_consideration_relationship" p:targetClass="org.martinlaw.bo.courtcase.Consideration"/>
+      </list>
+    </property>
+  </bean> 
+  
+  <bean id="courtcase_transaction_doc_entry_workflow_attrs" parent="WorkflowAttributes">
+		<property name="searchingTypeDefinitions">
+		<list>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="courtcase_transaction_doc_entry_search_attr">
+						<property name="attributeName" value="date" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>date</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="courtcase_transaction_doc_entry_search_attr">
+						<property name="attributeName" value="clientPrincipalName" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>clientPrincipalName</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="courtcase_transaction_doc_entry_search_attr">
+						<property name="attributeName" value="transactionTypeId" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>transactionTypeId</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="courtcase_transaction_doc_entry_search_attr">
+						<property name="attributeName" value="matterId" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>matterId</value>
+					</list>
+				</property>
+			</bean>
+
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="courtcase_transaction_doc_entry_search_attr">
+						<property name="attributeName" value="amount" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>amount</value>
+					</list>
+				</property>
+			</bean>
+			
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="courtcase_transaction_doc_entry_search_attr">
+						<property name="attributeName" value="considerationId" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>considerationId</value>
+					</list>
+				</property>
+			</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="courtcase_transaction_doc_entry_search_attr" parent="martinlaw_shared_workflow_search_attr_parent"
+		abstract="true">
+		<property name="businessObjectClassName" value="org.martinlaw.bo.courtcase.TransactionDoc" />
 	</bean>
 
 </beans>

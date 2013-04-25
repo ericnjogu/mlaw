@@ -7,7 +7,7 @@ package org.martinlaw.test.opinion;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -39,7 +39,6 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Consideration;
-import org.martinlaw.bo.opinion.Transaction;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.MartinlawTestsBase;
 
@@ -67,8 +66,6 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		assertEquals("opinion client name not the expected value", "client1", opinion.getClients().get(0).getPrincipalName());
 
 		getTestUtils().testAssignees(opinion.getAssignees());
-		
-		getTestUtils().testClientFeeList(opinion.getFees());
 		
 		getTestUtils().testWorkList(opinion.getWork());
 		
@@ -108,7 +105,6 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		Map<String, Object> criteria = new HashMap<String, Object>(1);
 		criteria.put("matterId", opinion.getId());
 		assertEquals("opinion clients should have been deleted", 0, getBoSvc().findMatching(Client.class, criteria).size());
-		assertEquals("opinion fees should have been deleted", 0, getBoSvc().findMatching(Transaction.class, criteria).size());
 	}
 	
 	@Test

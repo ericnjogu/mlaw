@@ -7,7 +7,7 @@ package org.martinlaw.util;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -31,11 +31,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -45,18 +48,27 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
+import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
+import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kew.service.KEWServiceLocator;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import org.kuali.rice.krad.UserSession;
+import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.EventType;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
-import org.martinlaw.bo.MatterTransactionDoc;
 import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.bo.MatterEventTest;
-import org.martinlaw.bo.MatterTransaction;
+import org.martinlaw.bo.MatterTransactionDoc;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.contract.Consideration;
@@ -152,8 +164,10 @@ public class TestUtils {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public MatterConsideration getTestConsideration(Class<? extends MatterConsideration> klass) throws InstantiationException, IllegalAccessException {
-		MatterConsideration consideration = klass.newInstance();
+	public MatterConsideration<? extends MatterTransactionDoc> getTestConsideration
+	(Class<? extends MatterConsideration<? extends MatterTransactionDoc>> klass) 
+			throws InstantiationException, IllegalAccessException {
+		MatterConsideration<? extends MatterTransactionDoc> consideration = klass.newInstance();
 		consideration.setAmount(new BigDecimal(1000));
 		consideration.setCurrency("KES");
 		consideration.setDescription("see breakdown in attached file");
@@ -400,12 +414,14 @@ public class TestUtils {
 	/**
 	 * test a list of {@link MatterTransactionDoc}, created via sql
 	 * 
-	 * @param fees - the list
+	 * @param txDocs - the list
 	 */
-	public void testClientFeeList(List<? extends MatterTransactionDoc<?>> fees) {
-		assertNotNull("fee list should not be null", fees);
-		assertEquals("expected number of fees differs", 2, fees.size());
-		assertEquals("client name differs", "mawanja", fees.get(0).getTransaction().getClientPrincipalName());
+	public void testMatterTransactionDocList(List<? extends MatterTransactionDoc> txDocs) {
+		assertNotNull("transaction list should not be null", txDocs);
+		assertFalse("transactions should not be empty", txDocs.isEmpty());
+		assertEquals("expected number of transactions differs", 2, txDocs.size());
+		assertEquals("client name differs", "mawanja", txDocs.get(0).getClientPrincipalName());
+		assertEquals("amount differs", 0, new BigDecimal(10000.00).compareTo(txDocs.get(1).getAmount()));
 	}
 	
 	/**
@@ -422,7 +438,7 @@ public class TestUtils {
 	 * test that the {@link MatterConsideration} has the expected field values
 	 * @param consideration - the test object (created in code then saved to db)
 	 */
-	public void testConsiderationFields(MatterConsideration consideration) {
+	public void testConsiderationFields(MatterConsideration<?> consideration) {
 		consideration.refreshNonUpdateableReferences();//to retrieve the consideration type
 		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(1000)));
 		String desc = "see breakdown in attached file";
@@ -437,13 +453,14 @@ public class TestUtils {
 	 * test that the  {@link MatterConsideration} has the expected field values
 	 * @param consideration - the test object - retrieved (from db)
 	 */
-	public void testRetrievedConsiderationFields(MatterConsideration consideration) {
+	public void testRetrievedConsiderationFields(MatterConsideration<?> consideration) {
 		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(41000)));
 		String desc = "to be paid in 2 installments";
 		assertEquals("consideration description differs", desc, consideration.getDescription());
 		assertEquals("consideration currency differs", "TZS", consideration.getCurrency());
 		assertNotNull("consideration type should not be null", consideration.getConsiderationType());
 		assertEquals("consideration type name differs", "legal fee", consideration.getConsiderationType().getName());
+		testMatterTransactionDocList(consideration.getTransactions());
 	}
 	
 	/**
@@ -461,20 +478,20 @@ public class TestUtils {
 	}
 	
 	/**
-	 * populates a transaction with test data
+	 * populates a transaction doc with test data
 	 * 
 	 * @param transaction - the transaction to populate, one of the several {@code MatterTransaction} descendants
 	 */
 	@SuppressWarnings("unchecked")
-	public MatterTransaction populateMatterTransactionData(MatterTransaction transaction) {
+	public MatterTransactionDoc populateMatterTransactionDocData(MatterTransactionDoc transaction) {
 		transaction.setAmount(new BigDecimal(2000l));
 		String clientPrincipalName = "pkk";
 		transaction.setClientPrincipalName(clientPrincipalName);
 		transaction.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
 		transaction.setTransactionTypeId(1001l);
-		MatterConsideration consideration;
+		MatterConsideration<?> consideration;
 		try {
-			consideration = getTestConsideration((Class<? extends MatterConsideration>) transaction.getClass().getDeclaredField("consideration").getType());
+			consideration = getTestConsideration((Class<? extends MatterConsideration<MatterTransactionDoc>>) transaction.getClass().getDeclaredField("consideration").getType());
 			getBoSvc().save(consideration);
 			consideration.refresh();
 			transaction.setConsiderationId(consideration.getId());
@@ -499,15 +516,16 @@ public class TestUtils {
 	
 	/**
 	 * populate a descendant of {@code MatterTransactionDoc} with test data
-	 * @param doc - the doc to be populated
+	 * @param klass - the doc to be populated
 	 * @param tx - the descendant of {@code MatterTransaction} to be populated
 	 * @return - the populated doc
+	 * @throws WorkflowException 
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public MatterTransactionDoc populateTransactionDocForRouting(MatterTransactionDoc doc, MatterTransaction tx) {
+	public MatterTransactionDoc populateTransactionDocForRouting(Class<? extends MatterTransactionDoc> klass) throws WorkflowException {
+		MatterTransactionDoc doc = (MatterTransactionDoc) KRADServiceLocatorWeb.getDocumentService().getNewDocument(klass);
 		doc.getDocumentHeader().setDocumentDescription("testing");
 		doc.setMatterId(1001l);
-		doc.setTransaction(populateMatterTransactionData(tx));
+		populateMatterTransactionDocData(doc);
 		return doc;
 	}
 
@@ -637,20 +655,130 @@ public class TestUtils {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public <A extends MatterTransactionDoc, B extends MatterTransaction> MatterTransactionDoc<MatterTransaction> 
-		getTestTransactionDocForCRUD(Class<A> txDoc, Class<B> tx, String documentNumber) throws InstantiationException, IllegalAccessException {
+	public <A extends MatterTransactionDoc> MatterTransactionDoc 
+		getTestTransactionDocForCRUD(Class<A> txDoc, String documentNumber) throws InstantiationException, IllegalAccessException {
 		MatterTransactionDoc transactionDoc = txDoc.newInstance();
 		transactionDoc.setDocumentNumber(documentNumber);
 		transactionDoc.getDocumentHeader().setDocumentNumber(documentNumber);
 		transactionDoc.getDocumentHeader().setDocumentDescription("cash");
 		transactionDoc.setMatterId(1001l);
-
-		MatterTransaction transaction = tx.newInstance();
-		populateMatterTransactionData(transaction);
-
-		transactionDoc.setTransaction(transaction);
+		populateMatterTransactionDocData(transactionDoc);
 		
 		return transactionDoc;
 	}
+	
+	/**
+	 * test doc search for descendants of {@link MatterTransactionDoc}
+	 * @param txDocClass - the document class
+	 * @param docType TODO
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws WorkflowException 
+	 */
+	public void testMatterTransactionDocSearch(Class<? extends MatterTransactionDoc> txDocClass, String docType) throws InstantiationException, IllegalAccessException, WorkflowException {
+		// route some test documents then search
+		GlobalVariables.setUserSession(new UserSession("lawyer1"));
+		MatterTransactionDoc txDoc1 = populateTransactionDocForRouting(txDocClass);
+		testTransactionalRoutingInitToFinal(txDoc1);
+		
+		MatterTransactionDoc txDoc2 = populateTransactionDocForRouting(txDocClass);
+		txDoc2.setAmount(new BigDecimal(50001));
+		final String clientPrincipalName = "kyaloda";
+		txDoc2.setClientPrincipalName(clientPrincipalName);
+		testTransactionalRoutingInitToFinal(txDoc2);
+		
+		MatterTransactionDoc txDoc3 = populateTransactionDocForRouting(txDocClass);
+		txDoc3.setAmount(new BigDecimal(45000));
+		txDoc3.setClientPrincipalName("sirarthur");
+		final int transactionTypeId = 1003;
+		txDoc3.setTransactionTypeId(transactionTypeId);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		try {
+			txDoc3.setDate(new Date(sdf.parse("21-Apr-2013").getTime()));
+		} catch (ParseException e) {
+			log.error(e);
+			fail("unable to set date");
+		}
+		testTransactionalRoutingInitToFinal(txDoc3);
+		
+		// no document criteria given, so all documents should be found
+		SearchTestCriteria crit1 = new SearchTestCriteria();
+		crit1.setExpectedDocuments(3);
+		// search for principal name
+		SearchTestCriteria crit2 = new SearchTestCriteria();
+		crit2.setExpectedDocuments(1);
+		crit2.getFieldNamesToSearchValues().put("clientPrincipalName", clientPrincipalName);
+		// search for amount range
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(2);
+		crit3.getFieldNamesToSearchValues().put("amount", "45000 .. 55000");
+		// search for transaction type
+		SearchTestCriteria crit4 = new SearchTestCriteria();
+		crit4.setExpectedDocuments(1);
+		crit4.getFieldNamesToSearchValues().put("transactionTypeId", String.valueOf(transactionTypeId));
+		// search for date range
+		SearchTestCriteria crit5 = new SearchTestCriteria();
+		crit5.setExpectedDocuments(1);
+		crit5.getFieldNamesToSearchValues().put("date", "15 apr 2013 .. 22 apr 2013");
+		// search consideration id
+		SearchTestCriteria crit6 = new SearchTestCriteria();
+		crit6.setExpectedDocuments(1);
+		crit6.getFieldNamesToSearchValues().put("considerationId", String.valueOf(txDoc1.getConsiderationId()));
+		
+		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
+		crits.add(crit1);
+		crits.add(crit2);
+		crits.add(crit3);
+		crits.add(crit4);
+		crits.add(crit5);
+		crits.add(crit6);
+		runDocumentSearch(crits, docType);	
+	}
+	
+	/**
+	 * tests routing by lawyer so that doc goes to final
+	 * this avoids 'user not authorized exceptions' that appear when document search is activated
+	 * @param txDoc - the populated transactional document
+	 */
+	public void testTransactionalRoutingInitToFinal(Document doc)
+			throws WorkflowException {
+		
+		// approve as lawyer1
+		GlobalVariables.setUserSession(new UserSession("lawyer1"));
+		/*doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+		assertTrue("document should be enroute", doc.getDocumentHeader().getWorkflowDocument().isEnroute());*/
+		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "approved", null);
+		
+		//retrieve again to confirm status
+		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
+		assertTrue("document should have been approved", doc.getDocumentHeader().getWorkflowDocument().isApproved());
+		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isFinal());
+	}
+	
+	/**
+	 * convenience method for running a document search
+	 * 
+	 * @param testCriteria holds info on the fields, search values and expected number of documents to find
+	 * @return the list of results
+	 */
+	public List<DocumentSearchResults> runDocumentSearch(List<SearchTestCriteria> testCriteria, String docType) {
+		DocumentSearchCriteria.Builder criteria = DocumentSearchCriteria.Builder.create();
+		criteria.setDocumentTypeName(docType);
+		criteria.setDateCreatedFrom(new DateTime(2013, 1, 1, 0, 0));
+		ArrayList<DocumentSearchResults> resultsList = new ArrayList<DocumentSearchResults>(testCriteria.size());
+		for (SearchTestCriteria crit: testCriteria) {
+			criteria.getDocumentAttributeValues().clear();
+			for (String fieldName: crit.getFieldNamesToSearchValues().keySet()) {
+				criteria.addDocumentAttributeValue(fieldName,  crit.getFieldNamesToSearchValues().get(fieldName));
+			}
+			DocumentSearchResults results = KEWServiceLocator.getDocumentSearchService().lookupDocuments(
+					KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName("clerk1").getPrincipalId(),
+					criteria.build());
+			assertEquals("expected number of documents not found for " + crit.toString(),
+					crit.getExpectedDocuments(), results.getSearchResults().size());
+			resultsList.add(results);
+		}
+		return resultsList;
+	}
+
 }

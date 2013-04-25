@@ -7,7 +7,7 @@ package org.martinlaw.test.conveyance;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,12 +26,13 @@ package org.martinlaw.test.conveyance;
  */
 
 
-import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.conveyance.TransactionDoc;
-import org.martinlaw.bo.conveyance.Transaction;
 import org.martinlaw.test.TxRoutingTestBase;
 
 /**
@@ -39,17 +40,26 @@ import org.martinlaw.test.TxRoutingTestBase;
  * @author mugo
  *
  */
-public class ConveyanceFeeRoutingTest extends TxRoutingTestBase {
+public class ConveyanceTransactionDocRoutingTest extends TxRoutingTestBase {
 
-	/* (non-Javadoc)
-	 * @see org.martinlaw.test.MartinlawTestsBase#setUpInternal()
-	 */
 	@Override
-	protected void setUpInternal() throws Exception {
-		super.setUpInternal();
-		GlobalVariables.setUserSession(new UserSession("clerk1"));
-		setDocType(MartinlawConstants.DocTypes.CONVEYANCE_TRANSACTION);
-		TransactionDoc doc = (TransactionDoc) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
-		setWorkDoc(getTestUtils().populateTransactionDocForRouting(doc, new Transaction()));
+	public MatterTxDocBase getTxDoc() throws WorkflowException {
+		return getTestUtils().populateTransactionDocForRouting(TransactionDoc.class);
+	}
+
+	@Override
+	public String getDocType() {
+		return MartinlawConstants.DocTypes.CONVEYANCE_TRANSACTION;
+	}
+	
+	@Override
+	@Test
+	public void testDocSearch() {
+		try {
+			getTestUtils().testMatterTransactionDocSearch(TransactionDoc.class, getDocType());
+		} catch (Exception e) {
+			log.error(e);
+			fail("error occured");
+		}
 	}
 }

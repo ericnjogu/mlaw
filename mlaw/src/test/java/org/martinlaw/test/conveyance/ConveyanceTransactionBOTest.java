@@ -29,21 +29,19 @@ package org.martinlaw.test.conveyance;
 
 
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.MatterTransaction;
 import org.martinlaw.bo.MatterTransactionDoc;
 import org.martinlaw.bo.conveyance.TransactionDoc;
-import org.martinlaw.bo.conveyance.Transaction;
-import org.martinlaw.test.MatterTransactionBOTest;
+import org.martinlaw.test.MatterTransactionDocBOTest;
 
 /**
  * tests DD and CRUD for {@link TransactionDoc}
  * @author mugo
  *
  */
-public class ConveyanceTransactionBOTest extends MatterTransactionBOTest {
+public class ConveyanceTransactionBOTest extends MatterTransactionDocBOTest {
 
 	@Override
-	public Class<? extends MatterTransactionDoc<? extends MatterTransaction>> getMatterTransactionDocumentClass() {
+	public Class<? extends MatterTransactionDoc> getMatterTransactionDocumentClass() {
 		return TransactionDoc.class;
 	}
 
@@ -54,11 +52,7 @@ public class ConveyanceTransactionBOTest extends MatterTransactionBOTest {
 
 	@Override
 	public String getViewId() {
-		return MartinlawConstants.ViewIds.CONVEYANCE_FEE;
+		return MartinlawConstants.ViewIds.CONVEYANCE_TRANSACTION;
 	}
 
-	@Override
-	public Class<? extends MatterTransaction> getTransactionClass() {
-		return Transaction.class;
-	}
 }

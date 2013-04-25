@@ -38,6 +38,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<property name="workflowAttributes">
     	<ref bean="contract_transaction_doc_entry_workflow_attrs"/>
 	</property>
+	<property name="relationships">
+      <list>
+		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.contract.Contract"/>
+		<bean parent="martinlaw_shared_consideration_relationship" p:targetClass="org.martinlaw.bo.contract.Consideration"/>
+      </list>
+    </property>
   </bean> 
   
   <bean id="contract_transaction_doc_entry_workflow_attrs" parent="WorkflowAttributes">
@@ -46,36 +52,36 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="contract_transaction_doc_entry_search_attr">
-						<property name="attributeName" value="transaction.date" />
+						<property name="attributeName" value="date" />
 					</bean>
 				</property>
 				<property name="documentValues">
 					<list>
-						<value>transaction.date</value>
+						<value>date</value>
 					</list>
 				</property>
 			</bean>
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="contract_transaction_doc_entry_search_attr">
-						<property name="attributeName" value="transaction.clientPrincipalName" />
+						<property name="attributeName" value="clientPrincipalName" />
 					</bean>
 				</property>
 				<property name="documentValues">
 					<list>
-						<value>transaction.clientPrincipalName</value>
+						<value>clientPrincipalName</value>
 					</list>
 				</property>
 			</bean>
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="contract_transaction_doc_entry_search_attr">
-						<property name="attributeName" value="transaction.transactionTypeId" />
+						<property name="attributeName" value="transactionTypeId" />
 					</bean>
 				</property>
 				<property name="documentValues">
 					<list>
-						<value>transaction.transactionTypeId</value>
+						<value>transactionTypeId</value>
 					</list>
 				</property>
 			</bean>
@@ -95,12 +101,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="contract_transaction_doc_entry_search_attr">
-						<property name="attributeName" value="transaction.amount" />
+						<property name="attributeName" value="amount" />
 					</bean>
 				</property>
 				<property name="documentValues">
 					<list>
-						<value>transaction.amount</value>
+						<value>amount</value>
 					</list>
 				</property>
 			</bean>
@@ -108,12 +114,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="contract_transaction_doc_entry_search_attr">
-						<property name="attributeName" value="transaction.considerationId" />
+						<property name="attributeName" value="considerationId" />
 					</bean>
 				</property>
 				<property name="documentValues">
 					<list>
-						<value>transaction.considerationId</value>
+						<value>considerationId</value>
 					</list>
 				</property>
 			</bean>

@@ -51,7 +51,6 @@ import org.martinlaw.bo.conveyance.Consideration;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
-import org.martinlaw.bo.conveyance.Transaction;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesMaint;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
@@ -153,8 +152,6 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		assertEquals("2012-07-19 00:00:00", conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 		getTestUtils().testAssignees(conv.getAssignees());
 		
-		getTestUtils().testClientFeeList(conv.getFees());
-		
 		getTestUtils().testWorkList(conv.getWork());
 		
 		getTestUtils().testRetrievedConsiderationFields(conv.getConsiderations().get(0));
@@ -186,15 +183,6 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	public void testConveyanceAnnexAttributes() {
 		testBoAttributesPresent(ConveyanceAnnex.class.getCanonicalName());
 	}
-	
-	@Test
-	/**
-	 * test that the conveyance fee is loaded into the data dictionary
-	 */
-	public void testConveyanceFeeAttributes() {
-		testBoAttributesPresent(Transaction.class.getCanonicalName());
-	}
-	
 	
 	@Test()
 	/**
@@ -323,15 +311,15 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		getBoSvc().save(convAtt);
 	}
 	
-	@Test(expected=DataIntegrityViolationException.class)
-	/**
+	/*@Test(expected=DataIntegrityViolationException.class)
+	*//**
 	 * tests that annex type generates errors when non-nullable fields are blank
-	 */
+	 *//*
 	public void testConveyanceFeeNullableFields() {
 		Transaction transaction = new Transaction();
 		//fee.setId(25l);
 		getBoSvc().save(transaction);
-	}
+	}*/
 	
 	@Test
 	/**

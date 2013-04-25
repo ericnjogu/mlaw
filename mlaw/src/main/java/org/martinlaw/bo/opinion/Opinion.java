@@ -43,7 +43,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_opinion_t")
-public class Opinion extends Matter<Assignee, Work, TransactionDoc, Client, Consideration, Event> {
+public class Opinion extends Matter<Assignee, Work, Client, Consideration, Event> {
 	/**
 	 * 
 	 */
@@ -74,9 +74,5 @@ public class Opinion extends Matter<Assignee, Work, TransactionDoc, Client, Cons
 	@Override
 	public Class<Work> getWorkClass() {
 		return Work.class;
-	}
-	@Override
-	public Class<TransactionDoc> getFeeClass() {
-		return TransactionDoc.class;
 	}
 }

@@ -16,7 +16,7 @@
 	<documentTypes xmlns="ns:workflow/DocumentType"
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
-			<name>Court CaseTransactionDocument</name>
+			<name>CourtCaseTransactionDocument</name>
 			<parent>RiceDocument</parent>
 			<description>Court Case Transactional Document</description>
 			<label>Court Case Transactional Document</label>

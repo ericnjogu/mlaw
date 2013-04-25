@@ -21,7 +21,6 @@
   #L%
   -->
 
-<!-- Copyright 2005-2012 Protosoft Ltd -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -31,14 +30,14 @@
 	<bean id="courtcase_transaction_doc_view" parent="Uif-DocumentView">
 		<property name="documentClass" value="org.martinlaw.bo.courtcase.TransactionDoc" />
 		<property name="formPostUrl"
-			value="tx?docTypeName=@{#ConfigProperties['doctype_courtcase_fee']}"></property>
-		<property name="headerText" value="Court Case Fee" />
+			value="tx?docTypeName=@{#ConfigProperties['doctype_courtcase_transaction']}"></property>
+		<property name="headerText" value="Court Case Transaction" />
 		<property name="items">
-			<ref local="courtcase_fee_doc_page"/>
+			<ref local="courtcase_transaction_doc_page"/>
 		</property>
 	</bean>
 	
-	<bean id="courtcase_fee_doc_page" parent="Uif-DocumentPage">
+	<bean id="courtcase_transaction_doc_page" parent="Uif-DocumentPage">
 	<property name="items">
 		<list merge="true">
 			<bean parent="Uif-GridSection">
@@ -48,15 +47,18 @@
 							p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.TransactionDoc">
 							<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
 						</bean>
-						<bean parent="courtcase_fee_doc_fee_detail" p:propertyName="fee.clientPrincipalName"
+						<bean parent="courtcase_transaction_doc_transaction_detail" p:propertyName="clientPrincipalName"
 							p:conditionalRefresh="!#empty(document.matterId)"
 							p:refreshWhenChangedPropertyNames="matterId">
-							<property name="optionsFinder">
+							<!-- <property name="optionsFinder">
 								<bean class="org.martinlaw.keyvalues.MatterClientNamesKeyValues" />
-							</property>
+							</property> -->
 						</bean>
-						<bean parent="courtcase_fee_doc_fee_detail" p:propertyName="fee.amount" />
-						<bean parent="courtcase_fee_doc_fee_detail" p:propertyName="fee.date" />
+						<bean parent="courtcase_transaction_doc_transaction_detail" p:propertyName="amount" />
+						<bean parent="courtcase_transaction_doc_transaction_detail" p:propertyName="date" />
+						<bean parent="contract_transaction_doc_transaction_detail" p:propertyName="considerationId" 
+							p:conditionalRefresh="!#empty(document.matterId)"/>
+						<bean parent="contract_transaction_doc_transaction_detail" p:propertyName="transactionTypeId" />
 					</list>
 				</property>
 			</bean>
@@ -64,6 +66,6 @@
 	</property>
 </bean>
 
-	<bean id="courtcase_fee_doc_fee_detail" parent="Uif-InputField"
+	<bean id="courtcase_transaction_doc_transaction_detail" parent="Uif-InputField"
 		abstract="true" p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.TransactionDoc" />
 </beans>
