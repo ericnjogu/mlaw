@@ -45,4 +45,9 @@ public class ConveyanceConsiderationRoutingTest extends
 		return Consideration.class;
 	}
 
+	@Override
+	public String getDocType() {
+		return "ConveyanceConsiderationMaintenanceDocument";
+	}
+
 }

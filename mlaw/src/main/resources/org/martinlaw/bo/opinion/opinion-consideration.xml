@@ -29,14 +29,14 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="opinion_consideration_bo" parent="martinlaw_shared_consideration_bo" p:jstlKey="opinion_consideration">
 		<property name="businessObjectClass" value="org.martinlaw.bo.opinion.Consideration" />
 		<property name="relationships">
-      <list>
-		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.opinion.Opinion"/>
-      </list>
-    </property>
-    <property name="attributes" >
-		<list merge="true">
-			<bean parent="martinlaw_shared_matterId_attr" p:label="Opinion" />
-		</list>
-	</property>
+	      <list>
+			<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.opinion.Opinion"/>
+	      </list>
+	    </property>
+	    <property name="attributes" >
+			<list merge="true">
+				<bean parent="martinlaw_shared_matterId_attr" p:label="Opinion" />
+			</list>
+		</property>
 	</bean>
 </beans>

@@ -25,7 +25,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<!-- Copyright 2010-2011 Protosoft Ltd -->
 	
 	<bean id="contract" parent="contract-parentBean" />
 
@@ -42,21 +41,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<ref bean="contract-serviceOffered" />
 			<ref bean="contract-summaryOfTerms" />
 
-<!-- 			<ref bean="contract_consideration_amount" />
-			<ref bean="contract_consideration_currency" />
-			<ref bean="contract_consideration_description" /> -->
-
 			<ref bean="contract_duration_startDate" />
 			<ref bean="contract_duration_endDate" />
 			<ref bean="contract_duration_duration" />
 			<ref bean="contract_duration_timeUnit" />
-				
-				<!-- client consideration -->
-			<!-- <bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" p:label="Client Consideration Amount"/>
-			<bean parent="martinlaw_shared_consideration_bo_currency"
-				p:name="consideration.currency" />
-			<bean parent="martinlaw_shared_consideration_bo_description"
-				p:name="consideration.description" /> -->
 		</list>
 	</property>
 	<property name="boNotesEnabled" value="true" />
@@ -64,22 +52,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<property name="relationships">
 		<list>
-			<!-- <bean parent="RelationshipDefinition">
-				<property name="objectAttributeName" value="contractConsideration" />
-				<property name="primitiveAttributes">
-					<list>
-						<bean parent="PrimitiveAttributeDefinition" p:sourceName="contractConsiderationId"
-							p:targetName="id" />
-					</list>
-				</property>
-				<property name="supportAttributes">
-					<list>
-						<bean parent="SupportAttributeDefinition" p:identifier="true"
-							p:sourceName="contractConsideration.amount" p:targetName="amount" />
-					</list>
-				</property>
-			</bean> -->
-
 			<bean parent="RelationshipDefinition">
 				<property name="objectAttributeName" value="contractDuration" />
 				<property name="primitiveAttributes">
@@ -112,12 +84,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="contract_duration_timeUnit" parent="contract_duration_bo_durationTimeUnit" p:name="contractDuration.durationTimeUnit" />
 	
-	<!-- <bean id="contract_consideration_amount" parent="martinlaw_shared_consideration_bo_amount" p:name="contractConsideration.amount" p:label="Contract Amount"/>
-	
-	<bean id="contract_consideration_currency" parent="martinlaw_shared_consideration_bo_currency" p:name="contractConsideration.currency"/>
-	
-	<bean id="contract_consideration_description" parent="martinlaw_shared_consideration_bo_description" p:name="contractConsideration.description"/>
-	 -->
 	<bean id="contract-id" parent="martinlaw-shared-id-parentBean" p:label="Contract Id" />
 
 	<bean id="contract-localReference" parent="martinlaw-shared-localReference-parentBean" />

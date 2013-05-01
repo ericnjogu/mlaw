@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -64,26 +64,6 @@
 			</list>
 		</property>
 		<property name="layoutManager.summaryTitle" value="Client" />
-	</bean>
-
-	<bean id="martinlaw_shared_transaction_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection"
-		abstract="true">
-		<property name="headerText" value="Transactions" />
-		<property name="propertyName" value="fees" />
-		<property name="items">
-			<list>
-				<bean parent="Uif-InputField" p:propertyName="amount" />
-				<bean parent="Uif-InputField" p:propertyName="date" />
-				<bean parent="Uif-InputField" p:propertyName="description" />
-			</list>
-		</property>
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>amount</value>
-				<value>date</value>
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Fee" />
 	</bean>
 
 	<bean id="martinlaw_shared_client-maintenance-section" parent="Uif-StackedCollectionSection"
@@ -299,28 +279,6 @@
 				<value>documentHeader.documentDescription</value>
 			</list>
 		</property> -->
-	</bean>
-
-	<bean id="martinlaw_shared_transaction_doc_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
-		<property name="propertyName" value="fees" />
-		<property name="headerText" value="Fees" />
-		<property name="items">
-			<list>
-				<bean parent="Uif-InputField" p:propertyName="documentHeader.explanation" />
-				<bean parent="Uif-InputField" p:propertyName="transaction.transactionType.name" />
-				<bean parent="Uif-InputField" p:propertyName="transaction.considerationType.name" />
-				<bean parent="Uif-InputField" p:propertyName="transaction.date" />
-				<bean parent="Uif-InputField" p:propertyName="transaction.amount" />
-				<bean parent="Uif-InputField" p:propertyName="transaction.date" />
-				<bean parent="Uif-InputField" p:propertyName="transaction.clientPrincipalName" />
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Fee" />
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>documentHeader.documentDescription</value>
-			</list>
-		</property>
 	</bean>
 
 	<bean id="martinlaw_shared_line_docnumber_linkfield" parent="Uif-LinkField"

@@ -53,9 +53,7 @@
 					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Consideration" />
 					<property name="subCollections">
 				       <list>
-				         <bean parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
-				         	 <property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.TransactionDoc" />
-				         </bean>
+				         <ref bean="martinlaw_shared_consideration_transactions_sub_collection_inquiry_courtcase"/>
 				       </list>
 				     </property>
 				</bean>
@@ -107,7 +105,7 @@
 					</property>
 				</bean>
 				
-				<bean parent="martinlaw_shared_transaction_doc_inquiry_section">
+				<!-- <bean parent="martinlaw_shared_transaction_doc_inquiry_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.TransactionDoc" />
 					<property name="items">
 						<list merge="true">
@@ -120,7 +118,7 @@
 							</bean>
 						</list>
 					</property>
-				</bean>
+				</bean> -->
 			</list>
 		</property>
 	</bean>

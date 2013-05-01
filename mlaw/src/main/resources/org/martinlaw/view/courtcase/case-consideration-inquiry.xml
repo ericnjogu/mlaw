@@ -32,9 +32,7 @@
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.Consideration" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.TransactionDoc" />
-				</bean>
+				<ref bean="martinlaw_shared_consideration_transactions_sub_collection_inquiry_courtcase"/>
 			</list>
 		</property>
 	</bean>

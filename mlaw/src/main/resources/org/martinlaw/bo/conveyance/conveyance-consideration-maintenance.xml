@@ -28,6 +28,7 @@
      <property name="workflowAttributes">
     	<ref bean="conveyance_consideration_maint_document_entry_workflow_attrs"/>
 	</property>
+	<property name="documentTypeName" value="ConveyanceConsiderationMaintenanceDocument"/>
   </bean>
   
   <bean id="conveyance_consideration_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">

@@ -44,4 +44,9 @@ public class ContractConsiderationRoutingTest extends MatterConsiderationRouting
 		return Consideration.class;
 	}
 
+	@Override
+	public String getDocType() {
+		return "ContractConsiderationMaintenanceDocument";
+	}
+
 }

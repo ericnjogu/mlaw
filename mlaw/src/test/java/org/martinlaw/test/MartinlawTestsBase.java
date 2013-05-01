@@ -214,7 +214,10 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-consideration-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-consideration-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/courtcase-consideration-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-consideration-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/transaction-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/transaction-type-perms-roles.sql", ";").runSql();
 		
@@ -305,7 +308,10 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/considerationType.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/consideration.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractConsideration.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseConsideration.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceConsideration.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionConsideration.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/transactionType.xml"));
 		return suiteLifecycles;
 	}

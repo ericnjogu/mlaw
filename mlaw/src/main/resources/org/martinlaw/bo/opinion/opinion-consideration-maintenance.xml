@@ -28,6 +28,7 @@
      <property name="workflowAttributes">
     	<ref bean="opinion_consideration_maint_document_entry_workflow_attrs"/>
 	</property>
+	<property name="documentTypeName" value="OpinionConsiderationMaintenanceDocument"/>
   </bean>
   
   <bean id="opinion_consideration_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">

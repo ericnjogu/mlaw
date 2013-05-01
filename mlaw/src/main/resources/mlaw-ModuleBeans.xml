@@ -172,7 +172,6 @@
          <value>classpath:org/martinlaw/bo/contract/contract-party.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-signatory.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-consideration.xml</value>
-         <value>classpath:org/martinlaw/bo/contract/contract-client-consideration.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-duration.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/contract/contract-party.xml</value>

@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -36,10 +36,6 @@
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="serviceOffered"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="summaryOfTerms"/>
         
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractConsideration.amount" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractConsideration.currency" />
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractConsideration.description" />
-        
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.startDate"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.endDate" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.duration" />
@@ -49,8 +45,6 @@
     <property name="resultFields">
       <list merge="true">
         <bean parent="Uif-DataField" p:propertyName="type.name" />
-        <bean parent="Uif-DataField" p:propertyName="contractConsideration.amount" />
-        <bean parent="Uif-DataField" p:propertyName="contractConsideration.currency" />
         <bean parent="Uif-DataField" p:propertyName="contractDuration.startDate"/>
         <bean parent="Uif-DataField" p:propertyName="contractDuration.endDate" />
       </list>

@@ -28,6 +28,7 @@
 
 
 	<bean id="opinion_transaction_doc_view" parent="Uif-DocumentView">
+		<property name="validateClientSide" value="false"/>
 		<property name="documentClass" value="org.martinlaw.bo.opinion.TransactionDoc" />
 		<property name="formPostUrl"
 			value="tx?docTypeName=@{#ConfigProperties['doctype_opinion_transaction']}"></property>

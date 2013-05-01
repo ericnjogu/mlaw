@@ -78,7 +78,6 @@
 	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry" abstract="true" parent="Uif-Disclosure-TableCollectionSubSection">
 		<property name="disclosure.render" value="false" />
 	    <property name="propertyName" value="transactions" />
-	     <property name="layoutManager.summaryFields" value="date" />
 	     <property name="headerText" value="Transactions" />
 		<property name="items">
 			<list>
@@ -117,6 +116,70 @@
 		<property name="items">
 			<list merge="true">
 				<bean parent="martinlaw_shared_consideration_inquiry_grid_section"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry_opinion" 
+		parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
+	   	 <property name="collectionObjectClass" value="org.martinlaw.bo.opinion.TransactionDoc" />
+	   	 <property name="items">
+			<list merge="true">
+				<bean parent="martinlaw_shared_line_docnumber_linkfield" >
+					<property name="href">
+						<value>
+							@{#ConfigProperties['dochandler_opinion_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+						</value>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry_courtcase" 
+		parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
+		<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.TransactionDoc" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="martinlaw_shared_line_docnumber_linkfield" >
+					<property name="href">
+						<value>
+							@{#ConfigProperties['dochandler_courtcase_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+						</value>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry_conveyance" 
+		parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
+		<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.TransactionDoc" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="martinlaw_shared_line_docnumber_linkfield" >
+					<property name="href">
+						<value>
+							@{#ConfigProperties['dochandler_conveyance_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+						</value>
+					</property>
+				</bean>
+			</list>
+		</property>
+    </bean>
+    
+    <bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry_contract" 
+    	parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
+		<property name="collectionObjectClass" value="org.martinlaw.bo.contract.TransactionDoc" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="martinlaw_shared_line_docnumber_linkfield">
+					<property name="href">
+						<value>
+							@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+						</value>
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>

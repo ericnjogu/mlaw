@@ -28,6 +28,7 @@
      <property name="workflowAttributes">
     	<ref bean="contract_consideration_maint_document_entry_workflow_attrs"/>
 	</property>
+	<property name="documentTypeName" value="ContractConsiderationMaintenanceDocument"/>
   </bean>
   
   <bean id="contract_consideration_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">

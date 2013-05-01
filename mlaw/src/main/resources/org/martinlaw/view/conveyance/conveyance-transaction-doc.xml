@@ -28,6 +28,7 @@
 
 
 	<bean id="conveyance_transaction_doc_view" parent="Uif-DocumentView">
+		<property name="validateClientSide" value="false"/>
 		<property name="documentClass" value="org.martinlaw.bo.conveyance.TransactionDoc" />
 		<property name="formPostUrl"
 			value="tx?docTypeName=@{#ConfigProperties['doctype_conveyance_transaction']}"></property>

@@ -26,8 +26,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="martinlaw_shared_consideration_bo" abstract="true"
-		parent="BusinessObjectEntry">
+	<bean id="martinlaw_shared_consideration_bo" abstract="true" parent="BusinessObjectEntry">
 
 		<property name="attributes">
 			<list>
@@ -112,7 +111,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				<value>considerationTypeId</value>
 			</list>
 		</property>
-		<property name="documentTypeName" value="ConsiderationMaintenanceDocument"/>
 		<!-- remove rules class when https://jira.kuali.org/browse/KULRICE-7666 is fixed -->
 		<property name="businessRulesClass" value="org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase"/>
 	    <!-- enable when we move to a kuali rice version with https://jira.kuali.org/browse/KULRICE-7666 fixed -->

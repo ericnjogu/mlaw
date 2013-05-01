@@ -99,5 +99,16 @@ public abstract class MatterConsiderationBOTestBase extends MartinlawTestsBase {
 	 * @return the class to be tested
 	 */
 	public abstract Class<? extends MatterConsideration<?>> getDataObjectClass();
+	
+	/*@Test
+	*//**
+	 * verify that the relationships are as expected
+	 *//*
+	public void testRelationshipDefs() throws InstantiationException, IllegalAccessException {
+		DataObjectMetaDataService svc = KRADServiceLocatorWeb.getDataObjectMetaDataService();
+		DataObjectRelationship reln1 = svc.getDataObjectRelationship(getDataObjectClass().newInstance(), getDataObjectClass(), "matterId", null, false, true, true);
+		assertEquals("related class differs", Contract.class, reln1.getRelatedClass());
+		assertEquals("number of relationships differs", 2, svc.getDataObjectRelationships(getDataObjectClass()).size());
+	}*/
 
 }

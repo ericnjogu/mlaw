@@ -62,8 +62,6 @@ public class MatterTxBusinessRulesBase extends TransactionalDocumentRuleBase {
 		}
 	}
 
-
-
 	/**
 	 * @return the rulesHelper
 	 */

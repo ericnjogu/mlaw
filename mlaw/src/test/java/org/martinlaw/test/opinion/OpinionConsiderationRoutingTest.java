@@ -44,4 +44,9 @@ public class OpinionConsiderationRoutingTest extends MatterConsiderationRoutingT
 		return Consideration.class;
 	}
 
+	@Override
+	public String getDocType() {
+		return "OpinionConsiderationMaintenanceDocument";
+	}
+
 }

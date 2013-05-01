@@ -28,6 +28,7 @@
      <property name="workflowAttributes">
     	<ref bean="courtcase_consideration_maint_document_entry_workflow_attrs"/>
 	</property>
+	<property name="documentTypeName" value="CourtCaseConsiderationMaintenanceDocument"/>
   </bean>
   
   <bean id="courtcase_consideration_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">

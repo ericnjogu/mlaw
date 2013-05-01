@@ -45,4 +45,9 @@ public class CourtCaseConsiderationRoutingTest extends
 		return Consideration.class;
 	}
 
+	@Override
+	public String getDocType() {
+		return "CourtCaseConsiderationMaintenanceDocument";
+	}
+
 }

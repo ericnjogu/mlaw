@@ -165,9 +165,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	 * 
 	 * @return the doc type being tested
 	 */
-	public String getDocType() {
-		return "ConsiderationMaintenanceDocument";
-	}
+	public abstract String getDocType();
 	
 	/**
 	 * 

@@ -16,10 +16,10 @@
 	<documentTypes xmlns="ns:workflow/DocumentType"
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
-			<name>ConsiderationMaintenanceDocument</name>
+			<name>ContractConsiderationMaintenanceDocument</name>
 			<parent>RiceDocument</parent>
-			<description>Consideration Maintenance Document</description>
-			<label>Consideration Maintenance Document</label>
+			<description>Contract Consideration Maintenance Document</description>
+			<label>Contract Consideration Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
@@ -53,13 +53,13 @@
 	</documentTypes>
 
 	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-		<!-- ConsiderationMaintenanceDocument rule -->
+		<!-- ContractConsiderationMaintenanceDocument rule -->
 		<rule>
-			<name>org.martinlaw.rules.consideration</name>
-			<documentType>ConsiderationMaintenanceDocument</documentType>
+			<name>org.martinlaw.rules.contract.consideration</name>
+			<documentType>ContractConsiderationMaintenanceDocument</documentType>
 			<!-- The rule template does not have any use at now -->
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-			<description>Routing rule for Consideration maintenance
+			<description>Routing rule for ContractConsideration maintenance
 			</description>
 			<responsibilities>
 				<responsibility>

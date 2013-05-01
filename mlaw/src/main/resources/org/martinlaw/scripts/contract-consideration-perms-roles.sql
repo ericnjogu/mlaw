@@ -24,15 +24,15 @@
 INSERT INTO `krim_perm_t` 
 (`PERM_ID`,`OBJ_ID`,`VER_NBR`,`PERM_TMPL_ID`,`NMSPC_CD`,`NM`,`DESC_TXT`,`ACTV_IND`) 
 VALUES 
-('create_consideration_maint','rfuVUUoCxVKoFXegtJQl93SEiom9nRvu22zB',2,'42','KR-NS','Create Consideration Maintenance Document','Allows user to create a new Consideration maintenance document','Y');
+('create_contract_consideration_maint','rfuVUUoCxVKoFXegtJQl93SEiom9nRvu22zB',2,'42','KR-NS','Create Contract Consideration Maintenance Document','Allows user to create a new Contract Consideration maintenance document','Y');
 
 
 -- document type names for the permissions
 INSERT INTO `krim_perm_attr_data_t` (`ATTR_DATA_ID`,`OBJ_ID`,`VER_NBR`,`PERM_ID`,`KIM_TYP_ID`,`KIM_ATTR_DEFN_ID`,`ATTR_VAL`) 
 VALUES 
-('consideration_maint_doc','wrGOUtJ45VLfLsK1MIw38xYmwbQF8Euhe3OX',1,'create_consideration_maint','56','13','ConsiderationMaintenanceDocument');
+('contract_consideration_maint_doc','wrGOUtJ45VLfLsK1MIw38xYmwbQF8Euhe3OX',1,'create_contract_consideration_maint','56','13','ContractConsiderationMaintenanceDocument');
 
   
 -- assign permissions to martinlaw functional role
 INSERT INTO KRIM_ROLE_PERM_T (ACTV_IND,OBJ_ID,PERM_ID,ROLE_ID,ROLE_PERM_ID,VER_NBR)
-  VALUES ('Y','HMQOHdqVv4XOUYanD7snU4V4xeKe90SnGY2v','create_consideration_maint','org.mlaw.roles.functional','fnl_create_consideration',1);
+  VALUES ('Y','HMQOHdqVv4XOUYanD7snU4V4xeKe90SnGY2v','create_contract_consideration_maint','org.mlaw.roles.functional','fnl_create_contract_consideration',1);
