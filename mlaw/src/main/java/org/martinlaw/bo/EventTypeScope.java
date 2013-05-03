@@ -33,7 +33,7 @@ import javax.persistence.Table;
 
 /**
  * gives information on which matter(s) an event type applies to
- * Status (one) -> StatusScope (many)
+ * EventType (one) -> EventTypeScope (many)
  * @author mugo
  *
  */
