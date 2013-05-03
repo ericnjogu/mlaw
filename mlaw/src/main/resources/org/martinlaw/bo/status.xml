@@ -23,7 +23,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<list>
 				<ref bean="matter_status_bo-id" />
 				<ref bean="matter_status_bo-text" />
-				<ref bean="matter_status_bo_scope" />
 			</list>
 		</property>
 		<property name="objectLabel" value="Status" />
