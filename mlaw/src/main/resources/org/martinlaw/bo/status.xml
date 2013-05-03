@@ -51,22 +51,4 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<bean parent="Uif-TextControl" p:size="60" />
 		</property>
 	</bean>
-	
-	<bean id="matter_status_bo_scope" parent="AttributeDefinition">
-		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false" />
-		</property>
-		<property name="summary" value="Status Scope" />
-		<property name="name" value="scope" />
-		<property name="label" value="Status Scope" />
-		<property name="description" value="Status Scope" />
-		<property name="required" value="true" />
-		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.StatusScopeKeyValues" />
-		</property>
-		<property name="controlField">
-			<bean parent="Uif-MultiSelectControl" />
-		</property>
-	</bean>
 </beans>
