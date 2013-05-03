@@ -37,6 +37,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	    <property name="attributes" >
 			<list merge="true">
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Contract" />
+				<bean parent="martinlaw_shared_consideration_bo_consideration_type_id">
+					<property name="optionsFinder">
+						<bean class="org.martinlaw.keyvalues.ContractConsiderationTypeKeyValues" />
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>

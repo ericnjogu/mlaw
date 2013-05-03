@@ -24,4 +24,12 @@ insert into martinlaw_consideration_type_t
 values
 (1001, "legal fee", null, 1, '8tlpKTKi1JDbj0w87XNE2VNB0SGIpDDzW5RC'),
 (1002, "contract value", null, 1, 'XBhoJBmNyBn9BOpJtwr5cW3X5rZlNOK0Xxi7'),
-(1003, "purchase price", 'the purchase price', 1, 'N9kLZhkN2OJaJBygpE7Y23irST6UrNTSeM2E');
+(1003, "purchase price", 'the purchase price', 1, 'N9kLZhkN2OJaJBygpE7Y23irST6UrNTSeM2E'),
+(1004, "stamp duty", null, 1, 'ct1');
+
+insert into martinlaw_consideration_type_scope_t
+(consideration_type_scope_id, qualified_class_name, consideration_type_id, ver_nbr,  obj_id)
+values
+(1001, "org.martinlaw.bo.conveyance.Conveyance", 1003, 1, "ssc1"),
+(1002, "org.martinlaw.bo.contract.Contract", 1002, 1, "ssc2"),
+(1003, "org.martinlaw.bo.conveyance.Conveyance", 1004, 1, "ssc3");

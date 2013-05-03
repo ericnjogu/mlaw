@@ -21,10 +21,6 @@
   #L%
   -->
 
-<!--
-
-    Copyright 2005-2012 Protosoft Ltd
--->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -34,6 +30,13 @@
   <bean id="consideration_type_maintenance_view" parent="martinlaw_shared_name_description_maintenance_view">
     <property name="headerText" value="Consideration Type"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.ConsiderationType"/>
+    <property name="items">
+		<list merge="true">
+			<bean parent="martinlaw_shared_scope_collection_maint_section">
+				<property name="collectionObjectClass" value="org.martinlaw.bo.ConsiderationTypeScope" />
+			</bean>
+		</list>
+	</property>
   </bean>
 
 </beans>

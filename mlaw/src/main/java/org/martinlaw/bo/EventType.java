@@ -39,7 +39,7 @@ import javax.persistence.Table;
 import org.martinlaw.ScopedKeyValue;
 
 /**
- * defines a date type for use in court case or other matters
+ * defines an event type for use in court case or other matters
  * 
  * <p>e.g. Hearing Date, Mention Date, Bring up Date</p>
  * 

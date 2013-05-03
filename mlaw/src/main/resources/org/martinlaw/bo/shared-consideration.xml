@@ -30,7 +30,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 		<property name="attributes">
 			<list>
-				<ref bean="martinlaw_shared_consideration_bo_consideration_type_id"/>
+				<!-- to be set by specific considerations -->
+				<!-- <ref bean="martinlaw_shared_consideration_bo_consideration_type_id"/> -->
 				<bean parent="martinlaw-shared-description" p:label="Comment" />
 				<bean parent="martinlaw_shared_transaction_amount" p:label="Value"/>
 				<ref bean="martinlaw_shared_consideration_bo_currency" />
@@ -82,12 +83,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="controlField">
 			<bean parent="Uif-DropdownControl" />
 		</property>
-		<property name="optionsFinder">
+		<!-- to be set by specific considerations -->
+		<!-- <property name="optionsFinder">
 			<bean
 				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
 				p:businessObjectClass="org.martinlaw.bo.ConsiderationType"
 				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
-		</property>
+		</property> -->
 		<!-- required for display in kns custom document search -->
 		<property name="control">
 			<bean parent="SelectControlDefinition" p:size="20" 

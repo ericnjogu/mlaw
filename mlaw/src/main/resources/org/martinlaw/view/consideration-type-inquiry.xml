@@ -29,5 +29,13 @@
 <bean id="consideration_type_inquiry_view" parent="martinlaw_shared_name_description_inquiry_view">
     <property name="headerText" value="Consideration Type Inquiry"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.ConsiderationType"/>
+    <property name="items">
+		<list>
+			<ref bean="martinlaw_shared_name_description_inquiry_view_items"/>
+			<bean parent="martinlaw_shared_scope_collection_inquiry_section">
+				<property name="collectionObjectClass" value="org.martinlaw.bo.ConsiderationTypeScope" />
+			</bean>
+		</list>
+	</property>
   </bean>
 </beans>

@@ -25,35 +25,30 @@ package org.martinlaw.bo;
  * #L%
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.martinlaw.ScopedKeyValue;
 
 /**
- * specifies consideration type e.g. legal fee, contract value, deposit etc
+ * gives information on which matter(s) an consideration type applies to
+ * ConsiderationType (one) -> ConsiderationTypeScope (many)
  * @author mugo
  *
  */
 @Entity
-@Table(name="martinlaw_consideration_type_t")
-public class ConsiderationType extends BaseDetail implements ScopedKeyValue {
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "considerationTypeId")
-	private List<ConsiderationTypeScope> scope;
+@Table(name="martinlaw_consideration_type_scope_t")
+public class ConsiderationTypeScope extends Scope {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4184910355599564922L;
+	private static final long serialVersionUID = 698178229853855467L;
 	@Id
-	@Column(name="consideration_type_id")
+	@Column(name="consideration_type_scope_id")
 	private Long id;
+	@Column(name="consideration_type_id", nullable=false)
+	private Long considerationTypeId;
 	/**
 	 * @return the id
 	 */
@@ -61,34 +56,22 @@ public class ConsiderationType extends BaseDetail implements ScopedKeyValue {
 		return id;
 	}
 	/**
-	 * initialize lists
-	 */
-	public ConsiderationType() {
-		setScope(new ArrayList<ConsiderationTypeScope>());
-	}
-	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Override
-	public String getKey() {
-		return String.valueOf(getId());
-	}
-	@Override
-	public String getValue() {
-		return getName();
-	}
-	@Override
-	public List<ConsiderationTypeScope> getScope() {
-		return scope;
+	/**
+	 * the foreign key that links to the related consideration type
+	 * @return the considerationTypeId
+	 */
+	public Long getConsiderationTypeId() {
+		return considerationTypeId;
 	}
 	/**
-	 * @param scope the scope to set
+	 * @param considerationTypeId the considerationTypeId to set
 	 */
-	public void setScope(List<ConsiderationTypeScope> scope) {
-		this.scope = scope;
+	public void setConsiderationTypeId(Long considerationTypeId) {
+		this.considerationTypeId = considerationTypeId;
 	}
-
 }

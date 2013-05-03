@@ -1411,6 +1411,27 @@
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
+			
+		<collection-descriptor name="scope"
+			element-class-ref="org.martinlaw.bo.ConsiderationTypeScope"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="considerationTypeId" />
+		</collection-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.ConsiderationTypeScope" table="martinlaw_consideration_type_scope_t">
+		<field-descriptor name="id" column="consideration_type_scope_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_consideration_type_scope_s">
+		</field-descriptor>
+		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
+			jdbc-type="VARCHAR" length="100"/>
+		<field-descriptor name="considerationTypeId" column="consideration_type_id"
+			jdbc-type="BIGINT"/>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.TransactionType" table="martinlaw_transaction_type_t">

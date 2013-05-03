@@ -33,6 +33,11 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="businessObjectClass" value="org.martinlaw.bo.EventTypeScope" />
 		<property name="titleAttribute" value="Event Type Scope" />
 	</bean>
+	
+	<bean id="consideration_type_scope_bo" parent="martinlaw_shared_scope_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.ConsiderationTypeScope" />
+		<property name="titleAttribute" value="Consideration Type Scope" />
+	</bean>
 
 	<!-- Attribute Definitions -->
 	<!-- enabled to avoid error stacktraces about missing id attribute on inquiry 
