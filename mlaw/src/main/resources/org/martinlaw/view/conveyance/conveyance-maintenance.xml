@@ -18,6 +18,7 @@
 
 	<bean id="conveyance_maintenance_view" parent="Uif-MaintenanceView">
 		<property name="headerText" value="Conveyance Maintenance" />
+		<property name="validateClientSide" value="false"/>
 		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
 
 		<property name="items">
