@@ -36,6 +36,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.martinlaw.ScopedKeyValue;
 
 /**
  * represents a matter status
@@ -44,7 +45,7 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
  */
 @Entity
 @Table(name="martinlaw_status_t")
-public class Status extends PersistableBusinessObjectBase {
+public class Status extends PersistableBusinessObjectBase implements ScopedKeyValue {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "statusId")
 	private List<StatusScope> scope;
@@ -120,6 +121,16 @@ public class Status extends PersistableBusinessObjectBase {
 	 */
 	public void setScope(List<StatusScope> scope) {
 		this.scope = scope;
+	}
+
+	@Override
+	public String getKey() {
+		return String.valueOf(getId());
+	}
+
+	@Override
+	public String getValue() {
+		return getStatus();
 	}
 
 }

@@ -41,12 +41,12 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.type.filter.AssignableTypeFilter;
 
 /**
- * generates a list of key values for the status scope - to be displayed in a select box on the status maintenance doc
+ * generates a list of matter key values for scope - to be displayed in a drop down box for status, event type etc
  * 
  * @author mugo
  *
  */
-public class StatusScopeKeyValues extends KeyValuesBase {
+public class MatterScopeKeyValues extends KeyValuesBase {
 	/**
 	 * 
 	 */

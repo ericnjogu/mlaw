@@ -7,7 +7,7 @@ package org.martinlaw.bo;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,10 +26,17 @@ package org.martinlaw.bo;
  */
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.martinlaw.ScopedKeyValue;
 
 /**
  * defines a date type for use in court case or other matters
@@ -41,7 +48,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="martinlaw_event_type_t")
-public class EventType extends BaseDetail {
+public class EventType extends BaseDetail  implements ScopedKeyValue {
 	/**
 	 * 
 	 */
@@ -54,6 +61,8 @@ public class EventType extends BaseDetail {
 	})*/
 	@Column(name="event_type_id")
 	private Long id;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "eventTypeId")
+	private List<EventTypeScope> scope;
 
 	/**
 	 * @return the id
@@ -67,5 +76,36 @@ public class EventType extends BaseDetail {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the scope
+	 */
+	public List<EventTypeScope> getScope() {
+		return scope;
+	}
+
+	/**
+	 * @param scope the scope to set
+	 */
+	public void setScope(List<EventTypeScope> scope) {
+		this.scope = scope;
+	}
+
+	@Override
+	public String getKey() {
+		return String.valueOf(getId());
+	}
+
+	@Override
+	public String getValue() {
+		return getName();
+	}
+
+	/**
+	 * default constructor
+	 */
+	public EventType() {
+		setScope(new ArrayList<EventTypeScope>());
 	}
 }

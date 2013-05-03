@@ -76,7 +76,7 @@
          <value>classpath:org/martinlaw/bo/consideration-type.xml</value>
          <value>classpath:org/martinlaw/bo/transaction-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/transaction-type.xml</value>
-         <value>classpath:org/martinlaw/bo/status-scope.xml</value>
+         <value>classpath:org/martinlaw/bo/shared-scope.xml</value>
          
          <value>classpath:org/martinlaw/view/shared.xml</value>
          <value>classpath:org/martinlaw/view/shared-assignment-inquiry.xml</value>
@@ -92,6 +92,7 @@
          <value>classpath:org/martinlaw/view/transaction-type-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/transaction-type-lookup.xml</value>
          <value>classpath:org/martinlaw/view/transaction-type-maintenance.xml</value>
+         <value>classpath:org/martinlaw/view/shared-scope.xml</value>
          
          <value>classpath:org/martinlaw/bo/courtcase/case.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-event.xml</value>

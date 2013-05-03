@@ -7,7 +7,7 @@ package org.martinlaw.test;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -47,7 +47,6 @@ import org.martinlaw.keyvalues.ContractStatusKeyValues;
 import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
 import org.martinlaw.keyvalues.OpinionStatusKeyValues;
-import org.martinlaw.keyvalues.StatusKeyValuesBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -148,24 +147,17 @@ public class StatusBOTest extends MartinlawTestsBase {
 	
 	@Test
 	/**
-	 * test that court case status type key values returns the correct number
+	 * test that status type key values returns the correct number
 	 */
 	public void testMatterStatusKeyValues() {
 		String comment = "expected 3 statuses with court case scope and two that apply to all (empty), plus a blank one";
-		testMatterStatusKeyValues(new CourtCaseStatusKeyValues(), comment, 6);
+		getTestUtils().testMatterStatusKeyValues(new CourtCaseStatusKeyValues(), comment, 6);
 		comment = "expected the two that apply to all (empty), plus a blank one";
-		testMatterStatusKeyValues(new ContractStatusKeyValues(), comment, 3);
+		getTestUtils().testMatterStatusKeyValues(new ContractStatusKeyValues(), comment, 3);
 		comment = "expected the two that apply to all (empty), plus a blank one";
-		testMatterStatusKeyValues(new OpinionStatusKeyValues(), comment, 3);
+		getTestUtils().testMatterStatusKeyValues(new OpinionStatusKeyValues(), comment, 3);
 		comment = "expected one status with conveyance scope, the two that apply to all (empty), plus a blank one";
-		testMatterStatusKeyValues(new ConveyanceStatusKeyValues(), comment, 4);
-	}
-	
-	/**
-	 * test that court case status type key values returns the correct number
-	 */
-	public void testMatterStatusKeyValues(StatusKeyValuesBase kv, String comment, int kvSize) {
-		assertEquals(comment, kvSize, kv.getKeyValues().size());
+		getTestUtils().testMatterStatusKeyValues(new ConveyanceStatusKeyValues(), comment, 4);
 	}
 	
 	@Test

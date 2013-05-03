@@ -7,7 +7,7 @@ package org.martinlaw.test.date;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -29,9 +29,20 @@ package org.martinlaw.test.date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import org.martinlaw.bo.EventType;
+import org.martinlaw.bo.EventTypeScope;
+import org.martinlaw.bo.contract.Contract;
+import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.keyvalues.ContractEventTypeKeyValues;
+import org.martinlaw.keyvalues.ConveyanceEventTypeKeyValues;
+import org.martinlaw.keyvalues.CourtCaseEventTypeKeyValues;
+import org.martinlaw.keyvalues.OpinionEventTypeKeyValues;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -47,7 +58,7 @@ public class EventTypeBOTest extends MartinlawTestsBase {
 	/**
 	 * tests that non nullable fields are checked
 	 */
-	public void testDateTypeNullableFields() {
+	public void testEventTypeNullableFields() {
 		EventType eventType = new EventType();
 		getBoSvc().save(eventType);
 	}
@@ -56,7 +67,7 @@ public class EventTypeBOTest extends MartinlawTestsBase {
 	/**
 	 * test that the EventType is loaded into the data dictionary
 	 */
-	public void testDateTypeAttributes() {
+	public void testEventTypeAttributes() {
 		testBoAttributesPresent(EventType.class.getCanonicalName());
 		Class<EventType> dataObjectClass = EventType.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
@@ -66,34 +77,70 @@ public class EventTypeBOTest extends MartinlawTestsBase {
 	/**
 	 * tests retrieving from date inserted via sql
 	 */
-	public void testDateTypeRetrieve() {
+	public void testEventTypeRetrieve() {
 		// retrieve object populated via sql script
 		EventType eventType = getBoSvc().findBySinglePrimaryKey(
 				EventType.class, 1003l);
-		assertNotNull(eventType);
-		assertEquals("Mention", eventType.getName());
+		assertNotNull("event type should not be null", eventType);
+		assertEquals("event type name differs", "Mention", eventType.getName());
+		assertNotNull("scope should not be null", eventType.getScope());
+		assertEquals("scope size differs", 1, eventType.getScope().size());
+		assertEquals("simple class name differs", CourtCase.class.getSimpleName(), eventType.getScope().get(0).getSimpleClassName());
 	}
 
 	@Test
 	/**
 	 * test CRUD for {@link EventType}
 	 */
-	public void testDateTypeCRUD() {
+	public void testEventTypeCRUD() {
 		// C
 		EventType eventType = new EventType();
 		String name = "judgment";
 		eventType.setName(name);
+		
+		EventTypeScope scope1 = new EventTypeScope();
+		scope1.setQualifiedClassName(CourtCase.class.getCanonicalName());
+		eventType.getScope().add(scope1);
+		
+		EventTypeScope scope2 = new EventTypeScope();
+		scope2.setQualifiedClassName(Contract.class.getCanonicalName());
+		eventType.getScope().add(scope2);
+		
 		getBoSvc().save(eventType);
 		// R
 		eventType.refresh();
-		assertEquals("date type name does not match", name, eventType.getName());
+		assertEquals("event type name does not match", name, eventType.getName());
+		assertNotNull("scope should not be null", eventType.getScope());
+		assertEquals("scope size differs", 2, eventType.getScope().size());
+		assertNull("description not set", eventType.getDescription());
 		// U
 		eventType.setDescription("When the judgement is delivered");
-		eventType.refresh();
-		assertNotNull("date type description should not be null", eventType.getDescription());
+		eventType.getScope().remove(1);
+		getBoSvc().save(eventType);
+		assertNotNull("event type description should not be null", eventType.getDescription());
+		assertEquals("scope size differs", 1, eventType.getScope().size());
+		assertEquals("simple class name differs", CourtCase.class.getSimpleName(), eventType.getScope().get(0).getSimpleClassName());
 		// D
 		getBoSvc().delete(eventType);
-		assertNull(getBoSvc().findBySinglePrimaryKey(EventType.class,
+		assertNull("event type should have been deleted", getBoSvc().findBySinglePrimaryKey(EventType.class,
 				eventType.getId()));
+		Map<String, String> criteria = new HashMap<String, String>();
+		criteria.put("eventTypeId", String.valueOf(eventType.getId()));
+		assertTrue("event type scopes should have been deleted", getBoSvc().findMatching(EventTypeScope.class, criteria).isEmpty());
+	}
+	
+	@Test
+	/**
+	 * test that event type key values returns the correct number
+	 */
+	public void testMatterStatusKeyValues() {
+		String comment = "expected 2 event types with court case scope and one that apply to all (empty), plus a blank one";
+		getTestUtils().testMatterStatusKeyValues(new CourtCaseEventTypeKeyValues(), comment, 4);
+		comment = "expected 1 that applies to all (empty), plus a blank one";
+		getTestUtils().testMatterStatusKeyValues(new ContractEventTypeKeyValues(), comment, 2);
+		comment = "expected 1 that applies to all (empty), plus a blank one";
+		getTestUtils().testMatterStatusKeyValues(new OpinionEventTypeKeyValues(), comment, 2);
+		comment = "expected one status with conveyance scope, one that applies to all (empty), plus a blank one";
+		getTestUtils().testMatterStatusKeyValues(new ConveyanceEventTypeKeyValues(), comment, 3);
 	}
 }

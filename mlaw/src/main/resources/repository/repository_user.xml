@@ -796,8 +796,7 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.EventType"
-		table="martinlaw_event_type_t">
+	<class-descriptor class="org.martinlaw.bo.EventType" table="martinlaw_event_type_t">
 		<field-descriptor name="id" column="event_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_event_type_s">
@@ -808,6 +807,27 @@
 		<field-descriptor name="description" column="description"
 			jdbc-type="VARCHAR" length="100">
 		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+			
+		<collection-descriptor name="scope"
+			element-class-ref="org.martinlaw.bo.EventTypeScope"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="eventTypeId" />
+		</collection-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.EventTypeScope" table="martinlaw_event_type_scope_t">
+		<field-descriptor name="id" column="event_type_scope_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_event_type_scope_s">
+		</field-descriptor>
+		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
+			jdbc-type="VARCHAR" length="100"/>
+		<field-descriptor name="eventTypeId" column="event_type_id"
+			jdbc-type="BIGINT"/>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"

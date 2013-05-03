@@ -7,7 +7,7 @@ package org.martinlaw.keyvalues;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -29,28 +29,26 @@ package org.martinlaw.keyvalues;
 import java.util.List;
 
 import org.kuali.rice.core.api.util.KeyValue;
-import org.martinlaw.bo.Status;
+import org.martinlaw.bo.conveyance.Conveyance;
 
 /**
- * displays statuses whose {@link Status#getScope()} is either empty or includes the specific matter (via the class name)
+ * displays event types whose scope is not set or which includes @{link Conveyance}
  * 
  * @author mugo
  *
  */
-public abstract class StatusKeyValuesBase extends ScopedKeyValuesBase {
+public class ConveyanceEventTypeKeyValues  extends EventTypeKeyValuesBase {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6437266342673833765L;
+	private static final long serialVersionUID = -3939234064376747895L;
 
-	/**
-	 * gets every status whose scope either includes the provided matter class name or has an empty scope (applies to all)
-	 * 
-	 * @param qualifiedMatterClassName - the class name of the matter for which we should retrieve statuses
-	 * @return matching status as key values
+	/* (non-Javadoc)
+	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
 	 */
-	public List<KeyValue> getKeyValues(String qualifiedMatterClassName) {
-		return super.getKeyValues(qualifiedMatterClassName, Status.class);
+	@Override
+	public List<KeyValue> getKeyValues() {
+		return super.getKeyValues(Conveyance.class.getCanonicalName());	
 	}
 }

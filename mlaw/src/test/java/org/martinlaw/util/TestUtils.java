@@ -86,6 +86,7 @@ import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Opinion;
+import org.martinlaw.keyvalues.ScopedKeyValuesBase;
 
 /**
  * holds various methods used across test cases
@@ -778,6 +779,13 @@ public class TestUtils {
 			resultsList.add(results);
 		}
 		return resultsList;
+	}
+	
+	/**
+	 * test that court case status type key values returns the correct number
+	 */
+	public void testMatterStatusKeyValues(ScopedKeyValuesBase kv, String comment, int kvSize) {
+		assertEquals(comment, kvSize, kv.getKeyValues().size());
 	}
 
 }

@@ -14,25 +14,32 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="status_scope_bo" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.martinlaw.bo.StatusScope" />
-		<property name="titleAttribute" value="Status Scope" />
+	<bean id="martinlaw_shared_scope_bo" parent="BusinessObjectEntry" abstract="true">
 		<property name="attributes">
 			<list>
-				<ref bean="status_scope_bo-id" />
-				<ref bean="status_scope_bo_qualifiedClassName" />
+				<ref bean="matter_scope_bo-id" />
+				<ref bean="matter_scope_bo_qualifiedClassName" />
 			</list>
 		</property>
 		<property name="objectLabel" value="Status" />
+	</bean>
+	
+	<bean id="status_scope_bo" parent="martinlaw_shared_scope_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.StatusScope" />
+		<property name="titleAttribute" value="Status Scope" />
+	</bean>
+	
+	<bean id="event_type_scope_bo" parent="martinlaw_shared_scope_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.EventTypeScope" />
+		<property name="titleAttribute" value="Event Type Scope" />
 	</bean>
 
 	<!-- Attribute Definitions -->
 	<!-- enabled to avoid error stacktraces about missing id attribute on inquiry 
 		action -->
-	<bean id="status_scope_bo-id" parent="martinlaw-shared-id" />
-
+	<bean id="matter_scope_bo-id" parent="martinlaw-shared-id" />
 	
-	<bean id="status_scope_bo_qualifiedClassName" parent="AttributeDefinition">
+	<bean id="matter_scope_bo_qualifiedClassName" parent="AttributeDefinition">
 		<property name="maxLength" value="100" />
 		<property name="validationPattern">
 			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false" />
@@ -43,7 +50,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="description" value="Scope" />
 		<property name="required" value="true" />
 		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.StatusScopeKeyValues" />
+			<bean class="org.martinlaw.keyvalues.MatterScopeKeyValues" />
 		</property>
 		<property name="controlField">
 			<bean parent="Uif-DropdownControl" />

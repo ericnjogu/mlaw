@@ -13,7 +13,7 @@ import org.martinlaw.bo.contract.Contract;
  * @author mugo
  *
  */
-public class StatusScopeKeyValuesTest {
+public class MatterScopeKeyValuesTest {
 
 	/**
 	 * @throws java.lang.Exception
@@ -23,11 +23,11 @@ public class StatusScopeKeyValuesTest {
 	}
 
 	/**
-	 * Test method for {@link org.martinlaw.keyvalues.StatusScopeKeyValues#getKeyValues()}.
+	 * Test method for {@link org.martinlaw.keyvalues.MatterScopeKeyValues#getKeyValues()}.
 	 */
 	@Test
 	public void testGetKeyValues() {
-		StatusScopeKeyValues skv = new StatusScopeKeyValues();
+		MatterScopeKeyValues skv = new MatterScopeKeyValues();
 		assertNotNull("key values should not be null", skv.getKeyValues());
 		assertEquals("should be 4 matters, one blank", 5, skv.getKeyValues().size());
 		assertEquals("label differs", Contract.class.getSimpleName(), skv.getKeyLabel(Contract.class.getCanonicalName()));

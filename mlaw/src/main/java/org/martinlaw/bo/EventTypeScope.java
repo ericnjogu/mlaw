@@ -32,23 +32,23 @@ import javax.persistence.Table;
 
 
 /**
- * gives information on which matter(s) a status applies to
+ * gives information on which matter(s) an event type applies to
  * Status (one) -> StatusScope (many)
  * @author mugo
  *
  */
 @Entity
-@Table(name="martinlaw_status_scope_t")
-public class StatusScope extends Scope {
+@Table(name="martinlaw_event_type_scope_t")
+public class EventTypeScope extends Scope {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 698178229853855467L;
 	@Id
-	@Column(name="status_scope_id")
+	@Column(name="event_type_scope_id")
 	private Long id;
-	@Column(name="status_id", nullable=false)
-	private Long statusId;
+	@Column(name="event_type_id", nullable=false)
+	private Long eventTypeId;
 	/**
 	 * @return the id
 	 */
@@ -62,16 +62,16 @@ public class StatusScope extends Scope {
 		this.id = id;
 	}
 	/**
-	 * the foreign key that links to the related status
-	 * @return the statusId
+	 * the foreign key that links to the related event type
+	 * @return the eventTypeId
 	 */
-	public Long getStatusId() {
-		return statusId;
+	public Long getEventTypeId() {
+		return eventTypeId;
 	}
 	/**
-	 * @param statusId the statusId to set
+	 * @param eventTypeId the eventTypeId to set
 	 */
-	public void setStatusId(Long statusId) {
-		this.statusId = statusId;
+	public void setEventTypeId(Long eventTypeId) {
+		this.eventTypeId = eventTypeId;
 	}
 }

@@ -15,7 +15,7 @@ import org.martinlaw.bo.conveyance.Conveyance;
  */
 public class StatusScopeTest {
 
-	private StatusScope scope;
+	private Scope scope;
 
 	/**
 	 * @throws java.lang.Exception

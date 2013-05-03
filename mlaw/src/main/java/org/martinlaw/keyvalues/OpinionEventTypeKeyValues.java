@@ -29,28 +29,26 @@ package org.martinlaw.keyvalues;
 import java.util.List;
 
 import org.kuali.rice.core.api.util.KeyValue;
-import org.martinlaw.bo.Status;
+import org.martinlaw.bo.opinion.Opinion;
 
 /**
- * displays statuses whose {@link Status#getScope()} is either empty or includes the specific matter (via the class name)
+ * displays event types whose scope is not set or which includes {@link Opinion}
  * 
  * @author mugo
  *
  */
-public abstract class StatusKeyValuesBase extends ScopedKeyValuesBase {
+public class OpinionEventTypeKeyValues  extends EventTypeKeyValuesBase {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6437266342673833765L;
+	private static final long serialVersionUID = 5768463743589238193L;
 
-	/**
-	 * gets every status whose scope either includes the provided matter class name or has an empty scope (applies to all)
-	 * 
-	 * @param qualifiedMatterClassName - the class name of the matter for which we should retrieve statuses
-	 * @return matching status as key values
+	/* (non-Javadoc)
+	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
 	 */
-	public List<KeyValue> getKeyValues(String qualifiedMatterClassName) {
-		return super.getKeyValues(qualifiedMatterClassName, Status.class);
+	@Override
+	public List<KeyValue> getKeyValues() {
+		return super.getKeyValues(Opinion.class.getCanonicalName());	
 	}
 }

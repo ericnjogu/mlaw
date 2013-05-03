@@ -1,5 +1,27 @@
 package org.martinlaw.test;
 
+/*
+ * #%L
+ * mlaw
+ * %%
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -37,23 +59,39 @@ public abstract class MatterEventBOTest extends MartinlawTestsBase {
 		super();
 	}
 
+	/**
+	 * test that nullable fields are checked by the db
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	@Test(expected = DataIntegrityViolationException.class)
 	public void testMatterEventNullableFields() throws InstantiationException, IllegalAccessException {
 		getBoSvc().save(getDataObjectClass().newInstance());
 	}
 
+	/**
+	 * verify DD attributes
+	 */
 	@Test
 	public void testMatterEventAttributes() {
 		testBoAttributesPresent(getDataObjectClass().getCanonicalName());
 		verifyMaintDocDataDictEntries(getDataObjectClass());
 	}
 
+	/**
+	 * test retrieving an event inserted via sql
+	 */
 	@Test
 	public void testMatterEventRetrieve() {
 		// retrieve object populated via sql script
 		getTestUtils().testRetrievedMatterEventFields(getBoSvc().findBySinglePrimaryKey(getDataObjectClass(), 1001l));
 	}
 
+	/**
+	 * test CRUD ops
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	@Test
 	public void testMatterEventCRUD() throws InstantiationException, IllegalAccessException {
 		testMatterEventCRUD(getTestUtils().getTestMatterEvent(getDataObjectClass()), getDataObjectClass());
@@ -116,7 +154,12 @@ public abstract class MatterEventBOTest extends MartinlawTestsBase {
 		assertFalse("label should not be blank", StringUtils.isEmpty(attributeLabel));
 		assertEquals("label not the expected value", getMatterIdLabel(), attributeLabel);
 	}
-
+	
+	/**
+	 * test that date validation is working ok
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	@Test
 	public void testMatterEvent_date_validation()
 	throws InstantiationException, IllegalAccessException {

@@ -32,7 +32,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<property name="attributes">
 		<list>
 			<ref bean="martinlaw_shared_event_bo_comment" />
-			<ref bean="martinlaw_shared_event_bo_type" />
+			<!-- to be configured in the specific event type -->
+			<!-- <ref bean="martinlaw_shared_event_bo_type" /> -->
 			<ref bean="martinlaw_shared_event_bo_location" />
 			<bean parent="martinlaw_shared_event_bo_date" p:name="startDate" p:required="true" p:label="Start Date"/>
 			<bean parent="martinlaw_shared_event_bo_date" p:name="endDate" p:label="End Date" p:required="false" />
@@ -85,12 +86,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<!-- label shown by the field group on maintenance screen-->
 		<property name="label" value="Event Type" />
 		<property name="required" value="true" />
-		<property name="optionsFinder">
+		<!-- to be configured in the specific event type -->
+		<!-- <property name="optionsFinder">
 			<bean
 				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
 				p:businessObjectClass="org.martinlaw.bo.EventType"
 				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
-		</property>
+		</property> -->
 		<!-- required for display in kns custom document search -->
 		<property name="control">
 			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"

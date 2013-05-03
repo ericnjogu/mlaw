@@ -41,17 +41,8 @@
             </list>
           </property>
         </bean>
-        <bean parent="Uif-Disclosure-StackedCollectionSection">
-			<property name="headerText" value="Scope" />
-			<property name="collectionObjectClass"
-				value="org.martinlaw.bo.StatusScope" />
-			<property name="propertyName" value="scope" />
-			<property name="items">
-				<list>
-					<bean parent="Uif-InputField" p:propertyName="simpleClassName" />
-				</list>
-			</property>
-			<property name="layoutManager.summaryTitle" value="Matter" />
+        <bean parent="martinlaw_shared_scope_collection_inquiry_section">
+			<property name="collectionObjectClass" value="org.martinlaw.bo.StatusScope" />
 		</bean>
       </list>
     </property>
