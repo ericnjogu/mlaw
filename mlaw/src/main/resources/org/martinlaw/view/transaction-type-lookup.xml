@@ -29,7 +29,12 @@
 <bean id="transaction_type_LookupView" parent="martinlaw_shared_name_description_LookupView">
     <property name="headerText" value="Transaction Type Lookup" />
     <property name="dataObjectClassName" value="org.martinlaw.bo.TransactionType" />
-    <property name="items">
+    <property name="criteriaFields">
+	    <list merge="true">
+	    	<bean parent="Uif-LookupCriteriaInputField" p:propertyName="effectOnConsideration" />
+	    </list>
+    </property>
+    <property name="resultFields">
 	    <list merge="true">
 	    	<bean parent="Uif-DataField" p:propertyName="effectOnConsideration" />
 	    </list>

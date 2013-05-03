@@ -31,7 +31,6 @@ public class StatusRoutingTest extends KewTestsBase {
 		Status status = new Status();
 		String statusText = "deadlock";
 		status.setStatus(statusText);
-		status.setType(Status.ANY_TYPE.getKey());
 		try {
 			testMaintenanceRoutingInitToFinal("StatusMaintenanceDocument", status);
 			Map<String, Object> params = new HashMap<String, Object>();

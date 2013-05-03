@@ -7,7 +7,7 @@ package org.martinlaw.keyvalues;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -32,9 +32,11 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
+import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.uif.control.UifKeyValuesFinderBase;
 import org.kuali.rice.krad.uif.view.ViewModel;
+import org.kuali.rice.krad.web.form.InquiryForm;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterClient;
 import org.martinlaw.bo.MatterTxDocBase;
@@ -47,6 +49,7 @@ import org.martinlaw.web.MatterTxForm;
  *
  */
 public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
+	private BusinessObjectService businessObjectService;
 
 	/**
 	 * 
@@ -56,32 +59,55 @@ public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.uif.control.UifKeyValuesFinder#getKeyValues(org.kuali.rice.krad.uif.view.ViewModel)
 	 */
+	@SuppressWarnings("rawtypes")
 	/**
 	 * unit test in {@link org.martinlaw.test.contract.ContractTransactionDocBOTest#testClientNamesKeyValues()}
 	 */
 	@Override
 	public List<KeyValue> getKeyValues(ViewModel model) {
 		List<KeyValue> keyValues = new ArrayList<KeyValue>();
-		MatterTxForm form = (MatterTxForm) model;
-		if (form.getDocument() != null) {
-			MatterTxDocBase doc = ((MatterTxDocBase)form.getDocument());
-			if (doc.isMatterIdValid()) {
-				@SuppressWarnings("rawtypes")
-				Matter matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
+		Matter matter = null;
+		if (model instanceof MatterTxForm) {
+			MatterTxForm form = (MatterTxForm) model;
+			if (form.getDocument() != null) {
+				MatterTxDocBase doc = ((MatterTxDocBase)form.getDocument());
+				if (doc.isMatterIdValid()) {
+					matter = getBusinessObjectService().findBySinglePrimaryKey(
 						doc.getMatterClass(), doc.getMatterId());
-				if (matter.getClients() != null && !matter.getClients().isEmpty()) {
-					for (Object clientObj: matter.getClients()) {
-						MatterClient client = (MatterClient)clientObj;
-						String value = client.getPerson().getName();
-						if (StringUtils.isEmpty(value)) {
-							value = client.getPrincipalName();
-						}
-						keyValues.add(new ConcreteKeyValue(client.getPrincipalName(), value));
-					}
 				}
+			}
+		} else if (model instanceof InquiryForm) {
+			InquiryForm form = (InquiryForm) model;
+			matter = (Matter) form.getDataObject();
+		}
+		if (matter != null && matter.getClients() != null && !matter.getClients().isEmpty()) {
+			for (Object clientObj: matter.getClients()) {
+				MatterClient client = (MatterClient)clientObj;
+				String value = client.getPerson().getName();
+				if (StringUtils.isEmpty(value)) {
+					value = client.getPrincipalName();
+				}
+				keyValues.add(new ConcreteKeyValue(client.getPrincipalName(), value));
 			}
 		}
 		return keyValues;
 	}
 
+	/**
+	 * mock friendly reference to business object service
+	 * @return the businessObjectService
+	 */
+	public BusinessObjectService getBusinessObjectService() {
+		if (businessObjectService == null) {
+			return KRADServiceLocator.getBusinessObjectService();
+		}
+		return businessObjectService;
+	}
+
+	/**
+	 * @param businessObjectService the businessObjectService to set
+	 */
+	public void setBusinessObjectService(BusinessObjectService businessObjectService) {
+		this.businessObjectService = businessObjectService;
+	}
 }

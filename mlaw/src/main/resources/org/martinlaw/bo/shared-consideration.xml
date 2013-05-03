@@ -31,18 +31,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="attributes">
 			<list>
 				<ref bean="martinlaw_shared_consideration_bo_consideration_type_id"/>
-				<ref bean="martinlaw_shared_consideration_bo_description"/>
-				<ref bean="martinlaw_shared_consideration_bo_amount"/>
+				<bean parent="martinlaw-shared-description" p:label="Comment" />
+				<bean parent="martinlaw_shared_transaction_amount" p:label="Value"/>
 				<ref bean="martinlaw_shared_consideration_bo_currency" />
 			</list>
 		</property>
 		<property name="objectLabel" value="Consideration" />
 	</bean>
-
-	<!-- Attributes Defined outside bo entry since they need to refered to as nested attributes for contract and other matters -->
-	<bean id="martinlaw_shared_consideration_bo_description" parent="martinlaw-shared-description" p:label="Comment" />
-	
-	<bean id="martinlaw_shared_consideration_bo_amount" parent="martinlaw_shared_transaction_amount" p:label="Value"/>
 	
 	<bean id="martinlaw_shared_consideration_bo_currency" parent="AttributeDefinition">
 	    <property name="forceUppercase" value="false"/>

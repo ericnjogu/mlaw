@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012,2013 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -184,13 +184,31 @@
 		<field-descriptor name="status" column="status"
 			jdbc-type="VARCHAR" length="100">
 		</field-descriptor>
-		<field-descriptor name="type" column="type"
-			jdbc-type="VARCHAR" length="50">
-		</field-descriptor>
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
+			
+		<collection-descriptor name="scope"
+			element-class-ref="org.martinlaw.bo.StatusScope"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="statusId" />
+		</collection-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.StatusScope" table="martinlaw_status_scope_t">
+		<field-descriptor name="id" column="status_scope_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_status_scope_s">
+		</field-descriptor>
+		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
+			jdbc-type="VARCHAR" length="100"/>
+		<field-descriptor name="statusId" column="status_id"
+			jdbc-type="BIGINT"/>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.Event"

@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -38,10 +38,21 @@
             <list>
               <bean parent="Uif-InputField" p:propertyName="id"/>
               <bean parent="Uif-InputField" p:propertyName="status"/>
-              <bean parent="Uif-InputField" p:propertyName="type"/>
             </list>
           </property>
         </bean>
+        <bean parent="Uif-Disclosure-StackedCollectionSection">
+			<property name="headerText" value="Scope" />
+			<property name="collectionObjectClass"
+				value="org.martinlaw.bo.StatusScope" />
+			<property name="propertyName" value="scope" />
+			<property name="items">
+				<list>
+					<bean parent="Uif-InputField" p:propertyName="simpleClassName" />
+				</list>
+			</property>
+			<property name="layoutManager.summaryTitle" value="Matter" />
+		</bean>
       </list>
     </property>
   </bean>

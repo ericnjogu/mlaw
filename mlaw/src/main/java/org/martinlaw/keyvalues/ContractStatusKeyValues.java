@@ -7,7 +7,7 @@ package org.martinlaw.keyvalues;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -29,10 +29,10 @@ package org.martinlaw.keyvalues;
 import java.util.List;
 
 import org.kuali.rice.core.api.util.KeyValue;
-import org.martinlaw.bo.Status;
+import org.martinlaw.bo.contract.Contract;
 
 /**
- * displays statuses whose {@link Status#getType} is {@link Status#CONTRACT_TYPE}
+ * displays statuses whose scope is not set or which includes {@link Contract}
  * 
  * @author mugo
  *
@@ -48,6 +48,6 @@ public class ContractStatusKeyValues  extends StatusKeyValuesBase {
 	 */
 	@Override
 	public List<KeyValue> getKeyValues() {
-		return super.getKeyValues(Status.CONTRACT_TYPE.getKey());	
+		return super.getKeyValues(Contract.class.getCanonicalName());	
 	}
 }

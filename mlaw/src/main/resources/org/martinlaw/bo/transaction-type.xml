@@ -36,9 +36,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 						<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false" />
 					</property>
 					<property name="name" value="effectOnConsideration" />
-					<property name="label" value="Name" />
+					<property name="label" value="Effect on consideration" />
 					<property name="controlField">
 						<bean parent="Uif-DropdownControl" />
+					</property>
+					<property name="optionsFinder">
+						<bean class="org.martinlaw.keyvalues.TransactionTypeEffectKeyValues" />
 					</property>
 					<property name="control">
 						<bean parent="SelectControlDefinition" p:size="20" 

@@ -9,6 +9,7 @@
 	more details. You should have received a copy of the GNU General Public License 
 	along with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
 	#L% -->
+	
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -102,16 +103,17 @@
 	<bean id="martinlaw_shared_name_description_inquiry_view" parent="Uif-InquiryView">
 		<property name="Items">
 			<list>
-				<bean parent="Uif-Disclosure-GridSection">
-					<property name="layoutManager.numberOfColumns" value="2" />
-					<property name="items">
-						<list>
-							<bean parent="Uif-InputField" p:propertyName="id" />
-							<bean parent="Uif-InputField" p:propertyName="name" />
-							<bean parent="Uif-InputField" p:propertyName="description" />
-						</list>
-					</property>
-				</bean>
+				<ref bean="martinlaw_shared_name_description_inquiry_view_items"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_name_description_inquiry_view_items" parent="Uif-Disclosure-GridSection">
+		<property name="items">
+			<list>
+				<bean parent="Uif-InputField" p:propertyName="id" />
+				<bean parent="Uif-InputField" p:propertyName="name" />
+				<bean parent="Uif-InputField" p:propertyName="description" />
 			</list>
 		</property>
 	</bean>

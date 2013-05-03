@@ -76,6 +76,7 @@
          <value>classpath:org/martinlaw/bo/consideration-type.xml</value>
          <value>classpath:org/martinlaw/bo/transaction-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/transaction-type.xml</value>
+         <value>classpath:org/martinlaw/bo/status-scope.xml</value>
          
          <value>classpath:org/martinlaw/view/shared.xml</value>
          <value>classpath:org/martinlaw/view/shared-assignment-inquiry.xml</value>

@@ -87,7 +87,6 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         //status
         assertNotNull(kase.getStatus());
         assertEquals("hearing", kase.getStatus().getStatus());
-        assertEquals(Status.COURT_CASE_TYPE.getKey(), kase.getStatus().getType());
         //case client
         List<Client> clients = kase.getClients();
         assertEquals(2, clients.size());
@@ -134,7 +133,6 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		Status status = new Status();
 		String statusText = "filed";
 		status.setStatus(statusText);
-		status.setType(Status.COURT_CASE_TYPE.getKey());
 		// save status since it is not updated from the court case - ojb config to prevent object modified errors when the status is changed
 		getBoSvc().save(status);
 		status.refresh();

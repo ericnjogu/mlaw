@@ -32,6 +32,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>org.martinlaw.bo.Status</value>
+				<value>org.martinlaw.bo.StatusScope</value>
 				<value>org.martinlaw.bo.MatterTransactionDoc</value>
 				<value>org.martinlaw.bo.CalendarEvent</value>
 				<value>org.martinlaw.bo.EventType</value>
@@ -51,6 +52,7 @@
 				<value>org.martinlaw.bo.MartinlawPerson</value>
 				
 				<value>org.martinlaw.bo.sequence.StatusSeq</value>
+				<value>org.martinlaw.bo.sequence.StatusScopeSeq</value>
 				<value>org.martinlaw.bo.sequence.ConsiderationTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.EventTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.TransactionTypeSeq</value>

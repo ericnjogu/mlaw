@@ -27,14 +27,27 @@ package org.martinlaw.test;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.martinlaw.bo.Status;
+import org.martinlaw.bo.StatusScope;
+import org.martinlaw.bo.contract.Contract;
+import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.opinion.Opinion;
+import org.martinlaw.keyvalues.ContractStatusKeyValues;
+import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
 import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
+import org.martinlaw.keyvalues.OpinionStatusKeyValues;
+import org.martinlaw.keyvalues.StatusKeyValuesBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -50,12 +63,33 @@ public class StatusBOTest extends MartinlawTestsBase {
 	 */
 	public void testStatusRetrieve() {
 		List<Status> caseStatuses = (List<Status>) getBoSvc().findAll(Status.class);
-		assertNotNull(caseStatuses);
-		assertEquals(5, caseStatuses.size());
+		assertNotNull("default status list should not be null", caseStatuses);
+		assertEquals("number of default statuses differs", 5, caseStatuses.size());
 		Status status = getBoSvc().findBySinglePrimaryKey(Status.class, new Long(1003));
-		assertNotNull(status);
-		assertEquals("closed", status.getStatus());
-		assertEquals(Status.ANY_TYPE.getKey(), status.getType());
+		assertNotNull("status should not be null", status);
+		assertEquals("status text differs", "closed", status.getStatus());
+		assertTrue("no scope has been set", status.getScope().isEmpty());
+		
+		testRetrievedScopedStatus(new Long(1002), "hearing", 1,	CourtCase.class.getCanonicalName());
+		testRetrievedScopedStatus(new Long(1004), "documents missing", 2, Conveyance.class.getCanonicalName());
+	}
+
+	/**
+	 * test a retrieved status which has a scope set
+	 * @param primaryKey - the pk to retrieve the status
+	 * @param statusText - the status text/name
+	 * @param scopeSize - the size of scope list
+	 * @param firstScopeCanonicalName - the qualified class name to expect in the first scope
+	 */
+	public void testRetrievedScopedStatus(final Long primaryKey, final String statusText, final int scopeSize,
+			final String firstScopeCanonicalName) {
+		Status status;
+		status = getBoSvc().findBySinglePrimaryKey(Status.class, primaryKey);
+		assertEquals("status text differs", statusText, status.getStatus());
+		assertFalse("status scope has been set", status.getScope().isEmpty());
+		assertEquals("scope size differs", scopeSize, status.getScope().size());
+		assertEquals("status first scope class name differs", firstScopeCanonicalName, 
+				status.getScope().get(0).getQualifiedClassName());
 	}
 	
 	@Test
@@ -66,35 +100,40 @@ public class StatusBOTest extends MartinlawTestsBase {
 		// create
 		Status status = new Status();
 		status.setStatus("pending");
-		status.setType(Status.ANY_TYPE.getKey());
+		//test scopes
+		StatusScope scope1 = new StatusScope();
+		final String canonicalName1 = Opinion.class.getCanonicalName();
+		scope1.setQualifiedClassName(canonicalName1);
+		status.getScope().add(scope1);
+		StatusScope scope2 = new StatusScope();
+		final String canonicalName2 = Contract.class.getCanonicalName();
+		scope2.setQualifiedClassName(canonicalName2);
+		status.getScope().add(scope2);
+		
 		getBoSvc().save(status);
 		//refresh
 		status.refresh();
 		// retrieve
 		assertEquals("the Status does not match", "pending", status.getStatus());
+		assertFalse("scope should not be empty", status.getScope().isEmpty());
+		assertEquals("scope size differs", 2, status.getScope().size());
+		assertEquals("class name differs", canonicalName1, status.getScope().get(0).getQualifiedClassName());
+		assertEquals("class name differs", canonicalName2, status.getScope().get(1).getQualifiedClassName());
 		//update
 		status.setStatus("appealed");
+		status.getScope().remove(0);
 		getBoSvc().save(status);
 		//refresh
 		status.refresh();
 		assertEquals("the Status does not match", "appealed", status.getStatus());
+		assertEquals("scope size differs", 1, status.getScope().size());
+		assertEquals("class name differs", canonicalName2, status.getScope().get(0).getQualifiedClassName());
 		// delete
 		getBoSvc().delete(status);
-		assertNull(getBoSvc().findBySinglePrimaryKey(Status.class, status.getId()));
-	}
-	
-	/**
-	 * convenience method to retrieve and verify the value of a CourtCaseStatus
-	 * @param id - the CourtCaseStatus id
-	 * @param value - the expected value
-	 * @return - the retrieved CourtCaseStatus
-	 */
-	protected Status retrieveandVerifyCourtCaseStatusValue(long id, String value) {
-		Status CourtCaseStatusRetrieved = null;
-		CourtCaseStatusRetrieved = getBoSvc().findBySinglePrimaryKey(Status.class, id);
-		assertNotNull("the new annex type should have been saved to the db", CourtCaseStatusRetrieved);
-		assertEquals("the annex type value does not match", value, CourtCaseStatusRetrieved.getStatus());
-		return CourtCaseStatusRetrieved;
+		assertNull("status should have been deleted", getBoSvc().findBySinglePrimaryKey(Status.class, status.getId()));
+		Map<String, String> criteria = new HashMap<String, String>();
+		criteria.put("statusId", String.valueOf(status.getId()));
+		assertTrue("scopes should have been deleted", getBoSvc().findMatching(StatusScope.class, criteria).isEmpty());
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -111,11 +150,23 @@ public class StatusBOTest extends MartinlawTestsBase {
 	/**
 	 * test that court case status type key values returns the correct number
 	 */
-	public void testCourtCaseStatusKeyValues() {
-		CourtCaseStatusKeyValues keyValues = new CourtCaseStatusKeyValues();
-		// expected 2 court case types and two of any type, plus a blank one
-		assertEquals(5, keyValues.getKeyValues().size());
-	}	
+	public void testMatterStatusKeyValues() {
+		String comment = "expected 3 statuses with court case scope and two that apply to all (empty), plus a blank one";
+		testMatterStatusKeyValues(new CourtCaseStatusKeyValues(), comment, 6);
+		comment = "expected the two that apply to all (empty), plus a blank one";
+		testMatterStatusKeyValues(new ContractStatusKeyValues(), comment, 3);
+		comment = "expected the two that apply to all (empty), plus a blank one";
+		testMatterStatusKeyValues(new OpinionStatusKeyValues(), comment, 3);
+		comment = "expected one status with conveyance scope, the two that apply to all (empty), plus a blank one";
+		testMatterStatusKeyValues(new ConveyanceStatusKeyValues(), comment, 4);
+	}
+	
+	/**
+	 * test that court case status type key values returns the correct number
+	 */
+	public void testMatterStatusKeyValues(StatusKeyValuesBase kv, String comment, int kvSize) {
+		assertEquals(comment, kvSize, kv.getKeyValues().size());
+	}
 	
 	@Test
 	/**

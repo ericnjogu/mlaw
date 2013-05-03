@@ -32,7 +32,15 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="maxLength" value="30" />
 		<property name="required" value="true" />
 		<property name="controlField">
-			<bean parent="Uif-DateControl" />
+			<bean parent="Uif-DateControl">
+				<property name="datePicker.templateOptions">
+					<map merge="true">
+						<!-- did not appear to be resolved -->
+						<!-- <entry key="dateFormat" value="@{#ConfigProperties['mlaw.jquery.date.format']}"/> -->
+						<entry key="dateFormat" value="dd M yy"/>
+					</map>
+				</property>
+			</bean>
 		</property>
 	</bean>
 

@@ -49,15 +49,11 @@ public class TransactionTypeEffectKeyValues extends KeyValuesBase {
 	private static final long serialVersionUID = -1190039375358997018L;
 
 	/**
-	 * gets the time unit key values
-	 * 
-	 * <p>day, week, month, year</p>
-	 * TODO convert the string labels to internationalized strings
-	 * @param type - the desired type
-	 * @return matching status as key values
+	 * displays effects of a transaction on the associated consideration
 	 */
 	public List<KeyValue> getKeyValues() {
 		List<KeyValue> keyValues = new ArrayList<KeyValue>();
+		keyValues.add(new ConcreteKeyValue("", ""));
 		for (TRANSACTION_EFFECT_ON_CONSIDERATION effect: TransactionType.TRANSACTION_EFFECT_ON_CONSIDERATION.values()) {
 			keyValues.add(new ConcreteKeyValue(effect.toString(), effect.toString()));
 		}

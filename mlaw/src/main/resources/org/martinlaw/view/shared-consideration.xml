@@ -63,6 +63,8 @@
 
 	<bean id="martinlaw_shared_consideration_inquiry_table_section" parent="Uif-Disclosure-TableCollectionSection">
 		<property name="propertyName" value="considerations" />
+		<property name="headerText" value="Considerations"/>
+		<property name="layoutManager.renderSequenceField" value="false"/>
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="matterId"/>
@@ -72,19 +74,17 @@
 				<bean parent="Uif-InputField" p:propertyName="description"/>
 			</list>
 		</property>
-		<property name="headerText" value="Considerations" />
 	</bean>
 	
 	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry" abstract="true" parent="Uif-Disclosure-TableCollectionSubSection">
 		<property name="disclosure.render" value="false" />
 	    <property name="propertyName" value="transactions" />
 	     <property name="headerText" value="Transactions" />
+	     <property name="layoutManager.renderSequenceField" value="false"/>
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="consideration.considerationType.name"/>
 				<bean parent="Uif-InputField" p:propertyName="transactionType.name"/>
 				<bean parent="Uif-InputField" p:propertyName="date" />
-				<bean parent="Uif-InputField" p:propertyName="currency" />
 				<bean parent="Uif-InputField" p:propertyName="amount"/>
 				<bean parent="Uif-InputField" p:propertyName="clientPrincipalName"/>
 			</list>

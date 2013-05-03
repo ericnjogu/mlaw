@@ -7,7 +7,7 @@ package org.martinlaw.keyvalues;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,50 +26,52 @@ package org.martinlaw.keyvalues;
  */
 
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.keyvalues.KeyValuesBase;
-import org.martinlaw.bo.Status;
+import org.martinlaw.bo.Matter;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.type.filter.AssignableTypeFilter;
 
 /**
- * generates a list of key values for the status type - to be displayed in a select box on the status maintenance doc
+ * generates a list of key values for the status scope - to be displayed in a select box on the status maintenance doc
  * 
  * @author mugo
  *
  */
-public class StatusTypeKeyValues extends KeyValuesBase {
-	Log log = LogFactory.getLog(getClass());
+public class StatusScopeKeyValues extends KeyValuesBase {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9206469740259414962L;
+	private static final long serialVersionUID = 9222886917796064323L;
+	Log log = LogFactory.getLog(getClass());
+
 
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
 	 */
 	@Override
 	public List<KeyValue> getKeyValues() {
-		List<KeyValue> kv = new ArrayList<KeyValue>(3);
-		Status status = new Status();
-		Field[] fields = status.getClass().getFields();
-		for (Field field: fields) {
-			if (field.getType().isAssignableFrom(ConcreteKeyValue.class)) {
-				try {
-					kv.add((KeyValue) field.get(status));
-				} catch (IllegalArgumentException e) {
-					log.error("failed to get field value", e);
-				} catch (IllegalAccessException e) {
-					log.error("failed to get field value", e);
-				}
-			}
+		List<KeyValue> kvs = new ArrayList<KeyValue>(3);
+		kvs.add(new ConcreteKeyValue("", ""));
+		// from stack overflow answer
+		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+		scanner.addIncludeFilter(new AssignableTypeFilter(Matter.class));
+		Set<BeanDefinition> results = scanner.findCandidateComponents("org.martinlaw");
+		for (BeanDefinition beanDef: results) {
+			ConcreteKeyValue kv = new ConcreteKeyValue(
+					beanDef.getBeanClassName(), beanDef.getBeanClassName().substring(beanDef.getBeanClassName().lastIndexOf('.') + 1));
+			kvs.add(kv);
 		}
-		return kv;
+		
+		return kvs;
 	}
 
 }

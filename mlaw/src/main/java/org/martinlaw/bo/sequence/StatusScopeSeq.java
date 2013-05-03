@@ -1,13 +1,10 @@
-/**
- * 
- */
-package org.martinlaw.keyvalues;
+package org.martinlaw.bo.sequence;
 
 /*
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,28 +23,38 @@ package org.martinlaw.keyvalues;
  */
 
 
-import java.util.List;
+import java.math.BigInteger;
 
-import org.kuali.rice.core.api.util.KeyValue;
-import org.martinlaw.bo.courtcase.CourtCase;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * displays statuses whose scope is not set or which includes {@link CourtCase}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.StatusScope}
  * 
  * @author mugo
  *
  */
-public class CourtCaseStatusKeyValues  extends StatusKeyValuesBase {
+
+@Entity
+@Table(name="martinlaw_status_scope_s")
+public class StatusScopeSeq {
+	@Id
+	@Column(columnDefinition="bigint auto_increment")
+	private BigInteger id;
 
 	/**
-	 * 
+	 * @return the id
 	 */
-	private static final long serialVersionUID = -6437266342673833765L;
+	public BigInteger getId() {
+		return id;
+	}
 
-	/* (non-Javadoc)
-	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
+	/**
+	 * @param id the id to set
 	 */
-	@Override
-	public List<KeyValue> getKeyValues() {
-		return super.getKeyValues(CourtCase.class.getCanonicalName());	}
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
 }

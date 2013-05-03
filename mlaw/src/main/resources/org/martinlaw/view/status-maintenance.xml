@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -20,32 +20,44 @@
   <http://www.gnu.org/licenses/gpl-3.0.html>.
   #L%
   -->
-
-<!--
-
-    Copyright 2005-2012 Protosoft Ltd
--->
+  
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
   
 
-  <bean id="case_status_maintenance_view" parent="Uif-MaintenanceView">
+  <bean id="matter_status_maintenance_view" parent="Uif-MaintenanceView">
     <property name="headerText" value="Status"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.Status"/>
+    <property name="validateClientSide" value="false"/>
     <property name="items">
       <list merge="true">
         <bean parent="Uif-MaintenanceGridSection">
-          <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="id"  p:readOnly="true"/>
-              <bean parent="Uif-InputField" p:propertyName="status"/>
-              <bean parent="Uif-InputField" p:propertyName="type"/>
-            </list>
-          </property>
-          <property name="headerText" value="Case Status"/>
+			<property name="instructionalText" value="Leave the scope blank if this status applies to ALL matters"/>
+			<property name="items">
+			  <list>
+			    <bean parent="Uif-InputField" p:propertyName="status"/>
+			  </list>
+			</property>
+			<property name="headerText" value="Matter Status"/>
         </bean>
+        <bean parent="Uif-StackedCollectionSection">
+			<property name="headerText" value="Scope" />
+			<property name="collectionObjectClass" value="org.martinlaw.bo.StatusScope" />
+			<property name="propertyName" value="scope" />
+			<property name="items">
+				<list>
+					<bean parent="Uif-InputField" p:propertyName="qualifiedClassName" />
+				</list>
+			</property>
+			<property name="layoutManager.summaryTitle" value="Matter" />
+			<property name="layoutManager.summaryFields">
+				<list>
+					<value>simpleClassName</value>
+				</list>
+			</property>
+		</bean>
       </list>
     </property>
   </bean>

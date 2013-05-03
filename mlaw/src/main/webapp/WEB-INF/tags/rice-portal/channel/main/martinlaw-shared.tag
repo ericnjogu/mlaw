@@ -33,6 +33,11 @@
   <li><portal:portalLink displayTitle="true" title="New Consideration Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.ConsiderationType" /></li>
   <li><portal:portalLink displayTitle="true" title="Lookup Consideration Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.ConsiderationType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
+  <strong>Transaction Type</strong>
+  <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="New Transaction Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.TransactionType" /></li>
+  <li><portal:portalLink displayTitle="true" title="Lookup Transaction Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.TransactionType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  </ul>
   <strong>Create Users, Clients, Witnesses</strong>
   <ul class="chan">
   <li><portal:portalLink displayTitle="true" title="Create Users, Clients, Witnesses" url="${ConfigProperties.application.url}/kim/identityManagementPersonDocument.do?returnLocation=${ConfigProperties.application.url}&docTypeName=IdentityManagementPersonDocument&methodToCall=docHandler&command=initiate" /></li>

@@ -39,10 +39,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				<bean parent="conveyance-statusId-parentBean" />
 				<bean parent="martinlaw-shared-localReference-parentBean" />
 				<ref bean="conveyance-type-id" />
-				<!-- client consideration -->
-				<!-- <bean parent="martinlaw_shared_consideration_bo_amount" p:name="consideration.amount" p:label="Consideration Amount"/>
-				<bean parent="martinlaw_shared_consideration_bo_currency" p:name="consideration.currency"/>
-				<bean parent="martinlaw_shared_consideration_bo_description" p:name="consideration.description"/> -->
 			</list>
 		</property>
 		<property name="boNotesEnabled" value="true" />

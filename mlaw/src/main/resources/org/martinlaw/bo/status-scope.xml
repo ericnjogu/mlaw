@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -14,16 +14,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="matter_status_bo" parent="matter_status_bo-parentBean" />
-
-	<bean id="matter_status_bo-parentBean" abstract="true" parent="BusinessObjectEntry">
-		<property name="businessObjectClass" value="org.martinlaw.bo.Status" />
-		<property name="titleAttribute" value="status" />
+	<bean id="status_scope_bo" parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.StatusScope" />
+		<property name="titleAttribute" value="Status Scope" />
 		<property name="attributes">
 			<list>
-				<ref bean="matter_status_bo-id" />
-				<ref bean="matter_status_bo-text" />
-				<ref bean="matter_status_bo_scope" />
+				<ref bean="status_scope_bo-id" />
+				<ref bean="status_scope_bo_qualifiedClassName" />
 			</list>
 		</property>
 		<property name="objectLabel" value="Status" />
@@ -32,41 +29,24 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	<!-- Attribute Definitions -->
 	<!-- enabled to avoid error stacktraces about missing id attribute on inquiry 
 		action -->
-	<bean id="matter_status_bo-id" parent="martinlaw-shared-id" />
+	<bean id="status_scope_bo-id" parent="martinlaw-shared-id" />
 
-	<bean id="matter_status_bo-text" parent="AttributeDefinition">
-		<property name="forceUppercase" value="true" />
-		<property name="shortLabel" value="Status" />
-		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
-		</property>
-		<property name="required" value="true" />
-		<property name="summary" value="Status" />
-		<property name="name" value="status" />
-		<property name="label" value="Status" />
-		<property name="description" value="Status" />
-		<property name="controlField">
-
-			<bean parent="Uif-TextControl" p:size="60" />
-		</property>
-	</bean>
 	
-	<bean id="matter_status_bo_scope" parent="AttributeDefinition">
+	<bean id="status_scope_bo_qualifiedClassName" parent="AttributeDefinition">
 		<property name="maxLength" value="100" />
 		<property name="validationPattern">
 			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false" />
 		</property>
-		<property name="summary" value="Status Scope" />
-		<property name="name" value="scope" />
-		<property name="label" value="Status Scope" />
-		<property name="description" value="Status Scope" />
+		<property name="summary" value="Scope" />
+		<property name="name" value="qualifiedClassName" />
+		<property name="label" value="Scope" />
+		<property name="description" value="Scope" />
 		<property name="required" value="true" />
 		<property name="optionsFinder">
 			<bean class="org.martinlaw.keyvalues.StatusScopeKeyValues" />
 		</property>
 		<property name="controlField">
-			<bean parent="Uif-MultiSelectControl" />
+			<bean parent="Uif-DropdownControl" />
 		</property>
 	</bean>
 </beans>

@@ -31,7 +31,14 @@
     <property name="dataObjectClassName" value="org.martinlaw.bo.TransactionType"/>
     <property name="items">
 	    <list merge="true">
-	    	<bean parent="Uif-InputField" p:propertyName="effectOnConsideration" />
+	    	
+	    	<bean parent="martinlaw_shared_name_description_inquiry_view_items">
+	    		<property name="items">
+	    			<list merge="true">
+	    				<bean parent="Uif-InputField" p:propertyName="effectOnConsideration" />
+	    			</list>
+	    		</property>
+	    	</bean>
 	    </list>
     </property>
   </bean>

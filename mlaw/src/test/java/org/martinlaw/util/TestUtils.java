@@ -558,7 +558,6 @@ public class TestUtils {
 		//set up test status
 		Status status = new Status();
 		status.setStatus("Testing");
-		status.setType(Status.ANY_TYPE.getKey());
 		getBoSvc().save(status);
 		status.refresh();
 		assertNotNull(status.getId());

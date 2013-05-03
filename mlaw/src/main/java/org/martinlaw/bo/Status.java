@@ -7,7 +7,7 @@ package org.martinlaw.bo;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -25,12 +25,16 @@ package org.martinlaw.bo;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
@@ -41,13 +45,9 @@ import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 @Entity
 @Table(name="martinlaw_status_t")
 public class Status extends PersistableBusinessObjectBase {
-	//TODO could possibly become a full blown maintainable - status type. How will we know which type has been assigned to which matter type?
-	//TODO use locale props to display strings
-	public static final ConcreteKeyValue ANY_TYPE = new ConcreteKeyValue("ANY_TYPE", "applies to any matter");
-	public static final ConcreteKeyValue COURT_CASE_TYPE = new ConcreteKeyValue("COURT_CASE_TYPE", "applies to court cases");
-	public static final ConcreteKeyValue CONVEYANCE_TYPE = new ConcreteKeyValue("CONVEYANCE_TYPE", "applies to conveyancing");
-	public static final ConcreteKeyValue CONTRACT_TYPE = new ConcreteKeyValue("CONTRACT_TYPE", "applies to contracts");
-	public static final ConcreteKeyValue OPINION_TYPE = new ConcreteKeyValue("OPINION_TYPE", "applies to opinions");
+
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "statusId")
+	private List<StatusScope> scope;
 	
 	/**
 	 * initializes class with with default values for the fields
@@ -65,6 +65,7 @@ public class Status extends PersistableBusinessObjectBase {
 	 */
 	public Status() {
 		super();
+		setScope(new ArrayList<StatusScope>());
 	}
 	/**
 	 * 
@@ -81,11 +82,7 @@ public class Status extends PersistableBusinessObjectBase {
 	 */
 	@Column(name="status", length=100, nullable=false)
 	private String status;
-	/**
-	 * the type of the status - the key value of {@link #ANY_TYPE}, {@link #CONVEYANCE_TYPE} or {@link #COURT_CASE_TYPE}
-	 */
-	@Column(name="type", length=50, nullable=false)
-	private String type;
+	
 	/**
 	 * @return the id
 	 */
@@ -112,17 +109,17 @@ public class Status extends PersistableBusinessObjectBase {
 	}
 
 	/**
-	 * @return the type
+	 * @return the scope
 	 */
-	public String getType() {
-		return type;
+	public List<StatusScope> getScope() {
+		return scope;
 	}
 
 	/**
-	 * @param type the type to set
+	 * @param scope the scope to set
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setScope(List<StatusScope> scope) {
+		this.scope = scope;
 	}
 
 }
