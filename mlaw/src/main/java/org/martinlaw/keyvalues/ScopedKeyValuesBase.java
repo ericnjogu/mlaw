@@ -34,10 +34,11 @@ public abstract class ScopedKeyValuesBase extends KeyValuesBase {
 		List<KeyValue> keyValues = new ArrayList<KeyValue>();
 
         @SuppressWarnings("unchecked")
-		Collection<ScopedKeyValue> kvs = (Collection<ScopedKeyValue>) KRADServiceLocator.getBusinessObjectService().findAll(scopedClass);
+		Collection<BusinessObject> kvs = (Collection<BusinessObject>) KRADServiceLocator.getBusinessObjectService().findAll(scopedClass);
         
         keyValues.add(new ConcreteKeyValue("", ""));
-        for (ScopedKeyValue kv : kvs ) {
+        for (BusinessObject bo : kvs ) {
+        	ScopedKeyValue kv = (ScopedKeyValue)bo;
         	if (kv.getScope().isEmpty()) {
         		keyValues.add(new ConcreteKeyValue(kv.getKey(), kv.getValue()));
         	} else {
