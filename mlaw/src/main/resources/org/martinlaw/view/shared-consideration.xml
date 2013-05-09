@@ -62,12 +62,12 @@
 	</bean>
 
 	<bean id="martinlaw_shared_consideration_inquiry_table_section" parent="Uif-Disclosure-TableCollectionSection">
+		<property name="layoutManager.richTable.render" value="false" />
 		<property name="propertyName" value="considerations" />
 		<property name="headerText" value="Considerations"/>
 		<property name="layoutManager.renderSequenceField" value="false"/>
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="matterId"/>
 				<bean parent="Uif-InputField" p:propertyName="considerationType.name"/>
 				<bean parent="Uif-InputField" p:propertyName="amount" />
 				<bean parent="Uif-InputField" p:propertyName="currency" />
@@ -81,6 +81,7 @@
 	    <property name="propertyName" value="transactions" />
 	     <property name="headerText" value="Transactions" />
 	     <property name="layoutManager.renderSequenceField" value="false"/>
+	     <property name="render" value="@{! #empty(#parentLine?.transactions)}"></property>
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="transactionType.name"/>
