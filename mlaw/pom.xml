@@ -263,6 +263,14 @@
 			<version>1.9.18</version>
 		</dependency>
 	    <!-- end dependencies for https://jira.springsource.org/browse/SEC-1883 -->
+	    <!-- from http://forum.springsource.org/showthread.php?87691-Petclinic-Unable-to-read-TLD-quot-META-INF-c-tld-quot&p=314641#post314641 -->
+	    <!-- trying to work around Failed to load or instantiate TagLibraryValidator class: org.apache.taglibs.standard.tlv.JstlCoreTLV -->
+	    <dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<!-- <repository>
