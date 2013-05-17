@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -27,8 +27,8 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<bean id="martinlaw_shared_matter_event_maintenance_view" abstract="true" parent="Uif-MaintenanceView">
-		<property name="validateClientSide" value="false"/>
+	<bean id="martinlaw_shared_matter_event_maintenance_view" abstract="true"
+		parent="Uif-MaintenanceView">
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-MaintenanceGridSection">
