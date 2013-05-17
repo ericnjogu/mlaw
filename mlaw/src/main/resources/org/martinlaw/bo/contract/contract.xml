@@ -88,7 +88,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="contract-localReference" parent="martinlaw-shared-localReference-parentBean" />
 
-	<bean id="contract-name" parent="martinlaw-shared-name" p:label="Contract Name"/>
+	<bean id="contract-name" parent="martinlaw_shared_matter_name" p:label="Contract Name"/>
 
 	<bean id="contract-statusId" parent="contract-statusId-parentBean" />
 

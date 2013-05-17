@@ -34,7 +34,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<list>
 				<bean parent="martinlaw-shared-id-parentBean" p:label="Opinion Id" />
 				<bean parent="martinlaw-shared-localReference-parentBean" />
-				<bean parent="martinlaw-shared-name" p:label="Opinion Name" />
+				<bean parent="martinlaw_shared_matter_name" p:label="Opinion Name" />
 				<bean parent="martinlaw-shared-statusId-parentBean">
 					<property name="optionsFinder">
 						<bean class="org.martinlaw.keyvalues.OpinionStatusKeyValues" />

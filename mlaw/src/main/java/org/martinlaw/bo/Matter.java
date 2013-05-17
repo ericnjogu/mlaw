@@ -69,7 +69,7 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	/** 
 	 * case e.g. Mike Vs Iron (2002) 
 	 */
-	@Column(name = "name", length = 100)
+	@Column(name = "name", length = 1000)
 	private String name;
 	@OneToOne
 	@JoinColumn(name = "status_id", nullable = false, updatable = false)

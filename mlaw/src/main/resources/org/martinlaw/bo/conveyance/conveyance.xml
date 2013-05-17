@@ -35,7 +35,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-id-parentBean" p:label="Conveyance Id" />
-				<bean parent="martinlaw-shared-name" p:label="Conveyance Name"/>
+				<bean parent="martinlaw_shared_matter_name" p:label="Conveyance Name"/>
 				<bean parent="conveyance-statusId-parentBean" />
 				<bean parent="martinlaw-shared-localReference-parentBean" />
 				<ref bean="conveyance-type-id" />
