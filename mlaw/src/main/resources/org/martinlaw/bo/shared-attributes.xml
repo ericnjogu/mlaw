@@ -141,7 +141,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	<bean id="martinlaw-shared-localReference-parentBean" abstract="true"
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
-		<property name="shortLabel" value="Ref Num" />
+		<property name="shortLabel" value="File Num" />
 		<property name="maxLength" value="50" />
 		<property name="validationPattern">
 			<bean parent="AnyCharacterValidationPattern" />
@@ -150,9 +150,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<bean parent="TextControlDefinition" p:size="50" />
 		</property>
 		<property name="required" value="true" />
-		<property name="summary" value="Reference Number" />
+		<property name="summary" value="File Number" />
 		<property name="name" value="localReference" />
-		<property name="label" value="Local Reference Number" />
+		<property name="label" value="File Number" />
 		<property name="description" value="Local Reference Number" />
 		<property name="controlField">
 			<bean parent="Uif-TextControl" p:size="50" />
