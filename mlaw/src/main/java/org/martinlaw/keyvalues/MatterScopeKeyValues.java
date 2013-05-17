@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.keyvalues.KeyValuesBase;
@@ -51,7 +49,6 @@ public class MatterScopeKeyValues extends KeyValuesBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 9222886917796064323L;
-	Log log = LogFactory.getLog(getClass());
 
 
 	/* (non-Javadoc)
