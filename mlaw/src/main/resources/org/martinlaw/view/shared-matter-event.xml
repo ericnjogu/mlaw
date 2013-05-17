@@ -189,13 +189,5 @@
 				</bean>
 			</list>
 		</property>
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>type.name</value>
-				<value>startDate</value>
-				<value>location</value>
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Event" />
 	</bean>
 </beans>
