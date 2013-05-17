@@ -69,7 +69,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="label" value="Court Case Number" />
 		<property name="description" value="Court Case Number" />
 		<property name="controlField">
-			<bean parent="Uif-TextControl" p:size="20" />
+			<bean parent="Uif-TextControl" p:size="60" />
 		</property>
 	</bean>
 
