@@ -35,7 +35,7 @@
 					<property name="headerText" value="Opinion Information" />
 				</bean>
 				
-				<bean parent="martinlaw_shared_matter_event_stacked_collection_section">
+				<bean parent="martinlaw_shared_matter_event_table_collection_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.Event" />
 				</bean>
 
@@ -79,21 +79,6 @@
 						</list>
 					</property>
 				</bean>
-				
-				<!-- <bean parent="martinlaw_shared_transaction_doc_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.opinion.TransactionDoc" />
-					<property name="items">
-						<list merge="true">
-							<bean parent="martinlaw_shared_line_docnumber_linkfield" >
-								<property name="href">
-									<value>
-										@{#ConfigProperties['dochandler_opinion_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
-									</value>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean> -->
 			</list>
 		</property>
 	</bean>

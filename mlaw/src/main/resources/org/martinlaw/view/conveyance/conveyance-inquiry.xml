@@ -40,7 +40,7 @@
 					</property>
 				</bean>
 				
-				<bean parent="martinlaw_shared_matter_event_stacked_collection_section">
+				<bean parent="martinlaw_shared_matter_event_table_collection_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Event" />
 				</bean>
 
@@ -83,21 +83,6 @@
 						</list>
 					</property>
 				</bean>
-				
-				<!-- <bean parent="martinlaw_shared_transaction_doc_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.TransactionDoc" />
-					<property name="items">
-						<list merge="true">
-							<bean parent="martinlaw_shared_line_docnumber_linkfield" >
-								<property name="href">
-									<value>
-										@{#ConfigProperties['dochandler_conveyance_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
-									</value>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean> -->
 				
 				<bean parent="martinlaw_shared_annexes_inquirySection" />
 			</list>

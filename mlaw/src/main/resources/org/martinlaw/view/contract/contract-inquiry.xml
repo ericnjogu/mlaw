@@ -43,7 +43,7 @@
 					<property name="headerText" value="Contract Information" />
 				</bean>
 				
-				<bean parent="martinlaw_shared_matter_event_stacked_collection_section">
+				<bean parent="martinlaw_shared_matter_event_table_collection_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Event" />
 				</bean>
 
@@ -149,21 +149,6 @@
 						</list>
 					</property>
 				</bean>
-				
-				<!-- <bean parent="martinlaw_shared_transaction_doc_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.TransactionDoc" />
-					<property name="items">
-						<list merge="true">
-							<bean parent="martinlaw_shared_line_docnumber_linkfield" >
-								<property name="href">
-									<value>
-										@{#ConfigProperties['dochandler_contract_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
-									</value>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean> -->
 				
 				<bean parent="martinlaw_shared_client_inquiry_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Client" />

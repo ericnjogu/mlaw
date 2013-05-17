@@ -168,9 +168,10 @@
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_matter_event_stacked_collection_section" parent="Uif-Disclosure-StackedCollectionSection">
+	<bean id="martinlaw_shared_matter_event_table_collection_section" parent="Uif-Disclosure-TableCollectionSection">
 		<property name="headerText" value="Events" />
 		<property name="propertyName" value="events" />
+		<property name="layoutManager.renderSequenceField" value="false"/>
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="type.name" />
@@ -179,9 +180,13 @@
 				<bean parent="Uif-InputField" p:propertyName="location" />
 				<bean parent="Uif-InputField" p:propertyName="comment" />
 				<bean parent="Uif-InputField" p:propertyName="active" />
-				<bean parent="Uif-LinkField" p:linkText="@{#line.calendarEvent.url}"
-					p:href="@{#line.calendarEvent.url}" p:label="Calendar Event"
-					p:render="@{! #empty(#line.calendarEvent)}" />
+				<bean parent="Uif-LinkField" p:linkText="Calendar Event" p:label="Download Event">
+					<property name="href">
+						<value>
+							@{#ConfigProperties['application.url']}/kr-krad/calendar/date/@{#line.eventUID}
+						</value>
+					</property>
+				</bean>
 			</list>
 		</property>
 		<property name="layoutManager.summaryFields">
