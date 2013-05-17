@@ -29,7 +29,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="opinion_bo" parent="BusinessObjectEntry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.opinion.Opinion" />
-		<property name="titleAttribute" value="name" />
+		<property name="titleAttribute" value="localReference" />
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-id-parentBean" p:label="Opinion Id" />

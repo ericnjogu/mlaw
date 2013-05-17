@@ -29,7 +29,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="court_case_bo" parent="BusinessObjectEntry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.courtcase.CourtCase" />
-		<property name="titleAttribute" value="name" />
+		<property name="titleAttribute" value="localReference" />
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-id-parentBean" p:label="Court Case Id" />
