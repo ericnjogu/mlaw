@@ -31,7 +31,6 @@
     <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
     <property name="lockingKeys">
       <list>
-        <value>name</value>
         <value>localReference</value>
       </list>
     </property>

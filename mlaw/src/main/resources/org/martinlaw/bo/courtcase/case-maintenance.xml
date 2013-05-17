@@ -28,7 +28,6 @@
     <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
     <property name="lockingKeys">
       <list>
-      	<value>name</value>
         <value>localReference</value>
       </list>
     </property>
