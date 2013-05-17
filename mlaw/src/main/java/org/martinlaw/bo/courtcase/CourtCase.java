@@ -56,7 +56,7 @@ public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Eve
 	 * court number - could be initially null as we await to file the papers in court
 	 * 
 	 */
-	@Column(name="court_reference", length=20) 
+	@Column(name="court_reference", length=200) 
 	private String courtReference;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")

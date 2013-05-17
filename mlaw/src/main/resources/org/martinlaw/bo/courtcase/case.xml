@@ -57,12 +57,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		parent="AttributeDefinition">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Case Number" />
-		<property name="maxLength" value="20" />
+		<property name="maxLength" value="200" />
 		<property name="validationPattern">
 			<bean parent="AnyCharacterValidationPattern" /> <!-- p:allowWhitespace="true"/> -->
 		</property>
 		<property name="control">
-			<bean parent="TextControlDefinition" p:size="20" />
+			<bean parent="TextControlDefinition" p:size="60" />
 		</property>
 		<property name="summary" value="Court Case Number" />
 		<property name="name" value="courtReference" />
