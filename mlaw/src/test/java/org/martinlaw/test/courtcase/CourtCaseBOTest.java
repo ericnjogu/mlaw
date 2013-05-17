@@ -137,18 +137,29 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		getBoSvc().save(status);
 		status.refresh();
 		kase.setStatusId(status.getId());
-		String name = "Future vs Past";
+		String name = "Ghati Dennitah\n"+
+						"IEBC\n" +
+						"Benson Njau (Kuria East Returning Officer)\n" +
+						"Lilina Liluma (Returning Officer Awendo Constituency)\n" +
+						"Moses Omondo Daula (Returning Officer Nyatike Constituency)\n"+
+						"Jakton Nyonje (Returning Officer Oriri Constituency)\n" +
+						"Noah Bowen (Rongo Constituency)\n" +
+						"Alex Uyuga (Returning officer Suna East Constituency)\n" +
+						"Jairus Obago (Returning Officer Migori County)\n" +
+						"Adam Mohamed (Returning officer Kuria West Constituency)\n";
 		kase.setName(name);
+		final String courtReference = "Mutomo Magistrates Court Petition No. 1 of 2013";
+		kase.setCourtReference(courtReference);
 		getBoSvc().save(kase);
 		
 		kase = getBoSvc().findBySinglePrimaryKey(CourtCase.class, kase.getId());
 		kase.refreshNonUpdateableReferences(); //without this, case status (object) is null
-		assertEquals("court reference should be null", null, kase.getCourtReference());
 		assertEquals("case name differs", name, kase.getName());
 		assertEquals("local reference differs", "local1", kase.getLocalReference());
 		assertEquals("clients size differs", 0, kase.getClients().size());
 		assertEquals("witnesses size differs", 0, kase.getWitnesses().size());
 		assertNotNull("status should not be null", kase.getStatus());
+		assertEquals("court ref differs", courtReference, kase.getCourtReference());
 		assertEquals(statusText, kase.getStatus().getStatus());
 		log.debug("Created case with id " + kase.getId());
 		assertNotNull(kase.getId());

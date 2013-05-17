@@ -53,7 +53,7 @@ import org.martinlaw.util.SearchTestCriteria;
 public class CourtCaseRoutingTest extends KewTestsBase {
 	private Logger log = Logger.getLogger(getClass());
 	final String localReference = "local-ref-1";
-	final String courtReference = "high-court-211";
+	final String courtReference = "Kisii High Court Petition No. 6 of 2013";
 	
 	@Test
 	/**

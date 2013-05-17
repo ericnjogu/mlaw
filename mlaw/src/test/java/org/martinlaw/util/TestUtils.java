@@ -567,11 +567,21 @@ public class TestUtils {
 		
 		caseBo.setLocalReference(localRef);
 		caseBo.setCourtReference(courtRef);
-		caseBo.setName("Flesh Vs Spirit (Lifetime)");
+		String name = "Fatuma Zainab Mohammed vs \n" + 
+				"Ghati Dennitah \n"+
+				"IEBC\n" +
+				"Benson Njau (Kuria East Returning Officer)\n" +
+				"Lilina Liluma (Returning Officer Awendo Constituency)\n" +
+				"Moses Omondo Daula (Returning Officer Nyatike Constituency)\n"+
+				"Jakton Nyonje (Returning Officer Oriri Constituency)\n" +
+				"Noah Bowen (Rongo Constituency)\n" +
+				"Alex Uyuga (Returning officer Suna East Constituency)\n" +
+				"Jairus Obago (Returning Officer Migori County)\n" +
+				"Adam Mohamed (Returning officer Kuria West Constituency)\n";
+		caseBo.setName(name);
 		caseBo.setStatus(status);
 		// side step validation error - error.required
 		caseBo.setStatusId(status.getId());
-		
 		return caseBo;
 	}
 	
