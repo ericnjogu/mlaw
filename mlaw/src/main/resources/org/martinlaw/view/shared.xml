@@ -119,6 +119,7 @@
 	</bean>
 
 	<bean id="martinlaw_shared_name_description_maintenance_view" parent="Uif-MaintenanceView">
+		<property name="validateClientSide" value="false"/>
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-MaintenanceGridSection">
