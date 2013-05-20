@@ -273,7 +273,8 @@
      <property name="resourceBundleNames">
       <list>
         <value>org.martinlaw.mlaw</value>
-        <value>org.kuali.rice.krad.KRADApplicationResources</value>
+        <!-- already defined in common config defaults xml properties -->
+		<value>org.kuali.rice.krad.KRADApplicationResources</value>
         <value>org.kuali.rice.krad.ApplicationResources</value>
       </list>
     </property>
