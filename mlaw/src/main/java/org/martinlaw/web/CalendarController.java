@@ -106,11 +106,11 @@ public class CalendarController {
 			log.error("error while casting '" + className + "' into MatterEvent");
 			throw new RuntimeException(e);
 		}
-		MatterEvent date = (MatterEvent) KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(matterEvent.getClass(), id);
-		if (date == null) {
-			throw new IllegalArgumentException("The date identified by '" + calendarUid + "' was not found");
+		MatterEvent event = (MatterEvent) KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(matterEvent.getClass(), id);
+		if (event == null) {
+			throw new IllegalArgumentException("The event identified by '" + calendarUid + "' was not found");
 		}
-		return date;
+		return event;
 	}
 	
 	/**
