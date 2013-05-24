@@ -14,7 +14,7 @@ var providers_large = {
         name: 'Yahoo',      
         url: 'http://me.yahoo.com/'
     },    
-    aol: {
+    /*aol: {
         name: 'AOL',     
         label: 'Enter your AOL screenname.',
         url: 'http://openid.aol.com/{username}'
@@ -23,14 +23,14 @@ var providers_large = {
         name: 'Verisign',
         label: 'Your Verisign username',
         url: 'http://{username}.pip.verisignlabs.com/'
-    },
+    },*/
     openid: {
         name: 'OpenID',     
         label: 'Enter your OpenID.',
         url: null
     }
 };
-var providers_small = {
+/*var providers_small = {
     myopenid: {
         name: 'MyOpenID',
         label: 'Enter your MyOpenID username.',
@@ -71,7 +71,7 @@ var providers_small = {
         label: 'Your ClaimID username',
         url: 'http://claimid.com/{username}'
     }
-};
+};*/
 var providers = $.extend({}, providers_large, providers_small);
 
 var openid = {
