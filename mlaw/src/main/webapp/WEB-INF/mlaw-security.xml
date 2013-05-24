@@ -14,24 +14,29 @@
     <http pattern="/images/*" security="none" />
     <http pattern="/css/*" security="none" />
     <http pattern="/scripts/*" security="none" />
+    <http pattern="/activation/activate-openid*" security="none" />
 
     <http>
         <intercept-url pattern="/**" access="ROLE_USER"/>
         <logout/>
         <openid-login login-page="/openid-login.jsp" user-service-ref="userService"
-                authentication-failure-url="/openid-login.jsp?login_error=true">
-            <!-- <attribute-exchange identifier-match="https://www.google.com/.*">
-                <openid-attribute name="email" type="http://axschema.org/contact/email" required="true" count="1"/>
-                <openid-attribute name="firstname" type="http://axschema.org/namePerson/first" required="true" />
-                <openid-attribute name="lastname" type="http://axschema.org/namePerson/last" required="true" />
+                authentication-failure-url="/openid-login.jsp?login_error=true" 
+                authentication-success-handler-ref="authenticationSuccessHandler">
+            <attribute-exchange identifier-match="https://www.google.com/.*">
+                <openid-attribute name="email" type="http://axschema.org/contact/email" required="true"/>
             </attribute-exchange>
             <attribute-exchange identifier-match=".*yahoo.com.*">
-                <openid-attribute name="email" type="http://axschema.org/contact/email" required="true"/>
-                <openid-attribute name="fullname" type="http://axschema.org/namePerson" required="true" />
+                <openid-attribute name="email" type="http://axschema.org/contact/email"/>
             </attribute-exchange>
             <attribute-exchange identifier-match=".*myopenid.com.*">
-                <openid-attribute name="email" type="http://schema.openid.net/contact/email" required="true"/>
-                <openid-attribute name="fullname" type="http://schema.openid.net/namePerson" required="true" />
+                <openid-attribute name="email" type="http://schema.openid.net/contact/email"/>
+            </attribute-exchange>
+            <!-- the attributes below could not fetch the email - more research needed -->
+           <!--  <attribute-exchange identifier-match=".*aol.com.*">
+                <openid-attribute name="email" type="http://schema.openid.net/contact/email"/>
+            </attribute-exchange>
+            <attribute-exchange identifier-match=".*wordpress.com.*">
+                <openid-attribute name="email" type="http://schema.openid.net/contact/email"/>
             </attribute-exchange> -->
         </openid-login>
         <remember-me token-repository-ref="tokenRepo"/>
@@ -43,6 +48,10 @@
     <authentication-manager alias="authenticationManager"/>
     
 	<b:bean id="userService" class="org.martinlaw.auth.OpenidUserDetailsService" />
+	
+	<b:bean id="authenticationSuccessHandler" class="org.martinlaw.auth.OpenIDSuccessAuthenticationSuccessHandler">
+		<b:property name="openIdActivationStatusUrl" value="/openid-login.jsp?mlaw_openid_activation=true"/>
+	</b:bean>
 
 
 </b:beans>

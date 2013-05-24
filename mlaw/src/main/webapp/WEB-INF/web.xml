@@ -322,6 +322,17 @@
     <load-on-startup>3</load-on-startup>
   </servlet>
 
+ <servlet>
+    <servlet-name>activation</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>activation</servlet-name>
+    <url-pattern>/activation/*</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>remoting</servlet-name>
     <url-pattern>/remoting/*</url-pattern>

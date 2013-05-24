@@ -1453,4 +1453,16 @@
 			jdbc-type="VARCHAR" length="20">
 		</field-descriptor>
 	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.auth.OpenidActivation" table="martinlaw_openid_activation_t">
+		<field-descriptor name="id" column="id"	jdbc-type="VARCHAR" primarykey="true" length="40"/>
+		<field-descriptor name="created" column="created" jdbc-type="TIMESTAMP"/>
+		<field-descriptor name="activated" column="activated" jdbc-type="TIMESTAMP"/>
+
+		<field-descriptor name="destination" column="destination" jdbc-type="VARCHAR" length="100" />
+		<field-descriptor name="openid" column="openid"	jdbc-type="VARCHAR" length="200" />
+		<field-descriptor name="entityId" column="entityId"	jdbc-type="VARCHAR" length="200" />
+		<field-descriptor name="versionNumber" column="ver_nbr"	jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id" jdbc-type="VARCHAR" index="true" />
+	</class-descriptor>
 </descriptor-repository>

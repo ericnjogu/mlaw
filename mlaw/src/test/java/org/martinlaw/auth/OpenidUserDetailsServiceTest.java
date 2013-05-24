@@ -17,7 +17,6 @@ import org.kuali.rice.kim.impl.identity.external.EntityExternalIdentifierBo;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
@@ -26,7 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public class OpenidUserDetailsServiceTest extends MartinlawTestsBase {
 
-	private UserDetailsService usrDetSvc;
+	private OpenidUserDetailsService usrDetSvc;
 
 	/**
 	 * Test method for {@link org.martinlaw.auth.OpenidUserDetailsService#loadUserByUsername(java.lang.String)}.
@@ -94,5 +93,4 @@ public class OpenidUserDetailsServiceTest extends MartinlawTestsBase {
 		// disable clerk2
 		KimApiServiceLocator.getIdentityService().inactivatePrincipalByName("clerk2");
 	}
-
 }

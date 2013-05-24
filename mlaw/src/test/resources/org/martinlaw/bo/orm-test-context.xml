@@ -150,7 +150,7 @@
 				<value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>
 				<value>org.kuali.rice.krad.bo.DocumentHeader</value>
 				
-				
+				<value>org.martinlaw.auth.OpenidActivation</value>
 				
 			</list>
 		</property>

@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.principal.Principal;
@@ -33,7 +32,6 @@ public class OpenidUserDetailsService implements UserDetailsService {
 
 	private BusinessObjectService businessObjectService;
 	private IdentityService identityService;
-
 	/* (non-Javadoc)
 	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
 	 */
@@ -46,9 +44,17 @@ public class OpenidUserDetailsService implements UserDetailsService {
 		Collection<EntityExternalIdentifierBo> results = getBusinessObjectService().findMatching(
 				EntityExternalIdentifierBo.class, extIdCrit);
 		if (results.size() == 0) {
-			throw new UsernameNotFoundException("openID '" + openidUrl + "' was not found");
+			// return an inactivated user so that the success handler can post do further processing
+			List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+			auths.add(new SimpleGrantedAuthority(MartinlawConstants.OPENID_ACTIVATE_ROLE));
+			// a disabled user account
+			User user = new User(MartinlawConstants.OPENID_UNACTIVATED_USERNAME, "password", 
+					false, false, false, false, auths);
+			return user;
+
 		} else if (results.size() > 1) {
-			throw new UsernameNotFoundException("openID '" + openidUrl + "' is occurs more than once as an external id");
+			throw new UsernameNotFoundException("openID '" + openidUrl + "' occurs more than once as an external id"
+					+ MartinlawConstants.OPENID_ERROR_MSG_INDICATOR);
 		}
 		String entityId = null;
 		for (EntityExternalIdentifierBo extId: results) {
@@ -99,5 +105,4 @@ public class OpenidUserDetailsService implements UserDetailsService {
 	public void setIdentityService(IdentityService identityService) {
 		this.identityService = identityService;
 	}
-
 }

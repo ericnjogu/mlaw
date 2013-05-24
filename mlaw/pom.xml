@@ -41,10 +41,12 @@
 				<configuration>
 					<excludes>
 						<exclude>**/OrmTest.java</exclude>
-						<exclude>**/ValidateDDTest.java</exclude>
 						<exclude>**/KimLdapTest.java</exclude>
 						<!-- excluded till we can figure out why kim.mode and kew.mode becomes null and causes many other tests to fail -->
+						<!-- might be because they query kim api service locator -->
 						<exclude>**/OpenidUserDetailsServiceTest.java</exclude>
+						<exclude>**/OpenidActivationCRUDTest.java</exclude>
+						<exclude>**/OpenIDSuccessAuthenticationSuccessHandlerTest.java</exclude>
 					</excludes>
 					<argLine>-XX:MaxPermSize=512m</argLine>
 				</configuration>

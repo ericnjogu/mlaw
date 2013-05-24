@@ -40,6 +40,12 @@ public class MartinlawConstants {
 	public final static String EVENT_NOTIFICATION_TEMPLATE_XML = "event-notification-template.xml";
 	public final static String VCALENDAR_UID_PATTERN = "^[\\d].*-[\\S].*@mlaw.co.ke$";
 	public final static String OPENID_TYPE_CODE = "OPENID";
+	public final static String OPENID_ACTIVATION_TEMPLATE = "openid-activation.html";
+	public final static String OPENID_ACTIVATION_ERR_MSG = "OpenID URL not activated";
+	public final static String OPENID_ERROR_MSG_INDICATOR = " :(";
+	public final static String OPENID_ACTIVATE_ROLE = "ROLE_ACTIVATE_OPENID";
+	public final static String OPENID_UNACTIVATED_USERNAME = "unactivated.openid.user";
+	public final static String OPENID_ACTIVATION_MESSAGE = "mlaw_openid_activation_message";
 	public class DocTypes {
 		public final static String CONTRACT_WORK = "ContractWorkDocument";
 		public static final String COURTCASE_WORK = "CourtCaseWorkDocument";
@@ -109,5 +115,28 @@ public class MartinlawConstants {
 		public final static String STARTDATETIME = "startDateTime";
 		public final static String STOPDATETIME = "stopDateTime";
 		public static final String SUMMARY = "summary";
+	}
+	
+	/**
+	 * keys to replace into the openid email activation template
+	 * @author mugo
+	 *
+	 */
+	public class ActivationTemplateParameters {
+		public final static String FIRST_NAME = "firstName";
+		public final static String TOKEN = "token";
+	}
+	
+	/**
+	 * exposing the properties used by {@link org.kuali.rice.core.mail.MailSenderFactoryBean} as public constants
+	 * @author mugo
+	 *
+	 */
+	public class EmailParameters {
+		public static final String USERNAME_PROPERTY = "mail.smtp.username";
+	    public static final String PASSWORD_PROPERTY = "mail.smtp.password";
+	    public static final String HOST_PROPERTY = "mail.smtp.host";
+	    public static final String PORT_PROPERTY = "mail.smtp.port";
+	    public static final String PROTOCOL_PROPERTY = "mail.transport.protocol";
 	}
 }
