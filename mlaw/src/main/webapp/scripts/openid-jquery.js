@@ -30,8 +30,8 @@ var providers_large = {
         url: null
     }
 };
-/*var providers_small = {
-    myopenid: {
+var providers_small = {
+   /* myopenid: {
         name: 'MyOpenID',
         label: 'Enter your MyOpenID username.',
         url: 'http://{username}.myopenid.com/'
@@ -70,8 +70,8 @@ var providers_large = {
         name: 'ClaimID',
         label: 'Your ClaimID username',
         url: 'http://claimid.com/{username}'
-    }
-};*/
+    }*/
+};
 var providers = $.extend({}, providers_large, providers_small);
 
 var openid = {
