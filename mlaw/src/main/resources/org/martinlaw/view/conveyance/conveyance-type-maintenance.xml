@@ -48,7 +48,7 @@
         </bean>
         
         <bean parent="Uif-MaintenanceStackedCollectionSection">
-          <property name="headerText" value="Annex Types"/>
+          <property name="headerText" value="Documents Required"/>
           <property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnexType"/>
           <property name="propertyName" value="annexTypes"/>
           <property name="items">

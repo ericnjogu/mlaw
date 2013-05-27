@@ -147,7 +147,7 @@
 	</bean>
 
 	<bean id="martinlaw_shared_annexes_inquirySection" parent="Uif-Disclosure-StackedCollectionSection">
-		<property name="headerText" value="Annexes" />
+		<property name="headerText" value="Pre-existing Files" />
 		<property name="collectionObjectClass" value="org.kuali.rice.krad.bo.Attachment" />
 		<property name="propertyName" value="attachments" />
 		<property name="items">

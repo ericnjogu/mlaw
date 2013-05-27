@@ -47,7 +47,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="conveyance_annex_type_description" parent="martinlaw-shared-description" />
 
-	<bean id="conveyance_annex_type_name" parent="martinlaw-shared-name" p:label="Conveyance Annex Type"/>
+	<bean id="conveyance_annex_type_name" parent="martinlaw-shared-name" p:label="Document"/>
 
 	<bean id="conveyance_annex_type_id" parent="martinlaw-shared-id" />
 
