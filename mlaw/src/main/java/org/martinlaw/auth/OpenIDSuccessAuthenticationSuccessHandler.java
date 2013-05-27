@@ -185,6 +185,7 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 			emailCrit.put("emailAddress", email);
 			Collection<EntityEmailBo> results = getBusinessObjectService().findMatching(EntityEmailBo.class, emailCrit);
 			if (results.size() == 0) {
+				log.error("email '" + email + "' was not found");
 				return null;
 			} else {
 				// return entity from first email
