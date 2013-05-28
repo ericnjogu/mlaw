@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -43,22 +43,17 @@
           </property>
         </bean>
         
-        <bean parent="Uif-Disclosure-StackedCollectionSection">
-          <property name="headerText" value="Annex Types"/>
+        <bean parent="Uif-Disclosure-TableCollectionSection">
+          <property name="headerText" value="Documents Required"/>
           <property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnexType"/>
           <property name="propertyName" value="annexTypes"/>
+          <property name="layoutManager.renderSequenceField" value="false"/>
           <property name="items">
             <list>
               <bean parent="Uif-InputField" p:propertyName="name"/>
               <bean parent="Uif-InputField" p:propertyName="description"/>
             </list>
           </property>
-          <property name="layoutManager.summaryFields">
-            <list>
-              <value>name</value>
-            </list>           
-          </property>
-          <property name="layoutManager.summaryTitle" value ="Annex Type"/>
         </bean>
       </list>
     </property>
