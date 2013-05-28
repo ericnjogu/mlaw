@@ -43,18 +43,7 @@
           </property>
         </bean>
         
-        <bean parent="Uif-Disclosure-TableCollectionSection">
-          <property name="headerText" value="Documents Required"/>
-          <property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnexType"/>
-          <property name="propertyName" value="annexTypes"/>
-          <property name="layoutManager.renderSequenceField" value="false"/>
-          <property name="items">
-            <list>
-              <bean parent="Uif-InputField" p:propertyName="name"/>
-              <bean parent="Uif-InputField" p:propertyName="description"/>
-            </list>
-          </property>
-        </bean>
+        <ref bean="martinlaw_shared_conveyance_annex_type_tbl"/>
       </list>
     </property>
   </bean>
