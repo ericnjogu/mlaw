@@ -290,6 +290,7 @@
 		<field-descriptor name="conveyanceTypeId" column="convey_type_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
+		<field-descriptor name="sequence" column="sequence"	jdbc-type="BIGINT"/>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"

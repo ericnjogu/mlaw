@@ -140,13 +140,18 @@ public class ConveyanceTypeBOTest extends MartinlawTestsBase {
 		ConveyanceAnnexType convAnnexType = getBoSvc().findBySinglePrimaryKey(ConveyanceAnnexType.class, 1001l);
 		assertNotNull(convAnnexType);
 		assertEquals("land board approval", convAnnexType.getName());
+		assertEquals("default value differs", Long.valueOf(0), convAnnexType.getSequence());
 		//C
 		convAnnexType = new ConveyanceAnnexType();
 		convAnnexType.setName("signed affidavit");
 		convAnnexType.setConveyanceTypeId(1001l);
+		final Long id = Long.valueOf(5);
+		convAnnexType.setSequence(id);
 		getBoSvc().save(convAnnexType);
 		//R
 		convAnnexType.refresh();
+		convAnnexType = getBoSvc().findBySinglePrimaryKey(ConveyanceAnnexType.class, convAnnexType.getId());
+		assertEquals("sequence differs", id, convAnnexType.getSequence());
 		//U
 		convAnnexType.setDescription("signed before a commissioner of oaths");
 		convAnnexType.refresh();

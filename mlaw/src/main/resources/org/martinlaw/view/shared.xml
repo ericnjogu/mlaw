@@ -310,4 +310,19 @@
 			<bean parent="IntegerPatternConstraint" />
 		</property>
 	</bean>
+	
+	<bean id="martinlaw_shared_conveyance_annex_type_tbl" parent="Uif-Disclosure-TableCollectionSection">
+	   <property name="headerText" value="Documents Required"/>
+	   <property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnexType"/>
+	   <property name="propertyName" value="annexTypes"/>
+	   <property name="layoutManager.sequencePropertyName" value="sequence" />
+	   <property name="layoutManager.renderSequenceField" value="false"/>
+	   <property name="items">
+	     <list>
+	     	<bean parent="Uif-InputField" p:propertyName="sequence"/>
+			<bean parent="Uif-InputField" p:propertyName="name"/>
+			<bean parent="Uif-InputField" p:propertyName="description"/>
+	     </list>
+	   </property>
+	 </bean>
 </beans>

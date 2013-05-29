@@ -34,7 +34,7 @@ import javax.persistence.Table;
 import org.martinlaw.bo.BaseDetail;
 
 /**
- * defines a type of conveyance annex (attachment) as will be referred to by a conveyance type
+ * defines a type of conveyance annex (required document) as will be referred to by a conveyance type
  * e.g. land board approval or lease agreement
  * 
  * @author mugo
@@ -52,6 +52,8 @@ public class ConveyanceAnnexType extends BaseDetail {
 	Long id;
 	@Column(name="convey_type_id", nullable=false)
 	private Long conveyanceTypeId;
+	@Column(columnDefinition="bigint not null default 1")
+	private Long sequence = 1l;
 	
 	/**
 	 * get the primary key
@@ -78,5 +80,17 @@ public class ConveyanceAnnexType extends BaseDetail {
 	 */
 	public void setConveyanceTypeId(Long conveyanceTypeId) {
 		this.conveyanceTypeId = conveyanceTypeId;
+	}
+	/**
+	 * @return the sequence
+	 */
+	public Long getSequence() {
+		return sequence;
+	}
+	/**
+	 * @param sequence the sequence to set
+	 */
+	public void setSequence(Long sequence) {
+		this.sequence = sequence;
 	}
 }
