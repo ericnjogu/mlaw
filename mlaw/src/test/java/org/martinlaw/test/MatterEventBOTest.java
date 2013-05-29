@@ -26,22 +26,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.directory.shared.ldap.util.ReflectionToStringBuilder;
 import org.junit.Test;
-import org.kuali.rice.krad.datadictionary.validation.result.ConstraintValidationResult;
-import org.kuali.rice.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterEvent;
@@ -52,8 +44,6 @@ import org.springframework.dao.DataIntegrityViolationException;
  *
  */
 public abstract class MatterEventBOTest extends MartinlawTestsBase {
-
-	private Log log = LogFactory.getLog(getClass());
 
 	public MatterEventBOTest() {
 		super();
@@ -163,20 +153,7 @@ public abstract class MatterEventBOTest extends MartinlawTestsBase {
 	@Test
 	public void testMatterEvent_date_validation()
 	throws InstantiationException, IllegalAccessException {
-		try {
-			DictionaryValidationResult result = KRADServiceLocatorWeb.getDictionaryValidationService().validate(
-					getTestUtils().getTestMatterEvent(getDataObjectClass()), getDataObjectClass().getCanonicalName(), "endDate", true);
-			final Iterator<ConstraintValidationResult> iterator = result.iterator();
-			while (iterator.hasNext()) {
-				final ConstraintValidationResult validationResult = iterator.next();
-				// using error level to avoid having to configure logging
-				log.error(ReflectionToStringBuilder.toString(validationResult));
-			}
-			assertEquals("expected no errors", 0, result.getNumberOfErrors());
-		} catch (Exception e) {
-			log.error("exception occured", e);
-			fail("exception occured");
-		}
+		getTestUtils().validate(getTestUtils().getTestMatterEvent(getDataObjectClass()), 0, "endDate");
 	}
 	
 	/**

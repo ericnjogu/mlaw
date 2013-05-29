@@ -42,12 +42,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.directory.shared.ldap.util.ReflectionToStringBuilder;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
@@ -56,6 +58,8 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.UserSession;
+import org.kuali.rice.krad.datadictionary.validation.result.ConstraintValidationResult;
+import org.kuali.rice.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
@@ -796,6 +800,29 @@ public class TestUtils {
 	 */
 	public void testMatterStatusKeyValues(ScopedKeyValuesBase kv, String comment, int kvSize) {
 		assertEquals(comment, kvSize, kv.getKeyValues().size());
+	}
+	
+	/**
+	 * carry out a validation while checking for the expected number of errors
+	 * @param bo
+	 * @param expectedErrors
+	 * @param attributeName
+	 */
+	public void validate(Object bo, final int expectedErrors, final String attributeName) {
+		try {
+			DictionaryValidationResult result = KRADServiceLocatorWeb.getDictionaryValidationService().validate(bo,
+					bo.getClass().getCanonicalName(), attributeName, true);
+			final Iterator<ConstraintValidationResult> iterator = result.iterator();
+			while (iterator.hasNext()) {
+				final ConstraintValidationResult validationResult = iterator.next();
+				// using error level to avoid having to configure logging
+				log.error(ReflectionToStringBuilder.toString(validationResult));
+			}
+			assertEquals("expected number of errors differ", expectedErrors, result.getNumberOfErrors());
+		} catch (Exception e) {
+			log.error("exception occured", e);
+			fail("exception occured");
+		}
 	}
 
 }
