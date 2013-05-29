@@ -46,6 +46,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 					<property name="controlField">
 						<bean parent="Uif-TextControl" p:size="5" />
 					</property>
+					<property name="required" value="true" />
 				</bean>
 			</list>
 		</property>
