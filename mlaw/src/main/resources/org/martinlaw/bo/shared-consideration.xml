@@ -27,7 +27,7 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="martinlaw_shared_consideration_bo" abstract="true" parent="BusinessObjectEntry">
-
+		<property name="boNotesEnabled" value="true" />
 		<property name="attributes">
 			<list>
 				<!-- to be set by specific considerations -->

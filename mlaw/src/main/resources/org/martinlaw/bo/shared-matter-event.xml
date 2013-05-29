@@ -29,6 +29,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <bean id="martinlaw_shared_event_bo" abstract="true"	parent="BusinessObjectEntry">
 	<property name="titleAttribute" value="startDate" />
+	<property name="boNotesEnabled" value="true" />
 	<property name="attributes">
 		<list>
 			<ref bean="martinlaw_shared_event_bo_comment" />
