@@ -29,29 +29,29 @@
 </head>
 
 <body>
-
-<c:if test="${not empty param.login_error}">
-	<span style="color: red"> Your login attempt was not
-		successful, please try again.<br />
-	<br /> Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />.
-	</span>
-</c:if>
-<c:if test="${not empty param.mlaw_openid_activation}">
-	<c:choose>
-		<c:when
-			test="${fn:endsWith(mlaw_openid_activation_message, ':(')}">
-			<span style="color: red"> Your login attempt was not
-				successful, please try again.<br />
-			<br /> Reason: <c:out value="${mlaw_openid_activation_message}" />.
-			</span>
-		</c:when>
-		<c:otherwise>
-			<span style="color: green"> <c:out value="${mlaw_openid_activation_message}" />.
-			</span>
-		</c:otherwise>
-	</c:choose>
-</c:if>
-
+<div style="width: 580px;">
+	<c:if test="${not empty param.login_error}">
+		<span style="color: red"> Your login attempt was not
+			successful, please try again.<br />
+		<br /> Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />.
+		</span>
+	</c:if>
+	<c:if test="${not empty param.mlaw_openid_activation}">
+		<c:choose>
+			<c:when
+				test="${fn:endsWith(mlaw_openid_activation_message, ':(')}">
+				<span style="color: red"> Your login attempt was not
+					successful, please try again.<br />
+				<br /> Reason: <c:out value="${mlaw_openid_activation_message}" />.
+				</span>
+			</c:when>
+			<c:otherwise>
+				<span style="color: green"> <c:out value="${mlaw_openid_activation_message}" />.
+				</span>
+			</c:otherwise>
+		</c:choose>
+	</c:if>
+</div>
 	<!-- Simple OpenID Selector -->
 <form action="<c:url value='j_spring_openid_security_check'/>" method="post" id="openid_form">
     <input type="hidden" name="action" value="verify" />
