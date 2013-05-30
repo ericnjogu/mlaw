@@ -110,7 +110,9 @@ public class ContractBOTest extends MartinlawTestsBase {
 		// C
 		Contract contract = getTestUtils().getTestContract();
 		try {
-			contract.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
+			/*List<Consideration> considerations = new ArrayList<Consideration>();
+			considerations.add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
+			contract.setConsiderations(considerations);*/
 		} catch (Exception e) {
 			fail("could not add consideration");
 			log.error(e);
@@ -120,6 +122,8 @@ public class ContractBOTest extends MartinlawTestsBase {
 		// R
 		contract.refresh();
 		getTestUtils().testContractFields(contract);
+		assertNotNull("considerations should not be null", contract.getConsiderations());
+		assertEquals("default number of considerations differs", 2, contract.getConsiderations().size());
 		// U
 		String serviceOffered = "flat 3f2";
 		contract.setServiceOffered(serviceOffered);

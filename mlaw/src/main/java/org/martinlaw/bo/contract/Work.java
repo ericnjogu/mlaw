@@ -27,6 +27,8 @@ package org.martinlaw.bo.contract;
 
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.martinlaw.bo.Matter;
@@ -45,6 +47,8 @@ public class Work extends MatterWork {
 	 * 
 	 */
 	private static final long serialVersionUID = -3316067275669086689L;
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
 	private Contract matter;
 
 	@SuppressWarnings("rawtypes")

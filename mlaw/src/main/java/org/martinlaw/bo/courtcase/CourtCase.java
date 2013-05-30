@@ -68,7 +68,11 @@ public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Eve
 		setClients(new ArrayList<Client>());
 		setWitnesses(new ArrayList<CourtCaseWitness>());
 		setEvents(new ArrayList<Event>());
-		setConsiderations(new ArrayList<Consideration>());
+		try {
+			setConsiderations(createDefaultConsiderations(Consideration.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * @return the courtReference

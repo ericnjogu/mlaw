@@ -140,7 +140,7 @@ public class ConveyanceTypeBOTest extends MartinlawTestsBase {
 		ConveyanceAnnexType convAnnexType = getBoSvc().findBySinglePrimaryKey(ConveyanceAnnexType.class, 1001l);
 		assertNotNull(convAnnexType);
 		assertEquals("land board approval", convAnnexType.getName());
-		assertEquals("default value differs", Long.valueOf(0), convAnnexType.getSequence());
+		assertEquals("default value differs", Long.valueOf(1), convAnnexType.getSequence());
 		//C
 		convAnnexType = new ConveyanceAnnexType();
 		convAnnexType.setName("signed affidavit");

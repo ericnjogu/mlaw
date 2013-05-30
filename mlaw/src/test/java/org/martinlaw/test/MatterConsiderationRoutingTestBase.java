@@ -119,7 +119,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 			
 			MatterConsideration<?> consideration2 = getTestUtils().getTestConsideration(getDataObjectClass());
 			consideration2.setAmount(new BigDecimal(7500));
-			consideration2.setConsiderationTypeId(1003l);
+			consideration2.setConsiderationTypeId(10004l);
 			testMaintenanceRoutingInitToFinal(docType, consideration2);
 			
 			
@@ -145,7 +145,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 			// search for consideration type
 			SearchTestCriteria crit6 = new SearchTestCriteria();
 			crit6.setExpectedDocuments(1);
-			crit6.getFieldNamesToSearchValues().put("considerationTypeId", "1003");
+			crit6.getFieldNamesToSearchValues().put("considerationTypeId", "10004");
 			
 			List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 			crits.add(crit1);

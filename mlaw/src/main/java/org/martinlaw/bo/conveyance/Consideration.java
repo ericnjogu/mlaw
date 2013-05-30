@@ -27,9 +27,9 @@ package org.martinlaw.bo.conveyance;
 
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterConsideration;
 
@@ -56,7 +56,8 @@ public class Consideration extends MatterConsideration<TransactionDoc> {
 		return Conveyance.class;
 	}
 
-	@Transient
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
 	private Conveyance matter;
 	
 	/**

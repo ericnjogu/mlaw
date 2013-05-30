@@ -27,6 +27,8 @@ package org.martinlaw.bo.conveyance;
 
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.martinlaw.bo.Matter;
@@ -41,7 +43,11 @@ import org.martinlaw.bo.MatterTransactionDoc;
 @Entity(name="conveyance_transaction_doc")
 @Table(name="martinlaw_conveyance_transaction_doc_t")
 public class TransactionDoc extends MatterTransactionDoc {
+	@OneToOne
+	@JoinColumn(name = "consideration_id", nullable = false, insertable=false, updatable=false)
 	private Consideration consideration;
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
 	private Conveyance matter;
 	/**
 	 * 

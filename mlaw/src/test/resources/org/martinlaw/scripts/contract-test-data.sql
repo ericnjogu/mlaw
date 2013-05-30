@@ -35,7 +35,7 @@ values
 insert into martinlaw_contract_consideration_t
 (consideration_id, currency, description, amount, consideration_type_id, matter_id)
 values
-(1001, 'TZS', 'to be paid in 2 installments', 41000, 1001, 1001);
+(1001, 'TZS', 'to be paid in 2 installments', 41000, 10001, 1001);
 
 insert into martinlaw_contract_client_t 
 (client_id, matter_id, principal_name) 

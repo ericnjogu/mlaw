@@ -29,7 +29,6 @@ package org.martinlaw.test.conveyance;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,7 +46,6 @@ import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
 import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.martinlaw.bo.MatterClient;
 import org.martinlaw.bo.conveyance.Client;
-import org.martinlaw.bo.conveyance.Consideration;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnex;
 import org.martinlaw.bo.conveyance.ConveyanceAttachment;
@@ -63,6 +61,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  *
  */
 public class ConveyanceBOTest extends MartinlawTestsBase {
+	@SuppressWarnings("unused")
 	private Log log = LogFactory.getLog(getClass());
 	@Test
 	/**
@@ -71,12 +70,12 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	public void testConveyanceCRUD() {
 		// C
 		Conveyance conv = getTestUtils().getTestConveyance();
-		try {
+		/*try {
 			conv.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		} catch (Exception e) {
 			fail("could not add consideration");
 			log.error(e);
-		}
+		}*/
 		// add client
 		Client client = new Client();
 		String principalName = "clientX";
@@ -112,7 +111,8 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		assertEquals("number of annexes differs", 1, conv.getAnnexes().size());
 		assertEquals("timestamp differs", timestamp.toString(), conv.getAnnexes().get(0).getAttachments().get(0).getNoteTimestamp());
 		getTestUtils().testConsiderationFields(conv.getConsiderations().get(0));
-		
+		assertNotNull("considerations should not be null", conv.getConsiderations());
+		assertEquals("default number of considerations differs", 2, conv.getConsiderations().size());
 		// U
 		String name2 = "EN/C010";
 		conv.setName(name2);

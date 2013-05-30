@@ -81,7 +81,7 @@
 	    <property name="propertyName" value="transactions" />
 	     <property name="headerText" value="Transactions" />
 	     <property name="layoutManager.renderSequenceField" value="false"/>
-	     <property name="render" value="@{! #empty(#parentLine?.transactions)}"></property>
+	     <!-- <property name="render" value="@{! #empty(#parentLine?.transactions)}"/> -->
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="transactionType.name"/>

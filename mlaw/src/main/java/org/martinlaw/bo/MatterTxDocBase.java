@@ -4,7 +4,7 @@ package org.martinlaw.bo;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -25,7 +25,6 @@ package org.martinlaw.bo;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-
 import org.kuali.rice.krad.document.TransactionalDocumentBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 /**

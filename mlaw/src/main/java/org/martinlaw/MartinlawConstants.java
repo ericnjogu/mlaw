@@ -139,4 +139,17 @@ public class MartinlawConstants {
 	    public static final String PORT_PROPERTY = "mail.smtp.port";
 	    public static final String PROTOCOL_PROPERTY = "mail.transport.protocol";
 	}
+	
+	/**
+	 * constants to use in creating default considerations
+	 * @author mugo
+	 *
+	 */
+	public static class DefaultConsideration {
+		public static final Long LEGAL_FEE_TYPE_ID = 10001l;
+		public static final Long DISBURSEMENT_TYPE_ID = 10002l;
+		public static final String LEGAL_FEE_DESCRIPTION = "default consideration for tracking legal fees";
+		public static final String DISBURSEMENT_DESCRIPTION = "default consideration for tracking disbursements";
+		public static final String CURRENCY = "KES";
+	}
 }

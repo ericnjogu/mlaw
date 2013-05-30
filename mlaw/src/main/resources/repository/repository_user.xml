@@ -135,7 +135,7 @@
 		<collection-descriptor name="transactions"
 			element-class-ref="org.martinlaw.bo.courtcase.TransactionDoc"
 			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<inverse-foreignkey field-ref="matterId" />
+			<inverse-foreignkey field-ref="considerationId" />
 		</collection-descriptor>
 	</class-descriptor>
 
@@ -476,7 +476,7 @@
 		<collection-descriptor name="transactions"
 			element-class-ref="org.martinlaw.bo.conveyance.TransactionDoc"
 			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<inverse-foreignkey field-ref="matterId" />
+			<inverse-foreignkey field-ref="considerationId" />
 		</collection-descriptor>
 	</class-descriptor>
 	
@@ -632,7 +632,7 @@
 		<collection-descriptor name="transactions"
 			element-class-ref="org.martinlaw.bo.contract.TransactionDoc"
 			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<inverse-foreignkey field-ref="matterId" />
+			<inverse-foreignkey field-ref="considerationId" />
 		</collection-descriptor>
 	</class-descriptor>
 
@@ -1036,7 +1036,7 @@
 		<collection-descriptor name="transactions"
 			element-class-ref="org.martinlaw.bo.opinion.TransactionDoc"
 			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<inverse-foreignkey field-ref="matterId" />
+			<inverse-foreignkey field-ref="considerationId" />
 		</collection-descriptor>
 	</class-descriptor>
 

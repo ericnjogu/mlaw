@@ -64,7 +64,7 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 	 */
 	public ConsiderationTypeBOTest() {
 		considerationType = new ConsiderationType();
-		considerationType.setId(1003l);
+		considerationType.setId(10004l);
 		considerationType.setName("purchase price");
 		considerationType.setDescription("the purchase price");
 	}

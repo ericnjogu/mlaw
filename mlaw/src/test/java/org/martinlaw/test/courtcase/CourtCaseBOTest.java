@@ -161,6 +161,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		assertNotNull("status should not be null", kase.getStatus());
 		assertEquals("court ref differs", courtReference, kase.getCourtReference());
 		assertEquals(statusText, kase.getStatus().getStatus());
+		assertNotNull("considerations should not be null", kase.getConsiderations());
+		assertEquals("default number of considerations differs", 2, kase.getConsiderations().size());
 		log.debug("Created case with id " + kase.getId());
 		assertNotNull(kase.getId());
 		//create and save client, witness

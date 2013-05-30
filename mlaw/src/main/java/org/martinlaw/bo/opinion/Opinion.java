@@ -54,7 +54,11 @@ public class Opinion extends Matter<Assignee, Work, Client, Consideration, Event
 	public Opinion() {
 		super();
 		setClients(new ArrayList<Client>()); 
-		setConsiderations(new ArrayList<Consideration>());
+		try {
+			setConsiderations(createDefaultConsiderations(Consideration.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	@Column(name="summary")
 	private String summary;

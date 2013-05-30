@@ -7,7 +7,7 @@ package org.martinlaw.bo.contract;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -61,8 +61,13 @@ public class Contract extends Matter<Assignee, Work, Client, Consideration, Even
 		setParties(new ArrayList<ContractParty>());
 		setSignatories(new ArrayList<ContractSignatory>());
 		setClients(new ArrayList<Client>());
-		setConsiderations(new ArrayList<Consideration>());
+		try {
+			setConsiderations(createDefaultConsiderations(Consideration.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	
 	//column defined using reference below - this is for the sake of ojb
 	@Transient
 	private Long typeId;

@@ -29,7 +29,6 @@ package org.martinlaw.test.opinion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +37,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.bo.opinion.Client;
-import org.martinlaw.bo.opinion.Consideration;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.test.MartinlawTestsBase;
 
@@ -48,6 +46,7 @@ import org.martinlaw.test.MartinlawTestsBase;
  *
  */
 public class OpinionCRUDTest extends MartinlawTestsBase {
+	@SuppressWarnings("unused")
 	private Log log = LogFactory.getLog(getClass());
 	
 	/**
@@ -79,12 +78,12 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 	public void testOpinionCRUD() {
 		// C
 		Opinion opinion = getTestUtils().getTestOpinion();
-		try {
+		/*try {
 			opinion.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		} catch (Exception e) {
 			fail("Could not add consideration");
 			log.error(e);
-		}
+		}*/
 		
 		getBoSvc().save(opinion);
 		
@@ -92,7 +91,8 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		opinion.refresh();
 		getTestUtils().testOpinionFields(opinion);
 		getTestUtils().testConsiderationFields(opinion.getConsiderations().get(0));
-		
+		assertNotNull("considerations should not be null", opinion.getConsiderations());
+		assertEquals("default number of considerations differs", 2, opinion.getConsiderations().size());
 		// U
 		String summary = "see attached file";
 		opinion.setSummary(summary);

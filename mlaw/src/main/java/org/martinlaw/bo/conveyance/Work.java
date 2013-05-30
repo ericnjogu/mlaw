@@ -7,7 +7,7 @@ package org.martinlaw.bo.conveyance;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -50,6 +50,8 @@ public class Work extends MatterWork {
 	@OneToOne
 	@JoinColumn(name = "convey_annex_type_id", nullable = false, updatable = false)
 	private ConveyanceAnnexType conveyanceAnnexType;
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
 	private Conveyance matter;
 	/**
 	 * 

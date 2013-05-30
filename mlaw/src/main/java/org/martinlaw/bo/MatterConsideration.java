@@ -64,7 +64,7 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 	@OneToOne
 	@JoinColumn(name = "consideration_type_id", nullable = false)
 	private ConsiderationType considerationType; 
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="considerationId")
 	private List<T> transactions;
 
 	public MatterConsideration() {

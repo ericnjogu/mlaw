@@ -75,7 +75,6 @@ import org.martinlaw.bo.MatterEventTest;
 import org.martinlaw.bo.MatterTransactionDoc;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
-import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
@@ -145,13 +144,13 @@ public class TestUtils {
 		signs.add(new ContractSignatory("sign1"));
 		signs.add(new ContractSignatory("sign2"));
 		contract.setSignatories(signs);
-		// consideration
-		try {
+		// consideration - use default considerations
+		/*try {
 			contract.getConsiderations().add((Consideration) getTestConsideration(Consideration.class));
 		} catch (Exception e) {
 			//fail("could not add consideration");
 			log.error(e);
-		}
+		}*/
 		// duration
 		Calendar cal = Calendar.getInstance();
 		Date start = new Date(cal.getTimeInMillis());
@@ -176,7 +175,7 @@ public class TestUtils {
 		consideration.setAmount(new BigDecimal(1000));
 		consideration.setCurrency("KES");
 		consideration.setDescription("see breakdown in attached file");
-		consideration.setConsiderationTypeId(1002l);
+		consideration.setConsiderationTypeId(10003l);
 		consideration.setMatterId(1001l);
 		return consideration;
 	}
@@ -441,17 +440,20 @@ public class TestUtils {
 
 	/**
 	 * test that the {@link MatterConsideration} has the expected field values
-	 * @param consideration - the test object (created in code then saved to db)
+	 * @param consideration - a default consideration (created in code then saved to db)
 	 */
 	public void testConsiderationFields(MatterConsideration<?> consideration) {
 		consideration.refreshNonUpdateableReferences();//to retrieve the consideration type
-		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(1000)));
-		String desc = "see breakdown in attached file";
-		assertEquals("consideration description differs", desc, consideration.getDescription());
-		assertEquals("consideration currency differs", "KES", consideration.getCurrency());
-		assertNotNull("consideration type id should not be null", consideration.getConsiderationTypeId());
+		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(0)));
+		//String desc = "see breakdown in attached file";
+		assertEquals("consideration description differs", MartinlawConstants.DefaultConsideration.LEGAL_FEE_DESCRIPTION,
+				consideration.getDescription());
+		assertEquals("consideration currency differs", MartinlawConstants.DefaultConsideration.CURRENCY,
+				consideration.getCurrency());
+		assertEquals("consideration type id differs", MartinlawConstants.DefaultConsideration.LEGAL_FEE_TYPE_ID,
+				consideration.getConsiderationTypeId());
 		assertNotNull("consideration type should not be null", consideration.getConsiderationType());
-		assertEquals("consideration type name differs", "contract value", consideration.getConsiderationType().getName());
+		assertEquals("consideration type name differs", "Legal fee", consideration.getConsiderationType().getName());
 	}
 	
 	/**
@@ -464,7 +466,7 @@ public class TestUtils {
 		assertEquals("consideration description differs", desc, consideration.getDescription());
 		assertEquals("consideration currency differs", "TZS", consideration.getCurrency());
 		assertNotNull("consideration type should not be null", consideration.getConsiderationType());
-		assertEquals("consideration type name differs", "legal fee", consideration.getConsiderationType().getName());
+		assertEquals("consideration type name differs", "Legal fee", consideration.getConsiderationType().getName());
 		testMatterTransactionDocList(consideration.getTransactions());
 	}
 	

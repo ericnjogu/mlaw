@@ -177,7 +177,7 @@ public abstract class MatterTransactionDocBOTest extends MartinlawTestsBase {
 
 		assertFalse("key values list should not be empty", result.isEmpty());
 		assertEquals("key values list size differs", 1, result.size());
-		assertEquals("value differs", "legal fee - TZS - 41000.00", result.get(0).getValue());
+		assertEquals("value differs", "Legal fee - TZS - 41000.00", result.get(0).getValue());
 	}
 
 	/**

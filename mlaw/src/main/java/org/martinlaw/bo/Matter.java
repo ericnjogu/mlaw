@@ -24,6 +24,7 @@ package org.martinlaw.bo;
 
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.bo.Note;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.martinlaw.MartinlawConstants;
 /**
  * a super class that holds the information common to court case, conveyance, contract etc
  * 
@@ -94,6 +96,30 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public Matter() {
 		super();
+	}
+	
+	/**
+	 * create default considerations - legal fees and disbursement
+	 * @return the considerations
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public ArrayList<K> createDefaultConsiderations(Class<K> k) throws InstantiationException, IllegalAccessException {
+		ArrayList<K> defaultConsiderations = new ArrayList<K>(2);
+		K legalFee = k.newInstance();
+		legalFee.setConsiderationTypeId(MartinlawConstants.DefaultConsideration.LEGAL_FEE_TYPE_ID);
+		legalFee.setDescription(MartinlawConstants.DefaultConsideration.LEGAL_FEE_DESCRIPTION);
+		legalFee.setAmount(new BigDecimal(0));
+		legalFee.setCurrency(MartinlawConstants.DefaultConsideration.CURRENCY);
+		defaultConsiderations.add(legalFee);
+		
+		K disbursement = k.newInstance();
+		disbursement.setConsiderationTypeId(MartinlawConstants.DefaultConsideration.DISBURSEMENT_TYPE_ID);
+		disbursement.setDescription(MartinlawConstants.DefaultConsideration.DISBURSEMENT_DESCRIPTION);
+		disbursement.setAmount(new BigDecimal(0));
+		disbursement.setCurrency(MartinlawConstants.DefaultConsideration.CURRENCY);
+		defaultConsiderations.add(disbursement);
+		return defaultConsiderations;
 	}
 
 	/**

@@ -68,7 +68,11 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 		setClients(new ArrayList<Client>());
 		annexes = new ArrayList<ConveyanceAnnex>();
 		setRiceServiceHelper(new RiceServiceHelper());
-		setConsiderations(new ArrayList<Consideration>());
+		try {
+			setConsiderations(createDefaultConsiderations(Consideration.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@OneToOne

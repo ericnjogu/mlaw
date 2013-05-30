@@ -7,7 +7,7 @@ package org.martinlaw.bo.opinion;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -27,8 +27,9 @@ package org.martinlaw.bo.opinion;
 
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterConsideration;
@@ -56,7 +57,8 @@ public class Consideration extends MatterConsideration<TransactionDoc> {
 		return Opinion.class;
 	}
 
-	@Transient
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
 	private Opinion matter;
 	
 	/**
