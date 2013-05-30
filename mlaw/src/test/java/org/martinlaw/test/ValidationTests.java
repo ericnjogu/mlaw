@@ -13,6 +13,7 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.martinlaw.bo.StatusScope;
 
 /**
  * various validation tests
@@ -59,5 +60,22 @@ public class ValidationTests extends MartinlawTestsBase {
 			log.error("exception occured", e);
 			fail("exception occured");
 		}
+	}
+	
+	/**
+	 * test that NoWhitespacePatternConstraint is working ok
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testScope_validation()
+	throws InstantiationException, IllegalAccessException {
+		StatusScope statusScope = new StatusScope();
+		statusScope.setQualifiedClassName("");
+		final String attributeName = "qualifiedClassName";
+		getTestUtils().validate(statusScope, 1, attributeName);
+		
+		statusScope.setQualifiedClassName("org.martinlaw.Aclass");
+		getTestUtils().validate(statusScope, 0, attributeName);
 	}
 }

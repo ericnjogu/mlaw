@@ -29,9 +29,10 @@
 	<bean id="martinlaw_shared_scope_collection_maint_section" parent="Uif-StackedCollectionSection" abstract="true">
 		<property name="headerText" value="Scope" />
 		<property name="propertyName" value="scope" />
+		<property name="instructionalText" value="Please do not add any scope if this type applies to ALL matters"/>
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="qualifiedClassName" />
+				<bean parent="Uif-InputField" p:propertyName="qualifiedClassName"/>
 			</list>
 		</property>
 		<property name="layoutManager.summaryTitle" value="Matter" />

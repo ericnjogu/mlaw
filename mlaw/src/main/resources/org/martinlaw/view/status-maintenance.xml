@@ -34,7 +34,6 @@
     <property name="items">
       <list merge="true">
         <bean parent="Uif-MaintenanceGridSection">
-			<property name="instructionalText" value="Leave the scope blank if this status applies to ALL matters"/>
 			<property name="items">
 			  <list>
 			    <bean parent="Uif-InputField" p:propertyName="status"/>

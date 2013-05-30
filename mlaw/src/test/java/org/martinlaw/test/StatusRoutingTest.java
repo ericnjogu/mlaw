@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.Status;
+import org.martinlaw.bo.StatusScope;
 
 /**
  * test routing for {@link Status}
@@ -31,6 +32,9 @@ public class StatusRoutingTest extends KewTestsBase {
 		Status status = new Status();
 		String statusText = "deadlock";
 		status.setStatus(statusText);
+		StatusScope statusScope = new StatusScope();
+		statusScope.setQualifiedClassName("org.martinlaw.Aclass");
+		status.getScope().add(statusScope);
 		try {
 			testMaintenanceRoutingInitToFinal("StatusMaintenanceDocument", status);
 			Map<String, Object> params = new HashMap<String, Object>();

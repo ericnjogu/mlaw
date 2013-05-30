@@ -15,6 +15,7 @@
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
 	<bean id="martinlaw_shared_scope_bo" parent="BusinessObjectEntry" abstract="true">
+		<property name="titleAttribute" value="name" />
 		<property name="attributes">
 			<list>
 				<ref bean="matter_scope_bo-id" />
@@ -26,17 +27,15 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	
 	<bean id="status_scope_bo" parent="martinlaw_shared_scope_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.StatusScope" />
-		<property name="titleAttribute" value="Status Scope" />
+		
 	</bean>
 	
 	<bean id="event_type_scope_bo" parent="martinlaw_shared_scope_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.EventTypeScope" />
-		<property name="titleAttribute" value="Event Type Scope" />
 	</bean>
 	
 	<bean id="consideration_type_scope_bo" parent="martinlaw_shared_scope_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.ConsiderationTypeScope" />
-		<property name="titleAttribute" value="Consideration Type Scope" />
 	</bean>
 
 	<!-- Attribute Definitions -->
@@ -46,9 +45,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	
 	<bean id="matter_scope_bo_qualifiedClassName" parent="AttributeDefinition">
 		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="false" />
-		</property>
 		<property name="summary" value="Scope" />
 		<property name="name" value="qualifiedClassName" />
 		<property name="label" value="Scope" />
@@ -60,5 +56,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="controlField">
 			<bean parent="Uif-DropdownControl" />
 		</property>
+		<property name="validCharactersConstraint">
+           <bean parent="JavaClassPatternConstraint"/>
+         </property>
 	</bean>
 </beans>
