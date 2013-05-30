@@ -47,11 +47,24 @@ public class Work extends MatterWork {
 	 * 
 	 */
 	private static final long serialVersionUID = -6173589951133038815L;
+	private CourtCase matter;
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Class<? extends Matter> getMatterClass() {
 		return CourtCase.class;
+	}
+
+	@Override
+	public CourtCase getMatter() {
+		return matter;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(CourtCase matter) {
+		this.matter = matter;
 	}
 
 }

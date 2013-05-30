@@ -41,13 +41,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			</list>
 		</property>
 		<!-- decided to use quickfinder.dataObjectClassName and return by script to go round 404 errors when the lookup returns -->
-		<!-- <property name="relationships">
-      <list>
-		<bean parent="martinlaw_shared_matter_relationship"/>
-      </list>
-    </property> -->
-		
-		
+		<property name="relationships">
+	      <list>
+			<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.contract.Contract"/>
+	      </list>
+	    </property>	
 	</bean>
 
 </beans>

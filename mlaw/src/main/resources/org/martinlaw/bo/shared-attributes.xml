@@ -271,8 +271,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
      
      <bean id="martinlaw_shared_matterId_attr" parent="AttributeDefinition">
 		<property name="maxLength" value="20"/>
-		<property name="validationPattern">
-			<bean parent="NumericValidationPattern"/>
+		<property name="validCharactersConstraint">
+			<bean parent="IntegerPatternConstraint" />
 		</property>
 		<property name="name" value="matterId" />
 		<property name="required" value="true" />

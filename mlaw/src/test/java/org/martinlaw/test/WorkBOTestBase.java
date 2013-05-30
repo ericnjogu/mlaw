@@ -4,7 +4,7 @@ package org.martinlaw.test;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -54,8 +54,9 @@ public abstract class WorkBOTestBase extends MartinlawTestsBase {
 	 */
 	@Test
 	public void testWorkRetrieve() {
-		MatterTxDocBase workTemp = getBoSvc().findBySinglePrimaryKey(getWorkClass(), 1001l);
-		assertNotNull("result should not be null", workTemp);
+		MatterWork work = getBoSvc().findBySinglePrimaryKey(getWorkClass(), 1001l);
+		assertNotNull("result should not be null", work);
+		assertNotNull("matter should not be null", work.getMatter());
 	}
 
 	/**

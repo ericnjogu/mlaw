@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -35,7 +35,7 @@
 						<list>
 							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh"
 								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work">
-								<property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
+								<!-- <property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" /> -->
 							</bean>
 							<bean parent="Uif-InputField" p:propertyName="conveyanceAnnexTypeId"
 								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work"

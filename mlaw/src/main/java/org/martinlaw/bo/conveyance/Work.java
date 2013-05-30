@@ -50,6 +50,7 @@ public class Work extends MatterWork {
 	@OneToOne
 	@JoinColumn(name = "convey_annex_type_id", nullable = false, updatable = false)
 	private ConveyanceAnnexType conveyanceAnnexType;
+	private Conveyance matter;
 	/**
 	 * 
 	 */
@@ -93,6 +94,18 @@ public class Work extends MatterWork {
 	@Override
 	public Class<? extends Matter> getMatterClass() {
 		return Conveyance.class;
+	}
+
+	@Override
+	public Conveyance getMatter() {
+		return matter;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(Conveyance matter) {
+		this.matter = matter;
 	}
 	
 	

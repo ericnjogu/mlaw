@@ -1152,10 +1152,10 @@
 
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" />
-		<!-- not a two way relationship anymore, for simplicity -->
-		<!-- <reference-descriptor name="matter" class-ref="org.martinlaw.bo.contract.Contract" 
+		
+		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.contract.Contract" 
 			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="matterId" 
-			/> </reference-descriptor> -->
+			/> </reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.Work"
@@ -1172,8 +1172,13 @@
 			<foreignkey field-ref="documentNumber" />
 		</reference-descriptor>
 
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" />
+		<field-descriptor name="matterId" column="matter_id" jdbc-type="BIGINT" />
+			
+		<reference-descriptor name="matter"
+			class-ref="org.martinlaw.bo.courtcase.CourtCase" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="matterId" />
+		</reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.opinion.Work"
@@ -1190,8 +1195,13 @@
 			<foreignkey field-ref="documentNumber" />
 		</reference-descriptor>
 
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" />
+		<field-descriptor name="matterId" column="matter_id" jdbc-type="BIGINT" />
+		
+		<reference-descriptor name="matter"
+			class-ref="org.martinlaw.bo.opinion.Opinion" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="matterId" />
+		</reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.conveyance.Work"
@@ -1217,6 +1227,12 @@
 			class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
 			auto-retrieve="true" auto-update="none" auto-delete="none">
 			<foreignkey field-ref="conveyanceAnnexTypeId" />
+		</reference-descriptor>
+		
+		<reference-descriptor name="matter"
+			class-ref="org.martinlaw.bo.conveyance.Conveyance" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 	</class-descriptor>
 	

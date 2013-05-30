@@ -71,4 +71,12 @@ public abstract class MatterWork extends MatterTxDocBase {
 	public void setStatusIsFinal(Boolean statusIsFinal) {
 		this.statusIsFinal = statusIsFinal;
 	}
+	
+	/**
+	 * returns the matter that has been populated by the ojb configuration
+	 * <p>helps in displaying the matter name as an additional field in the work document</p>
+	 * @return the matter
+	 */
+	@SuppressWarnings("rawtypes")
+	public abstract Matter getMatter();
 }

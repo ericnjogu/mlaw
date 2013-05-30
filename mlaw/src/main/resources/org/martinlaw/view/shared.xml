@@ -239,11 +239,7 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_matter_id_scriptlookup" parent="Uif-InputField"
-		p:propertyName="matterId">
-		<property name="validCharactersConstraint">
-			<bean parent="IntegerPatternConstraint" />
-		</property>
+	<bean id="martinlaw_shared_matter_id_scriptlookup" parent="martinlaw_shared_matterId_maint_inputField">
 		<property name="quickfinder">
 			<bean parent="Uif-QuickFinderByScript" />
 		</property>
@@ -255,10 +251,11 @@
 	</bean>
 
 	<bean id="martinlaw_shared_matter_id_scriptlookup_refresh" parent="martinlaw_shared_matter_id_scriptlookup"
-		p:propertyName="matterId">
+		p:inquiry.render="true">
 		<property name="quickfinder">
 			<bean parent="Uif-QuickFinder" />
 		</property>
+		
 	</bean>
 
 	<bean id="martinlaw_shared_work_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
@@ -305,9 +302,6 @@
 	<bean id="martinlaw_shared_matterId_maint_inputField" parent="martinlaw_shared_custom_req_msg_inputfield" 
 		p:propertyName="matterId">
 		<property name="propertyNamesForAdditionalDisplay" value="matter.name" />
-		<property name="validCharactersConstraint">
-			<bean parent="IntegerPatternConstraint" />
-		</property>
 	</bean>
 	
 	<bean id="martinlaw_shared_conveyance_annex_type_tbl" parent="Uif-Disclosure-TableCollectionSection">
