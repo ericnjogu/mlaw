@@ -256,7 +256,10 @@
          <value>classpath:org/martinlaw/view/opinion/opinion-work.xml</value>
          
           <value>classpath:org/martinlaw/bo/conveyance/conveyance-work.xml</value>
-         <value>classpath:org/martinlaw/view/conveyance/conveyance-work.xml</value>
+			<value>classpath:org/martinlaw/view/conveyance/conveyance-work.xml</value>
+
+		<value>classpath:org/martinlaw/rice-overrides/kr.xml</value>
+		<value>classpath:org/martinlaw/rice-overrides/kim.xml</value>
          
       </list>
     </property>

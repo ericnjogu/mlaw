@@ -3,14 +3,21 @@
  */
 package org.martinlaw.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.kuali.rice.kim.bo.ui.PersonDocumentPhone;
 import org.kuali.rice.kns.service.KNSServiceLocator;
+import org.kuali.rice.krad.datadictionary.AttributeDefinition;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.uif.component.Component;
+import org.kuali.rice.krad.uif.control.TextAreaControl;
+import org.kuali.rice.krad.uif.control.TextControl;
 import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.StatusScope;
@@ -77,5 +84,28 @@ public class ValidationTests extends MartinlawTestsBase {
 		
 		statusScope.setQualifiedClassName("org.martinlaw.Aclass");
 		getTestUtils().validate(statusScope, 0, attributeName);
+	}
+	
+	/**
+	 * check whether the additional files override the intended beans for krad
+	 * @see org/martinlaw/rice-overrides/kr.xml
+	 */
+	@Test
+	public void testAdditionalFiles_krad() {
+		String[] componentIds = {"Uif-DocumentAdHocRecipientsSection"};
+		for (String cmpId: componentIds) {
+			Component cmp = (Component) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(cmpId);
+			assertFalse("render value differs", cmp.isRender());
+		}
+		
+		AttributeDefinition desc = (AttributeDefinition) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
+				"DocumentHeader-documentDescription");
+		// see org.kuali.rice.krad.uif.control.TextControl#setWatermarkText for why the additional space is added
+		assertEquals("watermark differs", "e.g. new court case, updating conveyance, new event" + "   ", 
+				((TextControl)desc.getControlField()).getWatermarkText());
+		
+		AttributeDefinition expln = (AttributeDefinition) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
+				"DocumentHeader-explanation");
+		assertNotNull("watermark should not be null", ((TextAreaControl)expln.getControlField()).getWatermarkText());
 	}
 }

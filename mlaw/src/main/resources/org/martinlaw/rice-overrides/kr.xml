@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+  <bean id="DocumentHeader-documentDescription-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="forceUppercase" value="true"/>
+    <property name="shortLabel" value="Describe your Action"/>
+    <property name="maxLength" value="255"/>
+    <property name="required" value="true"/>
+    <property name="control">
+      <bean parent="TextControlDefinition" p:size="45"/>
+    </property>
+    <property name="controlField">
+      <bean parent="Uif-TextControl" p:size="45" p:watermarkText="e.g. new court case, updating event"/>
+    </property>      
+    <property name="summary" value="&amp;nbsp;"/>
+    <property name="name" value="documentDescription"/>
+    <property name="label" value="Describe your Action"/>
+    <property name="description" value="A free-form text field that describes the purpose or function of the document."/>
+  </bean>
+  
+
+  <bean id="DocumentHeader-explanation-parentBean" abstract="true" parent="AttributeDefinition">
+    <property name="forceUppercase" value="false"/>
+    <property name="shortLabel" value="Explanation"/>
+    <property name="maxLength" value="400"/>
+    <property name="validationPattern">
+      <bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" p:maxLength="400"/>
+    </property>
+    <property name="control">
+      <bean parent="TextareaControlDefinition" p:cols="40" p:rows="3"/>
+    </property>
+    <property name="controlField">
+      <bean parent="Uif-TextAreaControl" p:cols="40" p:rows="3">
+      <property name="watermarkText">
+      		<value>This field is optional.
+Place information here that will be used in internal communication (like a memo).
+e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does not exist in the system yet' etc
+      		</value>
+      </property>
+      </bean>
+    </property>        
+    <property name="summary" value="&amp;nbsp;"/>
+    <property name="name" value="explanation"/>
+    <property name="label" value="More Details"/>
+    <property name="description" value="A free-form text field that explains the purpose of the document in more detail than the Description."/>
+  </bean>
+
+	<bean id="Uif-DocumentOverviewSection" parent="Uif-Disclosure-GridSection" p:layoutManager.numberOfColumns="4"
+        p:layoutManager.applyDefaultCellWidths="false">
+    <property name="headerText" value="Document Overview"/>
+    <property name="items">
+      <list>
+        <bean parent="Uif-DocumentDescription" p:required="true" p:label="Description"
+              p:width="25%" p:fieldLabel.width="25%"/>
+        <bean parent="Uif-DocumentExplaination" p:rowSpan="2" p:fieldLabel.rowSpan="2"
+              p:width="40%" p:fieldLabel.width="10%"/>
+        <!-- <bean parent="Uif-OrganizationDocumentNumber" p:width="25%" p:fieldLabel.width="25%"/> -->
+      </list>
+    </property>
+    <property name="fieldBindingObjectPath" value="document.documentHeader"/>
+  </bean>
+	
+	<bean id="Uif-DocumentAdHocRecipientsSection" parent="Uif-Disclosure-VerticalBoxSection" p:render="false"/>
+
+</beans>
