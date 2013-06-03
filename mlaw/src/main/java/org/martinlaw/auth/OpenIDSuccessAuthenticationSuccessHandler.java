@@ -215,8 +215,7 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 	public boolean emailSetupOk() {
 		boolean ok = true;
 		// values derived from org.kuali.rice.core.mail.MailSenderFactoryBean
-		String[] emailConfigs = {MartinlawConstants.EmailParameters.USERNAME_PROPERTY, 
-				MartinlawConstants.EmailParameters.PASSWORD_PROPERTY, MartinlawConstants.EmailParameters.PORT_PROPERTY, 
+		String[] emailConfigs = {MartinlawConstants.EmailParameters.PORT_PROPERTY, 
 				MartinlawConstants.EmailParameters.HOST_PROPERTY};
 		for (String config: emailConfigs) {
 			if (StringUtils.isEmpty(getConfigurationService().getPropertyValueAsString(config))) {

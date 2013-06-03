@@ -82,11 +82,7 @@ public class OpenIDSuccessAuthenticationSuccessHandlerMockTest {
 		assertFalse("no email config params exist", successHander.emailSetupOk());
 		when(cfgSvc.getPropertyValueAsString(MartinlawConstants.EmailParameters.HOST_PROPERTY)).thenReturn("host");
 		assertFalse("not all email config params exist", successHander.emailSetupOk());
-		when(cfgSvc.getPropertyValueAsString(MartinlawConstants.EmailParameters.PASSWORD_PROPERTY)).thenReturn("pwd");
-		assertFalse("not all email config params exist", successHander.emailSetupOk());
 		when(cfgSvc.getPropertyValueAsString(MartinlawConstants.EmailParameters.PORT_PROPERTY)).thenReturn("port");
-		assertFalse("not all email config params exist", successHander.emailSetupOk());
-		when(cfgSvc.getPropertyValueAsString(MartinlawConstants.EmailParameters.USERNAME_PROPERTY)).thenReturn("Edmon");
 		assertTrue("all email config params exist", successHander.emailSetupOk());
 	}
 	
