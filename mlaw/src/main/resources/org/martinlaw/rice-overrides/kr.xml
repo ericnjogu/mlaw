@@ -4,7 +4,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:p="http://www.springframework.org/schema/p" 
 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	
-  <bean id="DocumentHeader-documentDescription-parentBean" abstract="true" parent="AttributeDefinition">
+  <!-- <bean id="DocumentHeader-documentDescription-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="forceUppercase" value="true"/>
     <property name="shortLabel" value="Describe your Action"/>
     <property name="maxLength" value="255"/>
@@ -19,7 +19,44 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
     <property name="name" value="documentDescription"/>
     <property name="label" value="Describe your Action"/>
     <property name="description" value="A free-form text field that describes the purpose or function of the document."/>
-  </bean>
+  </bean> -->
+  
+  <bean id="Uif-DocumentDescription" parent="Uif-InputField"
+	p:propertyName="documentDescription" p:dictionaryObjectEntry="org.kuali.rice.krad.bo.DocumentHeader"
+	p:instructionalText="A brief statement of the action you are taking">
+		<property name="cssClasses">
+			<list merge="true">
+				<value>uif-documentDescription</value>
+			</list>
+		</property>
+		<property name="instructionalMessage">
+	      <bean parent="Uif-InstructionalMessage" p:style="max-width:100em"/>
+	    </property>
+		<property name="propertyReplacers">
+			<list>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName eq 'CourtCaseMaintenanceDocument'">
+					<property name="replacement" value="e.g. new court case, editing court case, adding files etc"/>
+				</bean>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName eq 'ConveyanceMaintenanceDocument'">
+					<property name="replacement" value="e.g. new Conveyance, editing Conveyance, adding files etc"/>
+				</bean>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Event')">
+					<property name="replacement" value="e.g. new Event, changing date, adding comment etc"/>
+				</bean>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Work')">
+					<property name="replacement" value="e.g. client letter, sales agreement, legal opinion etc"/>
+				</bean>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Transaction')">
+					<property name="replacement" value="e.g. client payment, printing expenses, court deposit, penalty etc"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
   
 
   <bean id="DocumentHeader-explanation-parentBean" abstract="true" parent="AttributeDefinition">
@@ -35,8 +72,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
     <property name="controlField">
       <bean parent="Uif-TextAreaControl" p:cols="40" p:rows="3">
       <property name="watermarkText">
-      		<value>This field is optional.
-Place information here that will be used in internal communication (like a memo).
+      		<value>This field is optional. 
+Place information here that will be used in internal communication (like a memo). 
 e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does not exist in the system yet' etc
       		</value>
       </property>
@@ -46,6 +83,27 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
     <property name="name" value="explanation"/>
     <property name="label" value="More Details"/>
     <property name="description" value="A free-form text field that explains the purpose of the document in more detail than the Description."/>
+  </bean>
+  
+  <bean id="Uif-DocumentExplaination" parent="Uif-InputField" p:propertyName="explanation"
+        p:dictionaryObjectEntry="org.kuali.rice.krad.bo.DocumentHeader">
+    <property name="cssClasses">
+       <list merge="true">
+         <value>uif-documentExplaination</value>
+       </list>
+     </property>
+     <property name="propertyReplacers">
+			<list>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="control.watermarkText" p:condition="#form.docTypeName.contains('Work')">
+					<property name="replacement">
+						<value>Since this explanation will appear on the work list, it is highly recommended that it contains useful
+ descriptive information. e.g. legal opinion, client letter, sales agreement etc. You can copy and paste the description here. 
+						</value>
+					</property>
+				</bean>
+			</list>
+		</property>
   </bean>
 
 	<bean id="Uif-DocumentOverviewSection" parent="Uif-Disclosure-GridSection" p:layoutManager.numberOfColumns="4"
@@ -64,5 +122,124 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
   </bean>
 	
 	<bean id="Uif-DocumentAdHocRecipientsSection" parent="Uif-Disclosure-VerticalBoxSection" p:render="false"/>
+	
+	<bean id="Uif-DocumentNotesSection" parent="Uif-Disclosure-TableCollectionSection"
+        p:layoutManager.suppressLineWrapping="true"
+        p:instructionalText="Please add any files that have more information relating to this action..&lt;br/&gt;
+				Strictly Confidential information should be encrypted before being uploaded.">
+	    <property name="headerText"
+	              value="Notes @{#DocumentEntry.allowsNoteAttachments ? 'and Attachments' : ''} (@{document.notes.size()})"/>
+	    <property name="propertyName" value="notes"/>
+	    <property name="cssClasses" value="tableborders wrap"/>
+	    <property name="collectionObjectClass" value="org.kuali.rice.krad.bo.Note"/>
+	    <property name="layoutManager.generateAutoSequence" value="true"/>
+	    <property name="layoutManager.richTable.render" value="false"/>
+	    <property name="items">
+	      <list>
+	        <bean parent="Uif-DataField" p:propertyName="notePostedTimestamp" p:readOnly="true"/>
+	        <bean parent="Uif-DataField" p:propertyName="authorUniversal.principalName" p:readOnly="true"/>
+	        <bean parent="Uif-InputField" p:propertyName="noteTopicText" p:render="@{#DocumentEntry.displayTopicFieldInNotes}"/>
+	        <bean parent="Uif-InputField" p:propertyName="noteText" p:required="true" p:readOnly="@{#line.noteText != ''}"/>
+	        <bean parent="Uif-VerticalFieldGroup" p:label="Attached File" p:render="@{#DocumentEntry.allowsNoteAttachments}">
+	          <property name="items">
+	            <list>
+	              <bean parent="Uif-InputField" p:propertyName="attachmentFile"
+	                    p:bindingInfo.bindingPath="attachmentFile" p:fieldLabel.render="false">
+	                <property name="control">
+	                  <bean parent="Uif-FileControl" p:size="15"/>
+	                </property>
+	              </bean>
+	              <bean parent="Uif-PrimaryActionButton-Small" p:methodToCall="cancelAttachment"
+	                    p:actionLabel="cancel" p:title="Cancel Attachment"/>
+	            </list>
+	          </property>
+	          <property name="propertyReplacers">
+	            <list>
+	              <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="items"
+	                    p:condition="@{!#isAddLine and #line.attachment != null and #line.attachment.complete}">
+	                <property name="replacement">
+	                  <list>
+	                    <bean parent="Uif-PrimaryActionButton-Small" p:methodToCall="downloadAttachment"
+	                          p:actionLabel="download attachment" p:title="download attachment"
+	                          p:disableBlocking="true"
+	                          p:onClickScript="writeHiddenToForm(&quot;ajaxReturnType&quot;, &quot;update-none&quot;);">
+	                            <property name="actionParameters">
+	                              <map>
+	                                  <entry key="selectedLineIndex" value="@{#index}"/>
+	                              </map>
+	                            </property>
+	                     </bean>
+	
+	                    <bean parent="Uif-Message" p:messageText="@{#line.attachment?.attachmentFileName}"/>
+	                    <bean parent="Uif-Message"
+	                          p:messageText="(@{#line.attachment?.attachmentFileSizeWithUnits}, @{#line.attachment?.attachmentMimeTypeCode})"/>
+	
+	                  </list>
+	                </property>
+	              </bean>
+	              <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="items"
+	                    p:condition="@{!#isAddLine and (#line.attachment == null or !#line.attachment.complete)}">
+	                <property name="replacement">
+	                  <list>
+	                    <bean parent="Uif-SpaceField"/>
+	                  </list>
+	                </property>
+	              </bean>
+	            </list>
+	          </property>
+	        </bean>
+	        <!-- TODO: field needs translation to options label when read-only -->
+	        <bean parent="Uif-InputField" p:propertyName="attachment.attachmentTypeCode"
+	              p:render="@{#DocumentEntry.allowsNoteAttachments and #DocumentEntry.attachmentTypesValuesFinderClass != null}"/>
+	        <bean parent="Uif-InputField" p:propertyName="adHocRouteRecipient.id" p:readOnly="@{!#isAddLine}"
+	              p:render="@{#DocumentEntry.allowsNoteFYI and #actionFlags[#Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}"/>
+	      </list>
+	    </property>
+	    <property name="bindingInfo.bindingObjectPath" value="document"/>
+	    <property name="disclosure.defaultOpen"
+	              value="@{!document.notes.empty or #component.defaultOpen}"/>
+	    <property name="validationMessages.additionalKeysToMatch" value="attachmentFile"/>
+	    <property name="addLineActions">
+	      <list>
+	        <bean parent="Uif-PrimaryActionButton-Small" p:methodToCall="insertNote" p:actionLabel="add" p:title="Add a Note"/>
+	      </list>
+	    </property>
+	    <property name="lineActions">
+	      <list>
+	        <bean parent="Uif-PrimaryActionButton-Small" p:methodToCall="deleteNote" p:actionLabel="delete" p:title="Delete a Note"/>
+	        <bean parent="Uif-PrimaryActionButton-Small" p:methodToCall="sendNoteWorkflowNotification" p:actionLabel="send"
+	              p:title="Send FYI"
+	              p:render="@{#DocumentEntry.allowsNoteFYI and #actionFlags[#Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}"/>
+	      </list>
+	    </property>
+	    <property name="instructionalMessage">
+	      <bean parent="Uif-InstructionalMessage" p:style="max-width:100em"/>
+	    </property>
+	    <property name="propertyReplacers">
+			<list>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" 
+					p:condition="#form.docTypeName eq 'CourtCaseMaintenanceDocument' or #form.docTypeName eq 'ConveyanceMaintenanceDocument'">
+					<property name="replacement" 
+					value="Please add files that were existing in soft or hard copy before this matter was imported into mLaw. &lt;br/&gt;
+					Correspondence that has been stamped as 'RECEIVED' may also be scanned and added here.&lt;br/&gt;
+					Strictly Confidential information should be encrypted before being uploaded."/>
+				</bean>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Event')">
+					<property name="replacement" value="Please add any file relevant to this event e.g. agenda, a map to the location, a budget etc"/>
+				</bean>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Work')">
+					<property name="replacement" value="Please add the file(s) that represent the work you have done.&lt;br/&gt;
+					Strictly Confidential information should be encrypted before being uploaded."/>
+				</bean>
+				<bean parent="Uif-ConditionalBeanPropertyReplacer"
+					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Transaction')">
+					<property name="replacement" value="Please add the vouchers that relate to this transaction - receipts, bills etc."/>
+				</bean>
+			</list>
+		</property>
+  </bean>
 
 </beans>
