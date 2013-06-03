@@ -20,7 +20,7 @@
 
 <%@ attribute name="channelTitle" required="true" %>
 <%@ attribute name="channelUrl" required="true" %>
-<%@ attribute name="selectedTab" required="true" %>
+<%-- <%@ attribute name="selectedTab" required="true" %> --%>
 
 <portal:immutableBar />
 
@@ -45,10 +45,10 @@
 				</td>
 		   	</tr>
 	   	</c:if>
-	   	<tr valign="top" bgcolor="#FFFFFF">
+	   	<%-- <tr valign="top" bgcolor="#FFFFFF">
       		<td width="15" class="leftback-focus">&nbsp;</td>
 	 		<c:choose>
-	 		  <%-- then default to tab based actions if they are not focusing in --%>
+	 		  then default to tab based actions if they are not focusing in
 	          <c:when test='${selectedTab == "main"}'>
 	              <portal:mainTab />
 	          </c:when>
@@ -57,12 +57,12 @@
 	              <portal:administrationTab />
 	          </c:when>
 	          
-	          <%-- as backup go to the main menu index --%>
+	          as backup go to the main menu index
 	          <c:otherwise>
 	              <portal:mainTab />
 	          </c:otherwise>
 	        </c:choose>
-       </tr>
+       </tr> --%>
     </table>
   </c:otherwise>
 </c:choose>

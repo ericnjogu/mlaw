@@ -1,0 +1,76 @@
+<%--
+ Copyright 2005-2009 The Kuali Foundation
+ 
+ Licensed under the Educational Community License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.opensource.org/licenses/ecl2.php
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+--%>
+<%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
+
+<%-- <%@ attribute name="selectedTab" required="true"%> --%>
+
+<ul id="menu"
+	style="position: absolute; top: 80px; left: 250px; width: 300px; white-space: nowrap;">
+	<li style="position:relative">Court Case Management
+	<ul>
+		<li><portal:portalLink displayTitle="true" title="New Court Case"
+				url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase&methodToCall=start" /></li>
+		<li><portal:portalLink displayTitle="true"
+				title="Lookup Court Case"
+				url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+		<br />
+		<li><portal:portalLink displayTitle="true"
+				title="New Court Case Event"
+				url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.courtcase.Event&methodToCall=start" /></li>
+		<li><portal:portalLink displayTitle="true"
+				title="Lookup Court Case Event"
+				url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+
+		<li class="ui-state-disabled">Assign Court Case</li>
+		<li><portal:portalLink displayTitle="true"
+				title="New Court Case Assignment"
+				url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Assignment" /></li>
+		<!-- TODO make the necessary lookup DD changes to support this lookup -->
+		<%-- <li><portal:portalLink displayTitle="true" title="Lookup Court Case Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Assignee&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li> --%>
+
+
+		<li class="ui-state-disabled">Court Case Work</li>
+		<li><portal:portalLink displayTitle="true"
+				title="New Court Case Work"
+				url="${ConfigProperties.dochandler_courtcase_work}&command=initiate&viewId=contract_work_doc_view" /></li>
+
+		<li class="ui-state-disabled">Court Case Consideration e.g. Legal
+			Fee</li>
+		<li><portal:portalLink displayTitle="true"
+				title="New Court Case Consideration"
+				url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Consideration" /></li>
+		<li><portal:portalLink displayTitle="true"
+				title="Lookup Court Case Consideration"
+				url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+
+		<li class="ui-state-disabled">Court Case Transaction e.g. Receipt</li>
+		<li><portal:portalLink displayTitle="true"
+				title="New Court Case Transaction"
+				url="${ConfigProperties.dochandler_courtcase_fee}&command=initiate" /></li>
+
+		<li class="ui-state-disabled">Document Search</li>
+
+		<li><portal:portalLink displayTitle="true" title="Court Case"
+				url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseMaintenanceDocument" /></li>
+		<li><portal:portalLink displayTitle="true"
+				title="Court Case Event"
+				url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseEventMaintenanceDocument" /></li>
+		<li><portal:portalLink displayTitle="true"
+				title="Court Case Assignment"
+				url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseAssignmentMaintenanceDocument" /></li>
+	</ul>
+	</li>
+</ul>
