@@ -161,7 +161,7 @@ public class MailxMailer implements Mailer {
 	@Override
 	public void sendEmail(EmailFrom from, EmailTo to, EmailSubject subject,
 			EmailBody body, boolean htmlMessage) {
-		def cmd1 = getMailxCommandPrefix(getTempMessageFile(body.getBody()), htmlMessage);
+		def cmd1 = getMailxCommandPrefix(getTempMessageFile(body.getBody(), htmlMessage), htmlMessage);
 		MailMessage message = createMailMessage(from, subject, body, to);
 		def cmd2 = getMailxCommand(message);
 		executeMailx(cmd1 + cmd2)
