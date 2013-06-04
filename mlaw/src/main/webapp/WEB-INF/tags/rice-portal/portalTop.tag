@@ -38,10 +38,9 @@ if (top.location != self.location) {
 	top.location = self.location;
 }
 </script>
-<link href="${ConfigProperties.application.url}/css/ui-lightness/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${ConfigProperties.application.url}/scripts/jquery-ui-1.10.3.custom.min.js"></script>
+
 </head>
-<body onload="jQuery('#menu').menu()">
+<body>
 
 <div id="header" title="<c:out value="${ConfigProperties.portal.title}"/>"> 
     <img alt="mLaw Logo" src="${ConfigProperties.application.url}/images/mlaw-logo.png"></img>
