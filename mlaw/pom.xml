@@ -16,6 +16,7 @@
 		<project.organization.name>Eric Njogu (kunadawa@gmail.com)</project.organization.name>
 		<project.name>mLaw</project.name>
 		<project.inceptionYear>2012</project.inceptionYear>
+		<maven.test.search.classdir>true</maven.test.search.classdir>
 	</properties>
 
 	<build>
