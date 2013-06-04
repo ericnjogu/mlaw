@@ -148,9 +148,9 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 						 + MartinlawConstants.OPENID_ERROR_MSG_INDICATOR;
 			} else {
 				if (emailSetupOk()) {
-					createAndEmailActivation(email, token.getIdentityUrl(), entity);
 					String fromAddr = getParameterService().getParameterValueAsString(
 							KewApiConstants.KEW_NAMESPACE, "Mailer", KewApiConstants.EMAIL_REMINDER_FROM_ADDRESS);
+					createAndEmailActivation(email, token.getIdentityUrl(), entity, fromAddr);
 					return entity.getDefaultName().getFirstName() + 
 						", an activation email has been sent to '" + email + "' from address '" + fromAddr  
 						+ "'. If none comes to your inbox or spam folder after a few minutes, please contact support";
@@ -240,15 +240,16 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 	
 	/**
 	 * create and send email activation
-	 * @param email - the email to send to
+	 * @param emailTo - the email to send to
 	 * @param openID - the openID url
 	 * @param entity - the user details fetched
+	 * @param emailFrom TODO
 	 */
-	public void createAndEmailActivation(final String email, String openID, final EntityContract entity) {
+	public void createAndEmailActivation(final String emailTo, String openID, final EntityContract entity, final String emailFrom) {
 		OpenidActivation activation = new OpenidActivation();
 		final String activationId = UUID.randomUUID().toString();
 		activation.setId(activationId);
-		activation.setDestination(email);
+		activation.setDestination(emailTo);
 		activation.setOpenid(openID);
 		activation.setEntityId(entity.getId());
 		getBusinessObjectService().save(activation);
@@ -256,9 +257,8 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 			public void run() {
 				try {
 					getMailer().sendEmail(
-							new EmailFrom(getConfigurationService().getPropertyValueAsString(
-									MartinlawConstants.EmailParameters.USERNAME_PROPERTY)), 
-							new EmailTo(email), 
+							new EmailFrom(emailFrom), 
+							new EmailTo(emailTo), 
 							new EmailSubject("mLaw activation email"), 
 							getActivationEmailBody(
 									getConfigurationService().getPropertyValueAsString(KRADConstants.APPLICATION_URL_KEY),
