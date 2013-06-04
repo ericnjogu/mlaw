@@ -51,6 +51,7 @@ import org.kuali.rice.core.api.mail.EmailFrom;
 import org.kuali.rice.core.api.mail.EmailSubject;
 import org.kuali.rice.core.api.mail.EmailTo;
 import org.kuali.rice.core.api.mail.Mailer;
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.entity.EntityContract;
 import org.kuali.rice.kim.api.identity.name.EntityNameContract;
 import org.kuali.rice.kim.impl.identity.email.EntityEmailBo;
@@ -164,9 +165,13 @@ public class OpenIDSuccessAuthenticationSuccessHandlerMockTest {
 		final String principalName = "marto";
 		when(entityInfoSvc.getPrincipalName(any(EntityContract.class))).thenReturn(principalName);
 		
-		// 
+		ParameterService parameterService = mock(ParameterService.class); 
+		when(parameterService.getParameterValueAsString(
+				any(String.class), any(String.class), any(String.class))).thenReturn(sendingEmail);
+		successHandler.setParameterService(parameterService);
 		String expectedActivationMsg = firstName + ", an activation email has been sent to '" + emailFromOpenId + 
-				"' from address '" + sendingEmail + "'. If none comes to your inbox or spam after a few minutes, contact support";
+				"' from address '" + sendingEmail + "'. If none comes to your inbox or spam folder after a few minutes, " +
+						"please contact support";
 		assertEquals("activation message differs", expectedActivationMsg,successHandler.getActivationMessage());
 
 		verify(boSvc).save(isA(PersistableBusinessObjectBase.class));

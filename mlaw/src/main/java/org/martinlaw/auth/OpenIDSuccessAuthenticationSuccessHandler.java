@@ -48,6 +48,9 @@ import org.kuali.rice.core.api.mail.EmailFrom;
 import org.kuali.rice.core.api.mail.EmailSubject;
 import org.kuali.rice.core.api.mail.EmailTo;
 import org.kuali.rice.core.api.mail.Mailer;
+import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.entity.EntityContract;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -76,6 +79,7 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 	private BusinessObjectService businessObjectService;
 	private IdentityService identityService;
 	private ConfigurationService configurationService;
+	private ParameterService parameterService;
 
 	/**
 	 * used to redirect the user to a page where they will see their open id activation status
@@ -145,10 +149,11 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 			} else {
 				if (emailSetupOk()) {
 					createAndEmailActivation(email, token.getIdentityUrl(), entity);
+					String fromAddr = getParameterService().getParameterValueAsString(
+							KewApiConstants.KEW_NAMESPACE, "Mailer", KewApiConstants.EMAIL_REMINDER_FROM_ADDRESS);
 					return entity.getDefaultName().getFirstName() + 
-						", an activation email has been sent to '" + email + "' from address '" +
-						getConfigurationService().getPropertyValueAsString(MartinlawConstants.EmailParameters.USERNAME_PROPERTY) 
-						+ "'. If none comes to your inbox or spam after a few minutes, contact support";
+						", an activation email has been sent to '" + email + "' from address '" + fromAddr  
+						+ "'. If none comes to your inbox or spam folder after a few minutes, please contact support";
 				} else {
 					return "An activation email could not be sent to '" + email +
 							"' due to a missing email configuration" + MartinlawConstants.OPENID_ERROR_MSG_INDICATOR;
@@ -157,6 +162,13 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 		}
 	}
 	
+	private ParameterService getParameterService() {
+		if (parameterService == null) {
+			parameterService = CoreFrameworkServiceLocator.getParameterService();
+		}
+		return parameterService;
+	}
+
 	/**
 	 * @return the entityInfoService
 	 */
@@ -349,5 +361,12 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 	 */
 	public void setConfigurationService(ConfigurationService configurationService) {
 		this.configurationService = configurationService;
+	}
+
+	/**
+	 * @param parameterService the parameterService to set
+	 */
+	public void setParameterService(ParameterService parameterService) {
+		this.parameterService = parameterService;
 	}
 }
