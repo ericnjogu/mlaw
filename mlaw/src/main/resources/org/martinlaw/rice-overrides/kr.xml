@@ -3,23 +3,6 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 xmlns:p="http://www.springframework.org/schema/p" 
 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-	
-  <!-- <bean id="DocumentHeader-documentDescription-parentBean" abstract="true" parent="AttributeDefinition">
-    <property name="forceUppercase" value="true"/>
-    <property name="shortLabel" value="Describe your Action"/>
-    <property name="maxLength" value="255"/>
-    <property name="required" value="true"/>
-    <property name="control">
-      <bean parent="TextControlDefinition" p:size="45"/>
-    </property>
-    <property name="controlField">
-      <bean parent="Uif-TextControl" p:size="45" p:watermarkText="e.g. new court case, updating event"/>
-    </property>      
-    <property name="summary" value="&amp;nbsp;"/>
-    <property name="name" value="documentDescription"/>
-    <property name="label" value="Describe your Action"/>
-    <property name="description" value="A free-form text field that describes the purpose or function of the document."/>
-  </bean> -->
   
   <bean id="Uif-DocumentDescription" parent="Uif-InputField"
 	p:propertyName="documentDescription" p:dictionaryObjectEntry="org.kuali.rice.krad.bo.DocumentHeader"
