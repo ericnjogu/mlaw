@@ -17,6 +17,10 @@
 		<project.name>mLaw</project.name>
 		<project.inceptionYear>2012</project.inceptionYear>
 		<maven.test.search.classdir>true</maven.test.search.classdir>
+		<gmaven.stubs.phase>generate-resources</gmaven.stubs.phase>
+		<gmaven.compile.phase>compile</gmaven.compile.phase>
+		<gmaven.test.compile.phase>test-compile</gmaven.test.compile.phase>
+		<groovy.version>1.8.5</groovy.version>
 	</properties>
 
 	<build>
@@ -43,7 +47,8 @@
 					<excludes>
 						<exclude>**/OrmTest.java</exclude>
 						<exclude>**/KimLdapTest.java</exclude>
-						<!-- excluded till we can figure out why kim.mode and kew.mode becomes null and causes many other tests to fail -->
+						<!-- excluded till we can figure out why kim.mode and kew.mode becomes 
+							null and causes many other tests to fail -->
 						<!-- might be because they query kim api service locator -->
 						<exclude>**/OpenidUserDetailsServiceTest.java</exclude>
 						<exclude>**/OpenidActivationCRUDTest.java</exclude>
@@ -51,6 +56,59 @@
 					</excludes>
 					<argLine>-XX:MaxPermSize=512m</argLine>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.gmaven</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<providerSelection>1.8</providerSelection>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.gmaven.runtime</groupId>
+						<artifactId>gmaven-runtime-1.8</artifactId>
+						<version>1.4</version>
+						<exclusions>
+							<exclusion>
+								<groupId>org.codehaus.groovy</groupId>
+								<artifactId>groovy-all</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-all</artifactId>
+						<version>${groovy.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>gmaven-generate-stubs</id>
+						<phase>${gmaven.stubs.phase}</phase>
+						<goals>
+							<goal>generateStubs</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>gmaven-compile-stubs</id>
+						<phase>${gmaven.compile.phase}</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<!-- test stubs aren't needed now since we are not creating groovy test 
+						code for reference in java test code -->
+					<!--<goal>generateTestStubs</goal> -->
+					<execution>
+						<id>gmaven-test-compile-stubs</id>
+						<phase>${gmaven.test.compile.phase}</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>license-maven-plugin</artifactId> 
@@ -88,6 +146,27 @@
 											<goal>
 												update-file-header
 											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.gmaven
+										</groupId>
+										<artifactId>
+											gmaven-plugin
+										</artifactId>
+										<versionRange>
+											[1.4,)
+										</versionRange>
+										<goals>
+											<goal>generateStubs</goal>
+											<goal>compile</goal>
+											<goal>testCompile</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -197,28 +276,28 @@
 			<version>${rice.version}</version>
 		</dependency>
 		<dependency>
-	      <groupId>org.apache.commons</groupId>
-	      <artifactId>commons-lang3</artifactId>
-	      <version>3.0.1</version>
-	    </dependency>
-	    <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-openid</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<!-- dependency to fix http://stackoverflow.com/questions/2161050/spring-3-0-unable-to-locate-spring-namespacehandler-for-xml-schema-namespace -->
 		<dependency>
-	        <groupId>org.springframework.security</groupId>
-	        <artifactId>spring-security-config</artifactId>
-	        <version>${spring.version}</version>
-	    </dependency>
-	    <dependency>
-	        <groupId>org.springframework.security</groupId>
-	        <artifactId>spring-security-web</artifactId>
-	        <version>${spring.version}</version>
-	    </dependency>
-	    <!-- start of dependencies to fix https://jira.springsource.org/browse/SEC-1883 -->
-	    <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- start of dependencies to fix https://jira.springsource.org/browse/SEC-1883 -->
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring.version}</version>
@@ -265,10 +344,11 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.18</version>
 		</dependency>
-	    <!-- end dependencies for https://jira.springsource.org/browse/SEC-1883 -->
-	    <!-- from http://forum.springsource.org/showthread.php?87691-Petclinic-Unable-to-read-TLD-quot-META-INF-c-tld-quot&p=314641#post314641 -->
-	    <!-- trying to work around Failed to load or instantiate TagLibraryValidator class: org.apache.taglibs.standard.tlv.JstlCoreTLV -->
-	    <dependency>
+		<!-- end dependencies for https://jira.springsource.org/browse/SEC-1883 -->
+		<!-- from http://forum.springsource.org/showthread.php?87691-Petclinic-Unable-to-read-TLD-quot-META-INF-c-tld-quot&p=314641#post314641 -->
+		<!-- trying to work around Failed to load or instantiate TagLibraryValidator 
+			class: org.apache.taglibs.standard.tlv.JstlCoreTLV -->
+		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
@@ -276,15 +356,9 @@
 		</dependency>
 	</dependencies>
 	<repositories>
-		<!-- <repository>
-			<id>kuali</id>
-			<name>Kuali Repository</name>
-			<url>https://test.kuali.org/maven</url>
-		</repository> -->
-		<!-- <repository>
-			<id>central</id>
-			<name>Maven Central</name>
-			<url>http://repo1.maven.org/maven2</url>
-		</repository> -->
+		<!-- <repository> <id>kuali</id> <name>Kuali Repository</name> <url>https://test.kuali.org/maven</url> 
+			</repository> -->
+		<!-- <repository> <id>central</id> <name>Maven Central</name> <url>http://repo1.maven.org/maven2</url> 
+			</repository> -->
 	</repositories>
 </project>
