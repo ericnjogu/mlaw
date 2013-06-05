@@ -88,7 +88,8 @@ public class MailxMailer implements Mailer {
 	 */
 	protected executeMailx(String cmd) {
 		log.info("sending msg: " + cmd);
-		def process = cmd.execute();
+		//courtesy http://devilelephant.blogspot.com/2007/03/groovy-process-piping-follow-up.html
+		def process = ['sh','-c',cmd].execute();
 		log.info("sent message output: '" + process.getText() + "'. Exit value: " + process.exitValue())
 	}
 	
