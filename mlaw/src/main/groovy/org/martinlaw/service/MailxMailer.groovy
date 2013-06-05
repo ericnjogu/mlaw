@@ -140,6 +140,7 @@ public class MailxMailer implements Mailer {
 	protected String getMailxCommandPrefix(String tempFilePath, boolean html) {
 		def cmd = new StringBuffer();
 		if (html) {
+			cmd.append("echo ' ' | ");//workaround before we can set the mime type to html
 			cmd.append(getMailxPath());
 			cmd.append(" -a ")
 			cmd.append(tempFilePath)

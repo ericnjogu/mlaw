@@ -108,7 +108,7 @@ class MailxMailerTest {
 		def String expectedCmd = "cat " + tmpFilePath + " | mailx "
 		def testLabel = "mailx command prefix differs"
 		assertEquals(testLabel, expectedCmd, mailer.getMailxCommandPrefix(tmpFilePath, false))
-		expectedCmd = "mailx -a " + tmpFilePath + " "
+		expectedCmd = "echo ' ' | mailx -a " + tmpFilePath + " "
 		assertEquals(testLabel, expectedCmd, mailer.getMailxCommandPrefix(tmpFilePath, true))
 	}
 	
