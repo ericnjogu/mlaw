@@ -59,7 +59,6 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * @throws WorkflowException 
 	 */
 	@Test
-	//@Ignore("tested in the document search")
 	public void testRouting() throws WorkflowException {
 		GlobalVariables.setUserSession(new UserSession("lawyer1"));
 		getTestUtils().testTransactionalRoutingInitToFinal(getTxDoc());
@@ -67,8 +66,6 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 
 	@Test
 	public void testAttributeValidation() throws WorkflowException {
-		// causes the validation test to fail if not cleared
-		
 		getTxDoc().setMatterId(1001l);
 		getTxDoc().getDocumentHeader().setDocumentDescription("testing");
 		DocumentRuleBase ruleBase = new TransactionalDocumentRuleBase();
@@ -128,7 +125,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * @param txDoc - the populated transactional document
 	 * @param docType - the document type
 	 */
-	@Deprecated//does now work anymore when document search is activated, causes 'user not authorized' errors
+	@Deprecated//does not work anymore when document search is activated, causes 'user not authorized' errors
 	public void testTransactionalRoutingAndDocumentCRUD(String docType, MatterTxDocBase txDoc)
 			throws WorkflowException {
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
