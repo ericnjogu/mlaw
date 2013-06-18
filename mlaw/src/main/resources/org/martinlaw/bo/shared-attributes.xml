@@ -244,6 +244,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
        <property name="primitiveAttributes">
          <list>
            <bean parent="PrimitiveAttributeDefinition" p:sourceName="matterId" p:targetName="id"/>
+           <!-- <bean parent="PrimitiveAttributeDefinition" p:sourceName="matter.localReference" p:targetName="localReference"/> -->
          </list>
        </property>
        <property name="supportAttributes">

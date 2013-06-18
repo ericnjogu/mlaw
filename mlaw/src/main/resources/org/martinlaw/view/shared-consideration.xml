@@ -38,6 +38,7 @@
     </property>
     <property name="resultFields">
       <list merge="true">
+      	<bean parent="Uif-DataField" p:propertyName="matter.localReference" />
       	<bean parent="Uif-DataField" p:propertyName="matter.name" />
         <bean parent="Uif-DataField" p:propertyName="considerationType.name" />
         <bean parent="Uif-DataField" p:propertyName="amount" />
