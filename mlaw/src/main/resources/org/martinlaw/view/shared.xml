@@ -74,7 +74,7 @@
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="principalName">
-					<property name="p:instructionalText">
+					<property name="instructionalText">
 						<value>
 						Click magnifying glass icon to select client. 
 						If client does not exist, join the first and last names without a space in between, using lower case letters only.
@@ -239,8 +239,23 @@
 		parent="Uif-MaintenanceGridSection">
 		<property name="items">
 			<list>
-				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="localReference" />
-				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="name" />
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="localReference"
+					p:instructionalText="e.g. FILES/F16/2010"/>
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="name"
+					p:instructionalText="a descriptive name for this matter">
+					<property name="propertyReplacers">
+						<list>
+							<bean parent="Uif-ConditionalBeanPropertyReplacer"
+								p:propertyName="instructionalText" p:condition="#form.docTypeName eq 'CourtCaseMaintenanceDocument'">
+								<property name="replacement" value="The parties e.g. One Vs The Other"/>
+							</bean>
+							<bean parent="Uif-ConditionalBeanPropertyReplacer"
+								p:propertyName="instructionalText" p:condition="#form.docTypeName eq 'ConveyanceMaintenanceDocument'">
+								<property name="replacement" value="e.g. sale of plot No 10, sale of saloon car KAT 093V"/>
+							</bean>
+						</list>
+					</property>
+				</bean>
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="statusId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
 			</list>

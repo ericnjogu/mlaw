@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -21,7 +21,6 @@
   #L%
   -->
 
-<!-- Copyright 2005-2012 Protosoft Ltd -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -37,18 +36,16 @@
 				<bean parent="martinlaw_shared_matter_info_maintenance">
 					<property name="items">
 						<list merge="true">
-							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="courtReference" />
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="courtReference" 
+							p:instructionalText="e.g. HCC No 27 of 2012"/>
 						</list>
 					</property>
 					<property name="headerText" value="Case Information" />
 				</bean>
 
 				<bean parent="martinlaw_shared_client-maintenance-section">
-					<property name="collectionObjectClass"
-						value="org.martinlaw.bo.courtcase.Client" />
+					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Client" />
 				</bean>
-				
-				<!-- <bean parent="martinlaw_shared_consideration_maint_section"/> -->
 
 				<bean parent="Uif-StackedCollectionSection">
 					<property name="headerText" value="Witnesses" />
@@ -57,7 +54,14 @@
 					<property name="propertyName" value="witnesses" />
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="principalName"/>
+							<bean parent="Uif-InputField" p:propertyName="principalName">
+								<property name="instructionalText">
+									<value>
+									Click magnifying glass icon to select witness. 
+									If witness does not exist, join the first and last names without a space in between, using lower case letters only.
+									</value>
+								</property>
+							</bean>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Witness" />
