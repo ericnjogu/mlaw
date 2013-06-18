@@ -122,7 +122,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="shortLabel" value="name" />
 		<property name="maxLength" value="30" />
 		<property name="validCharactersConstraint">
-           <bean parent="AlphaPatternConstraint" p:lowerCase="true"/>
+           <bean parent="AlphaNumericPatternConstraint" p:lowerCase="true"/>
          </property>
 		<property name="control">
 			<bean parent="TextControlDefinition" p:size="30" />
@@ -138,14 +138,12 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 
-	<bean id="martinlaw-shared-localReference-parentBean" abstract="true"
-		parent="AttributeDefinition">
-		<property name="forceUppercase" value="false" />
-		<property name="shortLabel" value="File Num" />
+	<bean id="martinlaw-shared-localReference-parentBean" abstract="true" parent="AttributeDefinition">
+		<property name="forceUppercase" value="true" />
 		<property name="maxLength" value="50" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" />
-		</property>
+		<property name="validCharactersConstraint">
+           <bean parent="AlphaNumericPatternConstraint" p:upperCase="true" p:allowForwardSlash="true"/>
+        </property>
 		<property name="control">
 			<bean parent="TextControlDefinition" p:size="50" />
 		</property>
@@ -153,7 +151,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="summary" value="File Number" />
 		<property name="name" value="localReference" />
 		<property name="label" value="File Number" />
-		<property name="description" value="Local Reference Number" />
+		<property name="description" value="File Number" />
 		<property name="controlField">
 			<bean parent="Uif-TextControl" p:size="50" />
 		</property>

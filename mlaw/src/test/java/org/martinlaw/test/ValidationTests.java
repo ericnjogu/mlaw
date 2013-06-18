@@ -22,6 +22,7 @@ import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.StatusScope;
 import org.martinlaw.bo.conveyance.Client;
+import org.martinlaw.bo.courtcase.CourtCase;
 
 /**
  * various validation tests
@@ -105,6 +106,26 @@ public class ValidationTests extends MartinlawTestsBase {
 		
 		client.setPrincipalName("wamugo");
 		getTestUtils().validate(client, 0, attributeName);
+	}
+	
+	/**
+	 * test that Constraint is working ok
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testLocalReference_validation()
+	throws InstantiationException, IllegalAccessException {
+		CourtCase kase = new CourtCase();
+		kase.setLocalReference("my/firm/ cases/2013");
+		final String attributeName = "localReference";
+		getTestUtils().validate(kase, 1, attributeName);
+		
+		kase.setLocalReference("MY/FIRM/cases/2013");
+		getTestUtils().validate(kase, 1, attributeName);
+		
+		kase.setLocalReference("MY/FIRM/CASES/2013");
+		getTestUtils().validate(kase, 0, attributeName);
 	}
 	
 	/**
