@@ -73,7 +73,15 @@
 		<property name="propertyName" value="clients" />
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="principalName" />
+				<bean parent="Uif-InputField" p:propertyName="principalName">
+					<property name="p:instructionalText">
+						<value>
+						Click magnifying glass icon to select client. 
+						If client does not exist, join the first and last names without a space in between, using lower case letters only.
+						</value>
+					</property>
+				</bean>
+					
 			</list>
 		</property>
 		<property name="layoutManager.summaryTitle" value="Client" />

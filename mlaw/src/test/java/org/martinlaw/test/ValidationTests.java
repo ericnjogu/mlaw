@@ -17,10 +17,11 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.uif.component.Component;
 import org.kuali.rice.krad.uif.control.TextAreaControl;
-import org.kuali.rice.krad.uif.control.TextControl;
+import org.kuali.rice.krad.uif.field.InputField;
 import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.StatusScope;
+import org.martinlaw.bo.conveyance.Client;
 
 /**
  * various validation tests
@@ -70,7 +71,7 @@ public class ValidationTests extends MartinlawTestsBase {
 	}
 	
 	/**
-	 * test that NoWhitespacePatternConstraint is working ok
+	 * test that java class constraint is working ok
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
@@ -87,6 +88,26 @@ public class ValidationTests extends MartinlawTestsBase {
 	}
 	
 	/**
+	 * test that Constraint is working ok
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testPrincipalName_validation()
+	throws InstantiationException, IllegalAccessException {
+		Client client = new Client();
+		client.setPrincipalName(" wa mugo ");
+		final String attributeName = "principalName";
+		getTestUtils().validate(client, 1, attributeName);
+		
+		client.setPrincipalName("waMugo");
+		getTestUtils().validate(client, 1, attributeName);
+		
+		client.setPrincipalName("wamugo");
+		getTestUtils().validate(client, 0, attributeName);
+	}
+	
+	/**
 	 * check whether the additional files override the intended beans for krad
 	 * @see org/martinlaw/rice-overrides/kr.xml
 	 */
@@ -98,11 +119,11 @@ public class ValidationTests extends MartinlawTestsBase {
 			assertFalse("render value differs", cmp.isRender());
 		}
 		
-		AttributeDefinition desc = (AttributeDefinition) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
-				"DocumentHeader-documentDescription");
+		InputField desc = (InputField) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
+				"Uif-DocumentDescription");
 		// see org.kuali.rice.krad.uif.control.TextControl#setWatermarkText for why the additional space is added
-		assertEquals("watermark differs", "e.g. new court case, updating conveyance, new event" + "   ", 
-				((TextControl)desc.getControlField()).getWatermarkText());
+		assertEquals("instructional msg differs", "A brief statement of the action you are taking", 
+				desc.getInstructionalText());
 		
 		AttributeDefinition expln = (AttributeDefinition) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
 				"DocumentHeader-explanation");
