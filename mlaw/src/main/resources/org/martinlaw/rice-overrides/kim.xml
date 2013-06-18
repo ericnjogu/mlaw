@@ -56,7 +56,6 @@
     </property>
     <property name="lookupFields">
       <list>
-        <bean parent="FieldDefinition" p:attributeName="principalName"/>
         <!-- <bean parent="FieldDefinition" p:attributeName="principalId"/>
         <bean parent="FieldDefinition" p:attributeName="entityId"/> -->
         <bean parent="FieldDefinition" p:attributeName="firstName"/>
@@ -72,6 +71,7 @@
         <bean parent="FieldDefinition" p:attributeName="active" p:defaultValue="Y"/>
         <!-- <bean parent="FieldDefinition" p:attributeName="lookupRoleNamespaceCode"/>
         <bean parent="FieldDefinition" p:attributeName="lookupRoleName"/> -->
+        <bean parent="FieldDefinition" p:attributeName="principalName"/>
       </list>
     </property>
     <property name="resultFields">
