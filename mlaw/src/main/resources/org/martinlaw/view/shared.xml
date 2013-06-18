@@ -258,31 +258,52 @@
 		
 	</bean>
 
-	<bean id="martinlaw_shared_work_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection">
+	<bean id="martinlaw_shared_work_inquiry_section" parent="Uif-Disclosure-TableCollectionSection">
 		<property name="propertyName" value="work" />
 		<property name="headerText" value="Work" />
+		<property name="layoutManager.renderSequenceField" value="false"/>
 		<property name="items">
 			<list>
-
-				<bean parent="martinlaw_shared_work_inquiry_item_group"/>
-				<!-- till we figure out a way to retrieve the documents from the document 
-					service and efficiently -->
-				<!-- <bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.principalId" 
-					/> <bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.dateCreated" 
-					/> -->
+				<bean parent="Uif-InputField" p:propertyName="documentInitiatorNetworkId" 
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryAttributeName="initiatorNetworkId"/>
+				<bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.status"  
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryAttributeName="workflowDocumentStatus"/>
+				<bean parent="Uif-InputField" p:propertyName="documentHeader.documentDescription"
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.DocumentHeader"
+					p:dictionaryAttributeName="documentDescription"/>
+				<bean parent="Uif-InputField" p:propertyName="dateCreated" 
+					p:label="Created"
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryAttributeName="genericTimestamp"/>
+				<bean parent="Uif-InputField" p:propertyName="periodToCompletion" 
+					p:label="Time to Complete"
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryAttributeName="genericBigText"/>
+				<bean parent="Uif-InputField" p:propertyName="periodToApprove" 
+					p:label="Time to Approve"
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryAttributeName="genericBigText"/>
 			</list>
 		</property>
-		<!-- <property name="layoutManager.summaryTitle" value="Work" />
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>documentHeader.documentDescription</value>
-			</list>
-		</property> -->
+		<property name="layoutManager.richTable.templateOptions">
+	        <map merge = "true">
+	        	<!-- additional config to make the document number sortable numerically -->
+	          <entry key="aoColumnDefs" 
+	          	value="[{'sSortDataType' : 'dom-text' , 'sType' : 'string', 'aTargets': [0, 1, 2, 3, 4, 5, 7]}, 
+	          	{'bSortable' : false, 'aTargets': [6]}]"/>
+          	</map>
+        </property>
+        <property name="layoutManager.richTable.forceAoColumnDefsOverride" value="true"/>
 	</bean>
 
 	<bean id="martinlaw_shared_line_docnumber_linkfield" parent="Uif-LinkField"
 		abstract="true" p:linkText="@{#line.documentNumber}" p:target="_blank"
-		p:label="Document Number" />
+		p:label="Document Number" 
+		/>
+		<!-- p:dictionaryObjectEntry="org.kuali.rice.krad.bo.DocumentHeader" 
+		p:dictionaryAttributeName="documentNumber" -->
 	
 	<bean id="martinlaw_shared_work_inquiry_item_group" parent="Uif-VerticalFieldGroup"
 		p:render="@{#line.statusIsFinal}" abstract="true">

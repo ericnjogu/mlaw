@@ -132,18 +132,12 @@
 				<bean parent="martinlaw_shared_work_inquiry_section">
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Work" />
 					<property name="items">
-						<list>
-							<bean parent="martinlaw_shared_work_inquiry_item_group">
-								<property name="items">
-									<list merge="true">
-										<bean parent="martinlaw_shared_line_docnumber_linkfield">
-											<property name="href">
-												<value>
-													@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
-												</value>
-											</property>
-										</bean>
-									</list>
+						<list merge="true">
+							<bean parent="martinlaw_shared_line_docnumber_linkfield">
+								<property name="href">
+									<value>
+										@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+									</value>
 								</property>
 							</bean>
 						</list>

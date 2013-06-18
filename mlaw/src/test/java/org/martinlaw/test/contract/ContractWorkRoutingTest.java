@@ -26,12 +26,20 @@ package org.martinlaw.test.contract;
  */
 
 
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWork;
-import org.martinlaw.test.TxRoutingTestBase;
+import org.martinlaw.bo.MatterWork.DummyWorkFlowDocument;
+import org.martinlaw.bo.contract.Work;
+import org.martinlaw.test.WorkRoutingTestBase;
 
 
 
@@ -41,7 +49,7 @@ import org.martinlaw.test.TxRoutingTestBase;
  * @author mugo
  *
  */
-public class ContractWorkRoutingTest extends TxRoutingTestBase {
+public class ContractWorkRoutingTest extends WorkRoutingTestBase {
 
 	@Override
 	public MatterTxDocBase getTxDoc() throws WorkflowException {
@@ -57,4 +65,23 @@ public class ContractWorkRoutingTest extends TxRoutingTestBase {
 	public void testDocSearch() {
 		// TODO not yet impl as doc search is not activated for matter work
 	}
+	
+	/**
+	 * tests that getting work flow doc from newly instantiated bo returns the custom null work flow doc
+	 */
+	@Test
+	public void testWorkFlowDocument_newBO() {
+		GlobalVariables.setUserSession(new UserSession("clerk1"));
+		Work work = new Work();
+		WorkflowDocument wfd = work.getDocumentHeader().getWorkflowDocument();
+		assertTrue("work flow document differs", wfd instanceof DummyWorkFlowDocument);
+	}
+	
+	/*@Test
+	*//**
+	 * tests {@link org.martinlaw.bo.MatterWork#getPeriodToCompletion()}
+	 *//*
+	public void testGetPeriodToCompletion() {
+		
+	}*/
 }
