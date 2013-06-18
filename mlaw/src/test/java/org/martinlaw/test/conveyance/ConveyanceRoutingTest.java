@@ -3,6 +3,28 @@
  */
 package org.martinlaw.test.conveyance;
 
+/*
+ * #%L
+ * mlaw
+ * %%
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -65,7 +87,7 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		testMaintenanceRoutingInitToFinal(docType, conv);
 		
 		Conveyance conv2 = getTestUtils().getTestConveyance();
-		conv2.setLocalReference("my/firm/conv/15");
+		conv2.setLocalReference("MY/FIRM/CONV/15");
 		conv2.setName("sale of plot number 123");
 		//conv.getConsiderations().add(new Consideration(new BigDecimal(1001), "TFX", null));
 		testMaintenanceRoutingInitToFinal(docType, conv2);

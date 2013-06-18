@@ -52,7 +52,7 @@ import org.martinlaw.util.SearchTestCriteria;
  */
 public class CourtCaseRoutingTest extends KewTestsBase {
 	private Logger log = Logger.getLogger(getClass());
-	final String localReference = "local-ref-1";
+	final String localReference = "LOCAL-REF-1";
 	final String courtReference = "Kisii High Court Petition No. 6 of 2013";
 	
 	@Test
@@ -128,7 +128,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 			final String caseName1 = "Bingu Vs Nchi";
 			testCourtCase.setName(caseName1);
 			testMaintenanceRoutingInitToFinal(docType, testCourtCase);
-			final String localRef = "localRef1";
+			final String localRef = "LOCALREF1";
 			final String courtRef = "courtRef1";
 			CourtCase testCourtCase2 = getTestUtils().getTestCourtCase(localRef, courtRef);
 			testCourtCase2.setName("Moto vs Maji");

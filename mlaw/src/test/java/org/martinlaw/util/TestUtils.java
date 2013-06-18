@@ -98,7 +98,7 @@ import org.martinlaw.keyvalues.ScopedKeyValuesBase;
  *
  */
 public class TestUtils {
-	private String testContractLocalReference = "cn/rent/01";
+	private String testContractLocalReference = "CN/RENT/01";
 	private String contractName = "rent of flat";
 	private String testConveyanceName = "sale of KAZ 457T";
 	private String assignee1 = "pn";
@@ -334,7 +334,7 @@ public class TestUtils {
 		Opinion opinion = new Opinion();
 		testOpinionName = "legal opinion regarding the status quo";
 		opinion.setName(testOpinionName);
-		testOpinionLocalReference = "en/op/01";
+		testOpinionLocalReference = "EN/OP/01";
 		opinion.setLocalReference(testOpinionLocalReference);
 		opinion.setStatusId(1001l);
 		

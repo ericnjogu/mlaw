@@ -94,7 +94,7 @@ public class OpinionRoutingTest extends KewTestsBase {
 		testMaintenanceRoutingInitToFinal(docType, testOpinion);
 		
 		Opinion testOpinion2 = getTestUtils().getTestOpinion();
-		testOpinion2.setLocalReference("my/firm/opinions/2014/012");
+		testOpinion2.setLocalReference("MY/FIRM/OPINIONS/2014/012");
 		//testOpinion2.getConsiderations().add(new Consideration(new BigDecimal(45000), "BGP", null));
 		testMaintenanceRoutingInitToFinal(docType, testOpinion2);
 		

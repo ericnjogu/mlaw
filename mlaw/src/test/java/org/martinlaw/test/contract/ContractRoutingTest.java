@@ -96,12 +96,12 @@ public class ContractRoutingTest extends KewTestsBase {
 		
 		Contract testContract2 = getTestUtils().getTestContract();
 		testContract2.setName("salary and terms for temporary dev");
-		testContract2.setLocalReference("my/firm/contracts/2013/27");
+		testContract2.setLocalReference("MY/FIRM/CONTRACTS/2013/27");
 		testMaintenanceRoutingInitToFinal(docType, testContract2);
 		
 		Contract testContract3 = getTestUtils().getTestContract();
 		testContract3.setName("supply of veges");
-		testContract3.setLocalReference("my/firm/contracts/2013/21");
+		testContract3.setLocalReference("MY/FIRM/CONTRACTS/2013/21");
 		testContract3.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		testMaintenanceRoutingInitToFinal(docType, testContract3);
 		

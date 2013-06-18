@@ -83,6 +83,6 @@ public class ConveyanceAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		testAssignment2.setMatterId(1003l);
 		super.testAssignmentRouting(testAssignment2, docType);
 		
-		runAssignmentDocumentSearch(docType, "c2", "transfer*");
+		runAssignmentDocumentSearch(docType, "C2", "transfer*");
 	}
 }

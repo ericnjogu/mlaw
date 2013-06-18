@@ -79,6 +79,6 @@ public class ContractAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		testAssignment2.setMatterId(1003l);
 		super.testAssignmentRouting(testAssignment2, docType);
 		
-		runAssignmentDocumentSearch(docType, "en/cn/002", "*supply*");
+		runAssignmentDocumentSearch(docType, "EN/CN/002", "*supply*");
 	}
 }

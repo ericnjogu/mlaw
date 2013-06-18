@@ -7,7 +7,7 @@ package org.martinlaw.test.opinion;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -83,6 +83,6 @@ public class OpinionAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		testAssignment2.setMatterId(1003l);
 		super.testAssignmentRouting(testAssignment2, docType);
 		
-		runAssignmentDocumentSearch(docType, "op2", "*act*");
+		runAssignmentDocumentSearch(docType, "OP2", "*act*");
 	}
 }
