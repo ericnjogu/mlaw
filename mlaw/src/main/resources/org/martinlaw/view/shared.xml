@@ -187,7 +187,6 @@
 		parent="Uif-LookupView">
 		<property name="criteriaFields">
 			<list>
-				<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" /> -->
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId"
 					p:inquiry.enableDirectInquiry="false" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="assignees.principalName" />	
