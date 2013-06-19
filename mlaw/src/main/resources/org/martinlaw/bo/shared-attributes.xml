@@ -142,7 +142,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="forceUppercase" value="true" />
 		<property name="maxLength" value="50" />
 		<property name="validCharactersConstraint">
-           <bean parent="AlphaNumericPatternConstraint" p:upperCase="true" p:allowForwardSlash="true" p:allowDash="true"/>
+           <bean parent="AlphaNumericPatternConstraint" p:upperCase="true" p:allowForwardSlash="true" p:allowDash="true"
+           	p:allowParenthesis="true"/>
         </property>
 		<property name="control">
 			<bean parent="TextControlDefinition" p:size="50" />

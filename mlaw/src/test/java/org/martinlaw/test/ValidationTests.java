@@ -148,6 +148,9 @@ public class ValidationTests extends MartinlawTestsBase {
 		
 		kase.setLocalReference("MY/FIRM/CASES/2013");
 		getTestUtils().validate(kase, 0, attributeName);
+		
+		kase.setLocalReference("MY/FIRM/CASES(5)/2013");
+		getTestUtils().validate(kase, 0, attributeName);
 	}
 	
 	/**
