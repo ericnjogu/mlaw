@@ -50,7 +50,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				</bean>
 			</list>
 		</property>
-		<property name="objectLabel" value="Conveyance Annex Type" />
+		<property name="objectLabel" value="Conveyance Document" />
 	</bean>
 
 </beans>

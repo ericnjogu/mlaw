@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -25,7 +25,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<!-- Copyright 2012 Protosoft Ltd -->
+
 	<bean id="conveyance_work_doc" parent="uifTransactionalDocumentEntry">
 		<property name="documentTypeName" value="ConveyanceWorkDocument" />
 		<property name="documentClass" value="org.martinlaw.bo.conveyance.Work" />
@@ -33,14 +33,18 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Conveyance Id" />
-
+				<bean parent="martinlaw_shared_work_bo_work_type_id">
+					<property name="optionsFinder">
+						<bean class="org.martinlaw.keyvalues.ConveyanceWorkTypeKeyValues" />
+					</property>
+				</bean>
 				<bean parent="AttributeDefinition">
 					<property name="maxLength" value="100" />
 					<property name="validationPattern">
 						<bean parent="NumericValidationPattern" />
 					</property>
 					<property name="name" value="conveyanceAnnexTypeId" />
-					<property name="label" value="Conveyance Annex Type" />
+					<property name="label" value="Conveyance Document" />
 					<property name="required" value="true" />
 					<property name="optionsFinder">
 						<bean
