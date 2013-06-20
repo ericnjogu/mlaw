@@ -40,7 +40,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	<bean id="matter_status_bo-id" parent="martinlaw-shared-id" />
 
 	<bean id="matter_status_bo-text" parent="AttributeDefinition">
-		<property name="forceUppercase" value="true" />
+		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="Status" />
 		<property name="maxLength" value="100" />
 		<property name="validationPattern">
