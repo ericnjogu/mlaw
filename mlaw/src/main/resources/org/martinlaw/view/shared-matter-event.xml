@@ -80,7 +80,7 @@
 	    </property>
 	</bean>
 	
-	<bean id="martinlaw_shared_matter_event_lookup_view" abstract="true"	parent="Uif-LookupView">
+	<bean id="martinlaw_shared_matter_event_lookup_view" abstract="true" parent="martinlaw_shared_wildcard_lookup_view">
 		<property name="criteriaFields">
 			<list>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" />
@@ -90,6 +90,13 @@
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="location" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="comment" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="active" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_event">
+					<property name="control">
+      					<bean parent="Uif-HiddenControl">
+      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_event_control').val('location,comment');"/>
+      					</bean>
+   					</property>
+				</bean>
 			</list>
 		</property>
 		<property name="resultFields">

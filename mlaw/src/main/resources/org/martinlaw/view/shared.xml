@@ -92,11 +92,18 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_name_description_LookupView" parent="Uif-LookupView">
+	<bean id="martinlaw_shared_name_description_LookupView" parent="martinlaw_shared_wildcard_lookup_view">
 		<property name="criteriaFields">
 			<list>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="description" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_nmdsc">
+					<property name="control">
+      					<bean parent="Uif-HiddenControl">
+      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_nmdsc_control').val('name,description');"/>
+      					</bean>
+   					</property>
+				</bean>
 			</list>
 		</property>
 		<property name="resultFields">
@@ -214,13 +221,19 @@
 	</bean>
 
 	<bean id="martinlaw_shared_matter_LookupView" abstract="true"
-		parent="Uif-LookupView">
+		parent="martinlaw_shared_wildcard_lookup_view">
 		<property name="criteriaFields">
 			<list>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="localReference" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId">
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId"/>
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_matter">
+					<property name="control">
+      					<bean parent="Uif-HiddenControl">
+      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_matter_control').val('localReference,name');"/>
+      					</bean>
+   					</property>
 				</bean>
 			</list>
 		</property>
@@ -360,5 +373,9 @@
 			<bean parent="Uif-InputField" p:propertyName="description"/>
 	     </list>
 	   </property>
+	 </bean>
+	 
+	 <bean id="martinlaw_shared_wildcard_lookup_view" abstract="true" parent="Uif-LookupView">
+	 	<property name="viewHelperServiceClass" value="org.martinlaw.web.WildcardLookupableImpl"/>
 	 </bean>
 </beans>

@@ -26,12 +26,19 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="matter_status_LookupView" parent="Uif-LookupView">
+<bean id="matter_status_LookupView" parent="martinlaw_shared_wildcard_lookup_view">
     <property name="headerText" value="Status Lookup" />
     <property name="dataObjectClassName" value="org.martinlaw.bo.Status" />
     <property name="criteriaFields">
       <list>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="status" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_status">
+			<property name="control">
+				<bean parent="Uif-HiddenControl">
+					<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_status_control').val('status');"/>
+				</bean>
+			</property>
+		</bean>
       </list>
     </property>
     <property name="resultFields">

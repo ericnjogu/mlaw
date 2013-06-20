@@ -40,6 +40,14 @@
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.endDate" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.duration" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.durationTimeUnit" />
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_conv">
+			<property name="control">
+				<bean parent="Uif-HiddenControl">
+					<property name="onDocumentReadyScript" 
+					value="jq('#mlaw_wcp_conv_control').val('serviceOffered,summaryOfTerms');"/>
+				</bean>
+			</property>
+		</bean>
       </list>
     </property>
     <property name="resultFields">
