@@ -42,9 +42,9 @@
 				<bean parent="Uif-GridSection">
 					<property name="items">
 						<list>
-							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.Work">
-								<!-- <property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" /> -->
-							</bean>
+							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.Work"/>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="workTypeId" 
+								p:dictionaryObjectEntry="org.martinlaw.bo.courtcase.Work"/>
 						</list>
 					</property>
 				</bean>

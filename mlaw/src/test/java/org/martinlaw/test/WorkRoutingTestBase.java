@@ -10,6 +10,7 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterWork;
 
 /**
@@ -53,6 +54,10 @@ public abstract class WorkRoutingTestBase extends TxRoutingTestBase {
 		assertEquals("principal name differs", initiator, bo.getDocumentInitiatorNetworkId());
 		assertFalse("completion period should not be empty", StringUtils.isEmpty( bo.getPeriodToCompletion()));
 		assertFalse("approval period should not be empty", StringUtils.isEmpty( bo.getPeriodToApprove()));
+		
+		work.refreshNonUpdateableReferences();
+		assertNotNull("work type should not be null", work.getWorkType());
+		assertEquals("default work type differs", MartinlawConstants.DEFAULT_WORK_TYPE_ID, work.getWorkTypeId());
 	}
 
 }

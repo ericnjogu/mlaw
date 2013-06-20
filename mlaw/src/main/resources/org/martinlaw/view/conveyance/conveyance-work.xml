@@ -35,8 +35,9 @@
 						<list>
 							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh"
 								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work">
-								<!-- <property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" /> -->
 							</bean>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="workTypeId" 
+								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work"/>
 							<bean parent="Uif-InputField" p:propertyName="conveyanceAnnexTypeId"
 								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work"
 								p:conditionalRefresh="!#empty(document.matterId)"

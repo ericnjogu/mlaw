@@ -31,7 +31,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -64,6 +67,7 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.martinlaw.MartinlawConstants;
 
 
 /**
@@ -75,6 +79,11 @@ import org.kuali.rice.krad.util.GlobalVariables;
 @MappedSuperclass
 public abstract class MatterWork extends MatterTxDocBase {
 	transient Logger log = Logger.getLogger(getClass());
+	@Transient //placed here for ojb's sake, coz jpa uses the object field below
+	private Long workTypeId = MartinlawConstants.DEFAULT_WORK_TYPE_ID;
+	@OneToOne
+	@JoinColumn(name = "work_type_id", nullable = false)
+	private WorkType workType;
 	
 	/**
 	 * 
@@ -952,5 +961,33 @@ public abstract class MatterWork extends MatterTxDocBase {
 			
 		}
 		
+	}
+
+	/**
+	 * @return the workTypeId
+	 */
+	public Long getWorkTypeId() {
+		return workTypeId;
+	}
+
+	/**
+	 * @param workTypeId the workTypeId to set
+	 */
+	public void setWorkTypeId(Long workTypeId) {
+		this.workTypeId = workTypeId;
+	}
+
+	/**
+	 * @return the workType
+	 */
+	public WorkType getWorkType() {
+		return workType;
+	}
+
+	/**
+	 * @param workType the workType to set
+	 */
+	public void setWorkType(WorkType workType) {
+		this.workType = workType;
 	}
 }

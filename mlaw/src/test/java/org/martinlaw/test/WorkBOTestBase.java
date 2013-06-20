@@ -23,11 +23,13 @@ package org.martinlaw.test;
  */
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.MatterWorkRule;
@@ -57,6 +59,8 @@ public abstract class WorkBOTestBase extends MartinlawTestsBase {
 		MatterWork work = getBoSvc().findBySinglePrimaryKey(getWorkClass(), 1001l);
 		assertNotNull("result should not be null", work);
 		assertNotNull("matter should not be null", work.getMatter());
+		assertNotNull("work type should not be null", work.getWorkType());
+		assertEquals("default work type differs", MartinlawConstants.DEFAULT_WORK_TYPE_ID, work.getWorkTypeId());
 	}
 
 	/**

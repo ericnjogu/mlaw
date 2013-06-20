@@ -34,6 +34,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Opinion Id"/>
+				<bean parent="martinlaw_shared_work_bo_work_type_id">
+					<property name="optionsFinder">
+						<bean class="org.martinlaw.keyvalues.OpinionWorkTypeKeyValues" />
+					</property>
+				</bean>
 			</list>
 		</property>
 		 <property name="relationships">

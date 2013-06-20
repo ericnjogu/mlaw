@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -26,10 +26,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:p="http://www.springframework.org/schema/p" 
 xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--
- Copyright 2012 Protosoft Ltd
- 
--->
 
   <bean id="contract_work_doc" parent="uifTransactionalDocumentEntry">
 		<property name="documentTypeName" value="ContractWorkDocument" />
@@ -38,6 +34,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Contract Id"/>
+				<bean parent="martinlaw_shared_work_bo_work_type_id">
+					<property name="optionsFinder">
+						<bean class="org.martinlaw.keyvalues.ContractWorkTypeKeyValues" />
+					</property>
+				</bean>
 			</list>
 		</property>
 		<!-- decided to use quickfinder.dataObjectClassName and return by script to go round 404 errors when the lookup returns -->

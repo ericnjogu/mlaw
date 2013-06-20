@@ -1154,8 +1154,16 @@
 			jdbc-type="BIGINT" />
 		
 		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.contract.Contract" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> <foreignkey field-ref="matterId" 
-			/> </reference-descriptor>
+			auto-retrieve="true" auto-update="none" auto-delete="none"> 
+			<foreignkey field-ref="matterId"/> 
+		</reference-descriptor>
+		
+		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
+		<reference-descriptor name="workType"
+			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="workTypeId" />
+		</reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.courtcase.Work"
@@ -1179,6 +1187,13 @@
 			auto-delete="none">
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
+		
+		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
+		<reference-descriptor name="workType"
+			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="workTypeId" />
+		</reference-descriptor>
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.opinion.Work"
@@ -1201,6 +1216,13 @@
 			class-ref="org.martinlaw.bo.opinion.Opinion" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="matterId" />
+		</reference-descriptor>
+		
+		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
+		<reference-descriptor name="workType"
+			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="workTypeId" />
 		</reference-descriptor>
 	</class-descriptor>
 
@@ -1233,6 +1255,13 @@
 			class-ref="org.martinlaw.bo.conveyance.Conveyance" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="matterId" />
+		</reference-descriptor>
+		
+		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
+		<reference-descriptor name="workType"
+			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="workTypeId" />
 		</reference-descriptor>
 	</class-descriptor>
 	

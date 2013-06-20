@@ -44,9 +44,10 @@
 				<bean parent="Uif-GridSection">
 					<property name="items">
 						<list>
-							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" p:dictionaryObjectEntry="org.martinlaw.bo.contract.Work">
-								<!-- <property name="quickfinder.dataObjectClassName" value="org.martinlaw.bo.contract.Contract" /> -->
-							</bean>
+							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" 
+								p:dictionaryObjectEntry="org.martinlaw.bo.contract.Work"/>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="workTypeId" 
+								p:dictionaryObjectEntry="org.martinlaw.bo.contract.Work"/>
 						</list>
 					</property>
 				</bean>

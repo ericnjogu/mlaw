@@ -284,5 +284,25 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<bean parent="TextControlDefinition" p:size="20" />
 		</property>
 	</bean>
+	
+	<bean id="martinlaw_shared_work_bo_work_type_id" parent="AttributeDefinition" abstract="true">
+		<property name="maxLength" value="20" />
+		<property name="validationPattern">
+			<bean parent="NumericValidationPattern"/>
+		</property>
+		<property name="label" value="Type" />
+		<property name="required" value="true" />
+		<property name="name" value="workTypeId"/>
+		<property name="controlField">
+			<bean parent="Uif-DropdownControl" />
+		</property>
+		<!-- required for display in kns custom document search -->
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:size="20" 
+				p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.WorkType"
+				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
+		</property>
+	</bean>
 
 </beans>

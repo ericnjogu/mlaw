@@ -2,7 +2,7 @@
 -- #%L
 -- mlaw
 -- %%
--- Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+-- Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
 -- %%
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as
@@ -21,7 +21,7 @@
 ---
 insert into
 martinlaw_contract_work_doc_t
-(matter_id, DOC_HDR_ID, ver_nbr, obj_id)
+(matter_id, DOC_HDR_ID, ver_nbr, obj_id, work_type_id)
 values
-(1001, "1001", 1, 'cw1'),
-(1001, "1002", 1, 'cw2');
+(1001, "1001", 1, uuid(), 10001),
+(1001, "1002", 1, uuid(), 10001);
