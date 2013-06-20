@@ -1,13 +1,13 @@
 /**
  * 
  */
-package org.martinlaw.test.contract;
+package org.martinlaw.test.type;
 
 /*
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -25,44 +25,23 @@ package org.martinlaw.test.contract;
  * #L%
  */
 
-
 import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.contract.ContractType;
-import org.martinlaw.test.type.BaseDetailBoTestBase;
+import org.martinlaw.bo.WorkType;
 
 /**
- * test various BO ops for {@link ContractType}
- * 
+ * tests routing for {@link WorkType}
  * @author mugo
- * 
+ *
  */
-public class ContractTypeBOTest extends BaseDetailBoTestBase {
-
-	private ContractType contractType;
+public class WorkTypeRoutingTest extends BaseDetailRoutingTestBase {
 
 	@Override
 	public Class<? extends BaseDetail> getDataObjectClass() {
-		return ContractType.class;
-	}
-
-	@Override
-	public BaseDetail getExpectedOnRetrieve() {
-		return contractType;
-	}
-
-	/**
-	 * 
-	 */
-	public ContractTypeBOTest() {
-		contractType = new ContractType();
-		contractType.setId(1002l);
-		contractType.setName("life assurance");
-		contractType.setDescription("maisha");
+		return WorkType.class;
 	}
 
 	@Override
 	public String getDocTypeName() {
-		return "ContractTypeMaintenanceDocument";
+		return "WorkTypeMaintenanceDocument";
 	}
-
 }

@@ -1,13 +1,10 @@
-/**
- * 
- */
-package org.martinlaw.test.contract;
+package org.martinlaw.bo.sequence;
 
 /*
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,25 +23,38 @@ package org.martinlaw.test.contract;
  */
 
 
-import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.contract.ContractType;
-import org.martinlaw.test.type.BaseDetailRoutingTestBase;
+import java.math.BigInteger;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * tests routing for {@link ContractType}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.WorkTypeScope}
+ * 
  * @author mugo
  *
  */
-public class ContractTypeRoutingTest extends BaseDetailRoutingTestBase {
 
-	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
-		return ContractType.class;
+@Entity
+@Table(name="martinlaw_work_type_scope_s")
+public class WorkTypeScopeSeq {
+	@Id
+	@Column(columnDefinition="bigint auto_increment")
+	private BigInteger id;
+
+	/**
+	 * @return the id
+	 */
+	public BigInteger getId() {
+		return id;
 	}
 
-	@Override
-	public String getDocTypeName() {
-		return "ContractTypeMaintenanceDocument";
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(BigInteger id) {
+		this.id = id;
 	}
-	
 }

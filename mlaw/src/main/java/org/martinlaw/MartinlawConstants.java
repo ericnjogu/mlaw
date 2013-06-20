@@ -46,6 +46,7 @@ public class MartinlawConstants {
 	public final static String OPENID_ACTIVATE_ROLE = "ROLE_ACTIVATE_OPENID";
 	public final static String OPENID_UNACTIVATED_USERNAME = "unactivated.openid.user";
 	public final static String OPENID_ACTIVATION_MESSAGE = "mlaw_openid_activation_message";
+	public final static Long DEFAULT_WORK_TYPE_ID = 10001l;
 	public class DocTypes {
 		public final static String CONTRACT_WORK = "ContractWorkDocument";
 		public static final String COURTCASE_WORK = "CourtCaseWorkDocument";

@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.martinlaw.test.contract;
+package org.martinlaw.bo.sequence;
 
 /*
  * #%L
@@ -26,43 +23,38 @@ package org.martinlaw.test.contract;
  */
 
 
-import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.contract.ContractType;
-import org.martinlaw.test.type.BaseDetailBoTestBase;
+import java.math.BigInteger;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * test various BO ops for {@link ContractType}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.WorkType}
  * 
  * @author mugo
- * 
+ *
  */
-public class ContractTypeBOTest extends BaseDetailBoTestBase {
 
-	private ContractType contractType;
+@Entity
+@Table(name="martinlaw_work_type_s")
+public class WorkTypeSeq {
+	@Id
+	@Column(columnDefinition="bigint auto_increment")
+	private BigInteger id;
 
-	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
-		return ContractType.class;
-	}
-
-	@Override
-	public BaseDetail getExpectedOnRetrieve() {
-		return contractType;
+	/**
+	 * @return the id
+	 */
+	public BigInteger getId() {
+		return id;
 	}
 
 	/**
-	 * 
+	 * @param id the id to set
 	 */
-	public ContractTypeBOTest() {
-		contractType = new ContractType();
-		contractType.setId(1002l);
-		contractType.setName("life assurance");
-		contractType.setDescription("maisha");
+	public void setId(BigInteger id) {
+		this.id = id;
 	}
-
-	@Override
-	public String getDocTypeName() {
-		return "ContractTypeMaintenanceDocument";
-	}
-
 }

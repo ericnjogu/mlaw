@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.martinlaw.test;
+package org.martinlaw.test.type;
 
 import static org.junit.Assert.assertEquals;
 

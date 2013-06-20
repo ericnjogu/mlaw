@@ -1,4 +1,4 @@
-package org.martinlaw.test;
+package org.martinlaw.test.type;
 
 /*
  * #%L
@@ -36,7 +36,8 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.contract.ContractType;
+import org.martinlaw.test.KewTestsBase;
+import org.martinlaw.test.TestBoInfo;
 import org.martinlaw.util.SearchTestCriteria;
 
 /**
@@ -58,7 +59,6 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 		try {
 			testMaintenanceRoutingInitToFinal(getDocTypeName(), type);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log .error("test failed", e);
 			fail("test routing " + getDocTypeName() + " caused an exception");
 		}
@@ -96,12 +96,12 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	@Test
 	public void testBaseDetailRoutingDocSearch() throws WorkflowException,
 		InstantiationException, IllegalAccessException {
-		BaseDetail type = new ContractType();
+		BaseDetail type = getDataObjectClass().newInstance();
 		type.setName("permanent for testing purposes");
 		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, type);
 		
-		BaseDetail type2 = new ContractType();
+		BaseDetail type2 = getDataObjectClass().newInstance();
 		type2.setName("supply of rain and shine");
 		testMaintenanceRoutingInitToFinal(docType, type2);
 		

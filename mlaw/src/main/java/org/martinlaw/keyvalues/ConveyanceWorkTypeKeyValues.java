@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.martinlaw.test;
+package org.martinlaw.keyvalues;
 
 /*
  * #%L
@@ -26,25 +26,29 @@ package org.martinlaw.test;
  */
 
 
+import java.util.List;
 
-
-import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.ConsiderationType;
+import org.kuali.rice.core.api.util.KeyValue;
+import org.martinlaw.bo.conveyance.Conveyance;
 
 /**
- * tests routing for {@link ConsiderationType}
+ * displays work types whose scope is not set or which includes @{link Conveyance}
+ * 
  * @author mugo
  *
  */
-public class ConsiderationTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class ConveyanceWorkTypeKeyValues  extends WorkTypeKeyValuesBase {
 
-	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
-		return ConsiderationType.class;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3939234064376747895L;
 
+	/* (non-Javadoc)
+	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
+	 */
 	@Override
-	public String getDocTypeName() {
-		return "ConsiderationTypeMaintenanceDocument";
+	public List<KeyValue> getKeyValues() {
+		return super.getKeyValues(Conveyance.class.getCanonicalName());	
 	}
 }

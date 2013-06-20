@@ -1451,6 +1451,44 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 	
+	<class-descriptor class="org.martinlaw.bo.WorkType" table="martinlaw_work_type_t">
+		<field-descriptor name="id" column="work_type_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_work_type_s">
+		</field-descriptor>
+		<field-descriptor name="name" column="name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+			
+		<collection-descriptor name="scope"
+			element-class-ref="org.martinlaw.bo.WorkTypeScope"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="workTypeId" />
+		</collection-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.WorkTypeScope" table="martinlaw_work_type_scope_t">
+		<field-descriptor name="id" column="work_type_scope_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_work_type_scope_s">
+		</field-descriptor>
+		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
+			jdbc-type="VARCHAR" length="100"/>
+		<field-descriptor name="workTypeId" column="work_type_id"
+			jdbc-type="BIGINT"/>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+	</class-descriptor>
+	
 	<class-descriptor class="org.martinlaw.bo.TransactionType" table="martinlaw_transaction_type_t">
 		<field-descriptor name="id" column="transaction_type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"

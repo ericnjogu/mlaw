@@ -41,6 +41,8 @@
 				<value>org.martinlaw.bo.TransactionType</value>
 				<value>org.martinlaw.bo.Scope</value>
 				<value>org.martinlaw.bo.ConsiderationTypeScope</value>
+				<value>org.martinlaw.bo.WorkType</value>
+				<value>org.martinlaw.bo.WorkTypeScope</value>
 				
 				
 				<value>org.martinlaw.bo.MatterAssignee</value>
@@ -62,6 +64,8 @@
 				<value>org.martinlaw.bo.sequence.TransactionTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.EventTypeScopeSeq</value>
 				<value>org.martinlaw.bo.sequence.ConsiderationTypeScopeSeq</value>
+				<value>org.martinlaw.bo.sequence.WorkTypeSeq</value>
+				<value>org.martinlaw.bo.sequence.WorkTypeScopeSeq</value>
 				
 				<value>org.martinlaw.bo.courtcase.Work</value>
 				<value>org.martinlaw.bo.courtcase.Event</value>

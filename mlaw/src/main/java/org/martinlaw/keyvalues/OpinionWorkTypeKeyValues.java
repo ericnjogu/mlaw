@@ -1,13 +1,13 @@
 /**
  * 
  */
-package org.martinlaw.test.contract;
+package org.martinlaw.keyvalues;
 
 /*
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,25 +26,29 @@ package org.martinlaw.test.contract;
  */
 
 
-import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.contract.ContractType;
-import org.martinlaw.test.type.BaseDetailRoutingTestBase;
+import java.util.List;
+
+import org.kuali.rice.core.api.util.KeyValue;
+import org.martinlaw.bo.opinion.Opinion;
 
 /**
- * tests routing for {@link ContractType}
+ * displays work types whose scope is not set or which includes {@link Opinion}
+ * 
  * @author mugo
  *
  */
-public class ContractTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class OpinionWorkTypeKeyValues  extends WorkTypeKeyValuesBase {
 
-	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
-		return ContractType.class;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5768463743589238193L;
 
+	/* (non-Javadoc)
+	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
+	 */
 	@Override
-	public String getDocTypeName() {
-		return "ContractTypeMaintenanceDocument";
+	public List<KeyValue> getKeyValues() {
+		return super.getKeyValues(Opinion.class.getCanonicalName());	
 	}
-	
 }

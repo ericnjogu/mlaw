@@ -1,13 +1,13 @@
 /**
  * 
  */
-package org.martinlaw.test.contract;
+package org.martinlaw.keyvalues;
 
 /*
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,25 +26,28 @@ package org.martinlaw.test.contract;
  */
 
 
-import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.contract.ContractType;
-import org.martinlaw.test.type.BaseDetailRoutingTestBase;
+import java.util.List;
+
+import org.kuali.rice.core.api.util.KeyValue;
+import org.martinlaw.bo.courtcase.CourtCase;
 
 /**
- * tests routing for {@link ContractType}
+ * displays consideration types whose scope is not set or which includes {@link CourtCase}
+ * 
  * @author mugo
  *
  */
-public class ContractTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class CourtCaseWorkTypeKeyValues  extends WorkTypeKeyValuesBase {
 
-	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
-		return ContractType.class;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6437266342673833765L;
 
+	/* (non-Javadoc)
+	 * @see org.kuali.rice.krad.keyvalues.KeyValuesFinder#getKeyValues()
+	 */
 	@Override
-	public String getDocTypeName() {
-		return "ContractTypeMaintenanceDocument";
-	}
-	
+	public List<KeyValue> getKeyValues() {
+		return super.getKeyValues(CourtCase.class.getCanonicalName());	}
 }

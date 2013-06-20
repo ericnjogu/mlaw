@@ -1,4 +1,4 @@
-package org.martinlaw.test;
+package org.martinlaw.test.type;
 
 /*
  * #%L
@@ -28,6 +28,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.test.MartinlawTestsBase;
+import org.martinlaw.test.TestBoInfo;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -80,7 +82,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	 * @throws InstantiationException 
 	 */
 	@Test
-	public void testContractTypeCRUD() throws InstantiationException, IllegalAccessException {
+	public void testBaseDetailCRUD() throws InstantiationException, IllegalAccessException {
 		// C
 		BaseDetail type = getDataObjectClass().newInstance();
 		String name = "test type";
