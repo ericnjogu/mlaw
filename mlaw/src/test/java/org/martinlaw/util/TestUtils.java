@@ -627,6 +627,7 @@ public class TestUtils {
 		CourtCase theCase = new CourtCase();
 		theCase.setLocalReference("my/cases/1");
 		theCase.setName("water vs fire");
+		theCase.setCourtReference("No 12 of 2015");
 		caseEvent.setMatter(theCase);
 		
 		// create test date
@@ -644,7 +645,7 @@ public class TestUtils {
 		Timestamp ts = new Timestamp(testCal.getTimeInMillis());
 		caseEvent.setDateCreated(ts);
 		caseEvent.setDateModified(ts);
-		caseEvent.setLocation("milimani");
+		caseEvent.setLocation("Milimani");
 		return caseEvent;
 	}
 	

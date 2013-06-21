@@ -25,6 +25,7 @@ package org.martinlaw.bo;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +38,8 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.courtcase.Event;
 /**
  * basic event info for a matter
  * <p>this is meant to be integrated with an actual calendaring system which will offer reminders, invitations, sharing etc
@@ -69,7 +72,7 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 	@Column(name="id")
 	Long id;
 	@Transient
-	private String eventSummary;
+	private String eventDescription;
 	@Column(name = "end_date",  columnDefinition="datetime null")
 	private Timestamp endDate;
 	@Column(name = "location", nullable=false)
@@ -211,7 +214,11 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 		SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyyMMdd'T'hhmmssZ");
 		eventData.put("DTSTART", sdfDateTime.format(getStartDate()));
 		if (getEndDate() == null) {
-			eventData.put("DTEND", "");
+			//add an hour to start time to arrive at end time
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(startDate);
+			cal.add(Calendar.HOUR_OF_DAY, 1);
+			eventData.put("DTEND", sdfDateTime.format(cal.getTime()));
 		} else {
 			eventData.put("DTEND", sdfDateTime.format(getEndDate()));
 		}
@@ -219,7 +226,7 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 		eventData.put("CREATED", sdfDateTime.format(getDateCreated()));
 		eventData.put("DTSTAMP", sdfDateTime.format(getDateModified()));
 		
-		String summary = getEventSummary();
+		String summary = getEventDescription();
 		eventData.put("SUMMARY", summary);
 		eventData.put("DESCRIPTION", summary);
 		
@@ -243,24 +250,33 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 	}
 	
 	/**
-	 * gets the event summary for use within the vcalendar output and notification
-	 * @return a combination of local reference, matter name, event type name and matter startDate separated by " - "
+	 * gets the event description for use within the vcalendar output and notification
+	 * @return a combination of local reference, matter name, event type name, matter startDate, location, court reference (if applicable) 
+	 * separated by a newline
 	 */
-	public String getEventSummary() {
+	public String getEventDescription() {
 		// have a local copy of the event summary
-		if (eventSummary == null) {
+		if (eventDescription == null) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(getMatter().getLocalReference());
-			sb.append(" - ");
+			// courtesy http://stackoverflow.com/questions/666929/encoding-newlines-in-ical-files
+			final String lineDelimiter = "\\n";
+			sb.append(lineDelimiter);
 			sb.append(getMatter().getName());
-			sb.append(" - ");
+			sb.append(lineDelimiter);
 			sb.append(getType().getName());
-			sb.append(" - ");
+			sb.append(lineDelimiter);
+			if (this instanceof Event) {
+				sb.append(((CourtCase) getMatter()).getCourtReference());
+				sb.append(lineDelimiter);
+			}
 			SimpleDateFormat sdf3 = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm a");
 			sb.append(sdf3.format(getStartDate()));
-			eventSummary = sb.toString();
+			sb.append(lineDelimiter);
+			sb.append(getLocation());
+			eventDescription = sb.toString();
 		}
-		return eventSummary;
+		return eventDescription;
 	}
 	
 	/**
@@ -276,9 +292,9 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 		eventData.put(MartinlawConstants.NotificationTemplateParameters.PRODUCER_NAME, producerName);
 		eventData.put(MartinlawConstants.NotificationTemplateParameters.MESSAGE, message);
 		
-		eventData.put(MartinlawConstants.NotificationTemplateParameters.TITLE, getEventSummary());
-		eventData.put(MartinlawConstants.NotificationTemplateParameters.DESCRIPTION, getEventSummary());
-		eventData.put(MartinlawConstants.NotificationTemplateParameters.SUMMARY, getEventSummary());
+		/*eventData.put(MartinlawConstants.NotificationTemplateParameters.TITLE, getEventDescription());*/
+		eventData.put(MartinlawConstants.NotificationTemplateParameters.DESCRIPTION, getEventDescription());
+		/*eventData.put(MartinlawConstants.NotificationTemplateParameters.SUMMARY, getEventDescription());*/
 		
 		eventData.put(MartinlawConstants.NotificationTemplateParameters.LOCATION, getLocation());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

@@ -76,13 +76,14 @@ public class CalendarController {
 	public String downloadDate(HttpServletRequest request,  HttpServletResponse response, 
 			@PathVariable String uid) throws IOException {
 		MatterEvent matterEvent = getMatterDate(uid);
-		String template = IOUtils.toString(getClass().getResourceAsStream(MartinlawConstants.VCALENDAR_TEMPLATE_FILE));
+		String template = IOUtils.toString(MatterEvent.class.getResourceAsStream(MartinlawConstants.VCALENDAR_TEMPLATE_FILE));
 		if (StringUtils.isEmpty(template)) {
 			throw new RuntimeException("The vcalendar template has not been defined in '" + MartinlawConstants.VCALENDAR_TEMPLATE_FILE + "'");
 		}
 		String calendar = matterEvent.toIcalendar(template);
 		InputStream is = new ByteArrayInputStream(calendar.getBytes());
-		getDownloadUtils().downloadAsStream(response, is, "text/calendar", calendar.length(), matterEvent.getEventSummary() + ".ics");
+		String fileName = matterEvent.getMatter().getLocalReference() + "-" + matterEvent.getType().getName();
+		getDownloadUtils().downloadAsStream(response, is, "text/calendar", calendar.length(),  fileName + ".ics");
 		return null;
 	}
 

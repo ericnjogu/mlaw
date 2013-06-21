@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.util.TestUtils;
@@ -39,6 +40,7 @@ public class MatterEventTest {
 	}
 	
 	@Test
+	@Ignore("intend to rework notifications into sync/push")
 	/**
 	 * tests {@link org.martinlaw.bo.MatterEvent#toNotificationXML(String, String, String, String)}
 	 */

@@ -38,7 +38,7 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 	<!-- here must match one of the registered priorities -->
 	<priority>Normal</priority>
 
-    <title>${title}</title>
+    <title>mLaw event</title>
 
 	<!-- this is the name of the content type for the message -->
 	<!-- content types are registered in the system, so your value -->
@@ -49,7 +49,7 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 	<content xmlns="ns:notification/ContentTypeEvent"  xsi:schemaLocation="ns:notification/ContentTypeEvent resource:notification/ContentTypeEvent">
 		<message>${message}</message>
 		<event>
-			<summary>${summary}</summary>
+			<summary>mLaw event</summary>
 			<description>${description}</description>
 			<location>${location}</location>
 			<startDateTime>${startDateTime}</startDateTime>

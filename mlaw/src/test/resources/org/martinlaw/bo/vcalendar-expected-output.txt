@@ -1,14 +1,14 @@
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Protosoft Kenya Ltd//mLaw//EN
-X-WR-CALNAME:mLaw
+X-WR-CALNAME:mlaw
 BEGIN:VEVENT
 DTSTART:20130222T111915+0300
-DTEND:
+DTEND:20130222T121915+0300
 DTSTAMP:20130222T111915+0300
 UID:1001-org.martinlaw.bo.courtcase.Event@mlaw.co.ke
 CREATED:20130222T111915+0300
-DESCRIPTION:my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM
-SUMMARY:my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM
+DESCRIPTION:my/cases/1\nwater vs fire\njudgement\nNo 12 of 2015\nFri, 22 Feb 2013 11:19 AM\nMilimani
+SUMMARY:mLaw event
 END:VEVENT
 END:VCALENDAR

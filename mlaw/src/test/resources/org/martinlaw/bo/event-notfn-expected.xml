@@ -38,7 +38,7 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 	<!-- here must match one of the registered priorities -->
 	<priority>Normal</priority>
 
-    <title>my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM</title>
+    <title>mLaw event</title>
 
 	<!-- this is the name of the content type for the message -->
 	<!-- content types are registered in the system, so your value -->
@@ -49,9 +49,14 @@ adapted from /src/test/resources/org/kuali/rice/ken/services/impl/valid_input.xm
 	<content xmlns="ns:notification/ContentTypeEvent"  xsi:schemaLocation="ns:notification/ContentTypeEvent resource:notification/ContentTypeEvent">
 		<message>May you prosper and be in good health.</message>
 		<event>
-			<summary>my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM</summary>
-			<description>my/cases/1 - water vs fire - judgement - Fri, 22 Feb 2013 11:19 AM</description>
-			<location>milimani</location>
+			<summary>mLaw event</summary>
+			<description>my/cases/1
+water vs fire
+judgement
+No 12 of 2015
+Fri, 22 Feb 2013 11:19 AM
+Milimani</description>
+			<location>Milimani</location>
 			<startDateTime>2013-02-22T11:19:15</startDateTime>
 			<stopDateTime>2013-02-22T11:19:15</stopDateTime>
 		</event>
