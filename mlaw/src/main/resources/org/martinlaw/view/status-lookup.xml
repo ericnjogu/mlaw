@@ -31,7 +31,7 @@
     <property name="dataObjectClassName" value="org.martinlaw.bo.Status" />
     <property name="criteriaFields">
       <list>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="status" />
+        <bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="status" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_status">
 			<property name="control">
 				<bean parent="Uif-HiddenControl">
@@ -43,7 +43,7 @@
     </property>
     <property name="resultFields">
       <list>
-         <bean parent="Uif-DataField" p:propertyName="id" />
+        <bean parent="Uif-DataField" p:propertyName="id" />
         <bean parent="Uif-DataField" p:propertyName="status" />
       </list>
     </property>

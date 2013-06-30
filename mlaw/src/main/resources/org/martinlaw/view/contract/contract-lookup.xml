@@ -33,9 +33,8 @@
       <list merge="true">
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId" />
         
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="serviceOffered"/>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="summaryOfTerms"/>
-        
+        <bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="serviceOffered"/>
+        <bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="summaryOfTerms"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.startDate"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.endDate" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.duration" />

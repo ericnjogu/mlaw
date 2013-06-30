@@ -87,8 +87,8 @@
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId" />
 				<bean parent="martinlaw_shared_matter_event_lookup_view_date_field" p:propertyName="startDate" p:id="event_start_date"/>
 				<bean parent="martinlaw_shared_matter_event_lookup_view_date_field" p:propertyName="endDate" p:id="event_end_date"/>
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="location" />
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="comment" />
+				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="location"/>
+				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="comment" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="active" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_event">
 					<property name="control">

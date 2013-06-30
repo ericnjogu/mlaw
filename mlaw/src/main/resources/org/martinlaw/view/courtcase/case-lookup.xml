@@ -30,7 +30,7 @@
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
 		<property name="criteriaFields">
 			<list merge="true">
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="courtReference" />
+				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="courtReference"/>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_case">
 					<property name="control">
       					<bean parent="Uif-HiddenControl">

@@ -95,8 +95,8 @@
 	<bean id="martinlaw_shared_name_description_LookupView" parent="martinlaw_shared_wildcard_lookup_view">
 		<property name="criteriaFields">
 			<list>
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="description" />
+				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="name" />
+				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="description" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_nmdsc">
 					<property name="control">
       					<bean parent="Uif-HiddenControl">
@@ -225,8 +225,8 @@
 		<property name="criteriaFields">
 			<list>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="localReference" />
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="name" />
+				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="localReference" />
+				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="name" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId"/>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_matter">
 					<property name="control">
@@ -377,5 +377,16 @@
 	 
 	 <bean id="martinlaw_shared_wildcard_lookup_view" abstract="true" parent="Uif-LookupView">
 	 	<property name="viewHelperServiceClass" value="org.martinlaw.web.WildcardLookupableImpl"/>
+	 </bean>
+	 
+	 <bean id="martinlaw_shared_wildcard_lookup_field" parent="Uif-LookupCriteriaInputField" abstract="true">
+		 <property name="control">
+            <bean parent="Uif-TextControl">
+              <property name="toolTip">
+                <bean parent="Uif-Tooltip" p:onFocus="true" 
+                p:tooltipContent="Please provide any word or part of a word that contains what you are looking for"/>
+              </property>
+            </bean>
+          </property>
 	 </bean>
 </beans>
