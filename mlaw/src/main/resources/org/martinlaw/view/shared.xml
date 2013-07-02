@@ -326,7 +326,7 @@
 	        <map merge = "true">
 	        	<!-- additional config to make the document number sortable numerically -->
 	          <entry key="aoColumnDefs" 
-	          	value="[{'sSortDataType' : 'dom-text' , 'sType' : 'string', 'aTargets': [0, 1, 2, 3, 4, 5, 7]}, 
+	          	value="[{'sSortDataType' : 'dom-text' , 'sType' : 'string', 'aTargets': 'all'}, 
 	          	{'bSortable' : false, 'aTargets': [6]}]"/>
           	</map>
         </property>
