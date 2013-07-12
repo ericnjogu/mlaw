@@ -83,7 +83,7 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	}
 
 	@Test
-	public void testContractTypeMaintDocPerms() {
+	public void testBaseDetailMaintDocPerms() {
 		testCreateMaintain(getDataObjectClass(), getDocTypeName());
 	}
 
