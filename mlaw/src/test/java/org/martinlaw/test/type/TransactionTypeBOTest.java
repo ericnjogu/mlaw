@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.TransactionType;
 
 /*
@@ -69,5 +70,18 @@ public class TransactionTypeBOTest extends BaseDetailBoTestBase {
 	public void testRetrievedEffectOnConsideration () {
 		TransactionType type = getBoSvc().findBySinglePrimaryKey(TransactionType.class, getExpectedOnRetrieve().getId());
 		assertEquals("effect on consideration differs", transactionType.getEffectOnConsideration(), type.getEffectOnConsideration());
+	}
+
+	@Override
+	public Class<? extends Scope> getScopeClass() {
+		return null;//does not apply
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.type.BaseDetailBoTestBase#testScopeAttributes()
+	 */
+	@Override
+	public void testScopeAttributes() {
+		// do nothing as transaction type has no scope
 	}
 }
