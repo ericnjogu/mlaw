@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.martinlaw.bo.BaseDetail;
 import org.martinlaw.bo.ConsiderationType;
 import org.martinlaw.bo.ConsiderationTypeScope;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.opinion.Opinion;
@@ -142,5 +143,10 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 		getTestUtils().testMatterStatusKeyValues(new OpinionConsiderationTypeKeyValues(), comment, 2);
 		comment = "expected two consideration type with conveyance scope, one that applies to all (empty), plus a blank one";
 		getTestUtils().testMatterStatusKeyValues(new ConveyanceConsiderationTypeKeyValues(), comment, 4);
+	}
+
+	@Override
+	public Class<? extends Scope> getScopeClass() {
+		return ConsiderationTypeScope.class;
 	}
 }

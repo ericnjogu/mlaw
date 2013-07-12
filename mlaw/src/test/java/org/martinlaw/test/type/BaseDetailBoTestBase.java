@@ -28,6 +28,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.martinlaw.test.TestBoInfo;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -60,7 +61,16 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	@Test
 	public void testBaseDetailAttributes() {
 		testBoAttributesPresent(getDataObjectClass().getCanonicalName());
+		testBoAttributesPresent(getScopeClass().getCanonicalName());
 		verifyMaintDocDataDictEntries(getDataObjectClass());
+	}
+	
+	/**
+	 * tests scope (if applicable) dictionary entries
+	 */
+	@Test
+	public void testScopeAttributes() {
+		testBoAttributesPresent(getScopeClass().getCanonicalName());
 	}
 
 	/**
@@ -113,4 +123,9 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	 * @return a bo containing the expected values to be compared to the bo retrieved from the db 
 	 */
 	public abstract BaseDetail getExpectedOnRetrieve();
+	
+	/**
+	 * @return the scope class
+	 */
+	public abstract Class<? extends Scope> getScopeClass();
 }

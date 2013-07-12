@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.WorkType;
 import org.martinlaw.bo.WorkTypeScope;
 import org.martinlaw.bo.courtcase.CourtCase;
@@ -139,5 +140,10 @@ public class WorkTypeBOTest extends BaseDetailBoTestBase {
 		getTestUtils().testMatterStatusKeyValues(new ContractWorkTypeKeyValues(), comment, 6);
 		getTestUtils().testMatterStatusKeyValues(new OpinionWorkTypeKeyValues(), comment, 6);
 		getTestUtils().testMatterStatusKeyValues(new ConveyanceWorkTypeKeyValues(), comment, 6);
+	}
+
+	@Override
+	public Class<? extends Scope> getScopeClass() {
+		return WorkTypeScope.class;
 	}
 }
