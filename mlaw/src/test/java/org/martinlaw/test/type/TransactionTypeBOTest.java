@@ -84,4 +84,12 @@ public class TransactionTypeBOTest extends BaseDetailBoTestBase {
 	public void testScopeAttributes() {
 		// do nothing as transaction type has no scope
 	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.type.BaseDetailBoTestBase#testScopeCollectionDD()
+	 */
+	@Override
+	public void testScopeCollectionDD() {
+		// do nothing as transaction type has no scope
+	}
 }

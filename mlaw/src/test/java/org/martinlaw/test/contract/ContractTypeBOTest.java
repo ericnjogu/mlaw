@@ -79,4 +79,12 @@ public class ContractTypeBOTest extends BaseDetailBoTestBase {
 		// contract type has no scope
 	}
 
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.type.BaseDetailBoTestBase#testScopeCollectionDD()
+	 */
+	@Override
+	public void testScopeCollectionDD() {
+		// contract type has no scope
+	}
+
 }

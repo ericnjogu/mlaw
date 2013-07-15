@@ -27,6 +27,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.bo.BaseDetail;
 import org.martinlaw.bo.Scope;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -61,7 +62,6 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	@Test
 	public void testBaseDetailAttributes() {
 		testBoAttributesPresent(getDataObjectClass().getCanonicalName());
-		testBoAttributesPresent(getScopeClass().getCanonicalName());
 		verifyMaintDocDataDictEntries(getDataObjectClass());
 	}
 	
@@ -72,6 +72,8 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	public void testScopeAttributes() {
 		testBoAttributesPresent(getScopeClass().getCanonicalName());
 	}
+
+	public abstract Class<? extends Scope> getScopeClass();
 
 	/**
 	 * tests retrieving a BO with pk 1001l
@@ -125,7 +127,12 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	public abstract BaseDetail getExpectedOnRetrieve();
 	
 	/**
-	 * @return the scope class
+	 * verify that the collection definition has been defined
+	 * <p>to be overridden by tests for BOs which do not have a scope e.g. contract type</p>
 	 */
-	public abstract Class<? extends Scope> getScopeClass();
+	@Test
+	public void testScopeCollectionDD() {
+		String label = KRADServiceLocatorWeb.getDataDictionaryService().getCollectionLabel(getDataObjectClass(), "scope");
+		assertEquals("scope collection label differs", "scope", label);
+	}
 }
