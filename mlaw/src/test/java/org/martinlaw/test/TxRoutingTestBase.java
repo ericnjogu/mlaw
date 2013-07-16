@@ -76,13 +76,13 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	}
 
 	/**
-	 * tests {@link org.martinlaw.bo.MatterWorkRule#processCustomSaveDocumentBusinessRules(Document)}
+	 * tests {@link org.martinlaw.bo.MatterWorkRule#processCustomRouteDocumentBusinessRules(Document)}
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 * @throws WorkflowException 
 	 */
 	@Test
-	public void testProcessCustomSaveDocumentBusinessRules() throws InstantiationException, IllegalAccessException, WorkflowException {
+	public void testProcessCustomRouteDocumentBusinessRules() throws InstantiationException, IllegalAccessException, WorkflowException {
 		// not setting a value will definitely result in an error - so use a non-existent value
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
 		MatterTxDocBase txDoc = getTxDoc();
