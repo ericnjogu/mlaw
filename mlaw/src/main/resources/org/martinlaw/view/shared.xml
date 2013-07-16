@@ -224,7 +224,7 @@
 		parent="martinlaw_shared_wildcard_lookup_view">
 		<property name="criteriaFields">
 			<list>
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
+				<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" /> -->
 				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="localReference" />
 				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="name" />
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId"/>
@@ -239,7 +239,7 @@
 		</property>
 		<property name="resultFields">
 			<list>
-				<bean parent="Uif-DataField" p:propertyName="id" />
+				<!-- <bean parent="Uif-DataField" p:propertyName="id" /> -->
 				<bean parent="Uif-DataField" p:propertyName="localReference" />
 				<bean parent="Uif-DataField" p:propertyName="name" />
 				<bean parent="Uif-DataField" p:propertyName="status.status" />
