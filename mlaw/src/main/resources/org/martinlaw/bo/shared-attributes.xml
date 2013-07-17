@@ -279,7 +279,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="controlField">
 			<bean parent="Uif-TextControl" p:size="20">
 				<property name="toolTip">
-				  <bean parent="Uif-Tooltip" p:onFocus="true" 
+				  <bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
 				  p:tooltipContent="You may click on the magnifying glass icon on the right to select a matter"/>
 				</property>
 			</bean>
