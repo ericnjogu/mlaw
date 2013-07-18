@@ -27,8 +27,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="martinlaw_shared_assignment_inquiry_view" abstract="true"
-		parent="Uif-InquiryView">
+	<bean id="martinlaw_shared_assignment_inquiry_view" abstract="true"	parent="Uif-InquiryView">
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-Disclosure-GridSection">
@@ -48,21 +47,9 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_assignment_inquiry_view_assignees" abstract="true" parent="Uif-Disclosure-StackedCollectionSection">
+	<bean id="martinlaw_shared_assignment_inquiry_view_assignees" abstract="true" parent="martinlaw_shared_person_inquiry_section">
 		<property name="headerText" value="Assignees" />
 		<!-- <property name="collectionObjectClass" value="org.martinlaw.bo.contract.Assignee" /> -->
 		<property name="propertyName" value="assignees" />
-		<property name="items">
-			<list>
-				<bean parent="Uif-InputField" p:propertyName="person.principalId" />
-				<bean parent="Uif-InputField" p:propertyName="person.name"/>
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Assignee" />
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>person.name</value>
-			</list>
-		</property>
 	</bean>
 </beans>

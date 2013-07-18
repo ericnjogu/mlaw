@@ -92,12 +92,12 @@
 
   <!-- KRAD Conversion -->
 
-  <bean id="PersonImpl-InquiryView" parent="Uif-InquiryView">
+  <bean id="PersonImpl-InquiryView" parent="martinlaw_shared_enhanced_inquiry_view">
     <property name="headerText" value="Person Inquiry"/>
     <property name="dataObjectClassName" value="org.kuali.rice.kim.impl.identity.PersonImpl"/>
     <property name="viewHelperServiceClass" value="org.kuali.rice.kim.inquiry.PersonInquirableImpl"/>
     <property name="Items">
-      <list>
+      <list merge="true">
         <bean parent="Uif-Disclosure-GridSection">
           <property name="items">
             <list>
@@ -130,7 +130,6 @@
     <property name="defaultSortAttributeNames" value="principalName"/>
     <property name="criteriaFields">
       <list>
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="principalName"/>
        <!--  <bean parent="Uif-LookupCriteriaInputField" p:propertyName="principalId"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="entityId"/> -->
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="firstName"/>
@@ -143,6 +142,7 @@
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="primaryDepartmentCode"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="employeeStatusCode"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="employeeTypeCode"/> -->
+        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="principalName"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="active" p:defaultValue="Y"/>
         <!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="lookupRoleNamespaceCode"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="lookupRoleName"/> -->

@@ -31,8 +31,9 @@
 
 	<bean id="martinlaw_shared_person_inquiry_view" parent="Uif-InquiryView"
 		abstract="true">
-		<property name="Items">
-			<list>
+		<!-- rarely used as the inbuilt inquiry is displayed when principal id is clicked -->
+		<property name="items">
+			<list merge="true">
 				<bean parent="Uif-Disclosure-GridSection">
 					<property name="headerText" value="Details" />
 					<property name="items">
@@ -49,22 +50,30 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_client_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection"
+	<bean id="martinlaw_shared_client_inquiry_section" parent="martinlaw_shared_person_inquiry_section"
 		abstract="true">
 		<property name="headerText" value="Clients" />
 		<property name="propertyName" value="clients" />
+	</bean>
+	
+	<bean id="martinlaw_shared_person_inquiry_section" parent="Uif-Disclosure-TableCollectionSection"
+		abstract="true">
+		<property name="layoutManager.renderSequenceField" value="false"/>
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="person.principalId" />
 				<bean parent="Uif-InputField" p:propertyName="person.name" />
+				<bean parent="Uif-LinkField" p:target="_blank">
+			      <property name="linkText" value="edit"/>
+			      <property name="render" value="@{#hasPerm('KR-IDM', 'Modify Entity') and !#empty(#line.person)}"/>
+			      <property name="href">
+			      	<value>
+			      	@{#ConfigProperties['kim.url']}/identityManagementPersonDocument.do?&amp;principalId=@{#line.person.principalId}&amp;docTypeName=IdentityManagementPersonDocument&amp;methodToCall=docHandler&amp;command=initiate
+			      	</value>
+			      </property>
+			    </bean>
 			</list>
 		</property>
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>person.name</value>
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Client" />
 	</bean>
 
 	<bean id="martinlaw_shared_client-maintenance-section" parent="Uif-StackedCollectionSection"
@@ -115,9 +124,9 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_name_description_inquiry_view" parent="Uif-InquiryView">
-		<property name="Items">
-			<list>
+	<bean id="martinlaw_shared_name_description_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view">
+		<property name="items">
+			<list merge="true">
 				<ref bean="martinlaw_shared_name_description_inquiry_view_items"/>
 			</list>
 		</property>
@@ -324,7 +333,6 @@
 		</property>
 		<property name="layoutManager.richTable.templateOptions">
 	        <map merge = "true">
-	        	<!-- additional config to make the document number sortable numerically -->
 	          <entry key="aoColumnDefs" 
 	          	value="[{'sSortDataType' : 'dom-text' , 'sType' : 'string', 'aTargets': 'all'}, 
 	          	{'bSortable' : false, 'aTargets': [6]}]"/>
@@ -389,4 +397,89 @@
             </bean>
           </property>
 	 </bean>
+	 
+	 <bean id="martinlaw_shared_enhanced_inquiry_view" parent="Uif-InquiryView" abstract="true">
+	 	<property name="viewHelperServiceClass" value="org.martinlaw.web.EnhancedInquirableImpl"/>
+	 	<property name="items">
+			<list>
+		 		<bean parent="Uif-FieldGroupBase">
+			        <property name="label" value="Actions"/>
+			        <property name="group">
+			         	<bean parent="martinlaw_shared_enhanced_inquiry_view_object_actions"/>
+			        </property>
+		      	</bean>
+			</list>
+		</property>
+	 </bean>
+	 
+	 <bean id="martinlaw_shared_enhanced_inquiry_view_actions" parent="Uif-LinkGroup" abstract="true">
+	    <property name="cssClasses">
+	      <list merge="true">
+	        <value>uif-lookupView-resultActions</value>
+	      </list>
+	    </property>
+	    <property name="items">
+	      <list>
+	      	<bean parent="Uif-CreateNewLink" p:target="_blank" p:render="@{#ViewHelper.allowsMaintenanceNewOrCopyAction()}"/>
+			<ref bean="martinlaw_shared_copy_link"/>
+	      </list>
+	    </property>
+  	</bean>
+	 
+	<bean id="martinlaw_shared_enhanced_inquiry_view_object_actions" parent="martinlaw_shared_enhanced_inquiry_view_actions">
+	    <property name="items">
+	      <list merge="true">
+	        <bean parent="martinlaw_shared_edit_link">
+				<property name="render" value="@{#ViewHelper.allowsMaintenanceEditAction(dataObject)}"/>
+			</bean>
+	        <bean parent="martinlaw_shared_delete_link">
+				<property name="render" value="@{#ViewHelper.allowsMaintenanceDeleteAction(dataObject)}"/>
+			</bean>
+	      </list>
+	    </property>
+  	</bean>
+  
+  <bean id="martinlaw_shared_edit_link" parent="martinlaw_shared_new_tab_link" p:order="10" abstract="true">
+    <property name="linkText" value="edit"/>
+    <property name="finalizeMethodToCall" value="getMaintenanceActionLink"/>
+    <property name="finalizeMethodAdditionalArguments">
+      <list>
+        <value>maintenanceEdit</value>
+      </list>
+    </property>
+  </bean>
+ 
+ 	<bean id="martinlaw_shared_copy_link" parent="martinlaw_shared_new_tab_link" p:order="20">
+      <property name="linkText" value="copy"/>
+      <property name="finalizeMethodToCall" value="getMaintenanceActionLink"/>
+      <property name="finalizeMethodAdditionalArguments">
+        <list>
+          <value>maintenanceCopy</value>
+        </list>
+      </property>
+      <property name="render" value="@{#ViewHelper.allowsMaintenanceNewOrCopyAction()}"/>
+    </bean>
+  
+  <bean id="martinlaw_shared_edit_line_link" parent="martinlaw_shared_edit_link">
+    <property name="render" value="@{#ViewHelper.allowsMaintenanceEditAction(#line)}"/>
+  </bean>
+  
+  <bean id="martinlaw_shared_delete_link" parent="martinlaw_shared_new_tab_link" p:order="30" abstract="true">
+    <property name="linkText" value="delete"/>
+    <property name="finalizeMethodToCall" value="getMaintenanceActionLink"/>
+    <property name="finalizeMethodAdditionalArguments">
+      <list>
+        <value>maintenanceDelete</value>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="martinlaw_shared_new_tab_link" parent="Uif-Link" p:target="_blank"/>
+  
+  <!-- <bean id="martinlaw_shared_enhanced_inquiry_view_line_actions" parent="Uif-FieldGroupBase">
+    <property name="label" value="Actions"/>
+    <property name="group">
+      <bean parent="Uif-LookupView-ResultActions"/>
+    </property>
+  </bean> -->
 </beans>

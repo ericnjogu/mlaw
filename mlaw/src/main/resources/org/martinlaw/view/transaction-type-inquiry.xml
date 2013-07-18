@@ -32,13 +32,13 @@
     <property name="items">
 	    <list merge="true">
 	    	
-	    	<bean parent="martinlaw_shared_name_description_inquiry_view_items">
+	    	<!-- <bean parent="martinlaw_shared_name_description_inquiry_view_items">
 	    		<property name="items">
-	    			<list merge="true">
+	    			<list merge="true"> -->
 	    				<bean parent="Uif-InputField" p:propertyName="effectOnConsideration" />
-	    			</list>
+	    			<!-- </list>
 	    		</property>
-	    	</bean>
+	    	</bean> -->
 	    </list>
     </property>
   </bean>

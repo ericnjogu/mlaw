@@ -83,7 +83,7 @@
 	<bean id="martinlaw_shared_matter_event_lookup_view" abstract="true" parent="martinlaw_shared_wildcard_lookup_view">
 		<property name="criteriaFields">
 			<list>
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" />
+				<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" /> -->
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId" />
 				<bean parent="martinlaw_shared_matter_event_lookup_view_date_field" p:propertyName="startDate" p:id="event_start_date"/>
 				<bean parent="martinlaw_shared_matter_event_lookup_view_date_field" p:propertyName="endDate" p:id="event_end_date"/>
@@ -147,7 +147,7 @@
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_matter_event_inquiry_view" parent="Uif-InquiryView" abstract="true">
+	<bean id="martinlaw_shared_matter_event_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view" abstract="true">
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-Disclosure-GridSection">

@@ -39,6 +39,7 @@ import org.kuali.rice.krad.uif.view.ViewModel;
 import org.kuali.rice.krad.web.form.InquiryForm;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterClient;
+import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.web.MatterTxForm;
 
@@ -78,7 +79,11 @@ public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
 			}
 		} else if (model instanceof InquiryForm) {
 			InquiryForm form = (InquiryForm) model;
-			matter = (Matter) form.getDataObject();
+			if (form.getDataObject() instanceof Matter) {
+				matter = (Matter) form.getDataObject();
+			} else if (form.getDataObject() instanceof MatterConsideration) {
+				matter = ((MatterConsideration) form.getDataObject()).getMatter();
+			}
 		}
 		if (matter != null && matter.getClients() != null && !matter.getClients().isEmpty()) {
 			for (Object clientObj: matter.getClients()) {

@@ -47,6 +47,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	        	p:dataObjectClass="org.martinlaw.bo.courtcase.Client"/>
 	        <bean parent="CollectionDefinition" p:name="witnesses" p:label="witnesses" p:shortLabel="witnesses" p:elementLabel="witness"
 	        	p:dataObjectClass="org.martinlaw.bo.courtcase.CourtCaseWitness"/>
+	        <bean parent="CollectionDefinition" p:name="assignees" p:label="assignees" p:shortLabel="assignees" p:elementLabel="assignee"
+	        	p:dataObjectClass="org.martinlaw.bo.courtcase.Assignee"/>
 	      </list>
       	</property>
 	</bean>
