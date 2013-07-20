@@ -177,9 +177,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_person_parentBean" abstract="true"
-		parent="BusinessObjectEntry">
-
+	<bean id="martinlaw_shared_person_parentBean" abstract="true" parent="BusinessObjectEntry">
+		<property name="titleAttribute" value="principalName" />
 		<property name="relationships">
 			<list>
 				<bean parent="RelationshipDefinition">
@@ -201,20 +200,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_type_bo" abstract="true" parent="BusinessObjectEntry">
-		<property name="titleAttribute" value="name" />
-		<property name="attributes">
-			<list>
-				<bean parent="martinlaw-shared-description" />
-				<bean parent="martinlaw-shared-id" />
-				<bean parent="martinlaw-shared-name" p:label="Type Name" />
-			</list>
-		</property>
-	</bean>
-
 	<bean id="martinlaw_shared_assignee_bo" abstract="true"
 		parent="martinlaw_shared_person_parentBean">
-		<property name="titleAttribute" value="principalName" />
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-principal-name" p:label="Assignee" />
@@ -225,7 +212,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
 	<bean id="martinlaw_shared_client_bo" abstract="true"
 		parent="martinlaw_shared_person_parentBean">
-		<property name="titleAttribute" value="principalName" />
 		<property name="attributes">
 			<list>
 				<!-- The matter id is not listed here as it is populated by ojb -->
@@ -233,6 +219,17 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			</list>
 		</property>
 		<property name="objectLabel" value="Client" />
+	</bean>
+	
+	<bean id="martinlaw_shared_type_bo" abstract="true" parent="BusinessObjectEntry">
+		<property name="titleAttribute" value="name" />
+		<property name="attributes">
+			<list>
+				<bean parent="martinlaw-shared-description" />
+				<bean parent="martinlaw-shared-id" />
+				<bean parent="martinlaw-shared-name" p:label="Type Name" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="martinlaw_shared_workflow_search_attr_parent" abstract="true" class="org.kuali.rice.krad.datadictionary.SearchingAttribute">

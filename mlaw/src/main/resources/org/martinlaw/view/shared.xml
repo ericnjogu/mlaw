@@ -63,6 +63,7 @@
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="person.principalId" />
 				<bean parent="Uif-InputField" p:propertyName="person.name" />
+				<bean parent="Uif-InputField" p:propertyName="principalName" />
 				<bean parent="Uif-LinkField" p:target="_blank">
 			      <property name="linkText" value="edit"/>
 			      <property name="render" value="@{#hasPerm('KR-IDM', 'Modify Entity') and !#empty(#line.person)}"/>
