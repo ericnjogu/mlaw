@@ -52,6 +52,7 @@ import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.identity.IdentityService;
+import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliationContract;
 import org.kuali.rice.kim.api.identity.entity.EntityContract;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.impl.identity.email.EntityEmailBo;
@@ -146,6 +147,10 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 			if (entity == null) {
 				return "Email address '" + email + "' is not associated with an existing user"
 						 + MartinlawConstants.OPENID_ERROR_MSG_INDICATOR;
+			} else if (!hasEmploymentAffiliation(entity)) {
+				return "You are not affiliated as a staff :(";
+			} else if (!entity.isActive()) {
+				return "Your account is not active :(";
 			} else {
 				if (emailSetupOk()) {
 					String fromAddr = getParameterService().getParameterValueAsString(
@@ -162,7 +167,26 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 		}
 	}
 	
-	private ParameterService getParameterService() {
+	/**
+	 * check whether a staff has employment affiliation
+	 * @param entity
+	 * @return true if at least one affiliation has the employment type, false otherwise
+	 */
+	private boolean hasEmploymentAffiliation(EntityContract entity) {
+		boolean hasAffiliation = false;
+		if (entity != null && !entity.getAffiliations().isEmpty()) {
+			for (EntityAffiliationContract affil: entity.getAffiliations()) {
+				if (affil.getAffiliationType().isEmploymentAffiliationType() && affil.getAffiliationType().isActive()) {
+					hasAffiliation = true;
+					break;
+				}
+			}
+		}
+		
+		return hasAffiliation;
+	}
+
+	public ParameterService getParameterService() {
 		if (parameterService == null) {
 			parameterService = CoreFrameworkServiceLocator.getParameterService();
 		}
