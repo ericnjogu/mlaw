@@ -27,6 +27,7 @@ package org.martinlaw.service
 
 import org.junit.Test
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Before
 import org.kuali.rice.core.api.mail.EmailBcList
 import org.kuali.rice.core.api.mail.EmailBody
@@ -80,22 +81,22 @@ class MailxMailerTest {
 		msg.setSubject(subj);
 		def body = "habari gani?"
 		msg.setMessage(body)
-		def expectedCmd = "-s '" + subj + "' -r " + from + " " + to1 + " " + to2
+		def expectedCmd = "-s '" + subj + "' " + to1 + " " + to2
 		assert expectedCmd == mailer.getMailxCommand(msg)
 		
 		def cc1 = "em@protosoft"
 		msg.addCcAddress(cc1);
-		expectedCmd = "-s '" + subj + "' -c " + cc1 + " -r " + from + " " + to1 + " " + to2
+		expectedCmd = "-s '" + subj + "' -c " + cc1 + " " + to1 + " " + to2
 		assertEquals("mailx command differs", expectedCmd,  mailer.getMailxCommand(msg));
 		
 		def cc2 = "paula@protosoft"
 		msg.addCcAddress(cc2);
-		expectedCmd = "-s '" + subj + "' -c " + cc1 + "," + cc2  + " -r " + from + " " + to1 + " " + to2
+		expectedCmd = "-s '" + subj + "' -c " + cc1 + "," + cc2  + " " + to1 + " " + to2
 		assertEquals("mailx command differs", expectedCmd,  mailer.getMailxCommand(msg));
 		
 		def bcc = "edmon@protosoft"
 		msg.addBccAddress(bcc);
-		expectedCmd = "-s '" + subj + "' -c " + cc1 + "," + cc2  + " -b " + bcc + " -r " + from + " " + to1 + " " + to2
+		expectedCmd = "-s '" + subj + "' -c " + cc1 + "," + cc2  + " -b " + bcc + " " + to1 + " " + to2
 		assertEquals("mailx command differs", expectedCmd,  mailer.getMailxCommand(msg));
 	}
 	
@@ -108,7 +109,7 @@ class MailxMailerTest {
 		def String expectedCmd = "cat " + tmpFilePath + " | mailx "
 		def testLabel = "mailx command prefix differs"
 		assertEquals(testLabel, expectedCmd, mailer.getMailxCommandPrefix(tmpFilePath, false))
-		expectedCmd = "echo ' ' | mailx -a " + tmpFilePath + " "
+		expectedCmd = "cat " + tmpFilePath + " | mailx -a 'MIME-Version: 1.0' -a 'Content-Type: text/html' "
 		assertEquals(testLabel, expectedCmd, mailer.getMailxCommandPrefix(tmpFilePath, true))
 	}
 	

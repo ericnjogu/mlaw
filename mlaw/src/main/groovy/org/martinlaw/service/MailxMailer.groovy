@@ -39,7 +39,7 @@ import org.kuali.rice.core.api.mail.Mailer;
 import org.apache.log4j.Logger;
 
 /**
- * use mailx program to send mail
+ * use bsd-mailx program to send mail
  * mailx [-s subject] [-a attachment ] [-c cc-addr] [-b bcc-addr] [-r from-addr] to-addr
  * @author mugo
  *
@@ -125,9 +125,6 @@ public class MailxMailer implements Mailer {
 			cmd.append(message.getBccAddresses().join(","));
 			cmd.append(" ");
 		}
-		cmd.append("-r ");
-		cmd.append(message.getFromAddress());
-		cmd.append(" ");
 		cmd.append(message.getToAddresses().join(" "));
 		return cmd.toString();
 	}
@@ -140,18 +137,15 @@ public class MailxMailer implements Mailer {
 	 */
 	protected String getMailxCommandPrefix(String tempFilePath, boolean html) {
 		def cmd = new StringBuffer();
+		cmd.append(getCatPath())
+		cmd.append(" ");
+		cmd.append(tempFilePath);
+		cmd.append(" | ");
+		cmd.append(getMailxPath());
+		// courtesy http://unix.stackexchange.com/questions/15405/how-do-i-send-html-email-using-linux-mail-command
 		if (html) {
-			cmd.append("echo ' ' | ");//workaround before we can set the mime type to html
-			cmd.append(getMailxPath());
-			cmd.append(" -a ")
-			cmd.append(tempFilePath)
-			cmd.append(" ")
+			cmd.append(" -a 'MIME-Version: 1.0' -a 'Content-Type: text/html' ")
 		} else {
-			cmd.append(getCatPath())
-			cmd.append(" ");
-			cmd.append(tempFilePath);
-			cmd.append(" | ");
-			cmd.append(getMailxPath());
 			cmd.append(" ")
 		}
 		return cmd.toString();
@@ -186,23 +180,6 @@ public class MailxMailer implements Mailer {
 		return message
 	}
 	
-	/**
-	 * get the mailx command
-	 * @param message - the email being sent
-	 * @param tempFilePath - path to the temp file holding the email body contents
-	 * @return
-	 *//*
-	public String getMailxCommand(EmailFrom from, EmailTo to, EmailSubject subject) {
-		def cmd = new StringBuffer();
-		cmd.append("-s ")
-		cmd.append("'" + subject.getSubject() + "' ")
-		cmd.append("-r ");
-		cmd.append(from.getFromAddress());
-		cmd.append(" ");
-		cmd.append(to.getToAddress());
-		return cmd.toString();
-	}
-	*/
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.core.api.mail.Mailer#sendEmail(org.kuali.rice.core.api.mail.EmailFrom, org.kuali.rice.core.api.mail.EmailToList, org.kuali.rice.core.api.mail.EmailSubject, org.kuali.rice.core.api.mail.EmailBody, org.kuali.rice.core.api.mail.EmailCcList, org.kuali.rice.core.api.mail.EmailBcList, boolean)
 	 */
