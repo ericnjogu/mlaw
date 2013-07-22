@@ -200,23 +200,6 @@
 		<property name="layoutManager.summaryTitle" value="Annex" />
 	</bean>
 
-	<bean id="martinlaw_shared_assignment_LookupView" abstract="true"
-		parent="Uif-LookupView">
-		<property name="criteriaFields">
-			<list>
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId"
-					p:inquiry.enableDirectInquiry="false" />
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="assignees.principalName" />	
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="Uif-DataField" p:propertyName="id" />
-				<bean parent="Uif-DataField" p:propertyName="contract.name" />
-			</list>
-		</property>
-	</bean>
-
 	<bean id="martinlaw_shared_matter_info_inquiry" abstract="true"
 		parent="Uif-Disclosure-GridSection">
 		<property name="layoutManager.numberOfColumns" value="2" />

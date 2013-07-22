@@ -16,9 +16,8 @@
 
 <strong>Assign Legal Opinion</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Legal Opinion Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.opinion.Assignment" /></li>
-  <!-- assignment lookup will be done as part of opinion lookup - the assignments will be a section in the inquiry page -->
-  <%-- <li><portal:portalLink displayTitle="true" title="Lookup Legal Opinion Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.opinion.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li> --%>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Legal Opinion Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.opinion.Assignment" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Legal Opinion Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.opinion.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   
    <strong>Opinion Work</strong>

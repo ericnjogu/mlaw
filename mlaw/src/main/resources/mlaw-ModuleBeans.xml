@@ -81,8 +81,7 @@
          <value>classpath:org/martinlaw/bo/work-type.xml</value>
          
          <value>classpath:org/martinlaw/view/shared.xml</value>
-         <value>classpath:org/martinlaw/view/shared-assignment-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/shared-assignment-maintenance.xml</value>     
+         <value>classpath:org/martinlaw/view/shared-assignment.xml</value>
          <value>classpath:org/martinlaw/view/status-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/status-lookup.xml</value>
          <value>classpath:org/martinlaw/view/status-inquiry.xml</value>
