@@ -36,6 +36,7 @@
 					<property name="items">
 						<list merge="true">
 							<bean parent="Uif-InputField" p:propertyName="courtReference" />
+							<bean parent="Uif-InputField" p:propertyName="type.name" />
 						</list>
 					</property>
 				</bean>

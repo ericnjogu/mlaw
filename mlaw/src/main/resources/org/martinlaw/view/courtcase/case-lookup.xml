@@ -38,11 +38,13 @@
       					</bean>
    					</property>
 				</bean>
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId"/>
 			</list>
 		</property>
 		<property name="resultFields">
 			<list merge="true">
 				<bean parent="Uif-DataField" p:propertyName="courtReference" />
+				<bean parent="Uif-DataField" p:propertyName="type.name" />
 			</list>
 		</property>
 	</bean>

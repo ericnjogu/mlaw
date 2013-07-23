@@ -76,7 +76,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	public abstract Class<? extends Scope> getScopeClass();
 
 	/**
-	 * tests retrieving a BO with pk 1001l
+	 * tests retrieving a BO
 	 */
 	@Test
 	public void testBaseDetailRetrieve() {

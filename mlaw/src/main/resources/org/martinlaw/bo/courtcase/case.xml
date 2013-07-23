@@ -37,6 +37,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				<ref bean="courtcase-statusId" />
 				<bean parent="martinlaw-shared-localReference-parentBean" />
 				<bean parent="case-courtReference-parentBean" />
+				<ref bean="court_case_type_id"/>
 			</list>
 		</property>
 		<property name="boNotesEnabled" value="true" />
@@ -84,6 +85,32 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.martinlaw.keyvalues.CourtCaseStatusKeyValues"/>
 		</property>
 
+	</bean>
+	
+	<bean id="court_case_type_id" parent="AttributeDefinition">
+		<property name="maxLength" value="20" />
+		<property name="validationPattern">
+			<bean parent="NumericValidationPattern" />
+		</property>
+		<property name="name" value="typeId" />
+		<!-- label shown by the field group on maintenance screen-->
+		<property name="label" value="Court Case Type" />
+		<property name="required" value="true" />
+		<property name="optionsFinder">
+			<bean
+				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.courtcase.CourtCaseType"
+				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
+		</property>
+		<property name="controlField">
+				<bean parent="Uif-DropdownControl" />
+		</property>
+		<!-- required for display in kns custom document search -->
+		<property name="control">
+			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+				p:businessObjectClass="org.martinlaw.bo.courtcase.CourtCaseType"
+				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
+		</property>
 	</bean>
 
 </beans>

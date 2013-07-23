@@ -37,7 +37,8 @@
 					<property name="items">
 						<list merge="true">
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="courtReference" 
-							p:instructionalText="e.g. HCC No 27 of 2012"/>
+								p:instructionalText="e.g. HCC No 27 of 2012"/>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId"/>
 						</list>
 					</property>
 					<property name="headerText" value="Case Information" />

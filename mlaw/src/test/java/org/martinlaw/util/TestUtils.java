@@ -586,6 +586,7 @@ public class TestUtils {
 				"Adam Mohamed (Returning officer Kuria West Constituency)\n";
 		caseBo.setName(name);
 		caseBo.setStatus(status);
+		caseBo.setTypeId(10004l);
 		// side step validation error - error.required
 		caseBo.setStatusId(status.getId());
 		return caseBo;

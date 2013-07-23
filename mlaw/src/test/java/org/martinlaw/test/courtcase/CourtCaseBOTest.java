@@ -45,6 +45,7 @@ import org.martinlaw.bo.Status;
 import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.Consideration;
 import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.courtcase.CourtCaseType;
 import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.martinlaw.bo.courtcase.Work;
@@ -116,6 +117,9 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         getTestUtils().testWorkList(work);
         //consideration
         getTestUtils().testRetrievedConsiderationFields(kase.getConsiderations().get(0));
+        // type
+        assertNotNull("case type should not be null", kase.getType());
+        assertEquals("case type id differs", new Long(10001), kase.getType().getId());
 	}
 
 	
@@ -137,6 +141,14 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		getBoSvc().save(status);
 		status.refresh();
 		kase.setStatusId(status.getId());
+		
+		CourtCaseType type = new CourtCaseType();
+		final String typeName = "petition";
+		type.setName(typeName);
+		getBoSvc().save(type);
+		type.refresh();
+		kase.setTypeId(type.getId());
+		
 		String name = "Ghati Dennitah\n"+
 						"IEBC\n" +
 						"Benson Njau (Kuria East Returning Officer)\n" +
@@ -164,7 +176,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		assertNotNull("considerations should not be null", kase.getConsiderations());
 		assertEquals("default number of considerations differs", 2, kase.getConsiderations().size());
 		log.debug("Created case with id " + kase.getId());
-		assertNotNull(kase.getId());
+		assertNotNull("case id should not be null", kase.getId());
+		assertEquals("case type name differs", typeName, kase.getType().getName());
 		//create and save client, witness
 		Client cl = new Client();
 		cl.setMatterId(kase.getId());

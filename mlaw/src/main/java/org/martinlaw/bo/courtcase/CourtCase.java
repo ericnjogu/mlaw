@@ -31,8 +31,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.martinlaw.bo.Matter;
 
@@ -61,6 +64,12 @@ public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Eve
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="courtCaseId")
 	private List<CourtCaseWitness> witnesses;
+	
+	@Transient
+	private Long typeId;
+	@OneToOne
+	@JoinColumn(name = "court_case_type_id", nullable = false, updatable = false)
+	private CourtCaseType type;
 	
 	public CourtCase() {
 		super();
@@ -106,5 +115,29 @@ public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Eve
 	@Override
 	public Class<Work> getWorkClass() {
 		return Work.class;
+	}
+	/**
+	 * @return the courtCaseTypeId
+	 */
+	public Long getTypeId() {
+		return typeId;
+	}
+	/**
+	 * @param courtCaseTypeId the courtCaseTypeId to set
+	 */
+	public void setTypeId(Long courtCaseTypeId) {
+		this.typeId = courtCaseTypeId;
+	}
+	/**
+	 * @return the courtCaseType
+	 */
+	public CourtCaseType getType() {
+		return type;
+	}
+	/**
+	 * @param courtCaseType the courtCaseType to set
+	 */
+	public void setType(CourtCaseType courtCaseType) {
+		this.type = courtCaseType;
 	}
 }
