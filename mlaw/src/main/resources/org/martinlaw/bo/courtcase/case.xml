@@ -112,5 +112,4 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
 		</property>
 	</bean>
-
 </beans>

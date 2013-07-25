@@ -83,14 +83,7 @@
 		<property name="propertyName" value="clients" />
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="principalName">
-					<property name="instructionalText">
-						<value>
-						Click magnifying glass icon to select client. 
-						If client does not exist, join the first and last names without a space in between, using lower case letters only.
-						</value>
-					</property>
-				</bean>
+				<bean parent="Uif-InputField" p:propertyName="principalName"/>
 					
 			</list>
 		</property>
@@ -459,11 +452,4 @@
   </bean>
   
   <bean id="martinlaw_shared_new_tab_link" parent="Uif-Link" p:target="_blank"/>
-  
-  <!-- <bean id="martinlaw_shared_enhanced_inquiry_view_line_actions" parent="Uif-FieldGroupBase">
-    <property name="label" value="Actions"/>
-    <property name="group">
-      <bean parent="Uif-LookupView-ResultActions"/>
-    </property>
-  </bean> -->
 </beans>

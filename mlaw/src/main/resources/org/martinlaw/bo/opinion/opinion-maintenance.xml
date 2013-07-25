@@ -28,7 +28,7 @@
 
   <bean id="opinion_maint_document_entry"  parent="uifMaintenanceDocumentEntry">
     <property name="dataObjectClass" value="org.martinlaw.bo.opinion.Opinion"/>
-    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <property name="maintainableClass" value="org.martinlaw.bo.MatterMaintainable"/>
     <property name="lockingKeys">
       <list>
         <value>localReference</value>

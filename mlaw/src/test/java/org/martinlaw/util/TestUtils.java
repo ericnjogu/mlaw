@@ -86,8 +86,8 @@ import org.martinlaw.bo.conveyance.ConveyanceType;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.martinlaw.bo.courtcase.Event;
-import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.keyvalues.ScopedKeyValuesBase;
 
@@ -338,7 +338,7 @@ public class TestUtils {
 		opinion.setLocalReference(testOpinionLocalReference);
 		opinion.setStatusId(1001l);
 		
-		Client client = new Client();
+		org.martinlaw.bo.opinion.Client client = new org.martinlaw.bo.opinion.Client();
 		testOpinionClientName = "pnk";
 		client.setPrincipalName(testOpinionClientName);
 		opinion.getClients().add(client);
@@ -589,7 +589,31 @@ public class TestUtils {
 		caseBo.setTypeId(10004l);
 		// side step validation error - error.required
 		caseBo.setStatusId(status.getId());
+		// clients & witnesses
+		addClientsAndWitnesses(caseBo);
 		return caseBo;
+	}
+	
+	/**
+	 * add test clients and witnesses
+	 * @param kase
+	 */
+	public void addClientsAndWitnesses(CourtCase kase) {
+		//create and save client, witness
+		org.martinlaw.bo.courtcase.Client cl1 = new org.martinlaw.bo.courtcase.Client();
+		cl1.setMatterId(kase.getId());
+		cl1.setPrincipalName("Joseph Ndungu");
+		org.martinlaw.bo.courtcase.Client cl2 = new org.martinlaw.bo.courtcase.Client();
+		cl2.setMatterId(kase.getId());
+		cl2.setPrincipalName("Joseph Thube");
+
+		kase.getClients().add(cl1);
+		kase.getClients().add(cl2);
+		
+		CourtCaseWitness wit = new CourtCaseWitness();
+		wit.setCourtCaseId(kase.getId());
+		wit.setPrincipalName("Thomas Kaberi Gitau");
+		kase.getWitnesses().add(wit);
 	}
 	
 	/**

@@ -55,14 +55,7 @@
 					<property name="propertyName" value="witnesses" />
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="principalName">
-								<property name="instructionalText">
-									<value>
-									Click magnifying glass icon to select witness. 
-									If witness does not exist, join the first and last names without a space in between, using lower case letters only.
-									</value>
-								</property>
-							</bean>
+							<bean parent="Uif-InputField" p:propertyName="principalName"/>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Witness" />

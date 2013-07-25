@@ -68,12 +68,19 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("localReference", localReference);
 			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findMatching(CourtCase.class, params);
-			assertEquals(1, cases.size());
+			assertEquals("Should have found one case", 1, cases.size());
 			for (CourtCase cse: cases) {
 				assertEquals(localReference,cse.getLocalReference());
 				assertEquals(courtReference,cse.getCourtReference());
 				assertNotNull(cse.getStatus());
 				log.info("created status with id " + cse.getStatus().getId());
+				
+				assertEquals("number of clients expected differs", 2, cse.getClients().size());
+				assertEquals("joseph_ndungu", cse.getClients().get(0).getPrincipalName());
+				assertEquals("joseph_thube", cse.getClients().get(1).getPrincipalName());
+				
+				assertEquals("number of witnesses expected differs", 1, cse.getWitnesses().size());
+				assertEquals("thomas_kaberi_gitau", cse.getWitnesses().get(0).getPrincipalName());
 			}
 		} catch (Exception e) {
 			log.error("test failed", e);

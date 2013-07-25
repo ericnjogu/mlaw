@@ -29,7 +29,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -94,7 +93,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         Client client = clients.get(0);
         assertEquals("client1", client.getPrincipalName());
         assertEquals("Client", client.getPerson().getFirstName());
-        //witness
+        // witness
         List<CourtCaseWitness> witnesses = kase.getWitnesses();
         assertEquals(1, witnesses.size());
         CourtCaseWitness witness = witnesses.get(0);
@@ -112,10 +111,10 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         assertEquals("second attachment name differs", "pleading.odt", kase.getAttachments().get(1).getAttachmentFileName());
         // assignment
         getTestUtils().testAssignees(kase.getAssignees());
-        //work
+        // work
         List<Work> work = kase.getWork();
         getTestUtils().testWorkList(work);
-        //consideration
+        // consideration
         getTestUtils().testRetrievedConsiderationFields(kase.getConsiderations().get(0));
         // type
         assertNotNull("case type should not be null", kase.getType());
@@ -178,20 +177,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		log.debug("Created case with id " + kase.getId());
 		assertNotNull("case id should not be null", kase.getId());
 		assertEquals("case type name differs", typeName, kase.getType().getName());
-		//create and save client, witness
-		Client cl = new Client();
-		cl.setMatterId(kase.getId());
-		cl.setPrincipalName("somename");//TODO needs to be verified (business rule?)
-		List<Client> clts = new ArrayList<Client>(1);
-		clts.add(cl);
-		kase.setClients(clts);
 		
-		CourtCaseWitness wit = new CourtCaseWitness();
-		wit.setCourtCaseId(kase.getId());
-		wit.setPrincipalName("someothername");
-		List<CourtCaseWitness> wits = new ArrayList<CourtCaseWitness>(1);
-		wits.add(wit);
-		kase.setWitnesses(wits);
+		getTestUtils().addClientsAndWitnesses(kase);
 		
 		kase.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		
@@ -199,7 +186,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		
 		kase = getBoSvc().findBySinglePrimaryKey(kase.getClass(), kase.getId());
 		assertNotNull("clients should not be null", kase.getClients());
-		assertEquals("number of clients expected differs", 1, kase.getClients().size());
+		assertEquals("number of clients expected differs", 2, kase.getClients().size());
 		assertNotNull("witnesses should not be null",kase.getWitnesses());
 		assertEquals("number of witnesses expected differs", 1, kase.getWitnesses().size());
 		getTestUtils().testConsiderationFields(kase.getConsiderations().get(0));

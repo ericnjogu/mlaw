@@ -26,7 +26,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans         http://w
 
   <bean id="contract_maint_document_entry" parent="uifMaintenanceDocumentEntry">
     <property name="dataObjectClass" value="org.martinlaw.bo.contract.Contract"/>
-    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <property name="maintainableClass" value="org.martinlaw.bo.MatterMaintainable"/>
     <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
     <property name="lockingKeys">
       <list>

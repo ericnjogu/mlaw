@@ -153,4 +153,14 @@ public class MartinlawConstants {
 		public static final String DISBURSEMENT_DESCRIPTION = "default consideration for tracking disbursements";
 		public static final String CURRENCY = "KES";
 	}
+	
+	/**
+	 * constants to use in creating affiliations
+	 * @author mugo
+	 *
+	 */
+	public static class AffiliationCodes {
+		public static final String CLIENT = "CLIENT";
+		public static final String WITNESS = "WITNESS";
+	}
 }
