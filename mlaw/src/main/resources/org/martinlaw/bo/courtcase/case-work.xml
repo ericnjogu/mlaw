@@ -28,10 +28,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-  <bean id="courtcase_work_doc" parent="uifTransactionalDocumentEntry">
+  <bean id="courtcase_work_doc" parent="martinlaw_shared_work_doc_entry">
 		<property name="documentTypeName" value="CourtCaseWorkDocument" />
 		<property name="documentClass" value="org.martinlaw.bo.courtcase.Work" />
-		<property name="businessRulesClass" value="org.martinlaw.bo.MatterWorkRule"/>
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Court Case Id"/>

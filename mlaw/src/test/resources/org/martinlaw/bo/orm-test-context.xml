@@ -153,6 +153,9 @@
 				<value>org.martinlaw.bo.sequence.OpinionConsiderationSeq</value>
 				<value>org.martinlaw.bo.sequence.OpinionEventSeq</value>
 				
+				<value>org.martinlaw.bo.work.ExternalResource</value>
+				<value>org.martinlaw.bo.sequence.ExtResourceSeq</value>				
+				
 				<value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>
 				<value>org.kuali.rice.krad.bo.DocumentHeader</value>
 				
