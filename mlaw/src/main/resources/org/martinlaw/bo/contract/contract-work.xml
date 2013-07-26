@@ -27,9 +27,10 @@ xmlns:p="http://www.springframework.org/schema/p"
 xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="contract_work_doc" parent="martinlaw_shared_work_doc_entry">
+  <bean id="contract_work_doc" parent="uifTransactionalDocumentEntry">
 		<property name="documentTypeName" value="ContractWorkDocument" />
 		<property name="documentClass" value="org.martinlaw.bo.contract.Work" />
+		<property name="businessRulesClass" value="org.martinlaw.bo.MatterWorkRule"/>
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Contract Id"/>

@@ -31,10 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -70,7 +68,6 @@ import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.work.ExternalResource;
 
 
 /**
@@ -87,8 +84,6 @@ public abstract class MatterWork extends MatterTxDocBase {
 	@OneToOne
 	@JoinColumn(name = "work_type_id", nullable = false)
 	private WorkType workType;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="workDocumentNumber")
-	private List<ExternalResource> externalResources;
 	
 	/**
 	 * 
@@ -994,19 +989,5 @@ public abstract class MatterWork extends MatterTxDocBase {
 	 */
 	public void setWorkType(WorkType workType) {
 		this.workType = workType;
-	}
-
-	/**
-	 * @return the externalResources
-	 */
-	public List<ExternalResource> getExternalResources() {
-		return externalResources;
-	}
-
-	/**
-	 * @param externalResources the externalResources to set
-	 */
-	public void setExternalResources(List<ExternalResource> externalResources) {
-		this.externalResources = externalResources;
 	}
 }
