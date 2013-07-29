@@ -107,14 +107,17 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
 	<bean id="Uif-DocumentAdHocRecipientsSection" parent="Uif-Disclosure-VerticalBoxSection" p:render="false"/>
 	
 	<bean id="Uif-DocumentNotesSection" parent="Uif-Disclosure-TableCollectionSection"
-        p:layoutManager.suppressLineWrapping="true"
-        p:instructionalText="Please add any files that have more information relating to this action..&lt;br/&gt;
-				Strictly Confidential information should be encrypted before being uploaded.">
+        p:layoutManager.suppressLineWrapping="true">
+		<property name="help">
+	      <bean parent="Uif-Help">
+	        <property name="externalHelpUrl" value="@{#ConfigProperties['application.url']}/help/index.html#notes_atts"/>
+	      </bean>
+	    </property>
 	    <property name="headerText"
 	              value="Notes @{#DocumentEntry.allowsNoteAttachments ? 'and Attachments' : ''} (@{document.notes.size()})"/>
 	    <property name="propertyName" value="notes"/>
 	    <property name="cssClasses" value="tableborders wrap"/>
-	    <property name="collectionObjectClass" value="org.kuali.rice.krad.bo.Note"/>
+	    <property name="collectionObjectClass" value="org.martinlaw.bo.work.EnhancedNote"/>
 	    <property name="layoutManager.generateAutoSequence" value="true"/>
 	    <property name="layoutManager.richTable.render" value="false"/>
 	    <property name="items">
@@ -122,7 +125,8 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
 	        <bean parent="Uif-DataField" p:propertyName="notePostedTimestamp" p:readOnly="true"/>
 	        <bean parent="Uif-DataField" p:propertyName="authorUniversal.principalName" p:readOnly="true"/>
 	        <bean parent="Uif-InputField" p:propertyName="noteTopicText" p:render="@{#DocumentEntry.displayTopicFieldInNotes}"/>
-	        <bean parent="Uif-InputField" p:propertyName="noteText" p:required="true" p:readOnly="@{#line.noteText != ''}"/>
+	        <bean parent="Uif-InputField" p:propertyName="noteText" p:required="true" p:readOnly="@{#line.noteText != ''}"
+	        	p:escapeHtmlInPropertyValue="false" class="org.martinlaw.bo.work.NoteTextField"/>
 	        <bean parent="Uif-VerticalFieldGroup" p:label="Attached File" p:render="@{#DocumentEntry.allowsNoteAttachments}">
 	          <property name="items">
 	            <list>
@@ -201,21 +205,8 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
 	    <property name="propertyReplacers">
 			<list>
 				<bean parent="Uif-ConditionalBeanPropertyReplacer"
-					p:propertyName="instructionalText" 
-					p:condition="#form.docTypeName eq 'CourtCaseMaintenanceDocument' or #form.docTypeName eq 'ConveyanceMaintenanceDocument'">
-					<property name="replacement" 
-					value="Please add files that were existing in soft or hard copy before this matter was imported into mLaw. &lt;br/&gt;
-					Correspondence that has been stamped as 'RECEIVED' may also be scanned and added here.&lt;br/&gt;
-					Strictly Confidential information should be encrypted before being uploaded."/>
-				</bean>
-				<bean parent="Uif-ConditionalBeanPropertyReplacer"
 					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Event')">
 					<property name="replacement" value="Please add any file relevant to this event e.g. agenda, a map to the location, a budget etc"/>
-				</bean>
-				<bean parent="Uif-ConditionalBeanPropertyReplacer"
-					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Work')">
-					<property name="replacement" value="Please add the file(s) that represent the work you have done.&lt;br/&gt;
-					Strictly Confidential information should be encrypted before being uploaded."/>
 				</bean>
 				<bean parent="Uif-ConditionalBeanPropertyReplacer"
 					p:propertyName="instructionalText" p:condition="#form.docTypeName.contains('Transaction')">
@@ -224,5 +215,10 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
 			</list>
 		</property>
   </bean>
+  
+  <bean id="Note" parent="Note-parentBean">
+  	<property name="businessObjectClass" value="org.martinlaw.bo.work.EnhancedNote"/>
+  </bean>
+    
 
 </beans>
