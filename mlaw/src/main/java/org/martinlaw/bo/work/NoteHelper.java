@@ -53,26 +53,19 @@ public class NoteHelper {
 			patterns.put("", Pattern.compile("((http|ftp|spdy)[^ ]+)", Pattern.CASE_INSENSITIVE));
 			final String fileScheme = "file://";
 			patterns.put(fileScheme, Pattern.compile("([a-zA-Z]{1}:\\\\[^,<>\\|:\"/\\?\\*]+)"));
-			// patterns.put(fileScheme, Pattern.compile("(/[^]+)"));
+
 			for (String scheme: patterns.keySet()) {
 				Matcher matcher = patterns.get(scheme).matcher(note);
-				// List<String> found = new ArrayList<String>(); 
 				int start = 0;
 				while (matcher.find(start)) {
-					// found.add(matcher.group(1));
 					String abbrev = StringUtils.abbreviateMiddle(matcher.group(1), "...", 50);
 					final String part1 = note.substring(0, matcher.start());
 					final String part3 = note.substring(matcher.end());
-					final String part2 = "<a href=\"" + scheme + matcher.group(1) + "\">" + abbrev + "</a>";
+					final String part2 = "<a href=\"" + scheme + matcher.group(1) + "\" target=\"_blank\">" + abbrev + "</a>";
 					note = part1 + part2 + part3;
 					matcher = patterns.get(scheme).matcher(note);
 					start = part1.length() + part2.length();
 				}
-				/*for (String find: found) {
-					find = find.replace("\\", "\\\\");
-					note = note.replaceAll(find, "<a href=\"" + scheme + find + "\">" + 
-							StringUtils.abbreviateMiddle(find, "...", 50) + "</a>");
-				}*/
 			}
 		}
 		return note;

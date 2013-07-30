@@ -58,18 +58,18 @@ public class NoteHelperTest {
 				" ftp://resources.net/a/file. " +
 				dosLink + ", it may be of help. ";
 				//"Confidential info is in /home/users/zeph/documents/history.odt";
-		String expected ="please see <a href=\"" + httpLink + "\">" + StringUtils.abbreviateMiddle(httpLink, "...", 50) + "</a> or" +
-				" <a href=\"ftp://resources.net/a/file.\">ftp://resources.net/a/file.</a> " +
-				"<a href=\"file://" + dosLink + "\">" + StringUtils.abbreviateMiddle(dosLink, "...", 50) + "</a>, it may be of help. ";
+		String expected ="please see <a href=\"" + httpLink + "\" target=\"_blank\">" + StringUtils.abbreviateMiddle(httpLink, "...", 50) + "</a> or" +
+				" <a href=\"ftp://resources.net/a/file.\" target=\"_blank\">ftp://resources.net/a/file.</a> " +
+				"<a href=\"file://" + dosLink + "\" target=\"_blank\">" + StringUtils.abbreviateMiddle(dosLink, "...", 50) + "</a>, it may be of help. ";
 				// "Confidential info is in <a href='file:///home/users/zeph/documents/history.odt'>/home/users/zeph/documents/history.odt</a>";
 		
 		assertEquals("note text differs", expected, noteHelper.addLinks(text));
-		assertEquals("link differs", "<a href=\"" + httpLink + "\">" + StringUtils.abbreviateMiddle(httpLink, "...", 50) + "</a>",
+		assertEquals("link differs", "<a href=\"" + httpLink + "\" target=\"_blank\">" + StringUtils.abbreviateMiddle(httpLink, "...", 50) + "</a>",
 				noteHelper.addLinks(httpLink));
 		String longUrl = "http://localhost:8080/mlaw/portal.do?channelTitle=New%20Court%20Case%20Work" +
 				"&channelUrl=http://localhost:8080/mlaw/kr-krad/tx?methodToCall=docHandler" +
 				"&docTypeName=CourtCaseWorkDocument&viewId=courtcase_work_doc_view&command=initiate&viewId=contract_work_doc_view";
-		assertEquals("link differs", "<a href=\"" + longUrl + "\">" + StringUtils.abbreviateMiddle(longUrl, "...", 50) + "</a>",
+		assertEquals("link differs", "<a href=\"" + longUrl + "\" target=\"_blank\">" + StringUtils.abbreviateMiddle(longUrl, "...", 50) + "</a>",
 				noteHelper.addLinks(longUrl));
 	}
 }
