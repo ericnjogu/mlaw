@@ -104,8 +104,6 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
     <property name="fieldBindingObjectPath" value="document.documentHeader"/>
   </bean>
 	
-	<bean id="Uif-DocumentAdHocRecipientsSection" parent="Uif-Disclosure-VerticalBoxSection" p:render="false"/>
-	
 	<bean id="Uif-DocumentNotesSection" parent="Uif-Disclosure-TableCollectionSection"
         p:layoutManager.suppressLineWrapping="true">
 		<property name="help">
