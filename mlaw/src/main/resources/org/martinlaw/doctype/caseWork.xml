@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -17,15 +17,15 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>CourtCaseWorkDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultRoutingDocument</parent>
 			<description>Court Case Work Transactional Document</description>
 			<label>Court Case Work Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+<!-- 			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName> -->
 			<docHandler>${dochandler_courtcase_work}</docHandler>
 
-			<routePaths>
+	<!-- 		<routePaths>
 				<routePath>
 					<start name="Initiated" nextNode="approvalNode" />
 					<requests name="approvalNode" />
@@ -43,17 +43,25 @@
 					<mandatoryRoute>false</mandatoryRoute>
 					<finalApproval>false</finalApproval>
 				</requests>
-			</routeNodes>
+			</routeNodes> -->
+		</documentType>
+		<documentType>
+			<name>CourtCaseWorkDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Court Case Work Transactional Document</description>
+			<label>Court Case Work Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+			<docHandler>${dochandler_courtcase_work}</docHandler>
 		</documentType>
 	</documentTypes>
 
-	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+	<!-- <rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
 
-		<!-- CourtCaseWorkDocument rule -->
+		CourtCaseWorkDocument rule
 		<rule>
 			<name>org.martinlaw.rules.courtcase.work</name>
 			<documentType>CourtCaseWorkDocument</documentType>
-			<!-- The rule template does not have any use at now -->
+			The rule template does not have any use at now
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for Court Case Work</description>
 			<responsibilities>
@@ -64,7 +72,7 @@
 				</responsibility>
 			</responsibilities>
 		</rule>
-	</rules>
+	</rules> -->
 
 </data>
 	

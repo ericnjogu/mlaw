@@ -17,15 +17,15 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>CourtCaseTransactionDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
 			<description>Court Case Transactional Document</description>
 			<label>Court Case Transactional Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<!-- <blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName> -->
 			<docHandler>${dochandler_contract_fee}</docHandler>
 
-			<routePaths>
+			<!-- <routePaths>
 				<routePath>
 					<start name="Initiated" nextNode="approvalNode" />
 					<requests name="approvalNode" />
@@ -48,17 +48,24 @@
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-			</attributes>
+			</attributes> -->
+		</documentType>
+		<documentType>
+			<name>CourtCaseTransactionDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
 		</documentType>
 	</documentTypes>
 
-	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+	<!-- <rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
 
-		<!-- CourtCaseTransactionDocument rule -->
+		CourtCaseTransactionDocument rule
 		<rule>
 			<name>org.martinlaw.rules.courtcase.transaction</name>
 			<documentType>CourtCaseTransactionDocument</documentType>
-			<!-- The rule template does not have any use at now -->
+			The rule template does not have any use at now
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for CourtCase Fee</description>
 			<responsibilities>
@@ -69,7 +76,7 @@
 				</responsibility>
 			</responsibilities>
 		</rule>
-	</rules>
+	</rules> -->
 
 
 </data>

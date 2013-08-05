@@ -59,7 +59,7 @@ public class ContractRoutingTest extends KewTestsBase {
 	public void testContractRouting() {
 		Contract testContract = getTestUtils().getTestContract();
 		try {
-			testMaintenanceRoutingInitToFinal("ContractMaintenanceDocument", testContract);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), testContract);
 		} catch (Exception e) {
 			log.error("test failed", e);
 			fail("test routing ContractMaintenanceDocument caused an exception " + e);
@@ -82,7 +82,7 @@ public class ContractRoutingTest extends KewTestsBase {
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
 	public void testContractTypeMaintDocPerms() {
-		testCreateMaintain(Contract.class, "ContractMaintenanceDocument");
+		testCreateMaintain(Contract.class, getDocTypeName());
 	}
 	
 	@Test
@@ -91,7 +91,7 @@ public class ContractRoutingTest extends KewTestsBase {
 	 */
 	public void testContractDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
 		Contract testContract = getTestUtils().getTestContract();
-		final String docType = "ContractMaintenanceDocument";
+		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, testContract);
 		
 		Contract testContract2 = getTestUtils().getTestContract();
@@ -127,5 +127,9 @@ public class ContractRoutingTest extends KewTestsBase {
 		crits.add(crit3);
 		crits.add(crit5);
 		getTestUtils().runDocumentSearch(crits, docType);
+	}
+
+	public String getDocTypeName() {
+		return "ContractMaintenanceDocument";
 	}
 }

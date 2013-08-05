@@ -46,8 +46,7 @@ public class ConveyanceConsiderationRoutingTest extends
 	}
 
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return "ConveyanceConsiderationMaintenanceDocument";
 	}
-
 }

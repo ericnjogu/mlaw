@@ -42,7 +42,7 @@ import org.martinlaw.test.MatterEventRoutingTest;
 public class OpinionEventRoutingTest extends MatterEventRoutingTest {
 	
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return "OpinionEventMaintenanceDocument";
 	}
 

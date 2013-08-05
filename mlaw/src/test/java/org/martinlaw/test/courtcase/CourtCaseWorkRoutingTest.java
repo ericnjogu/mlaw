@@ -49,11 +49,12 @@ public class CourtCaseWorkRoutingTest extends WorkRoutingTestBase {
 
 	@Override
 	public MatterTxDocBase getTxDoc() throws WorkflowException {
-		return getTestUtils().populateMatterWork((MatterWork) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType()));
+		return getTestUtils().populateMatterWork((MatterWork) KRADServiceLocatorWeb.getDocumentService().getNewDocument(
+				getDocTypeName()));
 	}
 
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return MartinlawConstants.DocTypes.COURTCASE_WORK;
 	}
 }

@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.UserSession;
+import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
@@ -74,5 +75,4 @@ public abstract class WorkRoutingTestBase extends TxRoutingTestBase {
 
 		work = (MatterWork) KRADServiceLocatorWeb.getDocumentService().routeDocument(work, "approved", null);
 	}
-
 }

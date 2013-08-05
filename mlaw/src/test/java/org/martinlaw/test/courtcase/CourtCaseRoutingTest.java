@@ -51,6 +51,7 @@ import org.martinlaw.util.SearchTestCriteria;
  *
  */
 public class CourtCaseRoutingTest extends KewTestsBase {
+	private static final String COURT_CASE_MAINTENANCE_DOCUMENT = "CourtCaseMaintenanceDocument";
 	private Logger log = Logger.getLogger(getClass());
 	final String localReference = "LOCAL-REF-1";
 	final String courtReference = "Kisii High Court Petition No. 6 of 2013";
@@ -64,7 +65,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 	public void testCaseMaintenanceRouting() throws WorkflowException {
 		try {
 			// with custom doc searching enabled, saving the document first introduces errors in which the kr users is recorded as routing the doc
-			testMaintenanceRoutingInitToFinal("CourtCaseMaintenanceDocument", getTestUtils().getTestCourtCase(localReference, courtReference));
+			testMaintenanceRoutingInitToFinal(COURT_CASE_MAINTENANCE_DOCUMENT, getTestUtils().getTestCourtCase(localReference, courtReference));
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("localReference", localReference);
 			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findMatching(CourtCase.class, params);
@@ -102,7 +103,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		client.setPrincipalName(null);
 		courtCase.getClients().add(client);
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase, "clerk1");
+		Document doc = getPopulatedMaintenanceDocument(COURT_CASE_MAINTENANCE_DOCUMENT, courtCase, "clerk1");
 		testRouting_required_validated_onroute(doc);
 	}
 	
@@ -117,7 +118,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 		CourtCase courtCase = getTestUtils().getTestCourtCase(localReference, courtReference);
 		courtCase.setLocalReference(null);
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument("CourtCaseMaintenanceDocument", courtCase, "clerk1");
+		Document doc = getPopulatedMaintenanceDocument(COURT_CASE_MAINTENANCE_DOCUMENT, courtCase, "clerk1");
 		testRouting_required_validated_onroute(doc);
 	}
 	
@@ -130,7 +131,7 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 	public void testCourtCase_doc_search() throws WorkflowException {
 		try {
 			// route 2 docs first
-			final String docType = "CourtCaseMaintenanceDocument";
+			final String docType = COURT_CASE_MAINTENANCE_DOCUMENT;
 			CourtCase testCourtCase = getTestUtils().getTestCourtCase(localReference, courtReference);
 			final String caseName1 = "Bingu Vs Nchi";
 			testCourtCase.setName(caseName1);
@@ -160,7 +161,24 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 	        
 		} catch (Exception e) {
 			log.error("test failed", e);
-			fail("test failed due to an exception - " + e.getClass());
+			fail("test failed due to an exception - " + e.getMessage());
 		}
+	}
+	
+	@Test
+	// @Ignore
+	/**
+	 * @see org.martinlaw.test.KewTestsBase#testWorkflowRoutingOnly_initiator_FYI(String, String, String)
+	 */
+	public void testInitiatorFYI() {
+		try {
+			testWorkflowRoutingOnly_initiator_FYI("CourtCaseMaintenanceDocumentTest");
+		} catch (WorkflowException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	public String getDocTypeName() {
+		return null;
 	}
 }

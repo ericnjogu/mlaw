@@ -48,7 +48,7 @@ public class CourtCaseTransactionDocRoutingTest extends TxRoutingTestBase {
 	}
 
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return MartinlawConstants.DocTypes.COURTCASE_TRANSACTION;
 	}
 
@@ -56,7 +56,7 @@ public class CourtCaseTransactionDocRoutingTest extends TxRoutingTestBase {
 	@Test
 	public void testDocSearch() {
 		try {
-			getTestUtils().testMatterTransactionDocSearch(TransactionDoc.class, getDocType());
+			getTestUtils().testMatterTransactionDocSearch(TransactionDoc.class, getDocTypeName());
 		} catch (Exception e) {
 			log.error(e);
 			fail("error occured");

@@ -44,13 +44,13 @@ public class ConveyanceWorkRoutingTest extends WorkRoutingTestBase {
 
 	@Override
 	public MatterTxDocBase getTxDoc() throws WorkflowException {
-		Work newDocument = (Work) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
+		Work newDocument = (Work) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocTypeName());
 		newDocument.setConveyanceAnnexTypeId(1001l);
 		return getTestUtils().populateMatterWork(newDocument);
 	}
 
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return MartinlawConstants.DocTypes.CONVEYANCE_WORK;
 	}
 

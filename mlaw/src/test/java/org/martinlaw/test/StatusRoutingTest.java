@@ -36,7 +36,7 @@ public class StatusRoutingTest extends KewTestsBase {
 		statusScope.setQualifiedClassName("org.martinlaw.Aclass");
 		status.getScope().add(statusScope);
 		try {
-			testMaintenanceRoutingInitToFinal("StatusMaintenanceDocument", status);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), status);
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("status", statusText);
 			Collection<Status> result = KRADServiceLocator.getBusinessObjectService().findMatching(Status.class, params);
@@ -47,5 +47,20 @@ public class StatusRoutingTest extends KewTestsBase {
 			log.error("test failed", e);
 			fail("test failed");
 		}
+	}
+
+	public String getDocTypeName() {
+		return "StatusMaintenanceDocument";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testInitiatorFYI()
+	 */
+	/**
+	 * routes to final, so this test is not applicable
+	 */
+	@Override
+	public void testInitiatorFYI() {
+		// do nothing
 	}
 }

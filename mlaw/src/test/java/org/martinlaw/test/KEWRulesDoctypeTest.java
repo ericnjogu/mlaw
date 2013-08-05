@@ -7,7 +7,7 @@ package org.martinlaw.test;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -28,7 +28,6 @@ package org.martinlaw.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kew.api.rule.Rule;
@@ -45,29 +44,16 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 		return KewApiServiceLocator.getRuleService();
 	}
 	@Test
-	public void testCaseRule() {
-		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.case");
-		assertEquals("Routing rule for case maintenance", rule.getDescription());
+	public void testDefaultApprovalRule() {
+		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.default.approval");
+		assertEquals("default routing rule for maintenance docs", rule.getDescription());
 		assertEquals("org.martinlaw.defaultApprovalTemplate",rule.getRuleTemplate().getName());
 	}
-	@Test
-	@Ignore
-	public void testConveyanceRule() {
-		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.conveyance");
-		assertEquals("Routing rule for conveyance maintenance", rule.getDescription());
-	}
 	
 	@Test
-	@Ignore("status routes to final, there is no need for a rule")
-	public void testCaseStatusRule () {
-		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.status");
-		assertEquals("Routing rule for case status maintenance", rule.getDescription());
-	}
-	
-	@Test
-	public void testConveyanceTypeRule() {
-		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.conveyanceType");
-		assertEquals("Routing rule for ConveyanceTypeDocument maintenance", rule.getDescription());
+	public void testInitiatorFyiRule() {
+		Rule rule = getRuleSvc().getRuleByName("org.martinlaw.rules.default.initiatorFyi");
+		assertEquals("FYI notification to the initiator notifying them their edoc has been processed", rule.getDescription());
 	}
 	
 	@Test
@@ -88,5 +74,18 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	@Test
 	public void testConveyanceTypeDocType() {
 		assertNotNull(getDocTypeSvc().findByName("ConveyanceTypeMaintenanceDocument"));
+	}
+	public String getDocTypeName() {
+		return null;
+	}
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testInitiatorFYI()
+	 */
+	/**
+	 * does not represent a particular document type
+	 */
+	@Override
+	public void testInitiatorFYI() {
+		// DO nothing
 	}
 }

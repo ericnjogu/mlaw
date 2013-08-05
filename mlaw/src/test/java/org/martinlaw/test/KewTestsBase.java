@@ -23,6 +23,7 @@ package org.martinlaw.test;
  */
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -32,9 +33,13 @@ import java.util.List;
 import java.util.Map;
 
 
+import org.junit.Test;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kew.doctype.bo.DocumentType;
+import org.kuali.rice.kew.doctype.service.DocumentTypeService;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -144,8 +149,9 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 		KRADServiceLocatorWeb.getDocumentService().routeDocument(doc, "submitted", null);
 		//retrieve again to confirm status
 		doc = KRADServiceLocatorWeb.getDocumentService().getByDocumentHeaderId(doc.getDocumentNumber());
-		assertTrue("document should have been approved", doc.getDocumentHeader().getWorkflowDocument().isApproved());
-		assertTrue("document should be final", doc.getDocumentHeader().getWorkflowDocument().isFinal());
+		final WorkflowDocument workflowDocument = doc.getDocumentHeader().getWorkflowDocument();
+		assertTrue("document should have been approved but is " + workflowDocument.getStatus(), workflowDocument.isApproved());
+		assertTrue("document should be final", workflowDocument.isFinal());
 	}
 
 	protected DataObjectAuthorizationService getDataObjAuthSvc() {
@@ -214,25 +220,78 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	}
 	
 	/**
-	 * a common method to test clerk - lawyer routing for transactional docs
+	 * a common method to test initiator - approver routing
 	 * 
 	 * <p>Works with {@link org.kuali.rice.kew.postprocessor.DefaultPostProcessor} as the value of <postProcessorName>
 	 * in the docType xml definition. The document BO is not persisted to the DB and this tests the workflow logic only</p>
-	 * @param docType - the document type name, used to create the document
+	 * @param docTypeName - the document type name, used to create the document
+	 * @param initiator - the initiator's principal name
+	 * @param approver - the approver's principal name
+	 * @return the created work flow document, loaded by the initiator
 	 * @throws WorkflowException 
 	 */
-	public void testTransactionalRoutingNoDocumentCRUD(String docType) throws WorkflowException {
-		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName("clerk1"), docType);
+	public WorkflowDocument testWorkflowRoutingOnly(String docTypeName, String initiator, String approver) throws WorkflowException {
+		WorkflowDocument doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName(initiator), docTypeName);
 		doc.saveDocument("saved");
-		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("clerk1"), doc.getDocumentId());
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName(initiator), doc.getDocumentId());
 		assertTrue("document should be saved but is '" + doc.getStatus() + "'", doc.isSaved());
 		doc.approve("routing");
-		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
+		// final String approver = "lawyer1";
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName(approver), doc.getDocumentId());
 		assertTrue("document should be enroute but is '" + doc.getStatus() + "'", doc.isEnroute());
 		doc.approve("OK");
 		//re-retrieve document to get updated status
-		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName("lawyer1"), doc.getDocumentId());
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName(initiator), doc.getDocumentId());
 		assertTrue("document should be final but is '" + doc.getStatus()  + "'", doc.isFinal());
+		
+		return doc;
+	}
+
+	/**
+	 * set the post processor name for a doc type
+	 * @param docTypeName - the doc type to update
+	 * @param replacement the new value
+	 * @return the existing value
+	 */
+	public String updatePostProcessorName(String docTypeName, String replacement) {
+		DocumentTypeService documentTypeService = GlobalResourceLoader.getService("enDocumentTypeService");
+		DocumentType docTypeObj = DocumentType.from(documentTypeService.findByName(docTypeName));
+		String originalPostProcessorName = docTypeObj.getPostProcessorName(); 
+		docTypeObj.setPostProcessorName(replacement);
+		documentTypeService.save(docTypeObj);
+		
+		return originalPostProcessorName;
+	}
+	
+	/**
+	 * confirms that the initiator gets an FYI when document is approved
+	 * @see #testWorkflowRoutingOnly(String, String, String)
+	 * @throws WorkflowException
+	 */
+	public void testWorkflowRoutingOnly_initiator_FYI(String docType, String initiator, String approver) throws WorkflowException {
+		// one level approval
+		WorkflowDocument doc = testWorkflowRoutingOnly(docType, initiator, approver);
+		assertTrue("document should by fyi'ed to " + initiator, doc.isFYIRequested());
+		doc.fyi("asante");
+		// re-retrieve document to get updated status
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName(initiator), doc.getDocumentId());
+		assertFalse("document has been fyi'ed", doc.isFYIRequested());
+		
+		// direct approval
+		doc = WorkflowDocumentFactory.createDocument(getPrincipalIdForName(approver), docType);
+		doc.blanketApprove("sawa");
+		doc = WorkflowDocumentFactory.loadDocument(getPrincipalIdForName(approver), doc.getDocumentId());
+		assertFalse("initiator and approver are the same principal", doc.isFYIRequested());
+	}
+	
+	/**
+	 * uses test principals -  lawyer1, clerk1 as approver and initiator respectively
+	 * @see #testWorkflowRoutingOnly_initiator_FYI(String, String, String)
+	 * @param docType - the document type name
+	 * @throws WorkflowException 
+	 */
+	public void testWorkflowRoutingOnly_initiator_FYI(String docType) throws WorkflowException {
+		testWorkflowRoutingOnly_initiator_FYI(docType, "clerk1", "lawyer1");
 	}
 	
 	/**
@@ -265,6 +324,21 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 			fail("should have thrown validation exception on route");
 		} catch (ValidationException e) {
 			// test succeeded
+		}
+	}
+
+	/**
+	 * for children to provide this information in structured way
+	 * @return
+	 */
+	public abstract String getDocTypeName();
+
+	@Test
+	public void testInitiatorFYI() {
+		try {
+			testWorkflowRoutingOnly_initiator_FYI(getDocTypeName() + "Test");
+		} catch (WorkflowException e) {
+			fail(e.getMessage());
 		}
 	}
 

@@ -163,4 +163,13 @@ public class MartinlawConstants {
 		public static final String CLIENT = "CLIENT";
 		public static final String WITNESS = "WITNESS";
 	}
+	
+	/**
+	 * constants to use in creating affiliations
+	 * @author mugo
+	 *
+	 */
+	public static class RoutingBranches {
+		public static final String FYI_INITIATOR_IF_NOT_APPROVER = "martinlawInitiatorFyiBranch";
+	}
 }

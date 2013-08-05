@@ -160,4 +160,19 @@ public class KEWPermissionsTest extends KewTestsBase {
 		}
 	}
 
+	public String getDocTypeName() {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testInitiatorFYI()
+	 */
+	/**
+	 * no particular document is represented by this test class
+	 */
+	@Override
+	public void testInitiatorFYI() {
+		// do nothing
+	}
+
 }

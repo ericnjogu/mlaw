@@ -269,7 +269,6 @@
 
 		<value>classpath:org/martinlaw/rice-overrides/kr.xml</value>
 		<value>classpath:org/martinlaw/rice-overrides/kim.xml</value>
-         
       </list>
     </property>
     <property name="databaseRepositoryFilePaths">

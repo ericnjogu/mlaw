@@ -54,7 +54,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	 */
 	@Test
 	public void testMatterEventMaintDocPerms() {
-		testCreateMaintain(getDataObjectClass(), getDocType());
+		testCreateMaintain(getDataObjectClass(), getDocTypeName());
 	}
 
 	/**
@@ -69,7 +69,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	public void testMatterEventRouting() throws InstantiationException,
 			IllegalAccessException, WorkflowException {
 		MatterEvent testDate = getTestUtils().getTestMatterEvent(getDataObjectClass());
-		this.testMaintenanceRoutingInitToFinal(getDocType(), testDate);
+		this.testMaintenanceRoutingInitToFinal(getDocTypeName(), testDate);
 	}
 
 	/**
@@ -88,7 +88,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 		/*//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument(getDocType(), testDate, "clerk1");
 		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);*/
-		testMaintenanceRoutingInitToFinal(getDocType(), testDate);
+		testMaintenanceRoutingInitToFinal(getDocTypeName(), testDate);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 		testDate.setTypeId(null);
 		
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument(getDocType(), testDate, "clerk1");
+		Document doc = getPopulatedMaintenanceDocument(getDocTypeName(), testDate, "clerk1");
 		testRouting_required_validated_onroute(doc);
 	}
 
@@ -116,7 +116,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 		try {
 			// route 2 docs first
 			MatterEvent testEvent1 = getTestUtils().getTestMatterEvent(getDataObjectClass());
-			final String docType = getDocType();
+			final String docType = getDocTypeName();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy hh:mm");
 			Date date = sdf.parse("04 mar 2013 16:54");
 			testEvent1.setStartDate(new Timestamp(date.getTime()));
@@ -156,12 +156,6 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 			fail("exception occurred");
 		}
 	}
-	
-	/**
-	 * 
-	 * @return the doc type being tested
-	 */
-	public abstract String getDocType();
 	
 	/**
 	 * 

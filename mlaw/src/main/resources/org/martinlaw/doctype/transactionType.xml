@@ -28,11 +28,11 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>TransactionTypeMaintenanceDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultNoRoutingSearchableDocument</parent>
 			<description>Transaction Type Maintenance Document</description>
 			<label>Transaction Type Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
+			<!-- <blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
 
@@ -42,7 +42,7 @@
 				</routePath>
 			</routePaths>
 			<routeNodes>
-			<!-- routes to final -->
+			routes to final
 				<start name="Initiated">
 					<activationType>P</activationType>
 					<mandatoryRoute>false</mandatoryRoute>
@@ -53,7 +53,7 @@
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-			</attributes>
+			</attributes> -->
 		</documentType>
 	</documentTypes>
 

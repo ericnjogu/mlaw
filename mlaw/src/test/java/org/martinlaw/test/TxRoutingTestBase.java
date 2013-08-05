@@ -107,7 +107,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 */
 	private MatterTxBusinessRulesBase getRule() throws InstantiationException, IllegalAccessException {
 		if (rule == null) {
-			DocumentEntry entry = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocType());
+			DocumentEntry entry = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocTypeName());
 			if (entry != null) {
 				rule = (MatterTxBusinessRulesBase) entry.getBusinessRulesClass().newInstance();
 			}
@@ -150,11 +150,6 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * @throws WorkflowException 
 	 */
 	public abstract MatterTxDocBase getTxDoc() throws WorkflowException;
-	
-	/**
-	 * @return the docType
-	 */
-	public abstract String getDocType();
 
 	/**
 	 * @param rule the rule to set

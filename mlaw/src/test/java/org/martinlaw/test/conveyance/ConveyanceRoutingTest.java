@@ -58,7 +58,7 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		int existingConveyances = getBoSvc().findAll(Conveyance.class).size();
 		Conveyance conv = getTestUtils().getTestConveyance();
 		try {
-			testMaintenanceRoutingInitToFinal("ConveyanceMaintenanceDocument", conv);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), conv);
 		} catch (Exception e) {
 			log.error("error in testConveyanceRouting", e);
 			fail(e.getMessage());
@@ -83,7 +83,7 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 	public void testConveyanceDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
 		Conveyance conv = getTestUtils().getTestConveyance();
 		//conv.getConsiderations().add(new Consideration(new BigDecimal(1000), "EBS", null));
-		final String docType = "ConveyanceMaintenanceDocument";
+		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, conv);
 		
 		Conveyance conv2 = getTestUtils().getTestConveyance();
@@ -109,5 +109,9 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		crits.add(crit2);
 		crits.add(crit3);
 		getTestUtils().runDocumentSearch(crits, docType);
+	}
+
+	public String getDocTypeName() {
+		return "ConveyanceMaintenanceDocument";
 	}
 }

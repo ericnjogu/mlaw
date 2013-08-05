@@ -124,4 +124,16 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 		getTestUtils().runDocumentSearch(crits, docType);
 	}
 
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testInitiatorFYI()
+	 */
+	/**
+	 * {@link BaseDetail} objects do not need routing so skip this test
+	 */
+	@Override
+	public void testInitiatorFYI() {
+		// do nothing
+	}
+
 }
