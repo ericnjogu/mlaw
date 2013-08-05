@@ -36,7 +36,7 @@
 				<required>false</required> </attribute> </attributes>
 			 -->
 		</ruleTemplate>
-		<ruleTemplate>
+		<ruleTemplate allowOverwrite="true">
 			<name>org.martinlaw.initiatorFYI</name>
 			<description>Initiator notification of processed</description>
 			<attributes>
