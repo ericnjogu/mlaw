@@ -172,4 +172,13 @@ public class MartinlawConstants {
 	public static class RoutingBranches {
 		public static final String FYI_INITIATOR_IF_NOT_APPROVER = "martinlawInitiatorFyiBranch";
 	}
+	
+	/**
+	 * constants to use in creating affiliations
+	 * @author mugo
+	 *
+	 */
+	public static class Styles {
+		public static final String DEFAULT_EMAIL_STYLESHEET_NAME = "martinlaw.default.email.stylesheet";
+	}
 }
