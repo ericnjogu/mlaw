@@ -26,7 +26,6 @@ package org.martinlaw.test;
  */
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -37,13 +36,11 @@ import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.krad.datadictionary.AttributeDefinition;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.uif.component.Component;
 import org.kuali.rice.krad.uif.control.TextAreaControl;
 import org.kuali.rice.krad.uif.field.InputField;
 import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.StatusScope;
-import org.martinlaw.bo.conveyance.Client;
 import org.martinlaw.bo.courtcase.CourtCase;
 
 /**
@@ -116,26 +113,6 @@ public class ValidationTests extends MartinlawTestsBase {
 	 * @throws IllegalAccessException
 	 */
 	@Test
-	public void testPrincipalName_validation()
-	throws InstantiationException, IllegalAccessException {
-		Client client = new Client();
-		client.setPrincipalName(" wa mugo ");
-		final String attributeName = "principalName";
-		getTestUtils().validate(client, 1, attributeName);
-		
-		client.setPrincipalName("waMugo");
-		getTestUtils().validate(client, 1, attributeName);
-		
-		client.setPrincipalName("wamugo");
-		getTestUtils().validate(client, 0, attributeName);
-	}
-	
-	/**
-	 * test that Constraint is working ok
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 */
-	@Test
 	public void testLocalReference_validation()
 	throws InstantiationException, IllegalAccessException {
 		CourtCase kase = new CourtCase();
@@ -158,13 +135,7 @@ public class ValidationTests extends MartinlawTestsBase {
 	 * @see org/martinlaw/rice-overrides/kr.xml
 	 */
 	@Test
-	public void testAdditionalFiles_krad() {
-		String[] componentIds = {"Uif-DocumentAdHocRecipientsSection"};
-		for (String cmpId: componentIds) {
-			Component cmp = (Component) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(cmpId);
-			assertFalse("render value differs", cmp.isRender());
-		}
-		
+	public void testAdditionalFiles_krad() {		
 		InputField desc = (InputField) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
 				"Uif-DocumentDescription");
 		// see org.kuali.rice.krad.uif.control.TextControl#setWatermarkText for why the additional space is added
