@@ -40,6 +40,4 @@
 	<param name="DATE_TO_STRING_FORMAT_FOR_USER_INTERFACE">dd MMM yyyy</param>
 	<param name="mlaw.jquery.date.format">dd M yy</param>
 	
-	<param name="edl.style.martinlaw.default.email.stylesheet">classpath:org/martinlaw/mail/default-email-style.xml</param>
-	
 </config>

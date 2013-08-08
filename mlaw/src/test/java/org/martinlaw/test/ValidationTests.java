@@ -26,24 +26,24 @@ package org.martinlaw.test;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.coreservice.api.style.StyleService;
 import org.kuali.rice.kim.bo.ui.PersonDocumentPhone;
 import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.krad.datadictionary.AttributeDefinition;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.uif.component.Component;
 import org.kuali.rice.krad.uif.control.TextAreaControl;
 import org.kuali.rice.krad.uif.field.InputField;
 import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
-import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.StatusScope;
+import org.martinlaw.bo.conveyance.Client;
 import org.martinlaw.bo.courtcase.CourtCase;
 
 /**
@@ -116,6 +116,26 @@ public class ValidationTests extends MartinlawTestsBase {
 	 * @throws IllegalAccessException
 	 */
 	@Test
+	public void testPrincipalName_validation()
+	throws InstantiationException, IllegalAccessException {
+		Client client = new Client();
+		client.setPrincipalName(" wa mugo ");
+		final String attributeName = "principalName";
+		getTestUtils().validate(client, 1, attributeName);
+		
+		client.setPrincipalName("waMugo");
+		getTestUtils().validate(client, 1, attributeName);
+		
+		client.setPrincipalName("wamugo");
+		getTestUtils().validate(client, 0, attributeName);
+	}
+	
+	/**
+	 * test that Constraint is working ok
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	@Test
 	public void testLocalReference_validation()
 	throws InstantiationException, IllegalAccessException {
 		CourtCase kase = new CourtCase();
@@ -139,6 +159,11 @@ public class ValidationTests extends MartinlawTestsBase {
 	 */
 	@Test
 	public void testAdditionalFiles_krad() {
+		String[] componentIds = {"Uif-DocumentAdHocRecipientsSection"};
+		for (String cmpId: componentIds) {
+			Component cmp = (Component) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(cmpId);
+			assertFalse("render value differs", cmp.isRender());
+		}
 		
 		InputField desc = (InputField) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
 				"Uif-DocumentDescription");
@@ -149,20 +174,5 @@ public class ValidationTests extends MartinlawTestsBase {
 		AttributeDefinition expln = (AttributeDefinition) KRADServiceLocatorWeb.getDataDictionaryService().getDictionaryObject(
 				"DocumentHeader-explanation");
 		assertNotNull("watermark should not be null", ((TextAreaControl)expln.getControlField()).getWatermarkText());
-	}
-	
-	/**
-	 * tests that the custom email stylesheet is available
-	 */
-	@Test
-	public void testCustomEmailStyle () {
-		StyleService styleService = GlobalResourceLoader.getService("styleService");
-		assertNotNull("style should not be null", styleService.getStyle(MartinlawConstants.Styles.DEFAULT_EMAIL_STYLESHEET_NAME));
-		
-		//child documents do not inherit parent email style sheets 
-		/*org.kuali.rice.kew.doctype.bo.DocumentType docType = KEWServiceLocator.getDocumentTypeService().findByName(
-				MartinlawConstants.DocTypes.COURTCASE_WORK);
-		assertEquals("style sheet name differs", 
-				MartinlawConstants.Styles.DEFAULT_EMAIL_STYLESHEET_NAME, docType.getCustomEmailStylesheet());*/
 	}
 }
