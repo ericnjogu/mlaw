@@ -30,10 +30,9 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.martinlaw.bo.utils.PersonUtils;
 /**
  * a common parent used to associate people with matters
  * 
@@ -52,6 +51,8 @@ public abstract class MartinlawPerson extends PersistableBusinessObjectBase {
 	/** the client**/
 	@Transient
 	private Person person;
+	@Transient
+	PersonUtils personUtils;
 
 	/**
 	 * @return the principalName
@@ -99,17 +100,11 @@ public abstract class MartinlawPerson extends PersistableBusinessObjectBase {
 	 * @return the client
 	 */
 	public org.kuali.rice.kim.api.identity.Person getPerson() {
-		if ((person == null) || !StringUtils.equals(person.getPrincipalName(), getPrincipalName())) {
-			person = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(getPrincipalName());
-	
-	        if (person == null) {
-	            try {
-	                person = KimApiServiceLocator.getPersonService().getPersonImplementationClass().newInstance();
-	            } catch (Exception e) {
-	                throw new RuntimeException(e);
-	            }
-	        }
-	    }
+		if (personUtils == null) {
+			personUtils = new PersonUtils();
+		}
+		person = personUtils.getPerson(person, getPrincipalName());
+		
 		return person;
 	}
 

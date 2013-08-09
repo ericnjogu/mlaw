@@ -21,11 +21,11 @@
 ---
 
 insert into martinlaw_opinion_t 
-(matter_id,local_reference, summary, status_id, name, obj_id) 
+(matter_id,local_reference, summary, status_id, name, obj_id, client_principal_name) 
 values 
-(1001,'op1', null,1002,"legal opinion regarding the sale of brown elephant", "op1"),
-(1002,'OP2', null,1002,"legal opinion regarding the status quo", "op2"),
-(1003,'OP3', null,1002,"legal opinion on impact of the tax act on revenue", "op3");
+(1001,'op1', null,1002,"legal opinion regarding the sale of brown elephant", "op1", 'client1'),
+(1002,'OP2', null,1002,"legal opinion regarding the status quo", "op2", 'clerk1'),
+(1003,'OP3', null,1002,"legal opinion on impact of the tax act on revenue", "op3", 'witness1');
 
 insert into martinlaw_opinion_consideration_t
 (consideration_id, currency, description, amount, consideration_type_id, matter_id)

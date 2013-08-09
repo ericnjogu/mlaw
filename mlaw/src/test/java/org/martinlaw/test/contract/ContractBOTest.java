@@ -96,10 +96,13 @@ public class ContractBOTest extends MartinlawTestsBase {
 		assertNotNull("contract duration should not be null" ,contract.getContractDuration());
 		assertNotNull("contract duration start date should not be null", contract.getContractDuration().getStartDate());
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());
+		assertNotNull("client principal name should not be null", contract.getClientPrincipalName());
+		getTestUtils().testMatterClient(contract, "Client");
 		getTestUtils().testAssignees(contract.getAssignees());
 		getTestUtils().testRetrievedConsiderationFields(contract.getConsiderations().get(0));
 		
 		getTestUtils().testWorkList(contract.getWork());
+		getTestUtils().testMatterClient(contract, "Client");
 	}
 
 	@Test
@@ -124,6 +127,7 @@ public class ContractBOTest extends MartinlawTestsBase {
 		getTestUtils().testContractFields(contract);
 		assertNotNull("considerations should not be null", contract.getConsiderations());
 		assertEquals("default number of considerations differs", 2, contract.getConsiderations().size());
+		getTestUtils().testMatterClient(contract, getTestUtils().getTestClientFirstName());
 		// U
 		String serviceOffered = "flat 3f2";
 		contract.setServiceOffered(serviceOffered);
@@ -139,6 +143,7 @@ public class ContractBOTest extends MartinlawTestsBase {
 		criteria.put("contractId", contract.getId());
 		assertEquals("contract signatories should have been deleted", 0, getBoSvc().findMatching(ContractSignatory.class, criteria).size());
 		assertEquals("contract parties should have been deleted", 0, getBoSvc().findMatching(ContractParty.class, criteria).size());
+		
 	}
 	
 	@Test

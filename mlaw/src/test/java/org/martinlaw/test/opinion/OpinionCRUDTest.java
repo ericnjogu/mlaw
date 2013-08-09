@@ -69,6 +69,7 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		getTestUtils().testWorkList(opinion.getWork());
 		
 		getTestUtils().testRetrievedConsiderationFields(opinion.getConsiderations().get(0));
+		getTestUtils().testMatterClient(opinion, "Client");
 	}
 	
 	/**
@@ -93,6 +94,7 @@ public class OpinionCRUDTest extends MartinlawTestsBase {
 		getTestUtils().testConsiderationFields(opinion.getConsiderations().get(0));
 		assertNotNull("considerations should not be null", opinion.getConsiderations());
 		assertEquals("default number of considerations differs", 2, opinion.getConsiderations().size());
+		getTestUtils().testMatterClient(opinion, getTestUtils().getTestClientFirstName());
 		// U
 		String summary = "see attached file";
 		opinion.setSummary(summary);

@@ -165,23 +165,4 @@ public class MatterMaintainableIntegrationTest extends MartinlawTestsBase {
 		maintainable = new MatterMaintainable();
 		idSvc = KimApiServiceLocator.getIdentityService();
 	}
-	
-	/**
-	 * tests {@link org.martinlaw.bo.MatterMaintainable#replacePrincipalName(MartinlawPerson, String)}
-	 *//*
-	@Test
-	public void testReplacePrincipalName() {
-		Client person = new Client();
-		person.setPrincipalName("clerk of the senate");
-		person.setMatterId(1001l);
-		getBoSvc().save(person);
-		
-		final String principalName = "clerk22";
-		maintainable.replacePrincipalName(person, principalName);
-		
-		Map<String, String> criteria = new HashMap<String, String>(); 
-		criteria.put("principalName", principalName);
-		assertEquals("principal name should have been replaced", 1,  getBoSvc().findMatching(Client.class, criteria).size());
-	}
-*/
 }

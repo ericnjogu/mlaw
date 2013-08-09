@@ -140,7 +140,7 @@ public class MatterMaintainable extends MaintainableImpl {
 	}
 
 	/**
-	 * given a human readable name e.g. Pauline Wangui Njogu create a kuali rice principal name
+	 * given a human readable name e.g. Pauline Wangui Njogu
 	 * @param namesFromUser - the names provided
 	 * @return - the principal name (max 100 chars)
 	 */
@@ -172,20 +172,16 @@ public class MatterMaintainable extends MaintainableImpl {
 	}
 	
 	/**
-	 * replace user supplied names with principal name
-	 * @param person - contains user supplied info
-	 * @param principalName - the new principal name
-	 *//*
-	protected void replacePrincipalName(MartinlawPerson person, String principalName) {
-		Map<String, String> criteria = new HashMap<String, String>(); 
-		criteria.put("principalName", person.getPrincipalName());
-		Collection<? extends MartinlawPerson> persons = getBusinessObjectService().findMatching(person.getClass(), criteria);
-		if (! persons.isEmpty()) {
-			person = persons.iterator().next();
-			person.setPrincipalName(principalName);
-			getBusinessObjectService().save(person);
+	 * create main client if they do not exist, update name
+	 * @param matter 
+	 */
+	protected void createMainClient(@SuppressWarnings("rawtypes") Matter matter) {
+		String principalName = createPrincipalName(matter.getClientPrincipalName());
+		if (KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(principalName) == null) {
+			createPrincipal(principalName, MartinlawConstants.AffiliationCodes.CLIENT, matter.getClientPrincipalName());
 		}
-	}*/
+		matter.setClientPrincipalName(principalName);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.maintenance.MaintainableImpl#doRouteStatusChange(org.kuali.rice.krad.bo.DocumentHeader)
@@ -196,6 +192,7 @@ public class MatterMaintainable extends MaintainableImpl {
 		super.doRouteStatusChange(documentHeader);
 		if (documentHeader.getWorkflowDocument().isProcessed()) {
 			createPrincipals(((Matter) getDataObject()).getClients(), MartinlawConstants.AffiliationCodes.CLIENT);
+			createMainClient((Matter) getDataObject());
 		}
 	}
 

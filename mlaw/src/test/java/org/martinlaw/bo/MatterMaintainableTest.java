@@ -60,6 +60,7 @@ public class MatterMaintainableTest {
 	public void testGetFirstName() {
 		String msg = "first name differs";
 		assertEquals(msg, "Robert", maintainable.getFirstName("	 Robert 	Gakuo "));
+		assertEquals(msg, "Cornelius", maintainable.getFirstName("Cornelius Mutuku"));
 		assertEquals(msg, "Scott", maintainable.getFirstName("	 Scott	 "));
 	}
 	

@@ -201,6 +201,14 @@
 				<bean parent="Uif-InputField" p:propertyName="id" />
 				<bean parent="Uif-InputField" p:propertyName="localReference" />
 				<bean parent="Uif-InputField" p:propertyName="name" />
+				<bean parent="Uif-HorizontalFieldGroup" p:label="Client">
+		          <property name="items">
+		            <list>
+		              <bean parent="Uif-InputField" p:propertyName="client.name" p:label="Client Name"/>
+		              <bean parent="Uif-InputField" p:propertyName="client.principalId"/>
+		            </list>
+		          </property>
+		        </bean>
 				<bean parent="Uif-InputField" p:propertyName="statusId" />
 			</list>
 		</property>
@@ -213,11 +221,19 @@
 				<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" /> -->
 				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="localReference" />
 				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="name" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="clientPrincipalName"/>
+				<!-- avoid an invalid search field error -->
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="client.principalId" 
+					p:inquiry.enableDirectInquiry="false">
+					<property name="control">
+      					<bean parent="Uif-HiddenControl"/>
+   					</property>
+				</bean>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId"/>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_matter">
 					<property name="control">
       					<bean parent="Uif-HiddenControl">
-      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_matter_control').val('localReference,name');"/>
+      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_matter_control').val('localReference,name,clientPrincipalName');"/>
       					</bean>
    					</property>
 				</bean>
@@ -228,6 +244,7 @@
 				<!-- <bean parent="Uif-DataField" p:propertyName="id" /> -->
 				<bean parent="Uif-DataField" p:propertyName="localReference" />
 				<bean parent="Uif-DataField" p:propertyName="name" />
+				<bean parent="Uif-DataField" p:propertyName="client.name" p:label="Client Name"/>				
 				<bean parent="Uif-DataField" p:propertyName="status.status" />
 			</list>
 		</property>
@@ -254,6 +271,7 @@
 						</list>
 					</property>
 				</bean>
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="clientPrincipalName" />
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="statusId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
 			</list>

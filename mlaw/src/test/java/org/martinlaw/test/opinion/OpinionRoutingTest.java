@@ -104,10 +104,15 @@ public class OpinionRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit2 = new SearchTestCriteria();
 		crit2.setExpectedDocuments(1);
 		crit2.getFieldNamesToSearchValues().put("localReference", testOpinion.getLocalReference());
+		// search for main client
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(2);
+		crit3.getFieldNamesToSearchValues().put("clientPrincipalName", "clerk2");
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
 		crits.add(crit2);
+		crits.add(crit3);
 		getTestUtils().runDocumentSearch(crits, docType);
 	}
 

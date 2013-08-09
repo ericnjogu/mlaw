@@ -119,6 +119,8 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         // type
         assertNotNull("case type should not be null", kase.getType());
         assertEquals("case type id differs", new Long(10001), kase.getType().getId());
+        // client
+        getTestUtils().testMatterClient(kase, "Client");
 	}
 
 	
@@ -140,6 +142,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		getBoSvc().save(status);
 		status.refresh();
 		kase.setStatusId(status.getId());
+		kase.setClientPrincipalName(getTestUtils().getTestClientPrincipalName());
 		
 		CourtCaseType type = new CourtCaseType();
 		final String typeName = "petition";
@@ -190,6 +193,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		assertNotNull("witnesses should not be null",kase.getWitnesses());
 		assertEquals("number of witnesses expected differs", 1, kase.getWitnesses().size());
 		getTestUtils().testConsiderationFields(kase.getConsiderations().get(0));
+		getTestUtils().testMatterClient(kase, getTestUtils().getTestClientFirstName());
 	}
 
 	@Test

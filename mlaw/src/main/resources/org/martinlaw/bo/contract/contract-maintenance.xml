@@ -104,6 +104,19 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans         http://w
 					</list>
 				</property>
 			</bean>
+			
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="contract_maint_document_entry_search_attr">
+						<property name="attributeName" value="clientPrincipalName" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.clientPrincipalName</value>
+					</list>
+				</property>
+			</bean>
 			</list>
 		</property>
 	</bean>

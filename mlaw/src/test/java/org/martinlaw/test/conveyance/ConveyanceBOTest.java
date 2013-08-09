@@ -113,6 +113,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		getTestUtils().testConsiderationFields(conv.getConsiderations().get(0));
 		assertNotNull("considerations should not be null", conv.getConsiderations());
 		assertEquals("default number of considerations differs", 2, conv.getConsiderations().size());
+		getTestUtils().testMatterClient(conv, getTestUtils().getTestClientFirstName());
 		// U
 		String name2 = "EN/C010";
 		conv.setName(name2);
@@ -155,6 +156,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		getTestUtils().testWorkList(conv.getWork());
 		
 		getTestUtils().testRetrievedConsiderationFields(conv.getConsiderations().get(0));
+		getTestUtils().testMatterClient(conv, "Client");
 	}
 	
 	@Test

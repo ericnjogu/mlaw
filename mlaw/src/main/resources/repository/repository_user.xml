@@ -76,6 +76,10 @@
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
 		
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		
 		<field-descriptor name="typeId" column="court_case_type_id"
 			jdbc-type="BIGINT" indexed="true"/>
 		<reference-descriptor name="type"
@@ -394,7 +398,9 @@
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
-
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
 		<field-descriptor name="typeId" column="convey_type_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
@@ -657,7 +663,9 @@
 			jdbc-type="VARCHAR" length="255" />
 		<field-descriptor name="summaryOfTerms" column="summary_of_terms"
 			jdbc-type="VARCHAR" length="255" />
-
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
 		<field-descriptor name="contractDurationId" column="contract_duration_id"
 			jdbc-type="BIGINT" />
 
@@ -971,7 +979,10 @@
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
-
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.opinion.Client"
 			auto-retrieve="true" auto-update="true" auto-delete="true">

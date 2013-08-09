@@ -67,6 +67,7 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.EventType;
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterConsideration;
@@ -107,6 +108,8 @@ public class TestUtils {
 	private String testOpinionClientName;
 	private String testOpinionLocalReference;
 	private Log log = LogFactory.getLog(getClass());
+	private String testClientPrincipalName = "clerk2";
+	private String testClientFirstName = "Clerk";
 	/**
 	 * get a test conveyance object
 	 * @return
@@ -117,6 +120,7 @@ public class TestUtils {
 		conv.setLocalReference("EN/C001");
 		conv.setTypeId(1002l);
 		conv.setStatusId(1001l);
+		conv.setClientPrincipalName(testClientPrincipalName);
 		return conv;
 	}
 	
@@ -134,6 +138,7 @@ public class TestUtils {
 		contract.setSummaryOfTerms("see attached file");
 		contract.setServiceOffered("flat 1f2");
 		contract.setStatusId(1001l);
+		contract.setClientPrincipalName(testClientPrincipalName);
 		// parties
 		List<ContractParty> parties = new ArrayList<ContractParty>();
 		parties.add(new ContractParty("party1"));
@@ -337,6 +342,7 @@ public class TestUtils {
 		testOpinionLocalReference = "EN/OP/01";
 		opinion.setLocalReference(testOpinionLocalReference);
 		opinion.setStatusId(1001l);
+		opinion.setClientPrincipalName(testClientPrincipalName);
 		
 		org.martinlaw.bo.opinion.Client client = new org.martinlaw.bo.opinion.Client();
 		testOpinionClientName = "pnk";
@@ -573,6 +579,7 @@ public class TestUtils {
 		
 		caseBo.setLocalReference(localRef);
 		caseBo.setCourtReference(courtRef);
+		caseBo.setClientPrincipalName("client1");
 		String name = "Fatuma Zainab Mohammed vs \n" + 
 				"Ghati Dennitah \n"+
 				"IEBC\n" +
@@ -851,6 +858,45 @@ public class TestUtils {
 			log.error("exception occured", e);
 			fail("exception occured");
 		}
+	}
+	
+	/**
+	 * confirm the {@link Matter#getClient()} has the expected test values
+	 * @param matter - the matter to test
+	 * @param expectedFirstName - the expected first name of the principal
+	 */
+	public void testMatterClient(@SuppressWarnings("rawtypes") Matter matter, String expectedFirstName) {
+		assertNotNull("client object should not be null", matter.getClient());
+		assertNotNull("client principal name should not be null", matter.getClientPrincipalName());
+		assertEquals("client given name differs", expectedFirstName, matter.getClient().getFirstName());
+	}
+
+	/**
+	 * @return the testClientPrincipalName
+	 */
+	public String getTestClientPrincipalName() {
+		return testClientPrincipalName;
+	}
+
+	/**
+	 * @param testClientPrincipalName the testClientPrincipalName to set
+	 */
+	public void setTestClientPrincipalName(String testClientPrincipalName) {
+		this.testClientPrincipalName = testClientPrincipalName;
+	}
+
+	/**
+	 * @return the testClientFirstName
+	 */
+	public String getTestClientFirstName() {
+		return testClientFirstName;
+	}
+
+	/**
+	 * @param testClientFirstName the testClientFirstName to set
+	 */
+	public void setTestClientFirstName(String testClientFirstName) {
+		this.testClientFirstName = testClientFirstName;
 	}
 
 }

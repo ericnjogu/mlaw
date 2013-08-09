@@ -29,11 +29,11 @@ values
 (1002, "Sale of Motor Vehicle", null, default, 'ct2');
 
 insert into martinlaw_conveyance_t 
-(matter_id, local_reference, status_id, name, convey_type_id, obj_id) 
+(matter_id, local_reference, status_id, name, convey_type_id, obj_id, client_principal_name) 
 values 
-(1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1'),
-(1002, 'C2', 1001, "Sale of kaq 784l", 1002, 'conv2'),
-(1003, 'C3', 1001, "Transfer of plot 2", 1001, 'conv3');
+(1001, 'c1', 1001, "Sale of LR4589", 1001, 'conv1', 'client1'),
+(1002, 'C2', 1001, "Sale of kaq 784l", 1002, 'conv2', 'clerk1'),
+(1003, 'C3', 1001, "Transfer of plot 2", 1001, 'conv3', 'witness1');
 
 insert into martinlaw_conveyance_consideration_t
 (consideration_id, currency, description, amount, consideration_type_id, matter_id)

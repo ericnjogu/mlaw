@@ -27,21 +27,18 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	
-	<bean id="court_case_bo" parent="BusinessObjectEntry">
+	<bean id="court_case_bo" parent="martinlaw_shared_matter_bo_entry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.courtcase.CourtCase" />
 		<property name="titleAttribute" value="localReference" />
 		<property name="attributes">
-			<list>
+			<list merge="true">
 				<bean parent="martinlaw-shared-id-parentBean" p:label="Court Case Id" />
 				<bean parent="martinlaw_shared_matter_name" p:label="Parties"/>
 				<ref bean="courtcase-statusId" />
-				<bean parent="martinlaw-shared-localReference-parentBean" />
 				<bean parent="case-courtReference-parentBean" />
 				<ref bean="court_case_type_id"/>
 			</list>
 		</property>
-		<property name="boNotesEnabled" value="true" />
-		<property name="objectLabel" value="name" />
 		<property name="collections">
 	      <list>
 	        <bean parent="CollectionDefinition" p:name="clients" p:label="clients" p:shortLabel="clients" p:elementLabel="client"
@@ -52,6 +49,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	        	p:dataObjectClass="org.martinlaw.bo.courtcase.Assignee"/>
 	      </list>
       	</property>
+      	<property name="objectLabel" value="Court Case" />
 	</bean>
 
 	<!-- Attribute Definitions -->

@@ -22,11 +22,11 @@
 -- insert test data
 
 insert into martinlaw_court_case_t 
-(matter_id,local_reference, court_reference, status_id, name, obj_id, court_case_type_id) 
+(matter_id,local_reference, court_reference, status_id, name, obj_id, court_case_type_id, client_principal_name) 
 values 
-(1001,'l1', 'c1',1002,"Barca vs Man U (2011)", "case1", 10001),
-(1002,'L2', 'c2',1002,"Good vs Evil", "case2", 10002),
-(1003,'L3', 'c2',1002,"Love vs Fear", "case3", 10003);
+(1001,'l1', 'c1',1002,"Barca vs Man U (2011)", "case1", 10001, 'client1'),
+(1002,'L2', 'c2',1002,"Good vs Evil", "case2", 10002, 'clerk1'),
+(1003,'L3', 'c2',1002,"Love vs Fear", "case3", 10003, 'witness1');
 
 insert into martinlaw_court_case_consideration_t
 (consideration_id, currency, description, amount, consideration_type_id, matter_id)

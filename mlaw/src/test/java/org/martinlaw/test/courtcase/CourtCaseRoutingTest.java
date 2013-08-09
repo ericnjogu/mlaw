@@ -65,24 +65,30 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 	public void testCaseMaintenanceRouting() throws WorkflowException {
 		try {
 			// with custom doc searching enabled, saving the document first introduces errors in which the kr users is recorded as routing the doc
-			testMaintenanceRoutingInitToFinal(COURT_CASE_MAINTENANCE_DOCUMENT, getTestUtils().getTestCourtCase(localReference, courtReference));
+			CourtCase testCourtCase = getTestUtils().getTestCourtCase(localReference, courtReference);
+			testCourtCase.setClientPrincipalName("Emma Njau");
+			testMaintenanceRoutingInitToFinal(COURT_CASE_MAINTENANCE_DOCUMENT, testCourtCase);
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("localReference", localReference);
 			Collection<CourtCase> cases = KRADServiceLocator.getBusinessObjectService().findMatching(CourtCase.class, params);
 			assertEquals("Should have found one case", 1, cases.size());
-			for (CourtCase cse: cases) {
-				assertEquals(localReference,cse.getLocalReference());
-				assertEquals(courtReference,cse.getCourtReference());
-				assertNotNull(cse.getStatus());
-				log.info("created status with id " + cse.getStatus().getId());
-				
-				assertEquals("number of clients expected differs", 2, cse.getClients().size());
-				assertEquals("joseph_ndungu", cse.getClients().get(0).getPrincipalName());
-				assertEquals("joseph_thube", cse.getClients().get(1).getPrincipalName());
-				
-				assertEquals("number of witnesses expected differs", 1, cse.getWitnesses().size());
-				assertEquals("thomas_kaberi_gitau", cse.getWitnesses().get(0).getPrincipalName());
-			}
+			CourtCase cse = cases.iterator().next();
+			assertEquals("local reference differs", localReference, cse.getLocalReference());
+			assertEquals("court reference differs", courtReference, cse.getCourtReference());
+			assertNotNull(cse.getStatus());
+			log.info("created status with id " + cse.getStatus().getId());
+			
+			String msg = "expected principal name differs";
+			assertEquals(msg, "emma_njau", cse.getClientPrincipalName());
+			// the names are blank since they are saved via bosvc rather than identity svc
+			// assertEquals("main client first name differs", "Emma", cse.getClient().getFirstName());
+			
+			assertEquals("number of clients expected differs", 2, cse.getClients().size());
+			assertEquals(msg, "joseph_ndungu", cse.getClients().get(0).getPrincipalName());
+			assertEquals(msg, "joseph_thube", cse.getClients().get(1).getPrincipalName());
+			
+			assertEquals("number of witnesses expected differs", 1, cse.getWitnesses().size());
+			assertEquals(msg, "thomas_kaberi_gitau", cse.getWitnesses().get(0).getPrincipalName());
 		} catch (Exception e) {
 			log.error("test failed", e);
 			fail("test failed due to an exception - " + e.getClass());
@@ -152,11 +158,16 @@ public class CourtCaseRoutingTest extends KewTestsBase {
 			SearchTestCriteria crit3 = new SearchTestCriteria();
 			crit3.setExpectedDocuments(1);
 			crit3.getFieldNamesToSearchValues().put("name", "Bingu*");
+			// search for main client
+			SearchTestCriteria crit4 = new SearchTestCriteria();
+			crit4.setExpectedDocuments(2);
+			crit4.getFieldNamesToSearchValues().put("clientPrincipalName", "client1");
 			
 			List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 			crits.add(crit1);
 			crits.add(crit2);
 			crits.add(crit3);
+			crits.add(crit4);
 			getTestUtils().runDocumentSearch(crits, docType);
 	        
 		} catch (Exception e) {
