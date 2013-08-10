@@ -28,7 +28,7 @@
 
 
 	<bean id="martinlaw_shared_matter_event_maintenance_view" abstract="true"
-		parent="Uif-MaintenanceView">
+		parent="martinlaw_shared_wildcard_lookup_view">
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-MaintenanceGridSection">
@@ -49,6 +49,13 @@
 							</bean>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="location" />
 							<bean parent="Uif-InputField" p:propertyName="comment" />
+							<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_locom">
+								<property name="control">
+			      					<bean parent="Uif-HiddenControl">
+			      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_locom_control').val('location,comment');"/>
+			      					</bean>
+			   					</property>
+							</bean>
 							<bean parent="Uif-InputField" p:propertyName="active" />
 						</list>
 					</property>
