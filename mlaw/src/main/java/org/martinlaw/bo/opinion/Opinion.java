@@ -54,6 +54,7 @@ public class Opinion extends Matter<Assignee, Work, Client, Consideration, Event
 	public Opinion() {
 		super();
 		setClients(new ArrayList<Client>()); 
+		setEvents(new ArrayList<Event>());
 		try {
 			setConsiderations(createDefaultConsiderations(Consideration.class));
 		} catch (Exception e) {

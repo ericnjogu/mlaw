@@ -61,6 +61,7 @@ public class Contract extends Matter<Assignee, Work, Client, Consideration, Even
 		setParties(new ArrayList<ContractParty>());
 		setSignatories(new ArrayList<ContractSignatory>());
 		setClients(new ArrayList<Client>());
+		setEvents(new ArrayList<Event>());
 		try {
 			setConsiderations(createDefaultConsiderations(Consideration.class));
 		} catch (Exception e) {
