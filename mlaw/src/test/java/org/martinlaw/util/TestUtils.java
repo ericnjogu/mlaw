@@ -543,13 +543,13 @@ public class TestUtils {
 	}
 
 	/**
-	 * create and populate a matter date for testing
-	 * @param d
+	 * create and populate a matter date for integration testing
+	 * @param d - the event class
 	 * @return
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public <D extends MatterEvent> D getTestMatterEvent(Class<D> d) throws InstantiationException, IllegalAccessException {
+	public <D extends MatterEvent> D getTestMatterEventIT(Class<D> d) throws InstantiationException, IllegalAccessException {
 		D date = d.newInstance();
 		date.setComment("must attend");
 		date.setMatterId(1001l);

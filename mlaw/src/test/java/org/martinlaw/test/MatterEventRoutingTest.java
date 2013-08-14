@@ -68,7 +68,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	@Test
 	public void testMatterEventRouting() throws InstantiationException,
 			IllegalAccessException, WorkflowException {
-		MatterEvent testDate = getTestUtils().getTestMatterEvent(getDataObjectClass());
+		MatterEvent testDate = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 		this.testMaintenanceRoutingInitToFinal(getDocTypeName(), testDate);
 	}
 
@@ -82,7 +82,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	public void testMatterEventRouting_InvalidMatterId()
 			throws InstantiationException, IllegalAccessException,
 			WorkflowException {
-		MatterEvent testDate = getTestUtils().getTestMatterEvent(getDataObjectClass());
+		MatterEvent testDate = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 		testDate.setMatterId(3000l);
 		
 		/*//initiate as the clerk
@@ -101,7 +101,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	public void testMatterEventRouting_required_validated_onroute()
 			throws InstantiationException, WorkflowException,
 			IllegalAccessException {
-		MatterEvent testDate = getTestUtils().getTestMatterEvent(getDataObjectClass());
+		MatterEvent testDate = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 		// required on route
 		testDate.setStartDate(null);
 		testDate.setTypeId(null);
@@ -115,14 +115,14 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	public void testMatterEvent_doc_search() {
 		try {
 			// route 2 docs first
-			MatterEvent testEvent1 = getTestUtils().getTestMatterEvent(getDataObjectClass());
+			MatterEvent testEvent1 = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 			final String docType = getDocTypeName();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy hh:mm");
 			Date date = sdf.parse("04 mar 2013 16:54");
 			testEvent1.setStartDate(new Timestamp(date.getTime()));
 			testMaintenanceRoutingInitToFinal(docType, testEvent1);
 			
-			MatterEvent testEvent2 = getTestUtils().getTestMatterEvent(getDataObjectClass());
+			MatterEvent testEvent2 = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 			String location = "nakuru";
 			testEvent2.setLocation(location);
 			testEvent2.setComment("optional for ict department");
