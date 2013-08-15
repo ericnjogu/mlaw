@@ -216,6 +216,11 @@
 
 	<bean id="martinlaw_shared_matter_LookupView" abstract="true"
 		parent="martinlaw_shared_wildcard_lookup_view">
+		 <property name="additionalCssFiles">
+	      <list merge="true">
+	        <value>css/mlaw.css</value>
+	      </list>
+	    </property>
 		<property name="criteriaFields">
 			<list>
 				<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" /> -->
@@ -244,7 +249,9 @@
 				<!-- <bean parent="Uif-DataField" p:propertyName="id" /> -->
 				<bean parent="Uif-DataField" p:propertyName="localReference" />
 				<bean parent="Uif-DataField" p:propertyName="name" />
-				<bean parent="Uif-DataField" p:propertyName="client.name" p:label="Client Name"/>				
+				<bean parent="Uif-DataField" p:propertyName="client.name" p:label="Client Name"/>
+				<bean parent="Uif-DataField" p:propertyName="eventsHtml" p:label="Events" p:escapeHtmlInPropertyValue="false"/>				
+				<bean parent="Uif-DataField" p:propertyName="considerationsHtml" p:label="Considerations" p:escapeHtmlInPropertyValue="false"/>
 				<bean parent="Uif-DataField" p:propertyName="status.status" />
 			</list>
 		</property>

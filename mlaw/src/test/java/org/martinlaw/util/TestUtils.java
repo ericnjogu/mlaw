@@ -32,6 +32,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.same;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -51,6 +54,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.directory.shared.ldap.util.ReflectionToStringBuilder;
 import org.joda.time.DateTime;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
 import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
@@ -559,6 +563,34 @@ public class TestUtils {
 		return date;
 	}
 	
+	/**
+	 * create and populate a matter date for unit/mock testing
+	 * @param e - the event class
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public <E extends MatterEvent> E getTestMatterEventUnt(Class<E> e) throws InstantiationException, IllegalAccessException {
+		E event = e.newInstance();
+		final Timestamp date = new Timestamp(System.currentTimeMillis());
+		event.setStartDate(date);
+		final String location = "Afraha";
+		event.setLocation(location);
+		EventType eventType = new EventType();
+		final String eventName = "Demo";
+		eventType.setName(eventName);
+		event.setType(eventType);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(MartinlawConstants.DEFAULT_TIMESTAMP_FORMAT);
+		final String formattedDate = sdf.format(event.getStartDate());
+		
+		DateTimeService dtSvc = mock(DateTimeService.class);
+		when(dtSvc.toDateTimeString(same(event.getStartDate()))).thenReturn(formattedDate);
+		event.setDateTimeService(dtSvc);
+		
+		return event;
+	}
+	
 	
 	
 	/**
@@ -897,6 +929,20 @@ public class TestUtils {
 	 */
 	public void setTestClientFirstName(String testClientFirstName) {
 		this.testClientFirstName = testClientFirstName;
+	}
+	
+	/**
+	 * creates and populats a mock transaction object
+	 * TODO <p>only sets the amount currently</p>
+	 * @param klass - the type of object to create
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public <A extends MatterTransactionDoc> MatterTransactionDoc getMockTransaction(Class<A> klass, BigDecimal amount) throws InstantiationException, IllegalAccessException {
+		MatterTransactionDoc tx = mock(klass);
+		when(tx.getAmount()).thenReturn(amount);
+		return tx;
 	}
 
 }

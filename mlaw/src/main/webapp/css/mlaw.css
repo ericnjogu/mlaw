@@ -26,3 +26,9 @@ li.att_file {cursor:pointer;}
 li.att_file:HOVER {
 	background-color: aqua;
 }
+
+.mlaw_odd {background-color: #FAFAFA}
+
+.mlaw_even {background-color: #FFFFFF}
+
+div.mlaw_even, div.mlaw_odd {padding-bottom: 3px; padding-top: 3px}

@@ -47,6 +47,7 @@ public class MartinlawConstants {
 	public final static String OPENID_UNACTIVATED_USERNAME = "unactivated.openid.user";
 	public final static String OPENID_ACTIVATION_MESSAGE = "mlaw_openid_activation_message";
 	public final static Long DEFAULT_WORK_TYPE_ID = 10001l;
+	public final static String  DEFAULT_TIMESTAMP_FORMAT = "dd MMM yyyy hh:mm a";
 	public class DocTypes {
 		public final static String CONTRACT_WORK = "ContractWorkDocument";
 		public static final String COURTCASE_WORK = "CourtCaseWorkDocument";
@@ -165,11 +166,21 @@ public class MartinlawConstants {
 	}
 	
 	/**
-	 * constants to use in creating affiliations
+	 * constants for routing branch names
 	 * @author mugo
 	 *
 	 */
 	public static class RoutingBranches {
 		public static final String FYI_INITIATOR_IF_NOT_APPROVER = "martinlawInitiatorFyiBranch";
+	}
+	
+	/**
+	 * constants to use in creating affiliations
+	 * @author mugo
+	 *
+	 */
+	public static class Styles {
+		public static final String ODD = "mlaw_odd";
+		public static final String EVEN = "mlaw_even";
 	}
 }

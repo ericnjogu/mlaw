@@ -26,6 +26,8 @@ package org.martinlaw.bo.contract;
  */
 
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -50,6 +52,14 @@ public class Consideration extends MatterConsideration<TransactionDoc> {
 	 * 
 	 */
 	private static final long serialVersionUID = 9114507684352254606L;
+
+	/**
+	 * 
+	 */
+	public Consideration() {
+		super();
+		setTransactions(new ArrayList<TransactionDoc>());
+	}
 
 	@SuppressWarnings("rawtypes")
 	@Override

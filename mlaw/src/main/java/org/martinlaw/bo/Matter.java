@@ -99,6 +99,10 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private List<K> considerations;
 	@Transient
 	private PersonUtils personUtils;
+	@Transient
+	private transient String eventsHtml = "";
+	@Transient
+	private transient String considerationsHtml = "";
 	
 	/**
 	 * default constructor
@@ -344,5 +348,76 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public void setClient(Person client) {
 		this.client = client;
+	}
+	
+	/**
+	 * events as html for display in the lookup results as a message field
+	 * @return the eventsHtml
+	 */
+	public String getEventsHtml() {
+		if (StringUtils.isEmpty(eventsHtml) && !getEvents().isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			int counter = 0;
+			for (E event: getEvents()) {
+				appendHtmlDivStart(sb, counter);
+				sb.append(event.toHtml());
+				sb.append("</div>");
+				/*if (counter + 1 != getEvents().size()) {
+					sb.append("<br/>");
+				}*/
+				counter +=1;
+			}
+			eventsHtml = sb.toString();
+		}
+		
+		return eventsHtml;
+	}
+
+	/**
+	 * @param sb - a string builder to append a div start tag
+	 * @param counter - counts the number of div elements to determine the background color style
+	 */
+	protected void appendHtmlDivStart(StringBuilder sb, int counter) {
+		sb.append("<div class=\"");
+		if (counter % 2 == 0) {
+			sb.append(MartinlawConstants.Styles.EVEN + "\">");
+		} else {
+			sb.append(MartinlawConstants.Styles.ODD + "\">");
+		}
+	}
+
+	/**
+	 * @param eventsHtml the eventsHtml to set
+	 */
+	public void setEventsHtml(String eventsHtml) {
+		this.eventsHtml = eventsHtml;
+	}
+
+	/**
+	 * @return the considerationsHtml
+	 */
+	public String getConsiderationsHtml() {
+		if (StringUtils.isEmpty(considerationsHtml) && !getConsiderations().isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			int counter = 0;
+			for (K csdn: getConsiderations()) {
+				String html = csdn.toHtml();
+				if (!StringUtils.isEmpty(html)) {
+					appendHtmlDivStart(sb, counter);
+					sb.append(html);
+					sb.append("</div>");
+					counter+=1;
+				}
+			}
+			considerationsHtml = sb.toString();
+		}
+		return considerationsHtml;
+	}
+
+	/**
+	 * @param considerationsHtml the considerationsHtml to set
+	 */
+	public void setConsiderationsHtml(String considerationsHtml) {
+		this.considerationsHtml = considerationsHtml;
 	}
 }
