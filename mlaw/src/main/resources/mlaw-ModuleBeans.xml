@@ -143,8 +143,6 @@
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-annex-type.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-type.xml</value>
-         <value>classpath:org/martinlaw/bo/conveyance/conveyance-attachment.xml</value>
-         <value>classpath:org/martinlaw/bo/conveyance/conveyance-annex.xml</value>
          <value>classpath:org/martinlaw/bo/conveyance/conveyance-client.xml</value>
          
          <value>classpath:org/martinlaw/bo/conveyance/conveyance.xml</value>

@@ -40,12 +40,10 @@ import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.web.controller.InquiryController;
 import org.kuali.rice.krad.web.form.UifFormBase;
-import org.martinlaw.bo.conveyance.ConveyanceAttachment;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -71,40 +69,6 @@ public class DownloadController extends InquiryController {
 	private AttachmentService attachmentService;
 	private BusinessObjectService boSvc;
 
-	/**
-	 * downloads a conveyance attachment - adapted from {@link org.kuali.rice.krad.web.controller.DocumentControllerBase#downloadAttachment}
-	 * 
-	 * @param uifForm - the form
-	 * @param result - the binding result
-	 * @param request - the http request
-	 * @param response - the http response
-	 * @return null
-	 * @throws IOException 
-	 */
-	@Deprecated()//use download by attachment id below
-	@RequestMapping(method = RequestMethod.POST, params = "methodToCall=downloadConveyanceAttachment")
-    public ModelAndView downloadConveyanceAttachment(@ModelAttribute("KualiForm") UifFormBase uifForm, BindingResult result,
-            HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
-		Long conveyanceAttachmentId = null;
-		try {
-			conveyanceAttachmentId = Long.valueOf(uifForm.getActionParamaterValue("conveyanceAttachmentId"));
-			ConveyanceAttachment convAtt = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
-					ConveyanceAttachment.class, conveyanceAttachmentId);
-			if (convAtt == null) {
-				log.error("conveyance attachment with id '" + conveyanceAttachmentId + "' does not exist");
-			} else {
-				if (convAtt.getAttachment() == null) {
-					log.error("no attachment was found for conveyance with id '" + conveyanceAttachmentId + "'");
-				} else {
-			        downloadAttachmentAsStream(response, convAtt.getAttachment());
-				}
-			}
-		} catch (NumberFormatException e) {
-			log.error(e.getMessage());
-		}
-        return null;
-	}
 
 	/**
 	 * download an attachment as an output stream

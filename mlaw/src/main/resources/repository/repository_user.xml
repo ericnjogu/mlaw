@@ -309,61 +309,6 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceAttachment"
-		table="martinlaw_conveyance_att_t">
-		<field-descriptor name="id" column="convey_att_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_att_s">
-		</field-descriptor>
-		<field-descriptor name="conveyanceAnnexId" column="convey_annex_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="noteTimestamp" column="note_timestamp"
-			jdbc-type="VARCHAR">
-		</field-descriptor>
-		<field-descriptor name="filename" column="filename"
-			jdbc-type="VARCHAR" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<!-- now being fetched dynamically, depending on the value of the note 
-			timestamp -->
-		<!-- <reference-descriptor name="attachment" class-ref="org.kuali.rice.krad.bo.Attachment" 
-			auto-retrieve="true" auto-update="true" auto-delete="none"> <foreignkey field-ref="attachmentId" 
-			/> </reference-descriptor> -->
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceAnnex"
-		table="martinlaw_conveyance_annex_t">
-		<field-descriptor name="id" column="convey_annex_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_annex_s">
-		</field-descriptor>
-		<field-descriptor name="conveyanceAnnexTypeId"
-			column="convey_annex_type_id" jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="conveyanceId" column="conveyance_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
-			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<foreignkey field-ref="conveyanceAnnexTypeId" />
-		</reference-descriptor>
-
-		<collection-descriptor name="attachments"
-			element-class-ref="org.martinlaw.bo.conveyance.ConveyanceAttachment"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="conveyanceAnnexId" />
-		</collection-descriptor>
-	</class-descriptor>
-
 	<class-descriptor class="org.martinlaw.bo.conveyance.Client"
 		table="martinlaw_conveyance_client_t">
 		<field-descriptor name="id" column="client_id"
@@ -424,12 +369,6 @@
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
-
-		<collection-descriptor name="annexes"
-			element-class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnex"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="conveyanceId" />
-		</collection-descriptor>
 
 		<collection-descriptor name="assignees"
 			element-class-ref="org.martinlaw.bo.conveyance.Assignee"
