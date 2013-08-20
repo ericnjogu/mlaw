@@ -50,7 +50,7 @@ public class OpinionAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
 	public void testOpinionAssignmentMaintDocPerms() {
-		testCreateMaintain(Assignment.class, "OpinionAssignmentMaintenanceDocument");
+		testCreateMaintain(Assignment.class, getDocTypeName());
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class OpinionAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	@Test
 	public void testOpinionAssignmentRouting() throws InstantiationException, IllegalAccessException {
 		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
-		super.testAssignmentRouting(testAssignment, "OpinionAssignmentMaintenanceDocument");
+		super.testAssignmentRouting(testAssignment, getDocTypeName());
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class OpinionAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 	@Test
 	public void testOpinionAssignmentDocSearch() throws InstantiationException, IllegalAccessException {
 		Assignment testAssignment = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
-		final String docType = "OpinionAssignmentMaintenanceDocument";
+		final String docType = getDocTypeName();
 		super.testAssignmentRouting(testAssignment, docType);
 		
 		Assignment testAssignment2 = getTestUtils().<Assignment, Assignee>getTestAssignment(Assignment.class, Assignee.class);
@@ -84,5 +84,10 @@ public class OpinionAssignmentRoutingTest extends BaseAssignmentRoutingTest {
 		super.testAssignmentRouting(testAssignment2, docType);
 		
 		runAssignmentDocumentSearch(docType, "OP2", "*act*");
+	}
+
+	@Override
+	public String getDocTypeName() {
+		return "OpinionAssignmentMaintenanceDocument";
 	}
 }

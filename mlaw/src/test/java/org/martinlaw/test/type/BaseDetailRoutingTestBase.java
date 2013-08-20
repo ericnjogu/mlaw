@@ -83,7 +83,7 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	}
 
 	@Test
-	public void testContractTypeMaintDocPerms() {
+	public void testBaseDetailMaintDocPerms() {
 		testCreateMaintain(getDataObjectClass(), getDocTypeName());
 	}
 
@@ -122,6 +122,18 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 		crits.add(crit2);
 		crits.add(crit3);
 		getTestUtils().runDocumentSearch(crits, docType);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testInitiatorFYI()
+	 */
+	/**
+	 * {@link BaseDetail} objects do not need routing so skip this test
+	 */
+	@Override
+	public void testInitiatorFYI() {
+		// do nothing
 	}
 
 }

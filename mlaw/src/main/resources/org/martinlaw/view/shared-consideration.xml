@@ -29,7 +29,7 @@
 <bean id="martinlaw_shared_consideration_lookup_view" parent="Uif-LookupView" abstract="true">
     <property name="criteriaFields">
       <list merge="true">
-      	<bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" />
+      	<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" /> -->
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="considerationTypeId" />    
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="amount" />
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="currency" />
@@ -62,7 +62,44 @@
 		<property name="headerText" value="Consideration" />
 	</bean>
 
-	<bean id="martinlaw_shared_consideration_inquiry_table_section" parent="Uif-Disclosure-TableCollectionSection">
+	<bean id="martinlaw_shared_consideration_inquiry_section" parent="Uif-Disclosure-VerticalBoxSection" abstract="true">
+		<property name="headerText" value="Financials"/>
+		<property name="items">
+			<list>
+		      	<bean parent="Uif-LinkField" p:target="_blank" p:order="10">
+					<property name="linkText" value="New Transaction"/>
+					<!-- <property name="render" value="@{#hasPerm('KR-IDM', 'Modify Entity') and !#empty(#line.person)}"/> -->
+					<!-- <property name="href">
+						<value>
+						@{#ConfigProperties['application.url']}/identityManagementPersonDocument.do?&amp;principalId=@{#line.person.principalId}&amp;docTypeName=IdentityManagementPersonDocument&amp;methodToCall=docHandler&amp;command=initiate
+						</value>
+					</property> -->
+					<property name="propertyReplacers">
+						<list>
+							<bean parent="Uif-ConditionalBeanPropertyReplacer"
+								p:propertyName="href" p:condition="dataObjectClassName.endsWith('CourtCase')">
+								<property name="replacement" value="@{#ConfigProperties['dochandler_courtcase_fee']}&amp;command=initiate"/>
+							</bean>
+							<bean parent="Uif-ConditionalBeanPropertyReplacer"
+								p:propertyName="href" p:condition="dataObjectClassName.endsWith('Conveyance')">
+								<property name="replacement" value="@{#ConfigProperties['dochandler_conveyance_fee']}&amp;command=initiate"/>
+							</bean>
+							<bean parent="Uif-ConditionalBeanPropertyReplacer"
+								p:propertyName="href" p:condition="dataObjectClassName.endsWith('Opinion')">
+								<property name="replacement" value="@{#ConfigProperties['dochandler_opinion_fee']}&amp;command=initiate"/>
+							</bean>
+							<bean parent="Uif-ConditionalBeanPropertyReplacer"
+								p:propertyName="href" p:condition="dataObjectClassName.endsWith('Contract')">
+								<property name="replacement" value="@{#ConfigProperties['dochandler_contract_fee']}&amp;command=initiate"/>
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_consideration_inquiry_table_section" parent="Uif-TableCollectionSection" p:order="20">
 		<property name="layoutManager.richTable.render" value="false" />
 		<property name="propertyName" value="considerations" />
 		<property name="headerText" value="Considerations"/>
@@ -114,7 +151,7 @@
 		</property>
   	</bean>
   	
-  	<bean id="martinlaw_shared_consideration_inquiry_view" parent="Uif-InquiryView" abstract="true">
+  	<bean id="martinlaw_shared_consideration_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view" abstract="true">
 		<property name="items">
 			<list merge="true">
 				<bean parent="martinlaw_shared_consideration_inquiry_grid_section"/>

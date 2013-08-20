@@ -32,6 +32,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.same;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -51,6 +54,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.directory.shared.ldap.util.ReflectionToStringBuilder;
 import org.joda.time.DateTime;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
 import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
@@ -67,6 +71,7 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.EventType;
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterAssignee;
 import org.martinlaw.bo.MatterAssignment;
 import org.martinlaw.bo.MatterConsideration;
@@ -86,8 +91,8 @@ import org.martinlaw.bo.conveyance.ConveyanceType;
 import org.martinlaw.bo.courtcase.Assignee;
 import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.martinlaw.bo.courtcase.Event;
-import org.martinlaw.bo.opinion.Client;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.keyvalues.ScopedKeyValuesBase;
 
@@ -107,6 +112,8 @@ public class TestUtils {
 	private String testOpinionClientName;
 	private String testOpinionLocalReference;
 	private Log log = LogFactory.getLog(getClass());
+	private String testClientPrincipalName = "clerk2";
+	private String testClientFirstName = "Clerk";
 	/**
 	 * get a test conveyance object
 	 * @return
@@ -117,6 +124,7 @@ public class TestUtils {
 		conv.setLocalReference("EN/C001");
 		conv.setTypeId(1002l);
 		conv.setStatusId(1001l);
+		conv.setClientPrincipalName(testClientPrincipalName);
 		return conv;
 	}
 	
@@ -134,6 +142,7 @@ public class TestUtils {
 		contract.setSummaryOfTerms("see attached file");
 		contract.setServiceOffered("flat 1f2");
 		contract.setStatusId(1001l);
+		contract.setClientPrincipalName(testClientPrincipalName);
 		// parties
 		List<ContractParty> parties = new ArrayList<ContractParty>();
 		parties.add(new ContractParty("party1"));
@@ -337,8 +346,9 @@ public class TestUtils {
 		testOpinionLocalReference = "EN/OP/01";
 		opinion.setLocalReference(testOpinionLocalReference);
 		opinion.setStatusId(1001l);
+		opinion.setClientPrincipalName(testClientPrincipalName);
 		
-		Client client = new Client();
+		org.martinlaw.bo.opinion.Client client = new org.martinlaw.bo.opinion.Client();
 		testOpinionClientName = "pnk";
 		client.setPrincipalName(testOpinionClientName);
 		opinion.getClients().add(client);
@@ -537,13 +547,13 @@ public class TestUtils {
 	}
 
 	/**
-	 * create and populate a matter date for testing
-	 * @param d
+	 * create and populate a matter date for integration testing
+	 * @param d - the event class
 	 * @return
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public <D extends MatterEvent> D getTestMatterEvent(Class<D> d) throws InstantiationException, IllegalAccessException {
+	public <D extends MatterEvent> D getTestMatterEventIT(Class<D> d) throws InstantiationException, IllegalAccessException {
 		D date = d.newInstance();
 		date.setComment("must attend");
 		date.setMatterId(1001l);
@@ -551,6 +561,34 @@ public class TestUtils {
 		date.setStartDate(new Timestamp(System.currentTimeMillis()));
 		date.setLocation("makadara");
 		return date;
+	}
+	
+	/**
+	 * create and populate a matter date for unit/mock testing
+	 * @param e - the event class
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public <E extends MatterEvent> E getTestMatterEventUnt(Class<E> e) throws InstantiationException, IllegalAccessException {
+		E event = e.newInstance();
+		final Timestamp date = new Timestamp(System.currentTimeMillis());
+		event.setStartDate(date);
+		final String location = "Afraha";
+		event.setLocation(location);
+		EventType eventType = new EventType();
+		final String eventName = "Demo";
+		eventType.setName(eventName);
+		event.setType(eventType);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(MartinlawConstants.DEFAULT_TIMESTAMP_FORMAT);
+		final String formattedDate = sdf.format(event.getStartDate());
+		
+		DateTimeService dtSvc = mock(DateTimeService.class);
+		when(dtSvc.toDateTimeString(same(event.getStartDate()))).thenReturn(formattedDate);
+		event.setDateTimeService(dtSvc);
+		
+		return event;
 	}
 	
 	
@@ -573,6 +611,7 @@ public class TestUtils {
 		
 		caseBo.setLocalReference(localRef);
 		caseBo.setCourtReference(courtRef);
+		caseBo.setClientPrincipalName("client1");
 		String name = "Fatuma Zainab Mohammed vs \n" + 
 				"Ghati Dennitah \n"+
 				"IEBC\n" +
@@ -586,9 +625,34 @@ public class TestUtils {
 				"Adam Mohamed (Returning officer Kuria West Constituency)\n";
 		caseBo.setName(name);
 		caseBo.setStatus(status);
+		caseBo.setTypeId(10004l);
 		// side step validation error - error.required
 		caseBo.setStatusId(status.getId());
+		// clients & witnesses
+		addClientsAndWitnesses(caseBo);
 		return caseBo;
+	}
+	
+	/**
+	 * add test clients and witnesses
+	 * @param kase
+	 */
+	public void addClientsAndWitnesses(CourtCase kase) {
+		//create and save client, witness
+		org.martinlaw.bo.courtcase.Client cl1 = new org.martinlaw.bo.courtcase.Client();
+		cl1.setMatterId(kase.getId());
+		cl1.setPrincipalName("Joseph Ndungu");
+		org.martinlaw.bo.courtcase.Client cl2 = new org.martinlaw.bo.courtcase.Client();
+		cl2.setMatterId(kase.getId());
+		cl2.setPrincipalName("Joseph Thube");
+
+		kase.getClients().add(cl1);
+		kase.getClients().add(cl2);
+		
+		CourtCaseWitness wit = new CourtCaseWitness();
+		wit.setCourtCaseId(kase.getId());
+		wit.setPrincipalName("Thomas Kaberi Gitau");
+		kase.getWitnesses().add(wit);
 	}
 	
 	/**
@@ -826,6 +890,59 @@ public class TestUtils {
 			log.error("exception occured", e);
 			fail("exception occured");
 		}
+	}
+	
+	/**
+	 * confirm the {@link Matter#getClient()} has the expected test values
+	 * @param matter - the matter to test
+	 * @param expectedFirstName - the expected first name of the principal
+	 */
+	public void testMatterClient(@SuppressWarnings("rawtypes") Matter matter, String expectedFirstName) {
+		assertNotNull("client object should not be null", matter.getClient());
+		assertNotNull("client principal name should not be null", matter.getClientPrincipalName());
+		assertEquals("client given name differs", expectedFirstName, matter.getClient().getFirstName());
+	}
+
+	/**
+	 * @return the testClientPrincipalName
+	 */
+	public String getTestClientPrincipalName() {
+		return testClientPrincipalName;
+	}
+
+	/**
+	 * @param testClientPrincipalName the testClientPrincipalName to set
+	 */
+	public void setTestClientPrincipalName(String testClientPrincipalName) {
+		this.testClientPrincipalName = testClientPrincipalName;
+	}
+
+	/**
+	 * @return the testClientFirstName
+	 */
+	public String getTestClientFirstName() {
+		return testClientFirstName;
+	}
+
+	/**
+	 * @param testClientFirstName the testClientFirstName to set
+	 */
+	public void setTestClientFirstName(String testClientFirstName) {
+		this.testClientFirstName = testClientFirstName;
+	}
+	
+	/**
+	 * creates and populats a mock transaction object
+	 * TODO <p>only sets the amount currently</p>
+	 * @param klass - the type of object to create
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public <A extends MatterTransactionDoc> MatterTransactionDoc getMockTransaction(Class<A> klass, BigDecimal amount) throws InstantiationException, IllegalAccessException {
+		MatterTransactionDoc tx = mock(klass);
+		when(tx.getAmount()).thenReturn(amount);
+		return tx;
 	}
 
 }

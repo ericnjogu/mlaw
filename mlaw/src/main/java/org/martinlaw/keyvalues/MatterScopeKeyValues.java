@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.keyvalues.KeyValuesBase;
@@ -49,6 +50,8 @@ public class MatterScopeKeyValues extends KeyValuesBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 9222886917796064323L;
+	private transient Logger log = Logger.getLogger(getClass());
+	private String basePackage = "org.martinlaw.bo";
 
 
 	/* (non-Javadoc)
@@ -61,14 +64,34 @@ public class MatterScopeKeyValues extends KeyValuesBase {
 		// from stack overflow answer
 		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
 		scanner.addIncludeFilter(new AssignableTypeFilter(Matter.class));
-		Set<BeanDefinition> results = scanner.findCandidateComponents("org.martinlaw");
-		for (BeanDefinition beanDef: results) {
-			ConcreteKeyValue kv = new ConcreteKeyValue(
-					beanDef.getBeanClassName(), beanDef.getBeanClassName().substring(beanDef.getBeanClassName().lastIndexOf('.') + 1));
-			kvs.add(kv);
+		try {
+			Set<BeanDefinition> results = scanner.findCandidateComponents(getBasePackage());
+			for (BeanDefinition beanDef: results) {
+				ConcreteKeyValue kv = new ConcreteKeyValue(
+						beanDef.getBeanClassName(), beanDef.getBeanClassName().substring(beanDef.getBeanClassName().lastIndexOf('.') + 1));
+				kvs.add(kv);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
 		}
 		
 		return kvs;
+	}
+
+
+	/**
+	 * @return the basePackage
+	 */
+	public String getBasePackage() {
+		return basePackage;
+	}
+
+
+	/**
+	 * @param basePackage the basePackage to set
+	 */
+	public void setBasePackage(String basePackage) {
+		this.basePackage = basePackage;
 	}
 
 }

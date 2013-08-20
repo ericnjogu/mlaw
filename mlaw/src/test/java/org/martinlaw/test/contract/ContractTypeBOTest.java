@@ -27,6 +27,7 @@ package org.martinlaw.test.contract;
 
 
 import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.test.type.BaseDetailBoTestBase;
 
@@ -63,6 +64,27 @@ public class ContractTypeBOTest extends BaseDetailBoTestBase {
 	@Override
 	public String getDocTypeName() {
 		return "ContractTypeMaintenanceDocument";
+	}
+
+	@Override
+	public Class<? extends Scope> getScopeClass() {
+		return null;//contract type has no scope
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.type.BaseDetailBoTestBase#testScopeAttributes()
+	 */
+	@Override
+	public void testScopeAttributes() {
+		// contract type has no scope
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.type.BaseDetailBoTestBase#testScopeCollectionDD()
+	 */
+	@Override
+	public void testScopeCollectionDD() {
+		// contract type has no scope
 	}
 
 }

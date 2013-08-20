@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -17,12 +17,11 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>ContractAssignmentMaintenanceDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
 			<description>Contract Assignment Maintenance Document</description>
 			<label>Contract Assignment Maintenance Document</label>
-			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor
-			</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<!-- <blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
 
@@ -49,16 +48,23 @@
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-			</attributes>
+			</attributes> -->
+		</documentType>
+		<documentType>
+			<name>ContractAssignmentMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Contract Assignment Maintenance Document</description>
+			<label>Contract Assignment Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
 		</documentType>
 	</documentTypes>
-
+<!-- 
 	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-		<!-- ContractAssignmentMaintenanceDocument rule -->
+		ContractAssignmentMaintenanceDocument rule
 		<rule>
 			<name>org.martinlaw.rules.contract.assignment</name>
 			<documentType>ContractAssignmentMaintenanceDocument</documentType>
-			<!-- The rule template does not have any use at now -->
+			The rule template does not have any use at now
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for ContractAssignment maintenance
 			</description>
@@ -70,7 +76,7 @@
 				</responsibility>
 			</responsibilities>
 		</rule>
-	</rules>
+	</rules> -->
 
 </data>
 	

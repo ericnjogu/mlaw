@@ -36,7 +36,10 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.Event;
@@ -79,6 +82,10 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 	private String location;
 	@Column(name = "active", columnDefinition=" varchar(1) not null")
 	private Boolean active = true;
+	@Transient
+	private transient DateTimeService dateTimeSvc;
+	@Transient
+	private transient String html;
 	
 
 	public MatterEvent() {
@@ -346,5 +353,43 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 	 */
 	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
+	}
+	
+	/**
+	 * return key information as user readable html
+	 * @return
+	 */
+	public String toHtml() {
+		if (StringUtils.isEmpty(html)) {
+			StringBuilder htmlBuilder = new StringBuilder();
+			// "<b>" + eventName + "</b>:&nbsp;" + sdf.format(date) + "<br/>" + location + "";
+			htmlBuilder.append("<b>");
+			htmlBuilder.append(getType().getName());
+			htmlBuilder.append("</b>:&nbsp;");
+			htmlBuilder.append(getDateTimeService().toDateTimeString(getStartDate()));
+			htmlBuilder.append("<br/>");
+			htmlBuilder.append(getLocation());
+			html = htmlBuilder.toString();
+		}
+		return html.toString();
+	}
+	
+	/**
+	 * @return the local reference to date time service
+	 */
+	public DateTimeService getDateTimeService() {
+		if (dateTimeSvc == null) {
+			dateTimeSvc = CoreApiServiceLocator.getDateTimeService();
+		}
+		
+		return dateTimeSvc;
+	}
+	
+	/**
+	 * set the  date time service
+	 * @param svc - the service
+	 */
+	public void setDateTimeService(DateTimeService svc) {
+		this.dateTimeSvc = svc;
 	}
 }

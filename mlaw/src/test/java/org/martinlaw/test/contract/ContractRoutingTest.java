@@ -59,7 +59,7 @@ public class ContractRoutingTest extends KewTestsBase {
 	public void testContractRouting() {
 		Contract testContract = getTestUtils().getTestContract();
 		try {
-			testMaintenanceRoutingInitToFinal("ContractMaintenanceDocument", testContract);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), testContract);
 		} catch (Exception e) {
 			log.error("test failed", e);
 			fail("test routing ContractMaintenanceDocument caused an exception " + e);
@@ -82,7 +82,7 @@ public class ContractRoutingTest extends KewTestsBase {
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
 	public void testContractTypeMaintDocPerms() {
-		testCreateMaintain(Contract.class, "ContractMaintenanceDocument");
+		testCreateMaintain(Contract.class, getDocTypeName());
 	}
 	
 	@Test
@@ -91,7 +91,7 @@ public class ContractRoutingTest extends KewTestsBase {
 	 */
 	public void testContractDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
 		Contract testContract = getTestUtils().getTestContract();
-		final String docType = "ContractMaintenanceDocument";
+		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, testContract);
 		
 		Contract testContract2 = getTestUtils().getTestContract();
@@ -101,6 +101,7 @@ public class ContractRoutingTest extends KewTestsBase {
 		
 		Contract testContract3 = getTestUtils().getTestContract();
 		testContract3.setName("supply of veges");
+		testContract3.setClientPrincipalName("Patrick Kamau");
 		testContract3.setLocalReference("MY/FIRM/CONTRACTS/2013/21");
 		testContract3.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		testMaintenanceRoutingInitToFinal(docType, testContract3);
@@ -120,12 +121,21 @@ public class ContractRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit5 = new SearchTestCriteria();
 		crit5.setExpectedDocuments(2);
 		crit5.getFieldNamesToSearchValues().put("localReference", "*2013*");
+		// search for main client
+		SearchTestCriteria crit6 = new SearchTestCriteria();
+		crit6.setExpectedDocuments(1);
+		crit6.getFieldNamesToSearchValues().put("clientPrincipalName", "patrick_kamau");
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
 		crits.add(crit2);
 		crits.add(crit3);
 		crits.add(crit5);
+		crits.add(crit6);
 		getTestUtils().runDocumentSearch(crits, docType);
+	}
+
+	public String getDocTypeName() {
+		return "ContractMaintenanceDocument";
 	}
 }

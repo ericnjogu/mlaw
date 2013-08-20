@@ -84,7 +84,7 @@ public abstract class MatterEventBOTest extends MartinlawTestsBase {
 	 */
 	@Test
 	public void testMatterEventCRUD() throws InstantiationException, IllegalAccessException {
-		testMatterEventCRUD(getTestUtils().getTestMatterEvent(getDataObjectClass()), getDataObjectClass());
+		testMatterEventCRUD(getTestUtils().getTestMatterEventIT(getDataObjectClass()), getDataObjectClass());
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public abstract class MatterEventBOTest extends MartinlawTestsBase {
 	@Test
 	public void testMatterEvent_date_validation()
 	throws InstantiationException, IllegalAccessException {
-		getTestUtils().validate(getTestUtils().getTestMatterEvent(getDataObjectClass()), 0, "endDate");
+		getTestUtils().validate(getTestUtils().getTestMatterEventIT(getDataObjectClass()), 0, "endDate");
 	}
 	
 	/**

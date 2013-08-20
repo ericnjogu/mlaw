@@ -40,6 +40,7 @@ import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.web.form.InquiryForm;
 import org.kuali.rice.krad.web.form.UifFormBase;
 import org.martinlaw.bo.opinion.Client;
+import org.martinlaw.bo.opinion.Consideration;
 import org.martinlaw.bo.opinion.Opinion;
 import org.martinlaw.bo.opinion.TransactionDoc;
 import org.martinlaw.web.MatterTxForm;
@@ -53,6 +54,7 @@ public class MatterClientNamesKeyValuesTest {
 	private TransactionDoc doc;
 	private BusinessObjectService boSvc;
 	private Opinion opinion;
+	private Consideration consideration;
 
 	/**
 	 * @throws java.lang.Exception
@@ -66,6 +68,7 @@ public class MatterClientNamesKeyValuesTest {
 		//Class<? extends Matter> klass = Opinion.class;
 		when(doc.getMatterClass()).thenCallRealMethod();
 		when(doc.isMatterIdValid()).thenReturn(true);
+		
 		//prepare the matter and clients
 		opinion = new Opinion();
 		Client c1 = mock(Client.class);
@@ -82,6 +85,10 @@ public class MatterClientNamesKeyValuesTest {
 		opinion.getClients().add(c2);
 		boSvc = mock(BusinessObjectService.class);
 		when(boSvc.findBySinglePrimaryKey(Opinion.class, matterId)).thenReturn(opinion);
+		
+		// prepare consideration
+		consideration = new Consideration();
+		consideration.setMatter(opinion);
 	}
 
 	/**
@@ -91,11 +98,18 @@ public class MatterClientNamesKeyValuesTest {
 	public void testGetKeyValuesViewModel() {
 		MatterClientNamesKeyValues mckv = new MatterClientNamesKeyValues();
 		mckv.setBusinessObjectService(boSvc);
+		
 		InquiryForm inqForm = new InquiryForm();
 		inqForm.setDataObject(opinion);
+		
+		InquiryForm inqForm2 = new InquiryForm();
+		inqForm2.setDataObject(consideration);
+		
 		MatterTxForm txForm = mock(MatterTxForm.class);
 		when(txForm.getDocument()).thenReturn(doc);
-		UifFormBase[] forms = {inqForm, txForm};
+		
+		UifFormBase[] forms = {inqForm, txForm, inqForm2};
+		
 		for (UifFormBase form: forms) {
 			List<KeyValue> kvs = mckv.getKeyValues(form);
 			assertFalse("should not be empty", kvs.isEmpty());

@@ -54,7 +54,7 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	 */
 	@Test
 	public void testMatterEventMaintDocPerms() {
-		testCreateMaintain(getDataObjectClass(), getDocType());
+		testCreateMaintain(getDataObjectClass(), getDocTypeName());
 	}
 
 	/**
@@ -68,8 +68,8 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	@Test
 	public void testMatterEventRouting() throws InstantiationException,
 			IllegalAccessException, WorkflowException {
-		MatterEvent testDate = getTestUtils().getTestMatterEvent(getDataObjectClass());
-		this.testMaintenanceRoutingInitToFinal(getDocType(), testDate);
+		MatterEvent testDate = getTestUtils().getTestMatterEventIT(getDataObjectClass());
+		this.testMaintenanceRoutingInitToFinal(getDocTypeName(), testDate);
 	}
 
 	/**
@@ -82,13 +82,13 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	public void testMatterEventRouting_InvalidMatterId()
 			throws InstantiationException, IllegalAccessException,
 			WorkflowException {
-		MatterEvent testDate = getTestUtils().getTestMatterEvent(getDataObjectClass());
+		MatterEvent testDate = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 		testDate.setMatterId(3000l);
 		
 		/*//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument(getDocType(), testDate, "clerk1");
 		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);*/
-		testMaintenanceRoutingInitToFinal(getDocType(), testDate);
+		testMaintenanceRoutingInitToFinal(getDocTypeName(), testDate);
 	}
 
 	/**
@@ -101,13 +101,13 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	public void testMatterEventRouting_required_validated_onroute()
 			throws InstantiationException, WorkflowException,
 			IllegalAccessException {
-		MatterEvent testDate = getTestUtils().getTestMatterEvent(getDataObjectClass());
+		MatterEvent testDate = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 		// required on route
 		testDate.setStartDate(null);
 		testDate.setTypeId(null);
 		
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument(getDocType(), testDate, "clerk1");
+		Document doc = getPopulatedMaintenanceDocument(getDocTypeName(), testDate, "clerk1");
 		testRouting_required_validated_onroute(doc);
 	}
 
@@ -115,14 +115,14 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	public void testMatterEvent_doc_search() {
 		try {
 			// route 2 docs first
-			MatterEvent testEvent1 = getTestUtils().getTestMatterEvent(getDataObjectClass());
-			final String docType = getDocType();
+			MatterEvent testEvent1 = getTestUtils().getTestMatterEventIT(getDataObjectClass());
+			final String docType = getDocTypeName();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy hh:mm");
 			Date date = sdf.parse("04 mar 2013 16:54");
 			testEvent1.setStartDate(new Timestamp(date.getTime()));
 			testMaintenanceRoutingInitToFinal(docType, testEvent1);
 			
-			MatterEvent testEvent2 = getTestUtils().getTestMatterEvent(getDataObjectClass());
+			MatterEvent testEvent2 = getTestUtils().getTestMatterEventIT(getDataObjectClass());
 			String location = "nakuru";
 			testEvent2.setLocation(location);
 			testEvent2.setComment("optional for ict department");
@@ -156,12 +156,6 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 			fail("exception occurred");
 		}
 	}
-	
-	/**
-	 * 
-	 * @return the doc type being tested
-	 */
-	public abstract String getDocType();
 	
 	/**
 	 * 

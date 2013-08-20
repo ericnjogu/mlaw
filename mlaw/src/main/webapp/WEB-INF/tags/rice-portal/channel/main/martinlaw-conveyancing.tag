@@ -19,21 +19,22 @@
 <div class="body">
   <strong>Conveyance</strong>
   <ul class="chan">  
-  <li><portal:portalLink displayTitle="true" title="New Conveyance" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
-  	<li><portal:portalLink displayTitle="true" title="Lookup Conveyance" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Conveyance" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li> --%>
+  	<li><portal:portalLink displayTitle="true" title="Conveyance" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   	<br/>
-  <li><portal:portalLink displayTitle="true" title="New Conveyance Event" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.conveyance.Event&methodToCall=start" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Conveyance Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Conveyance Event" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.conveyance.Event&methodToCall=start" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Conveyance Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   	</ul>
   	</br>
   	<strong>Conveyance Type</strong>  
   	  <ul class="chan">  	
-  	<li><portal:portalLink displayTitle="true" title="New Conveyance Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.ConveyanceType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
-  	<li><portal:portalLink displayTitle="true" title="Lookup Conveyance Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.ConveyanceType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  	<%-- <li><portal:portalLink displayTitle="true" title="New Conveyance Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.ConveyanceType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li> --%>
+  	<li><portal:portalLink displayTitle="true" title="Conveyance Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.ConveyanceType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
 <strong>Assign Conveyance</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Conveyance Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Assignment" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Conveyance Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Assignment" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Conveyance Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   
   <strong>Conveyance Work</strong>
@@ -43,13 +44,13 @@
   
   <strong>Conveyance Consideration e.g. Legal Fee</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Conveyance Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Consideration" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Conveyance Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Conveyance Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Consideration" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Conveyance Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   
   <strong>Conveyance Transaction e.g. Receipt</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Conveyance Fee" url="${ConfigProperties.dochandler_conveyance_fee}&command=initiate" /></li>
+  <li><portal:portalLink displayTitle="true" title="New Conveyance Transaction" url="${ConfigProperties.dochandler_conveyance_fee}&command=initiate" /></li>
   </ul>
   
   <strong>Document Search</strong>

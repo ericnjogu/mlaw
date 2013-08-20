@@ -8,6 +8,8 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.UserSession;
+import org.kuali.rice.krad.bo.DocumentHeader;
+import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
@@ -59,5 +61,18 @@ public abstract class WorkRoutingTestBase extends TxRoutingTestBase {
 		assertNotNull("work type should not be null", work.getWorkType());
 		assertEquals("default work type differs", MartinlawConstants.DEFAULT_WORK_TYPE_ID, work.getWorkTypeId());
 	}
+	
+	/**
+	 * tests that a none-existent matter id will cause a validation exception on routing
+	 */
+	@Test(expected = ValidationException.class)
+	public void testWorkFlowDocument_matterId_validation() throws WorkflowException {
+		// save
+		String initiator = "clerk1";
+		GlobalVariables.setUserSession(new UserSession(initiator));
+		MatterWork work = (MatterWork) getTxDoc();
+		work.setMatterId(5001l);//non-existent
 
+		work = (MatterWork) KRADServiceLocatorWeb.getDocumentService().routeDocument(work, "approved", null);
+	}
 }

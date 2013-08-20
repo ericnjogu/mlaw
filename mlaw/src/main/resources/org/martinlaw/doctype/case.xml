@@ -17,14 +17,14 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>CourtCaseMaintenanceDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
 			<description>Case Maintenance Document</description>
 			<label>Case Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
-			<routePaths>
+			<!-- <blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName> -->
+			<!-- <docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler> -->
+			<!-- <routePaths>
 				<routePath>
 					<start name="Initiated" nextNode="approvalNode" />
 					<requests name="approvalNode" />
@@ -42,60 +42,21 @@
 					<mandatoryRoute>false</mandatoryRoute>
 					<finalApproval>false</finalApproval>
 				</requests>
-			</routeNodes>
-			<attributes>
+			</routeNodes> -->
+			<!-- <attributes>
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-			</attributes>
+			</attributes> -->
+		</documentType>
+		
+		<documentType>
+			<name>CourtCaseMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Case Maintenance Document for work-flow testing</description>
+			<label>Case Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
 		</documentType>
 	</documentTypes>
-	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-		<!-- case rule -->
-		<rule>
-			<name>org.martinlaw.rules.case</name>
-			<documentType>CourtCaseMaintenanceDocument</documentType>
-			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-			<description>Routing rule for case maintenance</description>
-			<responsibilities>
-				<responsibility>
-					<groupName namespace="MARTINLAW">lawyer</groupName>
-					<actionRequested>A</actionRequested>
-					<priority>1</priority>
-				</responsibility>
-			</responsibilities>
-		</rule>
-	</rules>
-	
-	<ruleAttributes xmlns="ns:workflow/RuleAttribute" xsi:schemaLocation="ns:workflow/RuleAttribute resource:RuleAttribute">
-		<ruleAttribute>
-			<name>matter_courtReference</name>
-			<className>org.kuali.rice.kew.docsearch.xml.StandardGenericXMLSearchableAttribute</className>
-			<label>courtReference</label>
-			<description>The court number</description>
-			<type>SearchableXmlAttribute</type>
-			<searchingConfig>
-				<fieldDef name="courtReference" title="Court Case Number">
-					<display>
-						<type>text</type>
-					</display>
-					<visibility>
-						<column visible="true"/>
-					</visibility>
-					<searchDefinition dataType="string" rangeSearch="false"/>
-					<fieldEvaluation>
-						<xpathexpression>//courtReference</xpathexpression>
-					</fieldEvaluation>
-				</fieldDef>
-				<xmlSearchContent>
-					<mlaw-content>
-						<courtReference>
-							%courtReference%
-						</courtReference>
-					</mlaw-content>
-				</xmlSearchContent>
-			</searchingConfig>
-		</ruleAttribute>
-	</ruleAttributes>
 </data>
 	

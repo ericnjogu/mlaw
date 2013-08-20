@@ -9,22 +9,23 @@
 <div class="body">
   <strong>Contract</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Contract" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Contract" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Contract" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Contract&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Contract" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Contract" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Contract" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Contract&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   <br/>
-  <li><portal:portalLink displayTitle="true" title="New Contract Event" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.contract.Event&methodToCall=start" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Contract Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Contract Event" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.contract.Event&methodToCall=start" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Contract Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <br/>
    <strong>Contract Type</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Contract Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.ContractType" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Contract Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.ContractType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Contract Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.ContractType" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Contract Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.ContractType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   
   <strong>Assign Contract</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Contract Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Assignment" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Contract Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Assignment" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Contract Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   
   <strong>Contract Work</strong>
@@ -34,13 +35,13 @@
   
   <strong>Contract Consideration e.g. Legal Fee</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Contract Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Consideration" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Contract Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Contract Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Consideration" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Contract Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   
   <strong>Contract Transaction e.g. Receipt</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Contract Fee" url="${ConfigProperties.dochandler_contract_fee}&command=initiate" /></li>
+  <li><portal:portalLink displayTitle="true" title="New Contract Transaction" url="${ConfigProperties.dochandler_contract_fee}&command=initiate" /></li>
   </ul>
   
   <strong>Document Search</strong>

@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -35,6 +35,16 @@
 				<attributes> <attribute> <name>EDL.Campus.Example</name>
 				<required>false</required> </attribute> </attributes>
 			 -->
+		</ruleTemplate>
+		<ruleTemplate allowOverwrite="true">
+			<name>org.martinlaw.initiatorFYI</name>
+			<description>Initiator notification of processed</description>
+			<attributes>
+			    <attribute>
+			      <name>MartinlawInitiatorAttribute</name>
+			      <required>true</required>
+			    </attribute>
+	  		</attributes>
 		</ruleTemplate>
 	</ruleTemplates>
 </data>

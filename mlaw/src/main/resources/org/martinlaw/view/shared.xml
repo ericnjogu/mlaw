@@ -31,8 +31,9 @@
 
 	<bean id="martinlaw_shared_person_inquiry_view" parent="Uif-InquiryView"
 		abstract="true">
-		<property name="Items">
-			<list>
+		<!-- rarely used as the inbuilt inquiry is displayed when principal id is clicked -->
+		<property name="items">
+			<list merge="true">
 				<bean parent="Uif-Disclosure-GridSection">
 					<property name="headerText" value="Details" />
 					<property name="items">
@@ -49,22 +50,31 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_client_inquiry_section" parent="Uif-Disclosure-StackedCollectionSection"
+	<bean id="martinlaw_shared_client_inquiry_section" parent="martinlaw_shared_person_inquiry_section"
 		abstract="true">
 		<property name="headerText" value="Clients" />
 		<property name="propertyName" value="clients" />
+	</bean>
+	
+	<bean id="martinlaw_shared_person_inquiry_section" parent="Uif-Disclosure-TableCollectionSection"
+		abstract="true">
+		<property name="layoutManager.renderSequenceField" value="false"/>
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="person.principalId" />
 				<bean parent="Uif-InputField" p:propertyName="person.name" />
+				<bean parent="Uif-InputField" p:propertyName="principalName" />
+				<bean parent="Uif-LinkField" p:target="_blank">
+			      <property name="linkText" value="edit"/>
+			      <property name="render" value="@{#hasPerm('KR-IDM', 'Modify Entity') and !#empty(#line.person)}"/>
+			      <property name="href">
+			      	<value>
+			      	@{#ConfigProperties['kim.url']}/identityManagementPersonDocument.do?&amp;principalId=@{#line.person.principalId}&amp;docTypeName=IdentityManagementPersonDocument&amp;methodToCall=docHandler&amp;command=initiate
+			      	</value>
+			      </property>
+			    </bean>
 			</list>
 		</property>
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>person.name</value>
-			</list>
-		</property>
-		<property name="layoutManager.summaryTitle" value="Client" />
 	</bean>
 
 	<bean id="martinlaw_shared_client-maintenance-section" parent="Uif-StackedCollectionSection"
@@ -73,14 +83,7 @@
 		<property name="propertyName" value="clients" />
 		<property name="items">
 			<list>
-				<bean parent="Uif-InputField" p:propertyName="principalName">
-					<property name="instructionalText">
-						<value>
-						Click magnifying glass icon to select client. 
-						If client does not exist, join the first and last names without a space in between, using lower case letters only.
-						</value>
-					</property>
-				</bean>
+				<bean parent="Uif-InputField" p:propertyName="principalName"/>
 					
 			</list>
 		</property>
@@ -115,9 +118,9 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_name_description_inquiry_view" parent="Uif-InquiryView">
-		<property name="Items">
-			<list>
+	<bean id="martinlaw_shared_name_description_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view">
+		<property name="items">
+			<list merge="true">
 				<ref bean="martinlaw_shared_name_description_inquiry_view_items"/>
 			</list>
 		</property>
@@ -190,23 +193,6 @@
 		<property name="layoutManager.summaryTitle" value="Annex" />
 	</bean>
 
-	<bean id="martinlaw_shared_assignment_LookupView" abstract="true"
-		parent="Uif-LookupView">
-		<property name="criteriaFields">
-			<list>
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId"
-					p:inquiry.enableDirectInquiry="false" />
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="assignees.principalName" />	
-			</list>
-		</property>
-		<property name="resultFields">
-			<list>
-				<bean parent="Uif-DataField" p:propertyName="id" />
-				<bean parent="Uif-DataField" p:propertyName="contract.name" />
-			</list>
-		</property>
-	</bean>
-
 	<bean id="martinlaw_shared_matter_info_inquiry" abstract="true"
 		parent="Uif-Disclosure-GridSection">
 		<property name="layoutManager.numberOfColumns" value="2" />
@@ -215,6 +201,14 @@
 				<bean parent="Uif-InputField" p:propertyName="id" />
 				<bean parent="Uif-InputField" p:propertyName="localReference" />
 				<bean parent="Uif-InputField" p:propertyName="name" />
+				<bean parent="Uif-HorizontalFieldGroup" p:label="Client">
+		          <property name="items">
+		            <list>
+		              <bean parent="Uif-InputField" p:propertyName="client.name" p:label="Client Name"/>
+		              <bean parent="Uif-InputField" p:propertyName="client.principalId" p:label="Details"/>
+		            </list>
+		          </property>
+		        </bean>
 				<bean parent="Uif-InputField" p:propertyName="statusId" />
 			</list>
 		</property>
@@ -222,16 +216,29 @@
 
 	<bean id="martinlaw_shared_matter_LookupView" abstract="true"
 		parent="martinlaw_shared_wildcard_lookup_view">
+		 <property name="additionalCssFiles">
+	      <list merge="true">
+	        <value>css/mlaw.css</value>
+	      </list>
+	    </property>
 		<property name="criteriaFields">
 			<list>
-				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" />
+				<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="id" /> -->
 				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="localReference" />
 				<bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="name" />
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="clientPrincipalName"/>
+				<!-- avoid an invalid search field error -->
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="client.principalId" 
+					p:inquiry.enableDirectInquiry="false">
+					<property name="control">
+      					<bean parent="Uif-HiddenControl"/>
+   					</property>
+				</bean>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId"/>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_matter">
 					<property name="control">
       					<bean parent="Uif-HiddenControl">
-      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_matter_control').val('localReference,name');"/>
+      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_matter_control').val('localReference,name,clientPrincipalName');"/>
       					</bean>
    					</property>
 				</bean>
@@ -239,9 +246,12 @@
 		</property>
 		<property name="resultFields">
 			<list>
-				<bean parent="Uif-DataField" p:propertyName="id" />
+				<!-- <bean parent="Uif-DataField" p:propertyName="id" /> -->
 				<bean parent="Uif-DataField" p:propertyName="localReference" />
 				<bean parent="Uif-DataField" p:propertyName="name" />
+				<bean parent="Uif-DataField" p:propertyName="client.name" p:label="Client Name"/>
+				<bean parent="Uif-DataField" p:propertyName="eventsHtml" p:label="Events" p:escapeHtmlInPropertyValue="false"/>				
+				<bean parent="Uif-DataField" p:propertyName="considerationsHtml" p:label="Considerations" p:escapeHtmlInPropertyValue="false"/>
 				<bean parent="Uif-DataField" p:propertyName="status.status" />
 			</list>
 		</property>
@@ -268,6 +278,7 @@
 						</list>
 					</property>
 				</bean>
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="clientPrincipalName" />
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="statusId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
 			</list>
@@ -324,9 +335,8 @@
 		</property>
 		<property name="layoutManager.richTable.templateOptions">
 	        <map merge = "true">
-	        	<!-- additional config to make the document number sortable numerically -->
 	          <entry key="aoColumnDefs" 
-	          	value="[{'sSortDataType' : 'dom-text' , 'sType' : 'string', 'aTargets': [0, 1, 2, 3, 4, 5, 7]}, 
+	          	value="[{'sSortDataType' : 'dom-text' , 'sType' : 'string', 'aTargets': 'all'}, 
 	          	{'bSortable' : false, 'aTargets': [6]}]"/>
           	</map>
         </property>
@@ -383,10 +393,88 @@
 		 <property name="control">
             <bean parent="Uif-TextControl">
               <property name="toolTip">
-                <bean parent="Uif-Tooltip" p:onFocus="true" 
-                p:tooltipContent="Please provide any word or part of a word that contains what you are looking for"/>
+                <bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
+                	p:tooltipContent="Please provide any word or part of a word that contains what you are looking for"/>
               </property>
             </bean>
           </property>
 	 </bean>
+	 
+	 <bean id="martinlaw_shared_enhanced_inquiry_view" parent="Uif-InquiryView" abstract="true">
+	 	<property name="viewHelperServiceClass" value="org.martinlaw.web.EnhancedInquirableImpl"/>
+	 	<property name="items">
+			<list>
+		 		<bean parent="Uif-FieldGroupBase">
+			        <property name="label" value="Actions"/>
+			        <property name="group">
+			         	<bean parent="martinlaw_shared_enhanced_inquiry_view_object_actions"/>
+			        </property>
+		      	</bean>
+			</list>
+		</property>
+	 </bean>
+	 
+	 <bean id="martinlaw_shared_enhanced_inquiry_view_actions" parent="Uif-LinkGroup" abstract="true">
+	    <property name="cssClasses">
+	      <list merge="true">
+	        <value>uif-lookupView-resultActions</value>
+	      </list>
+	    </property>
+	    <property name="items">
+	      <list>
+	      	<bean parent="Uif-CreateNewLink" p:target="_blank" p:render="@{#ViewHelper.allowsMaintenanceNewOrCopyAction()}"/>
+			<ref bean="martinlaw_shared_copy_link"/>
+	      </list>
+	    </property>
+  	</bean>
+	 
+	<bean id="martinlaw_shared_enhanced_inquiry_view_object_actions" parent="martinlaw_shared_enhanced_inquiry_view_actions">
+	    <property name="items">
+	      <list merge="true">
+	        <bean parent="martinlaw_shared_edit_link">
+				<property name="render" value="@{#ViewHelper.allowsMaintenanceEditAction(dataObject)}"/>
+			</bean>
+	        <bean parent="martinlaw_shared_delete_link">
+				<property name="render" value="@{#ViewHelper.allowsMaintenanceDeleteAction(dataObject)}"/>
+			</bean>
+	      </list>
+	    </property>
+  	</bean>
+  
+  <bean id="martinlaw_shared_edit_link" parent="martinlaw_shared_new_tab_link" p:order="10" abstract="true">
+    <property name="linkText" value="edit"/>
+    <property name="finalizeMethodToCall" value="getMaintenanceActionLink"/>
+    <property name="finalizeMethodAdditionalArguments">
+      <list>
+        <value>maintenanceEdit</value>
+      </list>
+    </property>
+  </bean>
+ 
+ 	<bean id="martinlaw_shared_copy_link" parent="martinlaw_shared_new_tab_link" p:order="20">
+      <property name="linkText" value="copy"/>
+      <property name="finalizeMethodToCall" value="getMaintenanceActionLink"/>
+      <property name="finalizeMethodAdditionalArguments">
+        <list>
+          <value>maintenanceCopy</value>
+        </list>
+      </property>
+      <property name="render" value="@{#ViewHelper.allowsMaintenanceNewOrCopyAction()}"/>
+    </bean>
+  
+  <bean id="martinlaw_shared_edit_line_link" parent="martinlaw_shared_edit_link">
+    <property name="render" value="@{#ViewHelper.allowsMaintenanceEditAction(#line)}"/>
+  </bean>
+  
+  <bean id="martinlaw_shared_delete_link" parent="martinlaw_shared_new_tab_link" p:order="30" abstract="true">
+    <property name="linkText" value="delete"/>
+    <property name="finalizeMethodToCall" value="getMaintenanceActionLink"/>
+    <property name="finalizeMethodAdditionalArguments">
+      <list>
+        <value>maintenanceDelete</value>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="martinlaw_shared_new_tab_link" parent="Uif-Link" p:target="_blank"/>
 </beans>

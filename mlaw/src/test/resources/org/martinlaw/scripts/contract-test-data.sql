@@ -26,11 +26,11 @@ values
 (1001, '2012-08-31  00:00:00', '2012-09-30  00:00:00');
 
 insert into martinlaw_contract_t
-(matter_id, local_reference, status_id, obj_id, ver_nbr, contract_type_id, name, contract_duration_id)
+(matter_id, local_reference, status_id, obj_id, ver_nbr, contract_type_id, name, contract_duration_id, client_principal_name)
 values
-(1001, "en/cn/001", 1001, 'cn1', 1, 1001, 'buru ph2 h24', 1001),
-(1002, "EN/CN/002", 1001, 'cn2', 1, 1001, 'nyayo est ph2 m241', 1001),
-(1003, "EN/CN/003", 1001, 'cn3', 1, 1001, 'supply of oxygen', 1001);
+(1001, "en/cn/001", 1001, 'cn1', 1, 1001, 'buru ph2 h24', 1001, 'client1'),
+(1002, "EN/CN/002", 1001, 'cn2', 1, 1001, 'nyayo est ph2 m241', 1001, 'clerk1'),
+(1003, "EN/CN/003", 1001, 'cn3', 1, 1001, 'supply of oxygen', 1001, 'witness1');
 
 insert into martinlaw_contract_consideration_t
 (consideration_id, currency, description, amount, consideration_type_id, matter_id)

@@ -37,7 +37,8 @@
 					<property name="items">
 						<list merge="true">
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="courtReference" 
-							p:instructionalText="e.g. HCC No 27 of 2012"/>
+								p:instructionalText="e.g. HCC No 27 of 2012"/>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId"/>
 						</list>
 					</property>
 					<property name="headerText" value="Case Information" />
@@ -54,14 +55,7 @@
 					<property name="propertyName" value="witnesses" />
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="principalName">
-								<property name="instructionalText">
-									<value>
-									Click magnifying glass icon to select witness. 
-									If witness does not exist, join the first and last names without a space in between, using lower case letters only.
-									</value>
-								</property>
-							</bean>
+							<bean parent="Uif-InputField" p:propertyName="principalName"/>
 						</list>
 					</property>
 					<property name="layoutManager.summaryTitle" value="Witness" />

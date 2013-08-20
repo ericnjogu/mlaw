@@ -79,7 +79,7 @@ public class CourtCaseEventRoutingTest extends MatterEventRoutingTest {
 	}
 
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return "CourtCaseEventMaintenanceDocument";
 	}
 

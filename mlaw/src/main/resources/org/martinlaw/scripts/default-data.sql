@@ -36,3 +36,10 @@ values
 (1002, "org.martinlaw.bo.courtcase.CourtCase", 1005, 1, "ssc2"),
 (1003, "org.martinlaw.bo.conveyance.Conveyance", 1004, 1, "ssc3"),
 (1004, "org.martinlaw.bo.courtcase.CourtCase", 1004, 1, "ssc4");
+
+INSERT INTO 
+`krim_afltn_typ_t` 
+(`AFLTN_TYP_CD`,`OBJ_ID`,`VER_NBR`,`NM`,`EMP_AFLTN_TYP_IND`,`ACTV_IND`,`DISPLAY_SORT_CD`,`LAST_UPDT_DT`) 
+VALUES 
+('CLIENT',uuid(),1,'Client','N','Y','a','2008-11-13 14:06:30'),
+('WITNESS',uuid(),1,'Witness','Y','Y','b','2008-11-13 14:06:30');

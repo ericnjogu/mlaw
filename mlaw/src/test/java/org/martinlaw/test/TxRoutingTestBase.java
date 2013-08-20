@@ -76,13 +76,13 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	}
 
 	/**
-	 * tests {@link org.martinlaw.bo.MatterWorkRule#processCustomSaveDocumentBusinessRules(Document)}
+	 * tests {@link org.martinlaw.bo.MatterWorkRule#processCustomRouteDocumentBusinessRules(Document)}
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 * @throws WorkflowException 
 	 */
 	@Test
-	public void testProcessCustomSaveDocumentBusinessRules() throws InstantiationException, IllegalAccessException, WorkflowException {
+	public void testProcessCustomRouteDocumentBusinessRules() throws InstantiationException, IllegalAccessException, WorkflowException {
 		// not setting a value will definitely result in an error - so use a non-existent value
 		GlobalVariables.setUserSession(new UserSession("clerk1"));
 		MatterTxDocBase txDoc = getTxDoc();
@@ -107,7 +107,7 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 */
 	private MatterTxBusinessRulesBase getRule() throws InstantiationException, IllegalAccessException {
 		if (rule == null) {
-			DocumentEntry entry = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocType());
+			DocumentEntry entry = KRADServiceLocatorWeb.getDataDictionaryService().getDataDictionary().getDocumentEntry(getDocTypeName());
 			if (entry != null) {
 				rule = (MatterTxBusinessRulesBase) entry.getBusinessRulesClass().newInstance();
 			}
@@ -150,11 +150,6 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 * @throws WorkflowException 
 	 */
 	public abstract MatterTxDocBase getTxDoc() throws WorkflowException;
-	
-	/**
-	 * @return the docType
-	 */
-	public abstract String getDocType();
 
 	/**
 	 * @param rule the rule to set

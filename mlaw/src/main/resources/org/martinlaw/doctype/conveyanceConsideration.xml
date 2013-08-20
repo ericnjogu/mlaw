@@ -17,11 +17,11 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>ConveyanceConsiderationMaintenanceDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
 			<description>Conveyance Consideration Maintenance Document</description>
 			<label>Conveyance Consideration Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<!-- <blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
 
@@ -48,16 +48,23 @@
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-			</attributes>
+			</attributes> -->
+		</documentType>
+		<documentType>
+			<name>ConveyanceConsiderationMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Conveyance Consideration Maintenance Document</description>
+			<label>Conveyance Consideration Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
 		</documentType>
 	</documentTypes>
 
-	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-		<!-- ConveyanceConsiderationMaintenanceDocument rule -->
+	<!-- <rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+		ConveyanceConsiderationMaintenanceDocument rule
 		<rule>
 			<name>org.martinlaw.rules.conveyance.consideration</name>
 			<documentType>ConveyanceConsiderationMaintenanceDocument</documentType>
-			<!-- The rule template does not have any use at now -->
+			The rule template does not have any use at now
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for Conveyance Consideration maintenance</description>
 			<responsibilities>
@@ -68,7 +75,7 @@
 				</responsibility>
 			</responsibilities>
 		</rule>
-	</rules>
+	</rules> -->
 
 </data>
 	

@@ -19,33 +19,33 @@
 <div class="body">
   <strong>Status</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Status" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Status" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Status" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Status" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <br/>
   <strong>Event Type</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Event Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.EventType" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Event Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.EventType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Event Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.EventType" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Event Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.EventType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <strong>Consideration Type</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Consideration Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.ConsiderationType" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Consideration Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.ConsiderationType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Consideration Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.ConsiderationType" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Consideration Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.ConsiderationType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <strong>Transaction Type</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Transaction Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.TransactionType" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Transaction Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.TransactionType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Transaction Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.TransactionType" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Transaction Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.TransactionType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
   <strong>Work Type</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Work Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.WorkType" /></li>
-  <li><portal:portalLink displayTitle="true" title="Lookup Work Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.WorkType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <%-- <li><portal:portalLink displayTitle="true" title="New Work Type" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.WorkType" /></li> --%>
+  <li><portal:portalLink displayTitle="true" title="Work Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.WorkType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   </ul>
-  <strong>Create Users, Clients, Witnesses</strong>
+  <strong>Users, Clients, Witnesses</strong>
   <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="Create Users, Clients, Witnesses" url="${ConfigProperties.application.url}/kim/identityManagementPersonDocument.do?returnLocation=${ConfigProperties.application.url}&docTypeName=IdentityManagementPersonDocument&methodToCall=docHandler&command=initiate" /></li>
+  <li><portal:portalLink displayTitle="true" title="Person" url="${ConfigProperties.kr.url}/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.rice.kim.api.identity.Person&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
   </ul>
 
   

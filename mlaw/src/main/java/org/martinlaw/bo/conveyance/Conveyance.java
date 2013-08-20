@@ -27,12 +27,6 @@ package org.martinlaw.bo.conveyance;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -55,7 +49,7 @@ import org.martinlaw.service.RiceServiceHelper;
 @Table(name="martinlaw_conveyance_t")
 public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Event> {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
-	private List<ConveyanceAnnex> annexes;
+	/*private List<ConveyanceAnnex> annexes;*/
 	// column def given on the object reference below - this is for the sake of ojb
 	@Transient
 	private Long typeId;
@@ -66,7 +60,8 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 	 */
 	public Conveyance() {
 		setClients(new ArrayList<Client>());
-		annexes = new ArrayList<ConveyanceAnnex>();
+		setEvents(new ArrayList<Event>());
+		/*annexes = new ArrayList<ConveyanceAnnex>();*/
 		setRiceServiceHelper(new RiceServiceHelper());
 		try {
 			setConsiderations(createDefaultConsiderations(Consideration.class));
@@ -90,7 +85,7 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 	 * 
 	 * @return the annexes
 	 */
-	public List<ConveyanceAnnex> getAnnexes() {
+	/*public List<ConveyanceAnnex> getAnnexes() {
 		if (annexes == null || annexes.size() == 0) {
 			if (getTypeId() != null) {
 				annexes = createAnnexes();
@@ -121,13 +116,13 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 			}
 		}
 		return annexes;
-	}
+	}*/
 	/**
 	 * create annexes from the each corresponding annex type
 	 * 
 	 * @return 
 	 */
-	protected List<ConveyanceAnnex> createAnnexes() {
+	/*protected List<ConveyanceAnnex> createAnnexes() {
 		Map<String, Object> params = new HashMap<String, Object>(1);
 		params.put("conveyanceTypeId", getTypeId());
 		Collection<ConveyanceAnnexType> result = getRiceServiceHelper().getBusinessObjectService().findMatching(ConveyanceAnnexType.class, params);
@@ -143,15 +138,15 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 			}
 			return annexes;
 		}
-	}
+	}*/
 	
 	
 	/**
 	 * @param annexes the annexes to set
 	 */
-	public void setAnnexes(List<ConveyanceAnnex> annexes) {
+	/*public void setAnnexes(List<ConveyanceAnnex> annexes) {
 		this.annexes = annexes;
-	}
+	}*/
 	
 	/**
 	 * @return the typeId
@@ -185,7 +180,7 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 	 * 
 	 * @return true if at least one annex has an attachment, false otherwise
 	 */
-	public boolean hasAttachments() {
+	/*public boolean hasAttachments() {
 		if (annexes == null) {
 			return false;
 		} else {
@@ -194,8 +189,8 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 			} else {
 				for (ConveyanceAnnex annex: annexes) {
 					if (annex.getAttachments() != null && annex.getAttachments().size() != 0) {
-						 /*sometimes, when the conv att has not been persisted, get attachment will return null yet an attachment
-						 *may have been associated via the note time stamp*/
+						 sometimes, when the conv att has not been persisted, get attachment will return null yet an attachment
+						 *may have been associated via the note time stamp
 						for (ConveyanceAttachment convAtt: annex.getAttachments()) {
 							if (convAtt.getAttachment() != null || convAtt.getNoteTimestamp() != null) {
 								return true;
@@ -206,7 +201,7 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 				return false;
 			}
 		}
-	}
+	}*/
 	/**
 	 * @return the riceServiceHelper
 	 */

@@ -58,7 +58,7 @@ public class OpinionRoutingTest extends KewTestsBase {
 	public void testOpinionRouting() {
 		Opinion testOpinion = getTestUtils().getTestOpinion();
 		try {
-			testMaintenanceRoutingInitToFinal("OpinionMaintenanceDocument", testOpinion);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), testOpinion);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log.error("test failed", e);
@@ -81,7 +81,7 @@ public class OpinionRoutingTest extends KewTestsBase {
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */
 	public void testOpinionTypeMaintDocPerms() {
-		testCreateMaintain(Opinion.class, "OpinionMaintenanceDocument");
+		testCreateMaintain(Opinion.class, getDocTypeName());
 	}
 	
 	@Test
@@ -90,7 +90,7 @@ public class OpinionRoutingTest extends KewTestsBase {
 	 */
 	public void testOpinionDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
 		Opinion testOpinion = getTestUtils().getTestOpinion();
-		final String docType = "OpinionMaintenanceDocument";
+		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, testOpinion);
 		
 		Opinion testOpinion2 = getTestUtils().getTestOpinion();
@@ -104,10 +104,19 @@ public class OpinionRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit2 = new SearchTestCriteria();
 		crit2.setExpectedDocuments(1);
 		crit2.getFieldNamesToSearchValues().put("localReference", testOpinion.getLocalReference());
+		// search for main client
+		SearchTestCriteria crit3 = new SearchTestCriteria();
+		crit3.setExpectedDocuments(2);
+		crit3.getFieldNamesToSearchValues().put("clientPrincipalName", "clerk2");
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
 		crits.add(crit2);
+		crits.add(crit3);
 		getTestUtils().runDocumentSearch(crits, docType);
+	}
+
+	public String getDocTypeName() {
+		return "OpinionMaintenanceDocument";
 	}
 }

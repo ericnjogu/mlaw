@@ -53,8 +53,11 @@ import org.kuali.rice.core.api.mail.EmailTo;
 import org.kuali.rice.core.api.mail.Mailer;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.entity.EntityContract;
-import org.kuali.rice.kim.api.identity.name.EntityNameContract;
+import org.kuali.rice.kim.impl.identity.affiliation.EntityAffiliationBo;
+import org.kuali.rice.kim.impl.identity.affiliation.EntityAffiliationTypeBo;
 import org.kuali.rice.kim.impl.identity.email.EntityEmailBo;
+import org.kuali.rice.kim.impl.identity.entity.EntityBo;
+import org.kuali.rice.kim.impl.identity.name.EntityNameBo;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.martinlaw.MartinlawConstants;
@@ -136,6 +139,43 @@ public class OpenIDSuccessAuthenticationSuccessHandlerMockTest {
 		String expected = "Email address '" + emailFromOpenId + "' is not associated with an existing user :(";
 		assertEquals("entity should not be found", expected, successHandler.getActivationMessage());
 		
+		// provide a mock entity object
+		EntityBo entity = new EntityBo();
+		EntityNameBo defaultName = new EntityNameBo();
+		defaultName.setActive(true);
+		defaultName.setDefaultValue(true);
+		final String firstName = "Karani";
+		defaultName.setFirstName(firstName);
+		entity.getNames().add(defaultName);
+		when(entityInfoSvc.getEntityByEmail(emailFromOpenId)).thenReturn(entity);
+		// prepare the entity email to be found and so that the mock entity can be returned
+		EntityEmailBo emailBo = new EntityEmailBo();
+		final String entityId = "entity1";
+		emailBo.setEntityId(entityId);
+		List<EntityEmailBo> result = new ArrayList<EntityEmailBo>();
+		result.add(emailBo);
+		when(boSvc.findMatching(same(EntityEmailBo.class), anyMapOf(String.class, String.class))).thenReturn(result);
+		
+		// test that only active users with staff affiliation can log in
+		// entity.setActive(true); - does not matter
+		List<EntityAffiliationBo> affils = new ArrayList<EntityAffiliationBo>();
+		entity.setAffiliations(affils);
+		expected = "You are not affiliated as a staff :(";
+		assertEquals("no affilitiations", expected, successHandler.getActivationMessage());
+		
+		// test that only active, affiliated users can log in
+		EntityAffiliationBo affil = new EntityAffiliationBo();
+		EntityAffiliationTypeBo affilType = mock(EntityAffiliationTypeBo.class);
+		when(affilType.isEmploymentAffiliationType()).thenReturn(true);
+		when(affilType.isActive()).thenReturn(true);
+		affil.setAffiliationType(affilType);
+		affils.add(affil);
+		entity.setActive(false);
+		expected = "Your account is not active :(";
+		assertEquals("account inactive", expected, successHandler.getActivationMessage());
+		
+		entity.setActive(true);
+		
 		// simulate that email configs and other properties are present are ok
 		ConfigurationService cfgSvc = mock(ConfigurationService.class);
 		when(cfgSvc.getPropertyValueAsString(anyString())).thenReturn("niko");
@@ -145,23 +185,9 @@ public class OpenIDSuccessAuthenticationSuccessHandlerMockTest {
 		// provide a mock mailer object
 		Mailer mailer = mock(Mailer.class);
 		successHandler.setMailer(mailer);
-		// provide a mock entity object
-		EntityContract entity = mock(EntityContract.class);
-		EntityNameContract defaultName = mock(EntityNameContract.class);
-		final String firstName = "Karani";
-		when(defaultName.getFirstName()).thenReturn(firstName);
-		when(entity.getDefaultName()).thenReturn(defaultName);
-		// prepare the entity email to be found and so that the mock entity can be returned
-		EntityEmailBo emailBo = new EntityEmailBo();
-		final String entityId = "entity1";
-		emailBo.setEntityId(entityId);
-		List<EntityEmailBo> result = new ArrayList<EntityEmailBo>();
-		result.add(emailBo);
-		when(boSvc.findMatching(same(EntityEmailBo.class), anyMapOf(String.class, String.class))).thenReturn(result);
 		// mock the identity service - near impossible since it returns 'final' objects, which are not mockito-able
 		/*IdentityService idSvc = mock(IdentityService.class);
 		when(idSvc.getEntity(entityId)).thenReturn(entity);*/
-		when(entityInfoSvc.getEntityByEmail(emailFromOpenId)).thenReturn(entity);
 		final String principalName = "marto";
 		when(entityInfoSvc.getPrincipalName(any(EntityContract.class))).thenReturn(principalName);
 		

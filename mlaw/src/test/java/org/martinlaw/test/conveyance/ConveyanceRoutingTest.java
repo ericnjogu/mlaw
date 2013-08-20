@@ -58,7 +58,7 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		int existingConveyances = getBoSvc().findAll(Conveyance.class).size();
 		Conveyance conv = getTestUtils().getTestConveyance();
 		try {
-			testMaintenanceRoutingInitToFinal("ConveyanceMaintenanceDocument", conv);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), conv);
 		} catch (Exception e) {
 			log.error("error in testConveyanceRouting", e);
 			fail(e.getMessage());
@@ -83,12 +83,13 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 	public void testConveyanceDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
 		Conveyance conv = getTestUtils().getTestConveyance();
 		//conv.getConsiderations().add(new Consideration(new BigDecimal(1000), "EBS", null));
-		final String docType = "ConveyanceMaintenanceDocument";
+		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, conv);
 		
 		Conveyance conv2 = getTestUtils().getTestConveyance();
 		conv2.setLocalReference("MY/FIRM/CONV/15");
 		conv2.setName("sale of plot number 123");
+		conv2.setClientPrincipalName("Angela Chibalonza");
 		//conv.getConsiderations().add(new Consideration(new BigDecimal(1001), "TFX", null));
 		testMaintenanceRoutingInitToFinal(docType, conv2);
 	
@@ -103,11 +104,20 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit3 = new SearchTestCriteria();
 		crit3.setExpectedDocuments(1);
 		crit3.getFieldNamesToSearchValues().put("name", "*plot*");
+		// search for main client
+		SearchTestCriteria crit4 = new SearchTestCriteria();
+		crit4.setExpectedDocuments(1);
+		crit4.getFieldNamesToSearchValues().put("clientPrincipalName", "angela_chibalonza");
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
 		crits.add(crit2);
 		crits.add(crit3);
+		crits.add(crit4);
 		getTestUtils().runDocumentSearch(crits, docType);
+	}
+
+	public String getDocTypeName() {
+		return "ConveyanceMaintenanceDocument";
 	}
 }

@@ -75,6 +75,18 @@
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
+		
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		
+		<field-descriptor name="typeId" column="court_case_type_id"
+			jdbc-type="BIGINT" indexed="true"/>
+		<reference-descriptor name="type"
+			class-ref="org.martinlaw.bo.courtcase.CourtCaseType" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="typeId" />
+		</reference-descriptor>
 
 		<collection-descriptor name="events"
 			element-class-ref="org.martinlaw.bo.courtcase.Event"
@@ -297,61 +309,6 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceAttachment"
-		table="martinlaw_conveyance_att_t">
-		<field-descriptor name="id" column="convey_att_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_att_s">
-		</field-descriptor>
-		<field-descriptor name="conveyanceAnnexId" column="convey_annex_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="noteTimestamp" column="note_timestamp"
-			jdbc-type="VARCHAR">
-		</field-descriptor>
-		<field-descriptor name="filename" column="filename"
-			jdbc-type="VARCHAR" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<!-- now being fetched dynamically, depending on the value of the note 
-			timestamp -->
-		<!-- <reference-descriptor name="attachment" class-ref="org.kuali.rice.krad.bo.Attachment" 
-			auto-retrieve="true" auto-update="true" auto-delete="none"> <foreignkey field-ref="attachmentId" 
-			/> </reference-descriptor> -->
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceAnnex"
-		table="martinlaw_conveyance_annex_t">
-		<field-descriptor name="id" column="convey_annex_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_annex_s">
-		</field-descriptor>
-		<field-descriptor name="conveyanceAnnexTypeId"
-			column="convey_annex_type_id" jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="conveyanceId" column="conveyance_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
-			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<foreignkey field-ref="conveyanceAnnexTypeId" />
-		</reference-descriptor>
-
-		<collection-descriptor name="attachments"
-			element-class-ref="org.martinlaw.bo.conveyance.ConveyanceAttachment"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="conveyanceAnnexId" />
-		</collection-descriptor>
-	</class-descriptor>
-
 	<class-descriptor class="org.martinlaw.bo.conveyance.Client"
 		table="martinlaw_conveyance_client_t">
 		<field-descriptor name="id" column="client_id"
@@ -386,7 +343,9 @@
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
-
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
 		<field-descriptor name="typeId" column="convey_type_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
@@ -410,12 +369,6 @@
 			auto-delete="none">
 			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
-
-		<collection-descriptor name="annexes"
-			element-class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnex"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="conveyanceId" />
-		</collection-descriptor>
 
 		<collection-descriptor name="assignees"
 			element-class-ref="org.martinlaw.bo.conveyance.Assignee"
@@ -649,7 +602,9 @@
 			jdbc-type="VARCHAR" length="255" />
 		<field-descriptor name="summaryOfTerms" column="summary_of_terms"
 			jdbc-type="VARCHAR" length="255" />
-
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
 		<field-descriptor name="contractDurationId" column="contract_duration_id"
 			jdbc-type="BIGINT" />
 
@@ -963,7 +918,10 @@
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
-
+		<field-descriptor name="clientPrincipalName" column="client_principal_name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.opinion.Client"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
@@ -1536,6 +1494,23 @@
 		<field-descriptor name="effectOnConsideration" column="effect_on_consideration"
 			jdbc-type="VARCHAR" length="20">
 		</field-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCaseType" table="martinlaw_court_case_type_t">
+		<field-descriptor name="id" column="court_case_type_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_court_case_type_s">
+		</field-descriptor>
+		<field-descriptor name="name" column="name"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="description" column="description"
+			jdbc-type="VARCHAR" length="100">
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.auth.OpenidActivation" table="martinlaw_openid_activation_t">

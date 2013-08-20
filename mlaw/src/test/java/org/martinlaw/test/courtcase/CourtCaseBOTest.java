@@ -29,7 +29,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +44,7 @@ import org.martinlaw.bo.Status;
 import org.martinlaw.bo.courtcase.Client;
 import org.martinlaw.bo.courtcase.Consideration;
 import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.bo.courtcase.CourtCaseType;
 import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.martinlaw.bo.courtcase.Work;
@@ -93,7 +93,7 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         Client client = clients.get(0);
         assertEquals("client1", client.getPrincipalName());
         assertEquals("Client", client.getPerson().getFirstName());
-        //witness
+        // witness
         List<CourtCaseWitness> witnesses = kase.getWitnesses();
         assertEquals(1, witnesses.size());
         CourtCaseWitness witness = witnesses.get(0);
@@ -111,11 +111,16 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
         assertEquals("second attachment name differs", "pleading.odt", kase.getAttachments().get(1).getAttachmentFileName());
         // assignment
         getTestUtils().testAssignees(kase.getAssignees());
-        //work
+        // work
         List<Work> work = kase.getWork();
         getTestUtils().testWorkList(work);
-        //consideration
+        // consideration
         getTestUtils().testRetrievedConsiderationFields(kase.getConsiderations().get(0));
+        // type
+        assertNotNull("case type should not be null", kase.getType());
+        assertEquals("case type id differs", new Long(10001), kase.getType().getId());
+        // client
+        getTestUtils().testMatterClient(kase, "Client");
 	}
 
 	
@@ -137,6 +142,15 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		getBoSvc().save(status);
 		status.refresh();
 		kase.setStatusId(status.getId());
+		kase.setClientPrincipalName(getTestUtils().getTestClientPrincipalName());
+		
+		CourtCaseType type = new CourtCaseType();
+		final String typeName = "petition";
+		type.setName(typeName);
+		getBoSvc().save(type);
+		type.refresh();
+		kase.setTypeId(type.getId());
+		
 		String name = "Ghati Dennitah\n"+
 						"IEBC\n" +
 						"Benson Njau (Kuria East Returning Officer)\n" +
@@ -164,21 +178,10 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		assertNotNull("considerations should not be null", kase.getConsiderations());
 		assertEquals("default number of considerations differs", 2, kase.getConsiderations().size());
 		log.debug("Created case with id " + kase.getId());
-		assertNotNull(kase.getId());
-		//create and save client, witness
-		Client cl = new Client();
-		cl.setMatterId(kase.getId());
-		cl.setPrincipalName("somename");//TODO needs to be verified (business rule?)
-		List<Client> clts = new ArrayList<Client>(1);
-		clts.add(cl);
-		kase.setClients(clts);
+		assertNotNull("case id should not be null", kase.getId());
+		assertEquals("case type name differs", typeName, kase.getType().getName());
 		
-		CourtCaseWitness wit = new CourtCaseWitness();
-		wit.setCourtCaseId(kase.getId());
-		wit.setPrincipalName("someothername");
-		List<CourtCaseWitness> wits = new ArrayList<CourtCaseWitness>(1);
-		wits.add(wit);
-		kase.setWitnesses(wits);
+		getTestUtils().addClientsAndWitnesses(kase);
 		
 		kase.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
 		
@@ -186,10 +189,11 @@ public class CourtCaseBOTest extends MartinlawTestsBase {
 		
 		kase = getBoSvc().findBySinglePrimaryKey(kase.getClass(), kase.getId());
 		assertNotNull("clients should not be null", kase.getClients());
-		assertEquals("number of clients expected differs", 1, kase.getClients().size());
+		assertEquals("number of clients expected differs", 2, kase.getClients().size());
 		assertNotNull("witnesses should not be null",kase.getWitnesses());
 		assertEquals("number of witnesses expected differs", 1, kase.getWitnesses().size());
 		getTestUtils().testConsiderationFields(kase.getConsiderations().get(0));
+		getTestUtils().testMatterClient(kase, getTestUtils().getTestClientFirstName());
 	}
 
 	@Test

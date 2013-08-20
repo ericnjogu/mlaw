@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -26,8 +26,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- Copyright 2012 Protosoft Ltd -->
-
 	<bean id="contract_assignment_bo" parent="martinlaw_shared_assignment_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.contract.Assignment" />
 		<property name="attributes">
@@ -41,9 +39,15 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 		<property name="objectLabel" value="Contract Assignment" />
 		<property name="relationships">
-      <list>
-		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.contract.Contract"/>
-      </list>
-    </property>
+	      <list>
+			<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.contract.Contract"/>
+	      </list>
+	    </property>
+	    <property name="collections">  
+	      <list>
+	        <bean parent="CollectionDefinition" p:name="assignees" p:label="assignees" p:shortLabel="assignees" p:elementLabel="assignee"
+	        	p:dataObjectClass="org.martinlaw.bo.contract.Assignee"/>
+	      </list>
+   		</property>
 	</bean>
 </beans>

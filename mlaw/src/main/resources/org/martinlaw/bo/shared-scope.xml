@@ -18,7 +18,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="titleAttribute" value="name" />
 		<property name="attributes">
 			<list>
-				<ref bean="matter_scope_bo-id" />
+				<!-- enabled to avoid error stacktraces about missing id attribute on inquiry action -->
+				<bean parent="martinlaw-shared-id" />
 				<ref bean="matter_scope_bo_qualifiedClassName" />
 			</list>
 		</property>
@@ -27,7 +28,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	
 	<bean id="status_scope_bo" parent="martinlaw_shared_scope_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.StatusScope" />
-		
 	</bean>
 	
 	<bean id="event_type_scope_bo" parent="martinlaw_shared_scope_bo">
@@ -37,11 +37,12 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	<bean id="consideration_type_scope_bo" parent="martinlaw_shared_scope_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.ConsiderationTypeScope" />
 	</bean>
+	
+	<bean id="work_type_scope_bo" parent="martinlaw_shared_scope_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.WorkTypeScope" />
+	</bean>
 
 	<!-- Attribute Definitions -->
-	<!-- enabled to avoid error stacktraces about missing id attribute on inquiry 
-		action -->
-	<bean id="matter_scope_bo-id" parent="martinlaw-shared-id" />
 	
 	<bean id="matter_scope_bo_qualifiedClassName" parent="AttributeDefinition">
 		<property name="maxLength" value="100" />

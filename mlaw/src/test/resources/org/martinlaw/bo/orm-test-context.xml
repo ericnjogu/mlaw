@@ -78,6 +78,7 @@
 				<value>org.martinlaw.bo.courtcase.TransactionDoc</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>
 				<value>org.martinlaw.bo.courtcase.Consideration</value>
+				<value>org.martinlaw.bo.courtcase.CourtCaseType</value>
 				
 				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseClientSeq</value>
@@ -85,6 +86,7 @@
 				<value>org.martinlaw.bo.sequence.CaseEventSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseAssigneeSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseConsiderationSeq</value>
+				<value>org.martinlaw.bo.sequence.CaseTypeSeq</value>
 				
 				<value>org.martinlaw.bo.conveyance.ConveyanceAnnexType</value>
 				<value>org.martinlaw.bo.conveyance.Work</value>

@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -28,7 +28,7 @@
 
   <bean id="conveyance_maint_document_entry"  parent="uifMaintenanceDocumentEntry">
     <property name="dataObjectClass" value="org.martinlaw.bo.conveyance.Conveyance"/>
-    <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/>
+    <property name="maintainableClass" value="org.martinlaw.bo.MatterMaintainable"/>
     <property name="lockingKeys">
       <list>
         <value>localReference</value>
@@ -79,18 +79,18 @@
 					</list>
 				</property>
 			</bean>
-			<!-- <bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="conveyance_maint_document_entry_search_attr">
-						<property name="attributeName" value="consideration.amount" />
+						<property name="attributeName" value="clientPrincipalName" />
 					</bean>
 				</property>
 				<property name="documentValues">
 					<list>
-						<value>newMaintainableObject.dataObject.consideration.amount</value>
+						<value>newMaintainableObject.dataObject.clientPrincipalName</value>
 					</list>
 				</property>
-			</bean> -->
+			</bean>
 			</list>
 		</property>
 	</bean>

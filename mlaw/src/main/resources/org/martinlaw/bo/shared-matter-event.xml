@@ -32,6 +32,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<property name="boNotesEnabled" value="true" />
 	<property name="attributes">
 		<list>
+			<bean parent="martinlaw-shared-id"/>
 			<ref bean="martinlaw_shared_event_bo_comment" />
 			<!-- to be configured in the specific event type -->
 			<!-- <ref bean="martinlaw_shared_event_bo_type" /> -->

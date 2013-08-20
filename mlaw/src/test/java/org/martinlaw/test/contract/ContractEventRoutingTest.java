@@ -42,7 +42,7 @@ import org.martinlaw.test.MatterEventRoutingTest;
 public class ContractEventRoutingTest extends MatterEventRoutingTest {
 	
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return "ContractEventMaintenanceDocument";
 	}
 

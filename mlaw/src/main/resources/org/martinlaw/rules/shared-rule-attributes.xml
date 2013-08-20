@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -32,6 +32,13 @@
 			<description>DD searchable attribute</description>
 			<type>SearchableAttribute</type>
 		</ruleAttribute>
+		<ruleAttribute>
+			<name>MartinlawInitiatorAttribute</name>
+			<className>org.kuali.rice.kew.rule.InitiatorRoleAttribute</className>
+			<label>Initiator Role Attribute</label>
+			<description>Initiator Role Attribute</description>
+			<type>RuleAttribute</type>
+	    </ruleAttribute>
 	</ruleAttributes> 
 </data>
 	

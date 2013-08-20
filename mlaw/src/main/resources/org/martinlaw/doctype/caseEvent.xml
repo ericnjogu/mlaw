@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -17,11 +17,11 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>CourtCaseEventMaintenanceDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
 			<description>Court Case Event Maintenance Document</description>
 			<label>Court Case Event Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<!-- <blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
 			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
 			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
 
@@ -48,16 +48,23 @@
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-			</attributes>
+			</attributes> -->
+		</documentType>
+		<documentType>
+			<name>CourtCaseEventMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Court Case Event Maintenance Document</description>
+			<label>Court Case Event Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
 		</documentType>
 	</documentTypes>
 
-	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-		<!-- CourtCaseAssignmentMaintenanceDocument rule -->
+	<!-- <rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+		CourtCaseAssignmentMaintenanceDocument rule
 		<rule>
-			<name>org.martinlaw.rules.courtcase.event</name>
+			<name>org.martinlaw.rules.case.event</name>
 			<documentType>CourtCaseEventMaintenanceDocument</documentType>
-			<!-- The rule template does not have any use at now -->
+			The rule template does not have any use at now
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for CourtCaseEventMaintenanceDocument maintenance
 			</description>
@@ -69,7 +76,22 @@
 				</responsibility>
 			</responsibilities>
 		</rule>
-	</rules>
+		<rule>
+			<name>org.law.rules.case.event.fyi</name>
+			<documentType>CourtCaseEventMaintenanceDocument</documentType>
+			<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
+			<description>FYI notification to the initiator notifying them their edoc has been processed</description>
+			<forceAction>true</forceAction>
+			<responsibilities>
+			  <responsibility>
+			    <role>org.kuali.rice.kew.rule.InitiatorRoleAttribute!INITIATOR</role>
+			    <approvePolicy>F</approvePolicy>
+			    <actionRequested>F</actionRequested>
+			    <priority>1</priority>
+			  </responsibility>
+			</responsibilities>
+	    </rule>
+	</rules> -->
 
 </data>
 	

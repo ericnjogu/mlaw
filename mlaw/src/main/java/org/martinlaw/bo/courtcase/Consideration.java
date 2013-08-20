@@ -26,6 +26,8 @@ package org.martinlaw.bo.courtcase;
  */
 
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -46,6 +48,14 @@ import org.martinlaw.bo.MatterConsideration;
 @Entity(name="court_case_consideration")
 @Table(name="martinlaw_court_case_consideration_t")
 public class Consideration extends MatterConsideration<TransactionDoc> {
+	/**
+	 * 
+	 */
+	public Consideration() {
+		super();
+		setTransactions(new ArrayList<TransactionDoc>());
+	}
+
 	/**
 	 * 
 	 */

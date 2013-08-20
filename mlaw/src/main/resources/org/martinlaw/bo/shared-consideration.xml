@@ -28,8 +28,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="martinlaw_shared_consideration_bo" abstract="true" parent="BusinessObjectEntry">
 		<property name="boNotesEnabled" value="true" />
+		<property name="titleAttribute" value="amount" />
 		<property name="attributes">
 			<list>
+				<bean parent="martinlaw-shared-id"/>
 				<!-- to be set by specific considerations -->
 				<!-- <ref bean="martinlaw_shared_consideration_bo_consideration_type_id"/> -->
 				<bean parent="martinlaw-shared-description" p:label="Comment" />

@@ -3,7 +3,7 @@
   #%L
   mlaw
   %%
-  Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
   %%
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as
@@ -41,9 +41,15 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 		<property name="objectLabel" value="Legal Opinion" />
 		<property name="relationships">
-      <list>
-		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.opinion.Opinion"/>
-      </list>
-    </property>
+	      <list>
+			<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.opinion.Opinion"/>
+	      </list>
+	    </property>
+	    <property name="collections">
+	      <list>
+	        <bean parent="CollectionDefinition" p:name="assignees" p:label="assignees" p:shortLabel="assignees" p:elementLabel="assignee"
+	        	p:dataObjectClass="org.martinlaw.bo.opinion.Assignee"/>
+	      </list>
+   		</property>
 	</bean>
 </beans>

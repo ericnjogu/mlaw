@@ -52,7 +52,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	 */
 	@Test
 	public void testMatterConsiderationMaintDocPerms() {
-		testCreateMaintain(getDataObjectClass(), getDocType());
+		testCreateMaintain(getDataObjectClass(), getDocTypeName());
 	}
 
 	/**
@@ -67,7 +67,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	public void testMatterConsiderationRouting() throws InstantiationException,
 			IllegalAccessException, WorkflowException {
 		MatterConsideration<?> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
-		this.testMaintenanceRoutingInitToFinal(getDocType(), consideration);
+		this.testMaintenanceRoutingInitToFinal(getDocTypeName(), consideration);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 		/*//initiate as the clerk
 		Document doc = getPopulatedMaintenanceDocument(getDocType(), testDate, "clerk1");
 		KRADServiceLocatorWeb.getDocumentService().saveDocument(doc);*/
-		testMaintenanceRoutingInitToFinal(getDocType(), consideration);
+		testMaintenanceRoutingInitToFinal(getDocTypeName(), consideration);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 		consideration.setCurrency(null);
 		
 		//initiate as the clerk
-		Document doc = getPopulatedMaintenanceDocument(getDocType(), consideration, "clerk1");
+		Document doc = getPopulatedMaintenanceDocument(getDocTypeName(), consideration, "clerk1");
 		testRouting_required_validated_onroute(doc);
 	}
 
@@ -114,7 +114,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 		try {
 			// route 2 docs first
 			MatterConsideration<?> consideration1 = getTestUtils().getTestConsideration(getDataObjectClass());
-			final String docType = getDocType();
+			final String docType = getDocTypeName();
 			testMaintenanceRoutingInitToFinal(docType, consideration1);
 			
 			MatterConsideration<?> consideration2 = getTestUtils().getTestConsideration(getDataObjectClass());
@@ -160,12 +160,6 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 			fail("exception occurred");
 		}
 	}
-	
-	/**
-	 * 
-	 * @return the doc type being tested
-	 */
-	public abstract String getDocType();
 	
 	/**
 	 * 

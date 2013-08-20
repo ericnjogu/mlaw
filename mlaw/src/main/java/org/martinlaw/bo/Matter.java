@@ -38,11 +38,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.bo.Note;
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.utils.PersonUtils;
 /**
  * a super class that holds the information common to court case, conveyance, contract etc
  * 
@@ -76,6 +78,11 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	@OneToOne
 	@JoinColumn(name = "status_id", nullable = false, updatable = false)
 	private Status status;
+	@Column(name = "client_principal_name", length = 100, nullable = false)
+	private String clientPrincipalName;
+	/** the client**/
+	@Transient
+	private Person client;
 	/**cache the dynamically fetched attachments locally*/
 	@Transient
 	private List<Attachment> attachments = null;
@@ -90,6 +97,12 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private List<E> events;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
 	private List<K> considerations;
+	@Transient
+	private PersonUtils personUtils;
+	@Transient
+	private transient String eventsHtml = "";
+	@Transient
+	private transient String considerationsHtml = "";
 	
 	/**
 	 * default constructor
@@ -276,34 +289,6 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	public void setClients(List<C> clients) {
 		this.clients = clients;
 	}
-
-	/**
-	 * @return the legalFeeId
-	 *//*
-	public Long getlegalFeeId() {
-		return legalFeeId;
-	}
-
-	*//**
-	 * @param legalFeeId the legalFeeId to set
-	 *//*
-	public void setLegalFeeId(Long legalFeeId) {
-		this.legalFeeId = legalFeeId;
-	}
-
-	*//**
-	 * @return the consideration
-	 *//*
-	public K getLegalFee() {
-		return legalFee;
-	}
-
-	*//**
-	 * @param legalFee the consideration to set
-	 *//*
-	public void setLegalFee(K legalFee) {
-		this.legalFee = legalFee;
-	}*/
 	
 	/**
 	 * @param events the events to set
@@ -330,5 +315,109 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public void setConsiderations(List<K> considerations) {
 		this.considerations = considerations;
+	}
+
+	/**
+	 * @return the clientPrincipalName
+	 */
+	public String getClientPrincipalName() {
+		return clientPrincipalName;
+	}
+
+	/**
+	 * @param clientPrincipalName the clientPrincipalName to set
+	 */
+	public void setClientPrincipalName(String clientPrincipalName) {
+		this.clientPrincipalName = clientPrincipalName;
+	}
+
+	/**
+	 * @return the client
+	 */
+	public Person getClient() {
+		if (personUtils == null) {
+			personUtils = new PersonUtils();
+		}
+		client = personUtils.getPerson(client, getClientPrincipalName());
+		
+		return client;
+	}
+
+	/**
+	 * @param client the client to set
+	 */
+	public void setClient(Person client) {
+		this.client = client;
+	}
+	
+	/**
+	 * events as html for display in the lookup results as a message field
+	 * @return the eventsHtml
+	 */
+	public String getEventsHtml() {
+		if (StringUtils.isEmpty(eventsHtml) && !getEvents().isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			int counter = 0;
+			for (E event: getEvents()) {
+				appendHtmlDivStart(sb, counter);
+				sb.append(event.toHtml());
+				sb.append("</div>");
+				/*if (counter + 1 != getEvents().size()) {
+					sb.append("<br/>");
+				}*/
+				counter +=1;
+			}
+			eventsHtml = sb.toString();
+		}
+		
+		return eventsHtml;
+	}
+
+	/**
+	 * @param sb - a string builder to append a div start tag
+	 * @param counter - counts the number of div elements to determine the background color style
+	 */
+	protected void appendHtmlDivStart(StringBuilder sb, int counter) {
+		sb.append("<div class=\"");
+		if (counter % 2 == 0) {
+			sb.append(MartinlawConstants.Styles.EVEN + "\">");
+		} else {
+			sb.append(MartinlawConstants.Styles.ODD + "\">");
+		}
+	}
+
+	/**
+	 * @param eventsHtml the eventsHtml to set
+	 */
+	public void setEventsHtml(String eventsHtml) {
+		this.eventsHtml = eventsHtml;
+	}
+
+	/**
+	 * @return the considerationsHtml
+	 */
+	public String getConsiderationsHtml() {
+		if (StringUtils.isEmpty(considerationsHtml) && !getConsiderations().isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			int counter = 0;
+			for (K csdn: getConsiderations()) {
+				String html = csdn.toHtml();
+				if (!StringUtils.isEmpty(html)) {
+					appendHtmlDivStart(sb, counter);
+					sb.append(html);
+					sb.append("</div>");
+					counter+=1;
+				}
+			}
+			considerationsHtml = sb.toString();
+		}
+		return considerationsHtml;
+	}
+
+	/**
+	 * @param considerationsHtml the considerationsHtml to set
+	 */
+	public void setConsiderationsHtml(String considerationsHtml) {
+		this.considerationsHtml = considerationsHtml;
 	}
 }

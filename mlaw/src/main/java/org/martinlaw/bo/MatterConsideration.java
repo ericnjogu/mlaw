@@ -23,6 +23,7 @@ package org.martinlaw.bo;
  */
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,6 +34,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
 /**
  * holds the common information needed by a matter consideration (value/purchase price/legal fee/security deposit/bond)
  * 
@@ -66,6 +69,8 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 	private ConsiderationType considerationType; 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="considerationId")
 	private List<T> transactions;
+	@Transient
+	private transient String html = "";
 
 	public MatterConsideration() {
 		super();
@@ -185,5 +190,39 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 	 */
 	public void setTransactions(List<T> transactions) {
 		this.transactions = transactions;
+	}
+	
+	/**
+	 * generate a html representation, showing totals of all transactions and the consideration itself
+	 * @return
+	 */
+	public String toHtml() {
+		if (StringUtils.isEmpty(html)) {
+			BigDecimal total = new BigDecimal(0);
+			if (getAmount() != null) {
+				total = total.add(getAmount());
+			}
+			if (getTransactions() != null && getTransactions().size() > 0) {
+				for (T tx: getTransactions()) {
+					if (tx.getAmount() != null) {
+						total = total.add(tx.getAmount());
+					}
+				}
+			}
+			if (total.doubleValue() != 0) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("<b>");
+				if (getConsiderationType() == null) {
+					sb.append("&lt;unknown&gt;");
+				} else {
+					sb.append(getConsiderationType().getName());
+				}
+				sb.append("</b>:&nbsp;");
+				sb.append(NumberFormat.getCurrencyInstance().format(total.doubleValue()));
+				html = sb.toString();
+			}
+		}
+		
+		return html;
 	}
 }

@@ -36,7 +36,7 @@ public class ConveyanceTypeRoutingTest extends KewTestsBase {
 		// get number of annex types before adding new
 		int existingAnnexTypes = getBoSvc().findAll(ConveyanceAnnexType.class).size();
 		try {
-			testMaintenanceRoutingInitToFinal("ConveyanceTypeMaintenanceDocument", convType);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), convType);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			log.error("test failed", e);
@@ -60,7 +60,7 @@ public class ConveyanceTypeRoutingTest extends KewTestsBase {
 	public void testConveyanceTypeRoutingDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
 		ConveyanceType convType = getTestUtils().getTestConveyanceType();
 		convType.setName("company incorporation");
-		final String docType = "ConveyanceTypeMaintenanceDocument";
+		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, convType);
 		
 		ConveyanceType convType2 = getTestUtils().getTestConveyanceType();
@@ -84,5 +84,9 @@ public class ConveyanceTypeRoutingTest extends KewTestsBase {
 		crits.add(crit2);
 		crits.add(crit3);
 		getTestUtils().runDocumentSearch(crits, docType);
+	}
+
+	public String getDocTypeName() {
+		return "ConveyanceTypeMaintenanceDocument";
 	}
 }

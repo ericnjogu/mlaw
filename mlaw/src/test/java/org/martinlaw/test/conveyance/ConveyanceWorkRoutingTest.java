@@ -32,7 +32,7 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.conveyance.Work;
-import org.martinlaw.test.TxRoutingTestBase;
+import org.martinlaw.test.WorkRoutingTestBase;
 
 /**
  * tests routing and perms for {@link Work}
@@ -40,17 +40,17 @@ import org.martinlaw.test.TxRoutingTestBase;
  * @author mugo
  *
  */
-public class ConveyanceWorkRoutingTest extends TxRoutingTestBase {
+public class ConveyanceWorkRoutingTest extends WorkRoutingTestBase {
 
 	@Override
 	public MatterTxDocBase getTxDoc() throws WorkflowException {
-		Work newDocument = (Work) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocType());
+		Work newDocument = (Work) KRADServiceLocatorWeb.getDocumentService().getNewDocument(getDocTypeName());
 		newDocument.setConveyanceAnnexTypeId(1001l);
 		return getTestUtils().populateMatterWork(newDocument);
 	}
 
 	@Override
-	public String getDocType() {
+	public String getDocTypeName() {
 		return MartinlawConstants.DocTypes.CONVEYANCE_WORK;
 	}
 

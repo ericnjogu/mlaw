@@ -33,7 +33,7 @@ import org.kuali.rice.krad.web.form.LookupForm;
 /**
  * adds wildcards to selected fields
  * <p>{@link #processSearchCriteria(LookupForm, Map)} is overriden to add wildcards to criteria belonging to the fields specified
- * using {@link #getWildcardPropertyNames()}
+ * using {@link #WILDCARD_PROPERTYNAMES}
  * @author mugo
  *
  */

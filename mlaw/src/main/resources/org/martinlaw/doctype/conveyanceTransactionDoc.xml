@@ -17,15 +17,15 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>ConveyanceTransactionDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
 			<description>Conveyance Transaction Transactional Document</description>
 			<label>Conveyance Transaction Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<!-- <blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName> -->
 			<docHandler>${dochandler_contract_transaction}</docHandler>
 
-			<routePaths>
+			<!-- <routePaths>
 				<routePath>
 					<start name="Initiated" nextNode="approvalNode" />
 					<requests name="approvalNode" />
@@ -48,15 +48,22 @@
 				<attribute>
 					<name>MlawDataDictionarySearchableAttribute</name>
 				</attribute>
-			</attributes>
+			</attributes> -->
+		</documentType>
+		<documentType>
+			<name>ConveyanceTransactionDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
 		</documentType>
 	</documentTypes>
-	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-		<!-- ConveyanceTransactionDocument rule -->
+	<!-- <rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+		ConveyanceTransactionDocument rule
 		<rule>
 			<name>org.martinlaw.rules.conveyance.transaction</name>
 			<documentType>ConveyanceTransactionDocument</documentType>
-			<!-- The rule template does not have any use at now -->
+			The rule template does not have any use at now
 			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
 			<description>Routing rule for Conveyance Transaction</description>
 			<responsibilities>
@@ -67,7 +74,7 @@
 				</responsibility>
 			</responsibilities>
 		</rule>
-	</rules>
+	</rules> -->
 
 </data>
 	

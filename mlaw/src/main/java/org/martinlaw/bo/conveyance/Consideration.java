@@ -26,10 +26,13 @@ package org.martinlaw.bo.conveyance;
  */
 
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterConsideration;
 
@@ -49,6 +52,14 @@ public class Consideration extends MatterConsideration<TransactionDoc> {
 	 * 
 	 */
 	private static final long serialVersionUID = 9114507684352254606L;
+
+	/**
+	 * 
+	 */
+	public Consideration() {
+		super();
+		setTransactions(new ArrayList<TransactionDoc>());
+	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
