@@ -32,7 +32,7 @@ public class MatterScopeKeyValuesTest {
 	@Test
 	public void testGetKeyValues() {
 		assertNotNull("key values should not be null", skv.getKeyValues());
-		assertEquals("should be 4 matters, one blank", 5, skv.getKeyValues().size());
+		assertEquals("should be 5 matters, one blank", 6, skv.getKeyValues().size());
 		assertEquals("label differs", Contract.class.getSimpleName(), skv.getKeyLabel(Contract.class.getCanonicalName()));
 	}
 	
