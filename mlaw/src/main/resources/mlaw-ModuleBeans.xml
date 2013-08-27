@@ -108,6 +108,8 @@
          <value>classpath:org/martinlaw/bo/courtcase/case-event-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-type.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/land-case.xml</value>
+         <value>classpath:org/martinlaw/bo/courtcase/land-case-maintenance.xml</value>
          
          <value>classpath:org/martinlaw/bo/courtcase/case-assignee.xml</value>
          <value>classpath:org/martinlaw/bo/courtcase/case-assignment.xml</value>
@@ -121,7 +123,9 @@
          <value>classpath:org/martinlaw/view/courtcase/case-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-transaction-doc.xml</value>
-         
+         <value>classpath:org/martinlaw/view/courtcase/land-case-lookup.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/land-case-inquiry.xml</value>
+         <value>classpath:org/martinlaw/view/courtcase/land-case-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-client-inquiry.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-client-lookup.xml</value>
          <value>classpath:org/martinlaw/view/courtcase/case-witness-inquiry.xml</value>

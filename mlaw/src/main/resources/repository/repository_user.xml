@@ -59,12 +59,12 @@
 			jdbc-type="VARCHAR" index="true" />
 		<collection-descriptor name="witnesses"
 			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseWitness"
-			auto-retrieve="true" auto-update="true" auto-delete="none">
+			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="courtCaseId" />
 		</collection-descriptor>
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.courtcase.Client"
-			auto-retrieve="true" auto-update="true" auto-delete="none">
+			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
 		<field-descriptor name="statusId" column="status_id"
@@ -111,7 +111,20 @@
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
+		
+		<field-descriptor name="concreteClass" column="CLASS_NAME" jdbc-type="VARCHAR"/>
 
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.courtcase.LandCase"
+		table="martinlaw_land_case_t">
+		<field-descriptor name="id" column="matter_id"
+			jdbc-type="BIGINT" primarykey="true"/>
+		<field-descriptor name="landReference" column="land_reference"
+			jdbc-type="VARCHAR" length="200" />
+		<reference-descriptor name="super" class-ref="org.martinlaw.bo.courtcase.CourtCase">
+        	<foreignkey field-ref="id"/>
+    	</reference-descriptor>
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.courtcase.Consideration"

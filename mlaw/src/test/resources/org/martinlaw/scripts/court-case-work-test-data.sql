@@ -24,4 +24,6 @@ martinlaw_court_case_work_doc_t
 (matter_id, DOC_HDR_ID, ver_nbr, obj_id, work_type_id)
 values
 (1001, "1001", 1, uuid(), 10001),
-(1001, "1002", 1, uuid(), 10001);
+(1001, "1002", 1, uuid(), 10001),
+(1004, "1003", 1, uuid(), 10001),
+(1004, "1004", 1, uuid(), 10001);

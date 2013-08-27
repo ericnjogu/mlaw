@@ -75,6 +75,7 @@
 				<value>org.martinlaw.bo.courtcase.Assignment</value>
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
 				<value>org.martinlaw.bo.courtcase.CourtCase</value>
+				<value>org.martinlaw.bo.courtcase.LandCase</value>
 				<value>org.martinlaw.bo.courtcase.TransactionDoc</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>
 				<value>org.martinlaw.bo.courtcase.Consideration</value>

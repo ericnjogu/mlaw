@@ -597,9 +597,12 @@ public class TestUtils {
 	 * get a populated test court case
 	 * @param localRef - the local reference to set
 	 * @param courtRef - the court number to set
+	 * @param klass TODO
 	 * @return the test object
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public CourtCase getTestCourtCase(String localRef, String courtRef) {
+	public <C extends CourtCase> CourtCase getTestCourtCase(String localRef, String courtRef, Class<C> klass) throws InstantiationException, IllegalAccessException {
 		//set up test status
 		Status status = new Status();
 		status.setStatus("Testing");
@@ -607,7 +610,7 @@ public class TestUtils {
 		status.refresh();
 		assertNotNull(status.getId());
 		//create new case bo
-		CourtCase caseBo = new CourtCase();
+		CourtCase caseBo = klass.newInstance();
 		
 		caseBo.setLocalReference(localRef);
 		caseBo.setCourtReference(courtRef);

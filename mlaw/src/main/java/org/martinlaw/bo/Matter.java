@@ -103,6 +103,8 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private transient String eventsHtml = "";
 	@Transient
 	private transient String considerationsHtml = "";
+	@Column(name = "class_name", length = 150)
+	private String concreteClass;
 	
 	/**
 	 * default constructor
@@ -419,5 +421,24 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 */
 	public void setConsiderationsHtml(String considerationsHtml) {
 		this.considerationsHtml = considerationsHtml;
+	}
+
+	/**
+	 * @return the concreteClass
+	 */
+	public String getConcreteClass() {
+		return concreteClass;
+	}
+
+	/**
+	 * @param concreteClass the concreteClass to set
+	 */
+	public void setConcreteClass(String concreteClass) {
+		this.concreteClass = concreteClass;
+	}
+
+	@Override
+	protected void prePersist() {
+		setConcreteClass(this.getClass().getCanonicalName());
 	}
 }

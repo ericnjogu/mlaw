@@ -31,11 +31,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.InheritanceType;
 
 import org.martinlaw.bo.Matter;
 
@@ -48,6 +50,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_court_case_t")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Event> {
 
 	/**

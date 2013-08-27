@@ -3,30 +3,42 @@
  */
 package org.martinlaw.web;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.kuali.rice.krad.bo.DataObjectRelationship;
+import org.kuali.rice.krad.bo.DocumentHeader;
+import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.kuali.rice.krad.inquiry.InquirableImpl;
 import org.kuali.rice.krad.lookup.LookupableImpl;
 import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.rice.krad.uif.UifParameters;
 import org.kuali.rice.krad.uif.element.Link;
 import org.kuali.rice.krad.uif.util.LookupInquiryUtils;
+import org.kuali.rice.krad.uif.widget.Inquiry;
+import org.kuali.rice.krad.util.ExternalizableBusinessObjectUtils;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.KRADUtils;
+import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.krad.util.UrlFactory;
 import org.kuali.rice.krad.web.form.InquiryForm;
+import org.martinlaw.bo.Matter;
 
 /**
  * @author mugo
- * adds functionality to generated edit/copy/new links
+ * adds functionality to generate edit/copy/new links
  * <p>adapted from {@link LookupableImpl}</p>
  *
  */
 public class EnhancedInquirableImpl extends InquirableImpl {
 	private LookupableImpl lookupable;
+	private transient Logger log = Logger.getLogger(getClass());
 	/**
 	 * 
 	 */
@@ -136,6 +148,121 @@ public class EnhancedInquirableImpl extends InquirableImpl {
 	 */
 	public void setLookupable(LookupableImpl lookupable) {
 		this.lookupable = lookupable;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.kuali.rice.krad.inquiry.InquirableImpl#buildInquirableLink(java.lang.Object, java.lang.String, org.kuali.rice.krad.uif.widget.Inquiry)
+	 */
+	/**
+	 * a copy of the overriden method with some changes to return the class named in {@link Matter#getConcreteClass()} for objects
+	 * that are descendants of matter
+	 */
+	@SuppressWarnings({ "rawtypes", "unused" })
+	@Override
+	public void buildInquirableLink(Object dataObject, String propertyName,
+			Inquiry inquiry) {
+		Class<?> inquiryObjectClass = null;
+		Object inquiryDataObject = dataObject;
+		
+		// inquiry into data object class if property is title attribute
+        Class<?> objectClass = ObjectUtils.materializeClassForProxiedObject(dataObject);
+        if (propertyName.equals(getDataObjectMetaDataService().getTitleAttribute(objectClass))) {
+            inquiryObjectClass = objectClass;
+        } else if (ObjectUtils.isNestedAttribute(propertyName)) {
+            String nestedPropertyName = ObjectUtils.getNestedAttributePrefix(propertyName);
+            Object nestedPropertyObject = ObjectUtils.getNestedValue(dataObject, nestedPropertyName);
+
+            if (ObjectUtils.isNotNull(nestedPropertyObject)) {
+                String nestedPropertyPrimitive = ObjectUtils.getNestedAttributePrimitive(propertyName);
+                Class<?> nestedPropertyObjectClass = ObjectUtils.materializeClassForProxiedObject(nestedPropertyObject);
+
+                if (nestedPropertyPrimitive.equals(getDataObjectMetaDataService().getTitleAttribute(
+                        nestedPropertyObjectClass))) {
+                    inquiryObjectClass = nestedPropertyObjectClass;
+                    inquiryDataObject = nestedPropertyObject;
+                }
+            }
+        }
+
+        // if not title, then get primary relationship
+        DataObjectRelationship relationship = null;
+        if (inquiryObjectClass == null) {
+            relationship = getDataObjectMetaDataService().getDataObjectRelationship(dataObject, objectClass,
+                    propertyName, "", true, false, true);
+            if (relationship != null) {
+                inquiryObjectClass = relationship.getRelatedClass();
+                inquiryDataObject = ObjectUtils.getNestedValue(dataObject, propertyName);
+            }
+        }
+
+        // if haven't found inquiry class, then no inquiry can be rendered
+        if (inquiryObjectClass == null) {
+            inquiry.setRender(false);
+
+            return;
+        } else {
+        	if (Matter.class.isAssignableFrom(inquiryObjectClass)) {
+        		try {
+					inquiryObjectClass = Class.forName(((Matter)inquiryDataObject).getConcreteClass());
+				} catch (ClassNotFoundException e) {
+					log.error(e.getMessage());
+				}
+        	}
+        }
+
+        if (DocumentHeader.class.isAssignableFrom(inquiryObjectClass)) {
+            String documentNumber = (String) ObjectUtils.getPropertyValue(dataObject, propertyName);
+            if (StringUtils.isNotBlank(documentNumber)) {
+                inquiry.getInquiryLink().setHref(getConfigurationService().getPropertyValueAsString(
+                        KRADConstants.WORKFLOW_URL_KEY)
+                        + KRADConstants.DOCHANDLER_DO_URL
+                        + documentNumber
+                        + KRADConstants.DOCHANDLER_URL_CHUNK);
+                inquiry.getInquiryLink().setLinkText(documentNumber);
+                inquiry.setRender(true);
+            }
+
+            return;
+        }
+
+        synchronized (SUPER_CLASS_TRANSLATOR_LIST) {
+            for (Class<?> clazz : SUPER_CLASS_TRANSLATOR_LIST) {
+                if (clazz.isAssignableFrom(inquiryObjectClass)) {
+                    inquiryObjectClass = clazz;
+                    break;
+                }
+            }
+        }
+
+        if (!inquiryObjectClass.isInterface() && ExternalizableBusinessObject.class.isAssignableFrom(
+                inquiryObjectClass)) {
+            inquiryObjectClass = ExternalizableBusinessObjectUtils.determineExternalizableBusinessObjectSubInterface(
+                    inquiryObjectClass);
+        }
+
+        // listPrimaryKeyFieldNames returns an unmodifiable list. So a copy is necessary.
+        List<String> keys = new ArrayList<String>(getDataObjectMetaDataService().listPrimaryKeyFieldNames(
+                inquiryObjectClass));
+
+        if (keys == null) {
+            keys = Collections.emptyList();
+        }
+
+        // build inquiry parameter mappings
+        Map<String, String> inquiryParameters = new HashMap<String, String>();
+        for (String keyName : keys) {
+            String keyConversion = keyName;
+            if (relationship != null) {
+                keyConversion = relationship.getParentAttributeForChildAttribute(keyName);
+            } else if (ObjectUtils.isNestedAttribute(propertyName)) {
+                String nestedAttributePrefix = ObjectUtils.getNestedAttributePrefix(propertyName);
+                keyConversion = nestedAttributePrefix + "." + keyName;
+            }
+
+            inquiryParameters.put(keyConversion, keyName);
+        }
+
+        inquiry.buildInquiryLink(dataObject, propertyName, inquiryObjectClass, inquiryParameters);
 	}
 
 }

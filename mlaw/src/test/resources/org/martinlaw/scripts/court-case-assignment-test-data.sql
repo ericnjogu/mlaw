@@ -22,7 +22,8 @@
 insert into martinlaw_court_case_assignment_t
 (matter_id, obj_id, ver_nbr)
 values
-( 1001, 'can1', 1);
+( 1001, 'can1', 1),
+( 1004, 'lcan1', 1);
 
 
 insert into martinlaw_court_case_assignee_t
@@ -30,4 +31,7 @@ insert into martinlaw_court_case_assignee_t
 values
 (1001, 1001, 'pn', 'ca1', 1),
 (1002, 1001, 'aw', 'ca2', 1),
-(1003, 1001, 'clerk1', 'ca3', 1);
+(1003, 1001, 'clerk1', 'ca3', 1),
+(1004, 1004, 'pn', 'lca1', 1),
+(1005, 1004, 'aw', 'lca2', 1),
+(1006, 1004, 'clerk1', 'lca3', 1);

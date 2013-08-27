@@ -24,5 +24,7 @@ insert into
 martinlaw_court_case_transaction_doc_t
 (matter_id, DOC_HDR_ID, ver_nbr, obj_id, amount,transaction_date, client_principal_name, consideration_id, transaction_type_id)
 values
-(1001, "1001", 1, 'cw1', 2501,'2012-10-22','mawanja', 1001, 1001),
-(1001, "1002", 1, 'cw2', 10000.00,'2012-10-23', 'granyanja', 1001, 1002);
+(1001, "1001", 1, 'ct1', 2501,'2012-10-22','mawanja', 1001, 1001),
+(1001, "1002", 1, 'ct2', 10000.00,'2012-10-23', 'granyanja', 1001, 1002),
+(1004, "1003", 1, 'lct1', 2501,'2012-10-22','mawanja', 1002, 1001),
+(1004, "1004", 1, 'lct2', 10000.00,'2012-10-23', 'granyanja', 1002, 1002);

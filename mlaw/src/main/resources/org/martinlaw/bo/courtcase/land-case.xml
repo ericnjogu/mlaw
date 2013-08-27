@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  mlaw
+  %%
+  Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	<bean id="land_court_case_bo" parent="court_case_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.courtcase.LandCase" />
+		<property name="attributes">
+			<list merge="true">
+				<ref bean="land_court_case_bo_landref_attr"/>
+			</list>
+		</property>
+      	<property name="objectLabel" value="Land Case" />
+	</bean>
+
+	<bean id="land_court_case_bo_landref_attr" parent="AttributeDefinition">
+		<property name="required" value="true" />
+		<property name="maxLength" value="200" />
+		<property name="control">
+			<bean parent="TextControlDefinition" p:size="60" />
+		</property>
+		<property name="name" value="landReference" />
+		<property name="label" value="Land Reference" />
+		<property name="description" value="title deed number, etc" />
+		<property name="controlField">
+			<bean parent="Uif-TextControl" p:size="60" />
+		</property>
+	</bean>
+</beans>

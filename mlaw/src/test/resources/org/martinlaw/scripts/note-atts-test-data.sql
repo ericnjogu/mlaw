@@ -2,7 +2,7 @@
 -- #%L
 -- mlaw
 -- %%
--- Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
+-- Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
 -- %%
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as
@@ -26,7 +26,9 @@ VALUES
 (1001, 1, default, 'conv1', 'clerk1', '2012-07-19  00:00:00', 'BO'),
 (1002, 2, default, 'case1', 'clerk1', '2012-07-19  00:00:00', 'BO'),
 (1003, 3, default, 'case1', 'clerk1', '2012-07-19  00:00:00', 'BO'),
-(1004, 4, default, 'conv2', 'clerk1', '2012-07-19  00:00:00', 'BO');
+(1004, 4, default, 'conv2', 'clerk1', '2012-07-19  00:00:00', 'BO'),
+(1005, 5, default, 'landcase1', 'clerk1', '2012-07-19  00:00:00', 'BO'),
+(1006, 6, default, 'landcase1', 'clerk1', '2012-07-19  00:00:00', 'BO');
 
 -- test att
 INSERT INTO `krns_att_t`
@@ -34,4 +36,6 @@ INSERT INTO `krns_att_t`
 VALUES
 (1001, 1, default, 'filename.ext'),
 (1002, 2, default, 'submission.pdf'),
-(1003, 3, default, 'pleading.odt');
+(1003, 3, default, 'pleading.odt'),
+(1005, 5, default, 'submission.pdf'),
+(1006, 6, default, 'pleading.odt');
