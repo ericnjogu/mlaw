@@ -132,7 +132,9 @@ public abstract class CourtCaseRoutingTestBase extends KewTestsBase {
 			testMaintenanceRoutingInitToFinal(docType, testCourtCase);
 			final String localRef = "LOCALREF1";
 			final String courtRef = "courtRef1";
-			CourtCase testCourtCase2 = getTestUtils().getTestCourtCase(localRef, courtRef, null);
+			CourtCase testCourtCase2 = getTestCourtCase();
+			testCourtCase2.setLocalReference(localRef);
+			testCourtCase2.setCourtReference(courtRef);
 			testCourtCase2.setName("Moto vs Maji");
 			testMaintenanceRoutingInitToFinal(docType, testCourtCase2);
 			
