@@ -82,14 +82,10 @@ public class LandCaseRoutingTest extends CourtCaseRoutingTestBase {
 	public void testCourtCase_doc_search() throws WorkflowException {
 		super.testCourtCase_doc_search();
 		
-		CourtCase testCourtCase;
 		try {
-			testCourtCase = getTestUtils().getTestCourtCase(localReference, courtReference, getDataObjectClass());
-			testMaintenanceRoutingInitToFinal(getDocTypeName(), testCourtCase);
-			
 			// search for land reference
 			SearchTestCriteria crit2 = new SearchTestCriteria();
-			crit2.setExpectedDocuments(1);
+			crit2.setExpectedDocuments(2);
 			crit2.getFieldNamesToSearchValues().put("landReference", LAND_REF);
 			List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 			crits.add(crit2);
