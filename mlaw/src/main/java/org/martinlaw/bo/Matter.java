@@ -440,5 +440,6 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	@Override
 	protected void prePersist() {
 		setConcreteClass(this.getClass().getCanonicalName());
+		super.prePersist();
 	}
 }
