@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- #%L mlaw %% Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com) %% This 
+<!-- #%L mlaw %% Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com) %% This 
 	program is free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software 
 	Foundation, either version 3 of the License, or (at your option) any later 
@@ -107,36 +107,5 @@
 			</attributes>
 		</documentType>
 	</documentTypes>
-	
-	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-		<rule>
-			<name>org.martinlaw.rules.default.approval</name>
-			<documentType>MartinlawDefaultRoutingDocument</documentType>
-			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-			<description>default routing rule for maintenance docs</description>
-			<responsibilities>
-				<responsibility>
-					<groupName namespace="MARTINLAW">lawyer</groupName>
-					<actionRequested>A</actionRequested>
-					<priority>1</priority>
-				</responsibility>
-			</responsibilities>
-		</rule>
-		<rule>
-			<name>org.martinlaw.rules.default.initiatorFyi</name>
-			<documentType>MartinlawDefaultRoutingDocument</documentType>
-			<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
-			<description>FYI notification to the initiator notifying them their edoc has been processed</description>
-			<forceAction>true</forceAction>
-			<responsibilities>
-			  <responsibility>
-			    <role>org.kuali.rice.kew.rule.InitiatorRoleAttribute!INITIATOR</role>
-			    <approvePolicy>F</approvePolicy>
-			    <actionRequested>F</actionRequested>
-			    <priority>1</priority>
-			  </responsibility>
-			</responsibilities>
-	    </rule>
-	</rules>
 </data>
 	

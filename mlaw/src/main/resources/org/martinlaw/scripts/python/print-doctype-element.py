@@ -12,7 +12,7 @@ for file_path in sys.stdin:
         file = open(file_path, 'r')
         root = ET.fromstring(file.read())
         for element in root.findall("{0}documentTypes/{0}documentType".format("{ns:workflow/DocumentType}")):
-            sys.stdout.write(ET.tostring(element).decode())
+            sys.stdout.write(ET.tostring(element).decode().replace("ns0:", "").replace("ns0=", "").replace("xmlns:", "xmlns="))
     else:
         sys.stderr.write("file '" + file_path + "' does not exist\n") 
 

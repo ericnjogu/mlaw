@@ -31,3 +31,4 @@ C:\Users\mugo\git\mlaw\mlaw\src\main\resources\org\martinlaw\doctype\opinionCons
 C:\Users\mugo\git\mlaw\mlaw\src\main\resources\org\martinlaw\doctype\transactionType.xml
 C:\Users\mugo\git\mlaw\mlaw\src\main\resources\org\martinlaw\doctype\workType.xml
 C:\Users\mugo\git\mlaw\mlaw\src\main\resources\org\martinlaw\doctype\caseType.xml
+C:\Users\mugo\git\mlaw\mlaw\src\main\resources\org\martinlaw\doctype\landCase.xml
