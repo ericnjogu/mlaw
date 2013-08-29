@@ -12,6 +12,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 				<value>uif-documentDescription</value>
 			</list>
 		</property>
+		<!-- START MLAW CHANGE -->
 		<property name="instructionalMessage">
 	      <bean parent="Uif-InstructionalMessage" p:style="max-width:100em"/>
 	    </property>
@@ -39,6 +40,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 				</bean>
 			</list>
 		</property>
+		<!-- END MLAW CHANGE -->
 	</bean>
   
 
@@ -54,39 +56,20 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
     </property>
     <property name="controlField">
       <bean parent="Uif-TextAreaControl" p:cols="40" p:rows="3">
+      <!-- START MLAW CHANGE -->
       <property name="watermarkText">
       		<value>This field is optional. 
 Place information here that will be used in internal communication (like a memo). 
 e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does not exist in the system yet' etc
       		</value>
       </property>
+      <!-- END MLAW CHANGE -->
       </bean>
     </property>        
     <property name="summary" value="&amp;nbsp;"/>
     <property name="name" value="explanation"/>
     <property name="label" value="More Details"/>
     <property name="description" value="A free-form text field that explains the purpose of the document in more detail than the Description."/>
-  </bean>
-  
-  <bean id="Uif-DocumentExplaination" parent="Uif-InputField" p:propertyName="explanation"
-        p:dictionaryObjectEntry="org.kuali.rice.krad.bo.DocumentHeader">
-    <property name="cssClasses">
-       <list merge="true">
-         <value>uif-documentExplaination</value>
-       </list>
-     </property>
-     <property name="propertyReplacers">
-			<list>
-				<bean parent="Uif-ConditionalBeanPropertyReplacer"
-					p:propertyName="control.watermarkText" p:condition="#form.docTypeName.contains('Work')">
-					<property name="replacement">
-						<value>Since this explanation will appear on the work list, it is highly recommended that it contains useful
- descriptive information. e.g. legal opinion, client letter, sales agreement etc. You can copy and paste the description here. 
-						</value>
-					</property>
-				</bean>
-			</list>
-		</property>
   </bean>
 
 	<bean id="Uif-DocumentOverviewSection" parent="Uif-Disclosure-GridSection" p:layoutManager.numberOfColumns="4"
@@ -98,7 +81,9 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
               p:width="25%" p:fieldLabel.width="25%"/>
         <bean parent="Uif-DocumentExplaination" p:rowSpan="2" p:fieldLabel.rowSpan="2"
               p:width="40%" p:fieldLabel.width="10%"/>
+        <!-- START MLAW CHANGE -->
         <!-- <bean parent="Uif-OrganizationDocumentNumber" p:width="25%" p:fieldLabel.width="25%"/> -->
+        <!-- END MLAW CHANGE -->
       </list>
     </property>
     <property name="fieldBindingObjectPath" value="document.documentHeader"/>
@@ -197,6 +182,7 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
 	              p:render="@{#DocumentEntry.allowsNoteFYI and #actionFlags[#Constants.KUALI_ACTION_CAN_SEND_NOTE_FYI]}"/>
 	      </list>
 	    </property>
+	    <!-- START MLAW CHANGE -->
 	    <property name="instructionalMessage">
 	      <bean parent="Uif-InstructionalMessage" p:style="max-width:100em"/>
 	    </property>
@@ -212,6 +198,7 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
 				</bean>
 			</list>
 		</property>
+		<!-- END MLAW CHANGE -->
   </bean>
   
   <bean id="Note" parent="Note-parentBean">
@@ -247,6 +234,28 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
         <bean parent="Uif-ActionLink" p:ajaxSubmit="false" p:methodToCall="copy" p:actionLabel="copy"
               p:render="@{#actionFlags[#Constants.KUALI_ACTION_CAN_COPY]}"/>
       </list>
+    </property>
+  </bean>
+  
+  <bean id="Uif-DocumentPage" parent="Uif-Disclosure-Page">
+    <property name="cssClasses">
+      <list merge="true">
+        <value>uif-documentPage</value>
+      </list>
+    </property>
+    <property name="defaultItemPosition" value="11"/>
+    <property name="items">
+      <list>
+      	<!-- START MLAW CHANGE - from 10 to -10 to ensure it remains on top -->
+        <bean parent="Uif-DocumentOverviewSection" p:order="-10"/>
+        <!-- END MLAW CHANGE -->
+        <bean parent="Uif-DocumentNotesSection" p:disclosure.defaultOpen="false" p:order="30"/>
+        <bean parent="Uif-DocumentAdHocRecipientsSection" p:disclosure.defaultOpen="false" p:order="40"/>
+        <bean parent="Uif-DocumentRouteLogSection" p:disclosure.defaultOpen="false" p:order="50"/>
+      </list>
+    </property>
+    <property name="footer">
+      <bean parent="Uif-DocumentPageFooter"/>
     </property>
   </bean>
 
