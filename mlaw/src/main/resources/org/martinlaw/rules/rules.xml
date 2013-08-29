@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- #%L mlaw %% Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com) %% This 
+	program is free software: you can redistribute it and/or modify it under 
+	the terms of the GNU General Public License as published by the Free Software 
+	Foundation, either version 3 of the License, or (at your option) any later 
+	version. This program is distributed in the hope that it will be useful, 
+	but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+	more details. You should have received a copy of the GNU General Public License 
+	along with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
+	#L% -->
+
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="ns:workflow resource:WorkflowData">
+	
+	<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+		<rule>
+			<name>org.martinlaw.rules.default.approval</name>
+			<documentType>MartinlawDefaultRoutingDocument</documentType>
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>default routing rule for maintenance docs</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace="MARTINLAW">lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+		<rule>
+			<name>org.martinlaw.rules.default.initiatorFyi</name>
+			<documentType>MartinlawDefaultRoutingDocument</documentType>
+			<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
+			<description>FYI notification to the initiator notifying them their edoc has been processed</description>
+			<forceAction>true</forceAction>
+			<responsibilities>
+			  <responsibility>
+			    <role>org.kuali.rice.kew.rule.InitiatorRoleAttribute!INITIATOR</role>
+			    <approvePolicy>F</approvePolicy>
+			    <actionRequested>F</actionRequested>
+			    <priority>1</priority>
+			  </responsibility>
+			</responsibilities>
+	    </rule>
+	</rules>
+</data>
+	
