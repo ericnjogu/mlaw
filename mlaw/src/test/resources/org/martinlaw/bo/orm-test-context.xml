@@ -214,7 +214,7 @@
 			destroy-method="close">
 			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_data_revamp_dev" />
-			<property name="username" value="mlaw_revamp_unt" />
+			<property name="username" value="mlaw_revamp_dev" />
 			<property name="password" value="mlaw_data_revamp_dev" />
 		</bean>
 	</beans>
