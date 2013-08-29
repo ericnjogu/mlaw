@@ -268,7 +268,7 @@
 					<property name="propertyReplacers">
 						<list>
 							<bean parent="Uif-ConditionalBeanPropertyReplacer"
-								p:propertyName="instructionalText" p:condition="#form.docTypeName eq 'CourtCaseMaintenanceDocument'">
+								p:propertyName="instructionalText" p:condition="#form.docTypeName matches  '.*CourtCaseMaintenanceDocument'">
 								<property name="replacement" value="The parties e.g. One Vs The Other"/>
 							</bean>
 							<bean parent="Uif-ConditionalBeanPropertyReplacer"
@@ -404,7 +404,7 @@
 	 	<property name="viewHelperServiceClass" value="org.martinlaw.web.EnhancedInquirableImpl"/>
 	 	<property name="items">
 			<list>
-		 		<bean parent="Uif-FieldGroupBase">
+		 		<bean parent="Uif-FieldGroupBase" p:order="-10">
 			        <property name="label" value="Actions"/>
 			        <property name="group">
 			         	<bean parent="martinlaw_shared_enhanced_inquiry_view_object_actions"/>

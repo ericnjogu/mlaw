@@ -29,7 +29,14 @@
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.LandCase" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="Uif-InputField" p:propertyName="landReference" />
+			<bean parent="Uif-Disclosure-GridSection" p:order="-1">
+				<property name="headerText" value="Land Information" />
+				<property name="items">
+					<list>
+						<bean parent="Uif-InputField" p:propertyName="landReference" />
+					</list>
+				</property>
+			</bean>
 			</list>
 		</property>
 	</bean>

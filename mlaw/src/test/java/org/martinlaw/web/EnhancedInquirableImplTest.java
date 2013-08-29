@@ -1,5 +1,27 @@
 package org.martinlaw.web;
 
+/*
+ * #%L
+ * mlaw
+ * %%
+ * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -11,6 +33,7 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.web.form.InquiryForm;
 import org.martinlaw.bo.conveyance.Consideration;
+import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.LandCase;
@@ -18,6 +41,7 @@ import org.martinlaw.test.MartinlawTestsBase;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Matchers.same;
+import static org.mockito.Mockito.times;
 import static org.mockito.Matchers.anyMapOf;
 
 public class EnhancedInquirableImplTest extends MartinlawTestsBase {
@@ -109,6 +133,11 @@ public class EnhancedInquirableImplTest extends MartinlawTestsBase {
 		inquirable.buildInquirableLink(dataObject, propertyName, inq);
 		verify(inq).buildInquiryLink(same(dataObject), same(propertyName), same(CourtCase.class), anyMapOf(String.class, String.class));
 		
+		// null concrete class
+		final Conveyance conveyance = new Conveyance();
+		inquirable.buildInquirableLink(conveyance, propertyName, inq);
+		verify(inq).buildInquiryLink(same(conveyance), same(propertyName), same(Conveyance.class), anyMapOf(String.class, String.class));
+		
 		//concrete class is different from instantiated class
 		CourtCase kase = new CourtCase();
 		kase.setConcreteClass(LandCase.class.getCanonicalName());
@@ -120,6 +149,12 @@ public class EnhancedInquirableImplTest extends MartinlawTestsBase {
 		propertyName = "matter.localReference";
 		inquirable.buildInquirableLink(event, propertyName, inq);
 		verify(inq).buildInquiryLink(same(event), same(propertyName), same(LandCase.class), anyMapOf(String.class, String.class));
+		
+		// null local ref - no inquiry link should be built
+		event = new Event();
+		inquirable.buildInquirableLink(event, propertyName, inq);
+		verify(inq, times(0)).buildInquiryLink(same(event), same(propertyName), same(LandCase.class), anyMapOf(String.class, String.class));
+
 		
 		// test for an object that is not in the Matter class hierarchy
 		Consideration csd = new Consideration();

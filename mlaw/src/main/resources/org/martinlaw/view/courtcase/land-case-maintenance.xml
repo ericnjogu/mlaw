@@ -32,7 +32,7 @@
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.LandCase" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="Uif-MaintenanceGridSection">
+				<bean parent="Uif-MaintenanceGridSection" p:order="-1">
 					<property name="items">
 						<list>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="landReference" 
