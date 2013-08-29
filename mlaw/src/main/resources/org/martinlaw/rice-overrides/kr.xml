@@ -19,7 +19,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		<property name="propertyReplacers">
 			<list>
 				<bean parent="Uif-ConditionalBeanPropertyReplacer"
-					p:propertyName="instructionalText" p:condition="#form.docTypeName eq 'CourtCaseMaintenanceDocument'">
+					p:propertyName="instructionalText" p:condition="#form.docTypeName matches '.*CourtCaseMaintenanceDocument'">
 					<property name="replacement" value="e.g. new court case, editing court case, adding files etc"/>
 				</bean>
 				<bean parent="Uif-ConditionalBeanPropertyReplacer"
