@@ -31,7 +31,6 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.util.TestUtils;
 /**
  * @author mugo
@@ -50,7 +49,7 @@ public class MatterEventTest {
 		
 		// using court case date as matter date is abstract
 		TestUtils utils = new TestUtils();
-		Event caseDate = (Event) utils.getTestMatterEventForStringTemplates();
+		MatterEvent caseDate = (MatterEvent) utils.getTestMatterEventForStringTemplates();
 		
 		String actualResult = caseDate.toIcalendar(template);
 		
@@ -80,7 +79,7 @@ public class MatterEventTest {
 	public void testToHtml() throws InstantiationException, IllegalAccessException {
 		// use court case event as concrete class
 		TestUtils utils = new TestUtils();
-		Event event = utils.getTestMatterEventUnt(Event.class);
+		MatterEvent event = utils.getTestMatterEventUnt(MatterEvent.class);
 		SimpleDateFormat sdf = new SimpleDateFormat(MartinlawConstants.DEFAULT_TIMESTAMP_FORMAT);
 		final String formattedDate = sdf.format(event.getStartDate());
 		

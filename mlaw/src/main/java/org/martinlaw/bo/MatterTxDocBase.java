@@ -80,18 +80,8 @@ public abstract class MatterTxDocBase extends TransactionalDocumentBase {
 		if (getMatterId() == null) {
 			return false;
 		} else {
-			return KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(getMatterClass(), getMatterId()) != null;
+			final Matter matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(Matter.class, getMatterId());
+			return matter != null;
 		}
 	}
-
-	/**
-	 * useful in determining whether the matter id represents a valid matter of the class given here
-	 * 
-	 * <p>adapted from {@link http://stackoverflow.com/questions/182636/how-to-determine-the-class-of-a-generic-type} </p>
-	 * 
-	 * @return the matterClass
-	 */
-	@SuppressWarnings("rawtypes")
-	public abstract Class<? extends Matter> getMatterClass();
-
 }

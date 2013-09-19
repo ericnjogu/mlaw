@@ -49,6 +49,22 @@ public class StatusScope extends Scope {
 	private Long id;
 	@Column(name="status_id", nullable=false)
 	private Long statusId;
+	
+	/**
+	 * default constructor
+	 */
+	public StatusScope() {
+		super();
+	}
+	
+	/**
+	 * constructor with default value for {@link #getQualifiedClassName()}
+	 */
+	public StatusScope(String qualifiedClassName) {
+		super();
+		setQualifiedClassName(qualifiedClassName);
+	}
+	
 	/**
 	 * @return the id
 	 */

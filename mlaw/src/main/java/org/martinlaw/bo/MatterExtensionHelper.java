@@ -47,24 +47,14 @@ public abstract class MatterExtensionHelper extends MartinlawBusinessObjectBase 
 		if (getMatterId() == null) {
 			return false;
 		} else {
-			return KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(getMatterClass(), getMatterId()) != null;
+			return KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(Matter.class, getMatterId()) != null;
 		}
 	}
 
 	/**
-	 * useful in determining whether the matter id represents a valid matter of the class given here
-	 * 
-	 * <p>adapted from {@link http://stackoverflow.com/questions/182636/how-to-determine-the-class-of-a-generic-type} </p>
-	 * 
-	 * @return the matterClass
-	 */
-	@SuppressWarnings("rawtypes")
-	public abstract Class<? extends Matter> getMatterClass();
-
-	/**
 	 * returns the matter that has been populated by the ojb configuration
 	 * @return the matter
-	 */
+	 *//*
 	@SuppressWarnings("rawtypes")
-	public abstract Matter getMatter();
+	public abstract Matter getMatter();*/
 }

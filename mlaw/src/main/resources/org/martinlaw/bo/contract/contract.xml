@@ -28,16 +28,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="contract_bo" parent="martinlaw_shared_matter_bo_entry">
 	<property name="businessObjectClass" value="org.martinlaw.bo.contract.Contract" />
-	<property name="titleAttribute" value="localReference" />
 	<property name="attributes">
 		<list merge="true">
-			<bean parent="martinlaw-shared-id-parentBean" p:label="Contract Id" />
-			<bean parent="martinlaw_shared_matter_name" p:label="Contract Name"/>
-			<bean parent="contract-statusId-parentBean" />
 			<ref bean="contract-contractType" />
 			<ref bean="contract-serviceOffered" />
 			<ref bean="contract-summaryOfTerms" />
-
 			<bean parent="contract_duration_bo_startDate" p:name="contractDuration.startDate" />
 			<bean parent="contract_duration_bo_endDate" p:name="contractDuration.endDate" />
 			<bean parent="contract_duration_bo_duration" p:name="contractDuration.duration" />
@@ -60,29 +55,16 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</list>
 	</property>
 	<property name="collections">
-	     <list>
+	     <list merge="true">
 	       <bean parent="CollectionDefinition" p:name="parties" p:label="parties" p:shortLabel="parties" p:elementLabel="party"
 	       		p:dataObjectClass="org.martinlaw.bo.contract.ContractParty"/>
 	       <bean parent="CollectionDefinition" p:name="signatories" p:label="signatories" p:shortLabel="signatories" p:elementLabel="signatory"
 	       		p:dataObjectClass="org.martinlaw.bo.contract.ContractSignatory"/>
-	       	<bean parent="CollectionDefinition" p:name="clients" p:label="clients" p:shortLabel="clients" p:elementLabel="client"
-	        	p:dataObjectClass="org.martinlaw.bo.contract.Client"/>
 	     </list>
     </property>
 </bean>
 
 	<!-- Attribute Definitions -->
-
-	<bean id="contract-statusId-parentBean" parent="martinlaw-shared-statusId-parentBean">	
-		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.ContractStatusKeyValues" />
-		</property>
-		<!-- required for display in kns custom document search -->
-		<property name="control">
-			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.martinlaw.keyvalues.ContractStatusKeyValues"/>
-		</property>
-	</bean>
-	
 	<bean id="contract-contractType" parent="AttributeDefinition">
 		<property name="maxLength" value="100"/>
 		<property name="forceUppercase" value="true" />

@@ -24,16 +24,8 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" 
 xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="contract_maint_document_entry" parent="uifMaintenanceDocumentEntry">
+  <bean id="contract_maint_document_entry" parent="matter_maint_document_entry">
     <property name="dataObjectClass" value="org.martinlaw.bo.contract.Contract"/>
-    <property name="maintainableClass" value="org.martinlaw.bo.MatterMaintainable"/>
-    <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
-    <property name="lockingKeys">
-      <list>
-        <value>localReference</value>
-      </list>
-    </property>
-
     <property name="documentTypeName" value="ContractMaintenanceDocument"/>
     <property name="workflowAttributes">
     	<ref bean="contract_maint_document_entry_workflow_attrs"/>

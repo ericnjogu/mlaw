@@ -39,11 +39,11 @@ import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterEvent;
 import org.springframework.dao.DataIntegrityViolationException;
 /**
- * holds common BO tests for children of {@link MatterEvent} 
+ * holds common BO tests for {@link MatterEvent} 
  * @author mugo
  *
  */
-public abstract class MatterEventBOTest extends MartinlawTestsBase {
+public class MatterEventBOTest extends MartinlawTestsBase {
 
 	public MatterEventBOTest() {
 		super();
@@ -160,11 +160,15 @@ public abstract class MatterEventBOTest extends MartinlawTestsBase {
 	 * 
 	 * @return the data object (BO) class
 	 */
-	public abstract Class<? extends MatterEvent> getDataObjectClass();
+	public Class<? extends MatterEvent> getDataObjectClass() {
+		return MatterEvent.class;
+	}
 	
 	/**
 	 * @return the expected label
 	 */
-	public abstract String getMatterIdLabel();
+	public String getMatterIdLabel() {
+		return "Matter";
+	}
 
 }

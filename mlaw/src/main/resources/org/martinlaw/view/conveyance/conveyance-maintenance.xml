@@ -16,17 +16,15 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<bean id="conveyance_maintenance_view" parent="Uif-MaintenanceView">
+	<bean id="conveyance_maintenance_view" parent="matter_maintenance_view">
 		<property name="headerText" value="Conveyance Maintenance" />
-		<property name="validateClientSide" value="false"/>
 		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
-
 		<property name="items">
 			<list merge="true">
 
-				<bean parent="martinlaw_shared_matter_info_maintenance">
+				<bean parent="Uif-MaintenanceGridSection">
 					<property name="items">
-						<list merge="true">
+						<list>
 							<bean parent="Uif-HorizontalFieldGroup" p:label="Conveyance Type">
 								<property name="items">
 									<list>
@@ -35,19 +33,11 @@
 									</list>
 								</property>
 							</bean>
-
-							<!-- when the type changes, the annexes section should refresh to 
-								reflect the annex types associated with the chosen conveyance type -->
 						</list>
 					</property>
 					<property name="headerText" value="Conveyance Information" />
 				</bean>
 
-				<bean parent="martinlaw_shared_client-maintenance-section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.Client" />
-				</bean>
-				
-				<!-- <bean parent="martinlaw_shared_consideration_maint_section"/> -->
 			</list>
 		</property>
 	</bean>
@@ -60,6 +50,5 @@
 
 	<bean id="conveyance_maintenance_view_typeMsg" parent="Uif-MessageField"
 		p:style="display:none" />
-
 
 </beans>

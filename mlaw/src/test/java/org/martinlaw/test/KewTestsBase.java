@@ -342,6 +342,22 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 		}
 	}
 
+	/**
+	 * test that a CourtCase Date maint doc can be created and edited by the authorized users only
+	 * 
+	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
+	 */
+	@Test
+	public void testCreateMaintain() {
+		testCreateMaintain(getDataObjectClass(), getDocTypeName());
+	}
+
+	/**
+	 * 
+	 * @return the data object (BO) class
+	 */
+	public abstract Class<?> getDataObjectClass();
+
 	protected static PermissionService getPermissionService() {
         return KimApiServiceLocator.getPermissionService();
     }

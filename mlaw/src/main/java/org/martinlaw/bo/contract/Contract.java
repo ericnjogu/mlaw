@@ -48,7 +48,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_contract_t")
-public class Contract extends Matter<Assignee, Work, Client, Consideration, Event> {
+public class Contract extends Matter {
 	
 	/**
 	 * 
@@ -58,15 +58,10 @@ public class Contract extends Matter<Assignee, Work, Client, Consideration, Even
 	 * initializes fields
 	 */
 	public Contract() {
+		super();
+		
 		setParties(new ArrayList<ContractParty>());
 		setSignatories(new ArrayList<ContractSignatory>());
-		setClients(new ArrayList<Client>());
-		setEvents(new ArrayList<Event>());
-		try {
-			setConsiderations(createDefaultConsiderations(Consideration.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	//column defined using reference below - this is for the sake of ojb
@@ -221,10 +216,10 @@ public class Contract extends Matter<Assignee, Work, Client, Consideration, Even
 	public void setContractDuration(ContractDuration contractDuration) {
 		this.contractDuration = contractDuration;
 	}
-	@Override
+	/*@Override
 	public Class<Work> getWorkClass() {
 		return Work.class;
-	}
+	}*/
 	/**
 	 * @return the consideration
 	 *//*

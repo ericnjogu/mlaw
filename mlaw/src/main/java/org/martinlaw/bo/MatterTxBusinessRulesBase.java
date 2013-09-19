@@ -55,9 +55,7 @@ public class MatterTxBusinessRulesBase extends TransactionalDocumentRuleBase {
 		if (matterWork.isMatterIdValid()) {
 				return true;
 		} else {
-			@SuppressWarnings("rawtypes")
-			Class<? extends Matter> matterClass = matterWork.getMatterClass();
-			getRulesHelper().addMatterIdError(getRulesHelper().createMatterNotExistingError(matterClass));
+			getRulesHelper().addMatterIdError(getRulesHelper().createMatterNotExistingError(Matter.class));
 			return false;
 		}
 	}

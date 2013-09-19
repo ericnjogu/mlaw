@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  mlaw
+  %%
+  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 3 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-3.0.html>.
+  #L%
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="martinlaw_shared_assignee_bo"	parent="martinlaw_shared_person_parentBean">
+		<property name="titleAttribute" value="matterId" />
+		<property name="businessObjectClass" value="org.martinlaw.bo.MatterAssignee"/>
+		<property name="attributes">
+			<list>
+				<bean parent="martinlaw-shared-principal-name" p:label="Assignee" />
+				<bean parent="martinlaw_shared_matterId_attr" p:label="Matter"/>
+				<bean id="martinlaw_shared_event_bo_active" parent="AttributeReferenceDummy-activeIndicator">
+	    			<property name="name" value="active"/>
+	  			</bean>
+	  			<bean id="martinlaw_shared_event_bo_active" parent="AttributeReferenceDummy-activeIndicator">
+	    			<property name="name" value="hasPhysicalFile"/>
+	  			</bean>
+				<!-- placed here for the sake of the (KNS) document search, but not used anywhere else -->
+				<!-- <bean parent="martinlaw-shared-name" p:label="Matter Name" p:name="matter.name"/>
+				<bean parent="martinlaw-shared-localReference-parentBean" p:name="matter.localReference"/> -->
+				<!-- end KNS custom search attrs -->
+			</list>
+		</property>
+		<property name="objectLabel" value="Assignee" />
+	</bean>
+
+	<!-- <bean id="martinlaw_shared_assignment_bo" abstract="true" parent="BusinessObjectEntry">
+		<property name="titleAttribute" value="matterId" />
+	</bean> -->
+
+	<!-- Attribute Definitions -->
+
+	<bean id="martinlaw_shared_assignee_MaintDocument" parent="uifMaintenanceDocumentEntry">
+		<property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl" />
+		<property name="dataObjectClass" value="org.martinlaw.bo.MatterAssignee"/>
+	    <property name="documentTypeName" value="MatterAssigneeMaintenanceDocument"/>
+	    <property name="workflowAttributes">
+	    	<ref bean="matter_assignee_maint_document_entry_workflow_attrs"/>
+		</property>
+		<property name="lockingKeys">
+			<list>
+				<value>matterId</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="matter_assignee_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
+	<property name="searchingTypeDefinitions">
+		<list>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAssignee" />
+						<property name="attributeName" value="matter.localReference" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.matter.localReference</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAssignee" />
+						<property name="attributeName" value="matter.name" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.matter.name</value>
+					</list>
+				</property>
+			</bean>
+			
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAssignee" />
+						<property name="attributeName" value="active" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.active</value>
+					</list>
+				</property>
+			</bean>
+			
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAssignee" />
+						<property name="attributeName" value="hasPhysicalFile" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.hasPhysicalFile</value>
+					</list>
+				</property>
+			</bean>
+			
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="martinlaw_shared_workflow_search_attr_parent">
+						<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAssignee" />
+						<property name="attributeName" value="principalName" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.principalName</value>
+					</list>
+				</property>
+			</bean>
+			
+		</list>
+	</property>
+	</bean>
+</beans>

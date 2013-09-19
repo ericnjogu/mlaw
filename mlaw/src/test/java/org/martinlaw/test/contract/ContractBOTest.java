@@ -38,7 +38,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.contract.Consideration;
+import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
@@ -72,14 +72,6 @@ public class ContractBOTest extends MartinlawTestsBase {
 		Class<Contract> dataObjectClass = Contract.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
-	
-	@Test
-	/**
-	 * test that the {@link Consideration} is loaded into the data dictionary
-	 */
-	public void testConsiderationAttributes() {
-		testBoAttributesPresent(Consideration.class.getCanonicalName());
-	}
 
 	@Test
 	/**
@@ -87,8 +79,7 @@ public class ContractBOTest extends MartinlawTestsBase {
 	 */
 	public void testContractRetrieve() {
 		// retrieve object populated via sql script
-		Contract contract = getBoSvc().findBySinglePrimaryKey(
-				Contract.class, 1001l);
+		Contract contract = getBoSvc().findBySinglePrimaryKey(Contract.class, 1005l);
 		assertNotNull("contract should exist in database", contract);
 		assertEquals("contract name not the expected value", "buru ph2 h24", contract.getName());
 		assertNotNull("contract type should not be null", contract.getType());
@@ -98,7 +89,11 @@ public class ContractBOTest extends MartinlawTestsBase {
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());
 		assertNotNull("client principal name should not be null", contract.getClientPrincipalName());
 		getTestUtils().testMatterClient(contract, "Client");
-		getTestUtils().testAssignees(contract.getAssignees());
+		// assignees
+		assertNotNull("assignees should not be null", contract.getAssignees());
+		assertEquals("number of assignees differs", 1, contract.getAssignees().size());
+		assertEquals("assignee name differs", "alice_wanjiru", contract.getAssignees().get(0).getPrincipalName());
+		
 		getTestUtils().testRetrievedConsiderationFields(contract.getConsiderations().get(0));
 		
 		getTestUtils().testWorkList(contract.getWork());
@@ -136,7 +131,11 @@ public class ContractBOTest extends MartinlawTestsBase {
 		// D
 		getBoSvc().delete(contract);
 		assertNull("contract should not exist", getBoSvc().findBySinglePrimaryKey(Contract.class, contract.getId()));
-		assertNull("consideration should not exist", getBoSvc().findBySinglePrimaryKey(Consideration.class, contract.getId()));
+		// the two default considerations should have been deleted
+		assertNull("consideration should not exist", getBoSvc().findBySinglePrimaryKey(
+				MatterConsideration.class, contract.getConsiderations().get(0).getId()));
+		assertNull("consideration should not exist", getBoSvc().findBySinglePrimaryKey(
+				MatterConsideration.class, contract.getConsiderations().get(1).getId()));
 		assertNull("duration should not exist", getBoSvc().findBySinglePrimaryKey(ContractDuration.class, contract.getId()));
 		
 		Map<String, Object> criteria = new HashMap<String, Object>();

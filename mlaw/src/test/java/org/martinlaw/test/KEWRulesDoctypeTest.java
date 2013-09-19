@@ -88,4 +88,15 @@ public class KEWRulesDoctypeTest extends KewTestsBase {
 	public void testInitiatorFYI() {
 		// DO nothing
 	}
+	@Override
+	public Class<?> getDataObjectClass() {
+		return null;
+	}
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testCreateMaintain(java.lang.Class, java.lang.String)
+	 */
+	@Override
+	protected void testCreateMaintain(Class<?> klass, String docType) {
+		// do nothing
+	}
 }

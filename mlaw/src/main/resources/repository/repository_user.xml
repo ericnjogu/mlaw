@@ -37,33 +37,18 @@
 		</sequence-manager>
 		<object-cache class="org.apache.ojb.broker.cache.ObjectCachePerBrokerImpl" />
 	</jdbc-connection-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCase"
-		table="martinlaw_court_case_t">
-		<field-descriptor name="name" column="name"
-			jdbc-type="VARCHAR" length="150">
-		</field-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.Matter" table="martinlaw_matter_t">
+		<field-descriptor name="name" column="name" jdbc-type="VARCHAR" length="150"/>
 		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_s">
-		</field-descriptor>
-		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="50">
-		</field-descriptor>
-		<field-descriptor name="courtReference" column="court_reference"
-			jdbc-type="VARCHAR" length="20">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<collection-descriptor name="witnesses"
-			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseWitness"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="courtCaseId" />
-		</collection-descriptor>
+			sequence-name="martinlaw_matter_s"/>
+		<field-descriptor name="localReference" column="local_reference" jdbc-type="VARCHAR" length="50"/>
+		<field-descriptor name="versionNumber" column="ver_nbr"	jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="objectId" column="obj_id" jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="tags" column="tags" jdbc-type="VARCHAR" length="1000"/>
 		<collection-descriptor name="clients"
-			element-class-ref="org.martinlaw.bo.courtcase.Client"
+			element-class-ref="org.martinlaw.bo.MatterClient"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
@@ -79,6 +64,47 @@
 		<field-descriptor name="clientPrincipalName" column="client_principal_name"
 			jdbc-type="VARCHAR" length="100">
 		</field-descriptor>
+
+		<collection-descriptor name="events"
+			element-class-ref="org.martinlaw.bo.MatterEvent"
+			auto-retrieve="true" auto-update="none" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+
+		<collection-descriptor name="assignees"
+			element-class-ref="org.martinlaw.bo.MatterAssignee"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="work"
+			element-class-ref="org.martinlaw.bo.MatterWork"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<collection-descriptor name="considerations"
+			element-class-ref="org.martinlaw.bo.MatterConsideration"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterId" />
+		</collection-descriptor>
+		
+		<field-descriptor name="concreteClass" column="CLASS_NAME" jdbc-type="VARCHAR"/>
+
+	</class-descriptor>
+
+	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCase"
+		table="martinlaw_court_case_t">
+		<field-descriptor name="id" column="matter_id"	jdbc-type="BIGINT" primarykey="true"/>
+		
+		<field-descriptor name="courtReference" column="court_reference"
+			jdbc-type="VARCHAR" length="20">
+		</field-descriptor>
+		<collection-descriptor name="witnesses"
+			element-class-ref="org.martinlaw.bo.courtcase.CourtCaseWitness"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="courtCaseId" />
+		</collection-descriptor>
 		
 		<field-descriptor name="typeId" column="court_case_type_id"
 			jdbc-type="BIGINT" indexed="true"/>
@@ -87,32 +113,10 @@
 			auto-delete="none">
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
-
-		<collection-descriptor name="events"
-			element-class-ref="org.martinlaw.bo.courtcase.Event"
-			auto-retrieve="true" auto-update="none" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.courtcase.Assignee"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
 		
-		<collection-descriptor name="work"
-			element-class-ref="org.martinlaw.bo.courtcase.Work"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<collection-descriptor name="considerations"
-			element-class-ref="org.martinlaw.bo.courtcase.Consideration"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<field-descriptor name="concreteClass" column="CLASS_NAME" jdbc-type="VARCHAR"/>
+		<reference-descriptor name="super" class-ref="org.martinlaw.bo.Matter">
+        	<foreignkey field-ref="id"/>
+    	</reference-descriptor>
 
 	</class-descriptor>
 	
@@ -127,11 +131,11 @@
     	</reference-descriptor>
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.courtcase.Consideration"
-		table="martinlaw_court_case_consideration_t">
+	<class-descriptor class="org.martinlaw.bo.MatterConsideration"
+		table="martinlaw_matter_consideration_t">
 		<field-descriptor name="id" column="consideration_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_consideration_s" />
+			sequence-name="martinlaw_matter_consideration_s" />
 		<field-descriptor name="amount" column="amount"
 			jdbc-type="DECIMAL" length="20" precision="2" scale="0" />
 		<field-descriptor name="currency" column="currency"
@@ -152,23 +156,23 @@
 			<foreignkey field-ref="considerationTypeId" />
 		</reference-descriptor>
 		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.courtcase.CourtCase" 
+		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.Matter" 
 			auto-retrieve="true" auto-update="none" auto-delete="none"> 
 			<foreignkey field-ref="matterId"/> 
 		</reference-descriptor>
 		
 		<collection-descriptor name="transactions"
-			element-class-ref="org.martinlaw.bo.courtcase.TransactionDoc"
+			element-class-ref="org.martinlaw.bo.MatterTransactionDoc"
 			auto-retrieve="true" auto-update="none" auto-delete="none">
 			<inverse-foreignkey field-ref="considerationId" />
 		</collection-descriptor>
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.courtcase.Client"
-		table="martinlaw_court_case_client_t">
+	<class-descriptor class="org.martinlaw.bo.MatterClient"
+		table="martinlaw_matter_client_t">
 		<field-descriptor name="id" column="client_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_client_s">
+			sequence-name="martinlaw_matter_client_s">
 		</field-descriptor>
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30">
@@ -236,11 +240,11 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.courtcase.Event"
-		table="martinlaw_court_case_event_t">
+	<class-descriptor class="org.martinlaw.bo.MatterEvent"
+		table="martinlaw_matter_event_t">
 		<field-descriptor name="id" column="id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_event_s">
+			sequence-name="martinlaw_matter_event_s">
 		</field-descriptor>
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
@@ -270,7 +274,7 @@
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
 		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.courtcase.CourtCase" 
+		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.Matter" 
 			auto-retrieve="true" auto-update="none" auto-delete="none"> 
 			<foreignkey field-ref="matterId"/> 
 		</reference-descriptor>
@@ -322,43 +326,10 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.conveyance.Client"
-		table="martinlaw_conveyance_client_t">
-		<field-descriptor name="id" column="client_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_client_s">
-		</field-descriptor>
-		<field-descriptor name="principalName" column="principal_name"
-			jdbc-type="VARCHAR" length="30">
-		</field-descriptor>
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.conveyance.Conveyance"
-		table="martinlaw_conveyance_t">
-		<field-descriptor name="name" column="name"
-			jdbc-type="VARCHAR" length="150">
-		</field-descriptor>
+	<class-descriptor class="org.martinlaw.bo.conveyance.Conveyance" table="martinlaw_conveyance_t">
 		<field-descriptor name="id" column="matter_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_s">
-		</field-descriptor>
-		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="50">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="clientPrincipalName" column="client_principal_name"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
+			jdbc-type="BIGINT" primarykey="true" />
+		
 		<field-descriptor name="typeId" column="convey_type_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
@@ -368,124 +339,19 @@
 			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="typeId" />
 		</reference-descriptor>
-
-		<collection-descriptor name="clients"
-			element-class-ref="org.martinlaw.bo.conveyance.Client"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		<field-descriptor name="statusId" column="status_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="statusId" />
-		</reference-descriptor>
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.conveyance.Assignee"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
 		
-		<collection-descriptor name="work"
+		<!-- <collection-descriptor name="work"
 			element-class-ref="org.martinlaw.bo.conveyance.Work"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
+		</collection-descriptor> -->
 		
-		<collection-descriptor name="events"
-			element-class-ref="org.martinlaw.bo.conveyance.Event"
-			auto-retrieve="true" auto-update="none" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-	
-		<collection-descriptor name="considerations"
-			element-class-ref="org.martinlaw.bo.conveyance.Consideration"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
+		<reference-descriptor name="super" class-ref="org.martinlaw.bo.Matter">
+        	<foreignkey field-ref="id"/>
+    	</reference-descriptor>
 
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.conveyance.Consideration"
-		table="martinlaw_conveyance_consideration_t">
-		<field-descriptor name="id" column="consideration_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_consideration_s" />
-		<field-descriptor name="amount" column="amount"
-			jdbc-type="DECIMAL" length="20" precision="2" scale="0" />
-		<field-descriptor name="currency" column="currency"
-			jdbc-type="VARCHAR" length="10" />
-		<field-descriptor name="description" column="description"
-			jdbc-type="VARCHAR" length="255" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-			
-		<field-descriptor name="considerationTypeId" column="consideration_type_id"	jdbc-type="BIGINT" />
-		<reference-descriptor name="considerationType"
-			class-ref="org.martinlaw.bo.ConsiderationType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="considerationTypeId" />
-		</reference-descriptor>
-		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.conveyance.Conveyance" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-		
-		<collection-descriptor name="transactions"
-			element-class-ref="org.martinlaw.bo.conveyance.TransactionDoc"
-			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<inverse-foreignkey field-ref="considerationId" />
-		</collection-descriptor>
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.conveyance.Event"
-		table="martinlaw_conveyance_event_t">
-		<field-descriptor name="id" column="id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_event_s">
-		</field-descriptor>
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-
-		<field-descriptor name="startDate" column="start_date"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="endDate" column="end_date"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="dateCreated" column="date_created"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="dateModified" column="date_modified" jdbc-type="TIMESTAMP"/>
-
-		<field-descriptor name="comment" column="date_comment"
-			jdbc-type="VARCHAR" length="150" />
-		<field-descriptor name="location" column="location"
-			jdbc-type="VARCHAR" length="150" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-
-		<field-descriptor name="typeId" column="event_type_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="active" column="active" jdbc-type="VARCHAR" 
-		conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.EventType" auto-retrieve="true"
-			auto-update="none" auto-delete="none">
-			<foreignkey field-ref="typeId" />
-		</reference-descriptor>
-		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.conveyance.Conveyance" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-	</class-descriptor>
-
 	<class-descriptor class="org.martinlaw.bo.contract.ContractType"
 		table="martinlaw_contract_type_t">
 		<field-descriptor name="id" column="contract_type_id"
@@ -564,60 +430,16 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.contract.Consideration"
-		table="martinlaw_contract_consideration_t">
-		<field-descriptor name="id" column="consideration_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_consideration_s" />
-		<!-- <field-descriptor name="contractId" column="contract_id" jdbc-type="BIGINT"/> -->
-		<field-descriptor name="amount" column="amount"
-			jdbc-type="DECIMAL" length="20" precision="2" scale="0" />
-		<field-descriptor name="currency" column="currency"
-			jdbc-type="VARCHAR" length="10" />
-		<field-descriptor name="description" column="description"
-			jdbc-type="VARCHAR" length="255" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-			
-		<field-descriptor name="considerationTypeId" column="consideration_type_id"	jdbc-type="BIGINT" />
-		<reference-descriptor name="considerationType"
-			class-ref="org.martinlaw.bo.ConsiderationType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="considerationTypeId" />
-		</reference-descriptor>
-		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.contract.Contract" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-		
-		<collection-descriptor name="transactions"
-			element-class-ref="org.martinlaw.bo.contract.TransactionDoc"
-			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<inverse-foreignkey field-ref="considerationId" />
-		</collection-descriptor>
-	</class-descriptor>
-
 	<class-descriptor class="org.martinlaw.bo.contract.Contract"
 		table="martinlaw_contract_t">
 		<field-descriptor name="id" column="matter_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_s" />
-		<field-descriptor name="name" column="name"
-			jdbc-type="VARCHAR" length="150" />
-		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="50" />
+			jdbc-type="BIGINT" primarykey="true" />
+
 		<field-descriptor name="serviceOffered" column="service_offered"
 			jdbc-type="VARCHAR" length="255" />
 		<field-descriptor name="summaryOfTerms" column="summary_of_terms"
 			jdbc-type="VARCHAR" length="255" />
-		<field-descriptor name="clientPrincipalName" column="client_principal_name"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
+		
 		<field-descriptor name="contractDurationId" column="contract_duration_id"
 			jdbc-type="BIGINT" />
 
@@ -627,14 +449,6 @@
 			class-ref="org.martinlaw.bo.contract.ContractType" auto-retrieve="true"
 			auto-update="none" auto-delete="none">
 			<foreignkey field-ref="typeId" />
-		</reference-descriptor>
-
-		<field-descriptor name="statusId" column="status_id"
-			jdbc-type="BIGINT" indexed="true" />
-		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="statusId" />
 		</reference-descriptor>
 
 		<reference-descriptor name="contractDuration"
@@ -654,102 +468,13 @@
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="contractId" />
 		</collection-descriptor>
+		
+		<reference-descriptor name="super" class-ref="org.martinlaw.bo.Matter">
+        	<foreignkey field-ref="id"/>
+    	</reference-descriptor>
 
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.contract.Assignee" auto-retrieve="true"
-			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<collection-descriptor name="clients"
-			element-class-ref="org.martinlaw.bo.contract.Client"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<collection-descriptor name="work"
-			element-class-ref="org.martinlaw.bo.contract.Work"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<collection-descriptor name="events"
-			element-class-ref="org.martinlaw.bo.contract.Event"
-			auto-retrieve="true" auto-update="none" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<collection-descriptor name="considerations"
-			element-class-ref="org.martinlaw.bo.contract.Consideration"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-	
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.contract.Client"
-		table="martinlaw_contract_client_t">
-		<field-descriptor name="id" column="client_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_client_s">
-		</field-descriptor>
-		<field-descriptor name="principalName" column="principal_name"
-			jdbc-type="VARCHAR" length="30">
-		</field-descriptor>
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.contract.Event"
-		table="martinlaw_contract_event_t">
-		<field-descriptor name="id" column="id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_event_s">
-		</field-descriptor>
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-
-		<field-descriptor name="startDate" column="start_date"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="endDate" column="end_date"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="dateCreated" column="date_created"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="dateModified" column="date_modified" jdbc-type="TIMESTAMP"/>
-
-		<field-descriptor name="comment" column="date_comment"
-			jdbc-type="VARCHAR" length="150" />
-		<field-descriptor name="location" column="location"
-			jdbc-type="VARCHAR" length="150" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-
-		<field-descriptor name="typeId" column="event_type_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="active" column="active" jdbc-type="VARCHAR" 
-		conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.EventType" auto-retrieve="true"
-			auto-update="none" auto-delete="none">
-			<foreignkey field-ref="typeId" />
-		</reference-descriptor>
-		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.contract.Contract" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-	</class-descriptor>
-
 	<class-descriptor class="org.martinlaw.bo.CalendarEvent"
 		table="martinlaw_calendar_event_t">
 		<field-descriptor name="id" column="calendar_event_id"
@@ -803,11 +528,11 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.contract.Assignee"
-		table="martinlaw_contract_assignee_t">
+	<class-descriptor class="org.martinlaw.bo.MatterAssignee"
+		table="martinlaw_matter_assignee_t">
 		<field-descriptor name="id" column="assignee_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_assignee_s" />
+			sequence-name="martinlaw_matter_assignee_s" />
 		<field-descriptor name="principalName" column="principal_name"
 			jdbc-type="VARCHAR" length="30" />
 		<field-descriptor name="matterId" column="matter_id"
@@ -816,329 +541,19 @@
 			jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.conveyance.Assignee"
-		table="martinlaw_conveyance_assignee_t">
-		<field-descriptor name="id" column="assignee_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_assignee_s" />
-		<field-descriptor name="principalName" column="principal_name"
-			jdbc-type="VARCHAR" length="30" />
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.conveyance.Assignment"
-		table="martinlaw_conveyance_assignment_t">
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" primarykey="true">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.conveyance.Assignee"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-
-		<reference-descriptor name="matter"
-			class-ref="org.martinlaw.bo.conveyance.Conveyance" auto-retrieve="true"
-			auto-update="none" auto-delete="false">
-			<foreignkey field-ref="matterId" />
-		</reference-descriptor>
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.contract.Assignment"
-		table="martinlaw_contract_assignment_t">
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" primarykey="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.contract.Assignee" auto-retrieve="true"
-			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-
-		<reference-descriptor name="matter"
-			class-ref="org.martinlaw.bo.contract.Contract" auto-retrieve="true"
-			auto-update="none" auto-delete="false">
-			<foreignkey field-ref="matterId" />
-		</reference-descriptor>
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.courtcase.Assignee"
-		table="martinlaw_court_case_assignee_t">
-		<field-descriptor name="id" column="assignee_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_assignee_s" />
-		<field-descriptor name="principalName" column="principal_name"
-			jdbc-type="VARCHAR" length="30" />
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.courtcase.Assignment"
-		table="martinlaw_court_case_assignment_t">
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" primarykey="true">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.courtcase.Assignee"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-
-		<reference-descriptor name="matter"
-			class-ref="org.martinlaw.bo.courtcase.CourtCase" auto-retrieve="true"
-			auto-update="none" auto-delete="false">
-			<foreignkey field-ref="matterId" />
-		</reference-descriptor>
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.opinion.Opinion" table="martinlaw_opinion_t">
-		<field-descriptor name="name" column="name"
-			jdbc-type="VARCHAR" length="150">
-		</field-descriptor>
-		<field-descriptor name="id" column="matter_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_opinion_s">
-		</field-descriptor>
-		<field-descriptor name="localReference" column="local_reference"
-			jdbc-type="VARCHAR" length="50">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="clientPrincipalName" column="client_principal_name"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
-		
-		<collection-descriptor name="clients"
-			element-class-ref="org.martinlaw.bo.opinion.Client"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		<field-descriptor name="statusId" column="status_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<reference-descriptor name="status"
-			class-ref="org.martinlaw.bo.Status" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="statusId" />
-		</reference-descriptor>
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.opinion.Assignee" auto-retrieve="true"
-			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<collection-descriptor name="work"
-			element-class-ref="org.martinlaw.bo.opinion.Work"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-		
-		<collection-descriptor name="events"
-			element-class-ref="org.martinlaw.bo.opinion.Event"
-			auto-retrieve="true" auto-update="none" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-	
-		<collection-descriptor name="considerations"
-			element-class-ref="org.martinlaw.bo.opinion.Consideration"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.opinion.Consideration"
-		table="martinlaw_opinion_consideration_t">
-		<field-descriptor name="id" column="consideration_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_opinion_consideration_s" />
-		<field-descriptor name="amount" column="amount"
-			jdbc-type="DECIMAL" length="20" precision="2" scale="0" />
-		<field-descriptor name="currency" column="currency"
-			jdbc-type="VARCHAR" length="10" />
-		<field-descriptor name="description" column="description"
-			jdbc-type="VARCHAR" length="255" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-			
-		<field-descriptor name="considerationTypeId" column="consideration_type_id"	jdbc-type="BIGINT" />
-		<reference-descriptor name="considerationType"
-			class-ref="org.martinlaw.bo.ConsiderationType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="considerationTypeId" />
-		</reference-descriptor>
-		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.opinion.Opinion" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-		
-		<collection-descriptor name="transactions"
-			element-class-ref="org.martinlaw.bo.opinion.TransactionDoc"
-			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<inverse-foreignkey field-ref="considerationId" />
-		</collection-descriptor>
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.opinion.Client"
-		table="martinlaw_opinion_client_t">
-		<field-descriptor name="id" column="client_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_opinion_client_s">
-		</field-descriptor>
-		<field-descriptor name="principalName" column="principal_name"
-			jdbc-type="VARCHAR" length="30">
-		</field-descriptor>
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.opinion.Assignee"
-		table="martinlaw_opinion_assignee_t">
-		<field-descriptor name="id" column="assignee_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_opinion_assignee_s" />
-		<field-descriptor name="principalName" column="principal_name"
-			jdbc-type="VARCHAR" length="30" />
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.opinion.Assignment"
-		table="martinlaw_opinion_assignment_t">
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" primarykey="true" />
-
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-
-		<collection-descriptor name="assignees"
-			element-class-ref="org.martinlaw.bo.opinion.Assignee" auto-retrieve="true"
-			auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor>
-
-		<reference-descriptor name="matter"
-			class-ref="org.martinlaw.bo.opinion.Opinion" auto-retrieve="true"
-			auto-update="none" auto-delete="false">
-			<foreignkey field-ref="matterId" />
-		</reference-descriptor>
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.opinion.Event"
-		table="martinlaw_opinion_event_t">
-		<field-descriptor name="id" column="id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_opinion_event_s">
-		</field-descriptor>
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" indexed="true" />
-
-		<field-descriptor name="startDate" column="start_date"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="endDate" column="end_date"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="dateCreated" column="date_created"	jdbc-type="TIMESTAMP"/>
-		<field-descriptor name="dateModified" column="date_modified" jdbc-type="TIMESTAMP"/>
-
-		<field-descriptor name="comment" column="date_comment"
-			jdbc-type="VARCHAR" length="150" />
-		<field-descriptor name="location" column="location"
-			jdbc-type="VARCHAR" length="150" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-
-		<field-descriptor name="typeId" column="event_type_id"
-			jdbc-type="BIGINT" />
 		<field-descriptor name="active" column="active" jdbc-type="VARCHAR" 
 		conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
-
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.EventType" auto-retrieve="true"
-			auto-update="none" auto-delete="none">
-			<foreignkey field-ref="typeId" />
-		</reference-descriptor>
+		<field-descriptor name="hasPhysicalFile" column="has_physical_file" jdbc-type="VARCHAR" 
+		conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
 		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.opinion.Opinion" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
+		<reference-descriptor name="matter"
+			class-ref="org.martinlaw.bo.Matter" auto-retrieve="true" auto-update="none" auto-delete="false">
+			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.contract.Work"
-		table="martinlaw_contract_work_doc_t">
-		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
-			jdbc-type="VARCHAR" primarykey="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<reference-descriptor name="documentHeader"
-			class-ref="org.kuali.rice.krad.bo.DocumentHeader" auto-retrieve="true"
-			auto-update="object" auto-delete="object" proxy="true">
-			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>
 
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" />
-		
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.contract.Contract" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-		
-		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
-		<reference-descriptor name="workType"
-			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="workTypeId" />
-		</reference-descriptor>
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.courtcase.Work"
-		table="martinlaw_court_case_work_doc_t">
+	<class-descriptor class="org.martinlaw.bo.MatterWork" table="martinlaw_matter_work_doc_t">
 		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
 			jdbc-type="VARCHAR" primarykey="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -1154,37 +569,7 @@
 		<field-descriptor name="matterId" column="matter_id" jdbc-type="BIGINT" />
 			
 		<reference-descriptor name="matter"
-			class-ref="org.martinlaw.bo.courtcase.CourtCase" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="matterId" />
-		</reference-descriptor>
-		
-		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
-		<reference-descriptor name="workType"
-			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="workTypeId" />
-		</reference-descriptor>
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.opinion.Work"
-		table="martinlaw_opinion_work_doc_t">
-		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
-			jdbc-type="VARCHAR" primarykey="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<reference-descriptor name="documentHeader"
-			class-ref="org.kuali.rice.krad.bo.DocumentHeader" auto-retrieve="true"
-			auto-update="object" auto-delete="object" proxy="true">
-			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>
-
-		<field-descriptor name="matterId" column="matter_id" jdbc-type="BIGINT" />
-		
-		<reference-descriptor name="matter"
-			class-ref="org.martinlaw.bo.opinion.Opinion" auto-retrieve="true" auto-update="none"
+			class-ref="org.martinlaw.bo.Matter" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
@@ -1201,18 +586,7 @@
 		table="martinlaw_conveyance_work_doc_t">
 		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
 			jdbc-type="VARCHAR" primarykey="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<reference-descriptor name="documentHeader"
-			class-ref="org.kuali.rice.krad.bo.DocumentHeader" auto-retrieve="true"
-			auto-update="object" auto-delete="object" proxy="true">
-			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>
-
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" />
+		
 		<field-descriptor name="conveyanceAnnexTypeId"
 			column="convey_annex_type_id" jdbc-type="BIGINT" />
 
@@ -1222,22 +596,14 @@
 			<foreignkey field-ref="conveyanceAnnexTypeId" />
 		</reference-descriptor>
 		
-		<reference-descriptor name="matter"
-			class-ref="org.martinlaw.bo.conveyance.Conveyance" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="matterId" />
-		</reference-descriptor>
+		<reference-descriptor name="super" class-ref="org.martinlaw.bo.MatterWork">
+        	<foreignkey field-ref="documentNumber"/>
+    	</reference-descriptor>
 		
-		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
-		<reference-descriptor name="workType"
-			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="workTypeId" />
-		</reference-descriptor>
-	</class-descriptor>
+		</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.contract.TransactionDoc"
-		table="martinlaw_contract_transaction_doc_t">
+	<class-descriptor class="org.martinlaw.bo.MatterTransactionDoc"
+		table="martinlaw_matter_transaction_doc_t">
 		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
 			jdbc-type="VARCHAR" primarykey="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -1266,144 +632,11 @@
 			jdbc-type="BIGINT" />
 		
 		<reference-descriptor name="consideration"
-			class-ref="org.martinlaw.bo.contract.Consideration" auto-retrieve="true" auto-update="none"
+			class-ref="org.martinlaw.bo.MatterConsideration" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
 			<foreignkey field-ref="considerationId" />
 		</reference-descriptor>
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.contract.Contract" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-		<reference-descriptor name="transactionType" class-ref="org.martinlaw.bo.TransactionType" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="transactionTypeId"/> 
-		</reference-descriptor>
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.conveyance.TransactionDoc"
-		table="martinlaw_conveyance_transaction_doc_t">
-		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
-			jdbc-type="VARCHAR" primarykey="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<reference-descriptor name="documentHeader"
-			class-ref="org.kuali.rice.krad.bo.DocumentHeader" auto-retrieve="true"
-			auto-update="object" auto-delete="object" proxy="true">
-			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>
-
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="amount" column="amount"
-			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
-		</field-descriptor>
-		<field-descriptor name="date" column="transaction_date"
-			jdbc-type="DATE">
-		</field-descriptor>
-		<field-descriptor name="clientPrincipalName" column="client_principal_name"
-			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="transactionTypeId" column="transaction_type_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="considerationId" column="consideration_id"
-			jdbc-type="BIGINT" />
-			
-		<reference-descriptor name="consideration"
-			class-ref="org.martinlaw.bo.conveyance.Consideration" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="considerationId" />
-		</reference-descriptor>
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.conveyance.Conveyance" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-		<reference-descriptor name="transactionType" class-ref="org.martinlaw.bo.TransactionType" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="transactionTypeId"/> 
-		</reference-descriptor>
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.courtcase.TransactionDoc"
-		table="martinlaw_court_case_transaction_doc_t">
-		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
-			jdbc-type="VARCHAR" primarykey="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-			
-		<reference-descriptor name="documentHeader"
-			class-ref="org.kuali.rice.krad.bo.DocumentHeader" auto-retrieve="true"
-			auto-update="object" auto-delete="object" proxy="true">
-			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>
-
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="amount" column="amount"
-			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
-		</field-descriptor>
-		<field-descriptor name="date" column="transaction_date"
-			jdbc-type="DATE">
-		</field-descriptor>
-		<field-descriptor name="clientPrincipalName" column="client_principal_name"
-			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="transactionTypeId" column="transaction_type_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="considerationId" column="consideration_id"
-			jdbc-type="BIGINT" />
-			
-		<reference-descriptor name="consideration"
-			class-ref="org.martinlaw.bo.courtcase.Consideration" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="considerationId" />
-		</reference-descriptor>
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.courtcase.CourtCase" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="matterId"/> 
-		</reference-descriptor>
-		<reference-descriptor name="transactionType" class-ref="org.martinlaw.bo.TransactionType" 
-			auto-retrieve="true" auto-update="none" auto-delete="none"> 
-			<foreignkey field-ref="transactionTypeId"/> 
-		</reference-descriptor>
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.opinion.TransactionDoc"
-		table="martinlaw_opinion_transaction_doc_t">
-		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
-			jdbc-type="VARCHAR" primarykey="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<reference-descriptor name="documentHeader"
-			class-ref="org.kuali.rice.krad.bo.DocumentHeader" auto-retrieve="true"
-			auto-update="object" auto-delete="object" proxy="true">
-			<foreignkey field-ref="documentNumber" />
-		</reference-descriptor>
-
-		<field-descriptor name="matterId" column="matter_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="amount" column="amount"
-			jdbc-type="DECIMAL" length="20" precision="2" scale="0">
-		</field-descriptor>
-		<field-descriptor name="date" column="transaction_date"
-			jdbc-type="DATE">
-		</field-descriptor>
-		<field-descriptor name="clientPrincipalName" column="client_principal_name"
-			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="transactionTypeId" column="transaction_type_id"
-			jdbc-type="BIGINT" />
-		<field-descriptor name="considerationId" column="consideration_id"
-			jdbc-type="BIGINT" />
-			
-		<reference-descriptor name="consideration"
-			class-ref="org.martinlaw.bo.opinion.Consideration" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="considerationId" />
-		</reference-descriptor>
-		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.opinion.Opinion" 
+		<reference-descriptor name="matter" class-ref="org.martinlaw.bo.Matter" 
 			auto-retrieve="true" auto-update="none" auto-delete="none"> 
 			<foreignkey field-ref="matterId"/> 
 		</reference-descriptor>

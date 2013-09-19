@@ -39,6 +39,7 @@ import java.util.List;
 import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.uif.view.ViewModel;
+import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterTransactionDoc;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.keyvalues.MatterClientNamesKeyValues;
@@ -52,7 +53,7 @@ import org.martinlaw.web.MatterTxForm;
  * @author mugo
  * 
  */
-public abstract class MatterTransactionDocBOTest extends MartinlawTestsBase {
+public class MatterTransactionDocBOTest extends MartinlawTestsBase {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 	public MatterTransactionDocBOTest() {
 		super();
@@ -61,14 +62,17 @@ public abstract class MatterTransactionDocBOTest extends MartinlawTestsBase {
 	/**
 	 * @return the transaction document class
 	 */
-	public abstract Class<? extends MatterTransactionDoc> getMatterTransactionDocumentClass();
+	public Class<? extends MatterTransactionDoc> getMatterTransactionDocumentClass() {
+		return MatterTransactionDoc.class;
+	}
 
-	/**
-	 * @return the docType
-	 */
-	public abstract String getDocType();
+	public String getDocType() {
+		return MartinlawConstants.DocTypes.MATTER_TRANSACTION;
+	}
 
-	public abstract String getViewId();
+	public String getViewId() {
+		return MartinlawConstants.ViewIds.MATTER_TRANSACTION;
+	}
 	
 	/**
 	 * test DD entries

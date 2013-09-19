@@ -25,13 +25,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="court_case_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view">
+	<bean id="court_case_inquiry_view" parent="matter_inquiry_view">
 		<property name="headerText" value="Court Case Inquiry" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
-		<property name="formPostUrl" value="inquiryWithAtts" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="martinlaw_shared_matter_info_inquiry">
+				<bean parent="Uif-Disclosure-GridSection">
 					<property name="headerText" value="Case Information" />
 					<property name="items">
 						<list merge="true">
@@ -41,56 +40,10 @@
 					</property>
 				</bean>
 
-				<bean parent="martinlaw_shared_matter_event_table_collection_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Event" />
-				</bean>
-
-				<bean parent="martinlaw_shared_client_inquiry_section">
-					<property name="collectionObjectClass"
-						value="org.martinlaw.bo.courtcase.Client" />
-				</bean>
-				
-				<bean parent="martinlaw_shared_consideration_inquiry_section">
-					<property name="items">
-						<list merge="true">
-							<bean parent="martinlaw_shared_consideration_inquiry_table_section">
-								<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Consideration" />
-								<property name="subCollections">
-							       <list>
-							         <ref bean="martinlaw_shared_consideration_transactions_sub_collection_inquiry_courtcase"/>
-							       </list>
-							     </property>
-							</bean>
-						</list>
-					</property>
-				</bean>
-
 				<bean parent="martinlaw_shared_person_inquiry_section">
 					<property name="headerText" value="Witnesses" />
 					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.CourtCaseWitness" />
 					<property name="propertyName" value="witnesses" />
-				</bean>
-
-				<bean parent="martinlaw_shared_annexes_inquirySection" />
-				
-				<bean parent="martinlaw_shared_assignment_inquiry_view_assignees">
-					<property name="collectionObjectClass"
-						value="org.martinlaw.bo.courtcase.Assignee" />
-				</bean>
-				
-				<bean parent="martinlaw_shared_work_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Work" />
-					<property name="items">
-						<list merge="true">
-							<bean parent="martinlaw_shared_line_docnumber_linkfield">
-								<property name="href">
-									<value>
-										@{#ConfigProperties['dochandler_courtcase_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
-									</value>
-								</property>
-							</bean>
-						</list>
-					</property>
 				</bean>
 			</list>
 		</property>

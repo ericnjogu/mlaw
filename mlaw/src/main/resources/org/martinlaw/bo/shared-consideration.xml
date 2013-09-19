@@ -26,20 +26,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="martinlaw_shared_consideration_bo" abstract="true" parent="BusinessObjectEntry">
+	<bean id="martinlaw_shared_consideration_bo" parent="BusinessObjectEntry">
 		<property name="boNotesEnabled" value="true" />
 		<property name="titleAttribute" value="amount" />
+		<property name="businessObjectClass" value="org.martinlaw.bo.MatterConsideration" />
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-id"/>
-				<!-- to be set by specific considerations -->
-				<!-- <ref bean="martinlaw_shared_consideration_bo_consideration_type_id"/> -->
+				<bean parent="martinlaw_shared_matterId_attr" p:label="Matter" />
+				<ref bean="martinlaw_shared_consideration_bo_consideration_type_id"/>
 				<bean parent="martinlaw-shared-description" p:label="Comment" />
 				<bean parent="martinlaw_shared_transaction_amount" p:label="Value"/>
 				<ref bean="martinlaw_shared_consideration_bo_currency" />
 			</list>
 		</property>
 		<property name="objectLabel" value="Consideration" />
+		<property name="relationships">
+	      <list>
+			<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.Matter"/>
+	      </list>
+	    </property>
 	</bean>
 	
 	<bean id="martinlaw_shared_consideration_bo_currency" parent="AttributeDefinition">
@@ -74,7 +80,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
   </bean>
   
   <bean id="martinlaw_shared_consideration_bo_consideration_type_id" parent="AttributeDefinition">
-		<property name="forceUppercase" value="false" />
 		<property name="maxLength" value="20" />
 		<property name="validationPattern">
 			<bean parent="NumericValidationPattern"/>
@@ -85,13 +90,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="controlField">
 			<bean parent="Uif-DropdownControl" />
 		</property>
-		<!-- to be set by specific considerations -->
-		<!-- <property name="optionsFinder">
-			<bean
-				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:businessObjectClass="org.martinlaw.bo.ConsiderationType"
-				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
-		</property> -->
+		<property name="optionsFinder">
+			<bean class="org.martinlaw.keyvalues.ScopedKeyValuesUif" p:addBlankOption="true" 
+				p:scopedClass="org.martinlaw.bo.ConsiderationType"/>
+		</property>
 		<!-- required for display in kns custom document search -->
 		<property name="control">
 			<bean parent="SelectControlDefinition" p:size="20" 
@@ -101,12 +103,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_consideration_maint_document_entry" abstract="true" parent="uifMaintenanceDocumentEntry">
+	<bean id="martinlaw_shared_consideration_maint_document_entry" parent="uifMaintenanceDocumentEntry">
 		<property name="maintainableClass"	value="org.martinlaw.bo.MatterMaintenanceHelperMaintainable" />
+		<property name="dataObjectClass" value="org.martinlaw.bo.MatterConsideration"/>
 		<property name="lockingKeys">
 			<list>
 				<value>matterId</value>
-				<value>amount</value>
 				<value>considerationTypeId</value>
 			</list>
 		</property>
@@ -118,6 +120,82 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	        <bean parent="ReferenceDefinition" p:attributeName="matter" p:attributeToHighlightOnFail="matterId"/>
 	      </list>
 	    </property> -->
+	    <property name="workflowAttributes">
+	    	<ref bean="matter_consideration_maint_document_entry_workflow_attrs"/>
+		</property>
+		<property name="documentTypeName" value="MatterConsiderationMaintenanceDocument"/>
+	</bean>
+	
+	<bean id="matter_consideration_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
+		<property name="searchingTypeDefinitions">
+		<list>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_consideration_maint_document_entry_search_attr">
+						<property name="attributeName" value="considerationTypeId" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.considerationTypeId</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_consideration_maint_document_entry_search_attr">
+						<property name="attributeName" value="amount" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.amount</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_consideration_maint_document_entry_search_attr">
+						<property name="attributeName" value="currency" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.currency</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_consideration_maint_document_entry_search_attr">
+						<property name="attributeName" value="description" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.description</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_consideration_maint_document_entry_search_attr">
+						<property name="attributeName" value="matterId" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.matterId</value>
+					</list>
+				</property>
+			</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="matter_consideration_maint_document_entry_search_attr" parent="martinlaw_shared_workflow_search_attr_parent"
+		abstract="true">
+		<property name="businessObjectClassName" value="org.martinlaw.bo.MatterConsideration" />
 	</bean>
 
 </beans>

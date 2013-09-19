@@ -27,25 +27,20 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<bean id="case_maintenance_view" parent="Uif-MaintenanceView">
+	<bean id="case_maintenance_view" parent="matter_maintenance_view">
 		<property name="headerText" value="Court Case Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.CourtCase" />
-		<property name="validateClientSide" value="false"/>
 		<property name="items">
 			<list merge="true">
-				<bean parent="martinlaw_shared_matter_info_maintenance">
+				<bean parent="Uif-MaintenanceGridSection">
 					<property name="items">
-						<list merge="true">
+						<list>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="courtReference" 
 								p:instructionalText="e.g. HCC No 27 of 2012"/>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId"/>
 						</list>
 					</property>
 					<property name="headerText" value="Case Information" />
-				</bean>
-
-				<bean parent="martinlaw_shared_client-maintenance-section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.courtcase.Client" />
 				</bean>
 
 				<bean parent="Uif-StackedCollectionSection">

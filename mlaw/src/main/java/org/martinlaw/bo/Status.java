@@ -57,6 +57,7 @@ public class Status extends PersistableBusinessObjectBase implements ScopedKeyVa
 	 * @param status - the description
 	 */
 	public Status(Long id, String status) {
+		this();
 		this.id = id;
 		this.status = status;
 	}

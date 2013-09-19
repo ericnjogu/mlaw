@@ -27,8 +27,9 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<bean id="martinlaw_shared_matter_event_maintenance_view" abstract="true"
-		parent="Uif-MaintenanceView">
+	<bean id="martinlaw_shared_matter_event_maintenance_view" parent="Uif-MaintenanceView">
+		<property name="headerText" value="Matter Event Maintenance" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.MatterEvent" />
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-MaintenanceGridSection">
@@ -80,7 +81,9 @@
 	    </property>
 	</bean>
 	
-	<bean id="martinlaw_shared_matter_event_lookup_view" abstract="true" parent="martinlaw_shared_wildcard_lookup_view">
+	<bean id="martinlaw_shared_matter_event_lookup_view" parent="martinlaw_shared_wildcard_lookup_view">
+		<property name="headerText" value="Matter Event Lookup" />
+    	<property name="dataObjectClassName" value="org.martinlaw.bo.MatterEvent" />
 		<property name="criteriaFields">
 			<list>
 				<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" /> -->
@@ -149,7 +152,9 @@
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_matter_event_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view" abstract="true">
+	<bean id="martinlaw_shared_matter_event_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view">
+		<property name="dataObjectClassName" value="org.martinlaw.bo.MatterEvent" />
+		<property name="headerText" value="Event" />
 		<property name="items">
 			<list merge="true">
 				<bean parent="Uif-Disclosure-GridSection">
@@ -178,6 +183,7 @@
 	</bean>
 	
 	<bean id="martinlaw_shared_matter_event_table_collection_section" parent="Uif-Disclosure-TableCollectionSection">
+		<property name="collectionObjectClass" value="org.martinlaw.bo.MatterEvent" />
 		<property name="headerText" value="Events" />
 		<property name="propertyName" value="events" />
 		<property name="layoutManager.renderSequenceField" value="false"/>

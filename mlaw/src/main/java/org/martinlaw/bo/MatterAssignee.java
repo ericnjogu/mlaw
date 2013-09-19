@@ -24,8 +24,11 @@ package org.martinlaw.bo;
 
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * holds info on an assignee
@@ -33,9 +36,9 @@ import javax.persistence.MappedSuperclass;
  * @author mugo
  *
  */
-
-@MappedSuperclass
-public abstract class MatterAssignee extends MartinlawPerson {
+@Entity
+@Table(name="martinlaw_matter_assignee_t")
+public class MatterAssignee extends MartinlawPerson {
 	/**
 	 * 
 	 */
@@ -45,6 +48,13 @@ public abstract class MatterAssignee extends MartinlawPerson {
 	private Long id;
 	@Column(name = "matter_id")
 	private Long matterId;
+	@Column(name = "active", columnDefinition=" varchar(1) not null")
+	private Boolean active = true;
+	@Column(name = "has_physical_file", columnDefinition=" varchar(1) not null")
+	private Boolean hasPhysicalFile = false;
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, updatable = false, insertable = false)
+	private Matter matter;
 
 	public MatterAssignee() {
 		super();
@@ -73,6 +83,50 @@ public abstract class MatterAssignee extends MartinlawPerson {
 	 */
 	public void setMatterId(Long matterId) {
 		this.matterId = matterId;
+	}
+	
+	/**
+	 * whether this assignment is active. The reasons for deactivation can be placed in the {@link #comment}
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	/**
+	 * whether this assignee has the physical file
+	 * @return the hasPhysicalFile
+	 */
+	public Boolean getHasPhysicalFile() {
+		return hasPhysicalFile;
+	}
+
+	/**
+	 * @param hasPhysicalFile the hasPhysicalFile to set
+	 */
+	public void setHasPhysicalFile(Boolean hasPhysicalFile) {
+		this.hasPhysicalFile = hasPhysicalFile;
+	}
+
+	/**
+	 * @return the matter
+	 */
+	public Matter getMatter() {
+		return matter;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(Matter matter) {
+		this.matter = matter;
 	}
 
 }

@@ -12,10 +12,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.martinlaw.MartinlawConstants;
-import org.martinlaw.bo.conveyance.Consideration;
 import org.martinlaw.bo.conveyance.Conveyance;
-import org.martinlaw.bo.conveyance.Event;
-import org.martinlaw.bo.conveyance.TransactionDoc;
 import org.martinlaw.util.TestUtils;
 
 /**
@@ -42,9 +39,9 @@ public class MatterTest {
 	 */
 	@Test
 	public void testGetEventsHtml() throws InstantiationException, IllegalAccessException {
-		List<Event> events = new ArrayList<Event>(3);
+		List<MatterEvent> events = new ArrayList<MatterEvent>(3);
 		
-		Event event = utils.getTestMatterEventUnt(Event.class);
+		MatterEvent event = utils.getTestMatterEventUnt(MatterEvent.class);
 		for (int i=0; i<3; i++) {
 			events.add(event);
 		}
@@ -67,16 +64,16 @@ public class MatterTest {
 		Conveyance conv = new Conveyance();
 		assertEquals("considerations html differs", "", conv.getConsiderationsHtml());
 		
-		Consideration csd1 = (Consideration) getTestConsiderationWithType("reserve");
+		MatterConsideration csd1 = (MatterConsideration) getTestConsiderationWithType("reserve");
 		
-		Consideration csd2 = (Consideration) getTestConsiderationWithType("penalty");
-		csd2.getTransactions().add((TransactionDoc) utils.getMockTransaction(TransactionDoc.class, new BigDecimal(42)));
-		csd2.getTransactions().add((TransactionDoc) utils.getMockTransaction(TransactionDoc.class, new BigDecimal(38)));
+		MatterConsideration csd2 = (MatterConsideration) getTestConsiderationWithType("penalty");
+		csd2.getTransactions().add((MatterTransactionDoc) utils.getMockTransaction(new BigDecimal(42)));
+		csd2.getTransactions().add((MatterTransactionDoc) utils.getMockTransaction(new BigDecimal(38)));
 		
-		Consideration csd3 = (Consideration) getTestConsiderationWithType("donation");
+		MatterConsideration csd3 = (MatterConsideration) getTestConsiderationWithType("donation");
 		csd3.setAmount(new BigDecimal(0));
 		
-		Consideration csd4 = (Consideration) getTestConsiderationWithType("bail");
+		MatterConsideration csd4 = (MatterConsideration) getTestConsiderationWithType("bail");
 		csd4.setAmount(new BigDecimal(1200));
 		
 		
@@ -97,10 +94,9 @@ public class MatterTest {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	@SuppressWarnings("rawtypes")
 	public MatterConsideration getTestConsiderationWithType(String typeName) throws InstantiationException,
 			IllegalAccessException {
-		Consideration csd1 = (Consideration) utils.getTestConsideration(Consideration.class);
+		MatterConsideration csd1 = (MatterConsideration) utils.getTestConsideration();
 		ConsiderationType csdType1 = new ConsiderationType();
 		csdType1.setName(typeName);
 		csd1.setConsiderationType(csdType1);

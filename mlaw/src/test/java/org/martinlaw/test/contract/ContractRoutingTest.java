@@ -39,7 +39,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.martinlaw.bo.contract.Consideration;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.test.KewTestsBase;
 import org.martinlaw.util.SearchTestCriteria;
@@ -77,16 +76,6 @@ public class ContractRoutingTest extends KewTestsBase {
 	
 	@Test
 	/**
-	 * test that a contract maint doc can be created and edited by the authorized users only
-	 * 
-	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
-	 */
-	public void testContractTypeMaintDocPerms() {
-		testCreateMaintain(Contract.class, getDocTypeName());
-	}
-	
-	@Test
-	/**
 	 * test ContractMaintenanceDocument doc search
 	 */
 	public void testContractDocSearch() throws WorkflowException, InstantiationException, IllegalAccessException {
@@ -103,7 +92,7 @@ public class ContractRoutingTest extends KewTestsBase {
 		testContract3.setName("supply of veges");
 		testContract3.setClientPrincipalName("Patrick Kamau");
 		testContract3.setLocalReference("MY/FIRM/CONTRACTS/2013/21");
-		testContract3.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
+		testContract3.getConsiderations().add(getTestUtils().getTestConsideration());
 		testMaintenanceRoutingInitToFinal(docType, testContract3);
 		
 		// no document criteria given, so both documents should be found
@@ -137,5 +126,10 @@ public class ContractRoutingTest extends KewTestsBase {
 
 	public String getDocTypeName() {
 		return "ContractMaintenanceDocument";
+	}
+
+	@Override
+	public Class<?> getDataObjectClass() {
+		return Contract.class;
 	}
 }

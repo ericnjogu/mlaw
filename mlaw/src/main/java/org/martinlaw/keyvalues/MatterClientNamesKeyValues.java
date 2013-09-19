@@ -60,7 +60,6 @@ public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.uif.control.UifKeyValuesFinder#getKeyValues(org.kuali.rice.krad.uif.view.ViewModel)
 	 */
-	@SuppressWarnings("rawtypes")
 	/**
 	 * unit test in {@link org.martinlaw.test.contract.ContractTransactionDocBOTest#testClientNamesKeyValues()}
 	 */
@@ -74,7 +73,7 @@ public class MatterClientNamesKeyValues extends UifKeyValuesFinderBase {
 				MatterTxDocBase doc = ((MatterTxDocBase)form.getDocument());
 				if (doc.isMatterIdValid()) {
 					matter = getBusinessObjectService().findBySinglePrimaryKey(
-						doc.getMatterClass(), doc.getMatterId());
+						Matter.class, doc.getMatterId());
 				}
 			}
 		} else if (model instanceof InquiryForm) {

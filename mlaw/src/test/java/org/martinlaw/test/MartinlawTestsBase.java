@@ -167,8 +167,8 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	 * @param newBo - the new business object
 	 */
 	protected <T extends BusinessObject> void testMartinlawPersonCRUD(
-			T t, String principalName, MartinlawPerson newBo) {
-		MartinlawPerson personRetrieve = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), new Long(1001));
+			Class<T> t, String principalName, MartinlawPerson newBo) {
+		MartinlawPerson personRetrieve = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t, new Long(1001));
 		assertNotNull(personRetrieve);
 		assertEquals(principalName, personRetrieve.getPrincipalName());
 		// C
@@ -176,7 +176,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		newBo.setPrincipalName("mkoobs");
 		getBoSvc().save(newBo);
 		// R
-		newBo = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId());
+		newBo = (MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t, newBo.getId());
 		assertNotNull(newBo);
 		// U
 		newBo.setPrincipalName("mogs");
@@ -184,7 +184,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		newBo.refresh();
 		// D
 		getBoSvc().delete(newBo);
-		assertNull((MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t.getClass(), newBo.getId()));
+		assertNull((MartinlawPerson) getBoSvc().findBySinglePrimaryKey(t, newBo.getId()));
 	}
 
 	/**
@@ -206,73 +206,52 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	@Override
 	protected void loadSuiteTestData() throws Exception {
 		super.loadSuiteTestData();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/test-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/notifications.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/event-type-default-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/test-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/notifications.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/event-type-default-data.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/default-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/consideration-type-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-consideration-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-consideration-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/courtcase-consideration-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-consideration-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/transaction-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/transaction-type-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/work-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/work-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/default-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/consideration-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/consideration-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/transaction-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/transaction-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/work-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/work-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/event-type-perms-roles.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-assignment-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/note-atts-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-transaction-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-event-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/conveyance-event-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-event-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-transaction-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-assignee-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-work-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-assignee-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-consideration-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-event-perms-roles.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-assignment-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-transaction-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-party-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-signatory-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-type-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-event-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/contract-event-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/conveyance-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/note-atts-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/conveyance-work-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/conveyance-work-perms-roles.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-event-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-assignment-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-event-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-transaction-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/court-case-type-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/event-type-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/notification-content-event-type.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/contract-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/contract-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/contract-type-perms-roles.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/calendar-event-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/court-case-type-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/court-case-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/court-case-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/land-case-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/notification-content-event-type.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-assignment-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-transaction-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-event-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/opinion-event-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/calendar-event-test-data.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/test-identity-mgr-perm-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/identity-mgr-perm-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/openid-activation-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/test-identity-mgr-perm-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/identity-mgr-perm-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/openid-activation-test-data.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/openid-setup.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/openid-setup.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/ldap/ldap.sql", ";").runSql();
 		
@@ -296,31 +275,17 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/status.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyance.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contract.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractType.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractAssignment.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceAssignment.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseAssignment.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinion.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionAssignment.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractWork.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseWork.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionWork.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceWork.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractTransactionDoc.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceTransactionDoc.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseTransactionDoc.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionTransactionDoc.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/eventType.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseEvent.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractEvent.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceEvent.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/considerationType.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractConsideration.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseConsideration.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceConsideration.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/opinionConsideration.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterConsideration.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matter.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterEvent.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterAssignee.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterTransactionDoc.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/transactionType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/workType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseType.xml"));

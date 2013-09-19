@@ -22,15 +22,9 @@
   -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-  <bean id="court_case_maint_document_entry"  parent="uifMaintenanceDocumentEntry">
+  <bean id="court_case_maint_document_entry"  parent="matter_maint_document_entry">
     <property name="dataObjectClass" value="org.martinlaw.bo.courtcase.CourtCase"/>
     <property name="maintainableClass" value="org.martinlaw.bo.courtcase.Maintainable"/>
-    <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
-    <property name="lockingKeys">
-      <list>
-        <value>localReference</value>
-      </list>
-    </property>
 
     <property name="documentTypeName" value="CourtCaseMaintenanceDocument"/>
     <property name="workflowAttributes">

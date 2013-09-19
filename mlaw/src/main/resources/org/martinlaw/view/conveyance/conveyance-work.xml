@@ -27,17 +27,17 @@
 		</property>
 	</bean>
 	
-	<bean id="conveyance_work_doc_page" parent="Uif-DocumentPage">
+	<bean id="conveyance_work_doc_page" parent="matter_work_doc_page">
 	<property name="items">
 			<list merge="true">
 				<bean parent="Uif-GridSection">
 					<property name="items">
-						<list>
-							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh"
+						<list merge="true">
+							<!-- <bean parent="martinlaw_shared_matter_id_scriptlookup_refresh"
 								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work">
 							</bean>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="workTypeId" 
-								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work"/>
+								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work"/> -->
 							<bean parent="Uif-InputField" p:propertyName="conveyanceAnnexTypeId"
 								p:dictionaryObjectEntry="org.martinlaw.bo.conveyance.Work"
 								p:conditionalRefresh="!#empty(document.matterId)"

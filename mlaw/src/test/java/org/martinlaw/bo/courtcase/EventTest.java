@@ -27,8 +27,10 @@ import org.kuali.rice.krad.datadictionary.validation.constraint.DatePatternConst
 import org.kuali.rice.krad.datadictionary.validation.processor.ValidCharactersConstraintProcessor;
 import org.kuali.rice.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.rice.krad.datadictionary.validation.result.DictionaryValidationResult;
+import org.martinlaw.bo.MatterEvent;
 
 /**
+ * tests data validation for {@linkplain MatterEvent}
  * @author mugo
  * 
  */
@@ -47,7 +49,7 @@ public class EventTest {
 		//String date = "28 Feb 2013 03:50 PM";
 		Timestamp date = new Timestamp(System.currentTimeMillis());
 		SingleAttributeValueReader attributeValueReader = new SingleAttributeValueReader(
-				date, Event.class.getCanonicalName(), attributeName,
+				date, MatterEvent.class.getCanonicalName(), attributeName,
 				dateDefinition);
 		DictionaryValidationResult dictionaryValidationResult = new DictionaryValidationResult();
 		dictionaryValidationResult.setErrorLevel(ErrorLevel.NOCONSTRAINT);

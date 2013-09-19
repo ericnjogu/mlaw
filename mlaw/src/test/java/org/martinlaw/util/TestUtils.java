@@ -29,7 +29,6 @@ package org.martinlaw.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.same;
@@ -65,15 +64,18 @@ import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.rice.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.rice.krad.document.Document;
+import org.kuali.rice.krad.maintenance.Maintainable;
+import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.EventType;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterAssignee;
-import org.martinlaw.bo.MatterAssignment;
+import org.martinlaw.bo.MatterClient;
 import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.bo.MatterEventTest;
@@ -88,13 +90,8 @@ import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
 import org.martinlaw.bo.conveyance.ConveyanceType;
-import org.martinlaw.bo.courtcase.Assignee;
-import org.martinlaw.bo.courtcase.Assignment;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
-import org.martinlaw.bo.courtcase.Event;
-import org.martinlaw.bo.opinion.Opinion;
-import org.martinlaw.keyvalues.ScopedKeyValuesBase;
 
 /**
  * holds various methods used across test cases
@@ -107,9 +104,6 @@ public class TestUtils {
 	private String contractName = "rent of flat";
 	private String testConveyanceName = "sale of KAZ 457T";
 	private String assignee1 = "pn";
-	private String assignee2 = "aw";
-	private String testOpinionName;
-	private String testOpinionClientName;
 	private String testOpinionLocalReference;
 	private Log log = LogFactory.getLog(getClass());
 	private String testClientPrincipalName = "clerk2";
@@ -177,10 +171,9 @@ public class TestUtils {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public MatterConsideration<? extends MatterTransactionDoc> getTestConsideration
-	(Class<? extends MatterConsideration<? extends MatterTransactionDoc>> klass) 
+	public MatterConsideration getTestConsideration	() 
 			throws InstantiationException, IllegalAccessException {
-		MatterConsideration<? extends MatterTransactionDoc> consideration = klass.newInstance();
+		MatterConsideration consideration = new MatterConsideration();
 		consideration.setAmount(new BigDecimal(1000));
 		consideration.setCurrency("KES");
 		consideration.setDescription("see breakdown in attached file");
@@ -255,119 +248,26 @@ public class TestUtils {
 	}
 	
 	/**
-	 * creates a test {@link MatterAssignment} of the type passed in the input params
+	 * creates a test {@link MatterAssignee}
 	 * 
 	 * @return the test object
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public <A extends MatterAssignment, T extends MatterAssignee> A getTestAssignment(Class<A> a, Class<T> t) throws InstantiationException, IllegalAccessException {
-		A assignment = a.newInstance();
-		assignment.setMatterId(1002l);
-		
-		 T assignee = t.newInstance();
+	public MatterAssignee getTestAssignee() {
+		MatterAssignee assignee = new MatterAssignee();
 		
 		assignee.setPrincipalName(assignee1);
-		assignment.getAssignees().add(assignee);
+		assignee.setMatterId(1004l);
 		
-		T assignee3 = t.newInstance();
-		assignee3.setPrincipalName(assignee2);
-		//contractAssignee.setContractId(contractId);
-		assignment.getAssignees().add(assignee3);
-		
-		T assignee4 = t.newInstance();
-		assignee4.setPrincipalName("clerk1");
-		assignment.getAssignees().add(assignee4);
-		
-		return assignment;
+		return assignee;
 	}
 
 	/**
 	 * @return the assignee1
 	 */
-	public String getAssignee1() {
+	public String getTestAssigneePrincipalName() {
 		return assignee1;
-	}
-
-	/**
-	 * @param assignee1 the assignee1 to set
-	 */
-	public void setAssignee1(String assignee1) {
-		this.assignee1 = assignee1;
-	}
-
-	/**
-	 * @return the assignee2
-	 */
-	public String getAssignee2() {
-		return assignee2;
-	}
-
-	/**
-	 * @param assignee2 the assignee2 to set
-	 */
-	public void setAssignee2(String assignee2) {
-		this.assignee2 = assignee2;
-	}
-
-	/**
-	 * tests the {@link MatterAssignment} fields have the expected values
-	 * 
-	 * @param assignment - the test object
-	 */
-	public void testAssignmentFields(
-			MatterAssignment<?, ?> assignment) {
-		assertNotNull(assignment);
-		List<? extends MatterAssignee> assignees = assignment.getAssignees();
-		testAssignees(assignees);
-	}
-
-	/**
-	 * test assignee fields
-	 * 
-	 * @param assignees
-	 */
-	public void testAssignees(List<? extends MatterAssignee> assignees) {
-		assertEquals("number of assignees does not match", 3, assignees.size());
-		assertEquals("assignee principal name did not match", getAssignee1(), assignees.get(0).getPrincipalName());
-		assertEquals("assignee principal name did not match", getAssignee2(), assignees.get(1).getPrincipalName());
-	}
-
-	/**
-	 * create a test {@link Opinion}
-	 * 
-	 * @return
-	 */
-	public Opinion getTestOpinion() {
-		Opinion opinion = new Opinion();
-		testOpinionName = "legal opinion regarding the status quo";
-		opinion.setName(testOpinionName);
-		testOpinionLocalReference = "EN/OP/01";
-		opinion.setLocalReference(testOpinionLocalReference);
-		opinion.setStatusId(1001l);
-		opinion.setClientPrincipalName(testClientPrincipalName);
-		
-		org.martinlaw.bo.opinion.Client client = new org.martinlaw.bo.opinion.Client();
-		testOpinionClientName = "pnk";
-		client.setPrincipalName(testOpinionClientName);
-		opinion.getClients().add(client);
-		
-		return opinion;
-	}
-
-	/**
-	 * verify the test {@link Opinion} field values
-	 * 
-	 * @param opinion
-	 */
-	public void testOpinionFields(Opinion opinion) {
-		assertEquals("opinion name differs", testOpinionName, opinion.getName());
-		assertEquals("opinion local ref differs", testOpinionLocalReference, opinion.getLocalReference());
-		assertNotNull("opinion status id should not be null", opinion.getStatusId());
-		assertNotNull("opinion status should not be null", opinion.getStatus());
-		assertEquals("opinion clients not the expected number", 1, opinion.getClients().size());
-		assertEquals("opinion client name not the expected value", testOpinionClientName, opinion.getClients().get(0).getPrincipalName());
 	}
 
 	/**
@@ -377,34 +277,7 @@ public class TestUtils {
 		return testOpinionLocalReference;
 	}
 	
-	/**
-	 * convenience method to test matter assignment CRUD
-	 * 
-	 * @param assignment - the BO to perform CRUD with
-	 */
-	public void testAssignmentCRUD(MatterAssignment<?, ?> assignment) {
-		// C
-		getBoSvc().save(assignment);
-		// R
-		assignment.refresh();
-		testAssignmentFields(assignment);
-		// U
-		// TODO new collection items do not appear to be persisted when refresh is called
-		/*Assignee assignee3 = new Assignee();
-		String name3 = "hw";
-		assignee.setPrincipalName(name3);
-		contractAssignment.getAssignees().add(assignee3);
-		contractAssignment.refresh();
-		assertEquals("number of assignees does not match", 3, contractAssignment.getAssignees().size());
-		assertEquals("assignee principal name did not match", name3, contractAssignment.getAssignees().get(2).getPrincipalName());*/
-		// D
-		getBoSvc().delete(assignment);
-		assertNull("CourtCase assignment should have been deleted", getBoSvc().findBySinglePrimaryKey(Assignment.class,	assignment.getMatterId()));
-		Map<String, Object> criteria = new HashMap<String, Object>();
-		criteria.put("matterId", assignment.getMatterId());
-		assertEquals("assignees should have been deleted", 0, getBoSvc().findMatching(Assignee.class, criteria).size());
-	}
-
+	
 	/**
 	 * convenience method to access service
 	 * @return
@@ -452,7 +325,7 @@ public class TestUtils {
 	 * test that the {@link MatterConsideration} has the expected field values
 	 * @param consideration - a default consideration (created in code then saved to db)
 	 */
-	public void testConsiderationFields(MatterConsideration<?> consideration) {
+	public void testConsiderationFields(MatterConsideration consideration) {
 		consideration.refreshNonUpdateableReferences();//to retrieve the consideration type
 		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(0)));
 		//String desc = "see breakdown in attached file";
@@ -470,7 +343,7 @@ public class TestUtils {
 	 * test that the  {@link MatterConsideration} has the expected field values
 	 * @param consideration - the test object - retrieved (from db)
 	 */
-	public void testRetrievedConsiderationFields(MatterConsideration<?> consideration) {
+	public void testRetrievedConsiderationFields(MatterConsideration consideration) {
 		assertEquals("consideration amount differs", 0, consideration.getAmount().compareTo(new BigDecimal(41000)));
 		String desc = "to be paid in 2 installments";
 		assertEquals("consideration description differs", desc, consideration.getDescription());
@@ -499,16 +372,15 @@ public class TestUtils {
 	 * 
 	 * @param transaction - the transaction to populate, one of the several {@code MatterTransaction} descendants
 	 */
-	@SuppressWarnings("unchecked")
 	public MatterTransactionDoc populateMatterTransactionDocData(MatterTransactionDoc transaction) {
 		transaction.setAmount(new BigDecimal(2000l));
 		String clientPrincipalName = "pkk";
 		transaction.setClientPrincipalName(clientPrincipalName);
 		transaction.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
 		transaction.setTransactionTypeId(1001l);
-		MatterConsideration<?> consideration;
+		MatterConsideration consideration;
 		try {
-			consideration = getTestConsideration((Class<? extends MatterConsideration<MatterTransactionDoc>>) transaction.getClass().getDeclaredField("consideration").getType());
+			consideration = getTestConsideration();
 			getBoSvc().save(consideration);
 			consideration.refresh();
 			transaction.setConsiderationId(consideration.getId());
@@ -597,12 +469,30 @@ public class TestUtils {
 	 * get a populated test court case
 	 * @param localRef - the local reference to set
 	 * @param courtRef - the court number to set
-	 * @param klass TODO
+	 * @param klass - the class to instantiate
 	 * @return the test object
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
 	public <C extends CourtCase> CourtCase getTestCourtCase(String localRef, String courtRef, Class<C> klass) throws InstantiationException, IllegalAccessException {
+		CourtCase caseBo = (CourtCase) getTestMatter(localRef, klass);
+		caseBo.setCourtReference(courtRef);
+		caseBo.setTypeId(10004l);
+		// witnesses
+		addWitnesses(caseBo);
+		
+		return caseBo;
+	}
+	
+	/**
+	 * get a populated test matter
+	 * @param localRef - the local reference to set
+	 * @param courtRef - the court number to set
+	 * @return the test object
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public <M extends Matter> Matter getTestMatter(String localRef, Class<M> klass) throws InstantiationException, IllegalAccessException {
 		//set up test status
 		Status status = new Status();
 		status.setStatus("Testing");
@@ -610,11 +500,10 @@ public class TestUtils {
 		status.refresh();
 		assertNotNull(status.getId());
 		//create new case bo
-		CourtCase caseBo = klass.newInstance();
+		Matter matter = klass.newInstance();
 		
-		caseBo.setLocalReference(localRef);
-		caseBo.setCourtReference(courtRef);
-		caseBo.setClientPrincipalName("client1");
+		matter.setLocalReference(localRef);
+		matter.setClientPrincipalName("client1");
 		String name = "Fatuma Zainab Mohammed vs \n" + 
 				"Ghati Dennitah \n"+
 				"IEBC\n" +
@@ -626,32 +515,38 @@ public class TestUtils {
 				"Alex Uyuga (Returning officer Suna East Constituency)\n" +
 				"Jairus Obago (Returning Officer Migori County)\n" +
 				"Adam Mohamed (Returning officer Kuria West Constituency)\n";
-		caseBo.setName(name);
-		caseBo.setStatus(status);
-		caseBo.setTypeId(10004l);
+		matter.setName(name);
+		matter.setStatus(status);
 		// side step validation error - error.required
-		caseBo.setStatusId(status.getId());
+		matter.setStatusId(status.getId());
 		// clients & witnesses
-		addClientsAndWitnesses(caseBo);
-		return caseBo;
+		addClients(matter);
+		
+		return matter;
 	}
 	
 	/**
-	 * add test clients and witnesses
+	 * add test clients to a matter
 	 * @param kase
 	 */
-	public void addClientsAndWitnesses(CourtCase kase) {
+	public void addClients(Matter kase) {
 		//create and save client, witness
-		org.martinlaw.bo.courtcase.Client cl1 = new org.martinlaw.bo.courtcase.Client();
+		MatterClient cl1 = new MatterClient();
 		cl1.setMatterId(kase.getId());
 		cl1.setPrincipalName("Joseph Ndungu");
-		org.martinlaw.bo.courtcase.Client cl2 = new org.martinlaw.bo.courtcase.Client();
+		MatterClient cl2 = new MatterClient();
 		cl2.setMatterId(kase.getId());
 		cl2.setPrincipalName("Joseph Thube");
 
 		kase.getClients().add(cl1);
 		kase.getClients().add(cl2);
-		
+	}
+	
+	/**
+	 * add test witnesses to a matter
+	 * @param kase
+	 */
+	public void addWitnesses(CourtCase kase) {
 		CourtCaseWitness wit = new CourtCaseWitness();
 		wit.setCourtCaseId(kase.getId());
 		wit.setPrincipalName("Thomas Kaberi Gitau");
@@ -685,7 +580,7 @@ public class TestUtils {
 	 * @return
 	 */
 	public MatterEvent getTestMatterEventForStringTemplates() {
-		Event caseEvent = new Event();
+		MatterEvent caseEvent = new MatterEvent();
 		caseEvent.setId(1001l);
 		EventType eventType = new EventType();
 		eventType.setName("judgement");
@@ -695,6 +590,7 @@ public class TestUtils {
 		theCase.setLocalReference("my/cases/1");
 		theCase.setName("water vs fire");
 		theCase.setCourtReference("No 12 of 2015");
+		theCase.setConcreteClass(CourtCase.class.getCanonicalName());
 		caseEvent.setMatter(theCase);
 		
 		// create test date
@@ -723,7 +619,7 @@ public class TestUtils {
 	 */
 	public String getTestNotificationXml() throws IOException {
 		String template = IOUtils.toString(MatterEventTest.class.getResourceAsStream("event-notfn-template.xml"));
-		Event caseDate = (Event) getTestMatterEventForStringTemplates();
+		MatterEvent caseDate = (MatterEvent) getTestMatterEventForStringTemplates();
 		final String notificationXML = caseDate.toNotificationXML(template, MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_CHANNEL_NAME, 
 				MartinlawConstants.NotificationTemplatePlaceholders.CALENDAR_PRODUCER_NAME, 
 				"May you prosper and be in good health.");
@@ -866,13 +762,6 @@ public class TestUtils {
 	}
 	
 	/**
-	 * test that court case status type key values returns the correct number
-	 */
-	public void testMatterStatusKeyValues(ScopedKeyValuesBase kv, String comment, int kvSize) {
-		assertEquals(comment, kvSize, kv.getKeyValues().size());
-	}
-	
-	/**
 	 * carry out a validation while checking for the expected number of errors
 	 * @param bo
 	 * @param expectedErrors
@@ -900,7 +789,7 @@ public class TestUtils {
 	 * @param matter - the matter to test
 	 * @param expectedFirstName - the expected first name of the principal
 	 */
-	public void testMatterClient(@SuppressWarnings("rawtypes") Matter matter, String expectedFirstName) {
+	public void testMatterClient(Matter matter, String expectedFirstName) {
 		assertNotNull("client object should not be null", matter.getClient());
 		assertNotNull("client principal name should not be null", matter.getClientPrincipalName());
 		assertEquals("client given name differs", expectedFirstName, matter.getClient().getFirstName());
@@ -937,15 +826,39 @@ public class TestUtils {
 	/**
 	 * creates and populats a mock transaction object
 	 * TODO <p>only sets the amount currently</p>
-	 * @param klass - the type of object to create
 	 * @return
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public <A extends MatterTransactionDoc> MatterTransactionDoc getMockTransaction(Class<A> klass, BigDecimal amount) throws InstantiationException, IllegalAccessException {
-		MatterTransactionDoc tx = mock(klass);
+	public MatterTransactionDoc getMockTransaction(BigDecimal amount) throws InstantiationException, IllegalAccessException {
+		MatterTransactionDoc tx = mock(MatterTransactionDoc.class);
 		when(tx.getAmount()).thenReturn(amount);
 		return tx;
+	}
+
+	/**
+	 * convenience method to test the test assignee created in {@link #getTestAssignee()}
+	 * @param assignee - the object to test
+	 */
+	public void testAssigneeFields(MatterAssignee assignee) {
+		assertEquals("principal name differs", getTestAssigneePrincipalName(), assignee.getPrincipalName());
+		assertNotNull("matter should not be null", assignee.getMatterId());
+		assertTrue("assignee should be active", assignee.getActive());
+		assertTrue("assignee should not have physical file", assignee.getHasPhysicalFile());	
+	}
+	
+	/**
+	 * a convenience method to create a mock maintenance doc form and populate mock objects
+	 * <p> so that form.getDocument().getNewMaintainableObject().getDataObject() can work</p>
+	 * @return
+	 */
+	public MaintenanceDocumentForm createMockMaintenanceDocForm() {
+		MaintenanceDocumentForm form = mock(MaintenanceDocumentForm.class);
+		MaintenanceDocument doc = mock(MaintenanceDocument.class);
+		when(form.getDocument()).thenReturn(doc);
+		Maintainable maintainable = mock(Maintainable.class);
+		when(doc.getNewMaintainableObject()).thenReturn(maintainable);
+		return form;
 	}
 
 }

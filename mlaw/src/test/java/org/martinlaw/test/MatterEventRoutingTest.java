@@ -22,39 +22,40 @@ package org.martinlaw.test;
  * #L%
  */
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.ken.api.KenApiConstants;
+import org.kuali.rice.ken.api.notification.NotificationResponse;
+import org.kuali.rice.ken.api.service.SendNotificationService;
+import org.kuali.rice.ken.util.NotificationConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.exception.ValidationException;
 import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.util.SearchTestCriteria;
+import org.martinlaw.util.TestUtils;
 
-public abstract class MatterEventRoutingTest extends KewTestsBase {
+public class MatterEventRoutingTest extends KewTestsBase {
 
 	protected Log log = LogFactory.getLog(getClass());
 
 	public MatterEventRoutingTest() {
 		super();
-	}
-
-	/**
-	 * test that a CourtCase Date maint doc can be created and edited by the authorized users only
-	 * 
-	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
-	 */
-	@Test
-	public void testMatterEventMaintDocPerms() {
-		testCreateMaintain(getDataObjectClass(), getDocTypeName());
 	}
 
 	/**
@@ -161,6 +162,31 @@ public abstract class MatterEventRoutingTest extends KewTestsBase {
 	 * 
 	 * @return the data object (BO) class
 	 */
-	public abstract Class<? extends MatterEvent> getDataObjectClass();
+	public Class<? extends MatterEvent> getDataObjectClass() {
+		return MatterEvent.class;
+	}
+
+	@Override
+	public String getDocTypeName() {
+		return "MatterEventMaintenanceDocument";
+	}
+
+	@Test
+	public void testSendEventNotification()
+			throws RiceIllegalArgumentException, IOException {
+				try {
+					TestUtils utils = new TestUtils();
+					// send notification
+					final SendNotificationService sendNotificationService = (SendNotificationService) GlobalResourceLoader.getService(
+							new QName(KenApiConstants.Namespaces.KEN_NAMESPACE_2_0, "sendNotificationService"));
+					NotificationResponse response = sendNotificationService.invoke(utils.getTestNotificationXml());
+			
+					assertEquals("response status is not success", NotificationConstants.RESPONSE_STATUSES.SUCCESS, response.getStatus());
+				} catch (Exception e) {
+					log.error("exception occured", e);
+					fail("exception occured");
+				}
+				
+			}
 
 }

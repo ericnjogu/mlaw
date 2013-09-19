@@ -42,12 +42,13 @@ import org.kuali.rice.krad.maintenance.MaintainableImpl;
 import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
 import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.martinlaw.bo.MatterClient;
-import org.martinlaw.bo.conveyance.Client;
 import org.martinlaw.bo.conveyance.Conveyance;
+import org.martinlaw.bo.conveyance.Work;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
 import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesMaint;
-import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
+import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesTx;
 import org.martinlaw.test.MartinlawTestsBase;
+import org.martinlaw.web.MatterTxForm;
 
 /**
  * various tests for {@link Conveyance}
@@ -71,7 +72,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 			log.error(e);
 		}*/
 		// add client
-		Client client = new Client();
+		MatterClient client = new MatterClient();
 		String principalName = "clientX";
 		client.setPrincipalName(principalName);
 		conv.getClients().add(client);
@@ -98,8 +99,8 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		
 		// D
 		getBoSvc().delete(conv);
-		assertNull("conveyance client should have been deleted", 
-				getBoSvc().findBySinglePrimaryKey(Client.class, conv.getClients().get(0).getId()));
+		assertNull("client should have been deleted", 
+				getBoSvc().findBySinglePrimaryKey(MatterClient.class, conv.getClients().get(0).getId()));
 		/*assertNull("conveyance fee should have been deleted", 
 				getBoSvc().findBySinglePrimaryKey(Transaction.class, conv.getFees().get(0).getId()));*/
 	}
@@ -109,16 +110,18 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	 * test retrieving the {@link Conveyance} populated from sql
 	 */
 	public void testConveyanceRetrieve() {
-		Conveyance conv = getBoSvc().findBySinglePrimaryKey(Conveyance.class, 1001l);
+		Conveyance conv = getBoSvc().findBySinglePrimaryKey(Conveyance.class, 1008l);
 		assertNotNull(conv);
 		assertEquals("Sale of LR4589", conv.getName());
 		assertEquals("c1", conv.getLocalReference());
 		assertEquals("Sale of Urban Land", conv.getType().getName());
 		assertEquals("pending", conv.getStatus().getStatus());
 		// clients
-		assertEquals(2, conv.getClients().size());
-		assertEquals("client1", conv.getClients().get(0).getPrincipalName());
-		getTestUtils().testAssignees(conv.getAssignees());
+		assertEquals("number of clients differs", 2, conv.getClients().size());
+		assertEquals("client name differs", "client1", conv.getClients().get(0).getPrincipalName());
+		// assignees
+		assertEquals("number of clients differs", 1, conv.getAssignees().size());
+		assertEquals("assignee principal name differs", "edwin_njogu", conv.getAssignees().get(0).getPrincipalName());
 		
 		getTestUtils().testWorkList(conv.getWork());
 		
@@ -139,9 +142,9 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	
 	@Test()
 	/**
-	 * test that {@link ConveyanceAnnexTypeKeyValuesMaint} works as expected
+	 * test that {@link ConveyanceAnnexTypeKeyValuesMaint} works as expected for a maint
 	 */
-	public void testConveyanceAnnexTypeKeyValues() {
+	public void testConveyanceAnnexTypeKeyValuesMaint() {
 		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesMaint();
 		
 		MaintenanceDocumentForm maintForm = mock(MaintenanceDocumentForm.class);
@@ -159,41 +162,30 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		getTestUtils().testAnnexTypeKeyValues(result);
 	}
 	
-	@Test
+	@Test()
 	/**
-	 * test that conveyance status type key values returns the correct number
+	 * test that {@link ConveyanceAnnexTypeKeyValuesTx} works as expected for a transactional doc
 	 */
-	public void testConveyanceStatusKeyValues() {
-		ConveyanceStatusKeyValues keyValues = new ConveyanceStatusKeyValues();
-		// expected one Conveyance type and two of 'any' type, plus a blank one
-		assertEquals(4, keyValues.getKeyValues().size());
-	}	
+	public void testConveyanceAnnexTypeKeyValuesTx() {
+		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesTx();
+		MatterTxForm txForm = mock(MatterTxForm.class);
+		
+		Work doc = new Work();
+		doc.setMatterId(1008l);
+		when(txForm.getDocument()).thenReturn(doc);
+		List<KeyValue> result = keyValues.getKeyValues(txForm);
+		
+		getTestUtils().testAnnexTypeKeyValues(result);
+	}
+	
+	/**
+	 * test that the associated conveyance annex type is fetched
+	 */
+	@Test
+	public void testConveyanceAnnexTypeRetrieve() {
+		Work workTemp = (Work) getBoSvc().findBySinglePrimaryKey(Work.class, "1005");
+		assertNotNull("result should not be null", workTemp);
+		assertNotNull("contract should not be null", workTemp.getConveyanceAnnexType());
+	}
 
-	@Test
-	/**
-	 * test that the witness is loaded into the data dictionary
-	 */
-	public void testConveyanceClientAttributes() {
-		testBoAttributesPresent(Client.class.getCanonicalName());
-		Class<Client> dataObjectClass = Client.class;
-		verifyInquiryLookup(dataObjectClass);
-	}
-	
-	@Test
-	/**
-	 * tests retrieving a conveyance client present in the db, then CRUD ops
-	 */
-	public void testConveyanceClient() {
-		MatterClient person = new Client();
-		person.setMatterId(1001l);
-		testMartinlawPersonCRUD(new Client(), "client1", person);
-	}
-	
-	@Test
-	/**
-	 * test that the {@link Conveyance} is loaded into the data dictionary
-	 */
-	public void testConsiderationAttributes() {
-		testBoAttributesPresent(Conveyance.class.getCanonicalName());
-	}
 }

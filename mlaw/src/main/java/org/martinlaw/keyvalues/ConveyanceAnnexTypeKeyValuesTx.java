@@ -59,12 +59,15 @@ public class ConveyanceAnnexTypeKeyValuesTx extends ConveyanceAnnexTypeKeyValues
 	protected Long getConveyanceTypeId(ViewModel model) {
 		Long conveyanceTypeId = null;
 		MatterTxForm form = (MatterTxForm) model;
-		if (form.getDocument() != null) {
+		if (form.getDocument() != null && form.getDocument() instanceof MatterTxDocBase) {
 			MatterTxDocBase work = ((MatterTxDocBase)form.getDocument());
-			if (work.isMatterIdValid()) {
+			// it appears that calling work work.isMatterIdValid() causes the Matter object (to be cached?) and returned when we need a conveyance
+			if (work != null && work.getMatterId() != null) {
 				Conveyance conv = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
 						Conveyance.class, work.getMatterId());
-				conveyanceTypeId = conv.getTypeId();
+				if (conv != null) {
+					conveyanceTypeId = conv.getTypeId();
+				}
 			}
 		}
 		

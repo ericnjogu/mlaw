@@ -20,7 +20,7 @@
   #L%
   -->
 <config>
-  <param name="doctype_contract_work">ContractWorkDocument</param>
+ <!--  <param name="doctype_contract_work">ContractWorkDocument</param>
   <param name="dochandler_contract_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_contract_work}&amp;viewId=contract_work_doc_view</param>
   
   <param name="doctype_courtcase_work">CourtCaseWorkDocument</param>
@@ -28,13 +28,13 @@
   
   <param name="doctype_opinion_work">OpinionWorkDocument</param>
   <param name="dochandler_opinion_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_opinion_work}&amp;viewId=opinion_work_doc_view</param>
-  
+   -->
   <param name="doctype_conveyance_work">ConveyanceWorkDocument</param>
   <param name="dochandler_conveyance_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_conveyance_work}&amp;viewId=conveyance_work_doc_view</param>
   
-  <param name="doctype_contract_transaction">ContractTransactionDocument</param>
-  <param name="dochandler_contract_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_contract_transaction}&amp;viewId=contract_transaction_doc_view</param>
-  
+  <param name="doctype_matter_transaction">MatterTransactionDocument</param>
+  <param name="dochandler_contract_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_matter_transaction}&amp;viewId=matter_transaction_doc_view</param>
+  <!-- 
   <param name="doctype_conveyance_transaction">ConveyanceTransactionDocument</param>
   <param name="dochandler_conveyance_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_conveyance_transaction}&amp;viewId=conveyance_transaction_doc_view</param>
   
@@ -43,4 +43,7 @@
   
   <param name="doctype_opinion_transaction">OpinionTransactionDocument</param>
   <param name="dochandler_opinion_fee">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_opinion_transaction}&amp;viewId=opinion_transaction_doc_view</param>
+   -->
+  <param name="doctype_matter_work">MatterWorkDocument</param>
+  <param name="dochandler_courtcase_work">${application.url}/kr-krad/tx?methodToCall=docHandler&amp;docTypeName=${doctype_matter_work}&amp;viewId=matter_work_doc_view</param>
 </config>

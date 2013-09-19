@@ -32,9 +32,9 @@ import org.kuali.rice.krad.uif.widget.Inquiry;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.web.form.InquiryForm;
-import org.martinlaw.bo.conveyance.Consideration;
+import org.martinlaw.bo.MatterConsideration;
+import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.bo.conveyance.Conveyance;
-import org.martinlaw.bo.courtcase.Event;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.LandCase;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -145,22 +145,22 @@ public class EnhancedInquirableImplTest extends MartinlawTestsBase {
 		verify(inq).buildInquiryLink(same(kase), same(propertyName), same(LandCase.class), anyMapOf(String.class, String.class));
 		
 		// land case event should turn up a inquiry link to land case, not court case
-		Event event = getBoSvc().findBySinglePrimaryKey(Event.class, new Long(1002));
+		MatterEvent event = getBoSvc().findBySinglePrimaryKey(MatterEvent.class, new Long(1002));
 		propertyName = "matter.localReference";
 		inquirable.buildInquirableLink(event, propertyName, inq);
 		verify(inq).buildInquiryLink(same(event), same(propertyName), same(LandCase.class), anyMapOf(String.class, String.class));
 		
 		// null local ref - no inquiry link should be built
-		event = new Event();
+		event = new MatterEvent();
 		inquirable.buildInquirableLink(event, propertyName, inq);
 		verify(inq, times(0)).buildInquiryLink(same(event), same(propertyName), same(LandCase.class), anyMapOf(String.class, String.class));
 
 		
 		// test for an object that is not in the Matter class hierarchy
-		Consideration csd = new Consideration();
+		MatterConsideration csd = new MatterConsideration();
 		propertyName = "amount";
 		inquirable.buildInquirableLink(csd, propertyName, inq);
-		verify(inq).buildInquiryLink(same(csd), same(propertyName), same(Consideration.class), anyMapOf(String.class, String.class));
+		verify(inq).buildInquiryLink(same(csd), same(propertyName), same(MatterConsideration.class), anyMapOf(String.class, String.class));
 	}
 
 }

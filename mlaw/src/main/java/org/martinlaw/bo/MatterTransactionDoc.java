@@ -30,9 +30,10 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -41,8 +42,15 @@ import javax.persistence.Transient;
  * @author mugo
  *
  */
-@MappedSuperclass
-public abstract class MatterTransactionDoc extends MatterTxDocBase {
+@Entity
+@Table(name="martinlaw_matter_transaction_doc_t")
+public class MatterTransactionDoc extends MatterTxDocBase {
+	@OneToOne
+	@JoinColumn(name = "consideration_id", nullable = false, insertable=false, updatable=false)
+	private MatterConsideration consideration;
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
+	private Matter matter;
 	/**
 	 * 
 	 */
@@ -154,14 +162,30 @@ public abstract class MatterTransactionDoc extends MatterTxDocBase {
 	 * returns the matter that has been populated by the ojb configuration
 	 * @return the matter
 	 */
-	@SuppressWarnings("rawtypes")
-	public abstract Matter getMatter();
+	public Matter getMatter() {
+		return matter;
+	}
 	
 	/**
 	 * returns the consideration that has been populated by the ojb configuration
 	 * @return the matter
 	 */
-	@SuppressWarnings("rawtypes")
-	public abstract MatterConsideration getConsideration();
+	public MatterConsideration getConsideration() {
+		return consideration;
+	}
+
+	/**
+	 * @param consideration the consideration to set
+	 */
+	public void setConsideration(MatterConsideration consideration) {
+		this.consideration = consideration;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(Matter matter) {
+		this.matter = matter;
+	}
 	
 }

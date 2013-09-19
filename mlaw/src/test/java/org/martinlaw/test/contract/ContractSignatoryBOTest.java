@@ -83,7 +83,7 @@ public class ContractSignatoryBOTest extends MartinlawTestsBase {
 		ContractSignatory contractSignatory = new ContractSignatory();
 		String name = "am";
 		contractSignatory.setPrincipalName(name);
-		contractSignatory.setContractId(1001l);
+		contractSignatory.setContractId(1005l);
 		getBoSvc().save(contractSignatory);
 		// R
 		contractSignatory.refresh();

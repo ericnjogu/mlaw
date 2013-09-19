@@ -39,10 +39,11 @@ import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.web.form.InquiryForm;
 import org.kuali.rice.krad.web.form.UifFormBase;
-import org.martinlaw.bo.opinion.Client;
-import org.martinlaw.bo.opinion.Consideration;
-import org.martinlaw.bo.opinion.Opinion;
-import org.martinlaw.bo.opinion.TransactionDoc;
+import org.martinlaw.bo.Matter;
+import org.martinlaw.bo.MatterClient;
+import org.martinlaw.bo.MatterConsideration;
+import org.martinlaw.bo.MatterTransactionDoc;
+import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.web.MatterTxForm;
 
 /**
@@ -51,10 +52,11 @@ import org.martinlaw.web.MatterTxForm;
  */
 public class MatterClientNamesKeyValuesTest {
 
-	private TransactionDoc doc;
+	private MatterTransactionDoc doc;
 	private BusinessObjectService boSvc;
-	private Opinion opinion;
-	private Consideration consideration;
+	private Matter kase;
+	private MatterConsideration consideration;
+	private long matterId;
 
 	/**
 	 * @throws java.lang.Exception
@@ -62,33 +64,31 @@ public class MatterClientNamesKeyValuesTest {
 	@Before
 	public void setUp() throws Exception {
 		//prepare the transaction doc
-		doc = mock(TransactionDoc.class);
-		final long matterId = 1001l;
+		doc = mock(MatterTransactionDoc.class);
+		matterId = 1001l;
 		when(doc.getMatterId()).thenReturn(matterId);
 		//Class<? extends Matter> klass = Opinion.class;
-		when(doc.getMatterClass()).thenCallRealMethod();
+		// when(doc.getMatterClass()).thenCallRealMethod();
 		when(doc.isMatterIdValid()).thenReturn(true);
 		
 		//prepare the matter and clients
-		opinion = new Opinion();
-		Client c1 = mock(Client.class);
+		kase = new CourtCase();
+		MatterClient c1 = mock(MatterClient.class);
 		when(c1.getPrincipalName()).thenReturn("signum");
 		Person cp1 = mock(Person.class);
 		when(cp1.getName()).thenReturn("Simon Gitahi");
 		when(c1.getPerson()).thenReturn(cp1);
-		opinion.getClients().add(c1);
-		Client c2 = mock(Client.class);
+		kase.getClients().add(c1);
+		MatterClient c2 = mock(MatterClient.class);
 		when(c2.getPrincipalName()).thenReturn("mlaw");
 		Person cp2 = mock(Person.class);
 		when(cp2.getName()).thenReturn("Martin Mungai");
 		when(c2.getPerson()).thenReturn(cp2);
-		opinion.getClients().add(c2);
-		boSvc = mock(BusinessObjectService.class);
-		when(boSvc.findBySinglePrimaryKey(Opinion.class, matterId)).thenReturn(opinion);
+		kase.getClients().add(c2);
 		
 		// prepare consideration
-		consideration = new Consideration();
-		consideration.setMatter(opinion);
+		consideration = new MatterConsideration();
+		consideration.setMatter(kase);
 	}
 
 	/**
@@ -97,23 +97,26 @@ public class MatterClientNamesKeyValuesTest {
 	@Test
 	public void testGetKeyValuesViewModel() {
 		MatterClientNamesKeyValues mckv = new MatterClientNamesKeyValues();
+		boSvc = mock(BusinessObjectService.class);
 		mckv.setBusinessObjectService(boSvc);
 		
 		InquiryForm inqForm = new InquiryForm();
-		inqForm.setDataObject(opinion);
+		inqForm.setDataObject(kase);
 		
 		InquiryForm inqForm2 = new InquiryForm();
 		inqForm2.setDataObject(consideration);
 		
 		MatterTxForm txForm = mock(MatterTxForm.class);
 		when(txForm.getDocument()).thenReturn(doc);
+		when(boSvc.findBySinglePrimaryKey(Matter.class, matterId)).thenReturn(kase);
 		
 		UifFormBase[] forms = {inqForm, txForm, inqForm2};
-		
+		int count = 0;
 		for (UifFormBase form: forms) {
 			List<KeyValue> kvs = mckv.getKeyValues(form);
-			assertFalse("should not be empty", kvs.isEmpty());
+			assertFalse("should not be empty at count " + count, kvs.isEmpty());
 			assertEquals("size differs", 2, kvs.size());
+			count += 1;
 		}
 		
 	}

@@ -24,15 +24,17 @@ package org.martinlaw.bo;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,11 +44,12 @@ import org.apache.commons.lang3.StringUtils;
  * <p>For a contract, there will be at least two considerations - one for the value of the contract and the other for the legal fee</p>
  * 
  * @author mugo
- * @param <T>
+ * @param <MatterTransactionDoc>
  *
  */
-@MappedSuperclass
-public abstract class MatterConsideration<T extends MatterTransactionDoc> extends MatterExtensionHelper {
+@Entity
+@Table(name="martinlaw_matter_consideration_t")
+public class MatterConsideration extends MatterExtensionHelper {
 
 	/**
 	 * 
@@ -68,12 +71,16 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 	@JoinColumn(name = "consideration_type_id", nullable = false)
 	private ConsiderationType considerationType; 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="considerationId")
-	private List<T> transactions;
+	private List<MatterTransactionDoc> transactions;
 	@Transient
 	private transient String html = "";
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
+	private Matter matter;
 
 	public MatterConsideration() {
 		super();
+		setTransactions(new ArrayList<MatterTransactionDoc>());
 	}
 	
 	/**
@@ -83,6 +90,7 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 	 * @param description - a comment
 	 */
 	public MatterConsideration(BigDecimal amount, String currency, String description) {
+		this();
 		this.amount = amount;
 		this.currency = currency;
 		this.description = description;
@@ -181,14 +189,14 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 	 * created via a specific matter transaction document
 	 * @return the transactions
 	 */
-	public List<T> getTransactions() {
+	public List<MatterTransactionDoc> getTransactions() {
 		return transactions;
 	}
 
 	/**
 	 * @param transactions the transactions to set
 	 */
-	public void setTransactions(List<T> transactions) {
+	public void setTransactions(List<MatterTransactionDoc> transactions) {
 		this.transactions = transactions;
 	}
 	
@@ -203,7 +211,7 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 				total = total.add(getAmount());
 			}
 			if (getTransactions() != null && getTransactions().size() > 0) {
-				for (T tx: getTransactions()) {
+				for (MatterTransactionDoc tx: getTransactions()) {
 					if (tx.getAmount() != null) {
 						total = total.add(tx.getAmount());
 					}
@@ -224,5 +232,19 @@ public abstract class MatterConsideration<T extends MatterTransactionDoc> extend
 		}
 		
 		return html;
+	}
+	
+	/**
+	 * implements the parent class method to return the matter fetched via ojb
+	 */
+	public Matter getMatter() {
+		return matter;
+	}
+
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(Matter matter) {
+		this.matter = matter;
 	}
 }

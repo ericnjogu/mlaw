@@ -31,16 +31,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.InheritanceType;
-
 import org.martinlaw.bo.Matter;
-
 
 
 /**
@@ -50,8 +46,7 @@ import org.martinlaw.bo.Matter;
  */
 @Entity
 @Table(name="martinlaw_court_case_t")
-@Inheritance(strategy=InheritanceType.JOINED)
-public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Event> {
+public class CourtCase extends Matter {
 
 	/**
 	 * 
@@ -74,17 +69,13 @@ public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Eve
 	@JoinColumn(name = "court_case_type_id", nullable = false, updatable = false)
 	private CourtCaseType type;
 	
+	/**
+	 * default constructor
+	 */
 	public CourtCase() {
 		super();
 		//initialize collections
-		setClients(new ArrayList<Client>());
 		setWitnesses(new ArrayList<CourtCaseWitness>());
-		setEvents(new ArrayList<Event>());
-		try {
-			setConsiderations(createDefaultConsiderations(Consideration.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	/**
 	 * @return the courtReference
@@ -111,14 +102,7 @@ public class CourtCase extends Matter<Assignee, Work, Client, Consideration, Eve
 	public void setWitnesses(List<CourtCaseWitness> witnesses) {
 		this.witnesses = witnesses;
 	}
-	/**
-	 * @return the clients
-	 */
-	
-	@Override
-	public Class<Work> getWorkClass() {
-		return Work.class;
-	}
+
 	/**
 	 * @return the courtCaseTypeId
 	 */

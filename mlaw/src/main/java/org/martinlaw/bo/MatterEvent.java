@@ -30,10 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
@@ -42,7 +43,6 @@ import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.bo.courtcase.Event;
 /**
  * basic event info for a matter
  * <p>this is meant to be integrated with an actual calendaring system which will offer reminders, invitations, sharing etc
@@ -51,8 +51,9 @@ import org.martinlaw.bo.courtcase.Event;
  *
  * @param <M>
  */
-@MappedSuperclass
-public abstract class MatterEvent extends MatterExtensionHelper {
+@Entity
+@Table(name="martinlaw_matter_event_t")
+public class MatterEvent extends MatterExtensionHelper {
 	/**
 	 * 
 	 */
@@ -86,6 +87,9 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 	private transient DateTimeService dateTimeSvc;
 	@Transient
 	private transient String html;
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, updatable = false, insertable = false)
+	private Matter matter;
 	
 
 	public MatterEvent() {
@@ -273,7 +277,7 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 			sb.append(lineDelimiter);
 			sb.append(getType().getName());
 			sb.append(lineDelimiter);
-			if (this instanceof Event) {
+			if (StringUtils.equals(matter.getConcreteClass(), CourtCase.class.getCanonicalName())) {
 				sb.append(((CourtCase) getMatter()).getCourtReference());
 				sb.append(lineDelimiter);
 			}
@@ -391,5 +395,18 @@ public abstract class MatterEvent extends MatterExtensionHelper {
 	 */
 	public void setDateTimeService(DateTimeService svc) {
 		this.dateTimeSvc = svc;
+	}
+
+	/**
+	 *  returns the matter that has been populated by the ojb configuration
+	 * @return the matter
+	 */
+	public Matter getMatter() {
+		return matter;
+	}
+
+	public void setMatter(Matter m) {
+		this.matter = m;
+		
 	}
 }

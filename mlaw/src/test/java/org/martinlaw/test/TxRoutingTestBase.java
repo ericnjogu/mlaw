@@ -163,4 +163,29 @@ public abstract class TxRoutingTestBase extends KewTestsBase {
 	 */
 	public abstract void testDocSearch();
 
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#getDocTypeName()
+	 
+	@Override
+	public String getDocTypeName() {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#testCreateMaintain()
+	 */
+	@Override
+	public void testCreateMaintain() {
+		// TO be implemented using a custom impl of TransactionalDocumentPresentationControllerBase depending on organization needs
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#getDataObjectClass()
+	 
+	@Override
+	public Class<?> getDataObjectClass() {
+		return null;
+	}*/
+
 }

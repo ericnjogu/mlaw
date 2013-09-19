@@ -94,7 +94,7 @@ public class ContractPartyBOTest extends MartinlawTestsBase {
 		ContractParty contractParty = new ContractParty();
 		String name = "am";
 		contractParty.setPrincipalName(name);
-		contractParty.setContractId(1001l);
+		contractParty.setContractId(1005l);
 		getBoSvc().save(contractParty);
 		// R
 		contractParty.refresh();

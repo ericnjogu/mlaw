@@ -26,11 +26,9 @@ package org.martinlaw.bo.conveyance;
  */
 
 
-import java.util.ArrayList;
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -47,107 +45,26 @@ import org.martinlaw.service.RiceServiceHelper;
  */
 @Entity
 @Table(name="martinlaw_conveyance_t")
-public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Event> {
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="conveyanceId")
-	/*private List<ConveyanceAnnex> annexes;*/
-	// column def given on the object reference below - this is for the sake of ojb
-	@Transient
+public class Conveyance extends Matter {
+	@Column(name="convey_type_id")
 	private Long typeId;
+	@OneToOne
+	@JoinColumn(name="convey_type_id", nullable=false, updatable=false, insertable=false)
+	private ConveyanceType type;
 	@Transient
 	private RiceServiceHelper RiceServiceHelper;
 	/**
-	 * default constructor which initializes lists
+	 * default constructor which calls super class constructor
 	 */
 	public Conveyance() {
-		setClients(new ArrayList<Client>());
-		setEvents(new ArrayList<Event>());
-		/*annexes = new ArrayList<ConveyanceAnnex>();*/
-		setRiceServiceHelper(new RiceServiceHelper());
-		try {
-			setConsiderations(createDefaultConsiderations(Consideration.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		super();
 	}
 	
-	@OneToOne
-	@JoinColumn(name="convey_type_id", nullable=false, updatable=false)
-	private ConveyanceType type;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7207626236630736596L;
 
-	/**
-	 * gets the annexes, replacing the current list if the type id has changed
-	 * 
-	 * <p>replacement is only done if {@link #hasAttachments()} is false</p>
-	 * 
-	 * @return the annexes
-	 */
-	/*public List<ConveyanceAnnex> getAnnexes() {
-		if (annexes == null || annexes.size() == 0) {
-			if (getTypeId() != null) {
-				annexes = createAnnexes();
-			}
-		} else {
-			// check whether current type id is the one used to fetch the annexes
-			// for some reason, the annex type in the annexes is null when it is fetched by ojb
-			Long typeIdInAnnexes = null;
-			if (annexes.get(0).getType() == null) {
-				ConveyanceAnnexType convAnnexType = getRiceServiceHelper().getBusinessObjectService().findBySinglePrimaryKey(
-						ConveyanceAnnexType.class, annexes.get(0).getConveyanceAnnexTypeId());
-				if (convAnnexType != null) {
-					typeIdInAnnexes = convAnnexType.getConveyanceTypeId();
-				}
-			} else {
-				typeIdInAnnexes = annexes.get(0).getType().getConveyanceTypeId();
-			}
-			if (getTypeId() != null && typeIdInAnnexes != null && !getTypeId().equals(typeIdInAnnexes)) {
-				if (hasAttachments()) {
-					getLog().error("conveyance type id '" + getTypeId() 
-							+ "' does not match '" +  typeIdInAnnexes 
-							+ "' in current annexes with attachments already associated");
-					getLog().info("restoring type id to '" + typeIdInAnnexes + "'");
-					setTypeId(typeIdInAnnexes);
-				} else {
-					annexes = createAnnexes();	
-				}
-			}
-		}
-		return annexes;
-	}*/
-	/**
-	 * create annexes from the each corresponding annex type
-	 * 
-	 * @return 
-	 */
-	/*protected List<ConveyanceAnnex> createAnnexes() {
-		Map<String, Object> params = new HashMap<String, Object>(1);
-		params.put("conveyanceTypeId", getTypeId());
-		Collection<ConveyanceAnnexType> result = getRiceServiceHelper().getBusinessObjectService().findMatching(ConveyanceAnnexType.class, params);
-		if (result == null || result.size() == 0) {
-			return Collections.emptyList();
-		} else {
-			List<ConveyanceAnnex> annexes = new ArrayList<ConveyanceAnnex>(result.size());
-			for (ConveyanceAnnexType annexType: result) {
-				ConveyanceAnnex annex = new ConveyanceAnnex();
-				annex.setConveyanceAnnexTypeId(annexType.getId());
-				annex.setType(annexType);
-				annexes.add(annex);
-			}
-			return annexes;
-		}
-	}*/
-	
-	
-	/**
-	 * @param annexes the annexes to set
-	 */
-	/*public void setAnnexes(List<ConveyanceAnnex> annexes) {
-		this.annexes = annexes;
-	}*/
-	
 	/**
 	 * @return the typeId
 	 */
@@ -174,35 +91,6 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 	}
 	
 	/**
-	 * checks whether any of the annexes has an attachment associated with it
-	 * 
-	 * Refering to annexes directly as  {@link #getAnnexes} uses this and it would create a recursive call
-	 * 
-	 * @return true if at least one annex has an attachment, false otherwise
-	 */
-	/*public boolean hasAttachments() {
-		if (annexes == null) {
-			return false;
-		} else {
-			if (annexes.size() == 0) {
-				return false;
-			} else {
-				for (ConveyanceAnnex annex: annexes) {
-					if (annex.getAttachments() != null && annex.getAttachments().size() != 0) {
-						 sometimes, when the conv att has not been persisted, get attachment will return null yet an attachment
-						 *may have been associated via the note time stamp
-						for (ConveyanceAttachment convAtt: annex.getAttachments()) {
-							if (convAtt.getAttachment() != null || convAtt.getNoteTimestamp() != null) {
-								return true;
-							}
-						}
-					}
-				}
-				return false;
-			}
-		}
-	}*/
-	/**
 	 * @return the riceServiceHelper
 	 */
 	public RiceServiceHelper getRiceServiceHelper() {
@@ -221,8 +109,8 @@ public class Conveyance extends Matter<Assignee, Work, Client, Consideration, Ev
 	protected Log getLog() {
 		return LogFactory.getLog(getClass());
 	}
-	@Override
+	/*@Override
 	public Class<Work> getWorkClass() {
 		return Work.class;
-	}
+	}*/
 }

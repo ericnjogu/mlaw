@@ -14,8 +14,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="martinlaw_shared_person_LookupView" abstract="true"
-		parent="Uif-LookupView">
+	<bean id="martinlaw_shared_person_LookupView" abstract="true" parent="Uif-LookupView">
 		<property name="criteriaFields">
 			<list>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="principalName" />
@@ -27,6 +26,11 @@
 				<bean parent="Uif-DataField" p:propertyName="principalName" />
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="matter_client_LookupView" parent="martinlaw_shared_person_LookupView">
+		<property name="headerText" value="Matter Client Lookup" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.MatterClient" />
 	</bean>
 
 	<bean id="martinlaw_shared_person_inquiry_view" parent="Uif-InquiryView"
@@ -49,11 +53,16 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="matter_client_inquiry_view" parent="martinlaw_shared_person_inquiry_view">
+	    <property name="headerText" value="Matter Client Inquiry"/>
+	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterClient"/>
+	 </bean>
 
-	<bean id="martinlaw_shared_client_inquiry_section" parent="martinlaw_shared_person_inquiry_section"
-		abstract="true">
+	<bean id="martinlaw_shared_client_inquiry_section" parent="martinlaw_shared_person_inquiry_section">
 		<property name="headerText" value="Clients" />
 		<property name="propertyName" value="clients" />
+		<property name="collectionObjectClass"	value="org.martinlaw.bo.MatterClient" />
 	</bean>
 	
 	<bean id="martinlaw_shared_person_inquiry_section" parent="Uif-Disclosure-TableCollectionSection"
@@ -77,22 +86,17 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_client-maintenance-section" parent="Uif-StackedCollectionSection"
-		abstract="true">
+	<bean id="martinlaw_shared_client-maintenance-section" parent="Uif-Disclosure-TableCollectionSection">
 		<property name="headerText" value="Clients" />
 		<property name="propertyName" value="clients" />
+		<property name="collectionObjectClass" value="org.martinlaw.bo.MatterClient" />
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="principalName"/>
 					
 			</list>
 		</property>
-		<property name="layoutManager.summaryTitle" value="Client" />
-		<property name="layoutManager.summaryFields">
-			<list>
-				<value>principalName</value>
-			</list>
-		</property>
+		<property name="layoutManager.renderSequenceField" value="false"/>
 	</bean>
 
 	<bean id="martinlaw_shared_name_description_LookupView" parent="martinlaw_shared_wildcard_lookup_view">
@@ -193,8 +197,7 @@
 		<property name="layoutManager.summaryTitle" value="Annex" />
 	</bean>
 
-	<bean id="martinlaw_shared_matter_info_inquiry" abstract="true"
-		parent="Uif-Disclosure-GridSection">
+	<bean id="martinlaw_shared_matter_info_inquiry" parent="Uif-Disclosure-GridSection">
 		<property name="layoutManager.numberOfColumns" value="2" />
 		<property name="items">
 			<list>
@@ -210,12 +213,14 @@
 		          </property>
 		        </bean>
 				<bean parent="Uif-InputField" p:propertyName="statusId" />
+				<bean parent="Uif-InputField" p:propertyName="tags" />
 			</list>
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_matter_LookupView" abstract="true"
-		parent="martinlaw_shared_wildcard_lookup_view">
+	<bean id="martinlaw_shared_matter_LookupView" parent="martinlaw_shared_wildcard_lookup_view">
+		<property name="headerText" value="Matter Lookup" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.Matter" />
 		 <property name="additionalCssFiles">
 	      <list merge="true">
 	        <value>css/mlaw.css</value>
@@ -235,10 +240,12 @@
    					</property>
 				</bean>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="statusId"/>
+				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="tags"/>
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="wildcardPropertyNames" p:id="mlaw_wcp_matter">
 					<property name="control">
       					<bean parent="Uif-HiddenControl">
-      						<property name="onDocumentReadyScript" value="jq('#mlaw_wcp_matter_control').val('localReference,name,clientPrincipalName');"/>
+      						<property name="onDocumentReadyScript" 
+      							value="jq('#mlaw_wcp_matter_control').val('localReference,name,clientPrincipalName,tags');"/>
       					</bean>
    					</property>
 				</bean>
@@ -257,8 +264,8 @@
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_matter_info_maintenance" abstract="true"
-		parent="Uif-MaintenanceGridSection">
+	<bean id="martinlaw_shared_matter_info_maintenance" parent="Uif-MaintenanceGridSection">
+		<property name="headerText" value="Matter Information" />
 		<property name="items">
 			<list>
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="localReference"
@@ -281,6 +288,7 @@
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="clientPrincipalName" />
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="statusId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
+				<bean parent="Uif-InputField" p:propertyName="tags" />
 			</list>
 		</property>
 	</bean>
@@ -308,8 +316,10 @@
 		<property name="propertyName" value="work" />
 		<property name="headerText" value="Work" />
 		<property name="layoutManager.renderSequenceField" value="false"/>
+		<property name="collectionObjectClass" value="org.martinlaw.bo.MatterWork" />
 		<property name="items">
 			<list>
+				
 				<bean parent="Uif-InputField" p:propertyName="documentInitiatorNetworkId" 
 					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
 					p:dictionaryAttributeName="initiatorNetworkId"/>
@@ -331,6 +341,7 @@
 					p:label="Time to Approve"
 					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
 					p:dictionaryAttributeName="genericBigText"/>
+				<bean parent="Uif-InputField" p:propertyName="documentHeader.documentNumber" />
 			</list>
 		</property>
 		<property name="layoutManager.richTable.templateOptions">
@@ -477,4 +488,79 @@
   </bean>
   
   <bean id="martinlaw_shared_new_tab_link" parent="Uif-Link" p:target="_blank"/>
+  
+  <bean id="matter_maintenance_view" parent="Uif-MaintenanceView">
+		<property name="headerText" value="Matter Maintenance" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.Matter" />
+		<property name="validateClientSide" value="false"/>
+		<property name="items">
+			<list merge="true">
+				<bean parent="martinlaw_shared_matter_info_maintenance"/>
+
+				<bean parent="martinlaw_shared_client-maintenance-section"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="matter_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view">
+		<property name="headerText" value="Matter Inquiry" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.Matter" />
+		<property name="formPostUrl" value="inquiryWithAtts" />
+		<property name="items">
+			<list merge="true">
+				<bean parent="martinlaw_shared_matter_info_inquiry"/>
+
+				<bean parent="martinlaw_shared_matter_event_table_collection_section"/>
+
+				<ref bean="martinlaw_shared_client_inquiry_section"/>
+				
+				<ref bean="martinlaw_shared_consideration_inquiry_section"/>
+
+				<bean parent="martinlaw_shared_annexes_inquirySection" />
+				
+				<bean parent="Uif-Disclosure-TableCollectionSection">
+					<property name="propertyName" value="assignees" />
+					<property name="headerText" value="Assignees" />
+					<property name="layoutManager.renderSequenceField" value="false"/>
+					<property name="collectionObjectClass" value="org.martinlaw.bo.MatterAssignee" />
+					<property name="items">
+						<list>
+							<bean parent="Uif-InputField" p:propertyName="principalName"/>
+							<bean parent="Uif-InputField" p:propertyName="active" />
+							<bean parent="Uif-InputField" p:propertyName="hasPhysicalFile" />
+							<bean parent="Uif-InputField" p:propertyName="matter.name"/>
+							<bean parent="Uif-InputField" p:propertyName="matter.localReference"/>
+						</list>
+					</property>
+				</bean>
+				
+				<ref local="martinlaw_shared_work_inquiry_section"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="matter_work_doc_view" parent="Uif-TransactionalDocumentView">
+		<property name="documentClass" value="org.martinlaw.bo.MatterWork" />
+		<property name="formPostUrl" value="tx?docTypeName=@{#ConfigProperties['doctype_matter_work']}"/>
+		<property name="headerText" value="Matter Work" />
+		<property name="items">
+			<ref local="matter_work_doc_page"/>
+		</property>
+	</bean>
+	
+	<bean id="matter_work_doc_page" parent="Uif-DocumentPage">
+		<property name="items">
+			<list merge="true">
+				<bean parent="Uif-GridSection">
+					<property name="items">
+						<list>
+							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" p:dictionaryObjectEntry="org.martinlaw.bo.Matter"/>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="workTypeId" 
+								p:dictionaryObjectEntry="org.martinlaw.bo.MatterWork"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
 </beans>

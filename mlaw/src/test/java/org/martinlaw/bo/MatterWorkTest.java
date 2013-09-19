@@ -33,7 +33,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.krad.bo.DocumentHeader;
-import org.martinlaw.bo.contract.Work;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,7 +43,7 @@ import static org.mockito.Mockito.when;
  */
 public class MatterWorkTest {
 
-	private Work work;
+	private MatterWork work;
 	private WorkflowDocument wfd;
 
 	/**
@@ -52,8 +51,7 @@ public class MatterWorkTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		//using contract work as concrete class
-		work = mock(Work.class);
+		work = mock(MatterWork.class);
 		when(work.getDateCreated()).thenCallRealMethod();
 		when(work.getDocumentHeader()).thenCallRealMethod();
 		when(work.getPeriodToLastModification()).thenCallRealMethod();

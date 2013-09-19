@@ -21,19 +21,13 @@
   #L%
   -->
 
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-<!--
- Copyright 2012 Protosoft Ltd
--->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans         
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-  <bean id="conveyance_maint_document_entry"  parent="uifMaintenanceDocumentEntry">
+  <bean id="conveyance_maint_document_entry"  parent="matter_maint_document_entry">
     <property name="dataObjectClass" value="org.martinlaw.bo.conveyance.Conveyance"/>
-    <property name="maintainableClass" value="org.martinlaw.bo.MatterMaintainable"/>
-    <property name="lockingKeys">
-      <list>
-        <value>localReference</value>
-      </list>
-    </property>
     <property name="documentTypeName" value="ConveyanceMaintenanceDocument"/>
      <property name="workflowAttributes">
     	<ref bean="conveyance_maint_document_entry_workflow_attrs"/>

@@ -27,14 +27,13 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.martinlaw.bo.MatterConsideration;
-import org.martinlaw.bo.MatterTransactionDoc;
 import org.springframework.dao.DataIntegrityViolationException;
 /**
  * holds common BO tests for classes inheriting from {@link MatterConsideration}
  * @author mugo
  *
  */
-public abstract class MatterConsiderationBOTestBase extends MartinlawTestsBase {
+public class MatterConsiderationBOTestBase extends MartinlawTestsBase {
 	/**
 	 * test that the null values are validated by the db
 	 * @throws IllegalAccessException 
@@ -42,7 +41,7 @@ public abstract class MatterConsiderationBOTestBase extends MartinlawTestsBase {
 	 */
 	@Test(expected = DataIntegrityViolationException.class)
 	public void testMatterConsiderationNullableFields() throws InstantiationException, IllegalAccessException {
-		MatterConsideration<?> consideration = getDataObjectClass().newInstance();
+		MatterConsideration consideration = getDataObjectClass().newInstance();
 		getBoSvc().save(consideration);
 	}
 
@@ -61,7 +60,7 @@ public abstract class MatterConsiderationBOTestBase extends MartinlawTestsBase {
 	@Test
 	public void testMatterConsiderationRetrieve() {
 		// retrieve object populated via sql script
-		MatterConsideration<?> consideration = getBoSvc().findBySinglePrimaryKey(
+		MatterConsideration consideration = getBoSvc().findBySinglePrimaryKey(
 				getDataObjectClass(), 1001l);
 		getTestUtils().testRetrievedConsiderationFields(consideration);
 	}
@@ -75,7 +74,7 @@ public abstract class MatterConsiderationBOTestBase extends MartinlawTestsBase {
 	public void testMatterConsiderationCRUD()
 			throws InstantiationException, IllegalAccessException {
 		// CR
-		MatterConsideration<? extends MatterTransactionDoc> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
+		MatterConsideration consideration = getTestUtils().getTestConsideration();
 		getBoSvc().save(consideration);
 		//getTestUtils().testConsiderationCRUD(consideration);
 		// U
@@ -98,7 +97,9 @@ public abstract class MatterConsiderationBOTestBase extends MartinlawTestsBase {
 	 * 
 	 * @return the class to be tested
 	 */
-	public abstract Class<? extends MatterConsideration<?>> getDataObjectClass();
+	public Class<? extends MatterConsideration> getDataObjectClass() {
+		return MatterConsideration.class;
+	}
 	
 	/*@Test
 	*//**

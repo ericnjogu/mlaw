@@ -29,24 +29,17 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="court_case_bo" parent="martinlaw_shared_matter_bo_entry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.courtcase.CourtCase" />
-		<property name="titleAttribute" value="localReference" />
 		<property name="attributes">
 			<list merge="true">
-				<bean parent="martinlaw-shared-id-parentBean" p:label="Court Case Id" />
-				<bean parent="martinlaw_shared_matter_name" p:label="Parties"/>
-				<ref bean="courtcase-statusId" />
+				<!-- <bean parent="martinlaw_shared_matter_name" p:label="Parties"/> -->
 				<bean parent="case-courtReference-parentBean" />
 				<ref bean="court_case_type_id"/>
 			</list>
 		</property>
 		<property name="collections">
-	      <list>
-	        <bean parent="CollectionDefinition" p:name="clients" p:label="clients" p:shortLabel="clients" p:elementLabel="client"
-	        	p:dataObjectClass="org.martinlaw.bo.courtcase.Client"/>
+	      <list merge="true">
 	        <bean parent="CollectionDefinition" p:name="witnesses" p:label="witnesses" p:shortLabel="witnesses" p:elementLabel="witness"
-	        	p:dataObjectClass="org.martinlaw.bo.courtcase.CourtCaseWitness"/>
-	        <bean parent="CollectionDefinition" p:name="assignees" p:label="assignees" p:shortLabel="assignees" p:elementLabel="assignee"
-	        	p:dataObjectClass="org.martinlaw.bo.courtcase.Assignee"/>
+	        	p:dataObjectClass="org.martinlaw.bo.courtcase.CourtCaseWitness"/>	      
 	      </list>
       	</property>
       	<property name="objectLabel" value="Court Case" />
@@ -72,17 +65,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<property name="controlField">
 			<bean parent="Uif-TextControl" p:size="60" />
 		</property>
-	</bean>
-
-	<bean id="courtcase-statusId" parent="martinlaw-shared-statusId-parentBean">	
-		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.CourtCaseStatusKeyValues" />
-		</property>
-		<!-- required for display in custom document search -->
-		<property name="control">
-			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.martinlaw.keyvalues.CourtCaseStatusKeyValues"/>
-		</property>
-
 	</bean>
 	
 	<bean id="court_case_type_id" parent="AttributeDefinition">

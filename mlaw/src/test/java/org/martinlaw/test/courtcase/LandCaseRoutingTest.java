@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.LandCase;
 import org.martinlaw.util.SearchTestCriteria;
@@ -58,9 +59,9 @@ public class LandCaseRoutingTest extends CourtCaseRoutingTestBase {
 	 * @see org.martinlaw.test.courtcase.CourtCaseRoutingTestBase#getTestCourtCase()
 	 */
 	@Override
-	protected CourtCase getTestCourtCase() throws InstantiationException,
+	protected CourtCase getTestMatter() throws InstantiationException,
 			IllegalAccessException {
-		LandCase kase = (LandCase) super.getTestCourtCase();
+		LandCase kase = (LandCase) super.getTestMatter();
 		kase.setLandReference(LAND_REF);
 		
 		return kase;
@@ -70,8 +71,8 @@ public class LandCaseRoutingTest extends CourtCaseRoutingTestBase {
 	 * @see org.martinlaw.test.courtcase.CourtCaseRoutingTestBase#testCreatedCase(org.martinlaw.bo.courtcase.CourtCase)
 	 */
 	@Override
-	protected void testCreatedCase(CourtCase kase) {
-		super.testCreatedCase(kase);
+	protected void testCreatedMatter(Matter kase) {
+		super.testCreatedMatter(kase);
 		assertEquals("land ref differs", LAND_REF, ((LandCase)kase).getLandReference());
 	}
 
@@ -79,14 +80,19 @@ public class LandCaseRoutingTest extends CourtCaseRoutingTestBase {
 	 * @see org.martinlaw.test.courtcase.CourtCaseRoutingTestBase#testCourtCase_doc_search()
 	 */
 	@Override
-	public void testCourtCase_doc_search() throws WorkflowException {
-		super.testCourtCase_doc_search();
+	public void testMatter_doc_search() throws WorkflowException, InstantiationException, IllegalAccessException {
+		super.testMatter_doc_search();
 		
 		try {
+			LandCase landCase = (LandCase)getTestMatter();
+			final String lrValue = "LR GEN 1/1";
+			landCase.setLandReference(lrValue);
+			testMaintenanceRoutingInitToFinal(getDocTypeName(), landCase);
+			
 			// search for land reference
 			SearchTestCriteria crit2 = new SearchTestCriteria();
-			crit2.setExpectedDocuments(2);
-			crit2.getFieldNamesToSearchValues().put("landReference", LAND_REF);
+			crit2.setExpectedDocuments(1);
+			crit2.getFieldNamesToSearchValues().put("landReference", lrValue);
 			List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 			crits.add(crit2);
 			getTestUtils().runDocumentSearch(crits, getDocTypeName());

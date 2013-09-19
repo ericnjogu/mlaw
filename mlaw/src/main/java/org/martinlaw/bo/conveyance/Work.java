@@ -32,7 +32,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterWork;
 
 /**
@@ -52,7 +51,6 @@ public class Work extends MatterWork {
 	private ConveyanceAnnexType conveyanceAnnexType;
 	@OneToOne
 	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
-	private Conveyance matter;
 	/**
 	 * 
 	 */
@@ -91,25 +89,5 @@ public class Work extends MatterWork {
 	public void setConveyanceAnnexType(ConveyanceAnnexType conveyanceAnnexType) {
 		this.conveyanceAnnexType = conveyanceAnnexType;
 	}
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public Class<? extends Matter> getMatterClass() {
-		return Conveyance.class;
-	}
-
-	@Override
-	public Conveyance getMatter() {
-		return matter;
-	}
-
-	/**
-	 * @param matter the matter to set
-	 */
-	public void setMatter(Conveyance matter) {
-		this.matter = matter;
-	}
-	
-	
 
 }

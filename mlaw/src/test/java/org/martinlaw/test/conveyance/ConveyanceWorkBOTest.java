@@ -27,20 +27,13 @@ package org.martinlaw.test.conveyance;
 
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-
 import org.junit.Test;
-import org.kuali.rice.core.api.util.KeyValue;
 import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.conveyance.Work;
-import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
-import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesTx;
-import org.martinlaw.test.WorkBOTestBase;
-import org.martinlaw.web.MatterTxForm;
+import org.martinlaw.test.MatterWorkBOTestBase;
 
 /**
  * tests CRUD and data dictionary of {@link Work}
@@ -48,44 +41,52 @@ import org.martinlaw.web.MatterTxForm;
  * @author mugo
  *
  */
-public class ConveyanceWorkBOTest extends WorkBOTestBase {
+public class ConveyanceWorkBOTest extends MatterWorkBOTestBase {
 	
 	/* (non-Javadoc)
-	 * @see org.martinlaw.test.MartinlawTestsBase#setUpInternal()
+	 * @see org.martinlaw.test.MatterWorkBOTestBase#getWorkClass()
 	 */
 	@Override
-	protected void setUpInternal() throws Exception {
-		super.setUpInternal();
-		setWork(new Work());
-		setWorkClass(Work.class);
-		setDocType(MartinlawConstants.DocTypes.CONVEYANCE_WORK);
-		setViewId(MartinlawConstants.ViewIds.CONVEYANCE_WORK);
+	public Class<? extends MatterWork> getWorkClass() {
+		return Work.class;
 	}
-	
-	@Test()
-	/**
-	 * test that {@link ConveyanceAnnexTypeKeyValuesTx} works as expected
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.MatterWorkBOTestBase#getDocTypeName()
 	 */
-	public void testConveyanceAnnexTypeKeyValues() {
-		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesTx();
-		MatterTxForm txForm = mock(MatterTxForm.class);
-		
-		Work doc = new Work();
-		doc.setMatterId(1001l);
-		when(txForm.getDocument()).thenReturn(doc);
-		List<KeyValue> result = keyValues.getKeyValues(txForm);
-		
-		getTestUtils().testAnnexTypeKeyValues(result);
+	@Override
+	public String getDocTypeName() {
+		return MartinlawConstants.DocTypes.CONVEYANCE_WORK;
 	}
-	
-	/**
-	 * test that the associated conveyance annex type is fetched
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.MatterWorkBOTestBase#getViewId()
 	 */
+	@Override
+	public String getViewId() {
+		return MartinlawConstants.ViewIds.CONVEYANCE_WORK;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.MatterWorkBOTestBase#getMatterWorkDocNumber()
+	 */
+	@Override
+	public String getMatterWorkDocNumber() {
+		return "1005";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.MatterWorkBOTestBase#testWorkRetrieve()
+	 */
+	@Override
 	@Test
-	public void testConveyanceAnnexTypeRetrieve() {
-		Work workTemp = (Work) getBoSvc().findBySinglePrimaryKey(getWorkClass(), 1001l);
-		assertNotNull("result should not be null", workTemp);
-		assertNotNull("contract should not be null", workTemp.getConveyanceAnnexType());
+	public void testWorkRetrieve() {
+		super.testWorkRetrieve();
+		
+		Work work = (Work) getBoSvc().findBySinglePrimaryKey(getWorkClass(), getMatterWorkDocNumber());
+		assertNotNull("conveyance annex type should not be null", work.getConveyanceAnnexType());
+		assertEquals("annex type name differs", "land board approval", work.getConveyanceAnnexType().getName());
+		
 	}
 	
 }

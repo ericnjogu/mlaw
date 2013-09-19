@@ -136,4 +136,12 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 		// do nothing
 	}
 
+	/* (non-Javadoc)
+	 * @see org.martinlaw.test.KewTestsBase#getDataObjectClass()
+	 */
+	@Override
+	public Class<? extends BaseDetail> getDataObjectClass() {
+		return null;
+	}
+
 }

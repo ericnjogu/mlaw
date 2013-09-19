@@ -65,12 +65,11 @@ public class MatterConsiderationKeyValues extends UifKeyValuesFinderBase {
 		if (form.getDocument() != null) {
 			MatterTxDocBase doc = ((MatterTxDocBase)form.getDocument());
 			if (doc.isMatterIdValid()) {
-				@SuppressWarnings("rawtypes")
 				Matter matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
-						doc.getMatterClass(), doc.getMatterId());
+						Matter.class, doc.getMatterId());
 				if (matter.getConsiderations() != null && !matter.getConsiderations().isEmpty()) {
 					for (Object considObj: matter.getConsiderations()) {
-						MatterConsideration<?> consideration = (MatterConsideration<?>)considObj;
+						MatterConsideration consideration = (MatterConsideration)considObj;
 						StringBuilder value = new StringBuilder();
 						value.append(consideration.getConsiderationType().getName());
 						value.append(" - ");

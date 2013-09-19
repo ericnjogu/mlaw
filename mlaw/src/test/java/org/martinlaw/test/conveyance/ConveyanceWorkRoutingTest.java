@@ -32,7 +32,7 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.MartinlawConstants;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.conveyance.Work;
-import org.martinlaw.test.WorkRoutingTestBase;
+import org.martinlaw.test.MatterWorkRoutingTestBase;
 
 /**
  * tests routing and perms for {@link Work}
@@ -40,7 +40,7 @@ import org.martinlaw.test.WorkRoutingTestBase;
  * @author mugo
  *
  */
-public class ConveyanceWorkRoutingTest extends WorkRoutingTestBase {
+public class ConveyanceWorkRoutingTest extends MatterWorkRoutingTestBase {
 
 	@Override
 	public MatterTxDocBase getTxDoc() throws WorkflowException {
@@ -55,7 +55,7 @@ public class ConveyanceWorkRoutingTest extends WorkRoutingTestBase {
 	}
 
 	@Override
-	public void testDocSearch() {
-		// TODO not yet impl as doc search is not activated for matter work
+	public Class<?> getDataObjectClass() {
+		return Work.class;
 	}
 }

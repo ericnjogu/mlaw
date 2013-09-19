@@ -26,7 +26,9 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="martinlaw_shared_consideration_lookup_view" parent="Uif-LookupView" abstract="true">
+<bean id="martinlaw_shared_consideration_lookup_view" parent="Uif-LookupView">
+	<property name="headerText" value="Matter Consideration Lookup" />
+    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterConsideration" />
     <property name="criteriaFields">
       <list merge="true">
       	<!-- <bean parent="Uif-LookupCriteriaInputField" p:propertyName="matterId" /> -->
@@ -104,6 +106,7 @@
 		<property name="propertyName" value="considerations" />
 		<property name="headerText" value="Considerations"/>
 		<property name="layoutManager.renderSequenceField" value="false"/>
+		<property name="collectionObjectClass" value="org.martinlaw.bo.MatterConsideration" />
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="considerationType.name"/>
@@ -112,9 +115,15 @@
 				<bean parent="Uif-InputField" p:propertyName="description"/>
 			</list>
 		</property>
+		<property name="subCollections">
+	       <list>
+	         <ref bean="martinlaw_shared_consideration_transactions_sub_collection_inquiry"/>
+	       </list>
+	     </property>
 	</bean>
 	
-	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry" abstract="true" parent="Uif-Disclosure-TableCollectionSubSection">
+	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry" parent="Uif-Disclosure-TableCollectionSubSection">
+		<property name="collectionObjectClass" value="org.martinlaw.bo.MatterTransactionDoc" />
 		<property name="disclosure.render" value="false" />
 	    <property name="propertyName" value="transactions" />
 	     <property name="headerText" value="Transactions" />
@@ -126,11 +135,13 @@
 				<bean parent="Uif-InputField" p:propertyName="date" />
 				<bean parent="Uif-InputField" p:propertyName="amount"/>
 				<bean parent="Uif-InputField" p:propertyName="clientPrincipalName"/>
+				<bean parent="Uif-InputField" p:propertyName="documentHeader.documentNumber"/>
 			</list>
 		</property>
   </bean> 
 	
 	<bean id="martinlaw_shared_consideration_inquiry_grid_section" parent="Uif-Disclosure-GridSection">
+		<property name="collectionObjectClass" value="org.martinlaw.bo.MatterTransactionDoc" />
 		<property name="items">
 			<list>
 				<bean parent="Uif-InputField" p:propertyName="matterId"/>
@@ -142,24 +153,29 @@
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_consideration_maint_view" parent="Uif-MaintenanceView" abstract="true">
+	<bean id="martinlaw_shared_consideration_maint_view" parent="Uif-MaintenanceView">
+		 <property name="headerText" value="Matter Consideration Maintenance" />
+    	<property name="dataObjectClassName" value="org.martinlaw.bo.MatterConsideration" />
 	    <property name="validateClientSide" value="false"/>
-			<property name="items">
-				<list merge="true">
+		<property name="items">
+			<list merge="true">
 				<bean parent="martinlaw_shared_consideration_maint_section"/>
 			</list>
 		</property>
   	</bean>
   	
-  	<bean id="martinlaw_shared_consideration_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view" abstract="true">
+  	<bean id="martinlaw_shared_consideration_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view">
+  		<property name="headerText" value="Matter Consideration Inquiry" />
+		<property name="dataObjectClassName" value="org.martinlaw.bo.MatterConsideration" />
 		<property name="items">
 			<list merge="true">
 				<bean parent="martinlaw_shared_consideration_inquiry_grid_section"/>
+				<ref bean="martinlaw_shared_consideration_transactions_sub_collection_inquiry"/>
 			</list>
 		</property>
 	</bean>
 	
-	<bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry_opinion" 
+	<!-- <bean id="martinlaw_shared_consideration_transactions_sub_collection_inquiry_opinion" 
 		parent="martinlaw_shared_consideration_transactions_sub_collection_inquiry">
 	   	 <property name="collectionObjectClass" value="org.martinlaw.bo.opinion.TransactionDoc" />
 	   	 <property name="items">
@@ -222,4 +238,4 @@
 			</list>
 		</property>
 	</bean>
-</beans>
+ --></beans>

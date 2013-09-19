@@ -120,4 +120,9 @@ public class ConveyanceRoutingTest extends KewTestsBase {
 	public String getDocTypeName() {
 		return "ConveyanceMaintenanceDocument";
 	}
+
+	@Override
+	public Class<?> getDataObjectClass() {
+		return Conveyance.class;
+	}
 }

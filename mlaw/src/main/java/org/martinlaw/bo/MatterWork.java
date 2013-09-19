@@ -31,10 +31,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -74,16 +77,20 @@ import org.martinlaw.MartinlawConstants;
  * provides a way for an assignee to submit work for a matter
  * 
  * @author mugo
- *
  */
-@MappedSuperclass
-public abstract class MatterWork extends MatterTxDocBase {
+@Entity
+@Table(name="martinlaw_matter_work_doc_t")
+@Inheritance(strategy=InheritanceType.JOINED)
+public class MatterWork extends MatterTxDocBase {
 	transient Logger log = Logger.getLogger(getClass());
-	@Transient //placed here for ojb's sake, coz jpa uses the object field below
+	@Column(name = "work_type_id")
 	private Long workTypeId = MartinlawConstants.DEFAULT_WORK_TYPE_ID;
 	@OneToOne
-	@JoinColumn(name = "work_type_id", nullable = false)
+	@JoinColumn(name = "work_type_id", nullable = false, insertable=false, updatable=false)
 	private WorkType workType;
+	@OneToOne
+	@JoinColumn(name = "matter_id", nullable = false, insertable=false, updatable=false)
+	private Matter matter;
 	
 	/**
 	 * 
@@ -95,8 +102,16 @@ public abstract class MatterWork extends MatterTxDocBase {
 	 * <p>helps in displaying the matter name as an additional field in the work document</p>
 	 * @return the matter
 	 */
-	@SuppressWarnings("rawtypes")
-	public abstract Matter getMatter();
+	public Matter getMatter() {
+		return matter;
+	}
+	
+	/**
+	 * @param matter the matter to set
+	 */
+	public void setMatter(Matter matter) {
+		this.matter = matter;
+	}
 	
 	/**
 	 * Retrieves the principal name (network id) for the document's initiator

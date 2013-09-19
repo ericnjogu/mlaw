@@ -6,7 +6,7 @@ BEGIN:VEVENT
 DTSTART:20130222T111915+0300
 DTEND:20130222T121915+0300
 DTSTAMP:20130222T111915+0300
-UID:1001-org.martinlaw.bo.courtcase.Event@mlaw.co.ke
+UID:1001-org.martinlaw.bo.MatterEvent@mlaw.co.ke
 CREATED:20130222T111915+0300
 DESCRIPTION:my/cases/1\nwater vs fire\njudgement\nNo 12 of 2015\nFri, 22 Feb 2013 11:19 AM\nMilimani
 SUMMARY:mLaw event

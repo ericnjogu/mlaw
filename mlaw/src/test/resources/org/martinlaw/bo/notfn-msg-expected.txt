@@ -2,4 +2,4 @@ ${summary}
 
 The above date has been modified via document - http://localhost/kew/DocHandler.do?command=displayDocSearchView&amp;docId=1200.
 
-The associated calendar event can be downloaded at - http://localhost/kr-krad/calendar/date/1001-org.martinlaw.bo.courtcase.Event@mlaw.co.ke.
+The associated calendar event can be downloaded at - http://localhost/kr-krad/calendar/date/1001-org.martinlaw.bo.MatterEvent@mlaw.co.ke.

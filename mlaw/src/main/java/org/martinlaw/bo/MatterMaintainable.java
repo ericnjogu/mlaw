@@ -175,7 +175,7 @@ public class MatterMaintainable extends MaintainableImpl {
 	 * create main client if they do not exist, update name
 	 * @param matter 
 	 */
-	protected void createMainClient(@SuppressWarnings("rawtypes") Matter matter) {
+	protected void createMainClient(Matter matter) {
 		String principalName = createPrincipalName(matter.getClientPrincipalName());
 		if (KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(principalName) == null) {
 			createPrincipal(principalName, MartinlawConstants.AffiliationCodes.CLIENT, matter.getClientPrincipalName());
@@ -186,7 +186,6 @@ public class MatterMaintainable extends MaintainableImpl {
 	/* (non-Javadoc)
 	 * @see org.kuali.rice.krad.maintenance.MaintainableImpl#doRouteStatusChange(org.kuali.rice.krad.bo.DocumentHeader)
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void doRouteStatusChange(DocumentHeader documentHeader) {
 		super.doRouteStatusChange(documentHeader);

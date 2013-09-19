@@ -30,11 +30,14 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
@@ -51,9 +54,10 @@ import org.martinlaw.bo.utils.PersonUtils;
  * @author mugo
  *
  */
-@MappedSuperclass
-public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase, 
-	C extends MatterClient, K extends MatterConsideration<? extends MatterTransactionDoc>, E extends MatterEvent> extends PersistableBusinessObjectBase {
+@Entity
+@Table(name="martinlaw_matter_t")
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Matter extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -87,16 +91,16 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	@Transient
 	private List<Attachment> attachments = null;
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matterId")
-	private List<A> assignees;
+	private List<MatterAssignee> assignees;
 	// in Work the pk is the document id, not matterId, so we cannot configure a many-one mapping - not
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<W> work;
+	private List<MatterWork> work;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<C> clients;
+	private List<MatterClient> clients;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<E> events;
+	private List<MatterEvent> events;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="matterId")
-	private List<K> considerations;
+	private List<MatterConsideration> considerations;
 	@Transient
 	private PersonUtils personUtils;
 	@Transient
@@ -105,12 +109,21 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	private transient String considerationsHtml = "";
 	@Column(name = "class_name", length = 150)
 	private String concreteClass;
+	@Column(name = "tags", length = 1000)
+	private String tags;
 	
 	/**
 	 * default constructor
 	 */
 	public Matter() {
 		super();
+		setEvents(new ArrayList<MatterEvent>());
+		setClients(new ArrayList<MatterClient>());
+		try {
+			setConsiderations(createDefaultConsiderations(MatterConsideration.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -119,16 +132,16 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public ArrayList<K> createDefaultConsiderations(Class<K> k) throws InstantiationException, IllegalAccessException {
-		ArrayList<K> defaultConsiderations = new ArrayList<K>(2);
-		K legalFee = k.newInstance();
+	public ArrayList<MatterConsideration> createDefaultConsiderations(Class<MatterConsideration> k) throws InstantiationException, IllegalAccessException {
+		ArrayList<MatterConsideration> defaultConsiderations = new ArrayList<MatterConsideration>(2);
+		MatterConsideration legalFee = k.newInstance();
 		legalFee.setConsiderationTypeId(MartinlawConstants.DefaultConsideration.LEGAL_FEE_TYPE_ID);
 		legalFee.setDescription(MartinlawConstants.DefaultConsideration.LEGAL_FEE_DESCRIPTION);
 		legalFee.setAmount(new BigDecimal(0));
 		legalFee.setCurrency(MartinlawConstants.DefaultConsideration.CURRENCY);
 		defaultConsiderations.add(legalFee);
 		
-		K disbursement = k.newInstance();
+		MatterConsideration disbursement = k.newInstance();
 		disbursement.setConsiderationTypeId(MartinlawConstants.DefaultConsideration.DISBURSEMENT_TYPE_ID);
 		disbursement.setDescription(MartinlawConstants.DefaultConsideration.DISBURSEMENT_DESCRIPTION);
 		disbursement.setAmount(new BigDecimal(0));
@@ -236,14 +249,14 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	/**
 	 * @return the assignees
 	 */
-	public List<A> getAssignees() {
+	public List<MatterAssignee> getAssignees() {
 		return assignees;
 	}
 
 	/**
 	 * @param assignees the assignees to set
 	 */
-	public void setAssignees(List<A> assignees) {
+	public void setAssignees(List<MatterAssignee> assignees) {
 		this.assignees = assignees;
 	}
 
@@ -252,7 +265,7 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 * 
 	 * @return the work
 	 */
-	public List<W> getWork() {
+	public List<MatterWork> getWork() {
 		return work;
 	}
 
@@ -260,8 +273,8 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	 * retrieves the class type of the parametrized work, which is used in populating {@link #getWork()}
 	 * 
 	 * @return the work class type
-	 */
-	public abstract  Class<W> getWorkClass();
+	 *//*
+	public abstract  Class<W> getWorkClass();*/
 	
 	/**
 	 * retrieves the class type of the parametrized work, which is used in populating {@link #getFees()}
@@ -274,48 +287,48 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	/**
 	 * @param work the work to set
 	 */
-	public void setWork(List<W> work) {
+	public void setWork(List<MatterWork> work) {
 		this.work = work;
 	}
 
 	/**
 	 * @return the clients
 	 */
-	public List<C> getClients() {
+	public List<MatterClient> getClients() {
 		return clients;
 	}
 
 	/**
 	 * @param clients the clients to set
 	 */
-	public void setClients(List<C> clients) {
+	public void setClients(List<MatterClient> clients) {
 		this.clients = clients;
 	}
 	
 	/**
 	 * @param events the events to set
 	 */
-	public void setEvents(List<E> events) {
+	public void setEvents(List<MatterEvent> events) {
 		this.events = events;
 	}
 	/**
 	 * @return the events
 	 */
-	public List<E> getEvents() {
+	public List<MatterEvent> getEvents() {
 		return events;
 	}
 
 	/**
 	 * @return the considerations
 	 */
-	public List<K> getConsiderations() {
+	public List<MatterConsideration> getConsiderations() {
 		return considerations;
 	}
 
 	/**
 	 * @param considerations the considerations to set
 	 */
-	public void setConsiderations(List<K> considerations) {
+	public void setConsiderations(List<MatterConsideration> considerations) {
 		this.considerations = considerations;
 	}
 
@@ -360,7 +373,7 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 		if (StringUtils.isEmpty(eventsHtml) && !getEvents().isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			int counter = 0;
-			for (E event: getEvents()) {
+			for (MatterEvent event: getEvents()) {
 				appendHtmlDivStart(sb, counter);
 				sb.append(event.toHtml());
 				sb.append("</div>");
@@ -402,7 +415,7 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 		if (StringUtils.isEmpty(considerationsHtml) && !getConsiderations().isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			int counter = 0;
-			for (K csdn: getConsiderations()) {
+			for (MatterConsideration csdn: getConsiderations()) {
 				String html = csdn.toHtml();
 				if (!StringUtils.isEmpty(html)) {
 					appendHtmlDivStart(sb, counter);
@@ -441,5 +454,20 @@ public abstract class Matter<A extends MatterAssignee, W extends MatterTxDocBase
 	protected void prePersist() {
 		setConcreteClass(this.getClass().getCanonicalName());
 		super.prePersist();
+	}
+
+	/**
+	 * any number of phrases, words, acronyms, abbreviations, category etc that cannot fit into other existing fields
+	 * @return the tags
+	 */
+	public String getTags() {
+		return tags;
+	}
+
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 }

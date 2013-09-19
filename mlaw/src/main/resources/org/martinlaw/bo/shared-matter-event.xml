@@ -27,15 +27,16 @@ xmlns:p="http://www.springframework.org/schema/p"
 xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="martinlaw_shared_event_bo" abstract="true"	parent="BusinessObjectEntry">
+  <bean id="martinlaw_shared_event_bo" parent="BusinessObjectEntry">
+  	<property name="businessObjectClass" value="org.martinlaw.bo.MatterEvent"/>
 	<property name="titleAttribute" value="startDate" />
 	<property name="boNotesEnabled" value="true" />
 	<property name="attributes">
 		<list>
 			<bean parent="martinlaw-shared-id"/>
+			<bean parent="martinlaw_shared_matterId_attr" p:label="Matter"/>
 			<ref bean="martinlaw_shared_event_bo_comment" />
-			<!-- to be configured in the specific event type -->
-			<!-- <ref bean="martinlaw_shared_event_bo_type" /> -->
+			<ref bean="martinlaw_shared_event_bo_type" />
 			<ref bean="martinlaw_shared_event_bo_location" />
 			<bean parent="martinlaw_shared_event_bo_date" p:name="startDate" p:required="true" p:label="Start Date"/>
 			<bean parent="martinlaw_shared_event_bo_date" p:name="endDate" p:label="End Date" p:required="false" />
@@ -45,6 +46,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		</list>
 	</property>
 	<property name="objectLabel" value="Event" />
+	<property name="relationships">
+      <list>
+		<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.Matter"/>
+      </list>
+    </property>
 </bean>
 
 <!-- Attribute Definitions -->
@@ -88,13 +94,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 		<!-- label shown by the field group on maintenance screen-->
 		<property name="label" value="Event Type" />
 		<property name="required" value="true" />
-		<!-- to be configured in the specific event type -->
-		<!-- <property name="optionsFinder">
-			<bean
-				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:businessObjectClass="org.martinlaw.bo.EventType"
-				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
-		</property> -->
+		<property name="optionsFinder">
+			<bean class="org.martinlaw.keyvalues.ScopedKeyValuesUif" p:addBlankOption="true" 
+				p:scopedClass="org.martinlaw.bo.EventType"/>
+		</property>
 		<!-- required for display in kns custom document search -->
 		<property name="control">
 			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
@@ -121,7 +124,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	    </property>
 	</bean>
 	
-	<bean id="martinlaw_shared_event_maint_document_entry" parent="uifMaintenanceDocumentEntry" abstract="true">
+	<bean id="martinlaw_shared_event_maint_document_entry" parent="uifMaintenanceDocumentEntry">
 	    <property name="maintainableClass" value="org.martinlaw.bo.MatterEventMaintainable"/>
 	    <!-- remove rules class when https://jira.kuali.org/browse/KULRICE-7666 is fixed -->
 	    <property name="businessRulesClass" value="org.martinlaw.bo.MatterMaintenanceHelperBusinessRulesBase"/>
@@ -130,6 +133,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	      	<value>matterId</value>
 	      </list>
 	    </property>
+	    <property name="dataObjectClass" value="org.martinlaw.bo.MatterEvent"/>
+	    <property name="documentTypeName" value="MatterEventMaintenanceDocument"/>
+	    <property name="workflowAttributes">
+	    	<ref bean="matter_event_maint_document_entry_workflow_attrs"/>
+		</property>
 	    <!-- enable when we move to a kuali rice version with https://jira.kuali.org/browse/KULRICE-7666 fixed -->
 	    <!-- <property name="defaultExistenceChecks">
 	      <list>
@@ -137,5 +145,77 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	      </list>
 	    </property> -->
   	</bean>
+  	
+  	<bean id="matter_event_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
+		<property name="searchingTypeDefinitions">
+		<list>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_event_maint_document_entry_search_attr">
+						<property name="attributeName" value="startDate" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.startDate</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_event_maint_document_entry_search_attr">
+						<property name="attributeName" value="endDate" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.endDate</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_event_maint_document_entry_search_attr">
+						<property name="attributeName" value="location" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.location</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_event_maint_document_entry_search_attr">
+						<property name="attributeName" value="typeId" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.typeId</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="matter_event_maint_document_entry_search_attr">
+						<property name="attributeName" value="comment" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.comment</value>
+					</list>
+				</property>
+			</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="matter_event_maint_document_entry_search_attr" parent="martinlaw_shared_workflow_search_attr_parent"
+		abstract="true">
+		<property name="businessObjectClassName" value="org.martinlaw.bo.MatterEvent" />
+	</bean>
 
 </beans>

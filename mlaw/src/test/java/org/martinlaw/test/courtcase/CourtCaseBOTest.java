@@ -3,6 +3,7 @@
  */
 package org.martinlaw.test.courtcase;
 
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.courtcase.CourtCase;
 
 /*
@@ -39,7 +40,7 @@ import org.martinlaw.bo.courtcase.CourtCase;
 public class CourtCaseBOTest extends CourtCaseBoTestBase {
 
 	@Override
-	public Class<? extends CourtCase> getDataObjectClass() {
+	public Class<? extends Matter> getDataObjectClass() {
 		return CourtCase.class;
 	}
 

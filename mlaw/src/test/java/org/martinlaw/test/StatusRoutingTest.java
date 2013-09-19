@@ -63,4 +63,9 @@ public class StatusRoutingTest extends KewTestsBase {
 	public void testInitiatorFYI() {
 		// do nothing
 	}
+
+	@Override
+	public Class<?> getDataObjectClass() {
+		return Status.class;
+	}
 }

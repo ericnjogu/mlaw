@@ -63,7 +63,7 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 				return true;
 			} else {
 				ErrorMessage errMsg = new ErrorMessage(MartinlawConstants.MessageKeys.ERROR_NOT_ASSIGNED, initiatorPrincipalName, 
-								matterWork.getMatterClass().getSimpleName());
+								Matter.class.getSimpleName());
 				errMsg.setNamespaceCode(MartinlawConstants.MODULE_NAMESPACE_CODE);
 				getRulesHelper().addMatterIdError(errMsg);
 				return false;
@@ -81,11 +81,9 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 	 * 
 	 * @return true if found, false if not or the list is empty
 	 */
-	@SuppressWarnings("unchecked")
 	public boolean isPrincipalNameInAssigneeList(MatterTxDocBase matterWork, String principalName) {
-		Matter<? extends MatterAssignee, ? extends MatterWork, ? extends MatterClient, 
-				? extends MatterConsideration<?>, ? extends MatterEvent> matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
-				matterWork.getMatterClass(), matterWork.getMatterId());
+		Matter matter = KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(
+				Matter.class, matterWork.getMatterId());
 		if (matter == null || matter.getAssignees() == null || matter.getAssignees().size() == 0) {
 			return false;
 		} else {

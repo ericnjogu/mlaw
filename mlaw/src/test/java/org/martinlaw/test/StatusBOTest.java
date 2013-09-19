@@ -37,17 +37,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.kuali.rice.krad.maintenance.Maintainable;
+import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.StatusScope;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.bo.opinion.Opinion;
-import org.martinlaw.keyvalues.ContractStatusKeyValues;
-import org.martinlaw.keyvalues.ConveyanceStatusKeyValues;
-import org.martinlaw.keyvalues.CourtCaseStatusKeyValues;
-import org.martinlaw.keyvalues.OpinionStatusKeyValues;
+import org.martinlaw.keyvalues.ScopedKeyValuesUif;
 import org.springframework.dao.DataIntegrityViolationException;
+import static org.mockito.Mockito.when;
 
 /**
  * various unit tests for {@link Status}
@@ -101,7 +101,7 @@ public class StatusBOTest extends MartinlawTestsBase {
 		status.setStatus("pending");
 		//test scopes
 		StatusScope scope1 = new StatusScope();
-		final String canonicalName1 = Opinion.class.getCanonicalName();
+		final String canonicalName1 = Matter.class.getCanonicalName();
 		scope1.setQualifiedClassName(canonicalName1);
 		status.getScope().add(scope1);
 		StatusScope scope2 = new StatusScope();
@@ -150,14 +150,28 @@ public class StatusBOTest extends MartinlawTestsBase {
 	 * test that status type key values returns the correct number
 	 */
 	public void testMatterStatusKeyValues() {
-		String comment = "expected 3 statuses with court case scope and two that apply to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new CourtCaseStatusKeyValues(), comment, 6);
-		comment = "expected the two that apply to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new ContractStatusKeyValues(), comment, 3);
-		comment = "expected the two that apply to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new OpinionStatusKeyValues(), comment, 3);
-		comment = "expected one status with conveyance scope, the two that apply to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new ConveyanceStatusKeyValues(), comment, 4);
+		MaintenanceDocumentForm form = getTestUtils().createMockMaintenanceDocForm();
+		
+		
+		ScopedKeyValuesUif kv = new ScopedKeyValuesUif();
+		kv.setScopedClass(Status.class);
+		
+		Maintainable newMaintainableObject = form.getDocument().getNewMaintainableObject();
+		when(newMaintainableObject.getDataObject()).thenReturn(new CourtCase());
+		String comment = "expected 3 statuses with court case scope and two that apply to all (empty)";
+		assertEquals(comment, 5, kv.getKeyValues(form).size());
+		
+		when(newMaintainableObject.getDataObject()).thenReturn(new Contract());
+		comment = "expected the two that apply to all (empty)";
+		assertEquals(comment, 2, kv.getKeyValues(form).size());
+		
+		// TODO  adapt for matter
+		/*comment = "expected the two that apply to all (empty), plus a blank one";
+		getTestUtils().testMatterStatusKeyValues(new OpinionStatusKeyValues(), comment, 3);*/
+		
+		when(newMaintainableObject.getDataObject()).thenReturn(new Conveyance());
+		comment = "expected one status with conveyance scope, the two that apply to all (empty)";
+		assertEquals(comment, 3, kv.getKeyValues(form).size());
 	}
 	
 	@Test

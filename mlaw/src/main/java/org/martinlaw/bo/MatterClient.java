@@ -24,10 +24,12 @@ package org.martinlaw.bo;
 
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
-@MappedSuperclass
+@Entity
+@Table(name="martinlaw_matter_client_t")
 public class MatterClient extends MartinlawPerson {
 
 	/**

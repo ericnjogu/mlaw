@@ -41,7 +41,7 @@ import org.martinlaw.util.SearchTestCriteria;
  * @author mugo
  *
  */
-public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
+public class MatterConsiderationRoutingTestBase extends KewTestsBase {
 
 	protected Log log = LogFactory.getLog(getClass());
 
@@ -66,7 +66,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	@Test
 	public void testMatterConsiderationRouting() throws InstantiationException,
 			IllegalAccessException, WorkflowException {
-		MatterConsideration<?> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
+		MatterConsideration consideration = getTestUtils().getTestConsideration();
 		this.testMaintenanceRoutingInitToFinal(getDocTypeName(), consideration);
 	}
 
@@ -80,7 +80,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	public void testMatterConsiderationRouting_InvalidMatterId()
 			throws InstantiationException, IllegalAccessException,
 			WorkflowException {
-		MatterConsideration<?> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
+		MatterConsideration consideration = getTestUtils().getTestConsideration();
 		consideration.setMatterId(3000l);
 		
 		/*//initiate as the clerk
@@ -99,7 +99,7 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	public void testMatterConsiderationRouting_required_validated_onroute()
 			throws InstantiationException, WorkflowException,
 			IllegalAccessException {
-		MatterConsideration<?> consideration = getTestUtils().getTestConsideration(getDataObjectClass());
+		MatterConsideration consideration = getTestUtils().getTestConsideration();
 		// required on route
 		consideration.setAmount(null);
 		consideration.setCurrency(null);
@@ -113,11 +113,11 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	public void testMatterConsideration_doc_search() {
 		try {
 			// route 2 docs first
-			MatterConsideration<?> consideration1 = getTestUtils().getTestConsideration(getDataObjectClass());
+			MatterConsideration consideration1 = getTestUtils().getTestConsideration();
 			final String docType = getDocTypeName();
 			testMaintenanceRoutingInitToFinal(docType, consideration1);
 			
-			MatterConsideration<?> consideration2 = getTestUtils().getTestConsideration(getDataObjectClass());
+			MatterConsideration consideration2 = getTestUtils().getTestConsideration();
 			consideration2.setAmount(new BigDecimal(7500));
 			consideration2.setConsiderationTypeId(10004l);
 			testMaintenanceRoutingInitToFinal(docType, consideration2);
@@ -165,6 +165,13 @@ public abstract class MatterConsiderationRoutingTestBase extends KewTestsBase {
 	 * 
 	 * @return the data object (BO) class
 	 */
-	public abstract Class<? extends MatterConsideration<?>> getDataObjectClass();
+	public Class<? extends MatterConsideration> getDataObjectClass() {
+		return MatterConsideration.class;
+	}
+
+	@Override
+	public String getDocTypeName() {
+		return "MatterConsiderationMaintenanceDocument";
+	}
 
 }

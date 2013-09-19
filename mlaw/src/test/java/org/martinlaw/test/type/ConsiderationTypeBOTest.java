@@ -8,22 +8,23 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
+import org.kuali.rice.krad.maintenance.Maintainable;
+import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.martinlaw.bo.BaseDetail;
 import org.martinlaw.bo.ConsiderationType;
 import org.martinlaw.bo.ConsiderationTypeScope;
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Scope;
+import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.bo.opinion.Opinion;
-import org.martinlaw.keyvalues.ContractConsiderationTypeKeyValues;
-import org.martinlaw.keyvalues.ConveyanceConsiderationTypeKeyValues;
-import org.martinlaw.keyvalues.CourtCaseConsiderationTypeKeyValues;
-import org.martinlaw.keyvalues.OpinionConsiderationTypeKeyValues;
+import org.martinlaw.keyvalues.ScopedKeyValuesUif;
 
 /*
  * #%L
@@ -105,7 +106,7 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 		String name = "test type";
 		type.setName(name);
 		ConsiderationTypeScope scope1 = new ConsiderationTypeScope();
-		scope1.setQualifiedClassName(Opinion.class.getCanonicalName());
+		scope1.setQualifiedClassName(Matter.class.getCanonicalName());
 		type.getScope().add(scope1);
 		ConsiderationTypeScope scope2 = new ConsiderationTypeScope();
 		scope2.setQualifiedClassName(CourtCase.class.getCanonicalName());
@@ -135,14 +136,25 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 	 * test that consideration type key values returns the correct number
 	 */
 	public void testMatterStatusKeyValues() {
-		String comment = "expected 1 consideration type that applies to all and a blank one";
-		getTestUtils().testMatterStatusKeyValues(new CourtCaseConsiderationTypeKeyValues(), comment, 2);
-		comment = "expected 1 consideration type with contract scope, one that applies to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new ContractConsiderationTypeKeyValues(), comment, 3);
-		comment = "expected one that applies to all (empty) and a blank one";
-		getTestUtils().testMatterStatusKeyValues(new OpinionConsiderationTypeKeyValues(), comment, 2);
-		comment = "expected two consideration type with conveyance scope, one that applies to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new ConveyanceConsiderationTypeKeyValues(), comment, 4);
+		MaintenanceDocumentForm form = getTestUtils().createMockMaintenanceDocForm();
+		ScopedKeyValuesUif kv = new ScopedKeyValuesUif();
+		kv.setScopedClass(ConsiderationType.class);
+		Maintainable newMaintainableObject = form.getDocument().getNewMaintainableObject();
+		
+		String comment = "expected 1 consideration type that applies to all";
+		when(newMaintainableObject.getDataObject()).thenReturn(new CourtCase());
+		assertEquals(comment, 1, kv.getKeyValues(form).size());
+		
+		comment = "expected 1 consideration type with contract scope, one that applies to all (empty)";
+		when(newMaintainableObject.getDataObject()).thenReturn(new Contract());
+		assertEquals(comment, 2, kv.getKeyValues(form).size());
+		
+		/*comment = "expected one that applies to all (empty) and a blank one";
+		getTestUtils().testMatterStatusKeyValues(new OpinionConsiderationTypeKeyValues(), comment, 2);*/
+		
+		comment = "expected two consideration type with conveyance scope, one that applies to all (empty)";
+		when(newMaintainableObject.getDataObject()).thenReturn(new Conveyance());
+		assertEquals(comment, 3, kv.getKeyValues(form).size());
 	}
 
 	@Override

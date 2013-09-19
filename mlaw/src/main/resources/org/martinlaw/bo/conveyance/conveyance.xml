@@ -28,12 +28,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="conveyance_bo" parent="martinlaw_shared_matter_bo_entry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.conveyance.Conveyance" />
-		<property name="titleAttribute" value="localReference" />
 		<property name="attributes">
 			<list merge="true">
-				<bean parent="martinlaw-shared-id-parentBean" p:label="Conveyance Id" />
-				<bean parent="martinlaw_shared_matter_name" p:label="Conveyance Name"/>
-				<bean parent="conveyance-statusId-parentBean" />
 				<ref bean="conveyance-type-id" />
 			</list>
 		</property>
@@ -41,16 +37,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	</bean>
 
 	<!-- Attribute Definitions -->
-
-	<bean id="conveyance-statusId-parentBean" parent="martinlaw-shared-statusId-parentBean">	
-		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.ConveyanceStatusKeyValues" />
-		</property>
-		<!-- required for display in custom document search -->
-		<property name="control">
-			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.martinlaw.keyvalues.ConveyanceStatusKeyValues"/>
-		</property>
-	</bean>
 	
 	<bean id="conveyance-type-id"	parent="AttributeDefinition">
 		<property name="forceUppercase" value="true" />

@@ -44,9 +44,7 @@
 				<value>org.martinlaw.bo.WorkType</value>
 				<value>org.martinlaw.bo.WorkTypeScope</value>
 				
-				
 				<value>org.martinlaw.bo.MatterAssignee</value>
-				<value>org.martinlaw.bo.MatterAssignment</value>
 				<value>org.martinlaw.bo.MatterClient</value>
 				<value>org.martinlaw.bo.MatterTxDocBase</value>
 				<value>org.martinlaw.bo.MatterTransactionDoc</value>
@@ -66,92 +64,41 @@
 				<value>org.martinlaw.bo.sequence.ConsiderationTypeScopeSeq</value>
 				<value>org.martinlaw.bo.sequence.WorkTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.WorkTypeScopeSeq</value>
+				<value>org.martinlaw.bo.sequence.MatterClientSeq</value>
+				<value>org.martinlaw.bo.sequence.MatterAssigneeSeq</value>
+				<value>org.martinlaw.bo.sequence.MatterSeq</value>
+				<value>org.martinlaw.bo.sequence.MatterConsiderationSeq</value>
+				<value>org.martinlaw.bo.sequence.MatterEventSeq</value>
 				
-				<value>org.martinlaw.bo.courtcase.Work</value>
-				<value>org.martinlaw.bo.courtcase.Event</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
-				<value>org.martinlaw.bo.courtcase.Client</value>
-				<value>org.martinlaw.bo.courtcase.Assignee</value>
-				<value>org.martinlaw.bo.courtcase.Assignment</value>
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
 				<value>org.martinlaw.bo.courtcase.CourtCase</value>
 				<value>org.martinlaw.bo.courtcase.LandCase</value>
-				<value>org.martinlaw.bo.courtcase.TransactionDoc</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseCollectionBase</value>
-				<value>org.martinlaw.bo.courtcase.Consideration</value>
 				<value>org.martinlaw.bo.courtcase.CourtCaseType</value>
 				
 				<value>org.martinlaw.bo.sequence.WitnessSeq</value>
-				<value>org.martinlaw.bo.sequence.CaseClientSeq</value>
-				<value>org.martinlaw.bo.sequence.CaseSeq</value>
-				<value>org.martinlaw.bo.sequence.CaseEventSeq</value>
-				<value>org.martinlaw.bo.sequence.CaseAssigneeSeq</value>
-				<value>org.martinlaw.bo.sequence.CaseConsiderationSeq</value>
 				<value>org.martinlaw.bo.sequence.CaseTypeSeq</value>
 				
 				<value>org.martinlaw.bo.conveyance.ConveyanceAnnexType</value>
 				<value>org.martinlaw.bo.conveyance.Work</value>
 				<value>org.martinlaw.bo.conveyance.ConveyanceType</value>
-				<value>org.martinlaw.bo.conveyance.Client</value>
 				<value>org.martinlaw.bo.conveyance.Conveyance</value>
-				<value>org.martinlaw.bo.conveyance.TransactionDoc</value>
-				<value>org.martinlaw.bo.conveyance.Consideration</value>
-				<value>org.martinlaw.bo.conveyance.Event</value>
-				<value>org.martinlaw.bo.conveyance.Assignee</value>
-				<value>org.martinlaw.bo.conveyance.Assignment</value>
 				
 				<value>org.martinlaw.bo.sequence.ConveyAnnexTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ConveyTypeSeq</value>
-				<value>org.martinlaw.bo.sequence.ConveyAnnexSeq</value>
-				<value>org.martinlaw.bo.sequence.ConveyAttSeq</value>
-				<value>org.martinlaw.bo.sequence.ConveyClientSeq</value>
-				<value>org.martinlaw.bo.sequence.ConveySeq</value>
-				<value>org.martinlaw.bo.sequence.ConveyanceEventSeq</value>
-				<value>org.martinlaw.bo.sequence.ConvAssignmentSeq</value>
-				<value>org.martinlaw.bo.sequence.ConvAssigneeSeq</value>
-				<value>org.martinlaw.bo.sequence.ConveyanceConsiderationSeq</value>
 				
 				<value>org.martinlaw.bo.contract.ContractType</value>
 				<value>org.martinlaw.bo.contract.ContractParty</value>
 				<value>org.martinlaw.bo.contract.ContractSignatory</value>
 				<value>org.martinlaw.bo.contract.ContractPerson</value>
-				<value>org.martinlaw.bo.contract.Consideration</value>
 				<value>org.martinlaw.bo.contract.ContractDuration</value>
 				<value>org.martinlaw.bo.contract.Contract</value>
-				<value>org.martinlaw.bo.contract.Assignment</value>
-				<value>org.martinlaw.bo.contract.Assignee</value>
-				<value>org.martinlaw.bo.contract.Client</value>
-				<value>org.martinlaw.bo.contract.TransactionDoc</value>
-				<value>org.martinlaw.bo.contract.Consideration</value>
-				<value>org.martinlaw.bo.contract.Event</value>
-				<value>org.martinlaw.bo.contract.Work</value>
 				
-				<value>org.martinlaw.bo.sequence.ContractConsiderationSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractTypeSeq</value>
 				<value>org.martinlaw.bo.sequence.ContractPartySeq</value>
 				<value>org.martinlaw.bo.sequence.ContractSignatorySeq</value>
-				<value>org.martinlaw.bo.sequence.ContractAssigneeSeq</value>
-				<value>org.martinlaw.bo.sequence.ContractAssignmentSeq</value>
-				<value>org.martinlaw.bo.sequence.ContractSeq</value>
-				<value>org.martinlaw.bo.sequence.ContractClientSeq</value>
-				<value>org.martinlaw.bo.sequence.ContractEventSeq</value>
-				
-				<value>org.martinlaw.bo.opinion.Opinion</value>
-				<value>org.martinlaw.bo.opinion.Client</value>
-				<value>org.martinlaw.bo.opinion.Assignment</value>
-				<value>org.martinlaw.bo.opinion.Assignee</value>
-				<value>org.martinlaw.bo.opinion.Event</value>
-				<value>org.martinlaw.bo.opinion.TransactionDoc</value>
-				<value>org.martinlaw.bo.opinion.Consideration</value>
-				<value>org.martinlaw.bo.opinion.Work</value>
-				
-				<value>org.martinlaw.bo.sequence.OpinionSeq</value>
-				<value>org.martinlaw.bo.sequence.OpinionClientSeq</value>
-				<value>org.martinlaw.bo.sequence.OpinionAssigneeSeq</value>
-				<value>org.martinlaw.bo.sequence.OpinionAssignmentSeq</value>
-				<value>org.martinlaw.bo.sequence.OpinionConsiderationSeq</value>
-				<value>org.martinlaw.bo.sequence.OpinionEventSeq</value>
-				
+								
 				<value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>
 				<value>org.kuali.rice.krad.bo.DocumentHeader</value>
 				
