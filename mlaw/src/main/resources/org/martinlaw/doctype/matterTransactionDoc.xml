@@ -32,7 +32,7 @@
 			<description>Matter Transaction Transactional Document</description>
 			<label>Matter Transaction Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<docHandler>${dochandler_contract_transaction}</docHandler>
+			<docHandler>${dochandler_matter_transaction}</docHandler>
 		</documentType>
 		<documentType>
 			<name>MatterTransactionDocumentTest</name>

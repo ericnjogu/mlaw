@@ -21,6 +21,7 @@
 			<description>Matter Work Transactional Document</description>
 			<label>Matter Work Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<docHandler>${dochandler_matter_work}</docHandler>
 		</documentType>
 		<documentType>
 			<name>MatterWorkDocumentTest</name>
@@ -28,6 +29,7 @@
 			<description>Test Document</description>
 			<label>Test Document</label>
 			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+			<!-- <docHandler>${dochandler_matter_work}</docHandler> -->
 		</documentType>
 	</documentTypes>
 </data>
