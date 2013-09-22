@@ -92,7 +92,7 @@
 							</bean>
 							<bean parent="Uif-ConditionalBeanPropertyReplacer"
 								p:propertyName="href" p:condition="dataObjectClassName.endsWith('Contract')">
-								<property name="replacement" value="@{#ConfigProperties['dochandler_contract_fee']}&amp;command=initiate"/>
+								<property name="replacement" value="@{#ConfigProperties['dochandler_matter_transaction']}&amp;command=initiate"/>
 							</bean>
 						</list>
 					</property>

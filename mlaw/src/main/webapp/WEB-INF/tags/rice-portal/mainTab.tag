@@ -22,14 +22,5 @@
 	    <mainChannel:martinlaw-casemgt />
 </td>
 <td class="content" valign="top">
-	    <mainChannel:martinlaw-conveyancing />
-</td>
-<td class="content" valign="top">
-	    <mainChannel:martinlaw-contracting />
-</td>
-<td class="content" valign="top">
-	    <mainChannel:martinlaw-opinionmgt />
-</td>
-<td class="content" valign="top">
 	    <mainChannel:martinlaw-shared />
 </td>

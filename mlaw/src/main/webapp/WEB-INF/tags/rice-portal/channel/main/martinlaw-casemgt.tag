@@ -19,14 +19,18 @@
 <div class="body">
   
   <ul class="chan">
+  <li><portal:portalLink displayTitle="true" title="Matter" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Matter&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
   <%-- <li><portal:portalLink displayTitle="true" title="New Court Case" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase&methodToCall=start" /></li> --%>
   <li><portal:portalLink displayTitle="true" title="Court Case" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   <br/>
-  
   <li><portal:portalLink displayTitle="true" title="Land Case" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.LandCase&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   <br/>
-  <%-- <li><portal:portalLink displayTitle="true" title="New Court Case Event" url="${ConfigProperties.application.url}/kr-krad/maintenance?dataObjectClassName=org.martinlaw.bo.courtcase.Event&methodToCall=start" /></li> --%>
-  <li><portal:portalLink displayTitle="true" title="Court Case Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Event&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <li><portal:portalLink displayTitle="true" title="Conveyance" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.conveyance.Conveyance&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Contract" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.contract.Contract&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Event" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.MatterEvent&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
   <br/>
   <li><portal:portalLink displayTitle="true" title="Court Case Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.CourtCaseType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>	
   </ul>
@@ -35,31 +39,45 @@
   <ul class="chan">
   <%-- <li><portal:portalLink displayTitle="true" title="New Court Case Assignment" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Assignment" /></li> --%>
   <!-- TODO make the necessary lookup DD changes to support this lookup -->
-  <li><portal:portalLink displayTitle="true" title="Court Case Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Assignment&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <li><portal:portalLink displayTitle="true" title="Assignment" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.MatterAssignee&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Work" url="${ConfigProperties.dochandler_matter_work}&command=initiate&viewId=matter_work_doc_view" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Conveyance Work" url="${ConfigProperties.dochandler_conveyance_work}&command=initiate&viewId=conveyance_work_doc_view" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.MatterConsideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Transaction" url="${ConfigProperties.dochandler_matter_transaction}&command=initiate&viewId=matter_transaction_doc_view" /></li>
   </ul>
   
- <strong>Court Case Work</strong>
-  <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Court Case Work" url="${ConfigProperties.dochandler_courtcase_work}&command=initiate&viewId=contract_work_doc_view" /></li>
-  </ul>
-  
-  <strong>Court Case Consideration e.g. Legal Fee</strong>
-  <ul class="chan">
-  <%-- <li><portal:portalLink displayTitle="true" title="New Court Case Consideration" url="${ConfigProperties.application.url}/kr-krad/maintenance?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Consideration" /></li> --%>
-  <li><portal:portalLink displayTitle="true" title="Court Case Consideration" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.courtcase.Consideration&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
-  </ul>
-  
-  <strong>Court Case Transaction e.g. Receipt</strong>
-  <ul class="chan">
-  <li><portal:portalLink displayTitle="true" title="New Court Case Transaction" url="${ConfigProperties.dochandler_courtcase_fee}&command=initiate" /></li>
-  </ul>
-  
-	<strong>Document Search</strong>
+	<strong>Auditing</strong>
 	<ul class="chan">
-		<li><portal:portalLink displayTitle="true" title="Court Case" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseMaintenanceDocument"/></li>	
-		<li><portal:portalLink displayTitle="true" title="Court Case Event" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseEventMaintenanceDocument"/></li>
-		<li><portal:portalLink displayTitle="true" title="Court Case Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseAssignmentMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Matter" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=MatterMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Court Case" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=CourtCaseMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Land Case" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=LandCourtCaseMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Conveyance" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ConveyanceMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Contract" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=ContractMaintenanceDocument"/></li>	
+		<li><portal:portalLink displayTitle="true" title="Event" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=MatterEventMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Assignment" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=MatterAssigneeMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Work" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=MatterWorkDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Consideration" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=MatterConsiderationMaintenanceDocument"/></li>
+		<li><portal:portalLink displayTitle="true" title="Transaction" url="${ConfigProperties.application.url}/kew/DocumentSearch.do?documentTypeName=MatterTransactionDocument"/></li>
 	</ul>
+	<!-- to be enabled when the left accordion/menu is in place -->
+	<%-- <strong>Building Blocks</strong>
+	<ul class="chan">
+	<li><portal:portalLink displayTitle="true" title="Status" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.Status&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Event Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.EventType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Consideration Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.ConsiderationType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Transaction Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.TransactionType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Work Type" url="${ConfigProperties.application.url}/kr-krad/lookup?methodToCall=start&dataObjectClassName=org.martinlaw.bo.WorkType&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true&showMaintenanceLinks=true" /></li>
+  <br/>
+  <li><portal:portalLink displayTitle="true" title="Users, Clients, Witnesses" url="${ConfigProperties.kr.url}/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.rice.kim.api.identity.Person&docFormKey=88888888&returnLocation=${ConfigProperties.application.url}/portal.do&hideReturnLink=true" /></li>
+  </ul> --%>
 </div>
 <channel:portalChannelBottom />
 
