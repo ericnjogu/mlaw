@@ -32,31 +32,15 @@
 			<description>Event Type Maintenance Document</description>
 			<label>Event Type Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<!-- <blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
-
-			<routePaths>
-				<routePath>
-					<start name="Initiated" /> 
-				</routePath>
-			</routePaths>
-			<routeNodes>
-			routes to final
-				<start name="Initiated">
-					<activationType>P</activationType>
-					<mandatoryRoute>false</mandatoryRoute>
-					<finalApproval>true</finalApproval>
-				</start>
-			</routeNodes> -->
 		</documentType>
-		<documentType>
+		<!-- work flow routing not tested as the doc will go to final -->
+		<!-- <documentType>
 			<name>EventTypeMaintenanceDocumentTest</name>
 			<parent>MartinlawDefaultRoutingDocument</parent>
 			<description>Test Document</description>
 			<label>Test Document</label>
 			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
-		</documentType>
+		</documentType> -->
 	</documentTypes>
 
 </data>
