@@ -129,7 +129,7 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	 * @see org.martinlaw.test.KewTestsBase#testInitiatorFYI()
 	 */
 	/**
-	 * {@link BaseDetail} objects do not need routing so skip this test
+	 * most {@link BaseDetail} objects do not need routing so skip this test
 	 */
 	@Override
 	public void testInitiatorFYI() {

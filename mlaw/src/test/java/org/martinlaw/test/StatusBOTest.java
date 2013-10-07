@@ -131,7 +131,7 @@ public class StatusBOTest extends MartinlawTestsBase {
 		getBoSvc().delete(status);
 		assertNull("status should have been deleted", getBoSvc().findBySinglePrimaryKey(Status.class, status.getId()));
 		Map<String, String> criteria = new HashMap<String, String>();
-		criteria.put("statusId", String.valueOf(status.getId()));
+		criteria.put("typeId", String.valueOf(status.getId()));
 		assertTrue("scopes should have been deleted", getBoSvc().findMatching(StatusScope.class, criteria).isEmpty());
 	}
 	

@@ -20,7 +20,7 @@
 -- #L%
 ---
  insert into  martinlaw_matter_event_t 
- (id, start_date, date_comment, matter_id, ver_nbr, obj_id, event_type_id, date_created, location, active) 
+ (id, start_date, date_comment, matter_id, ver_nbr, obj_id, type_id, date_created, location, active) 
  values 
  -- court case
  (1001, '2011-06-01','first hearing date', 1001, default, uuid(), 1002, now(), "nakuru", 'Y'),

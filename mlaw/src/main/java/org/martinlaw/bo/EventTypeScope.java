@@ -25,9 +25,7 @@ package org.martinlaw.bo;
  * #L%
  */
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -44,34 +42,4 @@ public class EventTypeScope extends Scope {
 	 * 
 	 */
 	private static final long serialVersionUID = 698178229853855467L;
-	@Id
-	@Column(name="event_type_scope_id")
-	private Long id;
-	@Column(name="event_type_id", nullable=false)
-	private Long eventTypeId;
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * the foreign key that links to the related event type
-	 * @return the eventTypeId
-	 */
-	public Long getEventTypeId() {
-		return eventTypeId;
-	}
-	/**
-	 * @param eventTypeId the eventTypeId to set
-	 */
-	public void setEventTypeId(Long eventTypeId) {
-		this.eventTypeId = eventTypeId;
-	}
 }

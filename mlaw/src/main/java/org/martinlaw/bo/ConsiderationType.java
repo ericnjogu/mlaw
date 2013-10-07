@@ -29,9 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,32 +43,17 @@ import org.martinlaw.ScopedKeyValue;
 @Entity
 @Table(name="martinlaw_consideration_type_t")
 public class ConsiderationType extends BaseDetail implements ScopedKeyValue {
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "considerationTypeId")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
 	private List<ConsiderationTypeScope> scope;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4184910355599564922L;
-	@Id
-	@Column(name="consideration_type_id")
-	private Long id;
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
 	/**
 	 * initialize lists
 	 */
 	public ConsiderationType() {
 		setScope(new ArrayList<ConsiderationTypeScope>());
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
 	}
 	@Override
 	public String getKey() {

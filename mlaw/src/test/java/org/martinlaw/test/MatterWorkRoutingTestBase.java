@@ -15,9 +15,9 @@ import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.DummyWorkFlowDocument;
 import org.martinlaw.bo.MatterTxDocBase;
 import org.martinlaw.bo.MatterWork;
-import org.martinlaw.bo.MatterWork.DummyWorkFlowDocument;
 
 /**
  * holds common tests for {@link org.martinlaw.bo.MatterWork}
@@ -62,8 +62,8 @@ public abstract class MatterWorkRoutingTestBase extends TxRoutingTestBase {
 		assertFalse("approval period should not be empty", StringUtils.isEmpty( bo.getPeriodToApprove()));
 		
 		work.refreshNonUpdateableReferences();
-		assertNotNull("work type should not be null", work.getWorkType());
-		assertEquals("default work type differs", MartinlawConstants.DEFAULT_WORK_TYPE_ID, work.getWorkTypeId());
+		assertNotNull("work type should not be null", work.getAnnexType());
+		assertEquals("default annex type differs", MartinlawConstants.DEFAULT_ANNEX_TYPE_ID, work.getAnnexTypeId());
 	}
 	
 	/**

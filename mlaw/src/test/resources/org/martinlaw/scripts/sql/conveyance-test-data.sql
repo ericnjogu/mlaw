@@ -19,25 +19,9 @@
 -- <http://www.gnu.org/licenses/gpl-3.0.html>.
 -- #L%
 
-insert into
-martinlaw_conveyance_type_t
-(convey_type_id, name, description, ver_nbr, obj_id)
-values
-(1001, "Sale of Urban Land", null, default, 'ct1'),
-(1002, "Sale of Motor Vehicle", null, default, 'ct2');
-
 insert into martinlaw_conveyance_t 
-(matter_id, convey_type_id) 
+(matter_id) 
 values 
-(1008, 1001),
-(1009, 1002),
-(1010, 1001);
-
-insert into
-martinlaw_conveyance_annex_type_t
-(convey_annex_type_id, convey_type_id, name, description, ver_nbr, obj_id)
-values
-(1001, 1001, "land board approval", null, default, 1),
-(1002, 1001, "city council approval", null, default, 1),
-(1003, 1002, "sale agreement", null, default, 1);
-
+(1008),
+(1009),
+(1010);

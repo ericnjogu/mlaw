@@ -23,12 +23,15 @@ package org.martinlaw.test.type;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.martinlaw.ScopedKeyValue;
 import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Scope;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.martinlaw.test.TestBoInfo;
@@ -86,7 +89,10 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		assertNotNull("retrieved '" + getDataObjectClass() + "' should not be null", type);
 		assertEquals("name differs", getExpectedOnRetrieve().getName(), type.getName());
 		assertEquals("description differs", getExpectedOnRetrieve().getDescription(), type.getDescription());
+		additionalTestsForRetrievedObject(type);
 	}
+
+	protected abstract void additionalTestsForRetrievedObject(BaseDetail type);
 
 	/**
 	 * tests CRUD for the bo class provided in {@link #getDataObjectClass()}
@@ -99,10 +105,28 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		BaseDetail type = getDataObjectClass().newInstance();
 		String name = "test type";
 		type.setName(name);
+		populateAdditionalFieldsForCrud(type);
 		getBoSvc().save(type);
+		
 		// R
 		type.refresh();
 		assertEquals("name does not match", name, type.getName());
+		// save scope and see if it can be seen from the base detail/type side
+		if (ScopedKeyValue.class.isAssignableFrom(getDataObjectClass())) {
+			Scope scope = getScopeClass().newInstance();
+			final String qualifiedClassName = Matter.class.getCanonicalName();
+			scope.setQualifiedClassName(qualifiedClassName);
+			scope.setTypeId(type.getId());
+			getBoSvc().save(scope);
+			
+			type.refresh();
+			ScopedKeyValue scoped = (ScopedKeyValue)type;
+			assertNotNull("scope should not be null", scoped.getScope());
+			assertFalse("scope should not be empty", scoped.getScope().isEmpty());
+			assertEquals("qualified class name differs", qualifiedClassName, scoped.getScope().get(0).getQualifiedClassName());
+		}
+		testCrudCreated(type);
+		
 		// U
 		type.setDescription("test description");
 		type.refresh();
@@ -110,7 +134,26 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		// D
 		getBoSvc().delete(type);
 		assertNull(getBoSvc().findBySinglePrimaryKey(getDataObjectClass(),	type.getId()));
+		testCrudDeleted(type);
 	}
+
+	/**
+	 * additional tests for an object created while doing CRUD tests
+	 * @param type - the object to test
+	 */
+	protected abstract void testCrudCreated(BaseDetail type);
+	
+	/**
+	 * additional tests for an object deleted while doing CRUD tests
+	 * @param type - the object to test
+	 */
+	protected abstract void testCrudDeleted(BaseDetail type);
+
+	/**
+	 * populate additional fields - in addition to name and description if any
+	 * @param type - the object to populate
+	 */
+	protected abstract void populateAdditionalFieldsForCrud(BaseDetail type);
 
 	/**
 	 * tests that the document type name can be found
@@ -128,7 +171,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	
 	/**
 	 * verify that the collection definition has been defined
-	 * <p>to be overridden by tests for BOs which do not have a scope e.g. contract type</p>
+	 * <p>to be overridden by tests for BOs which do not have a scope</p>
 	 */
 	@Test
 	public void testScopeCollectionDD() {

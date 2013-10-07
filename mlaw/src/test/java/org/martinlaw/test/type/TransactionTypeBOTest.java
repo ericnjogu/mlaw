@@ -92,4 +92,24 @@ public class TransactionTypeBOTest extends BaseDetailBoTestBase {
 	public void testScopeCollectionDD() {
 		// do nothing as transaction type has no scope
 	}
+
+	@Override
+	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+		// DO nothing
+	}
+
+	@Override
+	protected void testCrudCreated(BaseDetail type) {
+		// DO nothing
+	}
+
+	@Override
+	protected void testCrudDeleted(BaseDetail type) {
+		// DO nothing
+	}
+
+	@Override
+	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+		// DO nothing
+	}
 }

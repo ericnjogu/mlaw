@@ -8,23 +8,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.rice.krad.maintenance.Maintainable;
-import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.martinlaw.bo.BaseDetail;
 import org.martinlaw.bo.ConsiderationType;
 import org.martinlaw.bo.ConsiderationTypeScope;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Scope;
-import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.keyvalues.ScopedKeyValuesUif;
 
 /*
  * #%L
@@ -55,7 +50,7 @@ import org.martinlaw.keyvalues.ScopedKeyValuesUif;
  * 
  */
 public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
-	private ConsiderationType considerationType;
+	private BaseDetail considerationType;
 	@Override
 	public Class<? extends BaseDetail> getDataObjectClass() {
 		return ConsiderationType.class;
@@ -127,7 +122,7 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 		getBoSvc().delete(type);
 		assertNull(getBoSvc().findBySinglePrimaryKey(getDataObjectClass(),	type.getId()));
 		Map<String, String> criteria = new HashMap<String, String>();
-		criteria.put("considerationTypeId", String.valueOf(type.getId()));
+		criteria.put("typeId", String.valueOf(type.getId()));
 		assertTrue("scopes should have been deleted", getBoSvc().findMatching(ConsiderationTypeScope.class, criteria).isEmpty());
 	}
 	
@@ -135,30 +130,48 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 	/**
 	 * test that consideration type key values returns the correct number
 	 */
-	public void testMatterStatusKeyValues() {
-		MaintenanceDocumentForm form = getTestUtils().createMockMaintenanceDocForm();
-		ScopedKeyValuesUif kv = new ScopedKeyValuesUif();
-		kv.setScopedClass(ConsiderationType.class);
-		Maintainable newMaintainableObject = form.getDocument().getNewMaintainableObject();
+	public void testConsiderationTypeKeyValues() {
+		final String dataObjectName = "consideration type(s)";
+		final int expectedCourtCaseScopeCount = 0;
+		final int expectedContractScopeCount = 1;
+		final int expectedConveyanceScopeCount = 2;
+		final int expectedEmptyScopeCount = 1;
+		final int expectedMatterScopeCount = 0;
+		final int expectedLandCaseScopeCount = 0;
+		final Class<? extends BusinessObject> scopedClass = ConsiderationType.class;
 		
-		String comment = "expected 1 consideration type that applies to all";
-		when(newMaintainableObject.getDataObject()).thenReturn(new CourtCase());
-		assertEquals(comment, 1, kv.getKeyValues(form).size());
-		
-		comment = "expected 1 consideration type with contract scope, one that applies to all (empty)";
-		when(newMaintainableObject.getDataObject()).thenReturn(new Contract());
-		assertEquals(comment, 2, kv.getKeyValues(form).size());
-		
-		/*comment = "expected one that applies to all (empty) and a blank one";
-		getTestUtils().testMatterStatusKeyValues(new OpinionConsiderationTypeKeyValues(), comment, 2);*/
-		
-		comment = "expected two consideration type with conveyance scope, one that applies to all (empty)";
-		when(newMaintainableObject.getDataObject()).thenReturn(new Conveyance());
-		assertEquals(comment, 3, kv.getKeyValues(form).size());
+		getTestUtils().testScopeKeyValues(dataObjectName, expectedCourtCaseScopeCount,
+				expectedContractScopeCount, expectedConveyanceScopeCount,
+				expectedEmptyScopeCount, expectedMatterScopeCount,
+				expectedLandCaseScopeCount, scopedClass);
 	}
 
 	@Override
 	public Class<? extends Scope> getScopeClass() {
 		return ConsiderationTypeScope.class;
+	}
+
+	@Override
+	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+		// DO nothing
+		
+	}
+
+	@Override
+	protected void testCrudCreated(BaseDetail type) {
+		// DO nothing
+		
+	}
+
+	@Override
+	protected void testCrudDeleted(BaseDetail type) {
+		// DO nothing
+		
+	}
+
+	@Override
+	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+		// DO nothing
+		
 	}
 }

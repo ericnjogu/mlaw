@@ -216,32 +216,29 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/consideration-type-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/transaction-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/transaction-type-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/work-type-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/work-type-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/event-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-type-test-data.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-test-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-work-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-event-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-transaction-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-assignee-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-work-test-data.sql", ";").runSql();
+	
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-assignee-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-consideration-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-event-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-type-perms-roles.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-annex-type-perms-roles.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/conveyance-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/note-atts-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/conveyance-work-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/conveyance-work-perms-roles.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/contract-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/contract-perms-roles.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/contract-type-perms-roles.sql", ";").runSql();
 		
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/court-case-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/court-case-test-data.sql", ";").runSql();
-		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/court-case-type-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/land-case-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/notification-content-event-type.sql", ";").runSql();
 		
@@ -277,18 +274,18 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyance.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/conveyanceWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contract.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/contractType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/eventType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/considerationType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterConsideration.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matter.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterType.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterAnnexType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterEvent.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterAssignee.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterTransactionDoc.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/transactionType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/workType.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/caseType.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/landCase.xml"));
 		return suiteLifecycles;
 	}

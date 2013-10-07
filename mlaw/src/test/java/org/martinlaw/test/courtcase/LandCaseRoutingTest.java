@@ -59,7 +59,7 @@ public class LandCaseRoutingTest extends CourtCaseRoutingTestBase {
 	 * @see org.martinlaw.test.courtcase.CourtCaseRoutingTestBase#getTestCourtCase()
 	 */
 	@Override
-	protected CourtCase getTestMatter() throws InstantiationException,
+	protected Matter getTestMatter() throws InstantiationException,
 			IllegalAccessException {
 		LandCase kase = (LandCase) super.getTestMatter();
 		kase.setLandReference(LAND_REF);

@@ -25,9 +25,7 @@ package org.martinlaw.bo;
  * #L%
  */
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -44,12 +42,6 @@ public class StatusScope extends Scope {
 	 * 
 	 */
 	private static final long serialVersionUID = 698178229853855467L;
-	@Id
-	@Column(name="status_scope_id")
-	private Long id;
-	@Column(name="status_id", nullable=false)
-	private Long statusId;
-	
 	/**
 	 * default constructor
 	 */
@@ -63,31 +55,5 @@ public class StatusScope extends Scope {
 	public StatusScope(String qualifiedClassName) {
 		super();
 		setQualifiedClassName(qualifiedClassName);
-	}
-	
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * the foreign key that links to the related status
-	 * @return the statusId
-	 */
-	public Long getStatusId() {
-		return statusId;
-	}
-	/**
-	 * @param statusId the statusId to set
-	 */
-	public void setStatusId(Long statusId) {
-		this.statusId = statusId;
 	}
 }

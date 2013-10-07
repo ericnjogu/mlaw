@@ -35,17 +35,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.rice.krad.maintenance.Maintainable;
-import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.martinlaw.bo.EventType;
 import org.martinlaw.bo.EventTypeScope;
 import org.martinlaw.bo.contract.Contract;
-import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.keyvalues.ScopedKeyValuesUif;
 import org.martinlaw.test.MartinlawTestsBase;
 import org.springframework.dao.DataIntegrityViolationException;
-import static org.mockito.Mockito.when;
 
 /**
  * test various BO ops for {@link EventType}
@@ -126,7 +122,7 @@ public class EventTypeBOTest extends MartinlawTestsBase {
 		assertNull("event type should have been deleted", getBoSvc().findBySinglePrimaryKey(EventType.class,
 				eventType.getId()));
 		Map<String, String> criteria = new HashMap<String, String>();
-		criteria.put("eventTypeId", String.valueOf(eventType.getId()));
+		criteria.put("typeId", String.valueOf(eventType.getId()));
 		assertTrue("event type scopes should have been deleted", getBoSvc().findMatching(EventTypeScope.class, criteria).isEmpty());
 	}
 	
@@ -134,26 +130,19 @@ public class EventTypeBOTest extends MartinlawTestsBase {
 	/**
 	 * test that event type key values returns the correct number
 	 */
-	public void testMatterStatusKeyValues() {
-		ScopedKeyValuesUif kv = new ScopedKeyValuesUif();
-		kv.setScopedClass(EventType.class);
+	public void testEVentTypeKeyValues() {
+		final String dataObjectName = "event type(s)";
+		final int expectedCourtCaseScopeCount = 2;
+		final int expectedContractScopeCount = 0;
+		final int expectedConveyanceScopeCount = 1;
+		final int expectedEmptyScopeCount = 1;
+		final int expectedMatterScopeCount = 0;
+		final int expectedLandCaseScopeCount = 0;
+		final Class<? extends BusinessObject> scopedClass = EventType.class;
 		
-		MaintenanceDocumentForm form = getTestUtils().createMockMaintenanceDocForm();
-		Maintainable newMaintainableObject = form.getDocument().getNewMaintainableObject();
-		
-		when(newMaintainableObject.getDataObject()).thenReturn(new CourtCase());
-		String comment = "expected 2 event types with court case scope and one that apply to all (empty)";
-		assertEquals(comment, 3, kv.getKeyValues(form).size());
-		
-		comment = "expected 1 that applies to all (empty)";
-		when(newMaintainableObject.getDataObject()).thenReturn(new Contract());
-		assertEquals(comment, 1, kv.getKeyValues(form).size());
-		
-		/*comment = "expected 1 that applies to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new OpinionEventTypeKeyValues(), comment, 2);*/
-		
-		comment = "expected one status with conveyance scope, one that applies to all (empty)";
-		when(newMaintainableObject.getDataObject()).thenReturn(new Conveyance());
-		assertEquals(comment, 2, kv.getKeyValues(form).size());
+		getTestUtils().testScopeKeyValues(dataObjectName, expectedCourtCaseScopeCount,
+				expectedContractScopeCount, expectedConveyanceScopeCount,
+				expectedEmptyScopeCount, expectedMatterScopeCount,
+				expectedLandCaseScopeCount, scopedClass);
 	}
 }

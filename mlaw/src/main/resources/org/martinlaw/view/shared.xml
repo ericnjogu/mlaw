@@ -341,6 +341,14 @@
 					p:label="Time to Approve"
 					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
 					p:dictionaryAttributeName="genericBigText"/>
+				<!-- adapt here if link is not added automatically -->
+				<!-- <bean parent="martinlaw_shared_line_docnumber_linkfield">
+								<property name="href">
+									<value>
+										@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+									</value>
+								</property>
+							</bean> -->
 				<bean parent="Uif-InputField" p:propertyName="documentHeader.documentNumber" />
 			</list>
 		</property>
@@ -381,17 +389,17 @@
 		<property name="propertyNamesForAdditionalDisplay" value="matter.name" />
 	</bean>
 	
-	<bean id="martinlaw_shared_conveyance_annex_type_tbl" parent="Uif-Disclosure-TableCollectionSection">
+	<!-- change from annex type to annex detail -->
+	<bean id="martinlaw_shared_matter_type_annex_detail_tbl" parent="Uif-Disclosure-TableCollectionSection">
 	   <property name="headerText" value="Documents Required"/>
-	   <property name="collectionObjectClass" value="org.martinlaw.bo.conveyance.ConveyanceAnnexType"/>
-	   <property name="propertyName" value="annexTypes"/>
+	   <property name="collectionObjectClass" value="org.martinlaw.bo.MatterTypeAnnexDetail"/>
+	   <property name="propertyName" value="annexDetails"/>
 	   <property name="layoutManager.sequencePropertyName" value="sequence" />
 	   <property name="layoutManager.renderSequenceField" value="false"/>
 	   <property name="items">
 	     <list>
 	     	<bean parent="Uif-InputField" p:propertyName="sequence"/>
-			<bean parent="Uif-InputField" p:propertyName="name"/>
-			<bean parent="Uif-InputField" p:propertyName="description"/>
+			<bean parent="Uif-InputField" p:propertyName="annexTypeId"/>
 	     </list>
 	   </property>
 	 </bean>
@@ -555,12 +563,67 @@
 					<property name="items">
 						<list>
 							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" p:dictionaryObjectEntry="org.martinlaw.bo.Matter"/>
-							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="workTypeId" 
-								p:dictionaryObjectEntry="org.martinlaw.bo.MatterWork"/>
+							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="annexTypeId" 
+								p:dictionaryObjectEntry="org.martinlaw.bo.MatterAnnexType"/>
 						</list>
 					</property>
 				</bean>
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="matter_type_inquiry_view" parent="martinlaw_shared_name_description_inquiry_view">
+	    <property name="headerText" value="Matter Type Inquiry"/>
+	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterType"/>
+	    <property name="items">
+	      <list merge="true">
+	        <ref bean="martinlaw_shared_matter_type_annex_detail_tbl"/>
+	      </list>
+	    </property>
+	</bean>
+	
+	<bean id="matter_type_LookupView" parent="martinlaw_shared_name_description_LookupView">
+	    <property name="headerText" value="Matter Type Lookup" />
+	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterType" />
+	</bean>
+	
+	<bean id="matter_type_maintenance_view" parent="martinlaw_shared_name_description_maintenance_view">
+	    <property name="headerText" value="Matter Type"/>
+	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterType"/>
+	    <property name="items">
+	      <list merge="true">
+	        <ref bean="martinlaw_shared_matter_type_annex_detail_tbl"/>
+	      </list>
+	    </property>
+	</bean>
+	
+	<bean id="matter_annex_type_inquiry_view" parent="martinlaw_shared_name_description_inquiry_view">
+	    <property name="headerText" value="Matter Annex Type Inquiry"/>
+	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterAnnexType"/>
+	    <property name="items">
+	      <list merge="true">
+	        <bean parent="Uif-InputField" p:propertyName="requiresApproval"/>
+	      </list>
+	    </property>
+	</bean>
+	
+	<bean id="matter_annex_type_LookupView" parent="martinlaw_shared_name_description_LookupView">
+	    <property name="headerText" value="Matter Annex Type Lookup" />
+	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterAnnexType" />
+	    <property name="items">
+	      <list merge="true">
+	        <bean parent="Uif-InputField" p:propertyName="requiresApproval"/>
+	      </list>
+	    </property>
+	</bean>
+	
+	<bean id="matter_annex_type_maintenance_view" parent="martinlaw_shared_name_description_maintenance_view">
+	    <property name="headerText" value="Matter Annex Type"/>
+	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterAnnexType"/>
+	    <property name="items">
+	      <list merge="true">
+	        <bean parent="Uif-InputField" p:propertyName="requiresApproval"/>
+	      </list>
+	    </property>
 	</bean>
 </beans>

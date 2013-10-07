@@ -6,7 +6,6 @@ package org.martinlaw.test.courtcase;
 import static org.junit.Assert.assertEquals;
 
 import org.martinlaw.bo.Matter;
-import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.LandCase;
 
 /**
@@ -46,7 +45,7 @@ public class LandCaseBOTest extends CourtCaseBoTestBase {
 	 * @see org.martinlaw.test.courtcase.CourtCaseBoTestBase#getTestCourtCase(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	protected CourtCase getTestMatter(String localReference,
+	protected Matter getTestMatter(String localReference,
 			String statusText, String matterName) throws InstantiationException,
 			IllegalAccessException {
 		LandCase kase = (LandCase) super.getTestMatter(localReference, statusText, matterName);

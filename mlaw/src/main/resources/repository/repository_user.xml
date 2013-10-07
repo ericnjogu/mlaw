@@ -47,11 +47,20 @@
 		<field-descriptor name="versionNumber" column="ver_nbr"	jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id" jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="tags" column="tags" jdbc-type="VARCHAR" length="1000"/>
+		
+		<field-descriptor name="typeId" column="type_id"	jdbc-type="BIGINT" indexed="true"/>
+		<reference-descriptor name="type"
+			class-ref="org.martinlaw.bo.MatterType" auto-retrieve="true" auto-update="none"
+			auto-delete="none">
+			<foreignkey field-ref="typeId" />
+			
+		</reference-descriptor>
 		<collection-descriptor name="clients"
 			element-class-ref="org.martinlaw.bo.MatterClient"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
 			<inverse-foreignkey field-ref="matterId" />
 		</collection-descriptor>
+		
 		<field-descriptor name="statusId" column="status_id"
 			jdbc-type="BIGINT" indexed="true">
 		</field-descriptor>
@@ -106,14 +115,6 @@
 			<inverse-foreignkey field-ref="courtCaseId" />
 		</collection-descriptor>
 		
-		<field-descriptor name="typeId" column="court_case_type_id"
-			jdbc-type="BIGINT" indexed="true"/>
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.courtcase.CourtCaseType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="typeId" />
-		</reference-descriptor>
-		
 		<reference-descriptor name="super" class-ref="org.martinlaw.bo.Matter">
         	<foreignkey field-ref="id"/>
     	</reference-descriptor>
@@ -149,7 +150,7 @@
 		<field-descriptor name="matterId" column="matter_id"
 			jdbc-type="BIGINT" indexed="true" />
 		
-		<field-descriptor name="considerationTypeId" column="consideration_type_id"	jdbc-type="BIGINT" />
+		<field-descriptor name="considerationTypeId" column="type_id"	jdbc-type="BIGINT" />
 		<reference-descriptor name="considerationType"
 			class-ref="org.martinlaw.bo.ConsiderationType" auto-retrieve="true" auto-update="none"
 			auto-delete="none">
@@ -221,18 +222,18 @@
 		<collection-descriptor name="scope"
 			element-class-ref="org.martinlaw.bo.StatusScope"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="statusId" />
+			<inverse-foreignkey field-ref="typeId" />
 		</collection-descriptor>
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.StatusScope" table="martinlaw_status_scope_t">
-		<field-descriptor name="id" column="status_scope_id"
+		<field-descriptor name="id" column="scope_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_status_scope_s">
 		</field-descriptor>
 		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
 			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="statusId" column="status_id"
+		<field-descriptor name="typeId" column="type_id"
 			jdbc-type="BIGINT"/>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
@@ -263,7 +264,7 @@
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 
-		<field-descriptor name="typeId" column="event_type_id"
+		<field-descriptor name="typeId" column="type_id"
 			jdbc-type="BIGINT" />
 		<field-descriptor name="active" column="active" jdbc-type="VARCHAR" 
 		conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
@@ -280,11 +281,11 @@
 		</reference-descriptor>
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceType"
-		table="martinlaw_conveyance_type_t">
-		<field-descriptor name="id" column="convey_type_id"
+	<class-descriptor class="org.martinlaw.bo.MatterAnnexType"
+		table="martinlaw_matter_annex_type_t">
+		<field-descriptor name="id" column="type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_type_s">
+			sequence-name="martinlaw_matter_annex_type_s">
 		</field-descriptor>
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="150">
@@ -296,78 +297,24 @@
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
 			jdbc-type="BIGINT" locking="true" />
-
-		<collection-descriptor name="annexTypes"
-			element-class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
+		<field-descriptor name="requiresApproval" column="requires_approval" jdbc-type="VARCHAR" 
+		conversion="org.kuali.rice.core.framework.persistence.ojb.conversion.OjbCharBooleanConversion" />
+		
+		<collection-descriptor name="scope"
+			element-class-ref="org.martinlaw.bo.MatterAnnexTypeScope"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="conveyanceTypeId" />
+			<inverse-foreignkey field-ref="typeId" />
 		</collection-descriptor>
-	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
-		table="martinlaw_conveyance_annex_type_t">
-		<field-descriptor name="id" column="convey_annex_type_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_conveyance_annex_type_s">
-		</field-descriptor>
-		<field-descriptor name="name" column="name"
-			jdbc-type="VARCHAR" length="150">
-		</field-descriptor>
-		<field-descriptor name="description" column="description"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
-		<field-descriptor name="conveyanceTypeId" column="convey_type_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-		<field-descriptor name="sequence" column="sequence"	jdbc-type="BIGINT"/>
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.conveyance.Conveyance" table="martinlaw_conveyance_t">
 		<field-descriptor name="id" column="matter_id"
 			jdbc-type="BIGINT" primarykey="true" />
 		
-		<field-descriptor name="typeId" column="convey_type_id"
-			jdbc-type="BIGINT" indexed="true">
-		</field-descriptor>
-
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.conveyance.ConveyanceType" auto-retrieve="true"
-			auto-update="none" auto-delete="none">
-			<foreignkey field-ref="typeId" />
-		</reference-descriptor>
-		
-		<!-- <collection-descriptor name="work"
-			element-class-ref="org.martinlaw.bo.conveyance.Work"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="matterId" />
-		</collection-descriptor> -->
-		
 		<reference-descriptor name="super" class-ref="org.martinlaw.bo.Matter">
         	<foreignkey field-ref="id"/>
     	</reference-descriptor>
 
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.contract.ContractType"
-		table="martinlaw_contract_type_t">
-		<field-descriptor name="id" column="contract_type_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_contract_type_s">
-		</field-descriptor>
-		<field-descriptor name="name" column="name"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
-		<field-descriptor name="description" column="description"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.contract.ContractSignatory"
@@ -443,14 +390,6 @@
 		<field-descriptor name="contractDurationId" column="contract_duration_id"
 			jdbc-type="BIGINT" />
 
-		<field-descriptor name="typeId" column="contract_type_id"
-			jdbc-type="BIGINT" />
-		<reference-descriptor name="type"
-			class-ref="org.martinlaw.bo.contract.ContractType" auto-retrieve="true"
-			auto-update="none" auto-delete="none">
-			<foreignkey field-ref="typeId" />
-		</reference-descriptor>
-
 		<reference-descriptor name="contractDuration"
 			class-ref="org.martinlaw.bo.contract.ContractDuration" auto-retrieve="true"
 			auto-update="true" auto-delete="true">
@@ -491,7 +430,7 @@
 	</class-descriptor>
 
 	<class-descriptor class="org.martinlaw.bo.EventType" table="martinlaw_event_type_t">
-		<field-descriptor name="id" column="event_type_id"
+		<field-descriptor name="id" column="type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_event_type_s">
 		</field-descriptor>
@@ -509,18 +448,18 @@
 		<collection-descriptor name="scope"
 			element-class-ref="org.martinlaw.bo.EventTypeScope"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="eventTypeId" />
+			<inverse-foreignkey field-ref="typeId" />
 		</collection-descriptor>
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.EventTypeScope" table="martinlaw_event_type_scope_t">
-		<field-descriptor name="id" column="event_type_scope_id"
+		<field-descriptor name="id" column="scope_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_event_type_scope_s">
 		</field-descriptor>
 		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
 			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="eventTypeId" column="event_type_id"
+		<field-descriptor name="typeId" column="type_id"
 			jdbc-type="BIGINT"/>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
@@ -574,33 +513,14 @@
 			<foreignkey field-ref="matterId" />
 		</reference-descriptor>
 		
-		<field-descriptor name="workTypeId" column="work_type_id"	jdbc-type="BIGINT" />
-		<reference-descriptor name="workType"
-			class-ref="org.martinlaw.bo.WorkType" auto-retrieve="true" auto-update="none"
-			auto-delete="none">
-			<foreignkey field-ref="workTypeId" />
+		<field-descriptor name="annexTypeId"
+			column="annex_type_id" jdbc-type="BIGINT" />
+
+		<reference-descriptor name="annexType" class-ref="org.martinlaw.bo.MatterAnnexType"
+			auto-retrieve="true" auto-update="none" auto-delete="none">
+			<foreignkey field-ref="annexTypeId" />
 		</reference-descriptor>
 	</class-descriptor>
-
-	<class-descriptor class="org.martinlaw.bo.conveyance.Work"
-		table="martinlaw_conveyance_work_doc_t">
-		<field-descriptor name="documentNumber" column="DOC_HDR_ID"
-			jdbc-type="VARCHAR" primarykey="true" />
-		
-		<field-descriptor name="conveyanceAnnexTypeId"
-			column="convey_annex_type_id" jdbc-type="BIGINT" />
-
-		<reference-descriptor name="conveyanceAnnexType"
-			class-ref="org.martinlaw.bo.conveyance.ConveyanceAnnexType"
-			auto-retrieve="true" auto-update="none" auto-delete="none">
-			<foreignkey field-ref="conveyanceAnnexTypeId" />
-		</reference-descriptor>
-		
-		<reference-descriptor name="super" class-ref="org.martinlaw.bo.MatterWork">
-        	<foreignkey field-ref="documentNumber"/>
-    	</reference-descriptor>
-		
-		</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.MatterTransactionDoc"
 		table="martinlaw_matter_transaction_doc_t">
@@ -626,7 +546,7 @@
 		</field-descriptor>
 		<field-descriptor name="clientPrincipalName" column="client_principal_name"
 			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="transactionTypeId" column="transaction_type_id"
+		<field-descriptor name="transactionTypeId" column="type_id"
 			jdbc-type="BIGINT" />
 		<field-descriptor name="considerationId" column="consideration_id"
 			jdbc-type="BIGINT" />
@@ -647,7 +567,7 @@
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.ConsiderationType" table="martinlaw_consideration_type_t">
-		<field-descriptor name="id" column="consideration_type_id"
+		<field-descriptor name="id" column="type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_consideration_type_s">
 		</field-descriptor>
@@ -665,18 +585,18 @@
 		<collection-descriptor name="scope"
 			element-class-ref="org.martinlaw.bo.ConsiderationTypeScope"
 			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="considerationTypeId" />
+			<inverse-foreignkey field-ref="typeId" />
 		</collection-descriptor>
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.ConsiderationTypeScope" table="martinlaw_consideration_type_scope_t">
-		<field-descriptor name="id" column="consideration_type_scope_id"
+		<field-descriptor name="id" column="scope_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_consideration_type_scope_s">
 		</field-descriptor>
 		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
 			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="considerationTypeId" column="consideration_type_id"
+		<field-descriptor name="typeId" column="type_id"
 			jdbc-type="BIGINT"/>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
@@ -684,37 +604,14 @@
 			jdbc-type="BIGINT" locking="true" />
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.WorkType" table="martinlaw_work_type_t">
-		<field-descriptor name="id" column="work_type_id"
+	<class-descriptor class="org.martinlaw.bo.MatterAnnexTypeScope" table="martinlaw_annex_type_scope_t">
+		<field-descriptor name="id" column="scope_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_work_type_s">
-		</field-descriptor>
-		<field-descriptor name="name" column="name"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
-		<field-descriptor name="description" column="description"
-			jdbc-type="VARCHAR" length="100">
-		</field-descriptor>
-		<field-descriptor name="objectId" column="obj_id"
-			jdbc-type="VARCHAR" index="true" />
-		<field-descriptor name="versionNumber" column="ver_nbr"
-			jdbc-type="BIGINT" locking="true" />
-			
-		<collection-descriptor name="scope"
-			element-class-ref="org.martinlaw.bo.WorkTypeScope"
-			auto-retrieve="true" auto-update="true" auto-delete="true">
-			<inverse-foreignkey field-ref="workTypeId" />
-		</collection-descriptor>
-	</class-descriptor>
-	
-	<class-descriptor class="org.martinlaw.bo.WorkTypeScope" table="martinlaw_work_type_scope_t">
-		<field-descriptor name="id" column="work_type_scope_id"
-			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_work_type_scope_s">
+			sequence-name="martinlaw_annex_type_scope_s">
 		</field-descriptor>
 		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
 			jdbc-type="VARCHAR" length="100"/>
-		<field-descriptor name="workTypeId" column="work_type_id"
+		<field-descriptor name="typeId" column="type_id"
 			jdbc-type="BIGINT"/>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
@@ -723,7 +620,7 @@
 	</class-descriptor>
 	
 	<class-descriptor class="org.martinlaw.bo.TransactionType" table="martinlaw_transaction_type_t">
-		<field-descriptor name="id" column="transaction_type_id"
+		<field-descriptor name="id" column="type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_transaction_type_s">
 		</field-descriptor>
@@ -742,10 +639,10 @@
 		</field-descriptor>
 	</class-descriptor>
 	
-	<class-descriptor class="org.martinlaw.bo.courtcase.CourtCaseType" table="martinlaw_court_case_type_t">
-		<field-descriptor name="id" column="court_case_type_id"
+	<class-descriptor class="org.martinlaw.bo.MatterType" table="martinlaw_matter_type_t">
+		<field-descriptor name="id" column="type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
-			sequence-name="martinlaw_court_case_type_s">
+			sequence-name="martinlaw_matter_type_s">
 		</field-descriptor>
 		<field-descriptor name="name" column="name"
 			jdbc-type="VARCHAR" length="100">
@@ -753,6 +650,32 @@
 		<field-descriptor name="description" column="description"
 			jdbc-type="VARCHAR" length="100">
 		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+			
+		<collection-descriptor name="scope"
+			element-class-ref="org.martinlaw.bo.MatterTypeScope"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="typeId" />
+		</collection-descriptor>
+		<collection-descriptor name="annexDetails"
+			element-class-ref="org.martinlaw.bo.MatterTypeAnnexDetail"
+			auto-retrieve="true" auto-update="true" auto-delete="true">
+			<inverse-foreignkey field-ref="matterTypeId" />
+		</collection-descriptor>
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.MatterTypeScope" table="martinlaw_matter_type_scope_t">
+		<field-descriptor name="id" column="scope_id"
+			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
+			sequence-name="martinlaw_matter_type_scope_s">
+		</field-descriptor>
+		<field-descriptor name="qualifiedClassName" column="qualified_class_name"
+			jdbc-type="VARCHAR" length="100"/>
+		<field-descriptor name="typeId" column="type_id"
+			jdbc-type="BIGINT"/>
 		<field-descriptor name="objectId" column="obj_id"
 			jdbc-type="VARCHAR" index="true" />
 		<field-descriptor name="versionNumber" column="ver_nbr"
@@ -769,5 +692,29 @@
 		<field-descriptor name="entityId" column="entityId"	jdbc-type="VARCHAR" length="200" />
 		<field-descriptor name="versionNumber" column="ver_nbr"	jdbc-type="BIGINT" locking="true" />
 		<field-descriptor name="objectId" column="obj_id" jdbc-type="VARCHAR" index="true" />
+	</class-descriptor>
+	
+	<class-descriptor class="org.martinlaw.bo.MatterTypeAnnexDetail" table="martinlaw_matter_type_annex_detail">
+		<field-descriptor name="matterTypeId" column="matter_type_id"
+			jdbc-type="BIGINT" primarykey="true" >
+		</field-descriptor>
+		<field-descriptor name="annexTypeId" column="annex_type_id"
+			jdbc-type="BIGINT" primarykey="true" >
+		</field-descriptor>
+		<field-descriptor name="objectId" column="obj_id"
+			jdbc-type="VARCHAR" index="true" />
+		<field-descriptor name="versionNumber" column="ver_nbr"
+			jdbc-type="BIGINT" locking="true" />
+		<field-descriptor name="sequence" column="sequence"	jdbc-type="BIGINT"/>
+			
+		<reference-descriptor name="matterType" class-ref="org.martinlaw.bo.MatterType" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> 
+			<foreignkey field-ref="matterTypeId"/> 
+		</reference-descriptor>
+		
+		<reference-descriptor name="annexType" class-ref="org.martinlaw.bo.MatterAnnexType" 
+			auto-retrieve="true" auto-update="none" auto-delete="none"> 
+			<foreignkey field-ref="annexTypeId"/> 
+		</reference-descriptor>
 	</class-descriptor>
 </descriptor-repository>

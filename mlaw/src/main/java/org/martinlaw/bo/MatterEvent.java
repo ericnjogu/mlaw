@@ -62,15 +62,15 @@ public class MatterEvent extends MatterExtensionHelper {
 	private Timestamp startDate;
 	@Column(name = "date_comment", length = 150)
 	private String comment;
-	@Transient
+	@Column(name = "calendar_event_id")
 	private Long calendarEventId;
 	@OneToOne
-	@JoinColumn(name = "calendar_event_id", nullable = true, updatable = true)
+	@JoinColumn(name = "calendar_event_id", nullable = true, updatable = false, insertable=false)
 	private CalendarEvent calendarEvent;
-	@Transient
+	@Column(name = "type_id")
 	private Long typeId;
 	@OneToOne
-	@JoinColumn(name = "event_type_id", nullable = false, updatable = true)
+	@JoinColumn(name = "type_id", nullable = false, updatable = false, insertable=false)
 	private EventType type;
 	@Id
 	@Column(name="id")

@@ -25,9 +25,7 @@ package org.martinlaw.bo;
  * #L%
  */
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -44,34 +42,4 @@ public class ConsiderationTypeScope extends Scope {
 	 * 
 	 */
 	private static final long serialVersionUID = 698178229853855467L;
-	@Id
-	@Column(name="consideration_type_scope_id")
-	private Long id;
-	@Column(name="consideration_type_id", nullable=false)
-	private Long considerationTypeId;
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * the foreign key that links to the related consideration type
-	 * @return the considerationTypeId
-	 */
-	public Long getConsiderationTypeId() {
-		return considerationTypeId;
-	}
-	/**
-	 * @param considerationTypeId the considerationTypeId to set
-	 */
-	public void setConsiderationTypeId(Long considerationTypeId) {
-		this.considerationTypeId = considerationTypeId;
-	}
 }

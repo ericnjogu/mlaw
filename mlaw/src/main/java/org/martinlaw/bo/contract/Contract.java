@@ -64,12 +64,6 @@ public class Contract extends Matter {
 		setSignatories(new ArrayList<ContractSignatory>());
 	}
 	
-	//column defined using reference below - this is for the sake of ojb
-	@Transient
-	private Long typeId;
-	@OneToOne
-	@JoinColumn(name = "contract_type_id", nullable = false, updatable = false)
-	private ContractType type;
 	@Column(name="service_offered", length=255)
 	private String serviceOffered;
 	@Column(name="summary_of_terms", length=255)
@@ -93,30 +87,6 @@ public class Contract extends Matter {
 	@OneToOne
 	@JoinColumn(name = "contract_duration_id", nullable = false, updatable = true)
 	private ContractDuration contractDuration;
-	/**
-	 * @return the contractTypeId
-	 */
-	public Long getTypeId() {
-		return typeId;
-	}
-	/**
-	 * @param contractTypeId the contractTypeId to set
-	 */
-	public void setTypeId(Long contractTypeId) {
-		this.typeId = contractTypeId;
-	}
-	/**
-	 * @return the type
-	 */
-	public ContractType getType() {
-		return type;
-	}
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(ContractType contractType) {
-		this.type = contractType;
-	}
 	
 	/**
 	 * @return the serviceOffered

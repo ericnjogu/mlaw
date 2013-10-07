@@ -71,8 +71,7 @@ public class Matter extends PersistableBusinessObjectBase {
 	 */
 	@Column(name = "local_reference", length = 50, nullable = false)
 	private String localReference;
-	//column defined using reference below - this is for the sake of ojb
-	@Transient
+	@Column(name = "status_id")
 	private Long statusId;
 	/** 
 	 * case e.g. Mike Vs Iron (2002) 
@@ -80,7 +79,7 @@ public class Matter extends PersistableBusinessObjectBase {
 	@Column(name = "name", length = 1000)
 	private String name;
 	@OneToOne
-	@JoinColumn(name = "status_id", nullable = false, updatable = false)
+	@JoinColumn(name = "status_id", nullable = false, updatable = false, insertable=false)
 	private Status status;
 	@Column(name = "client_principal_name", length = 100, nullable = false)
 	private String clientPrincipalName;
@@ -111,6 +110,11 @@ public class Matter extends PersistableBusinessObjectBase {
 	private String concreteClass;
 	@Column(name = "tags", length = 1000)
 	private String tags;
+	@Column(name = "type_id")
+	private Long typeId;
+	@OneToOne
+	@JoinColumn(name = "type_id", nullable = false, updatable = false, insertable=false)
+	private MatterType type;
 	
 	/**
 	 * default constructor
@@ -469,5 +473,33 @@ public class Matter extends PersistableBusinessObjectBase {
 	 */
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+
+	/**
+	 * @return the typeId
+	 */
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	/**
+	 * @param typeId the typeId to set
+	 */
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+	/**
+	 * @return the courtCaseType
+	 */
+	public MatterType getType() {
+		return type;
+	}
+
+	/**
+	 * @param matterType the courtCaseType to set
+	 */
+	public void setType(MatterType matterType) {
+		this.type = matterType;
 	}
 }

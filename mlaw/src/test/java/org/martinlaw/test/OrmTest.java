@@ -60,7 +60,11 @@ public class OrmTest {
 		assertNotNull(hibernateTemplate.find("from CourtCase"));
 		assertNotNull(hibernateTemplate.find("from Contract"));
 		assertNotNull(hibernateTemplate.find("from Matter"));
-		assertNotNull(hibernateTemplate.find("from ConveyanceAnnexType"));
+		assertNotNull(hibernateTemplate.find("from MatterAnnexType"));
 		assertNotNull(hibernateTemplate.find("from EventType"));
+		assertNotNull(hibernateTemplate.find("from EventTypeScope"));
+		assertNotNull(hibernateTemplate.find("from MatterWork"));
+		assertNotNull(hibernateTemplate.find("from MatterConsideration"));
+		assertNotNull(hibernateTemplate.find("from MatterTransactionDoc"));
 	}
 }

@@ -23,6 +23,7 @@ package org.martinlaw.bo;
  */
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
@@ -41,6 +42,11 @@ public abstract class Scope extends PersistableBusinessObjectBase {
 	private static final long serialVersionUID = 7657417655869201305L;
 	@Column(name = "qualified_class_name", nullable = false, length = 100)
 	private String qualifiedClassName;
+	@Id
+	@Column(name = "scope_id")
+	private Long id;
+	@Column(name = "type_id", nullable = false)
+	private Long typeId;
 
 	public Scope() {
 		super();
@@ -70,6 +76,35 @@ public abstract class Scope extends PersistableBusinessObjectBase {
 		} else {
 			return getQualifiedClassName().substring(getQualifiedClassName().lastIndexOf('.') + 1);
 		}
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * the foreign key that links to the related status, matter type, event type etc
+	 * @return the statusId
+	 */
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	/**
+	 * @param typeId the typeId to set
+	 */
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
 	}
 
 }

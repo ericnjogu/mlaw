@@ -30,9 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -53,30 +51,8 @@ public class EventType extends BaseDetail  implements ScopedKeyValue {
 	 * 
 	 */
 	private static final long serialVersionUID = 7245197877574711265L;
-	@Id
-	/*@GeneratedValue(generator="martinlaw_date_type_s")
-	@GenericGenerator(name="martinlaw_date_type_s",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",parameters={
-			@Parameter(name="sequence_name",value="martinlaw_date_type_s"),
-			@Parameter(name="value_column",value="id")
-	})*/
-	@Column(name="event_type_id")
-	private Long id;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "eventTypeId")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
 	private List<EventTypeScope> scope;
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the scope

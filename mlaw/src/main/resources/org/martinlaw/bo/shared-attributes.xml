@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  #%L
-  mlaw
-  %%
-  Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
-  %%
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as
-  published by the Free Software Foundation, either version 3 of the 
-  License, or (at your option) any later version.
-  
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-  
-  You should have received a copy of the GNU General Public 
-  License along with this program.  If not, see
-  <http://www.gnu.org/licenses/gpl-3.0.html>.
-  #L%
-  -->
-
+<!-- #%L mlaw %% Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com) 
+	%% This program is free software: you can redistribute it and/or modify it 
+	under the terms of the GNU General Public License as published by the Free 
+	Software Foundation, either version 3 of the License, or (at your option) 
+	any later version. This program is distributed in the hope that it will be 
+	useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+	more details. You should have received a copy of the GNU General Public License 
+	along with this program. If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
+	#L% -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
@@ -37,7 +25,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 					<map merge="true">
 						<!-- did not appear to be resolved - would need to be put in a view -->
 						<!-- <entry key="dateFormat" value="@{#ConfigProperties['mlaw.jquery.date.format']}"/> -->
-						<entry key="dateFormat" value="dd M yy"/>
+						<entry key="dateFormat" value="dd M yy" />
 					</map>
 				</property>
 			</bean>
@@ -103,8 +91,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 		<property name="required" value="true" />
 	</bean>
-	
-	<bean id="martinlaw_shared_matter_name" abstract="true" parent="martinlaw-shared-name">
+
+	<bean id="martinlaw_shared_matter_name" abstract="true"
+		parent="martinlaw-shared-name">
 		<property name="controlField">
 			<bean parent="Uif-TextAreaControl" p:rows="5" p:cols="50"
 				p:maxLength="1000" />
@@ -121,9 +110,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="forceUppercase" value="false" />
 		<property name="shortLabel" value="name" />
 		<property name="maxLength" value="100" />
-		<!-- <property name="validCharactersConstraint">
-           <bean parent="AlphaNumericPatternConstraint" p:lowerCase="true"/>
-         </property> -->
+		<!-- <property name="validCharactersConstraint"> <bean parent="AlphaNumericPatternConstraint" 
+			p:lowerCase="true"/> </property> -->
 		<property name="control">
 			<bean parent="TextControlDefinition" p:size="50" />
 		</property>
@@ -135,21 +123,22 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="controlField">
 			<bean parent="Uif-KimPersonControl" p:personNamePropertyName="person.name"
 				p:principalIdPropertyName="person.principalId" p:size="50">
-				 <property name="toolTip">
-			       <bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
-			       	p:tooltipContent="Type full name here OR select existing contact by clicking magnifying glass icon"/>
-			     </property>
+				<property name="toolTip">
+					<bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
+						p:tooltipContent="Type full name here OR select existing contact by clicking magnifying glass icon" />
+				</property>
 			</bean>
 		</property>
 	</bean>
 
-	<bean id="martinlaw-shared-localReference-parentBean" abstract="true" parent="AttributeDefinition">
+	<bean id="martinlaw-shared-localReference-parentBean" abstract="true"
+		parent="AttributeDefinition">
 		<property name="forceUppercase" value="true" />
 		<property name="maxLength" value="50" />
 		<property name="validCharactersConstraint">
-           <bean parent="AlphaNumericPatternConstraint" p:upperCase="true" p:allowForwardSlash="true" p:allowDash="true"
-           	p:allowParenthesis="true"/>
-        </property>
+			<bean parent="AlphaNumericPatternConstraint" p:upperCase="true"
+				p:allowForwardSlash="true" p:allowDash="true" p:allowParenthesis="true" />
+		</property>
 		<property name="control">
 			<bean parent="TextControlDefinition" p:size="50" />
 		</property>
@@ -163,21 +152,22 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 
-	<bean id="martinlaw-shared-statusId-parentBean"	parent="AttributeDefinition">
+	<bean id="martinlaw-shared-statusId-parentBean" parent="AttributeDefinition">
 		<property name="maxLength" value="100" />
 		<property name="validationPattern">
-			<bean parent="NumericValidationPattern"/>
+			<bean parent="NumericValidationPattern" />
 		</property>
 		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.ScopedKeyValuesUif" p:addBlankOption="true" 
-				p:scopedClass="org.martinlaw.bo.Status"/>
+			<bean class="org.martinlaw.keyvalues.ScopedKeyValuesUif"
+				p:addBlankOption="true" p:scopedClass="org.martinlaw.bo.Status" />
 		</property>
 		<!-- required for display in custom document search -->
 		<property name="control">
-			<bean parent="SelectControlDefinition" p:size="20" 
+			<bean parent="SelectControlDefinition" p:size="20"
 				p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:businessObjectClass="org.martinlaw.bo.Status"
-				p:keyAttribute="id"	p:labelAttribute="status" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
+				p:businessObjectClass="org.martinlaw.bo.Status" p:keyAttribute="id"
+				p:labelAttribute="status" p:includeBlankRow="true"
+				p:includeKeyInLabel="false" />
 		</property>
 		<property name="name" value="statusId" />
 		<property name="label" value="Status" />
@@ -187,7 +177,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_person_parentBean" abstract="true" parent="BusinessObjectEntry">
+	<bean id="martinlaw_shared_person_parentBean" abstract="true"
+		parent="BusinessObjectEntry">
 		<property name="titleAttribute" value="principalName" />
 		<property name="relationships">
 			<list>
@@ -220,7 +211,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		</property>
 		<property name="objectLabel" value="Client" />
 	</bean>
-	
+
 	<bean id="martinlaw_shared_type_bo" abstract="true" parent="BusinessObjectEntry">
 		<property name="titleAttribute" value="name" />
 		<property name="attributes">
@@ -231,43 +222,51 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="martinlaw_shared_workflow_search_attr_parent" abstract="true" class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
+
+	<bean id="martinlaw_shared_workflow_search_attr_parent" abstract="true"
+		class="org.kuali.rice.krad.datadictionary.SearchingAttribute">
 		<property name="showAttributeInSearchCriteria" value="true" />
 		<property name="showAttributeInResultSet" value="true" />
 	</bean>
-	
-	<bean id="martinlaw_shared_matter_relationship" abstract="true" parent="RelationshipDefinition">
-       <property name="objectAttributeName" value="matter"/>
-       <property name="primitiveAttributes">
-         <list>
-           <bean parent="PrimitiveAttributeDefinition" p:sourceName="matterId" p:targetName="id"/>
-           <!-- <bean parent="PrimitiveAttributeDefinition" p:sourceName="matter.localReference" p:targetName="localReference"/> -->
-         </list>
-       </property>
-       <property name="supportAttributes">
-         <list>
-           <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="matterId" p:targetName="id"/>
-         </list>
-       </property>
-     </bean>
-     
-     <bean id="martinlaw_shared_consideration_relationship" abstract="true" parent="RelationshipDefinition">
-       <property name="objectAttributeName" value="consideration"/>
-       <property name="primitiveAttributes">
-         <list>
-           <bean parent="PrimitiveAttributeDefinition" p:sourceName="considerationId" p:targetName="id"/>
-         </list>
-       </property>
-       <property name="supportAttributes">
-         <list>
-           <bean parent="SupportAttributeDefinition" p:identifier="true" p:sourceName="considerationId" p:targetName="id"/>
-         </list>
-       </property>
-     </bean>
-     
-     <bean id="martinlaw_shared_matterId_attr" parent="AttributeDefinition">
-		<property name="maxLength" value="20"/>
+
+	<bean id="martinlaw_shared_matter_relationship" abstract="true"
+		parent="RelationshipDefinition">
+		<property name="objectAttributeName" value="matter" />
+		<property name="primitiveAttributes">
+			<list>
+				<bean parent="PrimitiveAttributeDefinition" p:sourceName="matterId"
+					p:targetName="id" />
+				<!-- <bean parent="PrimitiveAttributeDefinition" p:sourceName="matter.localReference" 
+					p:targetName="localReference"/> -->
+			</list>
+		</property>
+		<property name="supportAttributes">
+			<list>
+				<bean parent="SupportAttributeDefinition" p:identifier="true"
+					p:sourceName="matterId" p:targetName="id" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_consideration_relationship" abstract="true"
+		parent="RelationshipDefinition">
+		<property name="objectAttributeName" value="consideration" />
+		<property name="primitiveAttributes">
+			<list>
+				<bean parent="PrimitiveAttributeDefinition" p:sourceName="considerationId"
+					p:targetName="id" />
+			</list>
+		</property>
+		<property name="supportAttributes">
+			<list>
+				<bean parent="SupportAttributeDefinition" p:identifier="true"
+					p:sourceName="considerationId" p:targetName="id" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="martinlaw_shared_matterId_attr" parent="AttributeDefinition">
+		<property name="maxLength" value="20" />
 		<property name="validCharactersConstraint">
 			<bean parent="IntegerPatternConstraint" />
 		</property>
@@ -277,8 +276,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="controlField">
 			<bean parent="Uif-TextControl" p:size="20">
 				<property name="toolTip">
-				  <bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
-				  p:tooltipContent="You may click on the magnifying glass icon on the right to select a matter"/>
+					<bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
+						p:tooltipContent="You may click on the magnifying glass icon on the right to select a matter" />
 				</property>
 			</bean>
 		</property>
@@ -287,7 +286,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<bean parent="TextControlDefinition" p:size="20" />
 		</property>
 	</bean>
-	
+
 	<bean id="martinlaw_shared_matter_bo_entry" parent="BusinessObjectEntry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.Matter" />
 		<property name="titleAttribute" value="localReference" />
@@ -308,7 +307,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="attributes">
 			<list>
 				<bean parent="martinlaw-shared-localReference-parentBean" />
-				
+
 				<bean parent="AttributeDefinition">
 					<property name="maxLength" value="100" />
 					<property name="control">
@@ -320,10 +319,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 					<property name="controlField">
 						<bean parent="Uif-KimPersonControl" p:personNamePropertyName="client.name"
 							p:principalIdPropertyName="client.principalId" p:size="50">
-							 <property name="toolTip">
-						       <bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
-						       	p:tooltipContent="Type full name here OR select existing contact by clicking magnifying glass icon"/>
-						     </property>
+							<property name="toolTip">
+								<bean parent="Uif-Tooltip" p:onFocus="true" p:onMouseHover="false"
+									p:tooltipContent="Type full name here OR select existing contact by clicking magnifying glass icon" />
+							</property>
 						</bean>
 					</property>
 				</bean>
@@ -335,83 +334,115 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 					<property name="name" value="tags" />
 					<property name="label" value="Tags" />
 					<property name="controlField">
-						<bean parent="Uif-TextAreaControl" p:rows="5" p:cols="50" p:maxLength="1000" />
+						<bean parent="Uif-TextAreaControl" p:rows="5" p:cols="50"
+							p:maxLength="1000" />
 					</property>
 				</bean>
+
+				<bean parent="AttributeDefinition">
+					<property name="validationPattern">
+						<bean parent="NumericValidationPattern" />
+					</property>
+					<property name="name" value="typeId" />
+					<property name="label" value="Type" />
+					<property name="required" value="true" />
+					<property name="optionsFinder">
+						<bean class="org.martinlaw.keyvalues.ScopedKeyValuesUif"
+							p:addBlankOption="true" p:scopedClass="org.martinlaw.bo.MatterType" />
+					</property>
+					<property name="controlField">
+						<bean parent="Uif-DropdownControl" />
+					</property>
+					<!-- required for display in kns custom document search -->
+					<property name="control">
+						<bean parent="SelectControlDefinition" p:size="20"
+							p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+							p:businessObjectClass="org.martinlaw.bo.MatterType"
+							p:keyAttribute="id" p:labelAttribute="name" p:includeBlankRow="true"
+							p:includeKeyInLabel="false" />
+					</property>
+				</bean>
+
 				<bean parent="martinlaw-shared-id-parentBean" p:label="Matter Id" />
-				<bean parent="martinlaw_shared_matter_name"/>
-				<ref bean="martinlaw-shared-statusId-parentBean"/>
+				<bean parent="martinlaw_shared_matter_name" />
+				<ref bean="martinlaw-shared-statusId-parentBean" />
 			</list>
 		</property>
 		<property name="boNotesEnabled" value="true" />
 		<property name="collections">
-	      <list>
-	        <bean parent="CollectionDefinition" p:name="clients" p:label="clients" p:shortLabel="clients" p:elementLabel="client"
-	        	p:dataObjectClass="org.martinlaw.bo.MatterClient"/>
-	        <bean parent="CollectionDefinition" p:name="assignees" p:label="assignees" p:shortLabel="assignees" p:elementLabel="assignee"
-	        	p:dataObjectClass="org.martinlaw.bo.MatterAssignee"/>
-	      </list>
-      	</property>
+			<list>
+				<bean parent="CollectionDefinition" p:name="clients" p:label="clients"
+					p:shortLabel="clients" p:elementLabel="client"
+					p:dataObjectClass="org.martinlaw.bo.MatterClient" />
+				<bean parent="CollectionDefinition" p:name="assignees" p:label="assignees"
+					p:shortLabel="assignees" p:elementLabel="assignee"
+					p:dataObjectClass="org.martinlaw.bo.MatterAssignee" />
+			</list>
+		</property>
 	</bean>
-	
+
 	<bean id="matter_work_doc_entry" parent="uifTransactionalDocumentEntry">
 		<property name="documentTypeName" value="MatterWorkDocument" />
 		<property name="documentClass" value="org.martinlaw.bo.MatterWork" />
-		<property name="businessRulesClass" value="org.martinlaw.bo.MatterWorkRule"/>
+		<property name="businessRulesClass" value="org.martinlaw.bo.MatterWorkRule" />
 		<property name="attributes">
 			<list>
-				<bean parent="martinlaw_shared_matterId_attr" p:label="Matter"/>
-				<ref bean="martinlaw_shared_work_bo_work_type_id"/>
+				<bean parent="martinlaw_shared_matterId_attr" p:label="Matter" />
+				<ref bean="martinlaw_shared_work_bo_annex_type_id" />
 			</list>
 		</property>
-		<!-- decided to use quickfinder.dataObjectClassName and return by script to go round 404 errors when the lookup returns -->
+		<!-- decided to use quickfinder.dataObjectClassName and return by script 
+			to go round 404 errors when the lookup returns -->
 		<property name="relationships">
-	      <list>
-			<bean parent="martinlaw_shared_matter_relationship" p:targetClass="org.martinlaw.bo.Matter"/>
-	      </list>
-	    </property>	
+			<list>
+				<bean parent="martinlaw_shared_matter_relationship"
+					p:targetClass="org.martinlaw.bo.Matter" />
+			</list>
+		</property>
 	</bean>
-	
-	<bean id="martinlaw_shared_work_bo_work_type_id" parent="AttributeDefinition">
+
+	<bean id="martinlaw_shared_work_bo_annex_type_id" parent="AttributeDefinition">
 		<property name="maxLength" value="20" />
 		<property name="validationPattern">
-			<bean parent="NumericValidationPattern"/>
+			<bean parent="NumericValidationPattern" />
 		</property>
-		<property name="label" value="Type" />
+		<property name="label" value="Annex Type" />
 		<property name="required" value="true" />
-		<property name="name" value="workTypeId"/>
+		<property name="name" value="annexTypeId" />
 		<property name="controlField">
 			<bean parent="Uif-DropdownControl" />
 		</property>
 		<property name="optionsFinder">
-			<bean class="org.martinlaw.keyvalues.ScopedKeyValuesUif" p:addBlankOption="true" 
-				p:scopedClass="org.martinlaw.bo.WorkType"/>
+			<bean class="org.martinlaw.keyvalues.ScopedKeyValuesUif"
+				p:addBlankOption="true" p:scopedClass="org.martinlaw.bo.MatterAnnexType" />
 		</property>
 		<!-- required for display in kns custom document search -->
 		<property name="control">
-			<bean parent="SelectControlDefinition" p:size="20" 
+			<bean parent="SelectControlDefinition" p:size="20"
 				p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:businessObjectClass="org.martinlaw.bo.WorkType"
-				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
+				p:businessObjectClass="org.martinlaw.bo.MatterAnnexType" p:keyAttribute="id"
+				p:labelAttribute="name" p:includeBlankRow="true"
+				p:includeKeyInLabel="false" />
 		</property>
 	</bean>
-	
-	<bean id="matter_maint_document_entry"  parent="uifMaintenanceDocumentEntry">
-	    <property name="dataObjectClass" value="org.martinlaw.bo.Matter"/>
-	    <property name="maintainableClass" value="org.martinlaw.bo.MatterMaintainable"/>
-	    <!-- does this cause only one maint document to be enroute at a time - Yes subject to a unique combination of the keys below -->
-	    <property name="lockingKeys">
-	      <list>
-	        <value>localReference</value>
-	      </list>
-	    </property>
-	
-	    <property name="documentTypeName" value="MatterMaintenanceDocument"/>
-	    <property name="workflowAttributes">
-	    	<ref bean="matter_maint_document_entry_workflow_attrs"/>
+
+	<bean id="matter_maint_document_entry" parent="uifMaintenanceDocumentEntry">
+		<property name="dataObjectClass" value="org.martinlaw.bo.Matter" />
+		<property name="maintainableClass" value="org.martinlaw.bo.MatterMaintainable" />
+		<!-- does this cause only one maint document to be enroute at a time - 
+			Yes subject to a unique combination of the keys below -->
+		<property name="lockingKeys">
+			<list>
+				<value>localReference</value>
+			</list>
 		</property>
-  	</bean> 
- 	<bean id="matter_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
+
+		<property name="documentTypeName" value="MatterMaintenanceDocument" />
+		<property name="workflowAttributes">
+			<ref bean="matter_maint_document_entry_workflow_attrs" />
+		</property>
+	</bean>
+	<bean id="matter_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
 		<property name="searchingTypeDefinitions">
 			<list>
 				<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
@@ -458,7 +489,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 					</property>
 					<property name="documentValues">
 						<list>
-							<value>newMaintainableObject.dataObject.clientPrincipalName</value>
+							<value>newMaintainableObject.dataObject.clientPrincipalName
+							</value>
 						</list>
 					</property>
 				</bean>
@@ -470,5 +502,174 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		abstract="true">
 		<property name="businessObjectClassName" value="org.martinlaw.bo.Matter" />
 	</bean>
+
+	<bean id="matter_type_bo" parent="martinlaw_shared_type_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.MatterType" />
+		<property name="objectLabel" value="Matter Type" />
+		<property name="collections">
+			<list>
+				<bean parent="CollectionDefinition" p:name="annexDetails"
+					p:label="Documents Required" p:shortLabel="Documents Required"
+					p:elementLabel="Document Required" p:dataObjectClass="org.martinlaw.bo.MatterAnnexType" />
+
+				<bean parent="CollectionDefinition" p:name="scope" p:label="scope"
+					p:shortLabel="scope" p:elementLabel="scope"
+					p:dataObjectClass="org.martinlaw.bo.MatterTypeScope" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="matter_type_maint_document_entry" parent="uifMaintenanceDocumentEntry">
+		<property name="dataObjectClass" value="org.martinlaw.bo.MatterType" />
+		<!-- <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/> -->
+		<property name="lockingKeys">
+			<list>
+				<value>name</value>
+			</list>
+		</property>
+		<property name="documentTypeName" value="MatterTypeMaintenanceDocument" />
+		<property name="workflowAttributes">
+			<bean parent="WorkflowAttributes">
+				<property name="searchingTypeDefinitions">
+					<list>
+						<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+							<property name="searchingAttribute">
+								<bean parent="martinlaw_shared_workflow_search_attr_parent">
+									<property name="businessObjectClassName" value="org.martinlaw.bo.MatterType" />
+									<property name="attributeName" value="name" />
+								</bean>
+							</property>
+							<property name="documentValues">
+								<list>
+									<value>newMaintainableObject.dataObject.name</value>
+								</list>
+							</property>
+						</bean>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="matter_annex_type_bo" parent="martinlaw_shared_type_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.MatterAnnexType" />
+		<property name="attributes">
+			<list merge="true">
+				<bean parent="AttributeReferenceDummy-activeIndicator">
+	    			<property name="name" value="requiresApproval"/>
+	  			</bean>
+			</list>
+		</property>
+		<property name="objectLabel" value="Annex" />
+		<property name="collections">
+			<list>
+				<bean parent="CollectionDefinition" p:name="scope" p:label="scope"
+					p:shortLabel="scope" p:elementLabel="scope"
+					p:dataObjectClass="org.martinlaw.bo.MatterAnnexTypeScope" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="matter_annex_type_maint_entry" parent="uifMaintenanceDocumentEntry">
+		<property name="dataObjectClass" value="org.martinlaw.bo.MatterAnnexType" />
+		<!-- <property name="maintainableClass" value="org.kuali.rice.krad.maintenance.MaintainableImpl"/> -->
+		<property name="lockingKeys">
+			<list>
+				<value>name</value>
+			</list>
+		</property>
+		<property name="documentTypeName" value="MatterAnnexTypeMaintenanceDocument" />
+		<property name="workflowAttributes">
+			<bean parent="WorkflowAttributes">
+				<property name="searchingTypeDefinitions">
+					<list>
+						<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+							<property name="searchingAttribute">
+								<bean parent="martinlaw_shared_workflow_search_attr_parent">
+									<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAnnexType" />
+									<property name="attributeName" value="name" />
+								</bean>
+							</property>
+							<property name="documentValues">
+								<list>
+									<value>newMaintainableObject.dataObject.name</value>
+								</list>
+							</property>
+						</bean>
+						
+						<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+							<property name="searchingAttribute">
+								<bean parent="martinlaw_shared_workflow_search_attr_parent">
+									<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAnnexType" />
+									<property name="attributeName" value="requiresApproval" />
+								</bean>
+							</property>
+							<property name="documentValues">
+								<list>
+									<value>newMaintainableObject.dataObject.requiresApproval</value>
+								</list>
+							</property>
+						</bean>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="martinlaw_shared_matter_type_annex_detail_entry" parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.MatterTypeAnnexDetail" />
+		<!-- <property name="titleAttribute" value="localReference" /> -->
+		<property name="objectLabel" value="Annex Detail" />
+		<!-- to enable in case the ojb config does not produce a lookup button for annex type -->
+		<!-- <property name="relationships">
+			<list>
+				<bean parent="RelationshipDefinition">
+					<property name="objectAttributeName" value="matterType" />
+					<property name="primitiveAttributes">
+						<list>
+							<bean parent="PrimitiveAttributeDefinition" p:sourceName="matterTypeId"
+								p:targetName="id" />
+						</list>
+					</property>
+				</bean>
+				<bean parent="RelationshipDefinition">
+					<property name="objectAttributeName" value="annexType" />
+					<property name="primitiveAttributes">
+						<list>
+							<bean parent="PrimitiveAttributeDefinition" p:sourceName="annexTypeId"
+								p:targetName="id" />
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property> -->
+		<property name="attributes">
+			<list>
+			<!-- matter type id left out since it should be populated by the owning matter type -->
+				<bean parent="AttributeDefinition">
+					<property name="maxLength" value="10" />
+					<property name="validationPattern">
+						<bean parent="NumericValidationPattern" />
+					</property>
+					<property name="name" value="sequence" />
+					<property name="label" value="Sequence (Order)" />
+					<property name="description" value="sequence" />
+					<property name="controlField">
+						<bean parent="Uif-TextControl" p:size="5" />
+					</property>
+					<property name="required" value="true" />
+				</bean>
+				
+				<bean parent="martinlaw_shared_work_bo_annex_type_id">
+					<property name="optionsFinder">
+						<bean class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
+							p:businessObjectClass="org.martinlaw.bo.MatterAnnexType"
+							p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 
 </beans>

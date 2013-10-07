@@ -82,8 +82,8 @@ public class ContractBOTest extends MartinlawTestsBase {
 		Contract contract = getBoSvc().findBySinglePrimaryKey(Contract.class, 1005l);
 		assertNotNull("contract should exist in database", contract);
 		assertEquals("contract name not the expected value", "buru ph2 h24", contract.getName());
-		assertNotNull("contract type should not be null", contract.getType());
-		assertEquals("contract type name does not match", "rent agreement", contract.getType().getName());
+		assertNotNull("matter type should not be null", contract.getType());
+		assertEquals("matter type name does not match", "rent agreement", contract.getType().getName());
 		assertNotNull("contract duration should not be null" ,contract.getContractDuration());
 		assertNotNull("contract duration start date should not be null", contract.getContractDuration().getStartDate());
 		assertNotNull("contract duration end date should not be null", contract.getContractDuration().getEndDate());

@@ -22,13 +22,13 @@
 -- insert test data
 
 insert into martinlaw_court_case_t 
-(matter_id, court_reference, court_case_type_id) 
+(matter_id, court_reference) 
 values 
-(1001, 'c1', 10001),
-(1002, 'c2', 10002),
-(1003, 'c2', 10003),
+(1001, 'c1'),
+(1002, 'c2'),
+(1003, 'c2'),
 -- lands case uses the similar details as the first case to make the unit test easier
-(1004,'c1', 10001);
+(1004,'c1');
 
 INSERT INTO `martinlaw_land_case_t`
 (`land_reference`, `matter_id`)

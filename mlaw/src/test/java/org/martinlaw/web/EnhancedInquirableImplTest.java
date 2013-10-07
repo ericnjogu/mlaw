@@ -50,6 +50,9 @@ public class EnhancedInquirableImplTest extends MartinlawTestsBase {
 	private EnhancedInquirableImpl inquirable;
 	private Object dataObject;
 
+	/**
+	 * test that the edit, copy, delete and new maintenance links are generated as expected
+	 */
 	@Test
 	public void testGetMaintenanceActionLink() {
 		 String editUrl = "maintenance?viewTypeName=MAINTENANCE&methodToCall=maintenanceEdit" +

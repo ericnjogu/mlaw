@@ -57,8 +57,8 @@ public class MatterWorkBOTestBase extends MartinlawTestsBase {
 		MatterWork work = getBoSvc().findBySinglePrimaryKey(getWorkClass(), getMatterWorkDocNumber());
 		assertNotNull("result should not be null", work);
 		assertNotNull("matter should not be null", work.getMatter());
-		assertNotNull("work type should not be null", work.getWorkType());
-		assertEquals("default work type differs", MartinlawConstants.DEFAULT_WORK_TYPE_ID, work.getWorkTypeId());
+		assertNotNull("work type should not be null", work.getAnnexType());
+		assertEquals("default annex type differs", MartinlawConstants.DEFAULT_ANNEX_TYPE_ID, work.getAnnexTypeId());
 	}
 
 	/**

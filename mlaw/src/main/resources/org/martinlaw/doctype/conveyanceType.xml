@@ -21,33 +21,6 @@
 			<description>Conveyance Type Document</description>
 			<label>Conveyance Type Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<!-- <blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
-			<routePaths>
-				<routePath>
-					<start name="Initiated" nextNode="approvalNode" />
-					<requests name="approvalNode" />
-				</routePath>
-			</routePaths>
-			<routeNodes>
-				<start name="Initiated">
-					<activationType>P</activationType>
-					<mandatoryRoute>false</mandatoryRoute>
-					<finalApproval>false</finalApproval>
-				</start>
-				<requests name="approvalNode">
-					<activationType>P</activationType>
-					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-					<mandatoryRoute>false</mandatoryRoute>
-					<finalApproval>false</finalApproval>
-				</requests>
-			</routeNodes>
-			<attributes>
-				<attribute>
-					<name>MlawDataDictionarySearchableAttribute</name>
-				</attribute>
-			</attributes> -->
 		</documentType>
 		<documentType>
 			<name>ConveyanceTypeMaintenanceDocumentTest</name>
@@ -57,26 +30,5 @@
 			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
 		</documentType>
 	</documentTypes>
-
-	<!-- <rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
-
-		ConveyanceTypeMaintenanceDocument rule
-		<rule>
-			<name>org.martinlaw.rules.conveyanceType</name>
-			<documentType>ConveyanceTypeMaintenanceDocument</documentType>
-			The rule template does not have any use at now
-			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-			<description>Routing rule for ConveyanceTypeDocument maintenance
-			</description>
-			<responsibilities>
-				<responsibility>
-					<groupName namespace="MARTINLAW">lawyer</groupName>
-					<actionRequested>A</actionRequested>
-					<priority>1</priority>
-				</responsibility>
-			</responsibilities>
-		</rule>
-	</rules> -->
-
 </data>
 	

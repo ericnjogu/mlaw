@@ -47,7 +47,7 @@ import org.martinlaw.ScopedKeyValue;
 @Table(name="martinlaw_status_t")
 public class Status extends PersistableBusinessObjectBase implements ScopedKeyValue {
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "statusId")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
 	private List<StatusScope> scope;
 	
 	/**

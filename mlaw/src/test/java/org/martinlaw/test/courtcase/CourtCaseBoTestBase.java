@@ -30,14 +30,14 @@ import java.util.List;
 
 import org.junit.Test;
 import org.martinlaw.bo.Matter;
+import org.martinlaw.bo.MatterType;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.bo.courtcase.CourtCaseType;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
 import org.springframework.dao.DataIntegrityViolationException;
 
 public abstract class CourtCaseBoTestBase extends MatterBoTest {
 
-	private String caseTypeName  = "petition";
+	private String caseTypeName  = "urgent petition";
 	private String courtReference = "Mutomo Magistrates Court Petition No. 1 of 2013";
 
 	public CourtCaseBoTestBase() {
@@ -104,7 +104,7 @@ public abstract class CourtCaseBoTestBase extends MatterBoTest {
 			String matterName)
 			throws InstantiationException, IllegalAccessException {
 		CourtCase matter = (CourtCase) super.getTestMatter(localReference, statusText, matterName);
-		CourtCaseType type = new CourtCaseType();
+		MatterType type = new MatterType();
 		type.setName(caseTypeName);
 		getBoSvc().save(type);
 		type.refresh();

@@ -27,6 +27,7 @@ package org.martinlaw.bo;
 
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
@@ -47,6 +48,9 @@ public abstract class BaseDetail extends PersistableBusinessObjectBase{
 	private String name;
 	@Column(name = "description", length = 250)
 	private String description;
+	@Id
+	@Column(name = "type_id")
+	private Long id;
 	/**
 	 * can be null if name is descriptive enough
 	 * 
@@ -75,8 +79,15 @@ public abstract class BaseDetail extends PersistableBusinessObjectBase{
 	}
 	
 	/**
-	 * child classes need to implement this for retrieving the primary key
 	 * @return the id
 	 */
-	public abstract Long getId();
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

@@ -38,8 +38,12 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="businessObjectClass" value="org.martinlaw.bo.ConsiderationTypeScope" />
 	</bean>
 	
-	<bean id="work_type_scope_bo" parent="martinlaw_shared_scope_bo">
-		<property name="businessObjectClass" value="org.martinlaw.bo.WorkTypeScope" />
+	<bean id="annex_type_scope_bo" parent="martinlaw_shared_scope_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.MatterAnnexTypeScope" />
+	</bean>
+	
+	<bean id="matter_type_scope_bo" parent="martinlaw_shared_scope_bo">
+		<property name="businessObjectClass" value="org.martinlaw.bo.MatterTypeScope" />
 	</bean>
 
 	<!-- Attribute Definitions -->

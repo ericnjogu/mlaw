@@ -20,7 +20,7 @@
 -- #L%
 ---
 insert into martinlaw_transaction_type_t
-(transaction_type_id, name, description, ver_nbr, obj_id, effect_on_consideration)
+(type_id, name, description, ver_nbr, obj_id, effect_on_consideration)
 values
 (1001, "receipt", null, 1, 'CsBD2mSy91XN8mg6QicnAhsCBIRliP0cKDq9', 'DECREASE'),
 (1002, "payment", null, 1, 'vXBJCFAXNHIxhzGSYwYg2e51UGpy5pmyVIB2','DECREASE'),

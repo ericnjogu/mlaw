@@ -29,26 +29,12 @@ package org.martinlaw.test.conveyance;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.kuali.rice.core.api.util.KeyValue;
-import org.kuali.rice.krad.maintenance.MaintainableImpl;
-import org.kuali.rice.krad.maintenance.MaintenanceDocumentBase;
-import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.martinlaw.bo.MatterClient;
 import org.martinlaw.bo.conveyance.Conveyance;
-import org.martinlaw.bo.conveyance.Work;
-import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesBase;
-import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesMaint;
-import org.martinlaw.keyvalues.ConveyanceAnnexTypeKeyValuesTx;
 import org.martinlaw.test.MartinlawTestsBase;
-import org.martinlaw.web.MatterTxForm;
 
 /**
  * various tests for {@link Conveyance}
@@ -85,6 +71,8 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		assertEquals("conveyance name differs", getTestUtils().getTestConveyance().getName(), conv.getName());
 		assertEquals("number of clients differs", 1, conv.getClients().size());
 		assertEquals("principal name differs", principalName, conv.getClients().get(0).getPrincipalName());
+		assertNotNull("matter type should not be null", conv.getType());
+		assertEquals("matter type name differs", "Sale of Motor Vehicle", conv.getType().getName());
 	
 		getTestUtils().testConsiderationFields(conv.getConsiderations().get(0));
 		assertNotNull("considerations should not be null", conv.getConsiderations());
@@ -122,6 +110,9 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		// assignees
 		assertEquals("number of clients differs", 1, conv.getAssignees().size());
 		assertEquals("assignee principal name differs", "edwin_njogu", conv.getAssignees().get(0).getPrincipalName());
+		//type
+		assertNotNull("matter type should not be null", conv.getType());
+		assertEquals("matter type name differs", "Sale of Urban Land", conv.getType().getName());
 		
 		getTestUtils().testWorkList(conv.getWork());
 		
@@ -139,53 +130,4 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		Class<Conveyance> dataObjectClass = Conveyance.class;
 		verifyMaintDocDataDictEntries(dataObjectClass);
 	}
-	
-	@Test()
-	/**
-	 * test that {@link ConveyanceAnnexTypeKeyValuesMaint} works as expected for a maint
-	 */
-	public void testConveyanceAnnexTypeKeyValuesMaint() {
-		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesMaint();
-		
-		MaintenanceDocumentForm maintForm = mock(MaintenanceDocumentForm.class);
-		Conveyance conv = new Conveyance();
-		conv.setTypeId(1001l);
-		
-		MaintenanceDocumentBase doc = mock(MaintenanceDocumentBase.class);
-		when(maintForm.getDocument()).thenReturn(doc);
-		MaintainableImpl maintainable = mock(MaintainableImpl.class);
-		when(doc.getNewMaintainableObject()).thenReturn(maintainable);
-		when(maintainable.getDataObject()).thenReturn(conv);
-		
-		List<KeyValue> result = keyValues.getKeyValues(maintForm);
-		// expect two non blank key values
-		getTestUtils().testAnnexTypeKeyValues(result);
-	}
-	
-	@Test()
-	/**
-	 * test that {@link ConveyanceAnnexTypeKeyValuesTx} works as expected for a transactional doc
-	 */
-	public void testConveyanceAnnexTypeKeyValuesTx() {
-		ConveyanceAnnexTypeKeyValuesBase keyValues = new ConveyanceAnnexTypeKeyValuesTx();
-		MatterTxForm txForm = mock(MatterTxForm.class);
-		
-		Work doc = new Work();
-		doc.setMatterId(1008l);
-		when(txForm.getDocument()).thenReturn(doc);
-		List<KeyValue> result = keyValues.getKeyValues(txForm);
-		
-		getTestUtils().testAnnexTypeKeyValues(result);
-	}
-	
-	/**
-	 * test that the associated conveyance annex type is fetched
-	 */
-	@Test
-	public void testConveyanceAnnexTypeRetrieve() {
-		Work workTemp = (Work) getBoSvc().findBySinglePrimaryKey(Work.class, "1005");
-		assertNotNull("result should not be null", workTemp);
-		assertNotNull("contract should not be null", workTemp.getConveyanceAnnexType());
-	}
-
 }

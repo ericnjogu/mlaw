@@ -46,19 +46,10 @@ public class MartinlawConstants {
 	public final static String OPENID_ACTIVATE_ROLE = "ROLE_ACTIVATE_OPENID";
 	public final static String OPENID_UNACTIVATED_USERNAME = "unactivated.openid.user";
 	public final static String OPENID_ACTIVATION_MESSAGE = "mlaw_openid_activation_message";
-	public final static Long DEFAULT_WORK_TYPE_ID = 10001l;
 	public final static String  DEFAULT_TIMESTAMP_FORMAT = "dd MMM yyyy hh:mm a";
+	public static final Long DEFAULT_ANNEX_TYPE_ID = 10001l;
 	public class DocTypes {
 		public static final String MATTER_WORK = "MatterWorkDocument";
-		public static final String CONVEYANCE_WORK = "ConveyanceWorkDocument";
-		/*public final static String CONTRACT_WORK = "ContractWorkDocument";
-		public static final String COURTCASE_WORK = "CourtCaseWorkDocument";
-		public static final String OPINION_WORK = "OpinionWorkDocument";
-		public static final String CONVEYANCE_WORK = "ConveyanceWorkDocument";*/
-		/*public static final String CONTRACT_TRANSACTION = "ContractTransactionDocument";
-		public static final String CONVEYANCE_TRANSACTION = "ConveyanceTransactionDocument";
-		public static final String COURTCASE_TRANSACTION = "CourtCaseTransactionDocument";
-		public static final String OPINION_TRANSACTION = "OpinionTransactionDocument";*/
 		public static final String MATTER_TRANSACTION = "MatterTransactionDocument";
 		public static final String CONTRACT = "ContractMaintenanceDocument";
 	}
@@ -81,12 +72,6 @@ public class MartinlawConstants {
 	public class ViewIds {
 		public final static String MATTER_TRANSACTION = "matter_transaction_doc_view";
 		public static final String MATTER_WORK = "matter_work_doc_view";
-		public static final String CONVEYANCE_WORK = "conveyance_work_doc_view";
-		/*public static final String COURTCASE_WORK = "courtcase_work_doc_view";
-		public static final String OPINION_WORK = "opinion_work_doc_view";
-		public static final String CONVEYANCE_TRANSACTION = "conveyance_transaction_doc_view";
-		public static final String COURTCASE_TRANSACTION = "courtcase_transaction_doc_view";
-		public static final String OPINION_TRANSACTION = "opinion_transaction_doc_view";*/
 	}
 	
 	/**

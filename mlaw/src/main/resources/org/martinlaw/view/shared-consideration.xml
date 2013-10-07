@@ -135,6 +135,14 @@
 				<bean parent="Uif-InputField" p:propertyName="date" />
 				<bean parent="Uif-InputField" p:propertyName="amount"/>
 				<bean parent="Uif-InputField" p:propertyName="clientPrincipalName"/>
+				<!-- adapt here if no drill down link shows -->
+				<!-- <bean parent="martinlaw_shared_line_docnumber_linkfield" >
+					<property name="href">
+						<value>
+							@{#ConfigProperties['dochandler_courtcase_fee']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+						</value>
+					</property>
+				</bean> -->
 				<bean parent="Uif-InputField" p:propertyName="documentHeader.documentNumber"/>
 			</list>
 		</property>

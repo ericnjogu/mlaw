@@ -61,6 +61,7 @@ import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.UserSession;
+import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.datadictionary.validation.result.ConstraintValidationResult;
 import org.kuali.rice.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.rice.krad.document.Document;
@@ -80,18 +81,18 @@ import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.bo.MatterEventTest;
 import org.martinlaw.bo.MatterTransactionDoc;
+import org.martinlaw.bo.MatterType;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.contract.ContractDuration;
 import org.martinlaw.bo.contract.ContractParty;
 import org.martinlaw.bo.contract.ContractSignatory;
-import org.martinlaw.bo.contract.ContractType;
 import org.martinlaw.bo.conveyance.Conveyance;
-import org.martinlaw.bo.conveyance.ConveyanceAnnexType;
-import org.martinlaw.bo.conveyance.ConveyanceType;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
+import org.martinlaw.bo.courtcase.LandCase;
+import org.martinlaw.keyvalues.ScopedKeyValuesUif;
 
 /**
  * holds various methods used across test cases
@@ -116,7 +117,7 @@ public class TestUtils {
 		Conveyance conv = new Conveyance();
 		conv.setName(getTestConveyanceName());
 		conv.setLocalReference("EN/C001");
-		conv.setTypeId(1002l);
+		conv.setTypeId(10010l);
 		conv.setStatusId(1001l);
 		conv.setClientPrincipalName(testClientPrincipalName);
 		return conv;
@@ -132,7 +133,7 @@ public class TestUtils {
 		Contract contract = new Contract();
 		contract.setName(contractName);
 		contract.setLocalReference(testContractLocalReference);
-		contract.setTypeId(1001l);
+		contract.setTypeId(10006l);
 		contract.setSummaryOfTerms("see attached file");
 		contract.setServiceOffered("flat 1f2");
 		contract.setStatusId(1001l);
@@ -189,10 +190,10 @@ public class TestUtils {
 	public void testContractFields(Contract contract) {
 		assertEquals("contract name does not match", contractName , contract.getName());
 		assertEquals("contract local ref does not match", testContractLocalReference, contract.getLocalReference());
-		assertNotNull("contract type id should not be null", contract.getTypeId());
-		assertNotNull("contract type should exist", 
-				KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(ContractType.class, contract.getTypeId()));
-		assertNotNull("contract type should not be null", contract.getType());
+		assertNotNull("matter type id should not be null", contract.getTypeId());
+		assertNotNull("matter type should exist", 
+				KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(MatterType.class, contract.getTypeId()));
+		assertNotNull("matter type should not be null", contract.getType());
 		assertFalse("considerations should not be empty", contract.getConsiderations().isEmpty());
 		testConsiderationFields(contract.getConsiderations().get(0));
 		assertNotNull("duration should not be null", contract.getContractDuration());
@@ -474,7 +475,7 @@ public class TestUtils {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public <C extends CourtCase> CourtCase getTestCourtCase(String localRef, String courtRef, Class<C> klass) throws InstantiationException, IllegalAccessException {
+	public <C extends Matter> Matter getTestCourtCase(String localRef, String courtRef, Class<C> klass) throws InstantiationException, IllegalAccessException {
 		CourtCase caseBo = (CourtCase) getTestMatter(localRef, klass);
 		caseBo.setCourtReference(courtRef);
 		caseBo.setTypeId(10004l);
@@ -519,6 +520,7 @@ public class TestUtils {
 		matter.setStatus(status);
 		// side step validation error - error.required
 		matter.setStatusId(status.getId());
+		matter.setTypeId(10011l);
 		// clients & witnesses
 		addClients(matter);
 		
@@ -551,26 +553,6 @@ public class TestUtils {
 		wit.setCourtCaseId(kase.getId());
 		wit.setPrincipalName("Thomas Kaberi Gitau");
 		kase.getWitnesses().add(wit);
-	}
-	
-	/**
-	 * get a test conveyance type object
-	 * @return the test object
-	 */
-	public ConveyanceType getTestConveyanceType() {
-		ConveyanceType convType = new ConveyanceType();
-		String name = "auction";
-		convType.setName(name);
-		// set annex types
-		List<ConveyanceAnnexType> annexTypes = new ArrayList<ConveyanceAnnexType>();
-		ConveyanceAnnexType convAnnexType = new ConveyanceAnnexType();
-		convAnnexType.setName("signed affidavit");
-		annexTypes.add(convAnnexType);
-		convAnnexType = new ConveyanceAnnexType();
-		convAnnexType.setName("title deed");
-		annexTypes.add(convAnnexType);
-		convType.setAnnexTypes(annexTypes);
-		return convType;
 	}
 	
 	/**
@@ -859,6 +841,54 @@ public class TestUtils {
 		Maintainable maintainable = mock(Maintainable.class);
 		when(doc.getNewMaintainableObject()).thenReturn(maintainable);
 		return form;
+	}
+	
+	/**
+	 * test the scope key values
+	 * @param dataObjectName - a descriptive name to use in test messages
+	 * @param expectedCourtCaseScopeCount - the expected number of objects with court case scope
+	 * @param expectedContractScopeCount - the expected number of objects with Contract scope
+	 * @param expectedConveyanceScopeCount - the expected number of objects with Conveyance scope
+	 * @param expectedEmptyScopeCount - the number of objects with no scope
+	 * @param expectedMatterScopeCount - the expected number of objects with matter scope
+	 * @param expectedLandCaseScopeCount - the expected number of objects with court case scope
+	 * @param scopedClass - the object whose scope is being tested
+	 */
+	public void testScopeKeyValues(final String dataObjectName,
+			final int expectedCourtCaseScopeCount,
+			final int expectedContractScopeCount,
+			final int expectedConveyanceScopeCount,
+			final int expectedEmptyScopeCount,
+			final int expectedMatterScopeCount,
+			final int expectedLandCaseScopeCount,
+			final Class<? extends BusinessObject> scopedClass) {
+		String commentTemplate = "expected %s %s with %s scope plus %s with empty scope";
+		ScopedKeyValuesUif kv = new ScopedKeyValuesUif();
+		kv.setScopedClass(scopedClass);
+		
+		MaintenanceDocumentForm form = createMockMaintenanceDocForm();
+		Maintainable newMaintainableObject = form.getDocument().getNewMaintainableObject();
+		
+		
+		when(newMaintainableObject.getDataObject()).thenReturn(new CourtCase());
+		String comment = String.format(commentTemplate, expectedCourtCaseScopeCount, dataObjectName, "court case", expectedEmptyScopeCount);
+		assertEquals(comment, expectedCourtCaseScopeCount + expectedEmptyScopeCount, kv.getKeyValues(form).size());
+		
+		when(newMaintainableObject.getDataObject()).thenReturn(new LandCase());
+		comment = String.format(commentTemplate, expectedLandCaseScopeCount, dataObjectName, "land case", expectedEmptyScopeCount);
+		assertEquals(comment, expectedLandCaseScopeCount + expectedEmptyScopeCount, kv.getKeyValues(form).size());
+		
+		comment = String.format(commentTemplate, expectedContractScopeCount, dataObjectName, "contract", expectedEmptyScopeCount);
+		when(newMaintainableObject.getDataObject()).thenReturn(new Contract());
+		assertEquals(comment, expectedContractScopeCount + expectedEmptyScopeCount, kv.getKeyValues(form).size());
+		
+		comment = String.format(commentTemplate, expectedMatterScopeCount, dataObjectName, "matter", expectedEmptyScopeCount);
+		when(newMaintainableObject.getDataObject()).thenReturn(new Matter());
+		assertEquals(comment, expectedMatterScopeCount + expectedEmptyScopeCount, kv.getKeyValues(form).size());
+		
+		comment = String.format(commentTemplate, expectedConveyanceScopeCount, dataObjectName, "Conveyance", expectedEmptyScopeCount);
+		when(newMaintainableObject.getDataObject()).thenReturn(new Conveyance());
+		assertEquals(comment, expectedConveyanceScopeCount + expectedEmptyScopeCount, kv.getKeyValues(form).size());
 	}
 
 }

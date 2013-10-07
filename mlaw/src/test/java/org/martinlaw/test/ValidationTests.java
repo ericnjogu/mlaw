@@ -40,6 +40,8 @@ import org.kuali.rice.krad.uif.control.TextAreaControl;
 import org.kuali.rice.krad.uif.field.InputField;
 import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
+import org.martinlaw.bo.Matter;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.StatusScope;
 import org.martinlaw.bo.courtcase.CourtCase;
 
@@ -98,7 +100,7 @@ public class ValidationTests extends MartinlawTestsBase {
 	@Test
 	public void testScope_validation()
 	throws InstantiationException, IllegalAccessException {
-		StatusScope statusScope = new StatusScope();
+		Scope statusScope = new StatusScope();
 		statusScope.setQualifiedClassName("");
 		final String attributeName = "qualifiedClassName";
 		getTestUtils().validate(statusScope, 1, attributeName);
@@ -115,7 +117,7 @@ public class ValidationTests extends MartinlawTestsBase {
 	@Test
 	public void testLocalReference_validation()
 	throws InstantiationException, IllegalAccessException {
-		CourtCase kase = new CourtCase();
+		Matter kase = new CourtCase();
 		kase.setLocalReference("my/firm/ cases/2013");
 		final String attributeName = "localReference";
 		getTestUtils().validate(kase, 1, attributeName);

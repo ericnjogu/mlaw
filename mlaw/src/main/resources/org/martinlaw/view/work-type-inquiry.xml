@@ -33,7 +33,7 @@
 		<list merge="true">
 			<!-- <ref bean="martinlaw_shared_name_description_inquiry_view_items"/> -->
 			<bean parent="martinlaw_shared_scope_collection_inquiry_section">
-				<property name="collectionObjectClass" value="org.martinlaw.bo.WorkTypeScope" />
+				<property name="collectionObjectClass" value="org.martinlaw.bo.MatterAnnexTypeScope" />
 			</bean>
 		</list>
 	</property>

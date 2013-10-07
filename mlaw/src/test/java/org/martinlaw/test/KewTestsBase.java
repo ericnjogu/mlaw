@@ -169,6 +169,8 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	 * 
 	 */
 	protected void testCreateMaintain(Class<?> klass, String docType) {
+		assertTrue("docType should allow new and copy", 
+				KRADServiceLocatorWeb.getDocumentDictionaryService().getAllowsNewOrCopy(docType));
 		// check for permission template
 		Map<String, String> permissionDetails = new HashMap<String, String>();
 		permissionDetails.put(
@@ -334,6 +336,9 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	public abstract String getDocTypeName();
 
 	@Test
+	/**
+	 * test that an initiator gets an fyi when the document is finally approved
+	 */
 	public void testInitiatorFYI() {
 		try {
 			testWorkflowRoutingOnly_initiator_FYI(getDocTypeName() + "Test");
@@ -343,7 +348,7 @@ public abstract class KewTestsBase extends MartinlawTestsBase {
 	}
 
 	/**
-	 * test that a CourtCase Date maint doc can be created and edited by the authorized users only
+	 * test that a maint doc can be created and edited by the authorized users only
 	 * 
 	 * @see /mlaw/src/main/resources/org/martinlaw/scripts/perms-roles.sql
 	 */

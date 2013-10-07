@@ -30,7 +30,7 @@ values
 (1005, 'adjourned', 1, 'pC91h1ZSYcAdhAXIzjotJIMoowo0ToqcJFGV');
 
 insert into martinlaw_status_scope_t
-(status_scope_id, qualified_class_name, status_id, ver_nbr,  obj_id)
+(scope_id, qualified_class_name, type_id, ver_nbr,  obj_id)
 values
 (1001, "org.martinlaw.bo.courtcase.CourtCase", 1002, 1, "ssc1"),
 (1002, "org.martinlaw.bo.courtcase.CourtCase", 1005, 1, "ssc2"),

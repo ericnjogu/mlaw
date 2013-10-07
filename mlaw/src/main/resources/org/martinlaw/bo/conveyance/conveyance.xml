@@ -28,44 +28,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="conveyance_bo" parent="martinlaw_shared_matter_bo_entry">
 		<property name="businessObjectClass" value="org.martinlaw.bo.conveyance.Conveyance" />
-		<property name="attributes">
-			<list merge="true">
-				<ref bean="conveyance-type-id" />
-			</list>
-		</property>
 		<property name="objectLabel" value="Conveyance" />
 	</bean>
-
-	<!-- Attribute Definitions -->
-	
-	<bean id="conveyance-type-id"	parent="AttributeDefinition">
-		<property name="forceUppercase" value="true" />
-		<property name="shortLabel" value="Conveyance Type" />
-		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="NumericValidationPattern" />
-		</property>
-		<property name="summary" value="Conveyance Type" />
-		<property name="name" value="typeId" />
-		<!-- label shown by the field group on maintenance screen-->
-		<property name="label" value="Conveyance Type" />
-		<property name="description" value="Conveyance Type" />
-		<property name="required" value="true" />
-		<property name="optionsFinder">
-			<bean
-				class="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:businessObjectClass="org.martinlaw.bo.conveyance.ConveyanceType"
-				p:keyAttributeName="id"	p:labelAttributeName="name" p:includeBlankRow="true"/>
-		</property>
-		<property name="controlField">
-				<bean parent="Uif-DropdownControl" />
-		</property>
-		<!-- required for display in kns custom document search -->
-		<property name="control">
-			<bean parent="SelectControlDefinition" p:size="20" p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
-				p:businessObjectClass="org.martinlaw.bo.conveyance.ConveyanceType"
-				p:keyAttribute="id"	p:labelAttribute="name" p:includeBlankRow="true" p:includeKeyInLabel="false"/>
-		</property>
-	</bean>
-
 </beans>

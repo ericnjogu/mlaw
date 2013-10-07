@@ -65,10 +65,10 @@ public class MatterConsideration extends MatterExtensionHelper {
 	@Id
 	@Column(name = "consideration_id")
 	private Long id;
-	@Transient //placed here for ojb's sake, coz jpa uses the object field below
+	@Column(name = "type_id")
 	private Long considerationTypeId;
 	@OneToOne
-	@JoinColumn(name = "consideration_type_id", nullable = false)
+	@JoinColumn(name = "type_id", nullable = false, insertable=false, updatable=false)
 	private ConsiderationType considerationType; 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},  mappedBy="considerationId")
 	private List<MatterTransactionDoc> transactions;

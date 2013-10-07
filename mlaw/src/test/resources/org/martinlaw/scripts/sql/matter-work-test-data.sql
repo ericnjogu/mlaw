@@ -21,7 +21,7 @@
 ---
 insert into
 martinlaw_matter_work_doc_t
-(matter_id, DOC_HDR_ID, ver_nbr, obj_id, work_type_id)
+(matter_id, DOC_HDR_ID, ver_nbr, obj_id, annex_type_id)
 values
 -- court case work
 (1001, "1001", 1, uuid(), 10001),

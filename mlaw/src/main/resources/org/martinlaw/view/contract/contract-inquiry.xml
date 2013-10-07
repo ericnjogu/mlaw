@@ -27,7 +27,7 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-	<bean id="contract_inquiry_view" parent="martinlaw_shared_enhanced_inquiry_view">
+	<bean id="contract_inquiry_view" parent="matter_inquiry_view">
 		<property name="headerText" value="Contract Inquiry" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.contract.Contract" />
 		<property name="formPostUrl" value="inquiryWithAtts" />
@@ -108,22 +108,6 @@
 						</list>
 					</property>
 				</bean>
-
-<!-- 				<bean parent="martinlaw_shared_work_inquiry_section">
-					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.Work" />
-					<property name="items">
-						<list merge="true">
-							<bean parent="martinlaw_shared_line_docnumber_linkfield">
-								<property name="href">
-									<value>
-										@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
-									</value>
-								</property>
-							</bean>
-						</list>
-					</property>
-				</bean>
- -->				
 			</list>
 		</property>
 	</bean>

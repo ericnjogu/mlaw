@@ -67,7 +67,7 @@ public class MatterTransactionDoc extends MatterTxDocBase {
 	@Transient
 	private long transactionTypeId;
 	@OneToOne
-	@JoinColumn(name = "transaction_type_id", nullable = false, updatable = false)
+	@JoinColumn(name = "type_id", nullable = false, updatable = false)
 	private TransactionType transactionType;
 
 	/**

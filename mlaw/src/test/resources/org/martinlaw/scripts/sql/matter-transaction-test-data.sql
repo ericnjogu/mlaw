@@ -22,7 +22,7 @@
 
 insert into
 martinlaw_matter_transaction_doc_t
-(matter_id, DOC_HDR_ID, ver_nbr, obj_id, amount,transaction_date, client_principal_name, consideration_id, transaction_type_id)
+(matter_id, DOC_HDR_ID, ver_nbr, obj_id, amount,transaction_date, client_principal_name, consideration_id, type_id)
 values
 -- court case
 (1001, "1001", 1, 'cw1', 2501,'2012-10-22','mawanja', 1001, 1001),
