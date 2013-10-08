@@ -29,13 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 import org.martinlaw.ScopedKeyValue;
 
 /**
@@ -45,7 +42,7 @@ import org.martinlaw.ScopedKeyValue;
  */
 @Entity
 @Table(name="martinlaw_status_t")
-public class Status extends PersistableBusinessObjectBase implements ScopedKeyValue {
+public class Status extends BaseDetail implements ScopedKeyValue {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
 	private List<StatusScope> scope;
@@ -54,12 +51,12 @@ public class Status extends PersistableBusinessObjectBase implements ScopedKeyVa
 	 * initializes class with with default values for the fields
 	 * 
 	 * @param id - the primary key
-	 * @param status - the description
+	 * @param name - the description
 	 */
-	public Status(Long id, String status) {
+	public Status(Long id, String name) {
 		this();
-		this.id = id;
-		this.status = status;
+		setId(id);
+		setName(name);
 	}
 	
 	/**
@@ -73,42 +70,6 @@ public class Status extends PersistableBusinessObjectBase implements ScopedKeyVa
 	 * 
 	 */
 	private static final long serialVersionUID = 2361877298799195456L;
-	/**
-	 * the primary key
-	 */
-	@Id
-	@Column(name="status_id")
-	private Long id;
-	/**
-	 * e.g. 'pending hearing date'
-	 */
-	@Column(name="status", length=100, nullable=false)
-	private String status;
-	
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	/**
 	 * @return the scope
@@ -131,7 +92,7 @@ public class Status extends PersistableBusinessObjectBase implements ScopedKeyVa
 
 	@Override
 	public String getValue() {
-		return getStatus();
+		return getName();
 	}
 
 }

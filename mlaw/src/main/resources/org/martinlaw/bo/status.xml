@@ -14,15 +14,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="matter_status_bo" parent="BusinessObjectEntry">
+	<bean id="matter_status_bo" parent="martinlaw_shared_type_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.Status" />
-		<property name="titleAttribute" value="status" />
-		<property name="attributes">
-			<list>
-				<ref bean="matter_status_bo-id" />
-				<ref bean="matter_status_bo-text" />
-			</list>
-		</property>
 		<property name="objectLabel" value="Status" />
 		<!-- without the collection defn, validation is not carried out for scope elements -->
 		<property name="collections">
@@ -31,29 +24,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 					p:shortLabel="scope" p:elementLabel="scope"
 					p:dataObjectClass="org.martinlaw.bo.StatusScope" />
 			</list>
-		</property>
-	</bean>
-
-	<!-- Attribute Definitions -->
-	<!-- enabled to avoid error stacktraces about missing id attribute on inquiry 
-		action -->
-	<bean id="matter_status_bo-id" parent="martinlaw-shared-id" />
-
-	<bean id="matter_status_bo-text" parent="AttributeDefinition">
-		<property name="forceUppercase" value="false" />
-		<property name="shortLabel" value="Status" />
-		<property name="maxLength" value="100" />
-		<property name="validationPattern">
-			<bean parent="AnyCharacterValidationPattern" p:allowWhitespace="true" />
-		</property>
-		<property name="required" value="true" />
-		<property name="summary" value="Status" />
-		<property name="name" value="status" />
-		<property name="label" value="Status" />
-		<property name="description" value="Status" />
-		<property name="controlField">
-
-			<bean parent="Uif-TextControl" p:size="60" />
 		</property>
 	</bean>
 </beans>

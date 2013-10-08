@@ -54,7 +54,7 @@ public class MatterBoTest extends MartinlawTestsBase {
 	    assertEquals("tags differ", "testing, sql, sample", matter.getTags());
 	    // status
 	    assertNotNull("status should not be null", matter.getStatus());
-	    assertEquals("status differs", "hearing", matter.getStatus().getStatus());
+	    assertEquals("status differs", "hearing", matter.getStatus().getName());
 	    // case client
 	    List<MatterClient> clients = matter.getClients();
 	    assertEquals("number of clients differs", 2, clients.size());
@@ -111,7 +111,7 @@ public class MatterBoTest extends MartinlawTestsBase {
 		assertNotNull("status id should not be null", matter.getStatusId());
 		assertNotNull("status should not be null", matter.getStatus());
 		
-		assertEquals("status differs", statusText, matter.getStatus().getStatus());
+		assertEquals("status differs", statusText, matter.getStatus().getName());
 		assertNotNull("considerations should not be null", matter.getConsiderations());
 		assertEquals("default number of considerations differs", 2, matter.getConsiderations().size());
 		log.debug("Created case with id " + matter.getId());
@@ -155,7 +155,7 @@ public class MatterBoTest extends MartinlawTestsBase {
 		matter.setTags(matterTags );
 	
 		Status status = new Status();
-		status.setStatus(statusText);
+		status.setName(statusText);
 		// save status since it is not updated from the court case - ojb config to prevent object modified errors when the status is changed
 		getBoSvc().save(status);
 		status.refresh();

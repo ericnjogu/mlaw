@@ -37,17 +37,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.kuali.rice.krad.maintenance.Maintainable;
-import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
+import org.martinlaw.bo.BaseDetail;
 import org.martinlaw.bo.Matter;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.Status;
 import org.martinlaw.bo.StatusScope;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.keyvalues.ScopedKeyValuesUif;
+import org.martinlaw.test.type.BaseDetailBoTestBase;
 import org.springframework.dao.DataIntegrityViolationException;
-import static org.mockito.Mockito.when;
 
 /**
  * various unit tests for {@link Status}
@@ -55,7 +54,7 @@ import static org.mockito.Mockito.when;
  * @author mugo
  *
  */
-public class StatusBOTest extends MartinlawTestsBase {
+public class StatusBOTest extends BaseDetailBoTestBase {
 	@Test
 	/**
 	 * test that default annex types are retrieved ok
@@ -66,7 +65,7 @@ public class StatusBOTest extends MartinlawTestsBase {
 		assertEquals("number of default statuses differs", 5, caseStatuses.size());
 		Status status = getBoSvc().findBySinglePrimaryKey(Status.class, new Long(1003));
 		assertNotNull("status should not be null", status);
-		assertEquals("status text differs", "closed", status.getStatus());
+		assertEquals("status text differs", "closed", status.getName());
 		assertTrue("no scope has been set", status.getScope().isEmpty());
 		
 		testRetrievedScopedStatus(new Long(1002), "hearing", 1,	CourtCase.class.getCanonicalName());
@@ -84,7 +83,7 @@ public class StatusBOTest extends MartinlawTestsBase {
 			final String firstScopeCanonicalName) {
 		Status status;
 		status = getBoSvc().findBySinglePrimaryKey(Status.class, primaryKey);
-		assertEquals("status text differs", statusText, status.getStatus());
+		assertEquals("status text differs", statusText, status.getName());
 		assertFalse("status scope has been set", status.getScope().isEmpty());
 		assertEquals("scope size differs", scopeSize, status.getScope().size());
 		assertEquals("status first scope class name differs", firstScopeCanonicalName, 
@@ -98,7 +97,7 @@ public class StatusBOTest extends MartinlawTestsBase {
 	public void testStatusCRUD() {
 		// create
 		Status status = new Status();
-		status.setStatus("pending");
+		status.setName("pending");
 		//test scopes
 		StatusScope scope1 = new StatusScope();
 		final String canonicalName1 = Matter.class.getCanonicalName();
@@ -113,18 +112,18 @@ public class StatusBOTest extends MartinlawTestsBase {
 		//refresh
 		status.refresh();
 		// retrieve
-		assertEquals("the Status does not match", "pending", status.getStatus());
+		assertEquals("the Status does not match", "pending", status.getName());
 		assertFalse("scope should not be empty", status.getScope().isEmpty());
 		assertEquals("scope size differs", 2, status.getScope().size());
 		assertEquals("class name differs", canonicalName1, status.getScope().get(0).getQualifiedClassName());
 		assertEquals("class name differs", canonicalName2, status.getScope().get(1).getQualifiedClassName());
 		//update
-		status.setStatus("appealed");
+		status.setName("appealed");
 		status.getScope().remove(0);
 		getBoSvc().save(status);
 		//refresh
 		status.refresh();
-		assertEquals("the Status does not match", "appealed", status.getStatus());
+		assertEquals("the Status does not match", "appealed", status.getName());
 		assertEquals("scope size differs", 1, status.getScope().size());
 		assertEquals("class name differs", canonicalName2, status.getScope().get(0).getQualifiedClassName());
 		// delete
@@ -147,40 +146,68 @@ public class StatusBOTest extends MartinlawTestsBase {
 	
 	@Test
 	/**
-	 * test that status type key values returns the correct number
+	 * test that status key values returns the correct number
 	 */
-	public void testMatterStatusKeyValues() {
-		MaintenanceDocumentForm form = getTestUtils().createMockMaintenanceDocForm();
+	public void testMatterTypeKeyValues() {
+		final String dataObjectName = "matter annex type(s)";
+		final int expectedCourtCaseScopeCount = 3;
+		final int expectedContractScopeCount = 0;
+		final int expectedConveyanceScopeCount = 1;
+		final int expectedEmptyScopeCount = 2;
+		final int expectedMatterScopeCount = 0;
+		final int expectedLandCaseScopeCount = 0;
 		
-		
-		ScopedKeyValuesUif kv = new ScopedKeyValuesUif();
-		kv.setScopedClass(Status.class);
-		
-		Maintainable newMaintainableObject = form.getDocument().getNewMaintainableObject();
-		when(newMaintainableObject.getDataObject()).thenReturn(new CourtCase());
-		String comment = "expected 3 statuses with court case scope and two that apply to all (empty)";
-		assertEquals(comment, 5, kv.getKeyValues(form).size());
-		
-		when(newMaintainableObject.getDataObject()).thenReturn(new Contract());
-		comment = "expected the two that apply to all (empty)";
-		assertEquals(comment, 2, kv.getKeyValues(form).size());
-		
-		// TODO  adapt for matter
-		/*comment = "expected the two that apply to all (empty), plus a blank one";
-		getTestUtils().testMatterStatusKeyValues(new OpinionStatusKeyValues(), comment, 3);*/
-		
-		when(newMaintainableObject.getDataObject()).thenReturn(new Conveyance());
-		comment = "expected one status with conveyance scope, the two that apply to all (empty)";
-		assertEquals(comment, 3, kv.getKeyValues(form).size());
+		getTestUtils().testScopeKeyValues(dataObjectName, expectedCourtCaseScopeCount,
+				expectedContractScopeCount, expectedConveyanceScopeCount,
+				expectedEmptyScopeCount, expectedMatterScopeCount,
+				expectedLandCaseScopeCount, getDataObjectClass());
 	}
-	
-	@Test
-	/**
-	 * test that the {@link Status} is loaded into the data dictionary
-	 */
-	public void testStatusAttributes() {
-		testBoAttributesPresent(Status.class.getCanonicalName());
-		Class<Status> dataObjectClass = Status.class;
-		verifyMaintDocDataDictEntries(dataObjectClass);
+
+	@Override
+	public Class<? extends BaseDetail> getDataObjectClass() {
+		return Status.class;
+	}
+
+	@Override
+	public String getDocTypeName() {
+		return "MartinlawDefaultNoRoutingSearchableDocument";
+	}
+
+	@Override
+	public Class<? extends Scope> getScopeClass() {
+		return StatusScope.class;
+	}
+
+	@Override
+	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+		// DO nothing
+		
+	}
+
+	@Override
+	protected void testCrudCreated(BaseDetail type) {
+		// DO nothing
+		
+	}
+
+	@Override
+	protected void testCrudDeleted(BaseDetail type) {
+		// DO nothing
+		
+	}
+
+	@Override
+	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+		// DO nothing
+		
+	}
+
+	@Override
+	public BaseDetail getExpectedOnRetrieve() {
+		Status status = new Status();
+		status.setName("adjourned");
+		status.setId(1005l);
+		
+		return status;
 	}
 }

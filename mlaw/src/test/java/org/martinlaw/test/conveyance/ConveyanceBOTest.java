@@ -103,7 +103,7 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 		assertEquals("Sale of LR4589", conv.getName());
 		assertEquals("c1", conv.getLocalReference());
 		assertEquals("Sale of Urban Land", conv.getType().getName());
-		assertEquals("pending", conv.getStatus().getStatus());
+		assertEquals("pending", conv.getStatus().getName());
 		// clients
 		assertEquals("number of clients differs", 2, conv.getClients().size());
 		assertEquals("client name differs", "client1", conv.getClients().get(0).getPrincipalName());

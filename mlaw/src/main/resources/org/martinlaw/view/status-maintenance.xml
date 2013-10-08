@@ -27,20 +27,11 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
   
 
-  <bean id="matter_status_maintenance_view" parent="Uif-MaintenanceView">
+  <bean id="matter_status_maintenance_view" parent="martinlaw_shared_name_description_maintenance_view">
     <property name="headerText" value="Status"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.Status"/>
-    <property name="validateClientSide" value="false"/>
     <property name="items">
       <list merge="true">
-        <bean parent="Uif-MaintenanceGridSection">
-			<property name="items">
-			  <list>
-			    <bean parent="Uif-InputField" p:propertyName="status"/>
-			  </list>
-			</property>
-			<property name="headerText" value="Matter Status"/>
-        </bean>
         <bean parent="martinlaw_shared_scope_collection_maint_section">
 			<property name="collectionObjectClass" value="org.martinlaw.bo.StatusScope" />
 		</bean>

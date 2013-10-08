@@ -166,7 +166,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<bean parent="SelectControlDefinition" p:size="20"
 				p:valuesFinderClass="org.kuali.rice.krad.keyvalues.PersistableBusinessObjectValuesFinder"
 				p:businessObjectClass="org.martinlaw.bo.Status" p:keyAttribute="id"
-				p:labelAttribute="status" p:includeBlankRow="true"
+				p:labelAttribute="name" p:includeBlankRow="true"
 				p:includeKeyInLabel="false" />
 		</property>
 		<property name="name" value="statusId" />

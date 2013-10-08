@@ -496,7 +496,7 @@ public class TestUtils {
 	public <M extends Matter> Matter getTestMatter(String localRef, Class<M> klass) throws InstantiationException, IllegalAccessException {
 		//set up test status
 		Status status = new Status();
-		status.setStatus("Testing");
+		status.setName("Testing");
 		getBoSvc().save(status);
 		status.refresh();
 		assertNotNull(status.getId());

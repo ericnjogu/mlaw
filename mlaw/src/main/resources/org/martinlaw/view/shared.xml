@@ -259,7 +259,7 @@
 				<bean parent="Uif-DataField" p:propertyName="client.name" p:label="Client Name"/>
 				<bean parent="Uif-DataField" p:propertyName="eventsHtml" p:label="Events" p:escapeHtmlInPropertyValue="false"/>				
 				<bean parent="Uif-DataField" p:propertyName="considerationsHtml" p:label="Considerations" p:escapeHtmlInPropertyValue="false"/>
-				<bean parent="Uif-DataField" p:propertyName="status.status" />
+				<bean parent="Uif-DataField" p:propertyName="status.name" />
 			</list>
 		</property>
 	</bean>

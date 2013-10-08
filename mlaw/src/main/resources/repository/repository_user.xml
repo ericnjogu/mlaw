@@ -205,13 +205,15 @@
 			jdbc-type="VARCHAR" index="true" />
 	</class-descriptor>
 
-	<class-descriptor class="org.martinlaw.bo.Status"
-		table="martinlaw_status_t">
-		<field-descriptor name="id" column="status_id"
+	<class-descriptor class="org.martinlaw.bo.Status" table="martinlaw_status_t">
+		<field-descriptor name="id" column="type_id"
 			jdbc-type="BIGINT" primarykey="true" autoincrement="true"
 			sequence-name="martinlaw_status_s">
 		</field-descriptor>
-		<field-descriptor name="status" column="status"
+		<field-descriptor name="name" column="name"
+			jdbc-type="VARCHAR" length="150">
+		</field-descriptor>
+		<field-descriptor name="description" column="description"
 			jdbc-type="VARCHAR" length="100">
 		</field-descriptor>
 		<field-descriptor name="versionNumber" column="ver_nbr"

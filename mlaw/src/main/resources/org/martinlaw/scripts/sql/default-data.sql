@@ -21,13 +21,13 @@
 ---
 
 insert into martinlaw_status_t 
-(status_id, status, ver_nbr,  obj_id) 
+(type_id, name, description, ver_nbr, obj_id) 
 values 
-(1001, 'pending', 1, 'rVFEm1NEx898d3LVZ5wpM3NoGj4fc5odHitf'), 
-(1002, 'hearing', 1, 'urJMtBzP7nGFkGeCxW6yIUe3TBBO2qyUNpjC'), 
-(1003, 'closed', 1, '19ArvTXtirtmHRbmE5mO13R1rGvwej1zO94H'), 
-(1004, 'documents missing', 1, 'TrUJbOnoGZguzwZerTVa5Ec2rZQQlvra9jQv'),
-(1005, 'adjourned', 1, 'pC91h1ZSYcAdhAXIzjotJIMoowo0ToqcJFGV');
+(1001, 'pending', null, 1, uuid()), 
+(1002, 'hearing', null, 1, uuid()), 
+(1003, 'closed', null, 1, uuid()), 
+(1004, 'documents missing', null, 1, uuid()),
+(1005, 'adjourned', null, 1, uuid());
 
 insert into martinlaw_status_scope_t
 (scope_id, qualified_class_name, type_id, ver_nbr,  obj_id)

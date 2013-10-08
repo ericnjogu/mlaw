@@ -28,35 +28,19 @@
 		xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
 		<documentType>
 			<name>StatusMaintenanceDocument</name>
-			<parent>RiceDocument</parent>
+			<parent>MartinlawDefaultNoRoutingSearchableDocument</parent>
 			<description>Status Maintenance Document</description>
 			<label>Status Maintenance Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
-			<blanketApproveGroupName namespace= "MARTINLAW" >lawyer</blanketApproveGroupName>
-			<defaultExceptionGroupName namespace= "KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
-			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
-			<routePaths>
-				<routePath>
-					<start name="Initiated" />
-				</routePath>
-			</routePaths>
-			<routeNodes>
-				<start name="Initiated">
-					<activationType>P</activationType>
-					<mandatoryRoute>false</mandatoryRoute>
-					<finalApproval>true</finalApproval>
-				</start>
-				<!-- will commenting this out mean that the edoc will go to final on initiator's submit? - yes -->
-				<!-- 
-				<requests name="approvalNode">
-					<activationType>P</activationType>
-					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
-					<mandatoryRoute>false</mandatoryRoute>
-					<finalApproval>false</finalApproval>
-				</requests>
-				 -->
-			</routeNodes>
 		</documentType>
+		<!-- work flow routing is not tested -->
+		<!-- <documentType>
+			<name>StatusMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType> -->
 	</documentTypes>
 
 </data>
