@@ -160,6 +160,7 @@ public class MartinlawConstants {
 	 */
 	public static class RoutingBranches {
 		public static final String FYI_INITIATOR_IF_NOT_APPROVER = "martinlawInitiatorFyiBranch";
+		public static final String ANNEX_TYPE_APPROVAL = "martinlawAnnexTypeApprovalBranch";
 	}
 	
 	/**

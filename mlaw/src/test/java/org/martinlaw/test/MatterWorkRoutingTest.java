@@ -24,14 +24,15 @@ import org.martinlaw.bo.MatterWork;
  * @author mugo
  *
  */
-public abstract class MatterWorkRoutingTestBase extends TxRoutingTestBase {
+public class MatterWorkRoutingTest extends TxRoutingTestBase {
 
-	public MatterWorkRoutingTestBase() {
+	public MatterWorkRoutingTest() {
 		super();
 	}
 	
 	/**
 	 * confirms that the custom workflow document field is populated when documents are retrieved from the document service
+	 * <p>also confirms that org.martinlaw.routing.AnnexTypeApprovalSplit works since the default annex type requires routing</p>
 	 * <p>tests the code in {@link org.martinlaw.bo.MatterWork#setDocumentHeader(DocumentHeader)}
 	 */
 	@Test
@@ -62,7 +63,7 @@ public abstract class MatterWorkRoutingTestBase extends TxRoutingTestBase {
 		assertFalse("approval period should not be empty", StringUtils.isEmpty( bo.getPeriodToApprove()));
 		
 		work.refreshNonUpdateableReferences();
-		assertNotNull("work type should not be null", work.getAnnexType());
+		assertNotNull("annex type should not be null", work.getAnnexType());
 		assertEquals("default annex type differs", MartinlawConstants.DEFAULT_ANNEX_TYPE_ID, work.getAnnexTypeId());
 	}
 	
@@ -105,5 +106,10 @@ public abstract class MatterWorkRoutingTestBase extends TxRoutingTestBase {
 		MatterWork work = new MatterWork();
 		WorkflowDocument wfd = work.getDocumentHeader().getWorkflowDocument();
 		assertTrue("work flow document differs", wfd instanceof DummyWorkFlowDocument);
+	}
+
+	@Override
+	public Class<?> getDataObjectClass() {
+		return MatterWork.class;
 	}
 }

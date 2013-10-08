@@ -22,6 +22,53 @@
 			<label>Matter Work Document</label>
 			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
 			<docHandler>${dochandler_matter_work}</docHandler>
+			<routePaths>
+				<routePath>
+					<start name="initiated" nextNode="martinlawAnnexTypeApprovalSplit" />
+					<split name="martinlawAnnexTypeApprovalSplit" nextNode="noOpNode">
+						<branch name="martinlawAnnexTypeApprovalBranch">
+							<requests name="approvalRequest" nextNode="martinlawInitiatorFyiSplit" />
+						</branch>
+						<join name="join"/>
+					</split>
+					<split name="martinlawInitiatorFyiSplit" nextNode="noOpNode">
+						<branch name="martinlawInitiatorFyiBranch">
+							<requests name="martinlawInitiatorFyiRequest" nextNode="join"/>
+						</branch>
+						<join name="join"/>
+					</split>
+					<simple name="noOpNode" />
+				</routePath>
+			</routePaths>
+			<routeNodes>
+				<start name="initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</start>
+				<requests name="approvalRequest">
+					<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</requests>
+				<requests name="martinlawInitiatorFyiRequest">
+		        	<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+		        </requests>
+		        <split name="martinlawInitiatorFyiSplit">
+					<type>org.martinlaw.routing.InitiatorIsNotApproverSplit</type>
+				</split>
+				<split name="martinlawAnnexTypeApprovalSplit">
+					<type>org.martinlaw.routing.AnnexTypeApprovalSplit</type>
+				</split>
+				<simple name="noOpNode">
+					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
+				</simple>
+				<join name="join"/>
+			</routeNodes>
 		</documentType>
 		<documentType>
 			<name>MatterWorkDocumentTest</name>

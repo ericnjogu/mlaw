@@ -39,11 +39,11 @@ import org.martinlaw.bo.MatterWorkRule;
  * @author mugo
  *
  */
-public class MatterWorkBOTestBase extends MartinlawTestsBase {
+public class MatterWorkBOTest extends MartinlawTestsBase {
 
 	private MatterTxDocBase work;
 
-	public MatterWorkBOTestBase() {
+	public MatterWorkBOTest() {
 		super();
 	}
 
