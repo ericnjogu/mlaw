@@ -13,11 +13,10 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.rice.krad.bo.BusinessObject;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.ConsiderationType;
-import org.martinlaw.bo.ConsiderationTypeScope;
-import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Scope;
+import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
 
@@ -49,10 +48,10 @@ import org.martinlaw.bo.courtcase.CourtCase;
  * @author mugo
  * 
  */
-public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
-	private BaseDetail considerationType;
+public class ConsiderationTypeBOTest extends TypeBoTestBase {
+	private Type considerationType;
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return ConsiderationType.class;
 	}
 
@@ -61,13 +60,13 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 	 */
 	public ConsiderationTypeBOTest() {
 		considerationType = new ConsiderationType();
-		considerationType.setId(10004l);
+		considerationType.setId(10015l);
 		considerationType.setName("purchase price");
 		considerationType.setDescription("the purchase price");
 	}
 
 	@Override
-	public BaseDetail getExpectedOnRetrieve() {
+	public Type getExpectedOnRetrieve() {
 		return considerationType;
 	}
 
@@ -80,7 +79,7 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 	 * test that the scope is populated from the db ok
 	 */
 	@Test
-	public void testConsiderationTypeScopeRetrieve() {
+	public void testScopeRetrieve() {
 		ConsiderationType cnType = getBoSvc().findBySinglePrimaryKey(
 				ConsiderationType.class, getExpectedOnRetrieve().getId());
 		assertNotNull("scope should not be null", cnType.getScope());
@@ -94,16 +93,16 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 	 */
 	@Override
 	@Test
-	public void testBaseDetailCRUD() throws InstantiationException,
+	public void testTypeCRUD() throws InstantiationException,
 			IllegalAccessException {
 		// C
 		ConsiderationType type = new ConsiderationType();
 		String name = "test type";
 		type.setName(name);
-		ConsiderationTypeScope scope1 = new ConsiderationTypeScope();
+		Scope scope1 = new Scope();
 		scope1.setQualifiedClassName(Matter.class.getCanonicalName());
 		type.getScope().add(scope1);
-		ConsiderationTypeScope scope2 = new ConsiderationTypeScope();
+		Scope scope2 = new Scope();
 		scope2.setQualifiedClassName(CourtCase.class.getCanonicalName());
 		type.getScope().add(scope2);
 		getBoSvc().save(type);
@@ -123,7 +122,7 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 		assertNull(getBoSvc().findBySinglePrimaryKey(getDataObjectClass(),	type.getId()));
 		Map<String, String> criteria = new HashMap<String, String>();
 		criteria.put("typeId", String.valueOf(type.getId()));
-		assertTrue("scopes should have been deleted", getBoSvc().findMatching(ConsiderationTypeScope.class, criteria).isEmpty());
+		assertTrue("scopes should have been deleted", getBoSvc().findMatching(Scope.class, criteria).isEmpty());
 	}
 	
 	@Test
@@ -135,7 +134,7 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 		final int expectedCourtCaseScopeCount = 0;
 		final int expectedContractScopeCount = 1;
 		final int expectedConveyanceScopeCount = 2;
-		final int expectedEmptyScopeCount = 1;
+		final int expectedEmptyScopeCount = 2;
 		final int expectedMatterScopeCount = 0;
 		final int expectedLandCaseScopeCount = 0;
 		final Class<? extends BusinessObject> scopedClass = ConsiderationType.class;
@@ -147,30 +146,25 @@ public class ConsiderationTypeBOTest extends BaseDetailBoTestBase {
 	}
 
 	@Override
-	public Class<? extends Scope> getScopeClass() {
-		return ConsiderationTypeScope.class;
-	}
-
-	@Override
-	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+	protected void additionalTestsForRetrievedObject(Type type) {
 		// DO nothing
 		
 	}
 
 	@Override
-	protected void testCrudCreated(BaseDetail type) {
+	protected void testCrudCreated(Type type) {
 		// DO nothing
 		
 	}
 
 	@Override
-	protected void testCrudDeleted(BaseDetail type) {
+	protected void testCrudDeleted(Type type) {
 		// DO nothing
 		
 	}
 
 	@Override
-	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+	protected void populateAdditionalFieldsForCrud(Type type) {
 		// DO nothing
 		
 	}

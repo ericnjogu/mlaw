@@ -26,11 +26,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.martinlaw.ScopedKeyValue;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Scope;
 import org.martinlaw.test.MartinlawTestsBase;
@@ -38,13 +42,13 @@ import org.martinlaw.test.TestBoInfo;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
- * holds common tests for children of {@link BaseDetail}
+ * holds common tests for children of {@link Type}
  * @author mugo
  *
  */
-public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements TestBoInfo {
+public abstract class TypeBoTestBase extends MartinlawTestsBase implements TestBoInfo {
 
-	public BaseDetailBoTestBase() {
+	public TypeBoTestBase() {
 		super();
 	}
 
@@ -55,7 +59,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	 */
 	@Test(expected = DataIntegrityViolationException.class)
 	public void testTypeNullableFields() throws InstantiationException, IllegalAccessException {
-		BaseDetail type = getDataObjectClass().newInstance();
+		Type type = getDataObjectClass().newInstance();
 		getBoSvc().save(type);
 	}
 
@@ -63,7 +67,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	 * tests data dictionary entries
 	 */
 	@Test
-	public void testBaseDetailAttributes() {
+	public void testTypeAttributes() {
 		testBoAttributesPresent(getDataObjectClass().getCanonicalName());
 		verifyMaintDocDataDictEntries(getDataObjectClass());
 	}
@@ -76,15 +80,13 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		testBoAttributesPresent(getScopeClass().getCanonicalName());
 	}
 
-	public abstract Class<? extends Scope> getScopeClass();
-
 	/**
 	 * tests retrieving a BO
 	 */
 	@Test
-	public void testBaseDetailRetrieve() {
+	public void testTypeRetrieve() {
 		// retrieve object populated via sql script
-		BaseDetail type = getBoSvc().findBySinglePrimaryKey(
+		Type type = getBoSvc().findBySinglePrimaryKey(
 				getDataObjectClass(), getExpectedOnRetrieve().getId());
 		assertNotNull("retrieved '" + getDataObjectClass() + "' should not be null", type);
 		assertEquals("name differs", getExpectedOnRetrieve().getName(), type.getName());
@@ -92,7 +94,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		additionalTestsForRetrievedObject(type);
 	}
 
-	protected abstract void additionalTestsForRetrievedObject(BaseDetail type);
+	protected abstract void additionalTestsForRetrievedObject(Type type);
 
 	/**
 	 * tests CRUD for the bo class provided in {@link #getDataObjectClass()}
@@ -100,9 +102,9 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	 * @throws InstantiationException 
 	 */
 	@Test
-	public void testBaseDetailCRUD() throws InstantiationException, IllegalAccessException {
+	public void testTypeCRUD() throws InstantiationException, IllegalAccessException {
 		// C
-		BaseDetail type = getDataObjectClass().newInstance();
+		Type type = getDataObjectClass().newInstance();
 		String name = "test type";
 		type.setName(name);
 		populateAdditionalFieldsForCrud(type);
@@ -112,6 +114,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		type.refresh();
 		assertEquals("name does not match", name, type.getName());
 		// save scope and see if it can be seen from the base detail/type side
+		boolean scopeAdded = false;
 		if (ScopedKeyValue.class.isAssignableFrom(getDataObjectClass())) {
 			Scope scope = getScopeClass().newInstance();
 			final String qualifiedClassName = Matter.class.getCanonicalName();
@@ -124,6 +127,8 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 			assertNotNull("scope should not be null", scoped.getScope());
 			assertFalse("scope should not be empty", scoped.getScope().isEmpty());
 			assertEquals("qualified class name differs", qualifiedClassName, scoped.getScope().get(0).getQualifiedClassName());
+			// insert boolean to indicate that a scope has been set, to be used at the delete section below
+			scopeAdded = true;
 		}
 		testCrudCreated(type);
 		
@@ -134,6 +139,11 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 		// D
 		getBoSvc().delete(type);
 		assertNull(getBoSvc().findBySinglePrimaryKey(getDataObjectClass(),	type.getId()));
+		if (scopeAdded) {
+			Map<String, String> criteria = new HashMap<String, String>();
+			criteria.put("typeId", String.valueOf(type.getId()));
+			assertTrue("scope should have been deleted", getBoSvc().findMatching(Scope.class, criteria).isEmpty());
+		}
 		testCrudDeleted(type);
 	}
 
@@ -141,25 +151,25 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	 * additional tests for an object created while doing CRUD tests
 	 * @param type - the object to test
 	 */
-	protected abstract void testCrudCreated(BaseDetail type);
+	protected abstract void testCrudCreated(Type type);
 	
 	/**
 	 * additional tests for an object deleted while doing CRUD tests
 	 * @param type - the object to test
 	 */
-	protected abstract void testCrudDeleted(BaseDetail type);
+	protected abstract void testCrudDeleted(Type type);
 
 	/**
 	 * populate additional fields - in addition to name and description if any
 	 * @param type - the object to populate
 	 */
-	protected abstract void populateAdditionalFieldsForCrud(BaseDetail type);
+	protected abstract void populateAdditionalFieldsForCrud(Type type);
 
 	/**
 	 * tests that the document type name can be found
 	 */
 	@Test
-	public void testBaseDetailDocType() {
+	public void testTypeDocType() {
 		assertNotNull("document type should not be null", getDocTypeSvc().findByName(getDocTypeName()));
 	}
 	
@@ -167,7 +177,7 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	 * 
 	 * @return a bo containing the expected values to be compared to the bo retrieved from the db 
 	 */
-	public abstract BaseDetail getExpectedOnRetrieve();
+	public abstract Type getExpectedOnRetrieve();
 	
 	/**
 	 * verify that the collection definition has been defined
@@ -177,5 +187,12 @@ public abstract class BaseDetailBoTestBase extends MartinlawTestsBase implements
 	public void testScopeCollectionDD() {
 		String label = KRADServiceLocatorWeb.getDataDictionaryService().getCollectionLabel(getDataObjectClass(), "scope");
 		assertEquals("scope collection label differs", "scope", label);
+	}
+
+	/**
+	 * @return the scope class
+	 */
+	public Class<? extends Scope> getScopeClass() {
+		return Scope.class;
 	}
 }

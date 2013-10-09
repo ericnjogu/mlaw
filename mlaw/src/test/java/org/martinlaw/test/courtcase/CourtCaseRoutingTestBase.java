@@ -8,6 +8,7 @@ import java.util.List;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.courtcase.CourtCase;
+import org.martinlaw.test.MatterRoutingTest;
 import org.martinlaw.util.SearchTestCriteria;
 
 /**
@@ -43,7 +44,7 @@ public abstract class CourtCaseRoutingTestBase extends MatterRoutingTest {
 	@Override
 	protected Matter getTestMatter() throws InstantiationException,
 			IllegalAccessException {
-		return getTestUtils().getTestCourtCase(localReference, courtReference, getDataObjectClass());
+		return getTestUtils().getTestCourtCase(getLocalReference(), courtReference, getDataObjectClass());
 	}
 
 	/* (non-Javadoc)

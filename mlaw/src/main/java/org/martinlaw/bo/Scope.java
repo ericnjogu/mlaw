@@ -23,18 +23,22 @@ package org.martinlaw.bo;
  */
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
 
 /**
- * holds common fields for scope objects
+ * gives information on which matter(s) a status applies to
+ * type (one) -> Scope (many)
+ * <p>a type could be matter type, event type, etc</p>
  * @author mugo
  *
  */
-@MappedSuperclass
-public abstract class Scope extends PersistableBusinessObjectBase {
+@Entity
+@Table(name="martinlaw_type_scope_t")
+public class Scope extends PersistableBusinessObjectBase {
 
 	/**
 	 * 
@@ -50,6 +54,14 @@ public abstract class Scope extends PersistableBusinessObjectBase {
 
 	public Scope() {
 		super();
+	}
+
+	/**
+	 * initialize scope with qualified class name
+	 * @param qualifiedClassName
+	 */
+	public Scope(String qualifiedClassName) {
+		this.qualifiedClassName = qualifiedClassName;
 	}
 
 	/**

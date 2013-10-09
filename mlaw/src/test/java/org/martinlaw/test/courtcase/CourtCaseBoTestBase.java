@@ -33,6 +33,7 @@ import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterType;
 import org.martinlaw.bo.courtcase.CourtCase;
 import org.martinlaw.bo.courtcase.CourtCaseWitness;
+import org.martinlaw.test.MatterBoTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 public abstract class CourtCaseBoTestBase extends MatterBoTest {
@@ -120,8 +121,6 @@ public abstract class CourtCaseBoTestBase extends MatterBoTest {
 	 */
 	@Override
 	public void additionalTestsForCreatedMatter(Matter matter) {
-		super.additionalTestsForCreatedMatter(matter);
-		
 		CourtCase kase = (CourtCase)matter;
 		assertNotNull("witnesses should not be null", kase.getWitnesses());
 		assertEquals("number of witnesses expected differs", 1, kase.getWitnesses().size());

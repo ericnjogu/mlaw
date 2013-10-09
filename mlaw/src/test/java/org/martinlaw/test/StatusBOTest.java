@@ -37,15 +37,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.Status;
-import org.martinlaw.bo.StatusScope;
 import org.martinlaw.bo.contract.Contract;
 import org.martinlaw.bo.conveyance.Conveyance;
 import org.martinlaw.bo.courtcase.CourtCase;
-import org.martinlaw.test.type.BaseDetailBoTestBase;
+import org.martinlaw.test.type.TypeBoTestBase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
@@ -54,7 +53,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author mugo
  *
  */
-public class StatusBOTest extends BaseDetailBoTestBase {
+public class StatusBOTest extends TypeBoTestBase {
 	@Test
 	/**
 	 * test that default annex types are retrieved ok
@@ -63,13 +62,13 @@ public class StatusBOTest extends BaseDetailBoTestBase {
 		List<Status> caseStatuses = (List<Status>) getBoSvc().findAll(Status.class);
 		assertNotNull("default status list should not be null", caseStatuses);
 		assertEquals("number of default statuses differs", 5, caseStatuses.size());
-		Status status = getBoSvc().findBySinglePrimaryKey(Status.class, new Long(1003));
+		Type status = getBoSvc().findBySinglePrimaryKey(Status.class, new Long(10035));
 		assertNotNull("status should not be null", status);
 		assertEquals("status text differs", "closed", status.getName());
 		assertTrue("no scope has been set", status.getScope().isEmpty());
 		
-		testRetrievedScopedStatus(new Long(1002), "hearing", 1,	CourtCase.class.getCanonicalName());
-		testRetrievedScopedStatus(new Long(1004), "documents missing", 2, Conveyance.class.getCanonicalName());
+		testRetrievedScopedStatus(new Long(10034), "hearing", 1,	CourtCase.class.getCanonicalName());
+		testRetrievedScopedStatus(new Long(10036), "documents missing", 2, Conveyance.class.getCanonicalName());
 	}
 
 	/**
@@ -81,7 +80,7 @@ public class StatusBOTest extends BaseDetailBoTestBase {
 	 */
 	public void testRetrievedScopedStatus(final Long primaryKey, final String statusText, final int scopeSize,
 			final String firstScopeCanonicalName) {
-		Status status;
+		Type status;
 		status = getBoSvc().findBySinglePrimaryKey(Status.class, primaryKey);
 		assertEquals("status text differs", statusText, status.getName());
 		assertFalse("status scope has been set", status.getScope().isEmpty());
@@ -99,11 +98,11 @@ public class StatusBOTest extends BaseDetailBoTestBase {
 		Status status = new Status();
 		status.setName("pending");
 		//test scopes
-		StatusScope scope1 = new StatusScope();
+		Scope scope1 = new Scope();
 		final String canonicalName1 = Matter.class.getCanonicalName();
 		scope1.setQualifiedClassName(canonicalName1);
 		status.getScope().add(scope1);
-		StatusScope scope2 = new StatusScope();
+		Scope scope2 = new Scope();
 		final String canonicalName2 = Contract.class.getCanonicalName();
 		scope2.setQualifiedClassName(canonicalName2);
 		status.getScope().add(scope2);
@@ -131,7 +130,7 @@ public class StatusBOTest extends BaseDetailBoTestBase {
 		assertNull("status should have been deleted", getBoSvc().findBySinglePrimaryKey(Status.class, status.getId()));
 		Map<String, String> criteria = new HashMap<String, String>();
 		criteria.put("typeId", String.valueOf(status.getId()));
-		assertTrue("scopes should have been deleted", getBoSvc().findMatching(StatusScope.class, criteria).isEmpty());
+		assertTrue("scopes should have been deleted", getBoSvc().findMatching(Scope.class, criteria).isEmpty());
 	}
 	
 	@Test(expected=DataIntegrityViolationException.class)
@@ -164,7 +163,7 @@ public class StatusBOTest extends BaseDetailBoTestBase {
 	}
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return Status.class;
 	}
 
@@ -174,39 +173,34 @@ public class StatusBOTest extends BaseDetailBoTestBase {
 	}
 
 	@Override
-	public Class<? extends Scope> getScopeClass() {
-		return StatusScope.class;
-	}
-
-	@Override
-	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+	protected void additionalTestsForRetrievedObject(Type type) {
 		// DO nothing
 		
 	}
 
 	@Override
-	protected void testCrudCreated(BaseDetail type) {
+	protected void testCrudCreated(Type type) {
 		// DO nothing
 		
 	}
 
 	@Override
-	protected void testCrudDeleted(BaseDetail type) {
+	protected void testCrudDeleted(Type type) {
 		// DO nothing
 		
 	}
 
 	@Override
-	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+	protected void populateAdditionalFieldsForCrud(Type type) {
 		// DO nothing
 		
 	}
 
 	@Override
-	public BaseDetail getExpectedOnRetrieve() {
-		Status status = new Status();
+	public Type getExpectedOnRetrieve() {
+		Type status = new Status();
 		status.setName("adjourned");
-		status.setId(1005l);
+		status.setId(10037l);
 		
 		return status;
 	}

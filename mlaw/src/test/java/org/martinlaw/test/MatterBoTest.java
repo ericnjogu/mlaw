@@ -1,4 +1,4 @@
-package org.martinlaw.test.courtcase;
+package org.martinlaw.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,7 +20,6 @@ import org.martinlaw.bo.MatterConsideration;
 import org.martinlaw.bo.MatterEvent;
 import org.martinlaw.bo.MatterWork;
 import org.martinlaw.bo.Status;
-import org.martinlaw.test.MartinlawTestsBase;
 
 public class MatterBoTest extends MartinlawTestsBase {
 
@@ -110,6 +109,7 @@ public class MatterBoTest extends MartinlawTestsBase {
 		
 		assertNotNull("status id should not be null", matter.getStatusId());
 		assertNotNull("status should not be null", matter.getStatus());
+		assertNotNull("type should not be null", matter.getType());
 		
 		assertEquals("status differs", statusText, matter.getStatus().getName());
 		assertNotNull("considerations should not be null", matter.getConsiderations());
@@ -153,6 +153,7 @@ public class MatterBoTest extends MartinlawTestsBase {
 		matter.setLocalReference(localReference);
 		matter.setName(matterName);
 		matter.setTags(matterTags );
+		matter.setTypeId(10011l);
 	
 		Status status = new Status();
 		status.setName(statusText);
@@ -212,7 +213,7 @@ public class MatterBoTest extends MartinlawTestsBase {
 	 * for the court case created during CRUD, additional tests/verification
 	 */
 	public void additionalTestsForCreatedMatter(Matter matter) {
-		// default does nothing;
+		assertEquals("type name differs", "file", matter.getType().getName());
 	}
 	
 	/**

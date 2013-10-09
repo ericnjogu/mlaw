@@ -4,7 +4,7 @@ package org.martinlaw.bo.sequence;
  * #%L
  * mlaw
  * %%
- * Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
+ * Copyright (C) 2012 Eric Njogu (kunadawa@gmail.com)
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -23,38 +23,36 @@ package org.martinlaw.bo.sequence;
  */
 
 
-import java.math.BigInteger;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.StatusScope}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.Type}
  * 
  * @author mugo
  *
  */
-
+ 
 @Entity
-@Table(name="martinlaw_status_scope_s")
-public class StatusScopeSeq {
+@Table(name="martinlaw_type_s")
+public class TypeSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")
-	private BigInteger id;
+	private Long id;
 
 	/**
 	 * @return the id
 	 */
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 }

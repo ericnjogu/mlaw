@@ -20,8 +20,8 @@
 -- #L%
 ---
 insert into martinlaw_transaction_type_t
-(type_id, name, description, ver_nbr, obj_id, effect_on_consideration)
+(type_id, effect_on_consideration)
 values
-(1001, "receipt", null, 1, 'CsBD2mSy91XN8mg6QicnAhsCBIRliP0cKDq9', 'DECREASE'),
-(1002, "payment", null, 1, 'vXBJCFAXNHIxhzGSYwYg2e51UGpy5pmyVIB2','DECREASE'),
-(1003, "interest", 'interest on penalty', 1, '318cwPS4aVhLlV4H6URW7hHlmbpLxidYbUI9','INCREASE');
+(10026, 'DECREASE'),
+(10027, 'DECREASE'),
+(10028, 'INCREASE');

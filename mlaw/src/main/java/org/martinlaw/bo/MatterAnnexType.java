@@ -26,12 +26,9 @@ package org.martinlaw.bo;
  */
 
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.martinlaw.ScopedKeyValue;
@@ -46,14 +43,11 @@ import org.martinlaw.ScopedKeyValue;
  */
 @Entity
 @Table(name="martinlaw_matter_annex_type_t")
-public class MatterAnnexType extends BaseDetail implements ScopedKeyValue {
+public class MatterAnnexType extends Type implements ScopedKeyValue {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 971771175104844067L;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
-	private List<MatterAnnexTypeScope> scope;
-	
 	@Column(name="requires_approval", columnDefinition=" varchar(1) not null")
 	private Boolean requiresApproval=false;
 	
@@ -69,17 +63,5 @@ public class MatterAnnexType extends BaseDetail implements ScopedKeyValue {
 	 */
 	public void setRequiresApproval(Boolean requiresApproval) {
 		this.requiresApproval = requiresApproval;
-	}
-	@Override
-	public String getKey() {
-		return String.valueOf(getId());
-	}
-	@Override
-	public String getValue() {
-		return getName();
-	}
-	@Override
-	public List<? extends Scope> getScope() {
-		return scope;
 	}
 }

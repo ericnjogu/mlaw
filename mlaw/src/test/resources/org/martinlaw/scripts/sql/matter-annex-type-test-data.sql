@@ -2,7 +2,7 @@
 -- #%L
 -- mlaw
 -- %%
--- Copyright (C) 2012, 2013 Eric Njogu (kunadawa@gmail.com)
+-- Copyright (C) 2013 Eric Njogu (kunadawa@gmail.com)
 -- %%
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as
@@ -19,17 +19,19 @@
 -- <http://www.gnu.org/licenses/gpl-3.0.html>.
 -- #L%
 ---
-insert into martinlaw_event_type_t
-(type_id, name, obj_id, ver_nbr)
-values
-(1001, "Hearing", uuid(), 1),
-(1002, "Bring-up", uuid(), 1),
-(1003, "Mention", uuid(), 1),
-(1004, "Lands Board Hearing", uuid(), 1);
 
-insert into martinlaw_event_type_scope_t
-(scope_id, qualified_class_name, type_id, ver_nbr,  obj_id)
+insert into
+martinlaw_matter_annex_type_t
+(type_id, requires_approval)
 values
-(1001, "org.martinlaw.bo.courtcase.CourtCase", 1001, 1, uuid()),
-(1002, "org.martinlaw.bo.courtcase.CourtCase", 1003, 1, uuid()),
-(1003, "org.martinlaw.bo.conveyance.Conveyance", 1004, 1, uuid());
+(11001, 'Y'),
+(10016, 'Y'),
+(10017, 'Y'),
+(10018, 'Y'),
+(10019, 'N'),
+(10020, 'N'),
+(10021, 'Y'),
+(10022, 'N'),
+(10023, 'N'),
+(10024, 'N'),
+(10025, 'Y');

@@ -26,20 +26,38 @@ package org.martinlaw.bo;
  */
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.kuali.rice.krad.bo.PersistableBusinessObjectBase;
+import org.martinlaw.ScopedKeyValue;
 
 /**
  * a super class that holds some common fields useful for creating types
  * 
  * @author mugo
  */
-@MappedSuperclass
-public abstract class BaseDetail extends PersistableBusinessObjectBase{
+@Entity
+@Table(name="martinlaw_type_t")
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Type extends PersistableBusinessObjectBase  implements ScopedKeyValue {
 	
+	/**
+	 * 
+	 */
+	public Type() {
+		super();
+		setScope(new ArrayList<Scope>());
+	}
 	/**
 	 * 
 	 */
@@ -51,6 +69,8 @@ public abstract class BaseDetail extends PersistableBusinessObjectBase{
 	@Id
 	@Column(name = "type_id")
 	private Long id;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
+	private List<Scope> scope;
 	/**
 	 * can be null if name is descriptive enough
 	 * 
@@ -89,5 +109,25 @@ public abstract class BaseDetail extends PersistableBusinessObjectBase{
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+	/**
+	 * @return the scope
+	 */
+	public List<Scope> getScope() {
+		return scope;
+	}
+	/**
+	 * @param scope the scope to set
+	 */
+	public void setScope(List<Scope> scope) {
+		this.scope = scope;
+	}
+	@Override
+	public String getKey() {
+		return String.valueOf(getId());
+	}
+	@Override
+	public String getValue() {
+		return getName();
 	}
 }

@@ -47,7 +47,7 @@ public class MartinlawConstants {
 	public final static String OPENID_UNACTIVATED_USERNAME = "unactivated.openid.user";
 	public final static String OPENID_ACTIVATION_MESSAGE = "mlaw_openid_activation_message";
 	public final static String  DEFAULT_TIMESTAMP_FORMAT = "dd MMM yyyy hh:mm a";
-	public static final Long DEFAULT_ANNEX_TYPE_ID = 10001l;
+	public static final Long DEFAULT_ANNEX_TYPE_ID = 11001l;
 	public class DocTypes {
 		public static final String MATTER_WORK = "MatterWorkDocument";
 		public static final String MATTER_TRANSACTION = "MatterTransactionDocument";
@@ -136,8 +136,8 @@ public class MartinlawConstants {
 	 *
 	 */
 	public static class DefaultConsideration {
-		public static final Long LEGAL_FEE_TYPE_ID = 10001l;
-		public static final Long DISBURSEMENT_TYPE_ID = 10002l;
+		public static final Long LEGAL_FEE_TYPE_ID = 11002l;
+		public static final Long DISBURSEMENT_TYPE_ID = 11003l;
 		public static final String LEGAL_FEE_DESCRIPTION = "default consideration for tracking legal fees";
 		public static final String DISBURSEMENT_DESCRIPTION = "default consideration for tracking disbursements";
 		public static final String CURRENCY = "KES";

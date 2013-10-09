@@ -33,16 +33,12 @@
 			<list>
 				<value>org.martinlaw.bo.Status</value>
 				<value>org.martinlaw.bo.Scope</value>
-				<value>org.martinlaw.bo.StatusScope</value>
 				<value>org.martinlaw.bo.MatterTransactionDoc</value>
 				<value>org.martinlaw.bo.CalendarEvent</value>
-				<value>org.martinlaw.bo.BaseDetail</value>
+				<value>org.martinlaw.bo.Type</value>
 				<value>org.martinlaw.bo.EventType</value>
-				<value>org.martinlaw.bo.EventTypeScope</value>
 				<value>org.martinlaw.bo.ConsiderationType</value>
 				<value>org.martinlaw.bo.TransactionType</value>
-				<value>org.martinlaw.bo.ConsiderationTypeScope</value>
-				<value>org.martinlaw.bo.MatterAnnexTypeScope</value>
 				
 				<value>org.martinlaw.bo.MatterWork</value>
 				<value>org.martinlaw.bo.MatterAssignee</value>
@@ -55,26 +51,16 @@
 				<value>org.martinlaw.bo.Matter</value>
 				<value>org.martinlaw.bo.MatterEvent</value>
 				<value>org.martinlaw.bo.MartinlawPerson</value>
-				<value>org.martinlaw.bo.MatterTypeScope</value>
 				<value>org.martinlaw.bo.MatterType</value>
 				<value>org.martinlaw.bo.MatterTypeAnnexDetail</value>
 				
-				<value>org.martinlaw.bo.sequence.StatusSeq</value>
-				<value>org.martinlaw.bo.sequence.StatusScopeSeq</value>
-				<value>org.martinlaw.bo.sequence.ConsiderationTypeSeq</value>
-				<value>org.martinlaw.bo.sequence.EventTypeSeq</value>
-				<value>org.martinlaw.bo.sequence.TransactionTypeSeq</value>
-				<value>org.martinlaw.bo.sequence.EventTypeScopeSeq</value>
-				<value>org.martinlaw.bo.sequence.MatterTypeScopeSeq</value>
-				<value>org.martinlaw.bo.sequence.ConsiderationTypeScopeSeq</value>
-				<value>org.martinlaw.bo.sequence.MatterAnnexTypeScopeSeq</value>
-				<value>org.martinlaw.bo.sequence.MatterAnnexTypeSeq</value>
+				<value>org.martinlaw.bo.sequence.ScopeSeq</value>
+				<value>org.martinlaw.bo.sequence.TypeSeq</value>
 				<value>org.martinlaw.bo.sequence.MatterClientSeq</value>
 				<value>org.martinlaw.bo.sequence.MatterAssigneeSeq</value>
 				<value>org.martinlaw.bo.sequence.MatterSeq</value>
 				<value>org.martinlaw.bo.sequence.MatterConsiderationSeq</value>
 				<value>org.martinlaw.bo.sequence.MatterEventSeq</value>
-				<value>org.martinlaw.bo.sequence.MatterTypeSeq</value>
 				
 				<value>org.martinlaw.bo.courtcase.CourtCaseWitness</value>
 				<value>org.martinlaw.bo.courtcase.CourtCasePerson</value>
@@ -86,8 +72,6 @@
 				
 				<value>org.martinlaw.bo.MatterAnnexType</value>
 				<value>org.martinlaw.bo.conveyance.Conveyance</value>
-				
-				<value>org.martinlaw.bo.sequence.MatterAnnexTypeSeq</value>
 				
 				<value>org.martinlaw.bo.contract.ContractParty</value>
 				<value>org.martinlaw.bo.contract.ContractSignatory</value>

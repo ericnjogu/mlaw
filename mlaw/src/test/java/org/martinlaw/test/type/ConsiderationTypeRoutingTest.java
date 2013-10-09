@@ -28,7 +28,7 @@ package org.martinlaw.test.type;
 
 
 
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.ConsiderationType;
 
 /**
@@ -36,10 +36,10 @@ import org.martinlaw.bo.ConsiderationType;
  * @author mugo
  *
  */
-public class ConsiderationTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class ConsiderationTypeRoutingTest extends TypeRoutingTestBase {
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return ConsiderationType.class;
 	}
 

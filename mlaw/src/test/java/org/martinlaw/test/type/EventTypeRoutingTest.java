@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.martinlaw.test.date;
+package org.martinlaw.test.type;
 
 /*
  * #%L
@@ -28,16 +28,15 @@ package org.martinlaw.test.date;
 
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.EventType;
-import org.martinlaw.test.type.BaseDetailRoutingTestBase;
 
 /**
  * tests routing for {@link EventType}
  * @author mugo
  *
  */
-public class EventTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class EventTypeRoutingTest extends TypeRoutingTestBase {
 	
 	@Test
 	/**
@@ -62,7 +61,7 @@ public class EventTypeRoutingTest extends BaseDetailRoutingTestBase {
 	}
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return EventType.class;
 	}
 }

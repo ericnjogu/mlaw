@@ -51,12 +51,6 @@ public class ConveyanceBOTest extends MartinlawTestsBase {
 	public void testConveyanceCRUD() {
 		// C
 		Conveyance conv = getTestUtils().getTestConveyance();
-		/*try {
-			conv.getConsiderations().add((Consideration) getTestUtils().getTestConsideration(Consideration.class));
-		} catch (Exception e) {
-			fail("could not add consideration");
-			log.error(e);
-		}*/
 		// add client
 		MatterClient client = new MatterClient();
 		String principalName = "clientX";

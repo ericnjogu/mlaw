@@ -15,26 +15,26 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.Status;
-import org.martinlaw.bo.StatusScope;
-import org.martinlaw.test.type.BaseDetailRoutingTestBase;
+import org.martinlaw.bo.Scope;
+import org.martinlaw.test.type.TypeRoutingTestBase;
 
 /**
  * test routing for {@link Status}
  * @author mugo
  *
  */
-public class StatusRoutingTest extends BaseDetailRoutingTestBase {
+public class StatusRoutingTest extends TypeRoutingTestBase {
 	private Logger log = Logger.getLogger(getClass());
 	
 	@Test
 	public void testCaseStatusMaintenanceRouting() throws WorkflowException {
 		//testTransactionalRouting("CaseStatusMaintenanceDocument");
-		Status status = new Status();
+		Type status = new Status();
 		String statusText = "deadlock";
 		status.setName(statusText);
-		StatusScope statusScope = new StatusScope();
+		Scope statusScope = new Scope();
 		statusScope.setQualifiedClassName("org.martinlaw.Aclass");
 		status.getScope().add(statusScope);
 		try {
@@ -67,7 +67,7 @@ public class StatusRoutingTest extends BaseDetailRoutingTestBase {
 	}
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return Status.class;
 	}
 }

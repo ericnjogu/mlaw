@@ -25,12 +25,7 @@ package org.martinlaw.bo;
  * #L%
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.martinlaw.ScopedKeyValue;
@@ -42,36 +37,12 @@ import org.martinlaw.ScopedKeyValue;
  */
 @Entity
 @Table(name="martinlaw_consideration_type_t")
-public class ConsiderationType extends BaseDetail implements ScopedKeyValue {
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
-	private List<ConsiderationTypeScope> scope;
+public class ConsiderationType extends Type implements ScopedKeyValue {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4184910355599564922L;
-	/**
-	 * initialize lists
-	 */
-	public ConsiderationType() {
-		setScope(new ArrayList<ConsiderationTypeScope>());
-	}
-	@Override
-	public String getKey() {
-		return String.valueOf(getId());
-	}
-	@Override
-	public String getValue() {
-		return getName();
-	}
-	@Override
-	public List<ConsiderationTypeScope> getScope() {
-		return scope;
-	}
-	/**
-	 * @param scope the scope to set
-	 */
-	public void setScope(List<ConsiderationTypeScope> scope) {
-		this.scope = scope;
-	}
+	private static final long serialVersionUID = -6036923377353154889L;
+	
 
 }

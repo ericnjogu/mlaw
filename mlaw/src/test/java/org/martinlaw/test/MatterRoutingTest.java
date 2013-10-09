@@ -1,4 +1,4 @@
-package org.martinlaw.test.courtcase;
+package org.martinlaw.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -17,13 +17,12 @@ import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.MatterClient;
-import org.martinlaw.test.KewTestsBase;
 import org.martinlaw.util.SearchTestCriteria;
 
 public class MatterRoutingTest extends KewTestsBase {
 
 	private Logger log = Logger.getLogger(getClass());
-	final String localReference = "LOCAL-REF-1";
+	private final String localReference = "LOCAL-REF-1";
 
 	public MatterRoutingTest() {
 		super();
@@ -37,11 +36,11 @@ public class MatterRoutingTest extends KewTestsBase {
 			matter.setClientPrincipalName("Emma Njau");
 			testMaintenanceRoutingInitToFinal(getDocTypeName(), matter);
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("localReference", localReference);
+			params.put("localReference", getLocalReference());
 			Collection<? extends Matter> cases = KRADServiceLocator.getBusinessObjectService().findMatching(getDataObjectClass(), params);
 			assertEquals("Should have found one case", 1, cases.size());
 			Matter cse = cases.iterator().next();
-			assertEquals("local reference differs", localReference, cse.getLocalReference());
+			assertEquals("local reference differs", getLocalReference(), cse.getLocalReference());
 			assertNotNull("status should not be null", cse.getStatus());
 			testCreatedMatter(cse);
 			log.info("created status with id " + cse.getStatus().getId());
@@ -68,7 +67,7 @@ public class MatterRoutingTest extends KewTestsBase {
 	 */
 	protected Matter getTestMatter() throws InstantiationException,
 			IllegalAccessException {
-		return getTestUtils().getTestMatter(localReference, getDataObjectClass());
+		return getTestUtils().getTestMatter(getLocalReference(), getDataObjectClass());
 	}
 
 	/**
@@ -170,6 +169,13 @@ public class MatterRoutingTest extends KewTestsBase {
 	@Override
 	public String getDocTypeName() {
 		return "MatterMaintenanceDocument";
+	}
+
+	/**
+	 * @return the localReference
+	 */
+	protected String getLocalReference() {
+		return localReference;
 	}
 
 }

@@ -23,8 +23,8 @@
  (id, start_date, date_comment, matter_id, ver_nbr, obj_id, type_id, date_created, location, active) 
  values 
  -- court case
- (1001, '2011-06-01','first hearing date', 1001, default, uuid(), 1002, now(), "nakuru", 'Y'),
+ (1001, '2011-06-01','first hearing date', 1001, default, uuid(), 10029, now(), "nakuru", 'Y'),
  -- land case
- (1002, '2011-06-01','first hearing date', 1004, default, uuid(), 1002, now(), "nakuru", 'Y'),
+ (1002, '2011-06-01','first hearing date', 1004, default, uuid(), 10029, now(), "nakuru", 'Y'),
  -- matter
- (1003, '2011-06-01','first hearing date', 1011, default, uuid(), 1002, now(), "nakuru", 'Y');
+ (1003, '2011-06-01','first hearing date', 1011, default, uuid(), 10029, now(), "nakuru", 'Y');

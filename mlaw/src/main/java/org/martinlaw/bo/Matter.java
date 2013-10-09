@@ -80,7 +80,7 @@ public class Matter extends PersistableBusinessObjectBase {
 	private String name;
 	@OneToOne
 	@JoinColumn(name = "status_id", nullable = false, updatable = false, insertable=false)
-	private Status status;
+	private Type status;
 	@Column(name = "client_principal_name", length = 100, nullable = false)
 	private String clientPrincipalName;
 	/** the client**/
@@ -110,7 +110,7 @@ public class Matter extends PersistableBusinessObjectBase {
 	private String concreteClass;
 	@Column(name = "tags", length = 1000)
 	private String tags;
-	@Column(name = "type_id")
+	@Column(name = "type_id", nullable=false)
 	private Long typeId;
 	@OneToOne
 	@JoinColumn(name = "type_id", nullable = false, updatable = false, insertable=false)
@@ -185,14 +185,14 @@ public class Matter extends PersistableBusinessObjectBase {
 	/**
 	 * @return the status
 	 */
-	public Status getStatus() {
+	public Type getStatus() {
 		return status;
 	}
 
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(Status status) {
+	public void setStatus(Type status) {
 		this.status = status;
 	}
 

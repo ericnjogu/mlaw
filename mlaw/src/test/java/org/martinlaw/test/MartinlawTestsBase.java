@@ -209,14 +209,18 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/test-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/notifications.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/event-type-default-data.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/default-data.sql", ";").runSql();
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/status-default-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/consideration-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/consideration-type-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/transaction-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/transaction-type-perms-roles.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/event-type-perms-roles.sql", ";").runSql();
+
+		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-annex-type-test-data.sql", ";").runSql();
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-type-test-data.sql", ";").runSql();
 		
 		new SQLDataLoader("classpath:org/martinlaw/scripts/sql/matter-test-data.sql", ";").runSql();

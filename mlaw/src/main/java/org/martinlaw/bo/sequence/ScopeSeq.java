@@ -31,15 +31,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.EventTypeScope}
+ * used to get hibernate to create a sequence file for {@link org.martinlaw.bo.Scope}
  * 
  * @author mugo
  *
  */
 
 @Entity
-@Table(name="martinlaw_consideration_type_scope_s")
-public class ConsiderationTypeScopeSeq {
+@Table(name="martinlaw_type_scope_s")
+public class ScopeSeq {
 	@Id
 	@Column(columnDefinition="bigint auto_increment")
 	private BigInteger id;

@@ -118,7 +118,7 @@ public class TestUtils {
 		conv.setName(getTestConveyanceName());
 		conv.setLocalReference("EN/C001");
 		conv.setTypeId(10010l);
-		conv.setStatusId(1001l);
+		conv.setStatusId(10033l);
 		conv.setClientPrincipalName(testClientPrincipalName);
 		return conv;
 	}
@@ -136,7 +136,7 @@ public class TestUtils {
 		contract.setTypeId(10006l);
 		contract.setSummaryOfTerms("see attached file");
 		contract.setServiceOffered("flat 1f2");
-		contract.setStatusId(1001l);
+		contract.setStatusId(10033l);
 		contract.setClientPrincipalName(testClientPrincipalName);
 		// parties
 		List<ContractParty> parties = new ArrayList<ContractParty>();
@@ -178,7 +178,7 @@ public class TestUtils {
 		consideration.setAmount(new BigDecimal(1000));
 		consideration.setCurrency("KES");
 		consideration.setDescription("see breakdown in attached file");
-		consideration.setConsiderationTypeId(10003l);
+		consideration.setConsiderationTypeId(10014l);
 		consideration.setMatterId(1001l);
 		return consideration;
 	}
@@ -246,6 +246,9 @@ public class TestUtils {
 		assertEquals("event date differs", 1, cal.get(Calendar.DATE));
 		assertEquals("location differs", "nakuru", event.getLocation());
 		assertTrue("event should be active", event.getActive());
+		
+		assertNotNull("event type should not be null", event.getType());
+		assertEquals("event type name differs", "Hearing", event.getType().getName());
 	}
 	
 	/**
@@ -378,7 +381,7 @@ public class TestUtils {
 		String clientPrincipalName = "pkk";
 		transaction.setClientPrincipalName(clientPrincipalName);
 		transaction.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
-		transaction.setTransactionTypeId(1001l);
+		transaction.setTransactionTypeId(10026l);
 		MatterConsideration consideration;
 		try {
 			consideration = getTestConsideration();
@@ -430,7 +433,7 @@ public class TestUtils {
 		D date = d.newInstance();
 		date.setComment("must attend");
 		date.setMatterId(1001l);
-		date.setTypeId(1001l);
+		date.setTypeId(10029l);
 		date.setStartDate(new Timestamp(System.currentTimeMillis()));
 		date.setLocation("makadara");
 		return date;
@@ -652,7 +655,7 @@ public class TestUtils {
 		MatterTransactionDoc txDoc3 = populateTransactionDocForRouting(txDocClass);
 		txDoc3.setAmount(new BigDecimal(45000));
 		txDoc3.setClientPrincipalName("sirarthur");
-		final int transactionTypeId = 1003;
+		final int transactionTypeId = 10028;
 		txDoc3.setTransactionTypeId(transactionTypeId);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 		try {

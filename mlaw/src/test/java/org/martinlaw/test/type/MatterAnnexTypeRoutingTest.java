@@ -6,7 +6,7 @@ package org.martinlaw.test.type;
 import static org.junit.Assert.fail;
 
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.MatterAnnexType;
 
 /**
@@ -14,7 +14,7 @@ import org.martinlaw.bo.MatterAnnexType;
  * @author mugo
  *
  */
-public class MatterAnnexTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class MatterAnnexTypeRoutingTest extends TypeRoutingTestBase {
 
 	/* (non-Javadoc)
 	 * @see org.martinlaw.test.KewTestsBase#getDocTypeName()
@@ -25,10 +25,10 @@ public class MatterAnnexTypeRoutingTest extends BaseDetailRoutingTestBase {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.martinlaw.test.type.BaseDetailRoutingTestBase#getDataObjectClass()
+	 * @see org.martinlaw.test.type.TypeRoutingTestBase#getDataObjectClass()
 	 */
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return MatterAnnexType.class;
 	}
 	

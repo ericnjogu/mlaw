@@ -28,7 +28,7 @@ package org.martinlaw.test.type;
 
 
 
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.TransactionType;
 
 /**
@@ -36,10 +36,10 @@ import org.martinlaw.bo.TransactionType;
  * @author mugo
  *
  */
-public class TransactionTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class TransactionTypeRoutingTest extends TypeRoutingTestBase {
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return TransactionType.class;
 	}
 
@@ -52,7 +52,7 @@ public class TransactionTypeRoutingTest extends BaseDetailRoutingTestBase {
 	 * @see org.martinlaw.test.BaseDetailRoutingTestBase#getDataObject()
 	 */
 	@Override
-	protected BaseDetail getDataObject() throws InstantiationException,
+	protected Type getDataObject() throws InstantiationException,
 			IllegalAccessException {
 		TransactionType type =  new TransactionType();
 		type.setName("credit card");

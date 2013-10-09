@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="martinlaw_transaction_type_t")
-public class TransactionType extends BaseDetail {
+public class TransactionType extends Type {
 	/**
 	 * 
 	 */

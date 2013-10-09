@@ -14,7 +14,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="martinlaw_shared_scope_bo" parent="BusinessObjectEntry" abstract="true">
+	<bean id="martinlaw_shared_scope_bo" parent="BusinessObjectEntry">
+		<property name="businessObjectClass" value="org.martinlaw.bo.Scope" />
 		<property name="titleAttribute" value="name" />
 		<property name="attributes">
 			<list>
@@ -23,27 +24,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 				<ref bean="matter_scope_bo_qualifiedClassName" />
 			</list>
 		</property>
-		<property name="objectLabel" value="Status" />
-	</bean>
-	
-	<bean id="status_scope_bo" parent="martinlaw_shared_scope_bo">
-		<property name="businessObjectClass" value="org.martinlaw.bo.StatusScope" />
-	</bean>
-	
-	<bean id="event_type_scope_bo" parent="martinlaw_shared_scope_bo">
-		<property name="businessObjectClass" value="org.martinlaw.bo.EventTypeScope" />
-	</bean>
-	
-	<bean id="consideration_type_scope_bo" parent="martinlaw_shared_scope_bo">
-		<property name="businessObjectClass" value="org.martinlaw.bo.ConsiderationTypeScope" />
-	</bean>
-	
-	<bean id="annex_type_scope_bo" parent="martinlaw_shared_scope_bo">
-		<property name="businessObjectClass" value="org.martinlaw.bo.MatterAnnexTypeScope" />
-	</bean>
-	
-	<bean id="matter_type_scope_bo" parent="martinlaw_shared_scope_bo">
-		<property name="businessObjectClass" value="org.martinlaw.bo.MatterTypeScope" />
+		<property name="objectLabel" value="Scope" />
 	</bean>
 
 	<!-- Attribute Definitions -->

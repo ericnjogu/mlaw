@@ -6,8 +6,7 @@ package org.martinlaw.test.type;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.martinlaw.bo.BaseDetail;
-import org.martinlaw.bo.Scope;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.TransactionType;
 
 /*
@@ -38,10 +37,10 @@ import org.martinlaw.bo.TransactionType;
  * @author mugo
  * 
  */
-public class TransactionTypeBOTest extends BaseDetailBoTestBase {
+public class TransactionTypeBOTest extends TypeBoTestBase {
 	private TransactionType transactionType;
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return TransactionType.class;
 	}
 
@@ -50,14 +49,14 @@ public class TransactionTypeBOTest extends BaseDetailBoTestBase {
 	 */
 	public TransactionTypeBOTest() {
 		transactionType = new TransactionType();
-		transactionType.setId(1003l);
+		transactionType.setId(10028l);
 		transactionType.setName("interest");
 		transactionType.setDescription("interest on penalty");
 		transactionType.setEffectOnConsideration(TransactionType.TRANSACTION_EFFECT_ON_CONSIDERATION.INCREASE.toString());
 	}
 
 	@Override
-	public BaseDetail getExpectedOnRetrieve() {
+	public Type getExpectedOnRetrieve() {
 		return transactionType;
 	}
 
@@ -72,13 +71,8 @@ public class TransactionTypeBOTest extends BaseDetailBoTestBase {
 		assertEquals("effect on consideration differs", transactionType.getEffectOnConsideration(), type.getEffectOnConsideration());
 	}
 
-	@Override
-	public Class<? extends Scope> getScopeClass() {
-		return null;//does not apply
-	}
-
 	/* (non-Javadoc)
-	 * @see org.martinlaw.test.type.BaseDetailBoTestBase#testScopeAttributes()
+	 * @see org.martinlaw.test.type.TypeBoTestBase#testScopeAttributes()
 	 */
 	@Override
 	public void testScopeAttributes() {
@@ -86,7 +80,7 @@ public class TransactionTypeBOTest extends BaseDetailBoTestBase {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.martinlaw.test.type.BaseDetailBoTestBase#testScopeCollectionDD()
+	 * @see org.martinlaw.test.type.TypeBoTestBase#testScopeCollectionDD()
 	 */
 	@Override
 	public void testScopeCollectionDD() {
@@ -94,22 +88,22 @@ public class TransactionTypeBOTest extends BaseDetailBoTestBase {
 	}
 
 	@Override
-	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+	protected void additionalTestsForRetrievedObject(Type type) {
 		// DO nothing
 	}
 
 	@Override
-	protected void testCrudCreated(BaseDetail type) {
+	protected void testCrudCreated(Type type) {
 		// DO nothing
 	}
 
 	@Override
-	protected void testCrudDeleted(BaseDetail type) {
+	protected void testCrudDeleted(Type type) {
 		// DO nothing
 	}
 
 	@Override
-	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+	protected void populateAdditionalFieldsForCrud(Type type) {
 		// DO nothing
 	}
 }

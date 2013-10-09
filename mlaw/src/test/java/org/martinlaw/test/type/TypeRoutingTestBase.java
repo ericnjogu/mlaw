@@ -35,27 +35,27 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.test.KewTestsBase;
 import org.martinlaw.test.TestBoInfo;
 import org.martinlaw.util.SearchTestCriteria;
 
 /**
- * holds the common routing tests for children of {@link BaseDetail}
+ * holds the common routing tests for children of {@link Type}
  * @author mugo
  *
  */
-public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements TestBoInfo {
+public abstract class TypeRoutingTestBase extends KewTestsBase implements TestBoInfo {
 
 	private Log log = LogFactory.getLog(getClass());
 
-	public BaseDetailRoutingTestBase() {
+	public TypeRoutingTestBase() {
 		super();
 	}
 
 	@Test
 	public void testBaseDetailRouting() throws InstantiationException, IllegalAccessException {
-		BaseDetail type = getDataObject();
+		Type type = getDataObject();
 		try {
 			testMaintenanceRoutingInitToFinal(getDocTypeName(), type);
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 		// confirm that BO was saved to DB
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", type.getName());
-		Collection<? extends BaseDetail> result = getBoSvc().findMatching(getDataObjectClass(), params);
+		Collection<? extends Type> result = getBoSvc().findMatching(getDataObjectClass(), params);
 		assertEquals(1, result.size());
 	}
 	
@@ -75,8 +75,8 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	protected BaseDetail getDataObject() throws InstantiationException, IllegalAccessException {
-		BaseDetail type = getDataObjectClass().newInstance();
+	protected Type getDataObject() throws InstantiationException, IllegalAccessException {
+		Type type = getDataObjectClass().newInstance();
 		String name = "resale agreement";
 		type.setName(name);
 		return type;
@@ -96,12 +96,12 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	@Test
 	public void testBaseDetailRoutingDocSearch() throws WorkflowException,
 		InstantiationException, IllegalAccessException {
-		BaseDetail type = getDataObjectClass().newInstance();
+		Type type = getDataObjectClass().newInstance();
 		type.setName("permanent for testing purposes");
 		final String docType = getDocTypeName();
 		testMaintenanceRoutingInitToFinal(docType, type);
 		
-		BaseDetail type2 = getDataObjectClass().newInstance();
+		Type type2 = getDataObjectClass().newInstance();
 		type2.setName("supply of rain and shine");
 		testMaintenanceRoutingInitToFinal(docType, type2);
 		
@@ -129,7 +129,7 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	 * @see org.martinlaw.test.KewTestsBase#testInitiatorFYI()
 	 */
 	/**
-	 * most {@link BaseDetail} objects do not need routing so skip this test
+	 * most {@link Type} objects do not need routing so skip this test
 	 */
 	@Override
 	public void testInitiatorFYI() {
@@ -140,7 +140,7 @@ public abstract class BaseDetailRoutingTestBase extends KewTestsBase implements 
 	 * @see org.martinlaw.test.KewTestsBase#getDataObjectClass()
 	 */
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return null;
 	}
 

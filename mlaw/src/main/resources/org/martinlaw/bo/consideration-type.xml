@@ -29,13 +29,5 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="consideration_type_bo" parent="martinlaw_shared_type_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.ConsiderationType" />
 		<property name="objectLabel" value="Consideration Type" />
-		<!-- without the collection defn, validation is not carried out for scope elements -->
-		<property name="collections">
-			<list>
-				<bean parent="CollectionDefinition" p:name="scope" p:label="scope"
-					p:shortLabel="scope" p:elementLabel="scope"
-					p:dataObjectClass="org.martinlaw.bo.ConsiderationTypeScope" />
-			</list>
-		</property>
 	</bean>
 </beans>

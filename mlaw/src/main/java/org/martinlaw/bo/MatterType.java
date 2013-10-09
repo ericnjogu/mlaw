@@ -42,13 +42,11 @@ import org.martinlaw.ScopedKeyValue;
  */
 @Entity
 @Table(name="martinlaw_matter_type_t")
-public class MatterType extends BaseDetail implements ScopedKeyValue {
+public class MatterType extends Type implements ScopedKeyValue {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8930634258234222250L;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
-	private List<MatterTypeScope> scope;
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy="matterTypeId")
 	private List<MatterTypeAnnexDetail> annexDetails;
 	/**
@@ -56,42 +54,9 @@ public class MatterType extends BaseDetail implements ScopedKeyValue {
 	 */
 	public MatterType() {
 		super();
-		setScope(new ArrayList<MatterTypeScope>());
 		setAnnexDetails(new ArrayList<MatterTypeAnnexDetail>());
 	}
-	@Override
-	public String getKey() {
-		return String.valueOf(getId());
-	}
-	@Override
-	public String getValue() {
-		return getName();
-	}
-	@Override
-	public List<? extends Scope> getScope() {
-		return scope;
-	}
-	/**
-	 * @param scope the scope to set
-	 */
-	public void setScope(List<MatterTypeScope> scope) {
-		this.scope = scope;
-	}
 	
-	/**
-	 * get the annex types associated with this conveyance type
-	 * 
-	 * @return the annexTypes
-	 *//*
-	public List<MatterAnnexType> getAnnexTypes() {
-		return annexTypes;
-	}
-	*//**
-	 * @param annexTypes the annexTypes to set
-	 *//*
-	public void setAnnexTypes(List<MatterAnnexType> annexTypes) {
-		this.annexTypes = annexTypes;
-	}*/
 	/**
 	 * @return the annexDetails
 	 */

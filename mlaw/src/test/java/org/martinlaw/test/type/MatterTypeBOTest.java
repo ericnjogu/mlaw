@@ -32,11 +32,9 @@ import static org.junit.Assert.assertNull;
 import java.util.List;
 
 import org.junit.Test;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.MatterType;
 import org.martinlaw.bo.MatterTypeAnnexDetail;
-import org.martinlaw.bo.MatterTypeScope;
-import org.martinlaw.bo.Scope;
 
 /**
  * test various BO ops for {@link MatterType}
@@ -44,18 +42,18 @@ import org.martinlaw.bo.Scope;
  * @author mugo
  * 
  */
-public class MatterTypeBOTest extends BaseDetailBoTestBase {
+public class MatterTypeBOTest extends TypeBoTestBase {
 
 	private MatterType matterType;
 	final String annexTypeName = "interview";
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return MatterType.class;
 	}
 
 	@Override
-	public BaseDetail getExpectedOnRetrieve() {
+	public Type getExpectedOnRetrieve() {
 		return matterType;
 	}
 
@@ -75,28 +73,23 @@ public class MatterTypeBOTest extends BaseDetailBoTestBase {
 	}
 
 	@Override
-	public Class<? extends Scope> getScopeClass() {
-		return MatterTypeScope.class;
-	}
-
-	@Override
-	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+	protected void populateAdditionalFieldsForCrud(Type type) {
 		MatterType matterType = (MatterType)type;
 		MatterTypeAnnexDetail annexDetail = new MatterTypeAnnexDetail();
 		assertEquals("default value differs", Long.valueOf(1), annexDetail.getSequence());
-		annexDetail.setAnnexTypeId(10005l);
+		annexDetail.setAnnexTypeId(10019l);
 		matterType.getAnnexDetails().add(annexDetail);
 	}
 
 	@Override
-	protected void testCrudCreated(BaseDetail type) {
+	protected void testCrudCreated(Type type) {
 		MatterType matterType = (MatterType)type;
 		final List<MatterTypeAnnexDetail> annexDetails = matterType.getAnnexDetails();
 		testAnnexDetails(annexDetails, 1, annexTypeName, Long.valueOf(1));
 	}
 
 	@Override
-	protected void testCrudDeleted(BaseDetail type) {
+	protected void testCrudDeleted(Type type) {
 		MatterType matterType = (MatterType)type;
 		assertNull("annex detail should have been deleted", getBoSvc().findBySinglePrimaryKey(
 				MatterTypeAnnexDetail.class, matterType.getAnnexDetails().get(0).getAnnexType().getName()));
@@ -104,7 +97,7 @@ public class MatterTypeBOTest extends BaseDetailBoTestBase {
 	}
 
 	@Override
-	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+	protected void additionalTestsForRetrievedObject(Type type) {
 		MatterType matterType = (MatterType)type;
 		final List<MatterTypeAnnexDetail> annexDetails = matterType.getAnnexDetails();
 		testAnnexDetails(annexDetails, 1, "demand letter", Long.valueOf(3));

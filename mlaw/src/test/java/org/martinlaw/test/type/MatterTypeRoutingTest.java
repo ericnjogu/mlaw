@@ -29,7 +29,7 @@ package org.martinlaw.test.type;
 import static org.junit.Assert.fail;
 
 import org.kuali.rice.kew.api.exception.WorkflowException;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.MatterType;
 
 /**
@@ -37,10 +37,10 @@ import org.martinlaw.bo.MatterType;
  * @author mugo
  *
  */
-public class MatterTypeRoutingTest extends BaseDetailRoutingTestBase {
+public class MatterTypeRoutingTest extends TypeRoutingTestBase {
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return MatterType.class;
 	}
 

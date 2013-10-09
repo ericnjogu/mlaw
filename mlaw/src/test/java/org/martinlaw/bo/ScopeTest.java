@@ -13,7 +13,7 @@ import org.martinlaw.bo.conveyance.Conveyance;
  * @author mugo
  *
  */
-public class StatusScopeTest {
+public class ScopeTest {
 
 	private Scope scope;
 
@@ -22,7 +22,7 @@ public class StatusScopeTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		scope = new StatusScope();
+		scope = new Scope();
 		scope.setQualifiedClassName(Conveyance.class.getCanonicalName());
 	}
 

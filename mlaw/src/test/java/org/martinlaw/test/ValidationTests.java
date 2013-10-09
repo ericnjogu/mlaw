@@ -42,7 +42,6 @@ import org.kuali.rice.krad.util.ErrorMessage;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.martinlaw.bo.Matter;
 import org.martinlaw.bo.Scope;
-import org.martinlaw.bo.StatusScope;
 import org.martinlaw.bo.courtcase.CourtCase;
 
 /**
@@ -100,7 +99,7 @@ public class ValidationTests extends MartinlawTestsBase {
 	@Test
 	public void testScope_validation()
 	throws InstantiationException, IllegalAccessException {
-		Scope statusScope = new StatusScope();
+		Scope statusScope = new Scope();
 		statusScope.setQualifiedClassName("");
 		final String attributeName = "qualifiedClassName";
 		getTestUtils().validate(statusScope, 1, attributeName);

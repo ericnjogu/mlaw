@@ -29,13 +29,5 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="martinlaw_date_type_bo" parent="martinlaw_shared_type_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.EventType" />
 		<property name="objectLabel" value="Event Type" />
-		<!-- without the collection defn, validation is not carried out for scope elements -->
-		<property name="collections">
-			<list>
-				<bean parent="CollectionDefinition" p:name="scope" p:label="scope"
-					p:shortLabel="scope" p:elementLabel="scope"
-					p:dataObjectClass="org.martinlaw.bo.EventTypeScope" />
-			</list>
-		</property>
 	</bean>
 </beans>

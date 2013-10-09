@@ -27,10 +27,8 @@ package org.martinlaw.test.type;
 
 
 import org.junit.Test;
-import org.martinlaw.bo.BaseDetail;
+import org.martinlaw.bo.Type;
 import org.martinlaw.bo.MatterAnnexType;
-import org.martinlaw.bo.MatterAnnexTypeScope;
-import org.martinlaw.bo.Scope;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -38,10 +36,10 @@ import static org.junit.Assert.assertTrue;
  * @author mugo
  *
  */
-public class MatterAnnexTypeBOTest extends BaseDetailBoTestBase {
+public class MatterAnnexTypeBOTest extends TypeBoTestBase {
 
 	@Override
-	public Class<? extends BaseDetail> getDataObjectClass() {
+	public Class<? extends Type> getDataObjectClass() {
 		return MatterAnnexType.class;
 	}
 
@@ -51,39 +49,34 @@ public class MatterAnnexTypeBOTest extends BaseDetailBoTestBase {
 	}
 
 	@Override
-	public Class<? extends Scope> getScopeClass() {
-		return MatterAnnexTypeScope.class;
-	}
-
-	@Override
-	public BaseDetail getExpectedOnRetrieve() {
+	public Type getExpectedOnRetrieve() {
 		MatterAnnexType annexType = new MatterAnnexType();
 		annexType.setDescription("default annex type -  any document");
 		annexType.setName("document");
-		annexType.setId(10001l);
+		annexType.setId(11001l);
 		
 		return annexType;
 	}
 
 	@Override
-	protected void populateAdditionalFieldsForCrud(BaseDetail type) {
+	protected void populateAdditionalFieldsForCrud(Type type) {
 		MatterAnnexType annexType = (MatterAnnexType)type;
 		annexType.setRequiresApproval(true);
 	}
 
 	@Override
-	protected void additionalTestsForRetrievedObject(BaseDetail type) {
+	protected void additionalTestsForRetrievedObject(Type type) {
 		testCrudCreated(type);
 	}
 
 	@Override
-	protected void testCrudCreated(BaseDetail type) {
+	protected void testCrudCreated(Type type) {
 		MatterAnnexType annexType = (MatterAnnexType)type;
 		assertTrue("requires approval should be true", annexType.getRequiresApproval());
 	}
 
 	@Override
-	protected void testCrudDeleted(BaseDetail type) {
+	protected void testCrudDeleted(Type type) {
 		// DO nothing
 	}
 	
@@ -91,7 +84,7 @@ public class MatterAnnexTypeBOTest extends BaseDetailBoTestBase {
 	/**
 	 * test that matter annex type key values returns the correct number
 	 */
-	public void testMatterTypeKeyValues() {
+	public void testMatterAnnexTypeKeyValues() {
 		final String dataObjectName = "matter annex type(s)";
 		final int expectedCourtCaseScopeCount = 3;
 		final int expectedContractScopeCount = 0;

@@ -18,8 +18,8 @@ import org.junit.Test;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.service.BusinessObjectService;
+import org.martinlaw.bo.Scope;
 import org.martinlaw.bo.Status;
-import org.martinlaw.bo.StatusScope;
 
 /**
  * Tests {@link org.martinlaw.keyvalues.ScopedKeyValuesHelper}
@@ -46,12 +46,12 @@ public class ScopedKeyValuesHelperTest {
 		
 		final String statusChristian = "Christian";
 		Status status1 = new Status(1l, statusChristian);
-		StatusScope[] scope1 = {new StatusScope(marriageClassName), new StatusScope(weddingClassName)};
+		Scope[] scope1 = {new Scope(marriageClassName), new Scope(weddingClassName)};
 		status1.setScope(Arrays.asList(scope1));
 		
 		final String statusFulfld = "Fulfilled";
 		Status status2 = new Status(1l, statusFulfld);
-		StatusScope[] scope2 = {new StatusScope(marriageClassName)};
+		Scope[] scope2 = {new Scope(marriageClassName)};
 		status2.setScope(Arrays.asList(scope2));
 		
 		// status 'good applies to all classes, so leave scope blank

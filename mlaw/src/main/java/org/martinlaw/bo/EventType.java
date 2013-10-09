@@ -26,12 +26,7 @@ package org.martinlaw.bo;
  */
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.martinlaw.ScopedKeyValue;
@@ -46,42 +41,10 @@ import org.martinlaw.ScopedKeyValue;
  */
 @Entity
 @Table(name="martinlaw_event_type_t")
-public class EventType extends BaseDetail  implements ScopedKeyValue {
+public class EventType extends Type  implements ScopedKeyValue {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7245197877574711265L;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "typeId")
-	private List<EventTypeScope> scope;
 
-	/**
-	 * @return the scope
-	 */
-	public List<EventTypeScope> getScope() {
-		return scope;
-	}
-
-	/**
-	 * @param scope the scope to set
-	 */
-	public void setScope(List<EventTypeScope> scope) {
-		this.scope = scope;
-	}
-
-	@Override
-	public String getKey() {
-		return String.valueOf(getId());
-	}
-
-	@Override
-	public String getValue() {
-		return getName();
-	}
-
-	/**
-	 * default constructor
-	 */
-	public EventType() {
-		setScope(new ArrayList<EventTypeScope>());
-	}
 }

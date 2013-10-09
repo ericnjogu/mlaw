@@ -17,13 +17,5 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	<bean id="matter_status_bo" parent="martinlaw_shared_type_bo">
 		<property name="businessObjectClass" value="org.martinlaw.bo.Status" />
 		<property name="objectLabel" value="Status" />
-		<!-- without the collection defn, validation is not carried out for scope elements -->
-		<property name="collections">
-			<list>
-				<bean parent="CollectionDefinition" p:name="scope" p:label="scope"
-					p:shortLabel="scope" p:elementLabel="scope"
-					p:dataObjectClass="org.martinlaw.bo.StatusScope" />
-			</list>
-		</property>
 	</bean>
 </beans>

@@ -19,22 +19,12 @@
 -- <http://www.gnu.org/licenses/gpl-3.0.html>.
 -- #L%
 ---
-insert into
-martinlaw_matter_work_doc_t
-(matter_id, DOC_HDR_ID, ver_nbr, obj_id, annex_type_id)
-values
--- court case work
-(1001, "1001", 1, uuid(), 11001),
-(1001, "1002", 1, uuid(), 11001),
--- land case work
-(1004, "1003", 1, uuid(), 11001),
-(1004, "1004", 1, uuid(), 11001),
--- conveyance work
-(1008, "1005", 1, uuid(), 11001),
-(1008, "1006", 1, uuid(), 11001),
--- contract work
-(1005, "1007", 1, uuid(), 11001),
-(1005, "1008", 1, uuid(), 11001),
--- matter work
-(1011, "1009", 1, uuid(), 11001),
-(1011, "1010", 1, uuid(), 11001);
+
+insert into martinlaw_status_t 
+(type_id) 
+values 
+(10033), 
+(10034), 
+(10035), 
+(10036),
+(10037);
