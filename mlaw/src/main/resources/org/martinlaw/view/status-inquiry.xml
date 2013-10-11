@@ -29,12 +29,5 @@
 <bean id="case_status_inquiry_view" parent="martinlaw_shared_name_description_inquiry_view">
     <property name="headerText" value="Status Inquiry"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.Status"/>
-    <property name="items">
-      <list merge="true">
-        <bean parent="martinlaw_shared_scope_collection_inquiry_section">
-			<property name="collectionObjectClass" value="org.martinlaw.bo.StatusScope" />
-		</bean>
-      </list>
-    </property>
   </bean>
 </beans>

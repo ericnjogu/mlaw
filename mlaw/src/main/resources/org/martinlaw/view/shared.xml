@@ -126,6 +126,9 @@
 		<property name="items">
 			<list merge="true">
 				<ref bean="martinlaw_shared_name_description_inquiry_view_items"/>
+		        <bean parent="martinlaw_shared_scope_collection_inquiry_section">
+					<property name="collectionObjectClass" value="org.martinlaw.bo.Scope" />
+				</bean>
 			</list>
 		</property>
 	</bean>
@@ -287,6 +290,8 @@
 				</bean>
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="clientPrincipalName" />
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="statusId"
+					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
+				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId"
 					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
 				<bean parent="Uif-InputField" p:propertyName="tags" />
 			</list>
