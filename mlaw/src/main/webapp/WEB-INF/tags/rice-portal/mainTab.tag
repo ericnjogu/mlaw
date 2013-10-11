@@ -18,9 +18,9 @@
   
 <%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
 
-<td class="content" valign="top">
+<!-- <td class="content" valign="top">
 	    <mainChannel:martinlaw />
-</td>
+</td> -->
 <!-- <td class="content" valign="top">
 	    <mainChannel:martinlaw-shared />
 </td> -->

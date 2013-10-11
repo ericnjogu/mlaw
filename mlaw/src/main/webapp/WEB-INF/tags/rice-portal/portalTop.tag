@@ -33,12 +33,23 @@
 	</c:if>
 </c:forEach> 
 
+<link href="${ConfigProperties.application.url}/krad/plugins/jqueryUI/jquery-ui-1.9.2.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${ConfigProperties.application.url}/krad/plugins/jqueryUI/jquery-ui-1.9.2.js"/>
+
 <script type="text/javascript" >
 if (top.location != self.location) {
 	top.location = self.location;
 }
 </script>
 
+<style type="text/css">
+div#accordion {width: 215px; margin-left: 15px; float: left; margin-top: 10px;}
+TABLE#iframe_portlet_container_table {width: 78%;float: right;}
+div#iframe_portlet_container_div {width: 78%;float: right;}
+DIV#footer-copyright {float: right;}
+/* adapted from jquery-ui-1.9.2.css to increase the line height */
+.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.7; text-decoration: none; font-size: 100%; list-style: none; }
+</style>
 </head>
 <body>
 

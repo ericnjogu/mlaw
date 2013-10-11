@@ -39,5 +39,4 @@
 	<param name="TIMESTAMP_TO_STRING_FORMAT_FOR_USER_INTERFACE">dd MMM yyyy hh:mm a</param>
 	<param name="DATE_TO_STRING_FORMAT_FOR_USER_INTERFACE">dd MMM yyyy</param>
 	<param name="mlaw.jquery.date.format">dd M yy</param>
-	
 </config>
