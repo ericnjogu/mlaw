@@ -29,13 +29,6 @@
   <bean id="event_type_maintenance_view" parent="martinlaw_shared_name_description_maintenance_view">
     <property name="headerText" value="Event Type"/>
     <property name="dataObjectClassName" value="org.martinlaw.bo.EventType"/>
-    <property name="items">
-		<list merge="true">
-			<bean parent="martinlaw_shared_scope_collection_maint_section">
-				<property name="collectionObjectClass" value="org.martinlaw.bo.EventTypeScope" />
-			</bean>
-		</list>
-	</property>
   </bean>
 
 </beans>

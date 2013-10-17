@@ -80,7 +80,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 	</bean>
 	
 	<bean id="martinlaw_shared_transaction_type_id" parent="AttributeDefinition">
-		<property name="forceUppercase" value="false" />
 		<property name="maxLength" value="20" />
 		<property name="required" value="true" />
 		<property name="validationPattern">

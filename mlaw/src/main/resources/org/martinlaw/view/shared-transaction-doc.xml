@@ -67,5 +67,5 @@
 	</bean>
 
 	<bean id="matter_doc_detail" parent="Uif-InputField"
-		abstract="true" p:dictionaryObjectEntry="org.martinlaw.bo.contract.TransactionDoc" />
+		abstract="true" p:dictionaryObjectEntry="org.martinlaw.bo.MatterTransactionDoc" />
 </beans>

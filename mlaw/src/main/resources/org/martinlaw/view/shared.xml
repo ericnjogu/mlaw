@@ -346,15 +346,14 @@
 					p:label="Time to Approve"
 					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
 					p:dictionaryAttributeName="genericBigText"/>
-				<!-- adapt here if link is not added automatically -->
-				<!-- <bean parent="martinlaw_shared_line_docnumber_linkfield">
+				<bean parent="martinlaw_shared_line_docnumber_linkfield">
 								<property name="href">
 									<value>
-										@{#ConfigProperties['dochandler_contract_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
+										@{#ConfigProperties['dochandler_matter_work']}&amp;docId=@{#line.documentNumber}&amp;command=displayDocSearchView
 									</value>
 								</property>
-							</bean> -->
-				<bean parent="Uif-InputField" p:propertyName="documentHeader.documentNumber" />
+							</bean>
+				<!-- <bean parent="Uif-InputField" p:propertyName="documentHeader.documentNumber" /> -->
 			</list>
 		</property>
 		<property name="layoutManager.richTable.templateOptions">
@@ -527,7 +526,7 @@
 
 				<ref bean="martinlaw_shared_client_inquiry_section"/>
 				
-				<ref bean="martinlaw_shared_consideration_inquiry_section"/>
+				<ref bean="martinlaw_shared_consideration_inquiry_table_section"/>
 
 				<bean parent="martinlaw_shared_annexes_inquirySection" />
 				
@@ -541,8 +540,6 @@
 							<bean parent="Uif-InputField" p:propertyName="principalName"/>
 							<bean parent="Uif-InputField" p:propertyName="active" />
 							<bean parent="Uif-InputField" p:propertyName="hasPhysicalFile" />
-							<bean parent="Uif-InputField" p:propertyName="matter.name"/>
-							<bean parent="Uif-InputField" p:propertyName="matter.localReference"/>
 						</list>
 					</property>
 				</bean>
@@ -567,9 +564,11 @@
 				<bean parent="Uif-GridSection">
 					<property name="items">
 						<list>
-							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" p:dictionaryObjectEntry="org.martinlaw.bo.Matter"/>
+							<bean parent="martinlaw_shared_matter_id_scriptlookup_refresh" 
+								p:dictionaryObjectEntry="org.martinlaw.bo.Matter"/>
 							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="annexTypeId" 
-								p:dictionaryObjectEntry="org.martinlaw.bo.MatterAnnexType"/>
+								p:dictionaryObjectEntry="org.martinlaw.bo.MatterAnnexType"
+								p:conditionalRefresh="!#empty(document.matterId)"/>
 						</list>
 					</property>
 				</bean>
@@ -617,9 +616,14 @@
 	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterAnnexType" />
 	    <property name="items">
 	      <list merge="true">
-	        <bean parent="Uif-InputField" p:propertyName="requiresApproval"/>
+	        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="requiresApproval"/>
 	      </list>
 	    </property>
+	    <property name="resultFields">
+			<list merge="true">
+				<bean parent="Uif-DataField" p:propertyName="requiresApproval" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="matter_annex_type_maintenance_view" parent="martinlaw_shared_name_description_maintenance_view">

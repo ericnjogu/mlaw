@@ -33,11 +33,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<list>
 				<bean parent="martinlaw-shared-principal-name" p:label="Assignee" />
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Matter"/>
-				<bean id="martinlaw_shared_event_bo_active" parent="AttributeReferenceDummy-activeIndicator">
+				<bean parent="AttributeReferenceDummy-activeIndicator">
 	    			<property name="name" value="active"/>
 	  			</bean>
-	  			<bean id="martinlaw_shared_event_bo_active" parent="AttributeReferenceDummy-activeIndicator">
+	  			<bean parent="AttributeReferenceDummy-activeIndicator">
 	    			<property name="name" value="hasPhysicalFile"/>
+	    			<property name="label" value="has physical file"/>
 	  			</bean>
 				<!-- placed here for the sake of the (KNS) document search, but not used anywhere else -->
 				<!-- <bean parent="martinlaw-shared-name" p:label="Matter Name" p:name="matter.name"/>
@@ -71,33 +72,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="matter_assignee_maint_document_entry_workflow_attrs" parent="WorkflowAttributes">
 	<property name="searchingTypeDefinitions">
 		<list>
-			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
-				<property name="searchingAttribute">
-					<bean parent="martinlaw_shared_workflow_search_attr_parent">
-						<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAssignee" />
-						<property name="attributeName" value="matter.localReference" />
-					</bean>
-				</property>
-				<property name="documentValues">
-					<list>
-						<value>newMaintainableObject.dataObject.matter.localReference</value>
-					</list>
-				</property>
-			</bean>
-			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
-				<property name="searchingAttribute">
-					<bean parent="martinlaw_shared_workflow_search_attr_parent">
-						<property name="businessObjectClassName" value="org.martinlaw.bo.MatterAssignee" />
-						<property name="attributeName" value="matter.name" />
-					</bean>
-				</property>
-				<property name="documentValues">
-					<list>
-						<value>newMaintainableObject.dataObject.matter.name</value>
-					</list>
-				</property>
-			</bean>
-			
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="martinlaw_shared_workflow_search_attr_parent">

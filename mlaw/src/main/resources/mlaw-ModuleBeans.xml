@@ -92,9 +92,6 @@
          <value>classpath:org/martinlaw/view/transaction-type-lookup.xml</value>
          <value>classpath:org/martinlaw/view/transaction-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/shared-scope.xml</value>
-         <value>classpath:org/martinlaw/view/work-type-inquiry.xml</value>
-         <value>classpath:org/martinlaw/view/work-type-lookup.xml</value>
-         <value>classpath:org/martinlaw/view/work-type-maintenance.xml</value>
          <value>classpath:org/martinlaw/view/shared-transaction-doc.xml</value>
          
          <value>classpath:org/martinlaw/bo/courtcase/case.xml</value>

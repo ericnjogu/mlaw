@@ -64,38 +64,19 @@
 		<property name="headerText" value="Consideration" />
 	</bean>
 
-	<bean id="martinlaw_shared_consideration_inquiry_section" parent="Uif-Disclosure-VerticalBoxSection" abstract="true">
+	<bean id="martinlaw_shared_consideration_inquiry_section" parent="Uif-Disclosure-VerticalBoxSection">
 		<property name="headerText" value="Financials"/>
 		<property name="items">
 			<list>
 		      	<bean parent="Uif-LinkField" p:target="_blank" p:order="10">
 					<property name="linkText" value="New Transaction"/>
+					<property name="href" value="@{#ConfigProperties['dochandler_matter_transaction']}&amp;command=initiate"/>
 					<!-- <property name="render" value="@{#hasPerm('KR-IDM', 'Modify Entity') and !#empty(#line.person)}"/> -->
 					<!-- <property name="href">
 						<value>
 						@{#ConfigProperties['application.url']}/identityManagementPersonDocument.do?&amp;principalId=@{#line.person.principalId}&amp;docTypeName=IdentityManagementPersonDocument&amp;methodToCall=docHandler&amp;command=initiate
 						</value>
 					</property> -->
-					<property name="propertyReplacers">
-						<list>
-							<bean parent="Uif-ConditionalBeanPropertyReplacer"
-								p:propertyName="href" p:condition="dataObjectClassName.endsWith('CourtCase')">
-								<property name="replacement" value="@{#ConfigProperties['dochandler_courtcase_fee']}&amp;command=initiate"/>
-							</bean>
-							<bean parent="Uif-ConditionalBeanPropertyReplacer"
-								p:propertyName="href" p:condition="dataObjectClassName.endsWith('Conveyance')">
-								<property name="replacement" value="@{#ConfigProperties['dochandler_conveyance_fee']}&amp;command=initiate"/>
-							</bean>
-							<bean parent="Uif-ConditionalBeanPropertyReplacer"
-								p:propertyName="href" p:condition="dataObjectClassName.endsWith('Opinion')">
-								<property name="replacement" value="@{#ConfigProperties['dochandler_opinion_fee']}&amp;command=initiate"/>
-							</bean>
-							<bean parent="Uif-ConditionalBeanPropertyReplacer"
-								p:propertyName="href" p:condition="dataObjectClassName.endsWith('Contract')">
-								<property name="replacement" value="@{#ConfigProperties['dochandler_matter_transaction']}&amp;command=initiate"/>
-							</bean>
-						</list>
-					</property>
 				</bean>
 			</list>
 		</property>

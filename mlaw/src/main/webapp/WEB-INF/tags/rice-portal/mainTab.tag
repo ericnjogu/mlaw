@@ -18,9 +18,4 @@
   
 <%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
 
-<!-- <td class="content" valign="top">
-	    <mainChannel:martinlaw />
-</td> -->
-<!-- <td class="content" valign="top">
-	    <mainChannel:martinlaw-shared />
-</td> -->
+<!-- this mdified file ensures that home page does not display default items -->
