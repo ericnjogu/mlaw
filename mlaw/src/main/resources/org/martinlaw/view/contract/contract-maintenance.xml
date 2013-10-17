@@ -32,15 +32,6 @@
 		<property name="dataObjectClassName" value="org.martinlaw.bo.contract.Contract" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="martinlaw_shared_matter_info_maintenance">
-					<property name="items">
-						<list merge="true">
-							<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId" />
-						</list>
-					</property>
-					<property name="headerText" value="Contract Information" />
-				</bean>
-
 				<bean parent="Uif-StackedCollectionSection">
 					<property name="headerText" value="Parties" />
 					<property name="collectionObjectClass" value="org.martinlaw.bo.contract.ContractParty" />

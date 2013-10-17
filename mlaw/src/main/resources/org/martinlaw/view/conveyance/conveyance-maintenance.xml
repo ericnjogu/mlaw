@@ -19,36 +19,6 @@
 	<bean id="conveyance_maintenance_view" parent="matter_maintenance_view">
 		<property name="headerText" value="Conveyance Maintenance" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
-		<property name="items">
-			<list merge="true">
-
-				<bean parent="Uif-MaintenanceGridSection">
-					<property name="items">
-						<list>
-							<bean parent="Uif-HorizontalFieldGroup" p:label="Conveyance Type">
-								<property name="items">
-									<list>
-										<ref bean="conveyance_maintenance_view_typeId" />
-										<ref bean="conveyance_maintenance_view_typeMsg" />
-									</list>
-								</property>
-							</bean>
-						</list>
-					</property>
-					<property name="headerText" value="Conveyance Information" />
-				</bean>
-
-			</list>
-		</property>
 	</bean>
-
-	<!-- defined out here so that they can be referred to by id -->
-
-	<bean id="conveyance_maintenance_view_typeId" parent="martinlaw_shared_blank_label_inputfield"
-		p:propertyName="typeId" p:inquiry.enableDirectInquiry="false"
-		p:quickfinder.render="false" />
-
-	<bean id="conveyance_maintenance_view_typeMsg" parent="Uif-MessageField"
-		p:style="display:none" />
 
 </beans>

@@ -614,7 +614,7 @@
 	<bean id="matter_annex_type_LookupView" parent="martinlaw_shared_name_description_LookupView">
 	    <property name="headerText" value="Matter Annex Type Lookup" />
 	    <property name="dataObjectClassName" value="org.martinlaw.bo.MatterAnnexType" />
-	    <property name="items">
+	    <property name="criteriaFields">
 	      <list merge="true">
 	        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="requiresApproval"/>
 	      </list>
