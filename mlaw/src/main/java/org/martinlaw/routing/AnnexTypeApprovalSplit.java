@@ -36,7 +36,15 @@ public class AnnexTypeApprovalSplit implements SplitNode {
 		if (context != null && context.getDocument() != null && context.getDocument().getDocumentId() != null) {
 			MatterWork work = getBusinessObjectService().findBySinglePrimaryKey(
 					MatterWork.class, context.getDocument().getDocumentId());
-			if (work != null) {
+			if (work == null) {
+				/**
+				 * when work is null, workflow testing mode is assumed (where no BO's are present)
+				 * this is not anticipated on the UI since work is auto created by the framework and annex type is
+				 * a required field
+				 */
+				branchNames.add(MartinlawConstants.RoutingBranches.ANNEX_TYPE_APPROVAL);
+				log.error("work with doc number '" + context.getDocument().getDocumentId() +  "' is  null. testing?");
+			} else {
 				work.refreshNonUpdateableReferences();
 				if (work.getAnnexType() != null && work.getAnnexType().getRequiresApproval()) {
 					branchNames.add(MartinlawConstants.RoutingBranches.ANNEX_TYPE_APPROVAL);
@@ -44,8 +52,6 @@ public class AnnexTypeApprovalSplit implements SplitNode {
 				if (work.getAnnexType() == null) {
 					log.error("annexType for work with doc number '" + context.getDocument().getDocumentId() +  "' is null");
 				}
-			} else {
-				log.error("work with doc number '" + context.getDocument().getDocumentId() +  "' is  null");
 			}
 		}
 		

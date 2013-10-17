@@ -75,7 +75,11 @@ public class AnnexTypeApprovalSplitTest {
 				annexTypeApprovalSplit.process(context, null).getBranchNames().isEmpty());
 		
 		when(docHdr.getDocumentId()).thenReturn("none existent doc id");
-		assertTrue("branch list should be empty since document does not exist",  
+		assertFalse("branch list should not be empty if document does not exist, workflow testing mode is assumed",  
+				annexTypeApprovalSplit.process(context, null).getBranchNames().isEmpty());
+		
+		when(boSvc.findBySinglePrimaryKey(same(MatterWork.class), same(documentId))).thenReturn(null);
+		assertFalse("branch list should not be empty since when work is null, workflow testing mode is assumed",  
 				annexTypeApprovalSplit.process(context, null).getBranchNames().isEmpty());
 	}
 

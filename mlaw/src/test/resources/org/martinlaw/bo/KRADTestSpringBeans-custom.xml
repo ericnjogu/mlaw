@@ -210,4 +210,5 @@ hence the directory files in data dictionary packages are not loaded -->
   </bean>
   
    <import resource="classpath:mlaw-ModuleBeans.xml"/>
+   <import resource="classpath:mlaw-ModuleBeans-test.xml"/>
 </beans>
