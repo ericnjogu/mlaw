@@ -33,14 +33,6 @@
 		<property name="formPostUrl" value="inquiryWithAtts" />
 		<property name="items">
 			<list merge="true">
-				<bean parent="Uif-Disclosure-GridSection">
-					<property name="items">
-						<list merge="true">
-							<bean parent="Uif-InputField" p:propertyName="type.name" />
-						</list>
-					</property>
-					<property name="headerText" value="Contract Information" />
-				</bean>
 
 				<bean parent="Uif-Disclosure-GridSection">
 					<property name="items">

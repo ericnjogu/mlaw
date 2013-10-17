@@ -598,6 +598,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 			<list merge="true">
 				<bean parent="AttributeReferenceDummy-activeIndicator">
 	    			<property name="name" value="requiresApproval"/>
+	    			<property name="label" value="Requires Approval"/>
 	  			</bean>
 			</list>
 		</property>

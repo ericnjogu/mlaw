@@ -31,8 +31,6 @@
     <property name="dataObjectClassName" value="org.martinlaw.bo.contract.Contract" />
     <property name="criteriaFields">
       <list merge="true">
-        <bean parent="Uif-LookupCriteriaInputField" p:propertyName="typeId" />
-        
         <bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="serviceOffered"/>
         <bean parent="martinlaw_shared_wildcard_lookup_field" p:propertyName="summaryOfTerms"/>
         <bean parent="Uif-LookupCriteriaInputField" p:propertyName="contractDuration.startDate"/>
@@ -51,7 +49,6 @@
     </property>
     <property name="resultFields">
       <list merge="true">
-        <bean parent="Uif-DataField" p:propertyName="type.name" />
         <bean parent="Uif-DataField" p:propertyName="contractDuration.startDate"/>
         <bean parent="Uif-DataField" p:propertyName="contractDuration.endDate" />
       </list>

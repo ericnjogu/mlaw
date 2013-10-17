@@ -28,17 +28,5 @@
 	<bean id="conveyance_inquiry_view" parent="matter_inquiry_view">
 		<property name="headerText" value="Conveyance Inquiry" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.conveyance.Conveyance" />
-		<property name="items">
-			<list merge="true">
-				<bean parent="Uif-Disclosure-GridSection">
-					<property name="headerText" value="Conveyance Information" />
-					<property name="items">
-						<list merge="true">
-							<bean parent="Uif-InputField" p:propertyName="type.name" />						
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
 	</bean>
 </beans>
