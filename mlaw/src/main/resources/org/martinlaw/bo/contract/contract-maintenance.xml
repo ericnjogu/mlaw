@@ -38,6 +38,30 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans         http://w
 			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
 				<property name="searchingAttribute">
 					<bean parent="contract_maint_document_entry_search_attr">
+						<property name="attributeName" value="serviceOffered" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.serviceOffered</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="contract_maint_document_entry_search_attr">
+						<property name="attributeName" value="summaryOfTerms" />
+					</bean>
+				</property>
+				<property name="documentValues">
+					<list>
+						<value>newMaintainableObject.dataObject.summaryOfTerms</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.kuali.rice.krad.datadictionary.SearchingTypeDefinition">
+				<property name="searchingAttribute">
+					<bean parent="contract_maint_document_entry_search_attr">
 						<property name="attributeName" value="localReference" />
 					</bean>
 				</property>

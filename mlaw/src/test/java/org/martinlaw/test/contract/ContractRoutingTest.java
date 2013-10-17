@@ -114,6 +114,14 @@ public class ContractRoutingTest extends KewTestsBase {
 		SearchTestCriteria crit6 = new SearchTestCriteria();
 		crit6.setExpectedDocuments(1);
 		crit6.getFieldNamesToSearchValues().put("clientPrincipalName", "patrick_kamau");
+		// search for summary of terms
+		SearchTestCriteria crit7 = new SearchTestCriteria();
+		crit7.setExpectedDocuments(3);
+		crit7.getFieldNamesToSearchValues().put("summaryOfTerms", "*see*");
+		// search for summary of terms
+		SearchTestCriteria crit8 = new SearchTestCriteria();
+		crit8.setExpectedDocuments(3);
+		crit8.getFieldNamesToSearchValues().put("serviceOffered", "*flat*");
 		
 		List<SearchTestCriteria> crits = new ArrayList<SearchTestCriteria>(); 
 		crits.add(crit1);
@@ -121,6 +129,8 @@ public class ContractRoutingTest extends KewTestsBase {
 		crits.add(crit3);
 		crits.add(crit5);
 		crits.add(crit6);
+		crits.add(crit7);
+		crits.add(crit8);
 		getTestUtils().runDocumentSearch(crits, docType);
 	}
 

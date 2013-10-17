@@ -78,7 +78,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     <property name="description" value="Service Offered"/>
     <property name="controlField">
       <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="50" p:maxLength="255"/>
-    </property>  
+    </property> 
+    <!-- for kns doc search -->
+    <property name="control">
+		<bean parent="TextControlDefinition" p:size="50" />
+	</property> 
   </bean>
   
   <bean id="contract-summaryOfTerms" parent="AttributeDefinition">
@@ -93,7 +97,11 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     <property name="description" value="Summary of Terms  and Conditions"/>
     <property name="controlField">
       <bean parent="Uif-TextAreaControl"  p:rows="5" p:cols="50" p:maxLength="255"/>
-    </property>  
+    </property> 
+    <!-- for kns doc search -->
+    <property name="control">
+		<bean parent="TextControlDefinition" p:size="50" />
+	</property>  
   </bean>
 
 </beans>
