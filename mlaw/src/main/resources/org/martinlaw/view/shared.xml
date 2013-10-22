@@ -215,7 +215,8 @@
 		            </list>
 		          </property>
 		        </bean>
-				<bean parent="Uif-InputField" p:propertyName="statusId" />
+				<bean parent="Uif-InputField" p:propertyName="status.name" />
+				<bean parent="Uif-InputField" p:propertyName="type.name" />
 				<bean parent="Uif-InputField" p:propertyName="tags" />
 			</list>
 		</property>

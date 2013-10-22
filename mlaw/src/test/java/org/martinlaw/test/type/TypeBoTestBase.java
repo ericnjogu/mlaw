@@ -195,4 +195,13 @@ public abstract class TypeBoTestBase extends MartinlawTestsBase implements TestB
 	public Class<? extends Scope> getScopeClass() {
 		return Scope.class;
 	}
+	
+	/**
+	 * test that the inheriting 'types' can display the correct label name
+	 */
+	@Test
+	public void testTypeNameLabel() {
+		String label = KRADServiceLocatorWeb.getDataDictionaryService().getAttributeLabel(getDataObjectClass(), "name");
+		assertEquals("type name label differs", "Type Name", label);
+	}
 }
