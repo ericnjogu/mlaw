@@ -86,7 +86,7 @@
 
 
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="properties" ref="configProperties" />
+		<property name="properties" value="#{bootstrapConfig.getProperties()}" />
 	</bean>
 
 	<bean id="bootstrapConfig" class="org.kuali.rice.core.impl.config.property.ConfigFactoryBean">

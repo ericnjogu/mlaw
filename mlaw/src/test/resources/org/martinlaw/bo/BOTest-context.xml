@@ -26,7 +26,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
      <!-- default as shown in org.kuali.test.KRADTestCase -->
-     <import resource="classpath:KRADTestSpringBeans.xml"/>
+     <import resource="classpath:KRADTestHarnessSpringBeans.xml"/>
      <!-- contains data dictionary and OJB repository mapping files -->
      <import resource="classpath:mlaw-ModuleBeans.xml"/>
+     <import resource="classpath:mlaw-ModuleBeans-test.xml"/>
 </beans>

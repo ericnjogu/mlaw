@@ -32,8 +32,8 @@
         <script type="text/javascript" src="${ConfigProperties.application.url}/${fn:trim(javascriptFile)}"></script>
 	</c:if>
 </c:forEach> 
-<link href="${ConfigProperties.application.url}/krad/plugins/jqueryUI/jquery-ui-1.9.2.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${ConfigProperties.application.url}/krad/plugins/jqueryUI/jquery-ui-1.9.2.js"/>
+<link href="${ConfigProperties.application.url}/plugins/jqueryUI/jquery-ui-1.9.2.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${ConfigProperties.application.url}/plugins/jqueryUI/jquery-ui-1.9.2.js"/>
 
 <script type="text/javascript" >
 if (top.location != self.location) {

@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.ken.api.KenApiConstants;
@@ -118,7 +119,7 @@ public class MatterEventMaintainable extends MatterMaintenanceHelperMaintainable
 	 * @return
 	 */
 	public ConfigurationService getKualiConfigurationService() {
-		return KRADServiceLocator.getKualiConfigurationService();
+		return CoreApiServiceLocator.getKualiConfigurationService();
 	}
 
 }

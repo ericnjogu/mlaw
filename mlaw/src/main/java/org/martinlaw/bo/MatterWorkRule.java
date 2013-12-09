@@ -26,6 +26,7 @@ package org.martinlaw.bo;
  */
 
 
+import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.service.KRADServiceLocator;
@@ -53,7 +54,7 @@ public class MatterWorkRule extends MatterTxBusinessRulesBase {
 	@Override
 	public boolean processCustomSaveDocumentBusinessRules(Document document) {
 		// enforce only if org.martinlaw.MartinlawConstants.Options.RESTRICT_WORK_TO_ASSIGNEES is defined in the options as true
-		boolean restrictWorkToAssignees = KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(MartinlawConstants.Options.RESTRICT_WORK_TO_ASSIGNEES);
+		boolean restrictWorkToAssignees = CoreApiServiceLocator.getKualiConfigurationService().getPropertyValueAsBoolean(MartinlawConstants.Options.RESTRICT_WORK_TO_ASSIGNEES);
 		if (restrictWorkToAssignees) {
 			MatterTxDocBase matterWork = (MatterTxDocBase) document;
 			// check if the initiator is an assignee for this matter

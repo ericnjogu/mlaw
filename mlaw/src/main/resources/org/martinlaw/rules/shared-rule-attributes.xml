@@ -27,7 +27,7 @@
 	<ruleAttributes xmlns="ns:workflow/RuleAttribute" xsi:schemaLocation="ns:workflow/RuleAttribute resource:RuleAttribute">
 		<ruleAttribute>
 			<name>MlawDataDictionarySearchableAttribute</name>
-			<className>org.kuali.rice.krad.workflow.attribute.DataDictionaryDocumentSearchCustomizer</className>
+			<className>org.kuali.rice.kns.workflow.attribute.DataDictionaryDocumentSearchCustomizer</className>
 			<label>Data Dictionary Searchable Attribute</label>
 			<description>DD searchable attribute</description>
 			<type>SearchableAttribute</type>

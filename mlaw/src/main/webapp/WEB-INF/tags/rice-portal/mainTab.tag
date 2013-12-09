@@ -18,4 +18,4 @@
   
 <%@ include file="/rice-portal/jsp/sys/riceTldHeader.jsp"%>
 
-<!-- this mdified file ensures that home page does not display default items -->
+<!-- this modified file ensures that home page does not display default items -->

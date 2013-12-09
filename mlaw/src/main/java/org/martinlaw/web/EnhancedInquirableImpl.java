@@ -179,7 +179,7 @@ public class EnhancedInquirableImpl extends InquirableImpl {
 	 * a copy of the overriden method with some changes to return the class named in {@link Matter#getConcreteClass()} for objects
 	 * that are descendants of matter
 	 */
-	@SuppressWarnings({ "rawtypes", "unused" })
+	@SuppressWarnings({ "unused" })
 	@Override
 	public void buildInquirableLink(Object dataObject, String propertyName,
 			Inquiry inquiry) {

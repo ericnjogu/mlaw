@@ -103,9 +103,9 @@
 		<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 			destroy-method="close">
 			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_unt" />
-			<property name="username" value="mlaw_unt" />
-			<property name="password" value="mlaw_unt" />
+			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_rice_232_unt" />
+			<property name="username" value="mlaw_rice_232" />
+			<property name="password" value="mlaw_rice_232" />
 		</bean>
 	</beans>
 
@@ -113,9 +113,9 @@
 		<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 			destroy-method="close">
 			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_dev" />
-			<property name="username" value="mlaw_dev" />
-			<property name="password" value="mlaw_dev" />
+			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_rice_232_dev" />
+			<property name="username" value="mlaw_rice_232" />
+			<property name="password" value="mlaw_rice_232" />
 		</bean>
 	</beans>
 	
@@ -128,25 +128,4 @@
 			<property name="password" value="mlaw_template" />
 		</bean>
 	</beans>
-	
-	<beans profile="revamp_unt">
-		<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-			destroy-method="close">
-			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_data_revamp_unt" />
-			<property name="username" value="mlaw_revamp_unt" />
-			<property name="password" value="mlaw_data_revamp_unt" />
-		</bean>
-	</beans>
-	
-	<beans profile="revamp_dev">
-		<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-			destroy-method="close">
-			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			<property name="url" value="jdbc:mysql://localhost:3306/mlaw_data_revamp_dev" />
-			<property name="username" value="mlaw_revamp_dev" />
-			<property name="password" value="mlaw_data_revamp_dev" />
-		</bean>
-	</beans>
-
 </beans>

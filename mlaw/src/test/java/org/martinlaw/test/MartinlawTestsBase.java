@@ -45,12 +45,11 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.test.SQLDataLoader;
 import org.kuali.rice.test.lifecycles.KEWXmlDataLoaderLifecycle;
-import org.kuali.test.KRADTestCase;
 import org.martinlaw.bo.MartinlawPerson;
 import org.martinlaw.bo.courtcase.CourtCasePerson;
 import org.martinlaw.util.TestUtils;
 
-public abstract class MartinlawTestsBase extends KRADTestCase {
+public abstract class MartinlawTestsBase extends org.kuali.rice.krad.test.KRADTestCase {
 	private BusinessObjectService boSvc;
 	private TestUtils testUtils;
 	//private Log log = LogFactory.getLog(getClass());
@@ -69,7 +68,7 @@ public abstract class MartinlawTestsBase extends KRADTestCase {
 	protected Lifecycle getLoadApplicationLifecycle() {
 		//TODO: create a get application context file() method in KRADTestCase so that we only override that
 		// and keep the logic there
-		SpringResourceLoader springResourceLoader = new SpringResourceLoader(new QName("KRADTestResourceLoader"), "classpath:org/martinlaw/bo/KRADTestSpringBeans-custom.xml", null);
+		SpringResourceLoader springResourceLoader = new SpringResourceLoader(new QName("KRADTestResourceLoader"), "classpath:org/martinlaw/bo/BOTest-context.xml", null);
     	springResourceLoader.setParentSpringResourceLoader(getTestHarnessSpringResourceLoader());
     	return springResourceLoader;
 	}

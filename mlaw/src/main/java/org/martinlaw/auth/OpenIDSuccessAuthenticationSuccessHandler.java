@@ -341,7 +341,7 @@ public class OpenIDSuccessAuthenticationSuccessHandler extends SavedRequestAware
 	 */
 	public ConfigurationService getConfigurationService() {
 		if (configurationService == null) {
-			configurationService = KRADServiceLocator.getKualiConfigurationService();
+			configurationService = CoreApiServiceLocator.getKualiConfigurationService();
 		}
 		return configurationService;
 	}

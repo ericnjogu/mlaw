@@ -150,7 +150,7 @@
 				<bean parent="Uif-MaintenanceGridSection">
 					<property name="items">
 						<list>
-							<bean parent="Uif-InputField" p:propertyName="name" p:inquiry.enableDirectInquiry="false" />
+							<bean parent="Uif-InputField" p:propertyName="name" p:enableAutoDirectInquiry="false" />
 							<bean parent="Uif-InputField" p:propertyName="description" />
 						</list>
 					</property>
@@ -238,7 +238,7 @@
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="clientPrincipalName"/>
 				<!-- avoid an invalid search field error -->
 				<bean parent="Uif-LookupCriteriaInputField" p:propertyName="client.principalId" 
-					p:inquiry.enableDirectInquiry="false">
+					p:enableAutoDirectInquiry="false">
 					<property name="control">
       					<bean parent="Uif-HiddenControl"/>
    					</property>
@@ -291,9 +291,9 @@
 				</bean>
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="clientPrincipalName" />
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="statusId"
-					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
+					p:enableAutoDirectInquiry="false" p:enableAutoQuickfinder="false" />
 				<bean parent="martinlaw_shared_custom_req_msg_inputfield" p:propertyName="typeId"
-					p:inquiry.enableDirectInquiry="false" p:quickfinder.render="false" />
+					p:enableAutoDirectInquiry="false" p:enableAutoQuickfinder="false" />
 				<bean parent="Uif-InputField" p:propertyName="tags" />
 			</list>
 		</property>
@@ -301,19 +301,14 @@
 
 	<bean id="martinlaw_shared_matter_id_scriptlookup" parent="martinlaw_shared_matterId_maint_inputField">
 		<property name="quickfinder">
-			<bean parent="Uif-QuickFinderByScript" />
-		</property>
-		<property name="quickfinder.fieldConversions">
-			<map>
-				<entry key="id" value="matterId" />
-			</map>
+			<bean parent="Uif-QuickFinderByScript" p:fieldConversions="id:matterId"/>
 		</property>
 	</bean>
 
-	<bean id="martinlaw_shared_matter_id_scriptlookup_refresh" parent="martinlaw_shared_matter_id_scriptlookup"
-		p:inquiry.render="true">
+	<bean id="martinlaw_shared_matter_id_scriptlookup_refresh" parent="martinlaw_shared_matterId_maint_inputField"
+		p:enableAutoInquiry="true">
 		<property name="quickfinder">
-			<bean parent="Uif-QuickFinder" />
+			<bean parent="Uif-QuickFinder" p:fieldConversions="id:matterId"/>
 		</property>
 		
 	</bean>

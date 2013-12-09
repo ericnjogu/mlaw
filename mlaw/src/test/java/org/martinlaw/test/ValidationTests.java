@@ -31,10 +31,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.kim.bo.ui.PersonDocumentPhone;
 import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.krad.datadictionary.AttributeDefinition;
-import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.uif.control.TextAreaControl;
 import org.kuali.rice.krad.uif.field.InputField;
@@ -74,7 +74,7 @@ public class ValidationTests extends MartinlawTestsBase {
 	throws InstantiationException, IllegalAccessException {
 		try {
 			String regexPattern = "validationPatternRegex.phoneNumber";
-			log.error(regexPattern + ":" + KRADServiceLocator.getKualiConfigurationService().getPropertyValueAsString(regexPattern));
+			log.error(regexPattern + ":" + CoreApiServiceLocator.getKualiConfigurationService().getPropertyValueAsString(regexPattern));
 			KNSServiceLocator.getKNSDictionaryValidationService().validateAttributeFormat(
 					PersonDocumentPhone.class.getCanonicalName(), "phoneNumber", "0722-123-456", "phoneNumber");
 			if (!GlobalVariables.getMessageMap().hasNoErrors()) {

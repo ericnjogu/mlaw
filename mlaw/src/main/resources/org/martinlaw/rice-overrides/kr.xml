@@ -229,8 +229,10 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
               p:render="@{#actionFlags[#Constants.KUALI_ACTION_CAN_FYI]}"/>
         <bean parent="Uif-PrimaryActionButton" p:ajaxSubmit="false" p:methodToCall="acknowledge" p:actionLabel="acknowledge"
               p:render="@{#actionFlags[#Constants.KUALI_ACTION_CAN_ACKNOWLEDGE]}"/>
-        <bean parent="Uif-CloseAction" p:ajaxSubmit="false" p:render="@{#actionFlags[#Constants.KUALI_ACTION_CAN_CLOSE]}"/>
+        <!-- disable the cancel button -->
+        <!-- 
         <bean parent="Uif-CancelAction" p:ajaxSubmit="false" p:render="@{#actionFlags[#Constants.KUALI_ACTION_CAN_CANCEL]}"/>
+        -->
         <bean parent="Uif-ActionLink" p:ajaxSubmit="false" p:methodToCall="copy" p:actionLabel="copy"
               p:render="@{#actionFlags[#Constants.KUALI_ACTION_CAN_COPY]}"/>
       </list>
@@ -258,5 +260,21 @@ e.g 'following a visit by the client', 'as instructed by lawyer1', 'client does 
       <bean parent="Uif-DocumentPageFooter"/>
     </property>
   </bean>
+  
+  <bean id="Uif-LookupCriteriaFooter" parent="Uif-FooterBase">
+    <property name="items">
+      <list>
+        <bean parent="Uif-PrimaryActionButton" p:methodToCall="search" p:actionLabel="Search"/>
+        <bean parent="Uif-PrimaryActionButton" p:methodToCall="clearValues" p:actionLabel="Clear Values"/>
+        <!-- start of mlaw disable cancel button -->
+        <!-- 
+        <bean parent="Uif-PrimaryActionButton" p:methodToCall="cancel" p:actionLabel="Cancel"
+              p:render="@{!#form.renderedInLightBox}"/>
+         -->
+        <bean parent="Uif-PrimaryActionButton" p:actionLabel="Close" p:render="@{#form.renderedInLightBox}"
+              p:onClickScript="e.preventDefault();closeLightbox();return false;"/>
+      </list>
+    </property>
+   </bean>
 
 </beans>
