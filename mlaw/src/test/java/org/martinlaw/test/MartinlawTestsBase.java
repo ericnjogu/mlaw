@@ -266,7 +266,7 @@ public abstract class MartinlawTestsBase extends org.kuali.rice.krad.test.KRADTe
 		// uncomment users.xml if unit tests are running without the ldap server
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/users.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/kim/groups.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/shared-rule-attributes.xml"));
+		/*suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/shared-rule-attributes.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rule-templates.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/martinlaw-default-routing-document.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/rules/rules.xml"));
@@ -288,7 +288,8 @@ public abstract class MartinlawTestsBase extends org.kuali.rice.krad.test.KRADTe
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterTransactionDoc.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/matterWork.xml"));
 		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/transactionType.xml"));
-		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/landCase.xml"));
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/doctype/landCase.xml"));*/
+		suiteLifecycles.add(new KEWXmlDataLoaderLifecycle("classpath:org/martinlaw/data-dictionary.xml"));
 		return suiteLifecycles;
 	}
 

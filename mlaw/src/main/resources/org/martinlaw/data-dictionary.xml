@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="ns:workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ns:workflow resource:WorkflowData">
+<!--
+<users xmlns="ns:workflow/User"  xsi:schemaLocation="ns:workflow/User resource:User">
+
+		<user>
+		<principalId>ml.p1</principalId>
+			<principalName>client1</principalName>
+			<displayName>Client One</displayName>
+			<givenName>Client</givenName>
+			<lastName>One</lastName>
+		</user>
+		
+		<user>
+		<principalId>ml.p2</principalId>
+			<principalName>clerk1</principalName>
+			<displayName>Clerk One</displayName>
+			<givenName>Clerk</givenName>
+			<lastName>One</lastName>
+			<emailAddress>clerk1@localhost</emailAddress>
+		</user>
+		
+		<user>
+		<principalId>ml.p3</principalId>
+			<principalName>witness1</principalName>
+			<displayName>Witness One</displayName>
+			<givenName>Witness</givenName>
+			<lastName>One</lastName>
+		</user>
+		
+		<user>
+		<principalId>ml.p4</principalId>
+			<principalName>lawyer1</principalName>
+			<displayName>Lawyer One</displayName>
+			<givenName>Lawyer</givenName>
+			<lastName>One</lastName>
+			<emailAddress>lawyer1@localhost</emailAddress>
+		</user>
+		
+		<user>
+		<principalId>ml.p5</principalId>
+			<principalName>clerk2</principalName>
+			<displayName>Clerk Two</displayName>
+			<givenName>Clerk</givenName>
+			<lastName>Two</lastName>
+			<emailAddress>clerk2@localhost</emailAddress>
+		</user>
+	</users>	
+<groups xmlns="ns:workflow/Group" xsi:schemaLocation="ns:workflow/Group resource:Group">
+		<group>
+		<id>org.martinlaw.client</id>
+			<namespace>MARTINLAW</namespace>
+			<name>client</name>
+			<description>clients</description>
+			<members>
+				<principalName>client1</principalName>
+				
+			</members>
+		</group>
+		<group>
+		<id>org.martinlaw.clerk</id>
+			<namespace>MARTINLAW</namespace>
+			<name>clerk</name>
+			<description>clerical staff</description>
+			<members>
+				<principalName>clerk1</principalName>
+				<principalName>clerk2</principalName>
+				
+			</members>
+		</group>
+		<group>
+		<id>org.martinlaw.witness</id>
+			<namespace>MARTINLAW</namespace>
+			<name>witness</name>
+			<description>witnesses</description>
+			<members>
+				<principalName>witness1</principalName>
+				
+			</members>
+		</group>
+		<group>
+		<id>org.martinlaw.lawyer</id>
+			<namespace>MARTINLAW</namespace>
+			<name>lawyer</name>
+			<description>lawyers</description>
+			<members>
+				<principalName>lawyer1</principalName>
+				
+			</members>
+		</group>
+		<group>
+		<id>org.martinlaw.group.idmgr</id>
+			<namespace>MARTINLAW</namespace>
+			<name>idmgr</name>
+			<description>Identity Manager - Can create new users</description>
+			<members>
+				<principalName>clerk1</principalName>
+				<principalName>lawyer1</principalName>
+			</members>
+		</group>
+	</groups>
+-->
+<ruleAttributes xmlns="ns:workflow/RuleAttribute" xsi:schemaLocation="ns:workflow/RuleAttribute resource:RuleAttribute">
+		<ruleAttribute>
+			<name>MlawDataDictionarySearchableAttribute</name>
+			<className>org.kuali.rice.kns.workflow.attribute.DataDictionaryDocumentSearchCustomizer</className>
+			<label>Data Dictionary Searchable Attribute</label>
+			<description>DD searchable attribute</description>
+			<type>SearchableAttribute</type>
+		</ruleAttribute>
+		<ruleAttribute>
+			<name>MartinlawInitiatorAttribute</name>
+			<className>org.kuali.rice.kew.rule.InitiatorRoleAttribute</className>
+			<label>Initiator Role Attribute</label>
+			<description>Initiator Role Attribute</description>
+			<type>RuleAttribute</type>
+	    </ruleAttribute>
+	</ruleAttributes> 
+<ruleTemplates xmlns="ns:workflow/RuleTemplate" xsi:schemaLocation="ns:workflow/RuleTemplate resource:RuleTemplate">
+		<ruleTemplate allowOverwrite="true">
+			<name>org.martinlaw.defaultApprovalTemplate</name>
+			<description>default martinlaw routing</description>
+			 
+		</ruleTemplate>
+		<ruleTemplate allowOverwrite="true">
+			<name>org.martinlaw.initiatorFYI</name>
+			<description>Initiator notification of processed</description>
+			<attributes>
+			    <attribute>
+			      <name>MartinlawInitiatorAttribute</name>
+			      <required>true</required>
+			    </attribute>
+	  		</attributes>
+		</ruleTemplate>
+	</ruleTemplates>
+<documentTypes xmlns="ns:workflow/DocumentType" xsi:schemaLocation="ns:workflow/DocumentType resource:DocumentType">
+<documentType>
+			<name>MartinlawDefaultRoutingDocument</name>
+			<parent>RiceDocument</parent>
+			<description>Holds common routing configs</description>
+			<label>Martinlaw Default Routing Document</label>
+			
+			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
+			<routePaths>
+				<routePath>
+					<start name="initiated" nextNode="approvalRequest" />
+					<requests name="approvalRequest" nextNode="martinlawInitiatorFyiSplit" />
+					<split name="martinlawInitiatorFyiSplit" nextNode="noOpNode">
+						<branch name="martinlawInitiatorFyiBranch">
+							<requests name="martinlawInitiatorFyiRequest" nextNode="join" />
+						</branch>
+						<join name="join" />
+					</split>
+					<simple name="noOpNode" />
+				</routePath>
+			</routePaths>
+			<routeNodes>
+				<start name="initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</start>
+				<requests name="approvalRequest">
+					<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</requests>
+				<requests name="martinlawInitiatorFyiRequest">
+		        	<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+		        </requests>
+		        <split name="martinlawInitiatorFyiSplit">
+					<type>org.martinlaw.routing.InitiatorIsNotApproverSplit</type>
+				</split>
+				<simple name="noOpNode">
+					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
+				</simple>
+				<join name="join" />
+			</routeNodes>
+		</documentType>
+		
+		<documentType>
+			<name>MartinlawDefaultSearchableRoutingDocument</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Holds common routing configs</description>
+			<label>Martinlaw Default Routing Document</label>
+			<attributes>
+				<attribute>
+					<name>MlawDataDictionarySearchableAttribute</name>
+				</attribute>
+			</attributes>
+		</documentType>
+		
+		<documentType>
+			<name>MartinlawDefaultNoRoutingSearchableDocument</name>
+			<parent>RiceDocument</parent>
+			<description>Holds common routing configs</description>
+			<label>Martinlaw Default No-Routing Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<blanketApproveGroupName namespace="MARTINLAW">lawyer</blanketApproveGroupName>
+			<defaultExceptionGroupName namespace="KR-WKFLW">WorkflowAdmin</defaultExceptionGroupName>
+			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
+
+			<routePaths>
+				<routePath>
+					<start name="Initiated" /> 
+				</routePath>
+			</routePaths>
+			<routeNodes>
+			
+				<start name="Initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>true</finalApproval>
+				</start>
+			</routeNodes>
+			<attributes>
+				<attribute>
+					<name>MlawDataDictionarySearchableAttribute</name>
+				</attribute>
+			</attributes>
+		</documentType>
+	<documentType>
+			<name>CourtCaseMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Case Maintenance Document</description>
+			<label>Case Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			
+			
+			
+			
+		</documentType>
+		
+		<documentType>
+			<name>CourtCaseMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Case Maintenance Document for work-flow testing</description>
+			<label>Case Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>StatusMaintenanceDocument</name>
+			<parent>MartinlawDefaultNoRoutingSearchableDocument</parent>
+			<description>Status Maintenance Document</description>
+			<label>Status Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		
+		
+	<documentType>
+			<name>ConveyanceTypeMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Conveyance Type Document</description>
+			<label>Conveyance Type Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>ConveyanceTypeMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>ConveyanceMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Conveyance Maintenance Document</description>
+			<label>Conveyance Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			
+		</documentType>
+		<documentType>
+			<name>ConveyanceMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Conveyance Maintenance Document</description>
+			<label>Conveyance Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>ConveyanceWorkDocument</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Conveyance Work Transactional Document</description>
+			<label>Conveyance Work Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>ConveyanceWorkDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>ContractMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Contract Maintenance Document</description>
+			<label>Contract Maintenance Document</label>
+
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+ 			<documentType>
+				<name>ContractMaintenanceDocumentTest</name>
+				<parent>MartinlawDefaultRoutingDocument</parent>
+				<description>Contract Maintenance Document</description>
+				<label>Contract Maintenance Document</label>
+				<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+			</documentType>
+	<documentType>
+			<name>EventTypeMaintenanceDocument</name>
+			<parent>MartinlawDefaultNoRoutingSearchableDocument</parent>
+			<description>Event Type Maintenance Document</description>
+			<label>Event Type Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		
+		
+	<documentType>
+			<name>ConsiderationTypeMaintenanceDocument</name>
+			<parent>MartinlawDefaultNoRoutingSearchableDocument</parent>
+			<description>Consideration Type Maintenance Document</description>
+			<label>Consideration Type Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+
+			<docHandler>${application.url}/kr-krad/maintenance?methodToCall=docHandler</docHandler>
+
+			
+		</documentType>
+	<documentType>
+			<name>MatterConsiderationMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Consideration Maintenance Document</description>
+			<label>Matter Consideration Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>MatterConsiderationMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Matter Consideration Maintenance Document</description>
+			<label>Matter Consideration Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>MatterMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Maintenance Document</description>
+			<label>Matter Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>MatterMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>MatterTypeMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Type Maintenance Document</description>
+			<label>Matter Type Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>MatterTypeMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>MatterAnnexTypeMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Annex Type Maintenance Document</description>
+			<label>Matter Annex Type Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>MatterAnnexTypeMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>MatterEventMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Event Maintenance Document</description>
+			<label>Matter Event Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>MatterEventMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>MatterAssigneeMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Assignee Maintenance Document</description>
+			<label>Matter Assignee Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		<documentType>
+			<name>MatterAssigneeMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>MatterTransactionDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Transaction Transactional Document</description>
+			<label>Matter Transaction Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<docHandler>${dochandler_matter_transaction}</docHandler>
+		</documentType>
+		<documentType>
+			<name>MatterTransactionDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	<documentType>
+			<name>MatterWorkDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Matter Work Transactional Document</description>
+			<label>Matter Work Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			<docHandler>${dochandler_matter_work}</docHandler>
+			<routePaths>
+				<routePath>
+					<start name="initiated" nextNode="martinlawAnnexTypeApprovalSplit" />
+					<split name="martinlawAnnexTypeApprovalSplit" nextNode="noOpNode">
+						<branch name="martinlawAnnexTypeApprovalBranch">
+							<requests name="approvalRequest" nextNode="martinlawInitiatorFyiSplit" />
+						</branch>
+						<join name="join" />
+					</split>
+					<split name="martinlawInitiatorFyiSplit" nextNode="noOpNode">
+						<branch name="martinlawInitiatorFyiBranch">
+							<requests name="martinlawInitiatorFyiRequest" nextNode="join" />
+						</branch>
+						<join name="join" />
+					</split>
+					<simple name="noOpNode" />
+				</routePath>
+			</routePaths>
+			<routeNodes>
+				<start name="initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</start>
+				<requests name="approvalRequest">
+					<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</requests>
+				<requests name="martinlawInitiatorFyiRequest">
+		        	<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+		        </requests>
+		        <split name="martinlawInitiatorFyiSplit">
+					<type>org.martinlaw.routing.InitiatorIsNotApproverSplit</type>
+				</split>
+				<split name="martinlawAnnexTypeApprovalSplit">
+					<type>org.martinlaw.routing.AnnexTypeApprovalSplit</type>
+				</split>
+				<simple name="noOpNode">
+					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
+				</simple>
+				<join name="join" />
+			</routeNodes>
+		</documentType>
+		
+		<documentType>
+			<name>MatterWorkDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Test Document</description>
+			<label>Test Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+			<docHandler>${dochandler_matter_work}</docHandler>
+			<routePaths>
+				<routePath>
+					<start name="initiated" nextNode="martinlawAnnexTypeApprovalSplit" />
+					<split name="martinlawAnnexTypeApprovalSplit" nextNode="noOpNode">
+						<branch name="martinlawAnnexTypeApprovalBranch">
+							<requests name="approvalRequest" nextNode="martinlawInitiatorFyiSplit" />
+						</branch>
+						<join name="join" />
+					</split>
+					<split name="martinlawInitiatorFyiSplit" nextNode="noOpNode">
+						<branch name="martinlawInitiatorFyiBranch">
+							<requests name="martinlawInitiatorFyiRequest" nextNode="join" />
+						</branch>
+						<join name="join" />
+					</split>
+					<simple name="noOpNode" />
+				</routePath>
+			</routePaths>
+			<routeNodes>
+				<start name="initiated">
+					<activationType>P</activationType>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</start>
+				<requests name="approvalRequest">
+					<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+				</requests>
+				<requests name="martinlawInitiatorFyiRequest">
+		        	<activationType>P</activationType>
+					<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
+					<mandatoryRoute>false</mandatoryRoute>
+					<finalApproval>false</finalApproval>
+		        </requests>
+		        <split name="martinlawInitiatorFyiSplit">
+					<type>org.martinlaw.routing.InitiatorIsNotApproverSplit</type>
+				</split>
+				<split name="martinlawAnnexTypeApprovalSplit">
+					<type>org.martinlaw.routing.AnnexTypeApprovalSplit</type>
+				</split>
+				<simple name="noOpNode">
+					<type>org.kuali.rice.kew.engine.node.NoOpNode</type>
+				</simple>
+				<join name="join" />
+			</routeNodes>
+		</documentType>
+	<documentType>
+			<name>TransactionTypeMaintenanceDocument</name>
+			<parent>MartinlawDefaultNoRoutingSearchableDocument</parent>
+			<description>Transaction Type Maintenance Document</description>
+			<label>Transaction Type Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+			
+		</documentType>
+	<documentType>
+			<name>LandCourtCaseMaintenanceDocument</name>
+			<parent>MartinlawDefaultSearchableRoutingDocument</parent>
+			<description>Land Case Maintenance Document</description>
+			<label>Land Case Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.krad.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+		</documentType>
+		
+		<documentType>
+			<name>LandCourtCaseMaintenanceDocumentTest</name>
+			<parent>MartinlawDefaultRoutingDocument</parent>
+			<description>Land Case Maintenance Document for work-flow testing</description>
+			<label>Land Case Maintenance Document</label>
+			<postProcessorName>org.kuali.rice.kew.postprocessor.DefaultPostProcessor</postProcessorName>
+		</documentType>
+	</documentTypes>
+<rules xmlns="ns:workflow/Rule" xsi:schemaLocation="ns:workflow/Rule resource:Rule">
+		<rule>
+			<name>org.martinlaw.rules.default.approval</name>
+			<documentType>MartinlawDefaultRoutingDocument</documentType>
+			<ruleTemplate>org.martinlaw.defaultApprovalTemplate</ruleTemplate>
+			<description>default routing rule for maintenance docs</description>
+			<responsibilities>
+				<responsibility>
+					<groupName namespace="MARTINLAW">lawyer</groupName>
+					<actionRequested>A</actionRequested>
+					<priority>1</priority>
+				</responsibility>
+			</responsibilities>
+		</rule>
+		<rule>
+			<name>org.martinlaw.rules.default.initiatorFyi</name>
+			<documentType>MartinlawDefaultRoutingDocument</documentType>
+			<ruleTemplate>org.martinlaw.initiatorFYI</ruleTemplate>
+			<description>FYI notification to the initiator notifying them their edoc has been processed</description>
+			<forceAction>true</forceAction>
+			<responsibilities>
+			  <responsibility>
+			    <role>org.kuali.rice.kew.rule.InitiatorRoleAttribute!INITIATOR</role>
+			    <approvePolicy>F</approvePolicy>
+			    <actionRequested>F</actionRequested>
+			    <priority>1</priority>
+			  </responsibility>
+			</responsibilities>
+	    </rule>
+	</rules>
+</data>
