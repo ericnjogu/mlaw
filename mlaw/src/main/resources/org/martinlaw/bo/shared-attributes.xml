@@ -14,7 +14,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans         
 http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean id="martinlaw_shared_date_attr" parent="AttributeReferenceDummy-genericDate">
+	<bean id="martinlaw_shared_date_attr" parent="AttributeReference-genericDate">
 		<property name="name" value="date" />
 		<property name="label" value="Date" />
 		<property name="maxLength" value="30" />
@@ -36,7 +36,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
 	<!-- only meant to be displayed -->
 	<bean id="martinlaw-shared-id-parentBean" abstract="true"
-		parent="AttributeReferenceDummy-genericSystemId">
+		parent="AttributeReference-genericSystemId">
 		<property name="forceUppercase" value="false" />
 		<property name="maxLength" value="20" />
 		<property name="validationPattern">
@@ -596,7 +596,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 		<property name="businessObjectClass" value="org.martinlaw.bo.MatterAnnexType" />
 		<property name="attributes">
 			<list merge="true">
-				<bean parent="AttributeReferenceDummy-activeIndicator">
+				<bean parent="AttributeReference-activeIndicator">
 	    			<property name="name" value="requiresApproval"/>
 	    			<property name="label" value="Requires Approval"/>
 	  			</bean>

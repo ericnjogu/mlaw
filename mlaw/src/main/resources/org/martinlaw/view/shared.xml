@@ -322,25 +322,25 @@
 			<list>
 				
 				<bean parent="Uif-InputField" p:propertyName="documentInitiatorNetworkId" 
-					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReference" 
 					p:dictionaryAttributeName="initiatorNetworkId"/>
 				<bean parent="Uif-InputField" p:propertyName="documentHeader.workflowDocument.status"  
-					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReference" 
 					p:dictionaryAttributeName="workflowDocumentStatus"/>
 				<bean parent="Uif-InputField" p:propertyName="documentHeader.documentDescription"
 					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.DocumentHeader"
 					p:dictionaryAttributeName="documentDescription"/>
 				<bean parent="Uif-InputField" p:propertyName="dateCreated" 
 					p:label="Created"
-					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReference" 
 					p:dictionaryAttributeName="genericTimestamp"/>
 				<bean parent="Uif-InputField" p:propertyName="periodToCompletion" 
 					p:label="Time to Complete"
-					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReference" 
 					p:dictionaryAttributeName="genericBigText"/>
 				<bean parent="Uif-InputField" p:propertyName="periodToApprove" 
 					p:label="Time to Approve"
-					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReferenceDummy" 
+					p:dictionaryObjectEntry="org.kuali.rice.krad.bo.AttributeReference" 
 					p:dictionaryAttributeName="genericBigText"/>
 				<bean parent="martinlaw_shared_line_docnumber_linkfield">
 								<property name="href">
@@ -441,7 +441,20 @@
 	    </property>
 	    <property name="items">
 	      <list>
-	      	<bean parent="Uif-CreateNewLink" p:target="_blank" p:render="@{#ViewHelper.allowsMaintenanceNewOrCopyAction()}"/>
+	      <!-- adapted from Uif-CreateNewLink -->
+	      	<bean parent="Uif-Link" p:render="@{#ViewHelper.allowsMaintenanceNewOrCopyAction()}">
+	      		<property name="cssClasses">
+			      <list merge="true">
+			        <value>uif-createNewLink</value>
+			      </list>
+			    </property>
+			    <property name="finalizeMethodToCall" value="getMaintenanceActionLink"/>
+			    <property name="finalizeMethodAdditionalArguments">
+			      <list>
+			        <value>start</value>
+			      </list>
+			    </property>
+	      	</bean>
 			<ref bean="martinlaw_shared_copy_link"/>
 	      </list>
 	    </property>

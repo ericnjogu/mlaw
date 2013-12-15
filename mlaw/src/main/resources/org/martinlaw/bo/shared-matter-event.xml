@@ -40,7 +40,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<ref bean="martinlaw_shared_event_bo_location" />
 			<bean parent="martinlaw_shared_event_bo_date" p:name="startDate" p:required="true" p:label="Start Date"/>
 			<bean parent="martinlaw_shared_event_bo_date" p:name="endDate" p:label="End Date" p:required="false" />
-			<bean id="martinlaw_shared_event_bo_active" parent="AttributeReferenceDummy-activeIndicator">
+			<bean id="martinlaw_shared_event_bo_active" parent="AttributeReference-activeIndicator">
     			<property name="name" value="active"/>
   			</bean>
 		</list>

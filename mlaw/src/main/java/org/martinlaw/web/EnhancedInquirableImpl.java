@@ -71,8 +71,7 @@ public class EnhancedInquirableImpl extends InquirableImpl {
     public void getMaintenanceActionLink(Link actionLink, Object model, String maintenanceMethodToCall) {
     	InquiryForm inquiryForm = (InquiryForm) model;
         Object dataObject = inquiryForm.getDataObject();
-    	
-
+  	
         List<String> pkNames = getDataObjectMetaDataService().listPrimaryKeyFieldNames(getDataObjectClass());
 
         // build maintenance link href
@@ -109,11 +108,12 @@ public class EnhancedInquirableImpl extends InquirableImpl {
      * @param pkNames - list of primary key field names for the data object whose key/value pairs will be added to
      * the maintenance link
      * @return String URL link for the maintenance action
+     * @see org.kuali.rice.krad.lookup.LookupableImpl#getActionUrlHref(LookupForm, Object, String, List<String>)
      */
     protected String getActionUrlHref(InquiryForm inquiryForm, Object dataObject, String methodToCall,
             List<String> pkNames) {
 
-        Properties props = new Properties();
+    	Properties props = new Properties();
         props.put(KRADConstants.DISPATCH_REQUEST_PARAMETER, methodToCall);
 
         Map<String, String> primaryKeyValues = KRADUtils.getPropertyKeyValuesFromDataObject(pkNames, dataObject);
@@ -130,7 +130,13 @@ public class EnhancedInquirableImpl extends InquirableImpl {
         props.put(UifParameters.DATA_OBJECT_CLASS_NAME, inquiryForm.getDataObjectClassName());
         props.put(UifParameters.VIEW_TYPE_NAME, UifConstants.ViewType.MAINTENANCE.name());
 
-        return UrlFactory.parameterizeUrl(KRADConstants.Maintenance.REQUEST_MAPPING_MAINTENANCE, props);
+        String maintenanceMapping = KRADConstants.Maintenance.REQUEST_MAPPING_MAINTENANCE;
+        // commented out since inquiry view does not have a maintenance url mapping method
+        /*if (inquiryView != null && StringUtils.isNotBlank(inquiryView.getMaintenanceUrlMapping())) {
+            maintenanceMapping = inquiryView.getMaintenanceUrlMapping();
+        }*/
+
+        return UrlFactory.parameterizeUrl(maintenanceMapping, props);
     }
     
     /**

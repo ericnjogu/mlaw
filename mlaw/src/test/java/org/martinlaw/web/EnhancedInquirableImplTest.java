@@ -55,6 +55,7 @@ public class EnhancedInquirableImplTest extends MartinlawTestsBase {
 	 */
 	@Test
 	public void testGetMaintenanceActionLink() {
+		//final String target = "_blank";
 		 String editUrl = "maintenance?viewTypeName=MAINTENANCE&methodToCall=maintenanceEdit" +
 		 		"&dataObjectClassName=org.martinlaw.bo.courtcase.CourtCase&id=1001";
 		 String copyUrl = "maintenance?viewTypeName=MAINTENANCE&methodToCall=maintenanceCopy" +
@@ -71,6 +72,8 @@ public class EnhancedInquirableImplTest extends MartinlawTestsBase {
 		 form.setDataObject(dataObject);
 		 form.setDataObjectClassName(DATA_OBJECT_CLASS.getCanonicalName());
 		 Link link = new Link();
+		 
+		//link.setTarget(target);
 		 // test for actions on existing object
 		 for (int i=0; i<urls.length; i++) {
 			 inquirable.getMaintenanceActionLink(link, form, methods[i]);

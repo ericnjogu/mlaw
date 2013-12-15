@@ -33,10 +33,10 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 			<list>
 				<bean parent="martinlaw-shared-principal-name" p:label="Assignee" />
 				<bean parent="martinlaw_shared_matterId_attr" p:label="Matter"/>
-				<bean parent="AttributeReferenceDummy-activeIndicator">
+				<bean parent="AttributeReference-activeIndicator">
 	    			<property name="name" value="active"/>
 	  			</bean>
-	  			<bean parent="AttributeReferenceDummy-activeIndicator">
+	  			<bean parent="AttributeReference-activeIndicator">
 	    			<property name="name" value="hasPhysicalFile"/>
 	    			<property name="label" value="has physical file"/>
 	  			</bean>

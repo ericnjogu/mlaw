@@ -26,7 +26,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="land_courtcase_LookupView" parent="courtcase_LookupView">
-		<property name="headerText" value="Court Case Lookup" />
+		<property name="headerText" value="Land Case Lookup" />
 		<property name="dataObjectClassName" value="org.martinlaw.bo.courtcase.LandCase" />
 		<property name="criteriaFields">
 			<list merge="true">

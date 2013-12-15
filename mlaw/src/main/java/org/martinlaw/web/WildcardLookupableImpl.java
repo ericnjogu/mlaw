@@ -52,7 +52,7 @@ public class WildcardLookupableImpl extends LookupableImpl {
 			Map<String, String> searchCriteria) {
 		String wildcardPropertyNames = searchCriteria.get(WILDCARD_PROPERTYNAMES);
 		searchCriteria =  super.processSearchCriteria(lookupForm, searchCriteria);
-		if (wildcardPropertyNames != null) { 
+		if (wildcardPropertyNames != null && searchCriteria != null) { 
 			String[] wcpList = wildcardPropertyNames.split(",");
 			for (String propertyName: wcpList) {
 				propertyName = propertyName.trim();
