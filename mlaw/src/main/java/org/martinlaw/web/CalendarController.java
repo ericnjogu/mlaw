@@ -72,7 +72,7 @@ public class CalendarController {
 	 * @return null, while copying the vevent to the response out
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/date/{uid}")
+	@RequestMapping(value="/date/{uid}/")
 	public String downloadDate(HttpServletRequest request,  HttpServletResponse response, 
 			@PathVariable String uid) throws IOException {
 		MatterEvent matterEvent = getMatterDate(uid);
