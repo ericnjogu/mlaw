@@ -262,8 +262,9 @@
 				<bean parent="Uif-DataField" p:propertyName="localReference" />
 				<bean parent="Uif-DataField" p:propertyName="name" />
 				<bean parent="Uif-DataField" p:propertyName="client.name" p:label="Client Name"/>
-				<bean parent="Uif-DataField" p:propertyName="eventsHtml" p:label="Events" p:escapeHtmlInPropertyValue="false"/>				
-				<bean parent="Uif-DataField" p:propertyName="considerationsHtml" p:label="Considerations" p:escapeHtmlInPropertyValue="false"/>
+				<!-- raw html shown even without sorrounding pre tags -->
+				<!-- <bean parent="Uif-DataField" p:propertyName="eventsHtml" p:label="Events" p:escapeHtmlInPropertyValue="false"/>				
+				<bean parent="Uif-DataField" p:propertyName="considerationsHtml" p:label="Considerations" p:escapeHtmlInPropertyValue="false"/> -->
 				<bean parent="Uif-DataField" p:propertyName="status.name"  p:label="Status"/>
 			</list>
 		</property>
