@@ -26,6 +26,8 @@ package org.martinlaw.web;
  */
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.atLeastOnce;
@@ -124,6 +126,19 @@ public class DownloadControllerTest {
 		when(boSvc.findBySinglePrimaryKey(Attachment.class, 1001l)).thenReturn(att);
 		controller.downloadAttachmentById(null, null, request, response);
 		testDownloadAttachmentAsStream();
+	}
+	
+	/**
+	 * Test method for {@link org.martinlaw.web.CalendarController#uidMatchesPattern(java.lang.String)}.
+	 */
+	@Test
+	public void testUidMatchesPattern() {
+		assertTrue("pattern should have matched", 
+				controller.uidMatchesPattern("1001-org.martinlaw.bo.courtcase.Event@mlaw.co.ke"));
+		assertFalse("pattern should not have matched", 
+				controller.uidMatchesPattern("1001+org.martinlaw.bo.courtcase.Event@mlaw.co.ke"));
+		assertFalse("pattern should not have matched", 
+				controller.uidMatchesPattern("1001-org.martinlaw.bo.courtcase.Event"));
 	}
 
 }

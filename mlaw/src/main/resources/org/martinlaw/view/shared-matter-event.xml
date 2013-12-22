@@ -171,7 +171,7 @@
 							<bean parent="Uif-LinkField" p:linkText="Download Event" p:label="Download Event">
 								<property name="href">
 									<value>
-										@{#ConfigProperties['application.url']}/kr-krad/calendar/date/@{dataObject.eventUID}
+										@{#ConfigProperties['application.url']}/kr-krad/inquiryWithAtts/date?uid=@{dataObject.eventUID}&amp;dataObjectClassName=org.martinlaw.bo.Matter
 									</value>
 								</property>
 							</bean>
@@ -198,7 +198,7 @@
 				<bean parent="Uif-LinkField" p:linkText="Calendar Event" p:label="Download Event">
 					<property name="href">
 						<value>
-							@{#ConfigProperties['application.url']}/kr-krad/calendar/date/@{#line.eventUID}
+							@{#ConfigProperties['application.url']}/kr-krad/inquiryWithAtts/date?uid=@{#line.eventUID}&amp;dataObjectClassName=org.martinlaw.bo.Matter
 						</value>
 					</property>
 				</bean>

@@ -26,24 +26,32 @@ package org.martinlaw.web;
  */
 
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.helpers.IOUtils;
 import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.service.AttachmentService;
 import org.kuali.rice.krad.service.BusinessObjectService;
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.web.controller.InquiryController;
 import org.kuali.rice.krad.web.form.UifFormBase;
+import org.martinlaw.MartinlawConstants;
+import org.martinlaw.bo.MatterEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -127,8 +135,72 @@ public class DownloadController extends InquiryController {
 		} catch (NumberFormatException e) {
 			log.error(e.getMessage());
 		}
+		
 		return null;
 	}
+	
+	/**
+	 * downloads a date with the given uid as a vevent
+	 * @param request - the servlet request
+	 * @param response - the servlet response
+	 * @param uid - the event's uid which is in the form id-class e.g. 101-org.mlaw.mydate
+	 * @return null, while copying the vevent to the response out
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/date")
+	public ModelAndView downloadDate(@ModelAttribute("KualiForm")  UifFormBase uifForm, HttpServletRequest request,  
+			HttpServletResponse response, @RequestParam("uid") String uid) throws IOException {
+		MatterEvent matterEvent = getMatterDate(uid);
+		String template = IOUtils.toString(MatterEvent.class.getResourceAsStream(MartinlawConstants.VCALENDAR_TEMPLATE_FILE));
+		if (StringUtils.isEmpty(template)) {
+			throw new RuntimeException("The vcalendar template has not been defined in '" + MartinlawConstants.VCALENDAR_TEMPLATE_FILE + "'");
+		}
+		String calendar = matterEvent.toIcalendar(template);
+		InputStream is = new ByteArrayInputStream(calendar.getBytes());
+		String fileName = matterEvent.getMatter().getLocalReference() + "-" + matterEvent.getType().getName();
+		getDownloadUtils().downloadAsStream(response, is, "text/calendar", calendar.length(),  fileName + ".ics");
+		
+		return getUIFModelAndView(uifForm);
+	}
+
+	/**
+	 * retrieve the matter date represented by the uid
+	 * @param calendarUid - the event's uid which is in the form id-class e.g. 101-org.mlaw.mydate
+	 * @return
+	 */
+	public MatterEvent getMatterDate(String calendarUid) {
+		if (!uidMatchesPattern(calendarUid)) {
+			throw new RuntimeException("the provided uid - '" + calendarUid + 
+					"' does not match the pattern '" + MartinlawConstants.VCALENDAR_UID_PATTERN + "'");
+		}
+		// retrieve id from supplied uid
+		Long id = Long.valueOf(calendarUid.substring(0, calendarUid.indexOf("-")));
+		String className = calendarUid.substring(calendarUid.indexOf("-") + 1, calendarUid.indexOf("@"));
+		MatterEvent matterEvent = null;
+		try {
+			matterEvent = (MatterEvent)Class.forName(className).newInstance();
+		} catch (Exception e) {
+			log.error("error while casting '" + className + "' into MatterEvent");
+			throw new RuntimeException(e);
+		}
+		MatterEvent event = (MatterEvent) KRADServiceLocator.getBusinessObjectService().findBySinglePrimaryKey(matterEvent.getClass(), id);
+		if (event == null) {
+			throw new IllegalArgumentException("The event identified by '" + calendarUid + "' was not found");
+		}
+		return event;
+	}
+	
+	/**
+	 * checks whether the calendar uid matches the pattern {@link MartinlawConstants#VCALENDAR_UID_PATTERN}
+	 * @param uid
+	 * @return
+	 */
+	public boolean uidMatchesPattern(String calendarUid) {
+		Pattern pattern = Pattern.compile(MartinlawConstants.VCALENDAR_UID_PATTERN);
+		Matcher matcher = pattern.matcher(calendarUid);
+		return matcher.matches();
+	}
+
 	
 	/**
 	 * get the local reference to {@link BusinessObjectService}

@@ -37,9 +37,9 @@ import org.martinlaw.test.MartinlawTestsBase;
  * @author mugo
  *
  */
-public class CalendarControllerTestIT extends MartinlawTestsBase{
+public class DownloadControllerTestIT extends MartinlawTestsBase{
 
-	private CalendarController controller;
+	private DownloadController controller;
 
 	/**
 	 * Test method for {@link org.martinlaw.web.CalendarController#getMatterDate(java.lang.String)}.
@@ -54,6 +54,6 @@ public class CalendarControllerTestIT extends MartinlawTestsBase{
 	
 	@Before
 	public void setup() {
-		controller = new CalendarController();
+		controller = new DownloadController();
 	}
 }
