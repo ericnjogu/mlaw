@@ -122,7 +122,8 @@ public class ContractBOTest extends MartinlawTestsBase {
 		getTestUtils().testContractFields(contract);
 		assertNotNull("considerations should not be null", contract.getConsiderations());
 		assertEquals("default number of considerations differs", 2, contract.getConsiderations().size());
-		getTestUtils().testMatterClient(contract, getTestUtils().getTestClientFirstName());
+		assertNotNull("client object should not be null", contract.getClient());
+		assertNotNull("client principal name should not be null", contract.getClientPrincipalName());
 		// U
 		String serviceOffered = "flat 3f2";
 		contract.setServiceOffered(serviceOffered);

@@ -22,7 +22,9 @@
 
 INSERT INTO 
 `krim_afltn_typ_t` 
-(`AFLTN_TYP_CD`,`OBJ_ID`,`VER_NBR`,`NM`,`EMP_AFLTN_TYP_IND`,`ACTV_IND`,`DISPLAY_SORT_CD`,`LAST_UPDT_DT`) 
+(`AFLTN_TYP_CD`,`OBJ_ID`,`VER_NBR`,`NM`,`EMP_AFLTN_TYP_IND`,`ACTV_IND`,`DISPLAY_SORT_CD`) 
 VALUES 
-('CLIENT',uuid(),1,'Client','N','Y','a','2008-11-13 14:06:30'),
-('WITNESS',uuid(),1,'Witness','Y','Y','b','2008-11-13 14:06:30');
+('CLIENT',uuid(),1,'Client','N','Y','a'),
+('WITNESS',uuid(),1,'Witness','Y','Y','b'),
+('CONTRACT_SIGNATORY',uuid(),1,'Contract Signatory','Y','Y','c'),
+('CONTRACT_PARTY',uuid(),1,'Contract Party','Y','Y','d');

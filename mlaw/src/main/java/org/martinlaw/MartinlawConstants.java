@@ -151,6 +151,8 @@ public class MartinlawConstants {
 	public static class AffiliationCodes {
 		public static final String CLIENT = "CLIENT";
 		public static final String WITNESS = "WITNESS";
+		public static final String CONTRACT_SIGNATORY = "CONTRACT_SIGNATORY";
+		public static final String CONTRACT_PARTY = "CONTRACT_PARTY";
 	}
 	
 	/**

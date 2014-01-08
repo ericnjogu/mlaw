@@ -27,6 +27,7 @@ package org.martinlaw.test.contract;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -70,6 +71,13 @@ public class ContractRoutingTest extends KewTestsBase {
 		assertEquals(1, result.size());
 		for (Contract contract: result) {
 			getTestUtils().testContractFields(contract);
+			String msg = "expected principal name differs";
+			String principalName = "charity_mumbi";
+			assertEquals(msg, principalName, contract.getParties().get(0).getPrincipalName());
+			assertNotNull("Principal ID should not be null", getPrincipalIdForName(principalName));
+			principalName = "myles_mathenge";
+			assertEquals(msg, principalName, contract.getSignatories().get(0).getPrincipalName());
+			assertNotNull("Principal ID should not be null", getPrincipalIdForName(principalName));
 		}
 
 	}

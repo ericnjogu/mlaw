@@ -27,6 +27,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans         http://w
   <bean id="contract_maint_document_entry" parent="matter_maint_document_entry">
     <property name="dataObjectClass" value="org.martinlaw.bo.contract.Contract"/>
     <property name="documentTypeName" value="ContractMaintenanceDocument"/>
+    <property name="maintainableClass" value="org.martinlaw.bo.contract.Maintainable" />
     <property name="workflowAttributes">
     	<ref bean="contract_maint_document_entry_workflow_attrs"/>
 	</property>

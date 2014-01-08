@@ -137,16 +137,16 @@ public class TestUtils {
 		contract.setSummaryOfTerms("see attached file");
 		contract.setServiceOffered("flat 1f2");
 		contract.setStatusId(10033l);
-		contract.setClientPrincipalName(testClientPrincipalName);
+		contract.setClientPrincipalName("Alice Wanjiru");
 		// parties
 		List<ContractParty> parties = new ArrayList<ContractParty>();
-		parties.add(new ContractParty("party1"));
-		parties.add(new ContractParty("party2"));
+		parties.add(new ContractParty("Charity Mumbi"));
+		parties.add(new ContractParty("Kevin Ngatia"));
 		contract.setParties(parties);
 		// signatories
 		List<ContractSignatory> signs = new ArrayList<ContractSignatory>();
-		signs.add(new ContractSignatory("sign1"));
-		signs.add(new ContractSignatory("sign2"));
+		signs.add(new ContractSignatory("Myles Mathenge"));
+		signs.add(new ContractSignatory("Zeph Njogu"));
 		contract.setSignatories(signs);
 		// consideration - use default considerations
 		/*try {
