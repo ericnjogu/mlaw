@@ -21,7 +21,7 @@
 		<gmaven.compile.phase>compile</gmaven.compile.phase>
 		<gmaven.test.compile.phase>test-compile</gmaven.test.compile.phase>
 		<groovy.version>1.8.5</groovy.version>
-		<spring.security.version>5.4.0</spring.security.version>
+		<spring.security.version>5.4.7</spring.security.version>
 	</properties>
 
 	<build>
