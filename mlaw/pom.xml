@@ -12,7 +12,7 @@
 
 	<properties>
 		<rice.version>2.3.2</rice.version>
-		<spring.version>3.2.3.RELEASE</spring.version><!-- 3.1.0.RELEASE -->
+		<spring.version>5.2.21.RELEASE</spring.version><!-- 3.1.0.RELEASE -->
 		<project.organization.name>Eric Njogu (kunadawa@gmail.com)</project.organization.name>
 		<project.name>mLaw</project.name>
 		<project.inceptionYear>2012</project.inceptionYear>
